@@ -168,8 +168,6 @@ broad.dyads.to.edgelist <- function(broad, first.var, max.alteri) {
 #' @param love Do you love cats? Defaults to TRUE.
 #' @keywords cats
 #' @export
-#' @examples
-#' cat_function()
 edges.attributes.to.network <- function(elist, attributes) {
   graph.data.frame(d= elist, vertices= attributes, directed= FALSE)
 }
@@ -183,8 +181,6 @@ edges.attributes.to.network <- function(elist, attributes) {
 #' @param love Do you love cats? Defaults to TRUE.
 #' @keywords cats
 #' @export
-#' @examples
-#' cat_function()
 to.network <- function(elist, attributes) {  
   graph.list <- mapply(FUN= edges.attributes.to.network, elist, attributes, SIMPLIFY=FALSE)
   graph.list
@@ -196,8 +192,6 @@ to.network <- function(elist, attributes) {
 #' @param love Do you love cats? Defaults to TRUE.
 #' @keywords cats
 #' @export
-#' @examples
-#' cat_function()
 read.egonet <- function(alteri, y) {
   
   

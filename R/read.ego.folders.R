@@ -5,10 +5,7 @@
 #' @param edge.folder
 #' @keywords ego-centric network, sna
 #' @export
-#' @examples
-#' ## Not run: 
-#'   for (i in 1:length(alter.files)) {
-#' ## End(Not run)
+
 
 read.egonet.folders <- function(alter.folder, edge.folder) {
 
