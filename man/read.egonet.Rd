@@ -11,8 +11,5 @@ read.egonet(alteri, y)
 \description{
 This function allows you to import raw ego-centric network data. See X for supported formats.
 }
-\examples{
-cat_function()
-}
 \keyword{cats}
 
