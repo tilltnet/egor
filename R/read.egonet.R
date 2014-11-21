@@ -160,8 +160,9 @@ broad.dyads.to.edgelist <- function(broad, first.var, max.alteri) {
 #' edges.attributes.to.network
 #'
 #' This function allows you to express your love of cats.
-#' @param love Do you love cats? Defaults to TRUE.
-#' @keywords cats
+#' @param elist A list containg lists of(?) edges/ dyads.
+#' @param attributes Alteri attributes.
+#' @keywords ego-centric netowrk analysis
 #' @export
 edges.attributes.to.network <- function(elist, attributes) {
   igraph::graph.data.frame(d= elist, vertices= attributes, directed= FALSE)
@@ -172,8 +173,9 @@ edges.attributes.to.network <- function(elist, attributes) {
 #' to.network
 #'
 #' This function allows you to express your love of cats.
-#' @param love Do you love cats? Defaults to TRUE.
-#' @keywords cats
+#' @param elist A list containg lists of(?) edges/ dyads.
+#' @param attributes Alteri attributes.
+#' @keywords ego-centric netowrk analysis
 #' @export
 to.network <- function(elist, attributes) {  
   graph.list <- mapply(FUN= edges.attributes.to.network, elist, attributes, SIMPLIFY=FALSE)
@@ -184,7 +186,7 @@ to.network <- function(elist, attributes) {
 #'
 #' This function allows you to import raw ego-centric network data. See X for supported formats.
 #' @param love Do you love cats? Defaults to TRUE.
-#' @keywords cats
+#' @keywords ego-centric netowrk analysis
 #' @export
 read.egonet <- function(alteri, y) {
   
