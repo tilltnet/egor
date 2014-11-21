@@ -1,8 +1,3 @@
-require(igraph)
-require(sna)
-require(network)
-require(RColorBrewer)
-
 
 # Importing
 #  Ausgangsformate
@@ -169,9 +164,8 @@ broad.dyads.to.edgelist <- function(broad, first.var, max.alteri) {
 #' @keywords cats
 #' @export
 edges.attributes.to.network <- function(elist, attributes) {
-  graph.data.frame(d= elist, vertices= attributes, directed= FALSE)
+  igraph::graph.data.frame(d= elist, vertices= attributes, directed= FALSE)
 }
-
 
 
 
