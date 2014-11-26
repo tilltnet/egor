@@ -1,3 +1,8 @@
+require(igraph)
+require(sna)
+require(network)
+require(RColorBrewer)
+
 
 # Importing
 #  Ausgangsformate
@@ -26,10 +31,9 @@
 
 
 
-
 #' Trim/ listify ego-centric network data
 #'
-#' This function deletes empty alteri rows and it can be used to transform the dataframe into a list, with entries for every network.
+#' This function deletes empty alteri rows and it can be used to transform the dataframe into a list, with entries for each network.
 #' @param long A 'long' dataframe with alteri/dyads in rows.
 #' @param broad A 'broad' dataframe with networks in rows.
 #' @param netsize Name of a variable in \code{broad} consisting of numerics for the network size of each network.
@@ -37,7 +41,6 @@
 #' @param back.to.df If \code{TRUE} a dataframe is returned, if \code{FALSE} a list. Defaults to \code{TRUE}.
 #' @keywords ego-centric netowrk analysis
 #' @export
-
 exlude.empty.alteri.col <- function (long, broad, netsize, netID, back.to.df = T) {
   # Create list where every entry contains all alteri of one ego.
   tie_list <- list()
@@ -101,8 +104,8 @@ broad.to.long <- function(items.df, egoID, max.alteri, start.col, end.col) {
 
 
 
-#' Transform 'broad' alter-alter data to an edge list.
-#'
+#' Transform broad alter-alter data to an edge list.
+#
 #' When alter-alter for numerous networks is stored in one file/ object it is common use the 'broad' dataformat. This function transforms such data to an edglist.
 #' @param broad A dataframe containing the alter-alter relation data in the 'broad' format.
 #' @param fist.var Number of colum containing the relation between the first and the second network contact.
@@ -159,24 +162,24 @@ broad.dyads.to.edgelist <- function(broad, first.var, max.alteri) {
 
 #' edges.attributes.to.network
 #'
-#' This function allows you to express your love of cats.
-#' @param elist A list containg lists of(?) edges/ dyads.
-#' @param attributes Alteri attributes.
-#' @keywords ego-centric netowrk analysis
+#' This function 
+#' @param love Do you love cats? Defaults to TRUE.
+#' @keywords cats
 #' @export
 edges.attributes.to.network <- function(elist, attributes) {
-  igraph::graph.data.frame(d= elist, vertices= attributes, directed= FALSE)
+  graph.data.frame(d= elist, vertices= attributes, directed= FALSE)
 }
+
 
 
 
 #' to.network
 #'
 #' This function allows you to express your love of cats.
-#' @param elist A list containg lists of(?) edges/ dyads.
-#' @param attributes Alteri attributes.
-#' @keywords ego-centric netowrk analysis
+#' @param love Do you love cats? Defaults to TRUE.
+#' @keywords cats
 #' @export
+
 to.network <- function(elist, attributes) {  
   graph.list <- mapply(FUN= edges.attributes.to.network, elist, attributes, SIMPLIFY=FALSE)
   graph.list
@@ -186,8 +189,9 @@ to.network <- function(elist, attributes) {
 #'
 #' This function allows you to import raw ego-centric network data. See X for supported formats.
 #' @param love Do you love cats? Defaults to TRUE.
-#' @keywords ego-centric netowrk analysis
+#' @keywords cats
 #' @export
+
 read.egonet <- function(alteri, y) {
   
   

@@ -9,7 +9,7 @@ edges.attributes.to.network(elist, attributes)
 \item{love}{Do you love cats? Defaults to TRUE.}
 }
 \description{
-This function allows you to express your love of cats.
+This function
 }
 \keyword{cats}
 

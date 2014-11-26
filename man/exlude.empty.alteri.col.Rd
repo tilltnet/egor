@@ -17,7 +17,7 @@ exlude.empty.alteri.col(long, broad, netsize, netID, back.to.df = T)
 \item{back.to.df}{If \code{TRUE} a dataframe is returned, if \code{FALSE} a list. Defaults to \code{TRUE}.}
 }
 \description{
-This function deletes empty alteri rows and it can be used to transform the dataframe into a list, with entries for every network.
+This function deletes empty alteri rows and it can be used to transform the dataframe into a list, with entries for each network.
 }
 \keyword{analysis}
 \keyword{ego-centric}
