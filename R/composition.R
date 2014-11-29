@@ -29,7 +29,7 @@ comp.cat.counts <- function(long.df, var, egoID = "egoID", fun = fun.count) {
 
 comp.cat.counts.na <- function(cat.counts, netsize) {
   for(i in 1:ncol(cat.counts)) { 
-    cat.counts[ , i] <- ifelse(is.na(netsize) | splitGSS$netsize == 0, NA , cat.counts[ , i])
+    cat.counts[ , i] <- ifelse(is.na(netsize) | netsize == 0, NA , cat.counts[ , i])
   }
   cat.counts
 }

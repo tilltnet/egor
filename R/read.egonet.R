@@ -1,9 +1,3 @@
-require(igraph)
-require(sna)
-require(network)
-require(RColorBrewer)
-
-
 # Importing
 #  Ausgangsformate
 #  Alteri
@@ -20,7 +14,7 @@ require(RColorBrewer)
 #  - ein Datensatz
 #  - eine Datei pro Ego/ Netzwerk
 
-# Ausgabeformate (immer das gleiche)
+# Ausgabeformate (immer das gleiche); alles in einer Liste!!!!
 # - Alteri im langen Format
 # - igraph (Liste bestehend aus igraph Objekten)
 # - Ego datensatz (data frame)
@@ -76,7 +70,7 @@ exlude.empty.alteri.col <- function (long, broad, netsize, netID, back.to.df = T
 broad.to.long <- function(items.df, egoID, max.alteri, start.col, end.col) {
   ### Generating a matrix containing all variable names of one particular alteri item (sex, age, etc.).
   alteri.item.count <- (end.col-start.col+1)/max.alteri
-  name_mt <- matrix(names(splitGSS[start.col:end.col]), alteri.item.count)
+  name_mt <- matrix(names(items.df[start.col:end.col]), alteri.item.count)
   
   ### Transfrom Matrix to a list where every entry is a vector of the variables for one item (sex, age, etc.).
   vary <- list()
@@ -97,8 +91,6 @@ broad.to.long <- function(items.df, egoID, max.alteri, start.col, end.col) {
   ### Return:
   long
 }
-
-
 
 
 
