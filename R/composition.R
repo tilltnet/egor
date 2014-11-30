@@ -29,7 +29,7 @@ comp.cat.counts <- function(long.df, var, egoID = "egoID", fun = fun.count) {
 
 comp.cat.counts.na <- function(cat.counts, netsize) {
   for(i in 1:ncol(cat.counts)) { 
-    cat.counts[ , i] <- ifelse(is.na(netsize) | netsize == 0, NA , cat.counts[ , i])
+    cat.counts[ , i] <- ifelse(is.na(netsize) | netsize == 0 | is.nan(cat.counts[ , i]), NA , cat.counts[ , i])
   }
   cat.counts
 }
@@ -64,10 +64,10 @@ comp.diversity <- function(cat.counts, netsize) {
   for(i in 1:ncol(cat.counts)) {
     diversity <- ifelse(cat.counts[i] > 0, diversity + 1, diversity)
   }
-  
+  # NAs are setting if diversity is zero or netsize is zero or NA.
+  diversity <- ifelse(diversity == 0 , NA , diversity)
   diversity <- ifelse(is.na(netsize) , NA , diversity)
-  diversity <- ifelse(netsize == 0 , NA , diversity)
-  
+  diversity <- ifelse(netsize == 0 , NA , diversity)  
   div_prop <- diversity/ncol(cat.counts)
   data.frame(diversity, div_prop)
 }
