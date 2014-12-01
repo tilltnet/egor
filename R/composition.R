@@ -62,14 +62,16 @@ comp.ei <- function(cat.counts, v_ego, netsize) {
 comp.diversity <- function(cat.counts, netsize) {
   diversity <- 0
   for(i in 1:ncol(cat.counts)) {
-    diversity <- ifelse(cat.counts[i] > 0, diversity + 1, diversity)
+    diversity <- ifelse(cat.counts[[i]] > 0, diversity + 1, diversity)
   }
-  # NAs are setting if diversity is zero or netsize is zero or NA.
-  diversity <- ifelse(diversity == 0 , NA , diversity)
-  diversity <- ifelse(is.na(netsize) , NA , diversity)
-  diversity <- ifelse(netsize == 0 , NA , diversity)  
+  # NAs are set if diversity is zero or netsize is zero or NA.
+  diversity <- ifelse(diversity == 0, NA , diversity)
+  diversity <- ifelse(is.na(netsize), NA , diversity)
+  diversity <- ifelse(netsize == 0, NA , diversity)  
   div_prop <- diversity/ncol(cat.counts)
-  data.frame(diversity, div_prop)
+  tmp_df <- data.frame(diversity, div_prop, check.names = F)
+  names(tmp_df) <- c("diversity", "div_prop")
+  tmp_df
 }
 
 #' All-in-one ego-centric network composition function.
@@ -82,10 +84,10 @@ comp.diversity <- function(cat.counts, netsize) {
 #' @param mode A character. "regular" for a basic output, "all" for a complete output.
 #' @keywords ego-centric network analysis
 #' @export
-composition <- function (long.df, v_alt, netsize, v_ego = NULL, mode = "regular") { # regular, all
+composition <- function (long.df, v_alt, netsize, egoID = "egoID", v_ego = NULL, mode = "regular") { # regular, all
   ## Generate category counts/ proportions.
-  cat_counts <- comp.cat.counts(long.df, var = v_alt, fun = fun.count)
-  cat_counts_prop <- comp.cat.counts(long.df, var = v_alt, fun = fun.prop)
+  cat_counts <- comp.cat.counts(long.df, var = v_alt, fun = fun.count, egoID = egoID)
+  cat_counts_prop <- comp.cat.counts(long.df, var = v_alt, fun = fun.prop , egoID = egoID)
   names(cat_counts_prop) <- paste("prop", colnames(cat_counts_prop), sep = "_")
   
   ## Insert NAs, when netsize is zero or NA.
