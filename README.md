@@ -8,5 +8,5 @@ This is still under development.
 
 Install
 --------
-library(devtools)
-install_github(repo="tilltnet/egonetR")
+    library(devtools)
+    install_github(repo="tilltnet/egonetR")
