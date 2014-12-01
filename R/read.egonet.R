@@ -1,29 +1,4 @@
-# Importing
-#  Ausgangsformate
-#  Alteri
-#  - alteri seperat in mehreren Dateien (wird aus Ordnern eingelesen)
-#  - alteri in einer Datei, breites Format (als data.frame zu ?bergeben)
-#  - alteri in einer Datei, langes Format (als data.frame zu ?bergeben)
-
-#  Dyaden
-#  - edgelist
-#  - soziomatrix
-#  - mit im Breiten Format
-#
-#  Ego Attribute
-#  - ein Datensatz
-#  - eine Datei pro Ego/ Netzwerk
-
-# Ausgabeformate (immer das gleiche); alles in einer Liste!!!!
-# - Alteri im langen Format
-# - igraph (Liste bestehend aus igraph Objekten)
-# - Ego datensatz (data frame)
-
-
-
-
-
-
+# Read ego-centric-network data from single file format or two-file format.
 
 #' Trim/ listify ego-centric network data
 #'

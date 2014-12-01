@@ -1,11 +1,11 @@
-#' Generate counting variables for each categorie of a variable. Only used by gen.egonet.agg().
+#' Generate counting variables for each category of a variable. Only used by gen.egonet.agg().
 #'
 #' This function generates Variables counting the frequency of each category of a variable. To use on data aggregated from the long ego-centric network data format.
 #' #' @param x A factor representing an alteri-attribute variable.
 #' @keywords ego-centric network analysis
 fun.count <- function(x) table(as.factor(x))
 
-#' Generate proportional variables for each categorie of a variable. Only used by gen.egonet.agg().
+#' Generate proportional variables for each category of a variable. Only used by gen.egonet.agg().
 #'
 #' This function generates Variables of the proportional frequency of each category of a variable. To use on data aggregated from the long ego-centric network data format. #!# prop.table() produces errors here, when netsize and total of frequencies per variable do not align.
 #' #' @param x A factor representing an alteri-attribute variable.

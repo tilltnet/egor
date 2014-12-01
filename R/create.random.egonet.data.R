@@ -1,4 +1,5 @@
 # # Create sample data #!# Add network size!
+# 
 # ## Net Dataframe 
 # library(descr)
 # 
