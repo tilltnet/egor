@@ -11,8 +11,24 @@ Install
     library(devtools)
     install_github(repo="tilltnet/egonetR")
 
+Importing ego-centric network data
+----------------------------
+There are currently three commands for importing ego-centric network data:
+    
+    read.egonet.one.file(egos, netsize,  netID = "netID", attr.start.col, attr.end.col, dy.max.alteri, dy.first.var)
+    read.egonet.two.files(egos, long, netsize = NULL,  netID = "netID", alterID = NULL, dy.max.alteri, dy.first.var)
+    read.egonet.folders(egos, alter.folder, edge.folder, netID = "netID")
+    
+Each command produces a *list* of the following objects:
 
-Example
+  - ego-*dataframe*, containing all egos, their attributes and other items
+  - *long* tie-*dataframe*, containg all alteri and their attributes
+  - *list*, containing a *dataframe* for each ego/ network (similar to the tie-*dataframe* before, but different structure)
+  - edge*list*, containg all edges between the alteri (+ edge attributes)
+  - *list* of igraph objects representing the networks
+  - result-*dataframe*, pre-populated with netsize
+
+Example (without importing data)
 -------
 
     # Generate 500 random networks, each with 5 alteri.

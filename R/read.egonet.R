@@ -7,42 +7,47 @@
 #' @param broad A 'broad' dataframe with networks in rows.
 #' @param netsize Name of a variable in \code{broad} consisting of numerics for the network size of each network.
 #' @param netID Name of the network ID variable in \code{broad}.
-#' @param back.to.df If \code{TRUE} a dataframe is returned, if \code{FALSE} a list. Defaults to \code{TRUE}.
+#' @param back.to.df If \code{TRUE} a dataframe is returned, if \code{FALSE} a list. Defaults to \code{FALSE}.
 #' @keywords ego-centric netowrk analysis
 #' @export
-exlude.empty.alteri.col <- function (long, broad, netsize, netID, back.to.df = T) {
+long.df.to.list <- function(long, broad, netsize, netID, back.to.df = F) {
   # Create list where every entry contains all alteri of one ego.
   tie_list <- list()
   p <- 1
   for (i in broad[[netID]]) {
-    tie_list[[p]] <- subset(long, egoID == i)
+    tie_list[[p]] <- subset(long, netID == i)
     p <- p + 1
   }
-
-  # Create a new list with entries only containing as many alteris as the netsize variable predicts.
+  
+  # Create a new list with entries containing as many alteris as the
+  # netsize variable predicts. This assumes the NA line to be at the
+  # bottom of the entries - to prevent failure the entries should be
+  # sorted with NA lines at the bottom!
   tie_list2 <- list()
-  for(i in 1:length(tie_list)) {
-    net_sz <- broad$netsize[i]
-    if(!is.na(net_sz) & net_sz > 0) tie_list2[[i]] <- tie_list[[i]][1:net_sz,]
+  for (i in 1:length(tie_list)) {
+    net_sz <- netsize[i]
+    if (!is.na(net_sz) & net_sz > 0) 
+      tie_list2[[i]] <- tie_list[[i]][1:net_sz, ]
   }
-  if(back.to.df == T) return(do.call("rbind", tie_list2))
-  tie_list2  
-}
+  if (back.to.df == T) 
+    return(do.call("rbind", tie_list2))
+  tie_list2
+} 
 
 # 
 
 
 
-#' Transform 'broad' alter data to 'long' alter data
+#' Transform 'broad' alter-level data to the 'long'-format
 #'
 #' A function to transform a broad-format dataframe of ego-centric network data into a long-format data-frame, where every row represents one alter/dyad. In the created dataframe numerous networks can be distinguished by a network ID (netID).
 #' @param items.df A broad-format dataframe of ego-centric network data.
-#' @param egoID Variable containing netork IDs. (#!# Harmonise egoID/ netID!!)
+#' @param netID Variable containing netork IDs. (#!# Harmonise netID/ netID!!)
 #' @param max.alteri A numeric for the maximum number of alteri.
 #' @param start.col Number of first colum containg alter-alter relation data. #!# Should: Defaults to first column of \code{items.df}.
 #' @param last.col Number of first colum containg alter-alter relation data. #!# Should: Defaults to last column of \code{items.df}.
 #' @export 
-broad.to.long <- function(items.df, egoID, max.alteri, start.col, end.col) {
+broad.to.long <- function(items.df, netID, max.alteri, start.col, end.col) {
   ### Generating a matrix containing all variable names of one particular alteri item (sex, age, etc.).
   alteri.item.count <- (end.col-start.col+1)/max.alteri
   name_mt <- matrix(names(items.df[start.col:end.col]), alteri.item.count)
@@ -57,11 +62,11 @@ broad.to.long <- function(items.df, egoID, max.alteri, start.col, end.col) {
   times <- seq_along(vary[[1]])
 
   ### Create a long format data.frame of the alteri items.
-  long <- reshape(items.df[start.col:end.col], vary,  ids = items.df[[egoID]], times = times,  direction = 'long')
+  long <- reshape(items.df[start.col:end.col], vary,  ids = items.df[[netID]], times = times,  direction = 'long')
   
-  ### Change names of alterID and egoID variables.
+  ### Change names of alterID and netID variables.
   names(long)[1] <- "alterID"
-  colnames(long)[alteri.item.count+2] <- "egoID"
+  colnames(long)[alteri.item.count+2] <- "netID"
   
   ### Return:
   long
@@ -124,7 +129,9 @@ broad.dyads.to.edgelist <- function(broad, first.var, max.alteri) {
   alter.alter.list2 
 }
 
+long.to.attributes <- function(long, alterID) {
 
+}
 
 
 #' edges.attributes.to.network
@@ -152,16 +159,43 @@ to.network <- function(elist, attributes) {
   graph.list
 }
 
+read.egonet.one.file <- function(egos, netsize,  netID = "netID", attr.start.col, attr.end.col, dy.max.alteri, dy.first.var) {
+  long <- broad.to.long(items.df = egos, netID, max.alteri = dy.max.alteri, start.col = attr.start.col, end.col = attr.end.col)    
+  attributes <- long.df.to.list(long, broad = egos, netsize, netID, back.to.df = F)
+  elist <- broad.dyads.to.edgelist(broad = egos, first.var = dy.first.var, max.alteri)
+  graphs <- to.network(elist, attributes)
+  list(egos.df = egos, long.df = long, long.list = attributes, edges = elist, graphs = graphs, results = data.frame(egos[[netID]], netsize))
+}
+
+read.egonet.two.files <- function(egos, long, netsize = NULL,  netID = "netID", alterID = NULL, dy.max.alteri, dy.first.var) {
+  if(!is.null(alterID)) {
+    alterID.col <- match(alterID , names(long))
+    alterID.col
+    # Return:
+    long <- data.frame(alterID = long[[alterID]], long[1:(alterID.col - 1)],long[(alterID.col + 1) : ncol(long)])
+    }    
+    
+  long.list <- long.df.to.list(long, egos, netsize, "netID")
+  long.list <- lapply(long.list, FUN = function(x) data.frame(alterID = as.character(c(1:NROW(x))), x))
+  long.list[1]
+  long <- do.call("rbind", long.list)
+
+
+  if(is.null(netsize)) netsize <- aggregate(long, by = list(long$netID), NROW)[2]
+  attributes <- long.df.to.list(long, broad = egos, netsize, netID, back.to.df = F)
+  elist <- broad.dyads.to.edgelist(broad = egos, first.var = dy.first.var, max.alteri = dy.max.alteri)
+  graphs <- to.network(elist, attributes)
+  list(egos.df = egos, long.df = long, long.list = attributes, edges = elist, graphs = graphs, results = data.frame(egos[[netID]], netsize))
+}
+
+
+
 #' Import raw ego-centric network data.
 #'
 #' This function allows you to import raw ego-centric network data. See X for supported formats.
-#' @param love Do you love cats? Defaults to TRUE.
-#' @keywords cats
-#' @export
-
-read.egonet <- function(alteri, y) {
-  
-  
-  
-}
+#read.egonet <- function(ties = NULL, folders_alter = NULL, folder_edges = NULL) {
+#  if(method == "onefile")
+#  
+# ---- read.egonet is organised with format specific funtions for now.  
+#}
 
