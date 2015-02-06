@@ -3,7 +3,8 @@
 \alias{composition}
 \title{All-in-one ego-centric network composition function.}
 \usage{
-composition(long.df, v_alt, netsize, v_ego = NULL, mode = "regular")
+composition(long.df, v_alt, netsize, egoID = "egoID", v_ego = NULL,
+  mode = "regular")
 }
 \arguments{
 \item{long.df}{A 'long' dataframe with alteri/dyads in rows.}

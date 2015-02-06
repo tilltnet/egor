@@ -1,14 +1,14 @@
 # Functions for the import of ego-centric-network data, that is stored in seperate files (per network) and folders (alter attributes, dyads).
 # The code in this file is inspired by original code from Raffaele Vacca (https://github.com/raffaelevacca/).
 
-#' Import ego-centric network data from seperate folders for edgelist and alteri-attributes.
+#' Import ego-centric network data from separate folders for edgelist and alteri-attributes.
 #'
 #' This function imports ego-centric network data from folders with separate files for alteri-level data and dyads.
 #' @param alter.folder
 #' @param edge.folder
 #' @keywords ego-centric network, sna
 #' @export
-read.egonet.folders <- function(egos, alter.folder, edge.folder, netID = "netID", ) {
+read.egonet.folders <- function(egos, alter.folder, edge.folder, netID = "netID") {
   
   # Import alter attributes...
   alter.files <- list.files(alter.folder)
