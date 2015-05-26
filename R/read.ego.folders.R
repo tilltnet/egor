@@ -1,7 +1,7 @@
 # Functions for the import of ego-centric-network data, that is stored in seperate files (per network) and folders (alter attributes, dyads).
 # The code in this file is inspired by original code from Raffaele Vacca (https://github.com/raffaelevacca/).
 
-#' Import ego-centric network data from seperate folders for edgelist and alteri-attributes.
+#' Import ego-centric network data from separate folders for edgelist and alteri-attributes.
 #'
 #' This function imports ego-centric network data from folders with separate files for alteri-level data and dyads.
 #' @param egos
