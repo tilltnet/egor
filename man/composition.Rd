@@ -3,11 +3,7 @@
 \alias{composition}
 \title{All-in-one ego-centric network composition function.}
 \usage{
-<<<<<<< HEAD
 composition(long.df, v_alt, netsize, netID = "netID", v_ego = NULL,
-=======
-composition(long.df, v_alt, netsize, egoID = "egoID", v_ego = NULL,
->>>>>>> f6341f04df1554a6f800b77e54a5430354113aac
   mode = "regular")
 }
 \arguments{

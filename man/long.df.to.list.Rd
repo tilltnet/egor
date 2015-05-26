@@ -10,14 +10,25 @@ long.df.to.list(long, broad, netsize, netID, back.to.df = F)
 
 \item{broad}{A 'broad' dataframe with networks in rows.}
 
-\item{netsize}{Name of a variable in \code{broad} consisting of numerics for the network size of each network.}
+\item{netsize}{Name of a variable in \code{broad} consisting of numerics for
+the network size of each network.}
 
 \item{netID}{Name of the network ID variable in \code{broad}.}
 
-\item{back.to.df}{If \code{TRUE} a dataframe is returned, if \code{FALSE} a list. Defaults to \code{FALSE}.}
+\item{back.to.df}{If \code{TRUE} a dataframe is returned, if \code{FALSE} a
+list. Defaults to \code{FALSE}.}
+}
+\value{
+Returns a \code{list} of \code{dataframes} where every
+\code{dataframe} represents one ego/ network and the rows in the
+\code{dataframe} represents one alter. If the \code{back.to.df} parameter is
+called the \code{list} entries are combined to one \code{dataframe}, in the
+'long' format.
+line represents
 }
 \description{
-This function deletes empty alteri rows and it can be used to transform the dataframe into a list, with entries for each network.
+This function deletes empty alteri rows and it can be used to transform the
+dataframe into a list, with entries for each network.
 }
 \keyword{analysis}
 \keyword{ego-centric}
