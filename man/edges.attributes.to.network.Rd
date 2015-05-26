@@ -6,10 +6,15 @@
 edges.attributes.to.network(elist, attributes)
 }
 \arguments{
-\item{love}{Do you love cats? Defaults to TRUE.}
+\item{elist}{[dataframe]}
+
+\item{attributes}{[dataframe]}
 }
 \description{
-This function
+This function generates one igraph object from an edgelist and a dataframe
+alteri attributes.
 }
-\keyword{cats}
+\keyword{analysis}
+\keyword{ego-centric}
+\keyword{netowrk}
 

@@ -6,9 +6,12 @@
 comp.diversity(cat.counts, netsize)
 }
 \arguments{
-\item{cat.counts}{A category-count-dataframe usually generated with gen.egonet.agg().}
+\item{cat.counts}{A category-count-dataframe usually generated with comp.cat.counts().}
 
 \item{netsize}{A vector of network sizes.}
+}
+\value{
+Returns the absolute and proportional count of unique categories per ego/ network in a \code{dataframe}.
 }
 \description{
 This function calculates the network diversity of ego-centric networks for a given alter-attribute.

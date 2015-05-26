@@ -2,19 +2,26 @@
 \name{broad.dyads.to.edgelist}
 \alias{broad.dyads.to.edgelist}
 \title{Transform broad alter-alter data to an edge list.
-When alter-alter for numerous networks is stored in one file/ object it is common use the 'broad' dataformat. This function transforms such data to an edglist.}
+When alter-alter for numerous networks is stored in one file/ object it is
+common use the 'broad' dataformat. This function transforms such data to an
+edglist.}
 \usage{
 broad.dyads.to.edgelist(broad, first.var, max.alteri)
 }
 \arguments{
-\item{broad}{A dataframe containing the alter-alter relation data in the 'broad' format.}
+\item{broad}{A dataframe containing the alter-alter relation data in the
+'broad' format.}
 
-\item{max.alteri}{Maximum number of alteri for which alter-alter relations were collected.}
+\item{max.alteri}{Maximum number of alteri for which alter-alter relations
+were collected.}
 
-\item{fist.var}{Number of colum containing the relation between the first and the second network contact.}
+\item{fist.var}{Number of colum containing the relation between the first and
+the second network contact.}
 }
 \description{
 Transform broad alter-alter data to an edge list.
-When alter-alter for numerous networks is stored in one file/ object it is common use the 'broad' dataformat. This function transforms such data to an edglist.
+When alter-alter for numerous networks is stored in one file/ object it is
+common use the 'broad' dataformat. This function transforms such data to an
+edglist.
 }
 

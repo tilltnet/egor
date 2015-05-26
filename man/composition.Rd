@@ -3,7 +3,8 @@
 \alias{composition}
 \title{All-in-one ego-centric network composition function.}
 \usage{
-composition(long.df, v_alt, netsize, v_ego = NULL, mode = "regular")
+composition(long.df, v_alt, netsize, netID = "netID", v_ego = NULL,
+  mode = "regular")
 }
 \arguments{
 \item{long.df}{A 'long' dataframe with alteri/dyads in rows.}
@@ -15,6 +16,9 @@ composition(long.df, v_alt, netsize, v_ego = NULL, mode = "regular")
 \item{v_ego}{A character naming the variable containg the ego-attribute. Only needed if EI-Index should be calculated. Caution: Variable of v_alt and v_ego have to correspond.}
 
 \item{mode}{A character. "regular" for a basic output, "all" for a complete output.}
+}
+\value{
+Returns a dataframe with category counts, diversity and EI-Index values.
 }
 \description{
 This function outputs a dataframe containg serveral compositional measures for ego-centric-network data.

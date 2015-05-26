@@ -4,11 +4,13 @@
 #' Import ego-centric network data from seperate folders for edgelist and alteri-attributes.
 #'
 #' This function imports ego-centric network data from folders with separate files for alteri-level data and dyads.
+#' @param egos
 #' @param alter.folder
 #' @param edge.folder
+#' @param netID
 #' @keywords ego-centric network, sna
 #' @export
-read.egonet.folders <- function(egos, alter.folder, edge.folder, netID = "netID", ) {
+read.egonet.folders <- function(egos, alter.folder, edge.folder, netID = "netID") {
   
   # Import alter attributes...
   alter.files <- list.files(alter.folder)
@@ -21,9 +23,11 @@ read.egonet.folders <- function(egos, alter.folder, edge.folder, netID = "netID"
     alter.attr.df <- rbind(alter.attr.df, data)
   }
   # ...netsize var...
-  netsize <- lapply(elist.list, NROW)
+  netsize <- aggregate(alter.attr.df[[netID]], by = list(alter.attr.df[[netID]]), FUN = function(x) NROW(x))
+  netsize <- merge(egos, netsize, by.x = netID, by.y = "Group.1", all.x = T)$x
+  netsize[is.na(netsize)] <- 0 # Is this necessary? This should be reversed at some point!
   # ...and a tie list. 
-  alter.attr.list <- long.df.to.list(long = egos, broad = , netsize, netID, back.to.df = F)
+  alter.attr.list <- long.df.to.list(long = alter.attr.df, broad = egos, netsize, netID, back.to.df = F)
   
   # Import edges and edges attributes (value: list of dataframes with edges rows)
   edge.files <- list.files(edge.folder)
@@ -33,7 +37,7 @@ read.egonet.folders <- function(egos, alter.folder, edge.folder, netID = "netID"
     file <- edge.files[i]
     elist.list[[i]] <- read.csv(paste(edge.folder, file, sep = "//"))
     netID <- gsub("[^0-9]", "", file)
-    names(elist.list[[i]]) <- ego_ID
+    names(elist.list[[i]]) <- netID
   }
   
   graphs <- to.network(elist = elist.list, attributes = alter.attr.list)

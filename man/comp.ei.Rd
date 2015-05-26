@@ -6,10 +6,17 @@
 comp.ei(cat.counts, v_ego, netsize)
 }
 \arguments{
-\item{x}{A factor representing an alteri-attribute variable.}
+\item{cat.counts}{Results of the function comp.cat.counts}
+
+\item{v_ego}{variable of an ego attribute corresponding to the}
+
+\item{netsize}{Name of a variable in \code{broad} consisting of numerics for the network size of each network.}
+}
+\value{
+EI Index values per ego/ network.
 }
 \description{
-This function calculates the EI-Index of ego-centric networks using a category-count-dataframe usually generated with gen.egonet.agg().
+This function calculates the EI-Index of ego-centric networks using a "category-count-dataframe" usually generated with comp.cat.counts(). The EI-Index ranges from -1 to 1, where a positive value represents a heterogenous personal network in respect to a specified attribute of ego an its alteri.
 }
 \keyword{analysis}
 \keyword{ego-centric}

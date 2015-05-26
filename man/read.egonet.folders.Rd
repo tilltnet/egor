@@ -3,15 +3,19 @@
 \alias{read.egonet.folders}
 \title{Import ego-centric network data from seperate folders for edgelist and alteri-attributes.}
 \usage{
-read.egonet.folders(alter.folder, edge.folder)
+read.egonet.folders(egos, alter.folder, edge.folder, netID = "netID")
 }
 \arguments{
+\item{egos}{}
+
 \item{alter.folder}{}
 
 \item{edge.folder}{}
+
+\item{netID}{}
 }
 \description{
-This function imports ego-centric network data from folders with separate files for alteri-level data and dyad-level data.
+This function imports ego-centric network data from folders with separate files for alteri-level data and dyads.
 }
 \keyword{ego-centric}
 \keyword{network,}

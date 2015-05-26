@@ -3,8 +3,17 @@ Type: Package
 Title: Import and analyse ego-centric network data.
 Version: 0.1
 Date: 2014-11-05
-Author: Till Krenz
-Maintainer: Till Krenz <egonetR@tillt.net>
+Authors@R: c(
+    person("Markus", "Gamper", email = "m.gamper@uni-koeln.de",
+    role = c("aut")),
+    person("Andreas", "Herz", email = "herzand@uni-hildesheim.de",
+    role = c("aut")),
+    person("Till", "Krenz", email = "egonetR@tillt.net",
+    role = c("aut", "cre")),
+    person("Christopher", "Christopher", email = "ufchris@ufl.edu",
+    role = c("aut")),
+    person("Raffaele", "Vacca", email = "r.vacca@ufl.edu",
+    role = c("aut", "cre")))
 Description: This packages aids with the process of importing ego-centric
     network data.
 License: AGPL-3
