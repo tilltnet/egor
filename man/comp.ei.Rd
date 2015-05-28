@@ -13,7 +13,7 @@ comp.ei(cat.counts, v_ego, netsize)
 \item{netsize}{Name of a variable in \code{broad} consisting of numerics for the network size of each network.}
 }
 \value{
-EI Index values per ego/ network.
+EI Index values per ego/ network in a \code{dataframe}.
 }
 \description{
 This function calculates the EI-Index of ego-centric networks using a "category-count-dataframe" usually generated with comp.cat.counts(). The EI-Index ranges from -1 to 1, where a positive value represents a heterogenous personal network in respect to a specified attribute of ego an its alteri.

@@ -13,7 +13,7 @@ Authors@R: c(
     person("Christopher", "McCarty", email = "ufchris@ufl.edu",
     role = c("aut")),
     person("Raffaele", "Vacca", email = "r.vacca@ufl.edu",
-    role = c("aut", "cre")))
+    role = c("aut")))
 Description: This packages aids with the process of importing ego-centric
     network data.
 License: AGPL-3

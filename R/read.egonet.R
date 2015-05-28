@@ -24,7 +24,7 @@ long.df.to.list <- function(long, broad, netsize, netID, back.to.df = F) {
   tie_list <- list()
   p <- 1
   for (i in broad[[netID]]) {
-    tie_list[[p]] <- subset(long, long[["netID"]] == i)
+    tie_list[[p]] <- subset(long, long[[netID]] == i)
     p <- p + 1
   }
   

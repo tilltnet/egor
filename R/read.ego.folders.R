@@ -1,45 +1,74 @@
-# Functions for the import of ego-centric-network data, that is stored in seperate files (per network) and folders (alter attributes, dyads).
-# The code in this file is inspired by original code from Raffaele Vacca (https://github.com/raffaelevacca/).
+# Functions for the import of ego-centric-network data, that is stored in 
+# seperate files (per network) and folders (alter attributes, dyads).
+# The code in this file is inspired by original code from Raffaele Vacca 
+# (https://github.com/raffaelevacca/).
 
-#' Import ego-centric network data from separate folders for edgelist and alteri-attributes.
+#' Import ego-centric network data from separate folders for edgelist and 
+#' alteri-attributes.
 #'
-#' This function imports ego-centric network data from folders with separate files for alteri-level data and dyads.
-#' @param egos
-#' @param alter.folder
-#' @param edge.folder
-#' @param netID
+#' This function imports ego-centric network data from folders with separate 
+#' files for alteri-level data and dyads. It will run some basic checks upon
+#' the completness of the data and inform the user of potential problems.
+#' @param egos.file File name of the .csv file containg the ego data.
+#' @param alter.folder Folder name of the folder containing the alter data in
+#' separate .csv files for each ego/ network.
+#' @param edge.folder Folder name of the folder containing the edge/ tie data in
+#' separate .csv files for each ego/ network.
+#' @param netID Character string of the variable used to identify unique 
+#' networks.
 #' @keywords ego-centric network, sna
 #' @export
-read.egonet.folders <- function(egos, alter.folder, edge.folder, netID = "netID") {
+read.egonet.folders <- function(egos.file, alter.folder, edge.folder, 
+                                netID = "netID") {
   
-  # Import alter attributes...
+  # Import ego data
+  egos <- read.csv(egos.file)
+  
+  # Check if alter.files and edge files correspond
   alter.files <- list.files(alter.folder)
+  edge.files <- list.files(edge.folder)
+  check.alter.files <- gsub("[^0-9]", "", alter.files)
+  check.edge.files <- gsub("[^0-9]", "", edge.files)
+  check <- check.alter.files == check.edge.files
   
+  if (!all.equal(check.alter.files, check.edge.files)) {
+    print(data.frame(check, alter.files, edge.files))
+    stop("Edge and alteri data do not match up!")    
+  }
+  
+  # Exclude egos from egos dataframe that are missing alter and edge files.
+  egos.to.exclude <- setdiff(egos[[netID]], check.alter.files)
+  egos <- subset(egos, !is.element(egos[[netID]], egos.to.exclude))
+    
+  if (length(egos.to.exclude) > 0 ) {
+    print("The following egos are excluded from the egos dataframe,")
+    print("since no network data is avaiable for them:")
+    print(egos.to.exclude)
+  }
   # ...create tie df,...
   alter.attr.df <- data.frame()
+  alter.attr.list <- list()
   for (i in 1:length(alter.files)) {
     file <- alter.files[i]
     data <- read.csv(paste(alter.folder, file, sep = "//"))
     alter.attr.df <- rbind(alter.attr.df, data)
+    alter.attr.list[[i]] <- data
   }
   # ...netsize var...
   netsize <- aggregate(alter.attr.df[[netID]], by = list(alter.attr.df[[netID]]), FUN = function(x) NROW(x))
   netsize <- merge(egos, netsize, by.x = netID, by.y = "Group.1", all.x = T)$x
-  netsize[is.na(netsize)] <- 0 # Is this necessary? This should be reversed at some point!
-  # ...and a tie list. 
-  alter.attr.list <- long.df.to.list(long = alter.attr.df, broad = egos, netsize, netID, back.to.df = F)
-  
-  # Import edges and edges attributes (value: list of dataframes with edges rows)
-  edge.files <- list.files(edge.folder)
   
   elist.list <- list()
+  j <- 1
   for (i in 1:length(edge.files)) {
     file <- edge.files[i]
-    elist.list[[i]] <- read.csv(paste(edge.folder, file, sep = "//"))
-    netID <- gsub("[^0-9]", "", file)
-    names(elist.list[[i]]) <- netID
+    cur_netID <- gsub("[^0-9]", "", file)
+    #if (is.element(cur_netID, egos[[netID]])) {
+      elist.list[[i]] <- read.csv(paste(edge.folder, file, sep = "//"))
+      j <- j + 1
+      names(elist.list[i]) <- cur_netID
   }
-  
+
   graphs <- to.network(elist = elist.list, attributes = alter.attr.list)
   
   # Return:

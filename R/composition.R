@@ -23,7 +23,13 @@ fun.prop <- function(x) prop.table(table(as.factor(x)))
 #' @keywords ego-centric network analysis
 ### Function to aggregate data from the long format data, using the netID as the break variable.
 comp.cat.counts <- function(long.df, var, netID = "netID", fun = fun.count) {
-  tmp_matrix <- aggregate(long.df[[var]], by = list(long.df[[netID]]), FUN = fun)
+  # If var is not a factor it has to be coerced to one. Doing this to a variable
+  # alrerady being a factor would strip away the levels.
+  if(!is.factor(long.df[[var]])) {
+    tmp_matrix <- aggregate(as.factor(long.df[[var]]), by = list(long.df[[netID]]), FUN = fun)    
+  } else {
+    tmp_matrix <- aggregate(long.df[[var]], by = list(long.df[[netID]]), FUN = fun)
+  }
   cat.counts <- data.frame(tmp_matrix[[2]])
   names(cat.counts) <- levels(long.df[[var]])
   cat.counts
@@ -49,7 +55,7 @@ comp.cat.counts.na <- function(cat.counts, netsize) {
 #' @param cat.counts Results of the function comp.cat.counts
 #' @param v_ego variable of an ego attribute corresponding to the 
 #' @param netsize Name of a variable in \code{broad} consisting of numerics for the network size of each network.
-#' @return EI Index values per ego/ network.
+#' @return EI Index values per ego/ network in a \code{dataframe}.
 #' @keywords ego-centric network analysis
 #' @export
 comp.ei <- function(cat.counts, v_ego, netsize) {
