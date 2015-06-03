@@ -24,7 +24,12 @@ long.df.to.list <- function(long, broad, netsize, netID, back.to.df = F) {
   tie_list <- list()
   p <- 1
   for (i in broad[[netID]]) {
-    tie_list[[p]] <- subset(long, long[[netID]] == i)
+    #!# check if 'netID' var exits if not recycle netID name variable
+    if("netID" %in% names(long)) {
+      tie_list[[p]] <- subset(long, long[["netID"]] == i)
+    } else {
+      tie_list[[p]] <- subset(long, long[[netID]] == i)
+    }
     p <- p + 1
   }
   
@@ -169,7 +174,7 @@ long.to.attributes <- function(long, alterID) {
 #' @keywords ego-centric netowrk analysis
 #' @export
 edges.attributes.to.network <- function(elist, attributes) {
-  graph.data.frame(d= elist, vertices= attributes, directed= FALSE)
+  igraph::graph.data.frame(d= elist, vertices= attributes, directed= FALSE)
 }
 
 
@@ -206,10 +211,9 @@ read.egonet.one.file <- function(egos, netsize,  netID = "netID",
   long <- broad.to.long(items.df = egos, netID, max.alteri = dy.max.alteri,
                         start.col = attr.start.col, end.col = attr.end.col)
   
-  print("Splitting long alteri data into list entries for each network:
-        $long.list")
+  print("Splitting long alteri data into list entries for each network: $long.list")
   attributes <- long.df.to.list(long = long, broad = egos, netsize = netsize, 
-                                netID = "V2", back.to.df = F)
+                                netID = netID, back.to.df = F)
   
   print("Transforming broad dyad data to edgelist: $edges")
   elist <- broad.dyads.to.edgelist(broad = egos, first.var = dy.first.var, 

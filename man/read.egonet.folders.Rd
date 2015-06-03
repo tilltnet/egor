@@ -7,17 +7,21 @@ alteri-attributes.}
 read.egonet.folders(egos.file, alter.folder, edge.folder, netID = "netID")
 }
 \arguments{
-\item{alter.folder}{}
+\item{egos.file}{File name of the .csv file containg the ego data.}
 
-\item{edge.folder}{}
+\item{alter.folder}{Folder name of the folder containing the alter data in
+separate .csv files for each ego/ network.}
 
-\item{netID}{}
+\item{edge.folder}{Folder name of the folder containing the edge/ tie data in
+separate .csv files for each ego/ network.}
 
-\item{egos}{}
+\item{netID}{Character string of the variable used to identify unique
+networks.}
 }
 \description{
 This function imports ego-centric network data from folders with separate
-files for alteri-level data and dyads.
+files for alteri-level data and dyads. It will run some basic checks upon
+the completness of the data and inform the user of potential problems.
 }
 \keyword{ego-centric}
 \keyword{network,}
