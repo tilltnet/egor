@@ -3,17 +3,17 @@
 \alias{composition}
 \title{All-in-one ego-centric network composition function.}
 \usage{
-composition(long.df, v_alt, netsize, netID = "netID", v_ego = NULL,
+composition(long.df, v_alt, netsize, egoID = "egoID", v_ego = NULL,
   mode = "regular")
 }
 \arguments{
-\item{long.df}{A 'long' dataframe with alteri/dyads in rows.}
+\item{long.df}{A 'long' dataframe with alteri in rows.}
 
 \item{v_alt}{A character naming the variabe containg the alter-attribute.}
 
 \item{netsize}{A vector of network sizes.}
 
-\item{v_ego}{A character naming the variable containg the ego-attribute. Only needed if EI-Index should be calculated. Caution: Variable of v_alt and v_ego have to correspond.}
+\item{v_ego}{The fully addressed variable containg the ego-attribute. Only needed if EI-Index should be calculated. Caution: Variable of v_alt and v_ego have to correspond.}
 
 \item{mode}{A character. "regular" for a basic output, "all" for a complete output.}
 }

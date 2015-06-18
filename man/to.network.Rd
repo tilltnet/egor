@@ -16,5 +16,5 @@ dataframe alteri attributes.
 }
 \keyword{analysis}
 \keyword{ego-centric}
-\keyword{netowrk}
+\keyword{network}
 

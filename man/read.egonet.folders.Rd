@@ -4,7 +4,7 @@
 \title{Import ego-centric network data from separate folders for edgelist and
 alteri-attributes.}
 \usage{
-read.egonet.folders(egos.file, alter.folder, edge.folder, netID = "netID")
+read.egonet.folders(egos.file, alter.folder, edge.folder, egoID = "egoID")
 }
 \arguments{
 \item{egos.file}{File name of the .csv file containg the ego data.}
@@ -15,12 +15,19 @@ separate .csv files for each ego/ network.}
 \item{edge.folder}{Folder name of the folder containing the edge/ tie data in
 separate .csv files for each ego/ network.}
 
-\item{netID}{Character string of the variable used to identify unique
-networks.}
+\item{egoID}{Name of the variable identifying egos (default: "egoID").}
+}
+\value{
+A \code{list} of six objects: (1) egos.df: \code{dataframe} of all
+egos and their attributes; (2) alteri.df: \code{dataframe} of all alteri;
+(3) alteri.list: \code{list} of \code{dataframes} of all alteri per ego;
+(4) edges: \code{list} of \code{dataframes} with edge lists per network; (5)
+graphs: \code{list} of igraph objects; (6) results: a result \code{dataframe},
+pre-populated with the network size of each network
 }
 \description{
 This function imports ego-centric network data from folders with separate
-files for alteri-level data and dyads. It will run some basic checks upon
+files for alteri-level and edge data. It will run some basic checks upon
 the completness of the data and inform the user of potential problems.
 }
 \keyword{ego-centric}

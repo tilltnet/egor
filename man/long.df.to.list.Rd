@@ -3,17 +3,16 @@
 \alias{long.df.to.list}
 \title{Trim/ listify ego-centric network data}
 \usage{
-long.df.to.list(long, broad, netsize, netID, back.to.df = F)
+long.df.to.list(long, wide, netsize, egoID, back.to.df = F)
 }
 \arguments{
 \item{long}{A 'long' dataframe with alteri/dyads in rows.}
 
-\item{broad}{A 'broad' dataframe with networks in rows.}
+\item{wide}{A 'wide' dataframe with networks in rows.}
 
-\item{netsize}{Name of a variable in \code{broad} consisting of numerics for
-the network size of each network.}
+\item{netsize}{\code{vector} containing values of network size per ego.}
 
-\item{netID}{Name of the network ID variable in \code{broad}.}
+\item{egoID}{Name of the variable identifying egos (default: "egoID").}
 
 \item{back.to.df}{If \code{TRUE} a dataframe is returned, if \code{FALSE} a
 list. Defaults to \code{FALSE}.}
@@ -30,7 +29,4 @@ line represents
 This function deletes empty alteri rows and it can be used to transform the
 dataframe into a list, with entries for each network.
 }
-\keyword{analysis}
-\keyword{ego-centric}
-\keyword{netowrk}
 

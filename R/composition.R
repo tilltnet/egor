@@ -15,23 +15,27 @@ fun.prop <- function(x) prop.table(table(as.factor(x)))
 #' Count category frequencies of an alter attribute for ego-centric-network data.
 #'
 #' This function counts the category frequencies (absolute or proportional) of a variable representing alter attributes in ego-centric-network data.
-#' @param long.df A 'long' dataframe with alteri/dyads in rows.
+#' @param long.df A 'long' dataframe with alteri in rows.
 #' @param var Alter attribute which categories are to be counted.
-#' @param netID Name of the network-/ ego-ID variable in \code{broad}.
+#' @param egoID Name of the network-/ ego-ID variable in \code{broad}.
 #' @param fun Function to be used for counting. \code{fun.count} for absolute counts \code{fun.prop} propotional counts.
 #' @return returns a \code{dataframe} with counts of all categories as variables.
 #' @keywords ego-centric network analysis
-### Function to aggregate data from the long format data, using the netID as the break variable.
-comp.cat.counts <- function(long.df, var, netID = "netID", fun = fun.count) {
+### Function to aggregate data from the long format data, using the egoID as the break variable.
+comp.cat.counts <- function(long.df, var, egoID = "egoID", fun = fun.count) {
   # If var is not a factor it has to be coerced to one. Doing this to a variable
   # alrerady being a factor would strip away the levels.
   if(!is.factor(long.df[[var]])) {
-    tmp_matrix <- aggregate(as.factor(long.df[[var]]), by = list(long.df[[netID]]), FUN = fun)    
+    tmp_matrix <- aggregate(as.factor(long.df[[var]]), by = list(long.df[[egoID]]), FUN = fun)    
   } else {
-    tmp_matrix <- aggregate(long.df[[var]], by = list(long.df[[netID]]), FUN = fun)
+    tmp_matrix <- aggregate(long.df[[var]], by = list(long.df[[egoID]]), FUN = fun)
   }
   cat.counts <- data.frame(tmp_matrix[[2]])
-  names(cat.counts) <- levels(long.df[[var]])
+  if(!is.factor(long.df[[var]])) {
+    names(cat.counts) <- levels(factor(long.df[[var]]))
+  } else {
+    names(cat.counts) <- levels(long.df[[var]])
+  }
   cat.counts
 }
 
@@ -41,7 +45,7 @@ comp.cat.counts <- function(long.df, var, netID = "netID", fun = fun.count) {
 #' @param cat.counts Results of the function comp.cat.counts
 #' @param netsize Name of a variable in \code{broad} consisting of numerics for the network size of each network.
 #' @keywords ego-centric network analysis
-### Function to aggregate data from the long format data, using the netID as the break variable.
+### Function to aggregate data from the long format data, using the egoID as the break variable.
 comp.cat.counts.na <- function(cat.counts, netsize) {
   for(i in 1:ncol(cat.counts)) { 
     cat.counts[ , i] <- ifelse(is.na(netsize) | netsize == 0 | is.nan(cat.counts[ , i]), NA , cat.counts[ , i])
@@ -96,18 +100,18 @@ comp.diversity <- function(cat.counts, netsize) {
 #' All-in-one ego-centric network composition function.
 #'
 #' This function outputs a dataframe containg serveral compositional measures for ego-centric-network data.
-#' @param long.df A 'long' dataframe with alteri/dyads in rows.
+#' @param long.df A 'long' dataframe with alteri in rows.
 #' @param v_alt A character naming the variabe containg the alter-attribute.
 #' @param netsize A vector of network sizes.
-#' @param v_ego A character naming the variable containg the ego-attribute. Only needed if EI-Index should be calculated. Caution: Variable of v_alt and v_ego have to correspond.
+#' @param v_ego The fully addressed variable containg the ego-attribute. Only needed if EI-Index should be calculated. Caution: Variable of v_alt and v_ego have to correspond.
 #' @param mode A character. "regular" for a basic output, "all" for a complete output.
 #' @return Returns a dataframe with category counts, diversity and EI-Index values.
 #' @keywords ego-centric network analysis
 #' @export
-composition <- function (long.df, v_alt, netsize, netID = "netID", v_ego = NULL, mode = "regular") { # regular, all
+composition <- function (long.df, v_alt, netsize, egoID = "egoID", v_ego = NULL, mode = "regular") { # regular, all
   ## Generate category counts/ proportions.
-  cat_counts <- comp.cat.counts(long.df, var = v_alt, fun = fun.count, netID = netID)
-  cat_counts_prop <- comp.cat.counts(long.df, var = v_alt, fun = fun.prop , netID = netID)
+  cat_counts <- comp.cat.counts(long.df, var = v_alt, fun = fun.count, egoID = egoID)
+  cat_counts_prop <- comp.cat.counts(long.df, var = v_alt, fun = fun.prop , egoID = egoID)
   names(cat_counts_prop) <- paste("prop", colnames(cat_counts_prop), sep = "_")
   
   ## Insert NAs, when netsize is zero or NA.
