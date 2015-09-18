@@ -53,7 +53,7 @@ comp.cat.counts.na <- function(cat.counts, netsize) {
   cat.counts
 }
 
-#' Calculate the EI-Index of ego-centric networks.
+#' Calculate the homophily of ego-centric networks.
 #'
 #' This function calculates the EI-Index of ego-centric networks using a "category-count-dataframe" usually generated with comp.cat.counts(). The EI-Index ranges from -1 to 1, where a positive value represents a heterogenous personal network in respect to a specified attribute of ego an its alteri.
 #' @param cat.counts Results of the function comp.cat.counts
@@ -62,7 +62,7 @@ comp.cat.counts.na <- function(cat.counts, netsize) {
 #' @return EI Index values per ego/ network in a \code{dataframe}.
 #' @keywords ego-centric network analysis
 #' @export
-comp.ei <- function(cat.counts, v_ego, netsize) {
+comp.homophily <- function(cat.counts, v_ego, netsize) {
   HM <- NA
   for(i in 1:ncol(cat.counts)) { 
     HM <- ifelse(names(cat.counts[i]) == as.character(v_ego), cat.counts[[i]], HM)
@@ -70,8 +70,8 @@ comp.ei <- function(cat.counts, v_ego, netsize) {
   HM <- ifelse(is.na(netsize) , NA , HM)
   HM <- ifelse(netsize == 0 , NA , HM)
   HT <- ifelse(is.na(netsize) , NA , netsize - HM)
-  EI <- (HT - HM) / (HT + HM)
-  EI
+  homophily <- (HT - HM) / (HT + HM)
+  homophily
 }
 
 #' Calculate the network diversity of ego-centric networks for a given alter-attribute.
@@ -103,7 +103,7 @@ comp.diversity <- function(cat.counts, netsize) {
 #' @param long.df A 'long' dataframe with alteri in rows.
 #' @param v_alt A character naming the variabe containg the alter-attribute.
 #' @param netsize A vector of network sizes.
-#' @param v_ego The fully addressed variable containg the ego-attribute. Only needed if EI-Index should be calculated. Caution: Variable of v_alt and v_ego have to correspond.
+#' @param v_ego Character vector containing the ego attribute. Only needed if homophily should be calculated. Caution: Levels of v_alt and v_ego need to correspond.
 #' @param mode A character. "regular" for a basic output, "all" for a complete output.
 #' @return Returns a dataframe with category counts, diversity and EI-Index values.
 #' @keywords ego-centric network analysis
@@ -125,8 +125,8 @@ composition <- function (long.df, v_alt, netsize, egoID = "egoID", v_ego = NULL,
   ## If v_ego is not empty calculte EI and include it in output/ tmp_df
   if(!is.null(v_ego)) {
     #assign
-    EI <- comp.ei(cat_counts, v_ego, netsize)
-    tmp_df <- data.frame(tmp_df, EI, check.names = F)
+    EI <- comp.homophily(cat_counts, v_ego, netsize)
+    tmp_df <- data.frame(tmp_df, ego_EI = EI, check.names = F)
     names(tmp_df) <- c(names(tmp_df)[1 : (NROW(names(tmp_df)) - 1 )], paste(v_alt, "EI", sep = "_")) 
   }
   

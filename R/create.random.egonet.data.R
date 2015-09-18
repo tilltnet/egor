@@ -1,11 +1,5 @@
-# Create sample data #!# Add network size!
+# Create sample ego-centered network data.
 
-## Net Dataframe 
-#library(descr)
-
-#max.alteri <- 15
-#net.count <- 100 
-#dp <- dyad.poss(15)
 
 #' Calculate possible dyads for a given number of alteri.
 #'
@@ -44,39 +38,80 @@ generate.sample.edge.list <- function(max.alteri) {
 
 #' Generate random ego-centric-network data.
 #'
-#' This funtion generates random ego-centric-network data for a specified number of networks with a maximum network size.
+#' This function generates random ego-centric-network data for a specified number of networks with a maximum network size. The network size of the generated networks is a normal distribution with sd=5.
 #' @param net.count Number of networks/ egos to generate.
 #' @param max.alteri Maximum size of networks.
 #' @keywords ego-centric network
 #' @keywords sna
 #' @export
-generate.sample.ego.data <- function(net.count, max.alteri) {
-  netID <- 1:net.count
+generate.sample.ego.data <- function(net.count, h, netsize = NULL) {
+  
+  # Generating ego data
+  egoID <- 1:net.count
   sex <- chartr("12", "wm", sample(1:2, net.count, replace = T))
   age <- sample(1:7, net.count, replace = T)
   age <- factor(age, levels = c(1, 2, 3, 4, 5, 6, 7), labels = c("0 - 17", 
       "18 - 25", "26 - 35", "36 - 45", "46 - 55", "56 - 65", "66 - 100"))
-  probs <- abs(jitter(sort(exp(1:max.alteri), T), 1))
-  probs[[1]] <- probs[[1]]/3
-  netsize <- sample(1:max.alteri, net.count, prob = probs, replace = T)
-  net <- data.frame(netID, sex, age, netsize)
   
+  # Generating netsize
+  if (is.null(netsize)) {
+    probs <- dnorm(seq(-max.alteri/2, max.alteri/2, length = max.alteri), sd = 5)  
+    netsize <- sample(1:max.alteri, net.count, prob = probs, replace = T)
+    plot(table(netsize), type="l",ylab = "frequency")
+    plot(sort(netsize, decreasing = T), type="l",ylab = "netsize")
+  } else if (netsize == 'fixed') {
+    netsize <- max.alteri
+  }
+  
+  # Creating egos return object
+  egos <- data.frame(egoID, sex, age, netsize)
+  
+  # Generating alteri data
   alterID <- rep(1:max.alteri, net.count)
-  netID <- gl(net.count, max.alteri)
+  egoID <- gl(net.count, max.alteri)
   alter.sex <- rep(chartr("12", "wm", sample(1:2, net.count, replace = T)), 
                    max.alteri)
   alter.age <- rep(sample(1:7, net.count, replace = T), max.alteri)
   alter.age <- factor(alter.age, levels = c(1, 2, 3, 4, 5, 6, 7), labels = c("0 - 17", 
       "18 - 25", "26 - 35", "36 - 45", "46 - 55", "56 - 65", "66 - 100"))
-  alteri <- data.frame(alterID, alter.sex, alter.age)
+  alteri <- data.frame(egoID, alterID, alter.sex, alter.age)
   
+  # Trimming down alteri per network using netsize
+  alteri <- long.df.to.list(alteri, egos, egos$netsize, egoID = "egoID", back.to.df = T)
+    
+  # Generating edges
   edge.list <- list()
-  for (i in 1:max.alteri) {
-    edge.list[[i]] <- generate.sample.edge.list(max.alteri)
+  for (i in 1:net.count) {
+    edge.list[[i]] <- generate.sample.edge.list(egos[i,]$netsize)
   }
   
-  list(net = net, long = alteri, edges = edge.list)
+  # Return
+  list(egos = egos, alteri = alteri, edges = edge.list)
 } 
 
-
+# mimi <- generate.sample.ego.data(net.count = 128, max.alteri = 8, netsize = 'fixed')
+# edges <- mimi$edges
+# egos <- mimi$egos
+# alteri <- mimi$alteri
+# alteri.list <- long.df.to.list(alteri, egos, egos$netsize, egoID = "egoID", back.to.df = F)
 # 
+# tr_ch <- c()
+# for (i in 1:NROW(egos)) {
+#   egos_netsize <- egos[i,]$netsize
+#   alteri_NROW <- NROW(alteri[alteri$egoID == i, ])
+#   edges_src <- length(unique(edges[[i]]$Source)) + 1
+#   edges_trgt<- length(unique(edges[[i]]$Target)) + 1
+#   print(paste("###", i, sep = ": "))
+#   print(c(egos_netsize, alteri_NROW, edges_src, edges_trgt))
+#   tr <- sum(egos_netsize, alteri_NROW, edges_src, edges_trgt) == 4 * egos_netsize
+#   print(tr)
+#   tr_ch <- c(tr_ch, tr)
+# }
+# all(tr_ch)
+
+# Used for generating wide edge format data. Only works properly, if the netsize of all networks is constant.
+edges.to.wide <- function(edges) {
+  wide_edges <- plyr::ldply(edges, .fun= function(x) t(x$weight))
+  names(wide_edges) <- paste(edges[[1]]$Source, "to", edges[[1]]$Target)
+  wide_edges
+}

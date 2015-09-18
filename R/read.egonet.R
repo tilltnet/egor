@@ -2,8 +2,10 @@
 
 #' Trim/ listify ego-centric network data
 #'
-#' This function deletes empty alteri rows and it can be used to transform the 
-#' dataframe into a list, with entries for each network.
+#' This function generates the \code{alteri.list} object. \code{alteri.list} is a list where 
+#' each entry entails a \code{dataframe} of the alteri of one ego. By using
+#' the \code{netsize} variable it is ensured, that the list entries are of the
+#' correct length and possibly present rows of NA values are deleted.
 #' @param long A 'long' dataframe with alteri/dyads in rows.
 #' @param wide A 'wide' dataframe with networks in rows.
 #' @template netsize
@@ -15,7 +17,6 @@
 #' \code{dataframe} represents one alter. If the \code{back.to.df} parameter is
 #' called the \code{list} entries are combined to one \code{dataframe}, in the
 #' 'long' format.
-#' line represents 
 long.df.to.list <- function(long, wide, netsize, egoID, back.to.df = F) {
   # Create list where every entry contains all alteri of one ego.
   tie_list <- list()
@@ -45,9 +46,6 @@ long.df.to.list <- function(long, wide, netsize, egoID, back.to.df = F) {
     return(do.call("rbind", tie_list2))
   tie_list2
 } 
-
-# 
-
 
 
 #' Transform 'wide' alter-level data to the 'long'-format

@@ -22,4 +22,8 @@ Imports:
     igraph,
     network,
     descr,
-    shiny
+    shiny,
+    plyr
+Suggests:
+    knitr
+VignetteBuilder: knitr
