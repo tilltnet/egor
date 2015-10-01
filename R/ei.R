@@ -120,12 +120,10 @@ EI <- function(alteri, edges_, var_name, egoID = "egoID", alterID = "alterID") {
   
   # Create NA data-frame row for networks with missing data or only a single group
   na.df <- data.frame(t(c(EI = NA, sc_EI = NA, rep(NA, nlevels(factor(alteri[[var_name]]))))))
-  
-  
+
   # Invoke mapply on edges_ and alteri using list_to_EIs.
   data.frame(t(mapply(lists_to_EIs, edges_.list, alteri.list)))
 }
-
 
 
 #' Fragmentations of a list of ego-centric networks
@@ -139,7 +137,7 @@ fragmentations <- function(edges_) {
   graphs <- lapply(edges_, FUN = 
                      function(x) igraph::graph.data.frame(x, directed = F))
   frags <- lapply(graphs, FUN = 
-           function(x) igraph::clusters(x)$no)
+                    function(x) igraph::clusters(x)$no)
   data.frame(fragmentations = unlist(frags))
 }
 
