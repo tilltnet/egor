@@ -4,7 +4,7 @@
 \alias{to.network}
 \title{to.network}
 \usage{
-to.network(elist, attributes)
+to.network(elists, alteri.list)
 }
 \arguments{
 \item{elist}{[list of dataframes]}

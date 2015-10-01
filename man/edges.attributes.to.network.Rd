@@ -4,7 +4,7 @@
 \alias{edges.attributes.to.network}
 \title{edges.attributes.to.network}
 \usage{
-edges.attributes.to.network(elist, attributes)
+edges.attributes.to.network(elist, alteri)
 }
 \arguments{
 \item{elist}{[dataframe]}

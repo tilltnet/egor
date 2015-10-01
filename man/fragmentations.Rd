@@ -4,10 +4,10 @@
 \alias{fragmentations}
 \title{Fragmentations of a list of ego-centric networks}
 \usage{
-fragmentations(edges)
+fragmentations(edges_)
 }
 \arguments{
-\item{edges}{\code{List} of edgelist-\code{dataframes}}
+\item{edges_}{\code{List} of edgelist-\code{dataframes}}
 }
 \description{
 A longer description will appear here in the future.
