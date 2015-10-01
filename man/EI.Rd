@@ -4,13 +4,13 @@
 \alias{EI}
 \title{Calculate the EI-Index}
 \usage{
-EI(alteri, edges, var_name, egoID = "egoID", alterID = "alterID")
+EI(alteri, edges_, var_name, egoID = "egoID", alterID = "alterID")
 }
 \arguments{
 \item{alteri}{}
 
-\item{edges}{\code{List} of edgelist-\code{dataframes} or one
-\code{dataframes} #' containing all edges,}
+\item{edges_}{\code{List} of edgelist-\code{dataframes} or one
+\code{dataframes} #' containing all edges_,}
 }
 \description{
 The EI-Index compares the inner-group edge density to the outer-group edge

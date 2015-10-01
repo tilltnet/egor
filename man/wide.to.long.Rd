@@ -4,7 +4,8 @@
 \alias{wide.to.long}
 \title{Transform 'wide' alter-level data to the 'long'-format}
 \usage{
-wide.to.long(items.df, egoID, max.alteri, start.col, end.col, ego.vars = NULL)
+wide.to.long(items.df, egoID = "egoID", max.alteri, start.col, end.col,
+  ego.vars = NULL, var.wise = F)
 }
 \arguments{
 \item{items.df}{A wide-format dataframe of ego-centric network data.}
@@ -15,6 +16,12 @@ wide.to.long(items.df, egoID, max.alteri, start.col, end.col, ego.vars = NULL)
 
 \item{start.col}{Number of first colum containg alter-alter relation data.
 #!# Should: Defaults to first column of \code{items.df}.}
+
+\item{ego.vars}{Ego variables to transfer from the wide-format
+\code{data.frame}, for i.e. multi-level regression analysis.}
+
+\item{var.wise}{a logical value indicating wheter the alter attributes are
+stored variable-wise, if FALSE alter-wise storage is assumed.}
 
 \item{last.col}{Number of first colum containg alter-alter relation data.
 #!# Should: Defaults to last column of \code{items.df}.}

@@ -5,7 +5,7 @@
 \title{Import ego-centric network data from 'one file format'}
 \usage{
 read.egonet.one.file(egos, netsize, egoID = "egoID", attr.start.col,
-  attr.end.col, dy.max.alteri, dy.first.var)
+  attr.end.col, dy.max.alteri, dy.first.var, ego.vars = NULL, var.wise = F)
 }
 \arguments{
 \item{egos}{\code{dataframe} containg ego data (egos as cases)}
@@ -14,11 +14,13 @@ read.egonet.one.file(egos, netsize, egoID = "egoID", attr.start.col,
 
 \item{egoID}{Name of the variable identifying egos (default: "egoID").}
 
-\item{attr.start.col}{}
+\item{attr.start.col}{First colum containing alter attributes.}
 
-\item{dy.max.alteri}{}
+\item{attr.end.col}{Last colum containing alter attributes.}
 
-\item{dy.first.var}{}
+\item{dy.max.alteri}{Maximum number of alteri.}
+
+\item{dy.first.var}{First column containing alter-alter relations/ edges.}
 }
 \value{
 A \code{list} of six objects: (1) egos.df: \code{dataframe} of all
