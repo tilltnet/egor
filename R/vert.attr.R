@@ -40,7 +40,6 @@
 #'   
 #' @seealso \code{\link{vert.attr.multi}}
 #'   
-#' @export
 #' 
 vert.attr <- function(data, attribute, graph, dataID, graphID= "name", FUN= NA, unfactor= TRUE) {
 

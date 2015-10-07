@@ -34,7 +34,7 @@ long.df.to.list <- function(long, wide, netsize, egoID, back.to.df = F) {
   
   # Create a new list with entries containing as many alteri as the
   # netsize variable predicts. This assumes the NA line to be at the
-  # bottom of the entries - to prevent failure the entries should be
+  # bottom of the entries - #!# to prevent failure the entries should be
   # sorted with NA lines at the bottom!
   tie_list2 <- list()
   for (i in 1:length(tie_list)) {
@@ -99,6 +99,7 @@ wide.to.long <- function(items.df, egoID = "egoID", max.alteri, start.col, end.c
   ### Change names of alterID and egoID variables.
   colnames(long)[which(names(long) == "time")] <- "alterID"
   colnames(long)[which(names(long) == "id")] <- "egoID"
+  print(which(names(long) == "id"))
   egoID_idx <- grep("egoID", names(long))
   alterID_idx <- grep("alterID_idx", names(long))
   long <- data.frame(alterID = long["alterID"], egoID = long["egoID"], long[, -c(egoID_idx, alterID_idx)])
@@ -212,8 +213,20 @@ edges.attributes.to.network <- function(elist, alteri) {
 #' @keywords ego-centric network analysis
 #' @export
 to.network <- function(elists, alteri.list) {  
-  graph.list <- mapply(FUN= edges.attributes.to.network, elists, alteri.list, 
-                       SIMPLIFY=FALSE)
+  graph.list <- tryCatch({
+    message("Creating igraph objects: $graphs")
+    mapply(FUN= edges.attributes.to.network, elists, alteri.list, 
+                       SIMPLIFY=FALSE)},
+    warning=function (cond) {
+      message("WARNING: There was an warning trying to combine alter and edge data to igraph objects. Carefully check objects for correctness!")
+      message(paste("igraph warning: ", cond))
+      return(mapply(FUN= edges.attributes.to.network, elists, alteri.list, 
+                    SIMPLIFY=FALSE))},
+    error=function (cond) {
+      message("WARNING: There was an error trying to combine alter and edge data to igraph objects. $graphs will be empty!")
+      message(paste("igraph error: ", cond))
+      return(list())}
+    )
   graph.list
 }
 
@@ -256,29 +269,49 @@ add_ego_vars_to_long_df <- function(alteri.list, egos.df, ego.vars, netsize) {
 read.egonet.one.file <- function(egos, netsize,  egoID = "egoID", 
                                  attr.start.col, attr.end.col, dy.max.alteri,
                                  dy.first.var, ego.vars = NULL, var.wise = F) {
-  print("Transforming alteri data to long format: $long")
+  
+  #
+  message("Transforming alteri data to long format: $long")
   alteri.df <- wide.to.long(items.df = egos, egoID, max.alteri = dy.max.alteri,
                         start.col = attr.start.col, end.col = attr.end.col, 
                         ego.vars = ego.vars, var.wise = var.wise)
+  
+  #
+  message("Deleting NA rows.")
   alteri.df <- long.df.to.list(long = alteri.df, wide = egos, netsize = netsize, 
                   egoID = egoID, back.to.df = T)
-  print(alteri.df$alterID)
   
-  print("Splitting long alteri data into list entries for each network: $long.list")
+  #Sort egos by egoID and alteri by egoID and alterID.
+  message("Sorting data by egoID and alterID.")
+  egos <- egos[order(egos[[egoID]]), ]
+  alteri.df <- alteri.df[order(alteri.df[["egoID"]], alteri.df[["alterID"]]), ]
+  
+  message("Splitting long alteri data into list entries for each network: $long.list")
   alteri.list <- long.df.to.list(long = alteri.df, wide = egos, netsize = netsize, 
                                 egoID = egoID, back.to.df = F)
   
-  print("Transforming wide dyad data to edgelist: $edges")
+  message("Transforming wide dyad data to edgelist: $edges")
   elists <- wide.dyads.to.edgelist(wide = egos, first.var = dy.first.var, 
                                    dy.max.alteri)
   
-  print("Creating igraph objects: $graphs")
-  graphs <- to.network(elists, alteri.list)
-  #graphs <- list()
+  # Check if all egoIDs have alteri associated to them, if not: exclude 0/NA Networks
+  egos_have_alteri <- egos[[egoID]] %in% unique(alteri.df[["egoID"]])
+  excluded <- egos[!egos_have_alteri, ]
+  egos <- egos[egos_have_alteri, ]
+  netsize <- netsize[egos_have_alteri]
   
-  print("Adding results data.frame: $results")
-  list(egos.df = egos, alteri.df = alteri.df, alteri.list = alteri.list, edges = elists, 
+  #print("Creating igraph objects: $graphs")
+  graphs <- to.network(elists, alteri.list)
+  
+  message("Adding results data.frame: $results")
+  egoR <- list(egos.df = egos, alteri.df = alteri.df, alteri.list = alteri.list, edges = elists, 
        graphs = graphs, results = data.frame(egos[[egoID]], netsize))
+  if(NROW(excluded) > 0) {
+    message("Egos having no alteri associated to them are excluded: $excluded")
+    egoR$excluded <- excluded
+  }
+  #Return:
+  egoR
 }
 
 #' Import ego-centric network data from two file format
@@ -297,59 +330,68 @@ read.egonet.one.file <- function(egos, netsize,  egoID = "egoID",
 read.egonet.two.files <- function(egos, alteri, netsize = NULL,  egoID = "egoID",
                                   alterID = NULL, e.max.alteri, e.first.var,
                                   ego.vars = NULL, selection = NULL) {
+
+  
   if(!is.null(alterID)) {
-    print("alterID specified; moving to first column.")
+    message("alterID specified; moving to first column of $alteri.df.")
     alterID.col <- match(alterID , names(alteri))
     alterID.col
     # Return:
     alteri <- data.frame(alterID = alteri[[alterID]], alteri[1:(alterID.col - 1)], 
                        alteri[(alterID.col + 1) : ncol(alteri)])
-    }    
+  } 
+  
+  if(is.null(alterID)) alterID <- "alterID"
+  #Sort egos by egoID and alteri by egoID and alterID.
+  message("Sorting data by egoID and alterID.")
+  egos <- egos[order(egos[[egoID]]), ]
+  alteri <- alteri[order(alteri[[egoID]], alteri[[alterID]]), ]
   
   if(is.null(netsize)) {
-    print("No netsize variable specified, calculating/ guessing netsize by egoID in alteri data.")
-    netsize <- aggregate(alteri, by = list(alteri[[egoID]]), NROW)[, 2]
+    message("No netsize variable specified, calculating/ guessing netsize by egoID in alteri data.")
+    netsize <- aggregate(alteri[[egoID]], by = list(alteri[[egoID]]), NROW)    
+    #results <- merge(egos[egoID], y = netsize, by.x = egoID, by.y = "Group.1", all = T)
+    netsize <- netsize[[2]]    
   }
 
+  # Check if all egoIDs have alteri associated to them, if not: exclude 0/NA Networks
+  egos_have_alteri <- egos[[egoID]] %in% unique(alteri[[egoID]])
+  excluded <- egos[!egos_have_alteri, ]
+  egos <- egos[egos_have_alteri, ]
+  
+  
   print("Preparing alteri data.")
   alteri.list <- long.df.to.list(alteri, egos, netsize, "egoID")
   alteri.list <- lapply(alteri.list, FUN = function(x) 
     data.frame(alterID = as.character(c(1:NROW(x))), x))
   
   if(!is.null(ego.vars)) {
-    print("ego.vars defined, adding them to $alteri.df")
+    message("ego.vars defined, adding them to $alteri.df")
     alteri <- add_ego_vars_to_long_df(alteri.list = alteri.list, egos.df = egos, 
                             ego.vars = ego.vars, netsize = netsize)
   } else {
-    print("Restructuring alteri data: $alteri.df")
+    message("Restructuring alteri data: $alteri.df")
     alteri <- do.call("rbind", alteri.list)
   }
 
-  print("Splitting alteri data into list entries for each network: $alteri.list")
-  attributes_ <- long.df.to.list(alteri, wide = egos, netsize, "egoID",
+  message("Splitting alteri data into list entries for each network: $alteri.list")
+  attributes_ <- long.df.to.list(alteri, wide = egos, netsize, egoID,
                                 back.to.df = F)
   
-  print("Transforming wide edge data to edgelist: $edges")
+  message("Transforming wide edge data to edgelist: $edges")
   elist <- wide.dyads.to.edgelist(wide = egos, first.var = e.first.var,
                                    max.alteri = e.max.alteri, 
                                    long.list = alteri.list, selection = selection)
   
-  print("Creating igraph objects: $graphs")
+  #print("Creating igraph objects: $graphs")
   graphs <- to.network(elist, attributes_)
   
-  list(egos.df = egos, alteri.df = alteri, alteri.list = attributes_, edges = elist,
-       graphs = graphs, results = data.frame(egos[[egoID]], netsize))
+  egoR <- list(egos.df = egos, alteri.df = alteri, alteri.list = attributes_, edges = elist,
+       graphs = graphs, results = netsize)
+  if(NROW(excluded) > 0) {
+    message("Egos having no alteri associated to them are excluded: $excluded")
+    egoR$excluded <- excluded
+  }
+  #Return:
+  egoR
 }
-
-
-#' Import raw ego-centric network data.
-#'
-#' This function allows you to import raw ego-centric network data. See X for
-#'  supported formats.
-#read.egonet <- function(ties = NULL, folders_alter = NULL, 
-#folder_edges = NULL) {
-#  if(method == "onefile")
-#  
-# ---- read.egonet is organised with format specific funtions for now.  
-#}
-

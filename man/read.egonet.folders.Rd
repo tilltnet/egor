@@ -5,7 +5,8 @@
 \title{Import ego-centric network data from separate folders for edgelist and
 alteri-attributes.}
 \usage{
-read.egonet.folders(egos.file, alter.folder, edge.folder, egoID = "egoID")
+read.egonet.folders(egos.file, alter.folder, edge.folder, csv.sep = ",",
+  egoID = "egoID", first.col.row.names = FALSE)
 }
 \arguments{
 \item{egos.file}{File name of the .csv file containg the ego data.}

@@ -27,7 +27,6 @@
 #' @section Uses: 
 #' \code{\link{vert.attr()}}
 #' 
-#' @export
 #' 
 vert.attr.multi <- function(data, graph, dataID, graphID= "name", attributes, FUN=NA, attr.names= attributes) {
   

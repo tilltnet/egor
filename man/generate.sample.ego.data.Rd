@@ -4,7 +4,7 @@
 \alias{generate.sample.ego.data}
 \title{Generate random ego-centric-network data.}
 \usage{
-generate.sample.ego.data(net.count, h, netsize = NULL)
+generate.sample.ego.data(net.count, max.alteri, netsize = NULL)
 }
 \arguments{
 \item{net.count}{Number of networks/ egos to generate.}

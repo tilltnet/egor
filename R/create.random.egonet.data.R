@@ -44,7 +44,7 @@ generate.sample.edge.list <- function(max.alteri) {
 #' @keywords ego-centric network
 #' @keywords sna
 #' @export
-generate.sample.ego.data <- function(net.count, h, netsize = NULL) {
+generate.sample.ego.data <- function(net.count, max.alteri, netsize = NULL) {
   
   # Generating ego data
   egoID <- 1:net.count

@@ -36,12 +36,14 @@ shiny::shinyUI(fluidPage(
       shiny::sliderInput("zoom_factor",label = "Zoom:", min = 1, max = 10, value = 3, step = .1),
       shiny::selectInput("v.size", "Vertex Size:", choices = v.atts),
       shiny::selectInput("v.color", "Vertex Color:", choices = v.atts),
-      shiny::selectInput("e.width", "Edge Width:", choices = e.atts)
+      shiny::selectInput("e.width", "Edge Width:", choices = e.atts),
+      shiny::selectInput("v.label", "Vertex Labels:", choices = v.atts)
     ),
 
     # Show a plot of the generated distribution
     shiny::mainPanel(
       shiny::plotOutput("Plot"),
+      shiny::plotOutput("Legend"),
       #shiny::radioButtons("png_pdf", "Format:", choices = c("pdf", "png")),
       shiny::downloadButton("save_plot", label = "Save this Plots"),
       shiny::downloadButton("save_all_plots", label = "Save all Plots")

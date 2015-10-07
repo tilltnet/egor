@@ -17,13 +17,14 @@ Authors@R: c(
 Description: This packages aids with the process of importing ego-centric
     network data.
 License: AGPL-3
-Imports:
+Imports: 
     foreign,
     igraph,
     network,
     descr,
     shiny,
     plyr
-Suggests:
-    knitr
+Suggests: 
+    knitr,
+    testthat
 VignetteBuilder: knitr
