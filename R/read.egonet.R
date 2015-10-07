@@ -7,7 +7,7 @@
 #' the \code{netsize} variable it is ensured, that the list entries are of the
 #' correct length and possibly present rows of NA values are deleted.
 #' @param long A 'long' dataframe with alteri/dyads in rows.
-#' @param wide A 'wide' dataframe with networks in rows.
+#' @template wide
 #' @template netsize
 #' @template egoID
 #' @param back.to.df If \code{TRUE} a dataframe is returned, if \code{FALSE} a 
@@ -55,25 +55,24 @@ long.df.to.list <- function(long, wide, netsize, egoID, back.to.df = F) {
 #' into a long-format data-frame, where every row represents one alter/dyad. In 
 #' the created dataframe numerous networks can be distinguished by a network ID 
 #' (egoID).
-#' @param items.df A wide-format dataframe of ego-centric network data.
+#' @template wide
 #' @template egoID
-#' @param max.alteri A numeric for the maximum number of alteri.
+#' @template max_alteri
 #' @param start.col Number of first colum containg alter-alter relation data. 
-#' #!# Should: Defaults to first column of \code{items.df}.
+#' #!# Should: Defaults to first column of \code{wide}.
 #' @param last.col Number of first colum containg alter-alter relation data.
-#' #!# Should: Defaults to last column of \code{items.df}.
-#' @param ego.vars Ego variables to transfer from the wide-format 
-#' \code{data.frame}, for i.e. multi-level regression analysis.
+#' #!# Should: Defaults to last column of \code{wide}.
+#' @template ego_vars
 #' @param var.wise a logical value indicating wheter the alter attributes are
 #' stored variable-wise, if FALSE alter-wise storage is assumed.
 #' @export
-wide.to.long <- function(items.df, egoID = "egoID", max.alteri, start.col, end.col, 
+wide.to.long <- function(wide, egoID = "egoID", max.alteri, start.col, end.col, 
                           ego.vars = NULL, var.wise = F) {
   ### Generating a matrix containing all variable names of one particular alteri
   ### item (sex, age, etc.).
-  mt_dimmer <- ifelse(var.wise == T, max.alteri, NROW(items.df[start.col:end.col, ]) / max.alteri)
+  mt_dimmer <- ifelse(var.wise == T, max.alteri, NROW(wide[start.col:end.col, ]) / max.alteri)
   #print(mt_dimmer)
-  name_mt <- matrix(names(items.df[start.col:end.col]), mt_dimmer)
+  name_mt <- matrix(names(wide[start.col:end.col]), mt_dimmer)
   #print(name_mt)
   if(var.wise) name_mt <- t(name_mt)
   #if(!var.wise) print("var.wise not T")
@@ -91,9 +90,9 @@ wide.to.long <- function(items.df, egoID = "egoID", max.alteri, start.col, end.c
   times <- seq_along(vary[[1]])
   
   ### Create a long format data.frame of the alteri items.
-  coll_df <- cbind(items.df[start.col:end.col], items.df[ego.vars])
+  coll_df <- cbind(wide[start.col:end.col], wide[ego.vars])
   
-  long <- reshape(coll_df, vary, ids = items.df[egoID],
+  long <- reshape(coll_df, vary, ids = wide[egoID],
                   times = times,  direction = 'long')
   
   ### Change names of alterID and egoID variables.
@@ -115,18 +114,17 @@ wide.to.long <- function(items.df, egoID = "egoID", max.alteri, start.col, end.c
 #' When alter-alter for numerous networks is stored in one file/ object it is 
 #' common use the 'wide' dataformat. This function transforms such data to an 
 #' edge lists.
-#' @param wide A dataframe containing the alter-alter relation data in the 
+#' @param e.wide A dataframe containing the alter-alter relation data in the 
 #' 'wide' format.
 #' @param fist.var Number of colum containing the relation between the first and
 #' the second network contact.
 #' @param max.alteri Maximum number of alteri for which alter-alter relations 
 #' were collected.
 #' @export
-wide.dyads.to.edgelist <- function(wide, first.var, max.alteri,
-                                    long.list = NULL, selection = NULL) {
+wide.dyads.to.edgelist <- function(e.wide, first.var, max.alteri,
+                                    alteri.list = NULL, selection = NULL) {
   
   ### Calculate max. possible count of dyads per network.
-  dyad.poss <- function(max.alteri) { (max.alteri^2-max.alteri)/2 }
   dp <- dyad.poss(max.alteri)
   
   ### Create a helper matrix vor naming alteri.
@@ -142,18 +140,18 @@ wide.dyads.to.edgelist <- function(wide, first.var, max.alteri,
   } 
   ### Extract relevant variables from dataset.
   last.var <- first.var + dp - 1  
-  alter.alter <- wide[first.var:last.var]
+  alter.alter <- e.wide[first.var:last.var]
     
   # Create a list of dataframes, each containg the edgelists per network. 
   #!# This could probably be done with reshape!?
   alter.alter.list <- list()
   count.var <- 1
   
-  for(case in 1:NROW(wide)) {
+  for(case in 1:NROW(e.wide)) {
     alter.alter.df <- data.frame()
     count.var <- 1
     if(!is.null(selection)) {
-      names_ <- as.character(subset(long.list[[case]], long.list[[case]][selection] == 1)$alterID) #!# ['alterID'] ??
+      names_ <- as.character(subset(alteri.list[[case]], alteri.list[[case]][selection] == 1)$alterID) #!# ['alterID'] ??
       #if(length(names) < max.alteri) {
       #  diff_ <- max.alteri - length(names_)
       #  names_ <- c(names_, rep("99", diff_))
@@ -194,13 +192,13 @@ wide.dyads.to.edgelist <- function(wide, first.var, max.alteri,
 #'
 #' This function generates one igraph object from an edgelist and a dataframe 
 #' alteri attributes.
-#' @param elist [dataframe]
-#' @param attributes [dataframe]
+#' @param e.list \code{data.frame} containg edge data/ one edgelist.
+#' @param alteri \code{data.frame} containg alteri attributes.
 #' @keywords ego-centric network analysis
 #' @export
-edges.attributes.to.network <- function(elist, alteri) {
+edges.attributes.to.network <- function(e.list, alteri) {
   #print(attributes$alterID)
-  igraph::graph.data.frame(d= elist, vertices= alteri, directed= FALSE)
+  igraph::graph.data.frame(d= e.list, vertices= alteri, directed= FALSE)
 }
 
 
@@ -208,19 +206,19 @@ edges.attributes.to.network <- function(elist, alteri) {
 #'
 #' This function generates a list of igraph objects from an edgelist and a 
 #' dataframe alteri attributes.
-#' @param elist [list of dataframes]
-#' @param attributes [list of dataframes]
+#' @param e.lists \code{List} of \code{data.frame}s containg edge data/ one edgelist.
+#' @template alteri_list
 #' @keywords ego-centric network analysis
 #' @export
-to.network <- function(elists, alteri.list) {  
+to.network <- function(e.lists, alteri.list) {  
   graph.list <- tryCatch({
     message("Creating igraph objects: $graphs")
-    mapply(FUN= edges.attributes.to.network, elists, alteri.list, 
+    mapply(FUN= edges.attributes.to.network, e.lists, alteri.list, 
                        SIMPLIFY=FALSE)},
     warning=function (cond) {
       message("WARNING: There was an warning trying to combine alter and edge data to igraph objects. Carefully check objects for correctness!")
       message(paste("igraph warning: ", cond))
-      return(mapply(FUN= edges.attributes.to.network, elists, alteri.list, 
+      return(mapply(FUN= edges.attributes.to.network, e.lists, alteri.list, 
                     SIMPLIFY=FALSE))},
     error=function (cond) {
       message("WARNING: There was an error trying to combine alter and edge data to igraph objects. $graphs will be empty!")
@@ -232,11 +230,11 @@ to.network <- function(elists, alteri.list) {
 
 #' add_ego_vars_to_long_df
 #'
-#' This function adds ego attributes to a 'long.list' object of ego-centered
+#' This function adds ego attributes to a 'alteri.list' object of ego-centered
 #' networks. This is helpful if (multi-level) regressions are to be executed.
-#' @param long.list 
+#' @template alteri_list
 #' @template egos 
-#' @param ego.vars 
+#' @template ego_vars 
 #' @template netsize
 #' @keywords ego-centric network analysis
 #' @export
@@ -272,7 +270,7 @@ read.egonet.one.file <- function(egos, netsize,  egoID = "egoID",
   
   #
   message("Transforming alteri data to long format: $long")
-  alteri.df <- wide.to.long(items.df = egos, egoID, max.alteri = dy.max.alteri,
+  alteri.df <- wide.to.long(wide = egos, egoID, max.alteri = dy.max.alteri,
                         start.col = attr.start.col, end.col = attr.end.col, 
                         ego.vars = ego.vars, var.wise = var.wise)
   
@@ -286,12 +284,12 @@ read.egonet.one.file <- function(egos, netsize,  egoID = "egoID",
   egos <- egos[order(egos[[egoID]]), ]
   alteri.df <- alteri.df[order(alteri.df[["egoID"]], alteri.df[["alterID"]]), ]
   
-  message("Splitting long alteri data into list entries for each network: $long.list")
+  message("Splitting long alteri data into list entries for each network: $alteri.list")
   alteri.list <- long.df.to.list(long = alteri.df, wide = egos, netsize = netsize, 
                                 egoID = egoID, back.to.df = F)
   
   message("Transforming wide dyad data to edgelist: $edges")
-  elists <- wide.dyads.to.edgelist(wide = egos, first.var = dy.first.var, 
+  e.lists <- wide.dyads.to.edgelist(e.wide = egos, first.var = dy.first.var, 
                                    dy.max.alteri)
   
   # Check if all egoIDs have alteri associated to them, if not: exclude 0/NA Networks
@@ -301,10 +299,10 @@ read.egonet.one.file <- function(egos, netsize,  egoID = "egoID",
   netsize <- netsize[egos_have_alteri]
   
   #print("Creating igraph objects: $graphs")
-  graphs <- to.network(elists, alteri.list)
+  graphs <- to.network(e.lists, alteri.list)
   
   message("Adding results data.frame: $results")
-  egoR <- list(egos.df = egos, alteri.df = alteri.df, alteri.list = alteri.list, edges = elists, 
+  egoR <- list(egos.df = egos, alteri.df = alteri.df, alteri.list = alteri.list, edges = e.lists, 
        graphs = graphs, results = data.frame(egos[[egoID]], netsize))
   if(NROW(excluded) > 0) {
     message("Egos having no alteri associated to them are excluded: $excluded")
@@ -379,9 +377,9 @@ read.egonet.two.files <- function(egos, alteri, netsize = NULL,  egoID = "egoID"
                                 back.to.df = F)
   
   message("Transforming wide edge data to edgelist: $edges")
-  elist <- wide.dyads.to.edgelist(wide = egos, first.var = e.first.var,
+  elist <- wide.dyads.to.edgelist(e.wide = egos, first.var = e.first.var,
                                    max.alteri = e.max.alteri, 
-                                   long.list = alteri.list, selection = selection)
+                                   alteri.list = alteri.list, selection = selection)
   
   #print("Creating igraph objects: $graphs")
   graphs <- to.network(elist, attributes_)

@@ -2,26 +2,27 @@
 % Please edit documentation in R/composition.R
 \name{comp.cat.counts}
 \alias{comp.cat.counts}
-\title{Count category frequencies of an alter attribute for ego-centric-network data.}
+\title{Count category frequencies of an alter attribute for ego-centered-network data.}
 \usage{
-comp.cat.counts(long.df, var, egoID = "egoID", fun = fun.count)
+comp.cat.counts(alteri, var, egoID = "egoID", fun = fun.count)
 }
 \arguments{
-\item{long.df}{A 'long' dataframe with alteri in rows.}
+\item{alteri}{A 'long' dataframe with alteri in rows.}
 
 \item{var}{Alter attribute which categories are to be counted.}
 
-\item{egoID}{Name of the network-/ ego-ID variable in \code{broad}.}
+\item{egoID}{\code{Character} giving the name of the variable identifying
+egos (default = "egoID") in \code{alteri}.}
 
 \item{fun}{Function to be used for counting. \code{fun.count} for absolute counts \code{fun.prop} propotional counts.}
 }
 \value{
-returns a \code{dataframe} with counts of all categories as variables.
+Returns a \code{dataframe} with counts of all categories as variables.
 }
 \description{
-This function counts the category frequencies (absolute or proportional) of a variable representing alter attributes in ego-centric-network data.
+This function counts the category frequencies (absolute or proportional) of a variable representing alter attributes in ego-centered-network data.
 }
 \keyword{analysis}
-\keyword{ego-centric}
+\keyword{ego-centered}
 \keyword{network}
 

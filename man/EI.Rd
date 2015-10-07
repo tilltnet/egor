@@ -7,7 +7,8 @@
 EI(alteri, edges_, var_name, egoID = "egoID", alterID = "alterID")
 }
 \arguments{
-\item{alteri}{}
+\item{alteri}{\code{List} of alteri attribute \code{data.frame}s
+or \code{data.frame} of alteri attributes.}
 
 \item{edges_}{\code{List} of edgelist-\code{dataframes} or one
 \code{dataframes} #' containing all edges_,}
@@ -17,7 +18,7 @@ The EI-Index compares the inner-group edge density to the outer-group edge
 density. It can be calculated for the whole network and for groups. If you
 want to calculate ego's EI use the composition command.
 }
-\keyword{ego-centric}
+\keyword{ego-centered}
 \keyword{network}
 \keyword{sna}
 

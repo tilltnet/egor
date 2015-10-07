@@ -3,10 +3,11 @@
 #' The EI-Index compares the inner-group edge density to the outer-group edge 
 #' density. It can be calculated for the whole network and for groups. If you 
 #' want to calculate ego's EI use the composition command.
-#' @param alteri
+#' @param alteri \code{List} of alteri attribute \code{data.frame}s 
+#' or \code{data.frame} of alteri attributes.
 #' @param edges_ \code{List} of edgelist-\code{dataframes} or one 
 #' \code{dataframes} #' containing all edges_, 
-#' @keywords ego-centric network
+#' @keywords ego-centered network
 #' @keywords sna
 #' @export
 EI <- function(alteri, edges_, var_name, egoID = "egoID", alterID = "alterID") {
@@ -126,11 +127,12 @@ EI <- function(alteri, edges_, var_name, egoID = "egoID", alterID = "alterID") {
 }
 
 
-#' Fragmentations of a list of ego-centric networks
+#' Fragmentations of a list of ego-centered networks
 #'
-#' A longer description will appear here in the future.
+#' This gives the number of seperate fragments in a \code{list} ego-centered 
+#' networks.
 #' @param edges_ \code{List} of edgelist-\code{dataframes}
-#' @keywords ego-centric network
+#' @keywords ego-centered network
 #' @keywords sna
 #' @export
 fragmentations <- function(edges_) {

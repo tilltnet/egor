@@ -4,27 +4,26 @@
 \alias{wide.to.long}
 \title{Transform 'wide' alter-level data to the 'long'-format}
 \usage{
-wide.to.long(items.df, egoID = "egoID", max.alteri, start.col, end.col,
+wide.to.long(wide, egoID = "egoID", max.alteri, start.col, end.col,
   ego.vars = NULL, var.wise = F)
 }
 \arguments{
-\item{items.df}{A wide-format dataframe of ego-centric network data.}
+\item{wide}{A \code{data.frame} of alteri attributes in the wide format.}
 
 \item{egoID}{Name of the variable identifying egos (default: "egoID").}
 
-\item{max.alteri}{A numeric for the maximum number of alteri.}
+\item{max.alteri}{A \code{numeric} giving the maximum number of alteri.}
 
 \item{start.col}{Number of first colum containg alter-alter relation data.
-#!# Should: Defaults to first column of \code{items.df}.}
+#!# Should: Defaults to first column of \code{wide}.}
 
-\item{ego.vars}{Ego variables to transfer from the wide-format
-\code{data.frame}, for i.e. multi-level regression analysis.}
+\item{ego.vars}{A \code{data.frame} of alteri attributes in the wide format.}
 
 \item{var.wise}{a logical value indicating wheter the alter attributes are
 stored variable-wise, if FALSE alter-wise storage is assumed.}
 
 \item{last.col}{Number of first colum containg alter-alter relation data.
-#!# Should: Defaults to last column of \code{items.df}.}
+#!# Should: Defaults to last column of \code{wide}.}
 }
 \description{
 A function to transform a wide-format dataframe of ego-centric network data

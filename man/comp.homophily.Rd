@@ -2,7 +2,7 @@
 % Please edit documentation in R/composition.R
 \name{comp.homophily}
 \alias{comp.homophily}
-\title{Calculate the homophily of ego-centric networks.}
+\title{Calculate the homophily of ego-centered networks.}
 \usage{
 comp.homophily(cat.counts, v_ego, netsize)
 }
@@ -17,9 +17,9 @@ comp.homophily(cat.counts, v_ego, netsize)
 EI Index values per ego/ network in a \code{dataframe}.
 }
 \description{
-This function calculates the EI-Index of ego-centric networks using a "category-count-dataframe" usually generated with comp.cat.counts(). The EI-Index ranges from -1 to 1, where a positive value represents a heterogenous personal network in respect to a specified attribute of ego an its alteri.
+This function calculates the EI-Index of ego-centered networks using a "category-count-dataframe" usually generated with comp.cat.counts(). The EI-Index ranges from -1 to 1, where a positive value represents a heterogenous personal network in respect to a specified attribute of ego an its alteri.
 }
 \keyword{analysis}
-\keyword{ego-centric}
+\keyword{ego-centered}
 \keyword{network}
 

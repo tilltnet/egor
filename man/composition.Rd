@@ -2,15 +2,16 @@
 % Please edit documentation in R/composition.R
 \name{composition}
 \alias{composition}
-\title{All-in-one ego-centric network composition function.}
+\title{All-in-one ego-centered network composition function.}
 \usage{
-composition(long.df, v_alt, netsize, egoID = "egoID", v_ego = NULL,
+composition(alteri, v_alt, netsize, egoID = "egoID", v_ego = NULL,
   mode = "regular")
 }
 \arguments{
-\item{long.df}{A 'long' dataframe with alteri in rows.}
+\item{alteri}{\code{dataframe} containing alteri data (alteri as cases),
+alteri are separated by a variable containg an egoID.}
 
-\item{v_alt}{A character naming the variabe containg the alter-attribute.}
+\item{v_alt}{A character naming the variable containg the alter-attribute.}
 
 \item{netsize}{A vector of network sizes.}
 
@@ -22,9 +23,9 @@ composition(long.df, v_alt, netsize, egoID = "egoID", v_ego = NULL,
 Returns a dataframe with category counts, diversity and EI-Index values.
 }
 \description{
-This function outputs a dataframe containg serveral compositional measures for ego-centric-network data.
+This function outputs a dataframe containg serveral compositional measures for ego-centered-network data.
 }
 \keyword{analysis}
-\keyword{ego-centric}
+\keyword{ego-centered}
 \keyword{network}
 

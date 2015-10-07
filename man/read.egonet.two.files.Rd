@@ -11,7 +11,8 @@ read.egonet.two.files(egos, alteri, netsize = NULL, egoID = "egoID",
 \arguments{
 \item{egos}{\code{dataframe} containg ego data (egos as cases)}
 
-\item{alteri}{\code{dataframe} containing alteri data (alteri as cases)}
+\item{alteri}{\code{dataframe} containing alteri data (alteri as cases),
+alteri are separated by a variable containg an egoID.}
 
 \item{netsize}{\code{vector} containing values of network size per ego.}
 

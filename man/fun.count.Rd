@@ -10,10 +10,10 @@ fun.count(x)
 \item{x}{A factor representing an alteri-attribute variable.}
 }
 \description{
-This function generates Variables counting the frequency of each category of a variable. To use on data aggregated from the long ego-centric network data format.
+This function generates Variables counting the frequency of each category of a variable. To use on data aggregated from the long ego-centered network data format.
 #'
 }
 \keyword{analysis}
-\keyword{ego-centric}
+\keyword{ego-centered}
 \keyword{network}
 

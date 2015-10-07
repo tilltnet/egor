@@ -2,7 +2,7 @@
 % Please edit documentation in R/ei.R
 \name{fragmentations}
 \alias{fragmentations}
-\title{Fragmentations of a list of ego-centric networks}
+\title{Fragmentations of a list of ego-centered networks}
 \usage{
 fragmentations(edges_)
 }
@@ -10,9 +10,10 @@ fragmentations(edges_)
 \item{edges_}{\code{List} of edgelist-\code{dataframes}}
 }
 \description{
-A longer description will appear here in the future.
+This gives the number of seperate fragments in a \code{list} ego-centered
+networks.
 }
-\keyword{ego-centric}
+\keyword{ego-centered}
 \keyword{network}
 \keyword{sna}
 

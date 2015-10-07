@@ -9,7 +9,7 @@ long.df.to.list(long, wide, netsize, egoID, back.to.df = F)
 \arguments{
 \item{long}{A 'long' dataframe with alteri/dyads in rows.}
 
-\item{wide}{A 'wide' dataframe with networks in rows.}
+\item{wide}{A \code{data.frame} of alteri attributes in the wide format.}
 
 \item{netsize}{\code{vector} containing values of network size per ego.}
 

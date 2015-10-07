@@ -1,15 +1,6 @@
 # Create sample ego-centered network data.
 
 
-#' Calculate possible dyads for a given number of alteri.
-#'
-#' Here should be a a longer description of this function.
-#' @param alter.folder
-#' @param edge.folder
-#' @keywords ego-centric network
-#' @keywords sna
-dyad.poss <- function(max.alteri) { (max.alteri^2-max.alteri)/2 }
-
 #' Generate a random edge list for one network.
 #'
 #' Here should be a a longer description of this function.

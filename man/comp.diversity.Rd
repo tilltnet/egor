@@ -2,7 +2,7 @@
 % Please edit documentation in R/composition.R
 \name{comp.diversity}
 \alias{comp.diversity}
-\title{Calculate the network diversity of ego-centric networks for a given alter-attribute.}
+\title{Calculate the network diversity of ego-centered networks for a given alter-attribute.}
 \usage{
 comp.diversity(cat.counts, netsize)
 }
@@ -15,9 +15,9 @@ comp.diversity(cat.counts, netsize)
 Returns the absolute and proportional count of unique categories per ego/ network in a \code{dataframe}.
 }
 \description{
-This function calculates the network diversity of ego-centric networks for a given alter-attribute.
+This function calculates the network diversity of ego-centered networks for a given alter-attribute.
 }
 \keyword{analysis}
-\keyword{ego-centric}
+\keyword{ego-centered}
 \keyword{network}
 
