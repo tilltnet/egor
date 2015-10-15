@@ -98,7 +98,7 @@ wide.to.long <- function(wide, egoID = "egoID", max.alteri, start.col, end.col,
   ### Change names of alterID and egoID variables.
   colnames(long)[which(names(long) == "time")] <- "alterID"
   colnames(long)[which(names(long) == "id")] <- "egoID"
-  print(which(names(long) == "id"))
+  #print(which(names(long) == "id"))
   egoID_idx <- grep("egoID", names(long))
   alterID_idx <- grep("alterID_idx", names(long))
   long <- data.frame(alterID = long["alterID"], egoID = long["egoID"], long[, -c(egoID_idx, alterID_idx)])
@@ -268,21 +268,22 @@ read.egonet.one.file <- function(egos, netsize,  egoID = "egoID",
                                  attr.start.col, attr.end.col, dy.max.alteri,
                                  dy.first.var, ego.vars = NULL, var.wise = F) {
   
-  #
+  #Sort egos by egoID.
+  message("Sorting data by egoID.")
+  egos <- egos[order(as.numeric(egos[[egoID]])), ]
+  
   message("Transforming alteri data to long format: $long")
   alteri.df <- wide.to.long(wide = egos, egoID, max.alteri = dy.max.alteri,
                         start.col = attr.start.col, end.col = attr.end.col, 
                         ego.vars = ego.vars, var.wise = var.wise)
   
   #
-  message("Deleting NA rows.")
+  message("Deleting NA rows in long alteri data.")
   alteri.df <- long.df.to.list(long = alteri.df, wide = egos, netsize = netsize, 
                   egoID = egoID, back.to.df = T)
   
-  #Sort egos by egoID and alteri by egoID and alterID.
-  message("Sorting data by egoID and alterID.")
-  egos <- egos[order(egos[[egoID]]), ]
-  alteri.df <- alteri.df[order(alteri.df[["egoID"]], alteri.df[["alterID"]]), ]
+
+  #alteri.df <- alteri.df[order(alteri.df[["egoID"]], alteri.df[["alterID"]]), ]
   
   message("Splitting long alteri data into list entries for each network: $alteri.list")
   alteri.list <- long.df.to.list(long = alteri.df, wide = egos, netsize = netsize, 
@@ -342,8 +343,8 @@ read.egonet.two.files <- function(egos, alteri, netsize = NULL,  egoID = "egoID"
   if(is.null(alterID)) alterID <- "alterID"
   #Sort egos by egoID and alteri by egoID and alterID.
   message("Sorting data by egoID and alterID.")
-  egos <- egos[order(egos[[egoID]]), ]
-  alteri <- alteri[order(alteri[[egoID]], alteri[[alterID]]), ]
+  egos <- egos[order(as.numeric(egos[[egoID]])), ]
+  alteri <- alteri[order(as.numeric(alteri[[egoID]]), as.numeric(alteri[[alterID]])), ]
   
   if(is.null(netsize)) {
     message("No netsize variable specified, calculating/ guessing netsize by egoID in alteri data.")
