@@ -11,7 +11,8 @@
 #' @keywords ego-centric network analysis
 #' @export
 egoR.vis.wizzard <- function(egoR) {
-  graphs <- egoR$graphs
+  graphs_ <<- egoR$graphs
+  results_ <<- egoR$results
   shiny::runApp(system.file('wizz', package = 'egonetR'), launch.browser = T)
 }
 
