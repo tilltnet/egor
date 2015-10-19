@@ -32,4 +32,7 @@ fo <- read.egonet.folders(egos.file = path_to_egos_32.csv,
                           first.col.row.names = TRUE, csv.sep = ";")
 
 
-
+# Test Cases to build
+# - Cases without network information
+# - egoID as factor
+# - one file: var.wise alter attributes
