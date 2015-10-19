@@ -298,6 +298,8 @@ read.egonet.one.file <- function(egos, netsize,  egoID = "egoID",
   excluded <- egos[!egos_have_alteri, ]
   egos <- egos[egos_have_alteri, ]
   netsize <- netsize[egos_have_alteri]
+  e.lists <- e.lists[egos_have_alteri]
+  alteri.list <- alteri.list[egos_have_alteri]
   
   #print("Creating igraph objects: $graphs")
   graphs <- to.network(e.lists, alteri.list)
