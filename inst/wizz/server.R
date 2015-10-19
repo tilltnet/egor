@@ -89,7 +89,7 @@ shiny::shinyServer(function(input, output) {
         text(5,1,'No network data available for this entry.')
     }
     lll <- igraph::layout.fruchterman.reingold(graphs[[nnumber]], weights = edge.width)
-    print(edge.width)
+    
     igraph::plot.igraph(graphs[[nnumber]], vertex.size = vertex.size, 
                         vertex.color = colors_[vertex.color], edge.width = edge.width,
                         vertex.label = vertex.label, edge.color=e_colors[edge.color],
