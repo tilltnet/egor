@@ -16,14 +16,14 @@ EI <- function(alteri, edges_, var_name, egoID = "egoID", alterID = "alterID") {
   if (!is.data.frame(edges_)) { 
     edges_.list <- edges_
   } else {
-    edges_.list <- split(edges_, edges_[[egoID]])
+    edges_.list <- split(edges_, as.numeric(edges_[[egoID]]))
   }
   
-  # Check if alteri are dataframe or list, if dataframe split to list by egoID.
+  # Check if alteri are dataframe or list, if dataframe: split to list by egoID.
   if (!is.data.frame(alteri)) { 
     alteri.list <- alteri
   } else {
-    alteri.list <- split(alteri, alteri[[egoID]]) 
+    alteri.list <- split(alteri, as.numeric(alteri[[egoID]]))
   }
   
   # Function: calculating possible dyads between a given number of alteri/ nodes.
@@ -116,14 +116,19 @@ EI <- function(alteri, edges_, var_name, egoID = "egoID", alterID = "alterID") {
     net_EIs_sc <- calc.EI(sc_e, sc_i)
     
     # Return data.frame with all EIs.
-    data.frame(t(c(EI = EIs, sc_EI = net_EIs_sc, group_EIs)))
+    data.frame(EI = EIs, sc_EI = net_EIs_sc, t(group_EIs))
   }
-  
-  # Create NA data-frame row for networks with missing data or only a single group
+
+    # Create NA data-frame row for networks with missing data or only a single group
   na.df <- data.frame(t(c(EI = NA, sc_EI = NA, rep(NA, nlevels(factor(alteri[[var_name]]))))))
+  names(na.df) <- c(names(na.df)[1:2], levels(factor(alteri[[var_name]])))
+  na.df <- data.frame(na.df)
 
   # Invoke mapply on edges_ and alteri using list_to_EIs.
-  data.frame(t(mapply(lists_to_EIs, edges_.list, alteri.list)))
+  EIs <- mapply(lists_to_EIs, edges_.list, alteri.list, SIMPLIFY = F)
+  #class(EIs)
+  lapply(EIs, FUN = function(x) colnames(x) <- colnames(EIs[[1]]))
+  do.call(rbind, EIs)
 }
 
 
