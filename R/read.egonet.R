@@ -20,20 +20,25 @@
 #' @export
 long.df.to.list <- function(long, wide, netsize, egoID, back.to.df = F) {
   # Create list where every entry contains all alteri of one ego.
-  tie_list <- list()
-  p <- 1
-  for (i in wide[[egoID]]) {
-    #!# check if 'egoID' var exits if not recycle egoID name variable
-    if("egoID" %in% names(long)) {
-      tie_list[[p]] <- subset(long, long[["egoID"]] == i)
-    } else {
-      tie_list[[p]] <- subset(long, long[[egoID]] == i)
-    }
-    p <- p + 1
-  }
+  
+  # Old code, replaced by split()... possibly?!
+  #   tie_list <- list()
+  #   p <- 1
+  #   for (i in wide[[egoID]]) {
+  #     #!# check if 'egoID' var exits if not recycle egoID name variable #!# Problematic if "egoID" variable exists but other variable is supposed to the egoID
+  #     #if("egoID" %in% names(long)) {
+  #     if(egoID == "egoID") {
+  #       tie_list[[p]] <- subset(long, long[["egoID"]] == i)
+  #     } else {
+  #       tie_list[[p]] <- long[long[[egoID]] == i, ]
+  #     }
+  #     p <- p + 1
+  #   }
+  
+  tie_list <- split(x = long, f = long[[egoID]])
   
   # Create a new list with entries containing as many alteri as the
-  # netsize variable predicts. This assumes the NA line to be at the
+  # netsize variable predicts. This assumes the NA lines to be at the
   # bottom of the entries - #!# to prevent failure the entries should be
   # sorted with NA lines at the bottom!
   tie_list2 <- list()
@@ -336,14 +341,14 @@ read.egonet.two.files <- function(egos, alteri, netsize = NULL,  egoID = "egoID"
   if(!is.null(alterID)) {
     message("alterID specified; moving to first column of $alteri.df.")
     alterID.col <- match(alterID , names(alteri))
-    alterID.col
+    #alterID.col
     # Return:
     alteri <- data.frame(alterID = alteri[[alterID]], alteri[1:(alterID.col - 1)], 
                        alteri[(alterID.col + 1) : ncol(alteri)])
   } 
   
   if(is.null(alterID)) alterID <- "alterID"
-  #Sort egos by egoID and alteri by egoID and alterID.
+  # Sort egos by egoID and alteri by egoID and alterID.
   message("Sorting data by egoID and alterID.")
   egos <- egos[order(as.numeric(egos[[egoID]])), ]
   alteri <- alteri[order(as.numeric(alteri[[egoID]]), as.numeric(alteri[[alterID]])), ]
@@ -361,8 +366,8 @@ read.egonet.two.files <- function(egos, alteri, netsize = NULL,  egoID = "egoID"
   egos <- egos[egos_have_alteri, ]
   
   
-  print("Preparing alteri data.")
-  alteri.list <- long.df.to.list(alteri, egos, netsize, "egoID")
+  message("Preparing alteri data.")
+  alteri.list <- long.df.to.list(long = alteri, wide = egos, netsize = netsize, egoID = egoID)
   alteri.list <- lapply(alteri.list, FUN = function(x) 
     data.frame(alterID = as.character(c(1:NROW(x))), x))
   
@@ -376,7 +381,7 @@ read.egonet.two.files <- function(egos, alteri, netsize = NULL,  egoID = "egoID"
   }
 
   message("Splitting alteri data into list entries for each network: $alteri.list")
-  attributes_ <- long.df.to.list(alteri, wide = egos, netsize, egoID,
+  attributes_ <- long.df.to.list(long = alteri, wide = egos, netsize = netsize, egoID = egoID,
                                 back.to.df = F)
   
   message("Transforming wide edge data to edgelist: $edges")
@@ -388,7 +393,7 @@ read.egonet.two.files <- function(egos, alteri, netsize = NULL,  egoID = "egoID"
   graphs <- to.network(elist, attributes_)
   
   egoR <- list(egos.df = egos, alteri.df = alteri, alteri.list = attributes_, edges = elist,
-       graphs = graphs, results = netsize)
+       graphs = graphs, results = data.frame(egos[[egoID]], netsize))
   if(NROW(excluded) > 0) {
     message("Egos having no alteri associated to them are excluded: $excluded")
     egoR$excluded <- excluded

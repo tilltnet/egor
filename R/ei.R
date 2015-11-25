@@ -61,9 +61,10 @@ EI <- function(alteri, edges_, var_name, egoID = "egoID", alterID = "alterID") {
   
   # Calculate group and network EIs.
   lists_to_EIs <- function(edges_, alteri, alterID = 'alterID') {
-    #print(alteri$egoID)
+    #print(alteri$a0fall)
     if(NROW(edges_)<1 | !NROW(alteri)>1 ) return(na.df)
     if(length(table(alteri[[var_name]])) < 2) return(na.df)
+    if(sum(!is.na(alteri[[var_name]])) < 2) return(na.df)
     # Make sure alteris are sorted and there is a useful alterID
     alteri <- alteri[order(alteri[[alterID]]), ]
     #alteri[[alterID]] <- 1:NROW(alteri)
