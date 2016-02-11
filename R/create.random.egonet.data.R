@@ -4,8 +4,8 @@
 #' Generate a random edge list for one network.
 #'
 #' Here should be a a longer description of this function.
-#' @param alter.folder
-#' @param edge.folder
+#' @param alter.folder Here should be a a longer description of this param.
+#' @param edge.folder Here should be a a longer description of this param.
 #' @keywords ego-centric network
 #' @keywords sna
 generate.sample.edge.list <- function(max.alteri) {
@@ -68,7 +68,7 @@ generate.sample.ego.data <- function(net.count, max.alteri, netsize = NULL) {
   alteri <- data.frame(egoID, alterID, alter.sex, alter.age)
   
   # Trimming down alteri per network using netsize
-  alteri <- long.df.to.list(alteri, egos, egos$netsize, egoID = "egoID", back.to.df = T)
+  alteri <- long.df.to.list(alteri, egos$netsize, egoID = "egoID", back.to.df = T)
     
   # Generating edges
   edge.list <- list()
