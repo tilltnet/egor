@@ -18,22 +18,8 @@
 #' called the \code{list} entries are combined to one \code{dataframe}, in the
 #' 'long' format.
 #' @export
-long.df.to.list <- function(long, wide, netsize, egoID, back.to.df = F) {
+long.df.to.list <- function(long, netsize, egoID, back.to.df = F) {
   # Create list where every entry contains all alteri of one ego.
-  
-  # Old code, replaced by split()... possibly?!
-  #   tie_list <- list()
-  #   p <- 1
-  #   for (i in wide[[egoID]]) {
-  #     #!# check if 'egoID' var exits if not recycle egoID name variable #!# Problematic if "egoID" variable exists but other variable is supposed to the egoID
-  #     #if("egoID" %in% names(long)) {
-  #     if(egoID == "egoID") {
-  #       tie_list[[p]] <- subset(long, long[["egoID"]] == i)
-  #     } else {
-  #       tie_list[[p]] <- long[long[[egoID]] == i, ]
-  #     }
-  #     p <- p + 1
-  #   }
   
   tie_list <- split(x = long, f = long[[egoID]])
   
@@ -41,16 +27,17 @@ long.df.to.list <- function(long, wide, netsize, egoID, back.to.df = F) {
   # netsize variable predicts. This assumes the NA lines to be at the
   # bottom of the entries - #!# to prevent failure the entries should be
   # sorted with NA lines at the bottom!
-  tie_list2 <- list()
-  for (i in 1:length(tie_list)) {
-    net_sz <- netsize[i]
-    #print(net_sz)
-    if(is.null(net_sz)) net_sz <- NA
-    if(!is.na(net_sz) & net_sz > 0) tie_list2[[i]] <- tie_list[[i]][1:net_sz, ]
-  }
+  netsize_nona <- netsize
+  netsize_nona[is.na(netsize_nona)] <- 0
+  netsize_nona[is.nan(netsize_nona)] <- 0
+  tie_list_nona <- mapply(FUN = function(x, netsize) x[0:netsize, ], 
+                             x = tie_list, netsize = netsize_nona, 
+                             SIMPLIFY = F)
+  
+  
   if (back.to.df == T) 
-    return(do.call("rbind", tie_list2))
-  tie_list2
+    return(do.call("rbind", tie_list_nona))
+  tie_list_nona
 } 
 
 
@@ -105,7 +92,7 @@ wide.to.long <- function(wide, egoID = "egoID", max.alteri, start.col, end.col,
   colnames(long)[which(names(long) == "id")] <- "egoID"
   #print(which(names(long) == "id"))
   egoID_idx <- grep("egoID", names(long))
-  alterID_idx <- grep("alterID_idx", names(long))
+  alterID_idx <- grep("alterID", names(long))
   long <- data.frame(alterID = long["alterID"], egoID = long["egoID"], long[, -c(egoID_idx, alterID_idx)])
   long <- long[with(long, order(egoID)), ]
   
@@ -277,22 +264,19 @@ read.egonet.one.file <- function(egos, netsize,  egoID = "egoID",
   message("Sorting data by egoID.")
   egos <- egos[order(as.numeric(egos[[egoID]])), ]
   
-  message("Transforming alteri data to long format: $long")
+  message("Transforming alteri data to long format.")
   alteri.df <- wide.to.long(wide = egos, egoID, max.alteri = dy.max.alteri,
                         start.col = attr.start.col, end.col = attr.end.col, 
                         ego.vars = ego.vars, var.wise = var.wise)
   
-  #
   message("Deleting NA rows in long alteri data.")
-  alteri.df <- long.df.to.list(long = alteri.df, wide = egos, netsize = netsize, 
-                  egoID = egoID, back.to.df = T)
-  
-
-  #alteri.df <- alteri.df[order(alteri.df[["egoID"]], alteri.df[["alterID"]]), ]
-  
   message("Splitting long alteri data into list entries for each network: $alteri.list")
-  alteri.list <- long.df.to.list(long = alteri.df, wide = egos, netsize = netsize, 
-                                egoID = egoID, back.to.df = F)
+  alteri.list <- long.df.to.list(long = alteri.df, netsize = netsize, 
+                  egoID = "egoID", back.to.df = F)
+  
+  message("Combining trimmed alteri.list to data.frame: $alteri.df")
+  
+  alteri.df <- do.call(rbind, alteri.list)
   
   message("Transforming wide dyad data to edgelist: $edges")
   e.lists <- wide.dyads.to.edgelist(e.wide = egos, first.var = dy.first.var, 
@@ -367,7 +351,7 @@ read.egonet.two.files <- function(egos, alteri, netsize = NULL,  egoID = "egoID"
   
   
   message("Preparing alteri data.")
-  alteri.list <- long.df.to.list(long = alteri, wide = egos, netsize = netsize, egoID = egoID)
+  alteri.list <- long.df.to.list(long = alteri, netsize = netsize, egoID = egoID)
   alteri.list <- lapply(alteri.list, FUN = function(x) 
     data.frame(alterID = as.character(c(1:NROW(x))), x))
   
@@ -381,7 +365,7 @@ read.egonet.two.files <- function(egos, alteri, netsize = NULL,  egoID = "egoID"
   }
 
   message("Splitting alteri data into list entries for each network: $alteri.list")
-  attributes_ <- long.df.to.list(long = alteri, wide = egos, netsize = netsize, egoID = egoID,
+  attributes_ <- long.df.to.list(long = alteri, netsize = netsize, egoID = egoID,
                                 back.to.df = F)
   
   message("Transforming wide edge data to edgelist: $edges")
