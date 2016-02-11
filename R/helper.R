@@ -4,7 +4,8 @@
 #'
 #' @template max_alteri
 #' @template directed
-#' @return \code{dyad.poss} returns the count of possible edges.
+#' @return \code{dyad.poss} returns the count of possible edges in an
+#'  undirected or directed, ego-centered network, based on the number of alteri.
 #' @export
 dyad.poss <- function(max.alteri, directed = F) {
   dp <- (max.alteri^2-max.alteri)
@@ -19,15 +20,11 @@ dyad.poss <- function(max.alteri, directed = F) {
 #' network size. This is useful for sanitizing alter-alter relations in the wide 
 #' format.
 #' @export
-poss.dyads.wide <- function(max.alteri) {
+sanitize.wide.edges <- function(max.alteri) {
   x <- max.alteri
   dp <- dyad.poss(x)
-  names_ <- c()
-  for(i in 1:(x-1)){
-    for(j in (i+1):x){
-      names_ <- c(names_, paste(i,j,sep=" to "))
-    }
-  }
+  
+  names_ <- create.edge.names.wide(x)
   
   m <- matrix(0, nrow = x, ncol = x)
   m[lower.tri(m)] <- 99
@@ -41,3 +38,28 @@ poss.dyads.wide <- function(max.alteri) {
   names(df) <- names_
   df
 }
+
+#' @describeIn dyad.poss Creates a \code{vector} of names for variables 
+#' containing data on alter-alter relations/ dyads in ego-centered networks.
+#' @export
+create.edge.names.wide <- function(x) {
+  leading.zeros.character <- paste("%0",
+                                   nchar(as.character(x)),
+                                   "d", sep = "")
+  
+  names_ <- c()
+  for(i in 1:(x-1)){
+    for(j in (i+1):x){
+      i_ <- sprintf(leading.zeros.character, i)
+      j_ <- sprintf(leading.zeros.character, j)
+      names_ <- c(names_, paste(i_,j_,sep=" to "))
+    }
+  }
+  names_
+}
+
+#' @describeIn dyad.poss Calculates the possible edges between members of 
+#' different groups in an ego-centered network.
+#' @export
+dyads.possible.between.groups <- function(x, y) x*y
+
