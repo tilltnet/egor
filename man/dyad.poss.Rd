@@ -2,6 +2,7 @@
 % Please edit documentation in R/helper.R
 \name{dyad.poss}
 \alias{create.edge.names.wide}
+\alias{din.page.dist}
 \alias{dyad.poss}
 \alias{dyads.possible.between.groups}
 \alias{sanitize.wide.edges}
@@ -14,6 +15,8 @@ sanitize.wide.edges(max.alteri)
 create.edge.names.wide(x)
 
 dyads.possible.between.groups(x, y)
+
+din.page.dist(x)
 }
 \arguments{
 \item{max.alteri}{A \code{numeric} giving the maximum number of alteri.}
@@ -40,5 +43,9 @@ containing data on alter-alter relations/ dyads in ego-centered networks.
 
 \item \code{dyads.possible.between.groups}: Calculates the possible edges between members of 
 different groups in an ego-centered network.
+
+\item \code{din.page.dist}: Calculates the optimal distribution of a number of 
+equally sized objects on a DIN-Norm DIN 476 (i.e. DIN A4) page in landscape 
+view.
 }}
 

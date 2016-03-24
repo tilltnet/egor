@@ -6,6 +6,11 @@
 \usage{
 generate.sample.edge.list(max.alteri)
 }
+\arguments{
+\item{alter.folder}{Here should be a a longer description of this param.}
+
+\item{edge.folder}{Here should be a a longer description of this param.}
+}
 \description{
 Here should be a a longer description of this function.
 }

@@ -63,3 +63,15 @@ create.edge.names.wide <- function(x) {
 #' @export
 dyads.possible.between.groups <- function(x, y) x*y
 
+#' @describeIn dyad.poss Calculates the optimal distribution of a number of 
+#' equally sized objects on a DIN-Norm DIN 476 (i.e. DIN A4) page in landscape 
+#' view.
+din.page.dist <- function(x) {
+  for(yps in 2:x) {
+    ix <- x / yps
+    if(ix/yps <= sqrt(2)) {
+      break()  
+    }
+  }
+  c(x = ceiling(ix),y = ceiling(yps))
+}
