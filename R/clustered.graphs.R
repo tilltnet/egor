@@ -1,7 +1,7 @@
 #' Cluster ego-centered networks by a factor and visualise the results
 #'
 #' The idea of clustered graphs in ego-centered network analysis is developed by
-#' Brandes et al. (2008). It helps to discover and visualise structural and 
+#' Lerner et al. (2008). It helps to discover and visualise structural and 
 #' compostional properties of ego-centered networks, based on a pre-defined
 #' factor variable on the alter level, i.e. the country of origin.
 #' @param alteri.list \code{List} of \code{data frames} containing the alteri 
@@ -43,7 +43,7 @@ clustered.graphs <- function(alteri.list, edges.list, clust.groups) {
     SelectGroupEdges <- function(g, clust.groups, group1, group2 = group1) {
       V.group1 <- igraph::V(g)[igraph::get.vertex.attribute(g, clust.groups) == group1]
       V.group2 <- igraph::V(g)[igraph::get.vertex.attribute(g, clust.groups) == group2]
-      E(g)[V.group1 %--% V.group2]
+      igraph::E(g)[V.group1 %--% V.group2]
     }
     
     x_names <- names(table(igraph::get.vertex.attribute(g, clust.groups)))
@@ -101,7 +101,7 @@ vis.clustered.graphs <- function(graphs, vertex.min.size, vertex.max.size,
                                center = 1, labels = F, to.pdf = T) {
 
     plotLegendGraph <- function(grps.graph, center) {
-    plot.igraph(grps.graph, 
+      igraph::plot.igraph(grps.graph, 
                 vertex.color = "grey", 
                 vertex.frame.color = NA, 
                 vertex.size = 25,
@@ -110,17 +110,17 @@ vis.clustered.graphs <- function(graphs, vertex.min.size, vertex.max.size,
                 vertex.label.cex = 4,
                 vertex.label.family = "sans",
                 vertex.label.dist = 4,
-                vertex.label.degree = ifelse(layout.star(grps.graph, center = center)[,1] >= 1, 0, pi),
-                layout = layout.star(grps.graph, center = center))
+                vertex.label.degree = ifelse(igraph::layout.star(grps.graph, center = center)[,1] >= 1, 0, pi),
+                layout = igraph::layout.star(grps.graph, center = center))
   }
   
   plotGraph <- function(graph, center) {
     if(labels) {
-      vertex.label <- paste(" ", V(graph)$grp.size,
-                            round(V(graph)$grp.density, digits = 2), sep = "\n")
-      vertex.label.b <- paste(V(graph)$name, " ",  " ", sep = "\n")
-      edge.label <- round(E(graph)$grp.density, digits = 2)
-      grey.shades <- gray(9:2/10)[V(graph)$grp.density*10]
+      vertex.label <- paste(" ", igraph::V(graph)$grp.size,
+                            round(igraph::V(graph)$grp.density, digits = 2), sep = "\n")
+      vertex.label.b <- paste(igraph::V(graph)$name, " ",  " ", sep = "\n")
+      edge.label <- round(igraph::E(graph)$grp.density, digits = 2)
+      grey.shades <- gray(9:2/10)[igraph::V(graph)$grp.density*10]
       grey.shades <-  strtoi(substr(gsub("#", replacement = "0x", grey.shades), start = 1, stop = 4))
       label.shades <- ifelse(grey.shades < 120, "white", "black")
     } else {
@@ -130,12 +130,12 @@ vis.clustered.graphs <- function(graphs, vertex.min.size, vertex.max.size,
       label.shades <- NA
     }
     
-    vertex.size <- V(graph)$grp.size
+    vertex.size <- igraph::V(graph)$grp.size
     vertex.size <- ifelse(vertex.size < vertex.min.size, vertex.min.size, vertex.size)
     vertex.size[vertex.size > vertex.max.size] <- vertex.max.size
     
-    plot.igraph(graph, 
-                vertex.color = gray(9:2/10)[V(graph)$grp.density*10], 
+    igraph::plot.igraph(graph, 
+                vertex.color = gray(9:2/10)[igraph::V(graph)$grp.density*10], 
                 vertex.frame.color = NA, 
                 vertex.size = vertex.size,
                 vertex.label.color = label.shades, 
@@ -143,15 +143,15 @@ vis.clustered.graphs <- function(graphs, vertex.min.size, vertex.max.size,
                 vertex.label = vertex.label,
                 vertex.label.family = "sans",
                 vertex.label.font = 1,
-                edge.width = E(graph)$grp.density*30,
+                edge.width = igraph::E(graph)$grp.density*30,
                 edge.arrow.size = 0, 
                 edge.label = edge.label,
                 edge.label.color = edge.label.color,
                 edge.label.cex = edge.label.cex,
                 edge.label.family = "sans",
-                layout = layout.star(graph, center = center)) # Test Layout with 3 groups/ 2 groups, more groups
+                layout = igraph::layout.star(graph, center = center)) # Test Layout with 3 groups/ 2 groups, more groups
     
-    plot.igraph(graph, add = T,
+    igraph::plot.igraph(graph, add = T,
                 vertex.color = NA, 
                 vertex.frame.color = NA, 
                 vertex.size = vertex.size,
@@ -163,13 +163,13 @@ vis.clustered.graphs <- function(graphs, vertex.min.size, vertex.max.size,
                 edge.width = 0,
                 edge.color = NA,
                 edge.arrow.size = 0, 
-                layout = layout.star(graph, center = center))
+                layout = igraph::layout.star(graph, center = center))
     #print(label.shades)
     #print(grey.shades)
   }
   
   example.graph <- graphs[[1]]
-  center.vertex.max <- length(V(example.graph))
+  center.vertex.max <- length(igraph::V(example.graph))
   
   if(to.pdf) {
     rand.chars <- paste(sample(c(0:9, letters, LETTERS),
