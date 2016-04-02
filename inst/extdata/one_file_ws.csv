@@ -1,0 +1,4 @@
+"";"egoID";"sex";"age";"netsize";"alterID.1";"alter.sex.1";"alter.age.1";"alterID.2";"alter.sex.2";"alter.age.2";"alterID.3";"alter.sex.3";"alter.age.3";"alterID.4";"alter.sex.4";"alter.age.4";"alterID.5";"alter.sex.5";"alter.age.5";"1 to 2";"1 to 3";"1 to 4";"1 to 5";"2 to 3";"2 to 4";"2 to 5";"3 to 4";"3 to 5";"4 to 5"
+"1";"Stanley";"w";"36 - 45";5;"Harry";"m";"86";"Barry";"m";"74";"Liz";"w";"92";"Ronald";"m";"67";"Mark";"m";"73";1;2;2;0;0;2;2;0;2;0
+"2";"2";"w";"66 - 100";5;"1";"m";"86";"2";"w";"45";"3";"w";"92";"4";"m";"84";"5";"w";"53";2;1;1;1;2;0;0;1;1;1
+"3";"3";"w";"56 - 65";5;"1";"w";"77";"2";"m";"90";"3";"w";"56";"4";"w";"87";"5";"m";"70";2;1;2;1;2;1;2;2;0;1

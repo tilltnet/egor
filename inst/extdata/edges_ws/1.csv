@@ -1,0 +1,11 @@
+"";"Source";"Target";"weight"
+"1";"Harry";"Barry";1
+"2";"Harry";"Liz";2
+"3";"Harry";"Ronald";2
+"4";"Harry";"Mark";0
+"5";"Barry";"Liz";0
+"6";"Barry";"Ronald";2
+"7";"Barry";"Mark";2
+"8";"Liz";"Ronald";0
+"9";"Liz";"Mark";2
+"10";"Ronald";"Mark";0
