@@ -54,7 +54,7 @@ created clustered graph objects.
 \references{
 Brandes, U., Lerner, J., Lubbers, M. J., McCarty, C., & Molina, 
 J. L. (2008). Visual Statistics for Collections of Clustered Graphs. 2008 
-IEEE Pacific Visualization Symposium, 47–54.
+IEEE Pacific Visualization Symposium, 47-54.
 }
 \keyword{analysis}
 \keyword{ego-centric}

@@ -18,8 +18,8 @@ returns a \code{vector} of network density values.
 }
 \description{
 This function uses an 'egoR' object (list of data objects created by an 
-egonetR import function) and calculates the density of all the ego-centered
-networks listed in the 'egoR' object.
+egonetR import function) and calculates the relationshio density of all 
+the ego-centered networks listed in the 'egoR' object.
 }
 \keyword{analysis}
 \keyword{ego-centric}

@@ -21,10 +21,10 @@ want to calculate ego's EI use the composition command.
 \references{
 Krackhardt, D., Stern, R.N., 1988. Informal networks and 
 organizational crises: an experimental simulation. Social Psychology 
-Quarterly 51 (2), 123–140.
+Quarterly 51 (2), 123-140.
 
 Everett, M. G., & Borgatti, S. P. (2012). Categorical attribute 
-based centrality: E-I and G-F centrality. Social Networks, 34(4), 562–569.
+based centrality: E-I and G-F centrality. Social Networks, 34(4), 562-569.
 }
 \keyword{ego-centered}
 \keyword{network}

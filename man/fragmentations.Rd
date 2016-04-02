@@ -11,7 +11,7 @@ fragmentations(edges_)
 }
 \description{
 This gives the number of seperate fragments in a \code{list} ego-centered 
-networks.
+networks. Based on igraph::clusters().
 }
 \keyword{ego-centered}
 \keyword{network}
