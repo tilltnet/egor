@@ -38,11 +38,11 @@ by a 'legend' plot giving the labels of the vertices.}
 \value{
 \code{clustered.graphs} returns a list of graph objects representing 
 the clustered ego-centered network data; \code{vis.clustered.graphs} plots
-the clustered graphs (into a pdf File if indicated)
+the clustered graphs (into a pdf file, if indicated)
 }
 \description{
 The idea of clustered graphs in ego-centered network analysis is developed by
-Brandes et al. (2008). It helps to discover and visualise structural and 
+Lerner et al. (2008). It helps to discover and visualise structural and 
 compostional properties of ego-centered networks, based on a pre-defined
 factor variable on the alter level, i.e. the country of origin.
 }
@@ -51,6 +51,11 @@ factor variable on the alter level, i.e. the country of origin.
 \item \code{vis.clustered.graphs}: Visualises clustered.graphs using the formerly
 created clustered graph objects.
 }}
+\references{
+Brandes, U., Lerner, J., Lubbers, M. J., McCarty, C., & Molina, 
+J. L. (2008). Visual Statistics for Collections of Clustered Graphs. 2008 
+IEEE Pacific Visualization Symposium, 47–54.
+}
 \keyword{analysis}
 \keyword{ego-centric}
 \keyword{network}

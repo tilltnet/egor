@@ -14,9 +14,7 @@ Ego-centererd network data includes three kinds of data:
 2. Alteri data
 3. Edge data
 
-The inforamtion on the **egos** is usually stored in a dataset,
-represented in R as a `dataframe`. With the exception of the ego data, there are
-several formats the data can be stored in.
+The inforamtion on the **egos** is usually stored in a `dataframe`.
 
 **Alteri** data can be stored in a 
 single `dataframe` with the alteri as the rows (long-format), the data might be 

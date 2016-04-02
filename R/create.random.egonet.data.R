@@ -100,7 +100,14 @@ generate.sample.ego.data <- function(net.count, max.alteri, netsize = NULL) {
 # }
 # all(tr_ch)
 
-# Used for generating wide edge format data. Only works properly, if the netsize of all networks is constant.
+# Used for generating wide edge format data. 
+#' Transfroms edge lists to alter-alter wide format data.
+#'
+#' Only works properly, if the netsize of all networks is constant.
+#' @param edges List of \code{data.frames} containg edge lists.
+#' @keywords ego-centric network
+#' @keywords sna
+#' @export
 edges.to.wide <- function(edges) {
   wide_edges <- plyr::ldply(edges, .fun= function(x) t(x$weight))
   names(wide_edges) <- paste(edges[[1]]$Source, "to", edges[[1]]$Target)

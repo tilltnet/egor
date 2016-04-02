@@ -66,6 +66,7 @@ dyads.possible.between.groups <- function(x, y) x*y
 #' @describeIn dyad.poss Calculates the optimal distribution of a number of 
 #' equally sized objects on a DIN-Norm DIN 476 (i.e. DIN A4) page in landscape 
 #' view.
+#' @export
 din.page.dist <- function(x) {
   for(yps in 2:x) {
     ix <- x / yps

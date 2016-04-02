@@ -7,6 +7,11 @@
 #' or \code{data.frame} of alteri attributes.
 #' @param edges_ \code{List} of edgelist-\code{dataframes} or one 
 #' \code{dataframes} #' containing all edges_, 
+#' @references Krackhardt, D., Stern, R.N., 1988. Informal networks and 
+#' organizational crises: an experimental simulation. Social Psychology 
+#' Quarterly 51 (2), 123-140.
+#' @references Everett, M. G., & Borgatti, S. P. (2012). Categorical attribute 
+#' based centrality: E-I and G-F centrality. Social Networks, 34(4), 562-569. 
 #' @keywords ego-centered network
 #' @keywords sna
 #' @export
@@ -118,6 +123,7 @@ EI <- function(alteri, edges_, var_name, egoID = "egoID", alterID = "alterID") {
     
     # Return data.frame with all EIs.
     data.frame(EI = EIs, sc_EI = net_EIs_sc, t(group_EIs))
+    #data.frame(EI = net_EIs_sc, t(group_EIs))
   }
 
     # Create NA data-frame row for networks with missing data or only a single group
@@ -129,14 +135,15 @@ EI <- function(alteri, edges_, var_name, egoID = "egoID", alterID = "alterID") {
   EIs <- mapply(lists_to_EIs, edges_.list, alteri.list, SIMPLIFY = F)
   #class(EIs)
   lapply(EIs, FUN = function(x) colnames(x) <- colnames(EIs[[1]]))
-  do.call(rbind, EIs)
+  res <- do.call(rbind, EIs)
+  res[2:NCOL(res)]
 }
 
 
 #' Fragmentations of a list of ego-centered networks
 #'
 #' This gives the number of seperate fragments in a \code{list} ego-centered 
-#' networks.
+#' networks. Based on igraph::clusters().
 #' @param edges_ \code{List} of edgelist-\code{dataframes}
 #' @keywords ego-centered network
 #' @keywords sna

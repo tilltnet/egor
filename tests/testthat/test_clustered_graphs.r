@@ -32,7 +32,7 @@ edges.list <- lapply(edges.list, FUN = deleteRandomEdges)
 graphs <- clustered.graphs(alteri.list, edges.list, "random.groups") 
 
 vis.clustered.graphs(graphs, vertex.min.size = 45, vertex.max.size = 200,
-                   labels = T, to.pdf = F)
+                   labels = F, to.pdf = F)
 
 vis.clustered.graphs(graphs, vertex.min.size = 45, vertex.max.size = 200,
                    labels = F, to.pdf = T)

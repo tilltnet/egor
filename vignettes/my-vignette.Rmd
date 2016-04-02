@@ -22,7 +22,6 @@ ego-centered networks in R with the help of `egonetR`.
 
 ## Import
 
-
 ## Manipulate
 
 ## Analyse

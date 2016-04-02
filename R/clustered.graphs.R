@@ -19,6 +19,9 @@
 #' @param labels \code{Boolean}. Plots with turned off labels will be preceeded 
 #' by a 'legend' plot giving the labels of the vertices.
 #' @param to.pdf \code{Boolean}.
+#' @references Brandes, U., Lerner, J., Lubbers, M. J., McCarty, C., & Molina, 
+#' J. L. (2008). Visual Statistics for Collections of Clustered Graphs. 2008 
+#' IEEE Pacific Visualization Symposium, 47-54.
 #' @return \code{clustered.graphs} returns a list of graph objects representing 
 #' the clustered ego-centered network data; \code{vis.clustered.graphs} plots
 #' the clustered graphs (into a pdf file, if indicated)
@@ -175,13 +178,15 @@ vis.clustered.graphs <- function(graphs, vertex.min.size, vertex.max.size,
     rand.chars <- paste(sample(c(0:9, letters, LETTERS),
                                8, replace=TRUE), collapse="")
     filename <- paste("clustered_graphs_" , rand.chars, ".pdf")
-    pdf(file=filename)
+    pdf(file=filename, width = 46.81, height = 33.11)
+    
+    page.xy <- din.page.dist(length(graphs) + 1)
+    par(mfrow=c(page.xy[1], page.xy[2]))
   }
   
   if(!labels) {
     plotLegendGraph(example.graph, 1)
   }
-  
   
   edge.label.color <- "black"
   edge.label.cex <- 0.7
