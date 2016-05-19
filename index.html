@@ -25,8 +25,8 @@
 <a id="what-is-egonetr-developed-for" class="anchor" href="#what-is-egonetr-developed-for" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What is egonetR developed for?</h2>
 
 <ul>
-<li>Import and data handling: Loading data from different formats to R and generating a so called egoR object which facilitates the handling of different data formats. Ego-centered network data can – depending on the software or approach you choose during data collection – be stored in different ways (see different data formats). EgonetR allows to load data from different source formats, without manipulating the source data structure (e.g. from the so called “one file”, “two files” or “folders” format; find more information on this here [hier deine ppt mit den unterschieclihen data structuren]). (If you are not familiar with the different data structures in R, you can learn about it in this short introduction [hier unsere basic Einführung hinterlegen/ als pdf und als script].)</li>
-<li>Data analysis: Ego-centered network analysis is commonly conducted on two different level. On the alter level the analysis focusses on the qualities of the ego-alter-relationships; on the network level analysis focuses the structure and composition of the ego-centered network. For both levels egonetR allows to calculate a range of network measures.
+<li>Import and data handling: Loading data from different formats to R and generating a so called egoR object which facilitates the handling of different data formats. Ego-centered network data can – depending on the software or approach you choose during data collection – be stored in different ways (see different data formats). EgonetR allows to load data from different source formats, without manipulating the source data structure (e.g. from the so called “one file”, “two files” or “folders” format; find more information on this <a href="http://tilltnet.github.io/egonetR/downloads/egonetR_Formats_Import.pdf">here</a>. (If you are not familiar with the different data structures in R, you can learn about it in this <a href="http://tilltnet.github.io/egonetR/downloads/01_basics.html">short introduction </a>.)</li>
+<li>Data analysis: ego-centered network analysis is commonly conducted on two different level. On the alter level the analysis focusses on the qualities of the ego-alter-relationships; on the network level analysis focuses the structure and composition of the ego-centered network. For both levels egonetR allows to calculate a range of network measures.
 
 <ul>
 <li>On alter level: multiplexity, homophily</li>
@@ -45,13 +45,52 @@
 <ol>
 <li>Installation of R can be done from <a href="http://cran.r-project.org/">http://cran.r-project.org/</a>
 </li>
-<li>Installation of a graphical user interface such as R-Studio via <a href="http://www.rstudio.com">www.rstudio.com</a> (optional but highly recommended)</li>
+<li>Installation of a graphical user interface such as R-Studio via <a href="http://www.rstudio.com">www.rstudio.com</a> (optional, but recommended)</li>
 <li>Installation of egonetR. There are different ways to install egonetR. Because egonetR is under development you will have to install the devtools package first to be able to install egonetR in its development status. To do this got to your R console install and load the devtools package: 
 install.packages(“devtools”)
 library(devtools)</li>
 <li>Afterwards you can install egonetR by performing this command in your console.
 install_github(repo="tilltnet/egonetR")</li>
 </ol>
+
+<h2>
+<a id="basic-functionality" class="anchor" href="#basic-functionality" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Basic functionality</h2>
+
+<p>Find basic functionality listed below.</p>
+
+<h3>
+<a id="the-import-functions" class="anchor" href="#the-import-functions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>The import functions</h3>
+
+<p>Depending on how your source data look like (“one file”, “two filed”, “folders” format; find a more detailed explanation here [hier deine ppt aus dem Kurs hinterlegen zu den formaten]) you will choose one of these functions to load ego-centered network data and generate the egoR object. </p>
+
+<ul>
+<li>read.egonet.one.file(egos, netsize, egoID = "egoID", attr.start.col, attr.end.col, dy.max.alteri, dy.first.var, ego.vars = NULL, var.wise = F)</li>
+<li>read.egonet.two.files(egos, alteri, netsize = NULL, egoID = "egoID",  alterID = NULL, e.max.alteri, e.first.var, ego.vars = NULL,  selection = NULL)</li>
+<li>read.egonet.folders(egos.file, alter.folder, edge.folder, csv.sep = ",",egoID = "egoID", first.col.row.names = FALSE)</li>
+</ul>
+
+<p>EgoR object is a list of six objects: 
+1. egos.df: dataframe of all egos and their attributes
+2. alteri.df: dataframe of all alteri
+3. alteri.list: list of dataframes of all alteri per ego
+4. edges: list of dataframes with edge lists per network
+5. graphs: list of igraph objects
+6. results: a result dataframe, pre-populated with the network size of each network</p>
+
+<h3>
+<a id="analysis" class="anchor" href="#analysis" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Analysis</h3>
+
+<p>EgonetR allows to calculate a range of network measures, e.g.:
+density: egoR.density(egoR, weight = "weight", max.netsize = NULL) 
+compositional measures for ego-centered-network data (diversity, EI-Index): composition(alteri, v_alt, netsize, egoID = "egoID", v_ego = NULL, mode = "regular")</p>
+
+<h3>
+<a id="visualization" class="anchor" href="#visualization" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Visualization</h3>
+
+<ul>
+<li>Visualisation Wizzard: vis.wizzard()</li>
+<li>Clustered graphs: clustered.graphs(alteri.list, edges.list, clust.groups)</li>
+</ul>
 
 <h2>
 <a id="workhshops-with-egonetr" class="anchor" href="#workhshops-with-egonetr" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Workhshops with egonetR</h2>
