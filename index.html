@@ -46,7 +46,7 @@
 <li>Installation of R can be done from <a href="http://cran.r-project.org/">http://cran.r-project.org/</a>
 </li>
 <li>Installation of a graphical user interface such as R-Studio via <a href="http://www.rstudio.com">www.rstudio.com</a> (optional, but recommended)</li>
-<li>Installation of egonetR. There are different ways to install egonetR. Because egonetR is under development you will have to install the devtools package first to be able to install egonetR in its development status. To do this got to your R console install and load the devtools package: 
+<li>Installation of egonetR. There are different ways to install egonetR. Because egonetR is under development you will have to install the devtools package first to be able to install egonetR in its development status. To do this got to your R console install and load devtools: 
 install.packages(“devtools”)
 library(devtools)</li>
 <li>Afterwards you can install egonetR by performing this command in your console.
@@ -80,19 +80,22 @@ install_github(repo="tilltnet/egonetR")</li>
 <h3>
 <a id="analysis" class="anchor" href="#analysis" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Analysis</h3>
 
-<p>EgonetR allows to calculate a range of network measures, e.g.:
-density: egoR.density(egoR, weight = "weight", max.netsize = NULL) 
-compositional measures for ego-centered-network data (diversity, EI-Index): composition(alteri, v_alt, netsize, egoID = "egoID", v_ego = NULL, mode = "regular")</p>
+<p>EgonetR allows to calculate a range of network measures, e.g.:</p>
+
+<ul>
+<li>density: egoR.density(egoR, weight = "weight", max.netsize = NULL) 
+compositional measures for ego-centered-network data (diversity, EI-Index): composition(alteri, v_alt, netsize, egoID = "egoID", v_ego = NULL, mode = "regular")</li>
+</ul>
 
 <h3>
 <a id="visualization" class="anchor" href="#visualization" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Visualization</h3>
 
 <ul>
 <li>Visualisation Wizzard: vis.wizzard()
-<img src="tilltnet.github.io/egonetR/vis_wizzard.PNG" alt="Visualisation Wizzard">
+<img src="tilltnet.github.io/egonetR/downloads/vis_wizzard.PNG" alt="Visualisation Wizzard">
 </li>
 <li>Clustered graphs: clustered.graphs(alteri.list, edges.list, clust.groups)
-<img src="tilltnet.github.io/egonetR/clustered_graphs.png" alt="Clustered graphs">
+<img src="tilltnet.github.io/egonetR/downloads/clustered_graphs.png" alt="Clustered graphs">
 </li>
 </ul>
 
