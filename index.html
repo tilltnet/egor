@@ -68,11 +68,11 @@
 
 <p>Depending on how your source data look like (“one file”, “two filed”, “folders” format; find a more detailed explanation here [hier deine ppt aus dem Kurs hinterlegen zu den formaten]) you will choose one of these functions to load ego-centered network data and generate the egoR object. </p>
 
-<ul>
-<li>read.egonet.one.file(egos, netsize, egoID = "egoID", attr.start.col, attr.end.col, dy.max.alteri, dy.first.var, ego.vars = NULL, var.wise = F)</li>
-<li>read.egonet.two.files(egos, alteri, netsize = NULL, egoID = "egoID",  alterID = NULL, e.max.alteri, e.first.var, ego.vars = NULL,  selection = NULL)</li>
-<li>read.egonet.folders(egos.file, alter.folder, edge.folder, csv.sep = ",",egoID = "egoID", first.col.row.names = FALSE)</li>
-</ul>
+<p><code>read.egonet.one.file(egos, netsize, egoID = "egoID", attr.start.col, attr.end.col, dy.max.alteri, dy.first.var, ego.vars = NULL, var.wise = F)</code></p>
+
+<p><code>read.egonet.two.files(egos, alteri, netsize = NULL, egoID = "egoID",  alterID = NULL, e.max.alteri, e.first.var, ego.vars = NULL,  selection = NULL)</code></p>
+
+<p><code>read.egonet.folders(egos.file, alter.folder, edge.folder, csv.sep = ",",egoID = "egoID", first.col.row.names = FALSE)</code></p>
 
 <p>EgoR object is a list of six objects: 
 1. egos.df: dataframe of all egos and their attributes
