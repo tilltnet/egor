@@ -1,9 +1,9 @@
 # Density
 
-#' Calculate the density for several ego-centered networks. 
+#' Calculate the density for n+many ego-centered networks. 
 #'
 #' This function uses an 'egoR' object (list of data objects created by an 
-#' egonetR import function) and calculates the relationshio density of all 
+#' egonetR import function) and calculates the density of all 
 #' the ego-centered networks listed in the 'egoR' object.
 #' @param egoR A list of six data objects, created by one of egonetR's import 
 #' functions.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/density.R
 \name{egoR.density}
 \alias{egoR.density}
-\title{Calculate the density for several ego-centered networks.}
+\title{Calculate the density for n+many ego-centered networks.}
 \usage{
 egoR.density(egoR, weight = "weight", max.netsize = NULL)
 }
@@ -18,7 +18,7 @@ returns a \code{vector} of network density values.
 }
 \description{
 This function uses an 'egoR' object (list of data objects created by an 
-egonetR import function) and calculates the relationshio density of all 
+egonetR import function) and calculates the density of all 
 the ego-centered networks listed in the 'egoR' object.
 }
 \keyword{analysis}

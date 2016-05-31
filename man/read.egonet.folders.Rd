@@ -20,7 +20,7 @@ separate .csv files for each ego/ network.}
 \item{egoID}{Name of the variable identifying egos (default: "egoID").}
 }
 \value{
-A \code{list} of six objects: (1) egos.df: \code{dataframe} of all
+A \code{list} of six objects - the **egoR** object: (1) egos.df: \code{dataframe} of all
 egos and their attributes; (2) alteri.df: \code{dataframe} of all alteri;
 (3) alteri.list: \code{list} of \code{dataframes} of all alteri per ego;
 (4) edges: \code{list} of \code{dataframes} with edge lists per network; (5)
@@ -30,9 +30,9 @@ pre-populated with the network size of each network
 \description{
 This function imports ego-centric network data from folders with separate 
 files for alteri-level and edge data. It will run some basic checks upon
-the completness of the data and inform the user of potential problems.
+the completness of the data and inform the user of potential problems. This
+functions can be used to import data exported from EgoNet (McCarty 2011).
 }
 \keyword{ego-centric}
-\keyword{network,}
-\keyword{sna}
+\keyword{import}
 

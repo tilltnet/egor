@@ -8,7 +8,8 @@
 #'
 #' This function imports ego-centric network data from folders with separate 
 #' files for alteri-level and edge data. It will run some basic checks upon
-#' the completness of the data and inform the user of potential problems.
+#' the completness of the data and inform the user of potential problems. This
+#' functions can be used to import data exported from EgoNet (McCarty 2011).
 #' @param egos.file File name of the .csv file containg the ego data.
 #' @param alter.folder Folder name of the folder containing the alter data in
 #' separate .csv files for each ego/ network.
@@ -16,7 +17,7 @@
 #' separate .csv files for each ego/ network.
 #' @template egoID
 #' @template return_egoR
-#' @keywords ego-centric network, sna
+#' @keywords ego-centric import
 #' @export
 read.egonet.folders <- function(egos.file, alter.folder, edge.folder, csv.sep = ",",
                                 egoID = "egoID", first.col.row.names = FALSE) {

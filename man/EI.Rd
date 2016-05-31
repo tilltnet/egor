@@ -14,9 +14,14 @@ or \code{data.frame} of alteri attributes.}
 \code{dataframes} #' containing all edges_,}
 }
 \description{
-The EI-Index compares the inner-group edge density to the outer-group edge 
-density. It can be calculated for the whole network and for groups. If you 
-want to calculate ego's EI use the composition command.
+The EI-Index compares the intra-group edge density to the outer-group edge 
+density. It can be calculated for the whole network and for subgroups. The
+whole network EI is a metric indicating the tendency of a network to be 
+grouped by the categories of a given factor variable. The EI value of a 
+groups describes the tendency of a group to be connected or not connected 
+to other groups. Additionally, the EI index can be employ as a measurment
+for egos tendendy to homo-/heterphily - use the \code{composition} command
+for this version, as it is a compositional measure.
 }
 \references{
 Krackhardt, D., Stern, R.N., 1988. Informal networks and 

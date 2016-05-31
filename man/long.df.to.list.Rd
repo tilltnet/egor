@@ -31,4 +31,5 @@ each entry entails a \code{dataframe} of the alteri of one ego. By using
 the \code{netsize} variable it is ensured, that the list entries are of the
 correct length and possibly present rows of NA values are deleted.
 }
+\keyword{internal}
 

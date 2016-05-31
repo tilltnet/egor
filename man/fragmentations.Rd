@@ -2,16 +2,20 @@
 % Please edit documentation in R/ei.R
 \name{fragmentations}
 \alias{fragmentations}
-\title{Fragmentations of a list of ego-centered networks}
+\title{Network fragments of ego-centerd networks}
 \usage{
-fragmentations(edges_)
+fragmentations(alteri.list, edges.list)
 }
 \arguments{
-\item{edges_}{\code{List} of edgelist-\code{dataframes}}
+\item{alteri.list}{\code{List} of \code{data frames} containing the alteri 
+data.}
+
+\item{edges.list}{\code{List} of \code{data frames} containing the edge 
+lists (= alter-alter relations).}
 }
 \description{
-This gives the number of seperate fragments in a \code{list} ego-centered 
-networks. Based on igraph::clusters().
+Calculate the count of fragments ego-centered networks form, if their 
+respective egos are removed from the network.
 }
 \keyword{ego-centered}
 \keyword{network}

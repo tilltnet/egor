@@ -1,14 +1,15 @@
 #' Cluster ego-centered networks by a factor and visualise the results
 #'
-#' The idea of clustered graphs in ego-centered network analysis is developed by
+#' The idea of clustered graphs is to reduce the complexity of an ego-centered network
+#' graph by visualising its aggregated form. It is developed by
 #' Lerner et al. (2008). It helps to discover and visualise structural and 
 #' compostional properties of ego-centered networks, based on a pre-defined
-#' factor variable on the alter level, i.e. the country of origin.
+#' factor variable on the alter level.
 #' @param alteri.list \code{List} of \code{data frames} containing the alteri 
 #' data.
 #' @param edges.list \code{List} of \code{data frames} containing the edge 
-#' lists.
-#' @param clust.groups A \code{factor} variable the build the clusters from.
+#' lists (= alter-alter relations).
+#' @param clust.groups A \code{factor} variable building the groups.
 #' @param graphs \code{List} of \code{graph} objects, representing the clustered
 #' graphs.
 #' @param vertex.min.size \code{Numeric} indicating minimum size of plotted 

@@ -26,4 +26,5 @@ When alter-alter for numerous networks is stored in one file/ object it is
 common use the 'wide' dataformat. This function transforms such data to an 
 edge lists.
 }
+\keyword{internal}
 

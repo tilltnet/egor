@@ -2,7 +2,7 @@
 % Please edit documentation in R/read.egonet.R
 \name{to.network}
 \alias{to.network}
-\title{to.network}
+\title{Generate list of igraph objects from alteri and edge data}
 \usage{
 to.network(e.lists, alteri.list)
 }
@@ -12,10 +12,8 @@ to.network(e.lists, alteri.list)
 \item{alteri.list}{\code{List} of \code{data.frame}s containg alteri attributes.}
 }
 \description{
-This function generates a list of igraph objects from an edgelist and a 
-dataframe alteri attributes.
+This function generates a list of igraph objects from a edgelists organized in list and a list of
+dataframes containing alteri attributes.
 }
-\keyword{analysis}
-\keyword{ego-centric}
-\keyword{network}
+\keyword{igraph}
 

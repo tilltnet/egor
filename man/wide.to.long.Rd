@@ -31,4 +31,5 @@ into a long-format data-frame, where every row represents one alter/dyad. In
 the created dataframe numerous networks can be distinguished by a network ID 
 (egoID).
 }
+\keyword{internal}
 

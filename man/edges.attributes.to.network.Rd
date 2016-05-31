@@ -15,7 +15,5 @@ edges.attributes.to.network(e.list, alteri)
 This function generates one igraph object from an edgelist and a dataframe 
 alteri attributes.
 }
-\keyword{analysis}
-\keyword{ego-centric}
-\keyword{network}
+\keyword{internal}
 

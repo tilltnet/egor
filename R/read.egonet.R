@@ -17,7 +17,7 @@
 #' \code{dataframe} represents one alter. If the \code{back.to.df} parameter is
 #' called the \code{list} entries are combined to one \code{dataframe}, in the
 #' 'long' format.
-#' @export
+#' @keywords internal
 long.df.to.list <- function(long, netsize, egoID, back.to.df = F) {
   # Create list where every entry contains all alteri of one ego.
   
@@ -57,7 +57,7 @@ long.df.to.list <- function(long, netsize, egoID, back.to.df = F) {
 #' @template ego_vars
 #' @param var.wise a logical value indicating wheter the alter attributes are
 #' stored variable-wise, if FALSE alter-wise storage is assumed.
-#' @export
+#' @keywords internal
 wide.to.long <- function(wide, egoID = "egoID", max.alteri, start.col, end.col, 
                           ego.vars = NULL, var.wise = F) {
   ### Generating a matrix containing all variable names of one particular alteri
@@ -112,7 +112,7 @@ wide.to.long <- function(wide, egoID = "egoID", max.alteri, start.col, end.col,
 #' the second network contact.
 #' @param max.alteri Maximum number of alteri for which alter-alter relations 
 #' were collected.
-#' @export
+#' @keywords internal
 wide.dyads.to.edgelist <- function(e.wide, first.var, max.alteri,
                                     alteri.list = NULL, selection = NULL) {
   
@@ -186,21 +186,20 @@ wide.dyads.to.edgelist <- function(e.wide, first.var, max.alteri,
 #' alteri attributes.
 #' @param e.list \code{data.frame} containg edge data/ one edgelist.
 #' @param alteri \code{data.frame} containg alteri attributes.
-#' @keywords ego-centric network analysis
-#' @export
+#' @keywords internal
 edges.attributes.to.network <- function(e.list, alteri) {
   #print(attributes$alterID)
   igraph::graph.data.frame(d= e.list, vertices= alteri, directed= FALSE)
 }
 
 
-#' to.network
+#' Generate list of igraph objects from alteri and edge data
 #'
-#' This function generates a list of igraph objects from an edgelist and a 
-#' dataframe alteri attributes.
+#' This function generates a list of igraph objects from a edgelists organized in list and a list of
+#' dataframes containing alteri attributes.
 #' @param e.lists \code{List} of \code{data.frame}s containg edge data/ one edgelist.
 #' @template alteri_list
-#' @keywords ego-centric network analysis
+#' @keywords igraph
 #' @export
 to.network <- function(e.lists, alteri.list) {  
   graph.list <- tryCatch({
@@ -228,8 +227,7 @@ to.network <- function(e.lists, alteri.list) {
 #' @template egos 
 #' @template ego_vars 
 #' @template netsize
-#' @keywords ego-centric network analysis
-#' @export
+#' @keywords internal
 add_ego_vars_to_long_df <- function(alteri.list, egos.df, ego.vars, netsize) {
   new_alteri.list <- alteri.list
   for (var in ego.vars) {
@@ -245,8 +243,9 @@ add_ego_vars_to_long_df <- function(alteri.list, egos.df, ego.vars, netsize) {
 
 #' Import ego-centric network data from 'one file format'
 #'
-#' This function imports ego-centric network data, from one file, providing
-#' ego, alter and edge data.
+#' This function imports ego-centric network data, stored in a single file, providing
+#' ego, alter and edge data. This data format is for exampled used by the Allbus 2010 (GESIS)
+#' and similar social surveys.
 #' @template egos
 #' @template netsize
 #' @template egoID
@@ -254,7 +253,13 @@ add_ego_vars_to_long_df <- function(alteri.list, egos.df, ego.vars, netsize) {
 #' @param attr.end.col Last colum containing alter attributes.
 #' @param dy.max.alteri Maximum number of alteri.
 #' @param dy.first.var First column containing alter-alter relations/ edges.
+#' @template ego_vars
+#' @param var.wise Logical value indicatin if the alter attributes are sorted variable wise (defaults to FALSE).
 #' @template return_egoR
+#' @references Muller, C., Wellman, B., & Marin, A. (1999). How to Use SPSS to 
+#' Study Ego-Centered Networks. Bulletin de Methodologie Sociologique, 
+#' 64(1), 83–100.
+#' @keywords import
 #' @export
 read.egonet.one.file <- function(egos, netsize,  egoID = "egoID", 
                                  attr.start.col, attr.end.col, dy.max.alteri,
@@ -308,7 +313,8 @@ read.egonet.one.file <- function(egos, netsize,  egoID = "egoID",
 #'
 #' This function imports ego-centric network data, stored in two files, where 
 #' one file contains the ego attributes and the edge information and the other file 
-#' contains the alteri data.
+#' contains the alteri data. This form of data storage for ego-centered network data 
+#' is proposed by Muller, Wellman and Marin (1999).
 #' @template netsize
 #' @template egoID
 #' @param e.max.alteri Maximum number of alteri that are included in edge data.
@@ -316,6 +322,7 @@ read.egonet.one.file <- function(egos, netsize,  egoID = "egoID",
 #' @template egos
 #' @template alteri
 #' @template return_egoR
+#' @keywords import
 #' @export
 read.egonet.two.files <- function(egos, alteri, netsize = NULL,  egoID = "egoID",
                                   alterID = NULL, e.max.alteri, e.first.var,
@@ -327,6 +334,7 @@ read.egonet.two.files <- function(egos, alteri, netsize = NULL,  egoID = "egoID"
     alterID.col <- match(alterID , names(alteri))
     #alterID.col
     # Return:
+    #!# What happens if alteriID is already in column 1?
     alteri <- data.frame(alterID = alteri[[alterID]], alteri[1:(alterID.col - 1)], 
                        alteri[(alterID.col + 1) : ncol(alteri)])
   } 

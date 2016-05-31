@@ -11,12 +11,12 @@ egoR.vis.wizzard(egoR)
 functions.}
 }
 \value{
-Opens a shiny app.
+Opens an interactive Browser Application.
 }
 \description{
 This function uses an 'egoR' object (list of data objects created by an 
 egonetR import function), extracts the graphs object and uses it to visualise
-all networks contained (Shiny App).
+all networks contained in an interactive Browser Application (R-Shiny).
 }
 \keyword{analysis}
 \keyword{ego-centric}

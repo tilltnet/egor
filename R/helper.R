@@ -1,12 +1,14 @@
-# Small helper functions
-
+#' General helper functions
+#'
 #' Helper functions for ego centric network analysis
 #'
 #' @template max_alteri
 #' @template directed
-#' @return \code{dyad.poss} returns the count of possible edges in an
-#'  undirected or directed, ego-centered network, based on the number of alteri.
-#' @export
+#' @name helper
+NULL
+
+#' @describeIn helper Returns the count of possible edges in an
+#' undirected or directed, ego-centered network, based on the number of alteri.
 dyad.poss <- function(max.alteri, directed = F) {
   dp <- (max.alteri^2-max.alteri)
   if (!directed) {
@@ -15,7 +17,7 @@ dyad.poss <- function(max.alteri, directed = F) {
   dp
 }
 
-#' @describeIn dyad.poss Generates a \code{data.frame} marking possible dyads in 
+#' @describeIn helper Generates a \code{data.frame} marking possible dyads in 
 #' a wide alter-alter relation \code{data.frame}. Row names corresponds to the 
 #' network size. This is useful for sanitizing alter-alter relations in the wide 
 #' format.
@@ -39,7 +41,7 @@ sanitize.wide.edges <- function(max.alteri) {
   df
 }
 
-#' @describeIn dyad.poss Creates a \code{vector} of names for variables 
+#' @describeIn helper Creates a \code{vector} of names for variables 
 #' containing data on alter-alter relations/ dyads in ego-centered networks.
 #' @export
 create.edge.names.wide <- function(x) {
@@ -58,12 +60,12 @@ create.edge.names.wide <- function(x) {
   names_
 }
 
-#' @describeIn dyad.poss Calculates the possible edges between members of 
+#' @describeIn helper Calculates the possible edges between members of 
 #' different groups in an ego-centered network.
 #' @export
 dyads.possible.between.groups <- function(x, y) x*y
 
-#' @describeIn dyad.poss Calculates the optimal distribution of a number of 
+#' @describeIn helper Calculates the optimal distribution of a number of 
 #' equally sized objects on a DIN-Norm DIN 476 (i.e. DIN A4) page in landscape 
 #' view.
 #' @export

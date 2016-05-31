@@ -19,7 +19,5 @@ add_ego_vars_to_long_df(alteri.list, egos.df, ego.vars, netsize)
 This function adds ego attributes to a 'alteri.list' object of ego-centered
 networks. This is helpful if (multi-level) regressions are to be executed.
 }
-\keyword{analysis}
-\keyword{ego-centric}
-\keyword{network}
+\keyword{internal}
 

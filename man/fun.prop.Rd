@@ -6,11 +6,11 @@
 \usage{
 fun.prop(x)
 }
+\arguments{
+\item{x}{A factor representing an alteri-attribute variable.}
+}
 \description{
 This function generates Variables of the proportional frequency of each category of a variable. To use on data aggregated from the long ego-centered network data format. #!# prop.table() produces errors here, when netsize and total of frequencies per variable do not align.
-#' @param x A factor representing an alteri-attribute variable.
 }
-\keyword{analysis}
-\keyword{ego-centered}
-\keyword{network}
+\keyword{internal}
 

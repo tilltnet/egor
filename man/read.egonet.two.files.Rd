@@ -23,7 +23,7 @@ alteri are separated by a variable containg an egoID.}
 \item{e.first.var}{Index of first column in \code{egos} containing edge data.}
 }
 \value{
-A \code{list} of six objects: (1) egos.df: \code{dataframe} of all
+A \code{list} of six objects - the **egoR** object: (1) egos.df: \code{dataframe} of all
 egos and their attributes; (2) alteri.df: \code{dataframe} of all alteri;
 (3) alteri.list: \code{list} of \code{dataframes} of all alteri per ego;
 (4) edges: \code{list} of \code{dataframes} with edge lists per network; (5)
@@ -33,6 +33,8 @@ pre-populated with the network size of each network
 \description{
 This function imports ego-centric network data, stored in two files, where 
 one file contains the ego attributes and the edge information and the other file 
-contains the alteri data.
+contains the alteri data. This form of data storage for ego-centered network data 
+is proposed by Muller, Wellman and Marin (1999).
 }
+\keyword{import}
 

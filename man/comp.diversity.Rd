@@ -17,7 +17,5 @@ Returns the absolute and proportional count of unique categories per ego/ networ
 \description{
 This function calculates the network diversity of ego-centered networks for a given alter-attribute.
 }
-\keyword{analysis}
-\keyword{ego-centered}
-\keyword{network}
+\keyword{internal}
 

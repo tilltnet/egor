@@ -15,9 +15,9 @@ vis.clustered.graphs(graphs, vertex.min.size, vertex.max.size, center = 1,
 data.}
 
 \item{edges.list}{\code{List} of \code{data frames} containing the edge 
-lists.}
+lists (= alter-alter relations).}
 
-\item{clust.groups}{A \code{factor} variable the build the clusters from.}
+\item{clust.groups}{A \code{factor} variable building the groups.}
 
 \item{graphs}{\code{List} of \code{graph} objects, representing the clustered
 graphs.}
@@ -41,10 +41,11 @@ the clustered ego-centered network data; \code{vis.clustered.graphs} plots
 the clustered graphs (into a pdf file, if indicated)
 }
 \description{
-The idea of clustered graphs in ego-centered network analysis is developed by
+The idea of clustered graphs is to reduce the complexity of an ego-centered network
+graph by visualising its aggregated form. It is developed by
 Lerner et al. (2008). It helps to discover and visualise structural and 
 compostional properties of ego-centered networks, based on a pre-defined
-factor variable on the alter level, i.e. the country of origin.
+factor variable on the alter level.
 }
 \section{Functions}{
 \itemize{

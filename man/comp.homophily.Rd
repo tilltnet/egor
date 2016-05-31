@@ -19,7 +19,5 @@ EI Index values per ego/ network in a \code{dataframe}.
 \description{
 This function calculates the EI-Index of ego-centered networks using a "category-count-dataframe" usually generated with comp.cat.counts(). The EI-Index ranges from -1 to 1, where a positive value represents a heterogenous personal network in respect to a specified attribute of ego an its alteri.
 }
-\keyword{analysis}
-\keyword{ego-centered}
-\keyword{network}
+\keyword{internal}
 

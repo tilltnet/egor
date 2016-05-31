@@ -2,7 +2,7 @@
 % Please edit documentation in R/composition.R
 \name{composition}
 \alias{composition}
-\title{All-in-one ego-centered network composition function.}
+\title{Calculate compositional measurements (Proportion, Diversity, EI-Index)}
 \usage{
 composition(alteri, v_alt, netsize, egoID = "egoID", v_ego = NULL,
   mode = "regular")
@@ -15,15 +15,21 @@ alteri are separated by a variable containg an egoID.}
 
 \item{netsize}{A vector of network sizes.}
 
+\item{egoID}{Name of the variable identifying egos (default: "egoID").}
+
 \item{v_ego}{Character vector containing the ego attribute. Only needed if homophily should be calculated. Caution: Levels of v_alt and v_ego need to correspond.}
 
 \item{mode}{A character. "regular" for a basic output, "all" for a complete output.}
 }
 \value{
-Returns a dataframe with category counts, diversity and EI-Index values.
+Returns a dataframe with category counts, diversity and EI-Index values in an ego-centered network for a provided alter attribute.
 }
 \description{
-This function outputs a dataframe containg serveral compositional measures for ego-centered-network data.
+This function outputs a dataframe containg serveral compositional measures 
+for ego-centered-network data. It reports the proportion of each group in the
+network, the absolute count of groups present and, if provided the 
+corresponding ego attriburte, the EI-Index is employed as a measurment for ego's tendency
+to homo-/heterophily.
 }
 \keyword{analysis}
 \keyword{ego-centered}

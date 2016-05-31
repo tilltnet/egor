@@ -15,6 +15,6 @@ generate.sample.edge.list(max.alteri)
 Here should be a a longer description of this function.
 }
 \keyword{ego-centric}
+\keyword{internal}
 \keyword{network}
-\keyword{sna}
 

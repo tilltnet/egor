@@ -1,8 +1,13 @@
 #' Calculate the EI-Index
 #'
-#' The EI-Index compares the inner-group edge density to the outer-group edge 
-#' density. It can be calculated for the whole network and for groups. If you 
-#' want to calculate ego's EI use the composition command.
+#' The EI-Index compares the intra-group edge density to the outer-group edge 
+#' density. It can be calculated for the whole network and for subgroups. The
+#' whole network EI is a metric indicating the tendency of a network to be 
+#' grouped by the categories of a given factor variable. The EI value of a 
+#' groups describes the tendency of a group to be connected or not connected 
+#' to other groups. Additionally, the EI index can be employ as a measurment
+#' for egos tendendy to homo-/heterphily - use the \code{composition} command
+#' for this version, as it is a compositional measure.
 #' @param alteri \code{List} of alteri attribute \code{data.frame}s 
 #' or \code{data.frame} of alteri attributes.
 #' @param edges_ \code{List} of edgelist-\code{dataframes} or one 
@@ -140,20 +145,21 @@ EI <- function(alteri, edges_, var_name, egoID = "egoID", alterID = "alterID") {
 }
 
 
-#' Fragmentations of a list of ego-centered networks
+#' Network fragments of ego-centerd networks
 #'
-#' This gives the number of seperate fragments in a \code{list} ego-centered 
-#' networks. Based on igraph::clusters().
-#' @param edges_ \code{List} of edgelist-\code{dataframes}
+#' Calculate the count of fragments ego-centered networks form, if their 
+#' respective egos are removed from the network.
+#' @param alteri.list \code{List} of \code{data frames} containing the alteri 
+#' data.
+#' @param edges.list \code{List} of \code{data frames} containing the edge 
+#' lists (= alter-alter relations).
 #' @keywords ego-centered network
 #' @keywords sna
 #' @export
-fragmentations <- function(edges_) {
-  graphs <- lapply(edges_, FUN = 
-                     function(x) igraph::graph.data.frame(x, directed = F))
+fragmentations <- function(alteri.list, edges.list) {
+  graphs <- to.network(edges.list, alteri.list)
   frags <- lapply(graphs, FUN = 
                     function(x) igraph::clusters(x)$no)
-  data.frame(fragmentations = unlist(frags))
+  data.frame(fragmentations = unlist(frags))$fragmentations
 }
-
 

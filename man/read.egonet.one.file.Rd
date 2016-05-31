@@ -21,9 +21,13 @@ read.egonet.one.file(egos, netsize, egoID = "egoID", attr.start.col,
 \item{dy.max.alteri}{Maximum number of alteri.}
 
 \item{dy.first.var}{First column containing alter-alter relations/ edges.}
+
+\item{ego.vars}{A \code{data.frame} of alteri attributes in the wide format.}
+
+\item{var.wise}{Logical value indicatin if the alter attributes are sorted variable wise (defaults to FALSE).}
 }
 \value{
-A \code{list} of six objects: (1) egos.df: \code{dataframe} of all
+A \code{list} of six objects - the **egoR** object: (1) egos.df: \code{dataframe} of all
 egos and their attributes; (2) alteri.df: \code{dataframe} of all alteri;
 (3) alteri.list: \code{list} of \code{dataframes} of all alteri per ego;
 (4) edges: \code{list} of \code{dataframes} with edge lists per network; (5)
@@ -31,7 +35,14 @@ graphs: \code{list} of igraph objects; (6) results: a result \code{dataframe},
 pre-populated with the network size of each network
 }
 \description{
-This function imports ego-centric network data, from one file, providing
-ego, alter and edge data.
+This function imports ego-centric network data, stored in a single file, providing
+ego, alter and edge data. This data format is for exampled used by the Allbus 2010 (GESIS)
+and similar social surveys.
 }
+\references{
+Muller, C., Wellman, B., & Marin, A. (1999). How to Use SPSS to 
+Study Ego-Centered Networks. Bulletin de Methodologie Sociologique, 
+64(1), 83–100.
+}
+\keyword{import}
 

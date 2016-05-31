@@ -1,15 +1,15 @@
 #' Generate counting variables for each category of a variable. Used by comp.cat.counts().
 #'
 #' This function generates Variables counting the frequency of each category of a variable. To use on data aggregated from the long ego-centered network data format.
-#' #' @param x A factor representing an alteri-attribute variable.
-#' @keywords ego-centered network analysis
+#' @param x A factor representing an alteri-attribute variable.
+#' @keywords internal
 fun.count <- function(x) table(as.factor(x))
 
 #' Generate proportional variables for each category of a variable. Used by comp.cat.counts().
 #'
 #' This function generates Variables of the proportional frequency of each category of a variable. To use on data aggregated from the long ego-centered network data format. #!# prop.table() produces errors here, when netsize and total of frequencies per variable do not align.
-#' #' @param x A factor representing an alteri-attribute variable.
-#' @keywords ego-centered network analysis
+#' @param x A factor representing an alteri-attribute variable.
+#' @keywords internal
 fun.prop <- function(x) prop.table(table(as.factor(x)))
 
 #' Count category frequencies of an alter attribute for ego-centered-network data.
@@ -21,7 +21,7 @@ fun.prop <- function(x) prop.table(table(as.factor(x)))
 #' egos (default = "egoID") in \code{alteri}.
 #' @param fun Function to be used for counting. \code{fun.count} for absolute counts \code{fun.prop} propotional counts.
 #' @return Returns a \code{dataframe} with counts of all categories as variables.
-#' @keywords ego-centered network analysis
+#' @keywords internal
 ### Function to aggregate data from the long format data, using the egoID as the break variable.
 comp.cat.counts <- function(alteri, var, egoID = "egoID", fun = fun.count) {
   # If var is not a factor it has to be coerced to one. Doing this to a variable
@@ -45,7 +45,7 @@ comp.cat.counts <- function(alteri, var, egoID = "egoID", fun = fun.count) {
 #' This function sets compositional results to NA if netsize is missing (NA), zero or not a number (NaN).
 #' @param cat.counts Results of the function comp.cat.counts
 #' @param netsize Name of a variable in \code{broad} consisting of numerics for the network size of each network.
-#' @keywords ego-centered network analysis
+#' @keywords internal
 ### Function to aggregate data from the long format data, using the egoID as the break variable.
 comp.cat.counts.na <- function(cat.counts, netsize) {
   for(i in 1:ncol(cat.counts)) { 
@@ -61,8 +61,7 @@ comp.cat.counts.na <- function(cat.counts, netsize) {
 #' @param v_ego variable of an ego attribute corresponding to the 
 #' @param netsize Name of a variable in \code{broad} consisting of numerics for the network size of each network.
 #' @return EI Index values per ego/ network in a \code{dataframe}.
-#' @keywords ego-centered network analysis
-#' @export
+#' @keywords internal
 comp.homophily <- function(cat.counts, v_ego, netsize) {
   HM <- NA
   for(i in 1:ncol(cat.counts)) { 
@@ -81,8 +80,7 @@ comp.homophily <- function(cat.counts, v_ego, netsize) {
 #' @param cat.counts A category-count-dataframe usually generated with comp.cat.counts().
 #' @param netsize A vector of network sizes.
 #' @return Returns the absolute and proportional count of unique categories per ego/ network in a \code{dataframe}.
-#' @keywords ego-centered network analysis
-#' @export
+#' @keywords internal
 comp.diversity <- function(cat.counts, netsize) {
   diversity <- 0
   for(i in 1:ncol(cat.counts)) {
@@ -98,15 +96,20 @@ comp.diversity <- function(cat.counts, netsize) {
   tmp_df
 }
 
-#' All-in-one ego-centered network composition function.
+#' Calculate compositional measurements (Proportion, Diversity, EI-Index)
 #'
-#' This function outputs a dataframe containg serveral compositional measures for ego-centered-network data.
+#' This function outputs a dataframe containg serveral compositional measures 
+#' for ego-centered-network data. It reports the proportion of each group in the
+#' network, the absolute count of groups present and, if provided the 
+#' corresponding ego attriburte, the EI-Index is employed as a measurment for ego's tendency
+#' to homo-/heterophily.
 #' @template alteri
 #' @param v_alt A character naming the variable containg the alter-attribute.
 #' @param netsize A vector of network sizes.
+#' @template egoID
 #' @param v_ego Character vector containing the ego attribute. Only needed if homophily should be calculated. Caution: Levels of v_alt and v_ego need to correspond.
 #' @param mode A character. "regular" for a basic output, "all" for a complete output.
-#' @return Returns a dataframe with category counts, diversity and EI-Index values.
+#' @return Returns a dataframe with category counts, diversity and EI-Index values in an ego-centered network for a provided alter attribute.
 #' @keywords ego-centered network analysis
 #' @export
 composition <- function (alteri, v_alt, netsize, egoID = "egoID", v_ego = NULL, mode = "regular") { # regular, all

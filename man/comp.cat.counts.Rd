@@ -22,7 +22,5 @@ Returns a \code{dataframe} with counts of all categories as variables.
 \description{
 This function counts the category frequencies (absolute or proportional) of a variable representing alter attributes in ego-centered-network data.
 }
-\keyword{analysis}
-\keyword{ego-centered}
-\keyword{network}
+\keyword{internal}
 

@@ -7,7 +7,7 @@
 #' @param alter.folder Here should be a a longer description of this param.
 #' @param edge.folder Here should be a a longer description of this param.
 #' @keywords ego-centric network
-#' @keywords sna
+#' @keywords internal
 generate.sample.edge.list <- function(max.alteri) {
   dp <- dyad.poss(max.alteri)
   
@@ -33,7 +33,7 @@ generate.sample.edge.list <- function(max.alteri) {
 #' @param net.count Number of networks/ egos to generate.
 #' @param max.alteri Maximum size of networks.
 #' @keywords ego-centric network
-#' @keywords sna
+#' @keywords random
 #' @export
 generate.sample.ego.data <- function(net.count, max.alteri, netsize = NULL) {
   
@@ -106,8 +106,7 @@ generate.sample.ego.data <- function(net.count, max.alteri, netsize = NULL) {
 #' Only works properly, if the netsize of all networks is constant.
 #' @param edges List of \code{data.frames} containg edge lists.
 #' @keywords ego-centric network
-#' @keywords sna
-#' @export
+#' @keywords internal
 edges.to.wide <- function(edges) {
   wide_edges <- plyr::ldply(edges, .fun= function(x) t(x$weight))
   names(wide_edges) <- paste(edges[[1]]$Source, "to", edges[[1]]$Target)

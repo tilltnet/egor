@@ -13,6 +13,6 @@ edges.to.wide(edges)
 Only works properly, if the netsize of all networks is constant.
 }
 \keyword{ego-centric}
+\keyword{internal}
 \keyword{network}
-\keyword{sna}
 
