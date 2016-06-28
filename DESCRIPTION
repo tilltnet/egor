@@ -1,8 +1,8 @@
 Package: egonetR
 Type: Package
 Title: Import and analyse ego-centric network data.
-Version: 0.16.04
-Date: 2016-04-01
+Version: 0.16.06
+Date: 2016-06-01
 Authors@R: c(
     person("Markus", "Gamper", email = "m.gamper@uni-koeln.de",
     role = c("aut")),
@@ -17,7 +17,7 @@ Authors@R: c(
 Description: egonetR aids with the process of importing, analysing
     and visualising ego-centric network data. It supports several data formats,
     including the export formats of EgoNet (McCarty 2011), EgoWeb 2.0 (Kennedy 
-    et al.) and openeddi (Eddens/ Fagan). It offers an interactive (shiny) app 
+    et al.) and openeddi (Eddens/ Fagan). egonetR offers an interactive (shiny) app 
     for the intuitive visulisation of ego-centered  networks. It also includes 
     procedures for creating and visualising Clustered Graphs (Lerner et. al 
     2008).
@@ -25,7 +25,6 @@ License: AGPL-3
 Imports:
     foreign,
     igraph,
-    network,
     descr,
     shiny,
     plyr
