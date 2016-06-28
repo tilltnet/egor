@@ -359,9 +359,9 @@ read.egonet.two.files <- function(egos, alteri, netsize = NULL,  egoID = "egoID"
   
   
   message("Preparing alteri data.")
-  alteri.list <- long.df.to.list(long = alteri, netsize = netsize, egoID = egoID)
+  alteri.list <- egonetR:::long.df.to.list(long = alteri, netsize = netsize, egoID = egoID)
   alteri.list <- lapply(alteri.list, FUN = function(x) 
-    data.frame(alterID = as.character(c(1:NROW(x))), x))
+    data.frame(alterID = as.character(c(1:NROW(x))), x)) #!# This generates two alteriIDs in the transnat import, not good!
   
   if(!is.null(ego.vars)) {
     message("ego.vars defined, adding them to $alteri.df")
