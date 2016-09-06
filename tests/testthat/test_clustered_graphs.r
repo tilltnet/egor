@@ -50,13 +50,46 @@ NROW(e)
 alteri.list[[1]] <- a
 edges.list[[1]] <- e
 
-graphs_ex <- clustered.graphs(alteri.list, edges.list, "random.groups") 
-vis.clustered.graphs(graphs, vertex.min.size = 45, vertex.max.size = 200,
-                     labels = T, to.pdf = F)
+graphs_ex <- clustered.graphs(alteri.list[1], edges.list[1], "random.groups") 
+vis.clustered.graphs(graphs_ex, vertex.min.size = 45, vertex.max.size = 200,
+                     labels = F, to.pdf = F)
 
 
 # LoMiHi - Low Middle High (+varieties)  
-lomihi <- generate.sample.ego.data(net.count = 4, max.alteri = 12, netsize = 12)
-
+lomihi <- generate.sample.ego.data(net.count = 6, max.alteri = 120, netsize = 120)
+lomihi$alteri$alter.age <- factor(lomihi$alteri$alter.age)
 a.lomihi <- split(x = lomihi$alteri, f = lomihi$alteri$egoID)
+a.lomihi <- lapply(a.lomihi, function(x) x[2:4])
 e.lomihi <- lomihi$edges
+
+# No edges
+e.lomihi[[1]] <- e.lomihi[[1]][e.lomihi[[1]]$weight == 0, ]
+a.lomihi[[1]] <- a.lomihi[[1]][a.lomihi[[1]]$alterID < 12, ]
+
+# No edges - no alteri in some groups
+e.lomihi[[2]] <- e.lomihi[[2]][e.lomihi[[2]]$weight == 4, ]
+a.lomihi[[2]] <- a.lomihi[[2]][a.lomihi[[2]]$alter.age == levels(a.lomihi[[2]]$alter.age)[1], ]
+
+# No edges - no alteri at all
+e.lomihi[[3]] <- e.lomihi[[3]][e.lomihi[[3]]$weight == 4, ]
+a.lomihi[[3]] <- a.lomihi[[3]][a.lomihi[[3]]$alter.age == "x", ] # This breaks clustered.graphs()
+
+# NAs in grouping variable
+ind <- sample(1:120, 20)
+a.lomihi[[4]]$alter.age[ind] <- NA
+e.lomihi[[4]] <- e.lomihi[[4]][e.lomihi[[4]]$weight == 0, ]
+
+graphs <- clustered.graphs(a.lomihi, e.lomihi, "alter.age") 
+
+vis.clustered.graphs(graphs, vertex.min.size = 45, vertex.max.size = 200,
+                     labels = T, to.pdf = F)
+
+vis.clustered.graphs(graphs, vertex.min.size = 45, vertex.max.size = 200,
+                     labels = F, to.pdf = T)
+
+#library(igraph)
+E(graphs[[4]])$grp.density
+
+
+
+# Choose layouts for groups of two and three

@@ -9,7 +9,7 @@
 #' data.
 #' @param edges.list \code{List} of \code{data frames} containing the edge 
 #' lists (= alter-alter relations).
-#' @param clust.groups A \code{factor} variable building the groups.
+#' @param clust.groups A \code{character} naming the \code{factor} variable building the groups.
 #' @param graphs \code{List} of \code{graph} objects, representing the clustered
 #' graphs.
 #' @param vertex.min.size \code{Numeric} indicating minimum size of plotted 
@@ -30,16 +30,25 @@
 #' @export
 clustered.graphs <- function(alteri.list, edges.list, clust.groups) {
   GetGroupSizes <- function(x) {
-    y <- aggregate(x$alterID, by = x[clust.groups], FUN = NROW)
+    #y <- aggregate(x$alterID, by = x[clust.groups], FUN = NROW)
+    y <- data.frame(table(x[clust.groups]))
     names(y) <- c("groups", "size")
     y
   }
   
   alteri.grped.list <- lapply(alteri.list, FUN = GetGroupSizes)
+  
+  # Exclude NAs in clust.groups
+  alteri.list <- lapply(alteri.list, FUN = function(y) y[!is.na(y[clust.groups]), ])
+  
   graphs <- to.network(e.lists = edges.list, alteri.list = alteri.list)
   
-  
-  
+  # Store colnames of edges and alteri for consistency check.
+  alteri.names<- lapply(alteri.list, FUN = names)
+  if(length(unique(alteri.names))==1) print("alteri.list names check out")
+  edges.names <- lapply(edges.list, FUN = names)
+  if(length(unique(edges.names))==1) print("edges.list names check out")
+  #!# Create warning, when names are not the same throug all
   
   ## Extracting edges within and between groups ------------------------------
   
@@ -50,37 +59,63 @@ clustered.graphs <- function(alteri.list, edges.list, clust.groups) {
       igraph::E(g)[V.group1 %--% V.group2]
     }
     
-    x_names <- names(table(igraph::get.vertex.attribute(g, clust.groups)))
-    x_dim <- length(x_names)
     
-    for.loop.matrix <- matrix(1, ncol = x_dim, nrow = x_dim)
-    colnames(for.loop.matrix) <- x_names
-    rownames(for.loop.matrix) <- x_names
-    
-    groups.list <- list()
-    grps.df <- data.frame()
-    for (i in 1:x_dim) {
-      i.name <- colnames(for.loop.matrix)[i]
-      for (j in (1-1+i):(x_dim)) {
-        j.name <- rownames(for.loop.matrix)[j]
-        ij.name <- paste (i.name, j.name)
-        groups.list[[ij.name]] <- SelectGroupEdges(g, clust.groups, i.name, j.name)
-        grp.size <- length(groups.list[[ij.name]])
-        groups.size.i <- alteri.group.n$size[alteri.group.n$groups == i.name]
-        groups.size.j <- alteri.group.n$size[alteri.group.n$groups == j.name]
-        if(j.name != i.name) {
-          grp.possible.dyads <- dyads.possible.between.groups(groups.size.i, groups.size.j)
-        } else {
-          grp.possible.dyads <- dyad.poss(groups.size.i)
+    # Check if all groups are zero sized, if so: return empty entries for grp.df and asdad
+    if(length(V(g)) < 1) {
+      groups.list <- list()
+      grps.df <- data.frame(i.name= character(0), j.name= character(0), grp.size = numeric(0),
+                            grp.possible.dyads = numeric(0), grp.density = numeric(0))
+
+            
+    } else {
+      x_names <- names(table(igraph::get.vertex.attribute(g, clust.groups)))
+      x_dim <- length(x_names)
+      
+      for.loop.matrix <- matrix(1, ncol = x_dim, nrow = x_dim)
+      colnames(for.loop.matrix) <- x_names
+      rownames(for.loop.matrix) <- x_names
+      
+      groups.list <- list()
+      grps.df <- data.frame()
+      for (i in 1:x_dim) {
+        i.name <- colnames(for.loop.matrix)[i]
+        for (j in (1-1+i):(x_dim)) {
+          j.name <- rownames(for.loop.matrix)[j]
+          ij.name <- paste (i.name, j.name)
+          
+          groups.list[[ij.name]] <- SelectGroupEdges(g, clust.groups, i.name, j.name) 
+          real.dyads <- length(groups.list[[ij.name]])
+          groups.size.i <- alteri.group.n$size[alteri.group.n$groups == i.name]
+          groups.size.j <- alteri.group.n$size[alteri.group.n$groups == j.name]
+          
+          
+          grp.size <-  ifelse(i.name == j.name, groups.size.i, groups.size.i + groups.size.j)
+          
+          
+          if(j.name != i.name) {
+            grp.possible.dyads <- dyads.possible.between.groups(groups.size.i, groups.size.j)
+          } else {
+            grp.possible.dyads <- egonetR:::dyad.poss(groups.size.i)
+          }
+          grp.density <- real.dyads / grp.possible.dyads 
+          #grp.density.fake <- sample(0:100/100, 10)
+          
+          grps.df <- rbind(grps.df, data.frame(i.name, j.name, grp.size, grp.possible.dyads, grp.density))
+          
+          
         }
-        grp.density <- grp.size / grp.possible.dyads
-        #grp.density.fake <- sample(0:100/100, 10)
-        
-        grps.df <- rbind(grps.df, data.frame(i.name, j.name, grp.size, grp.possible.dyads, grp.density))
-        
-        
+      }
+      # Check for empty categories and add dummy vertex.
+      empty_cats <- alteri.group.n$groups[!alteri.group.n$groups %in% grps.df$i.name]
+      if (length(empty_cats) > 0) {
+        for(i in 1:length(empty_cats)) {
+          empty_dummy <- data.frame(empty_cats[i], empty_cats[i], 0, NaN, NA)
+          names(empty_dummy) <- names(grps.df)
+          grps.df <- rbind(grps.df, empty_dummy)
+        }  
       }
     }
+    
     list(grp.densities = grps.df, edges.lists = groups.list)
   }
   
@@ -101,7 +136,7 @@ clustered.graphs <- function(alteri.list, edges.list, clust.groups) {
 #' @describeIn clustered.graphs Visualises clustered.graphs using the formerly
 #' created clustered graph objects.
 #' @export
-vis.clustered.graphs <- function(graphs, vertex.min.size, vertex.max.size,
+vis.clustered.graphs <- function(graphs, vertex.min.size = 0, vertex.max.size = 200,
                                center = 1, labels = F, to.pdf = T) {
 
     plotLegendGraph <- function(grps.graph, center) {
@@ -113,9 +148,9 @@ vis.clustered.graphs <- function(graphs, vertex.min.size, vertex.max.size,
                 vertex.label.color = "black", 
                 vertex.label.cex = 4,
                 vertex.label.family = "sans",
-                vertex.label.dist = 4,
-                vertex.label.degree = ifelse(igraph::layout.star(grps.graph, center = center)[,1] >= 1, 0, pi),
-                layout = igraph::layout.star(grps.graph, center = center))
+                #vertex.label.dist = 4,
+                #vertex.label.degree = ifelse(igraph::layout.star(grps.graph, center = center)[,1] >= 1, 0, pi),
+                layout = layout_)
   }
   
   plotGraph <- function(graph, center) {
@@ -123,10 +158,12 @@ vis.clustered.graphs <- function(graphs, vertex.min.size, vertex.max.size,
       vertex.label <- paste(" ", igraph::V(graph)$grp.size,
                             round(igraph::V(graph)$grp.density, digits = 2), sep = "\n")
       vertex.label.b <- paste(igraph::V(graph)$name, " ",  " ", sep = "\n")
-      edge.label <- round(igraph::E(graph)$grp.density, digits = 2)
-      grey.shades <- gray(9:2/10)[igraph::V(graph)$grp.density*10]
+      edge.label <- ifelse(igraph::E(graph)$grp.density == 0, "" , round(igraph::E(graph)$grp.density, digits = 2))
+      print(edge.label)
+      grey.shades <- gray(seq(1, 0, -0.008))[igraph::V(graph)$grp.density*100]
       grey.shades <-  strtoi(substr(gsub("#", replacement = "0x", grey.shades), start = 1, stop = 4))
       label.shades <- ifelse(grey.shades < 120, "white", "black")
+      label.shades <- ifelse(length(label.shades) == 0, "black", label.shades)
     } else {
       vertex.label <- NA
       vertex.label.b <- NA
@@ -134,26 +171,27 @@ vis.clustered.graphs <- function(graphs, vertex.min.size, vertex.max.size,
       label.shades <- NA
     }
     
-    vertex.size <- igraph::V(graph)$grp.size
-    vertex.size <- ifelse(vertex.size < vertex.min.size, vertex.min.size, vertex.size)
+    vertex.size <- igraph::V(graph)$grp.size + vertex.min.size
+    #vertex.size <- ifelse(vertex.size < vertex.min.size, vertex.min.size, vertex.size)
     vertex.size[vertex.size > vertex.max.size] <- vertex.max.size
     
     igraph::plot.igraph(graph, 
-                vertex.color = gray(9:2/10)[igraph::V(graph)$grp.density*10], 
-                vertex.frame.color = NA, 
+                vertex.color = gray(seq(1, 0, -0.008))[igraph::V(graph)$grp.density*100+1], 
+                vertex.frame.color = ifelse(igraph::V(graph)$grp.density == 0 | is.na(igraph::V(graph)$grp.density), "black", NA), 
                 vertex.size = vertex.size,
                 vertex.label.color = label.shades, 
                 vertex.label.cex = 0.8,
                 vertex.label = vertex.label,
                 vertex.label.family = "sans",
                 vertex.label.font = 1,
-                edge.width = igraph::E(graph)$grp.density*30,
+                edge.width = igraph::E(graph)$grp.density * 30,
                 edge.arrow.size = 0, 
                 edge.label = edge.label,
-                edge.label.color = edge.label.color,
+                edge.label.color = "black",
                 edge.label.cex = edge.label.cex,
                 edge.label.family = "sans",
-                layout = igraph::layout.star(graph, center = center)) # Test Layout with 3 groups/ 2 groups, more groups
+                edge.color = ifelse(igraph::E(graph)$grp.density == 0, "white", "grey"),
+                layout = layout_)
     
     igraph::plot.igraph(graph, add = T,
                 vertex.color = NA, 
@@ -167,7 +205,7 @@ vis.clustered.graphs <- function(graphs, vertex.min.size, vertex.max.size,
                 edge.width = 0,
                 edge.color = NA,
                 edge.arrow.size = 0, 
-                layout = igraph::layout.star(graph, center = center))
+                layout = layout_)
     #print(label.shades)
     #print(grey.shades)
   }
@@ -178,7 +216,7 @@ vis.clustered.graphs <- function(graphs, vertex.min.size, vertex.max.size,
   if(to.pdf) {
     rand.chars <- paste(sample(c(0:9, letters, LETTERS),
                                8, replace=TRUE), collapse="")
-    filename <- paste("clustered_graphs_" , rand.chars, ".pdf")
+    filename <- paste("clustered_graphs_" , rand.chars, ".pdf", sep = "")
     pdf(file=filename, width = 46.81, height = 33.11)
     
     page.xy <- din.page.dist(length(graphs) + 1)
@@ -186,13 +224,30 @@ vis.clustered.graphs <- function(graphs, vertex.min.size, vertex.max.size,
   }
   
   if(!labels) {
+    if(length(V(example.graph)) < 4) {
+      layout_ <- igraph::layout.circle
+    } else {
+      layout_ <- igraph::layout_as_star(example.graph, center = center)
+    }
     plotLegendGraph(example.graph, 1)
   }
   
-  edge.label.color <- "black"
+  
   edge.label.cex <- 0.7
+  edge.label.color <- "black"
   for(graph in graphs) {
-    plotGraph(graph, center)
+    if(length(V(graph))<1) {
+      plot.new()
+    } else {
+       
+      if(length(V(graph)) < 4) {
+        layout_ <- igraph::layout.circle
+      } else {
+        layout_ <- igraph::layout_as_star(graph, center = center)
+      }
+      plotGraph(graph, center)
+    }
+    
   }
   
   if(to.pdf) {
