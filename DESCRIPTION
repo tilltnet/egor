@@ -23,9 +23,7 @@ Description: egonetR aids with the process of importing, analysing
     2008).
 License: AGPL-3
 Imports:
-    foreign,
     igraph,
-    descr,
     shiny,
     plyr
 Suggests:
