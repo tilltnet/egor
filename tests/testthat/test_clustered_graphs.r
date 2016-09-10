@@ -30,11 +30,11 @@ edges.list <- lapply(edges.list, FUN = deleteRandomEdges)
 
 graphs <- clustered.graphs(alteri.list, edges.list, "random.groups") 
 
-vis.clustered.graphs(graphs, vertex.min.size = 45, vertex.max.size = 200,
-                   labels = T, to.pdf = F)
-
-vis.clustered.graphs(graphs, vertex.min.size = 45, vertex.max.size = 200,
-                   labels = F, to.pdf = T)
+# vis.clustered.graphs(graphs, node.min.size = 45, node.max.size = 200,
+#                    labels = T, to.pdf = F)
+# 
+# vis.clustered.graphs(graphs, node.min.size = 45, node.max.size = 200,
+#                    labels = F, to.pdf = T)
 
 # Test if empty categories break.
 a <- alteri.list[[1]]
@@ -50,13 +50,17 @@ NROW(e)
 alteri.list[[1]] <- a
 edges.list[[1]] <- e
 
+
+
 graphs_ex <- clustered.graphs(alteri.list[1], edges.list[1], "random.groups") 
-vis.clustered.graphs(graphs_ex, vertex.min.size = 45, vertex.max.size = 200,
-                     labels = F, to.pdf = F)
+#vis.clustered.graphs(graphs_ex, node.min.size = 45, node.max.size = 200,
+#                     labels = F, to.pdf = F)
 
 
-# LoMiHi - Low Middle High (+varieties)  
-lomihi <- generate.sample.ego.data(net.count = 6, max.alteri = 120, netsize = 120)
+# Testing extreme data situations ---------------------------------------------
+
+## Create and extract data
+lomihi <- generate.sample.ego.data(net.count = 10, max.alteri = 120, netsize = 120)
 lomihi$alteri$alter.age <- factor(lomihi$alteri$alter.age)
 a.lomihi <- split(x = lomihi$alteri, f = lomihi$alteri$egoID)
 a.lomihi <- lapply(a.lomihi, function(x) x[2:4])
@@ -79,16 +83,64 @@ ind <- sample(1:120, 20)
 a.lomihi[[4]]$alter.age[ind] <- NA
 e.lomihi[[4]] <- e.lomihi[[4]][e.lomihi[[4]]$weight == 0, ]
 
+# 0.5 density
+tmp <- NROW(e.lomihi[[5]])
+ind <- sample(1:tmp, tmp/2)
+e.lomihi[[5]]<- e.lomihi[[5]][ind, ]
+
+
+# mixed density
+table(a.lomihi[[6]]$alter.age)
+age_levels <- levels(a.lomihi[[6]]$alter.age)
+a_1 <- which(a.lomihi[[6]]$alter.age == age_levels[1])
+e.lomihi[[6]] <- e.lomihi[[6]][e.lomihi[[6]]$Source %in% a_1 & e.lomihi[[6]]$Target %in% a_1, ]
+a_1 <- which(a.lomihi[[7]]$alter.age == age_levels[1])
+e.lomihi[[7]] <- e.lomihi[[7]][e.lomihi[[7]]$Source %in% a_1 | e.lomihi[[7]]$Target %in% a_1, ]
+
+a_2 <- which(a.lomihi[[8]]$alter.age == age_levels[2])
+e.lomihi[[8]] <- e.lomihi[[8]][e.lomihi[[8]]$Source %in% a_2 & e.lomihi[[8]]$Target %in% a_2, ]
+a_2 <- which(a.lomihi[[9]]$alter.age == age_levels[2])
+e.lomihi[[9]] <- e.lomihi[[9]][e.lomihi[[9]]$Source %in% a_2 | e.lomihi[[9]]$Target %in% a_2, ]
+
+tmp <- NROW(e.lomihi[[10]])
+ind <- sample(1:tmp, tmp/2)
+e.lomihi_copy <- e.lomihi[[10]][ind, ]
+age_levels <- levels(a.lomihi[[10]]$alter.age)
+a_1 <- which(a.lomihi[[10]]$alter.age == age_levels[1])
+e.lomihi[[10]] <- e.lomihi_copy[e.lomihi_copy$Source %in% a_1 & e.lomihi_copy$Target %in% a_1, ]
+e.lomihi[[11]] <- e.lomihi_copy[e.lomihi_copy$Source %in% a_1 | e.lomihi_copy$Target %in% a_1, ]
+e.lomihi[[12]] <- e.lomihi_copy[e.lomihi_copy$Source %in% a_2 & e.lomihi_copy$Target %in% a_2, ]
+e.lomihi[[13]] <- e.lomihi_copy[e.lomihi_copy$Source %in% a_2 | e.lomihi_copy$Target %in% a_2, ]
+a.lomihi[11:13] <- a.lomihi[10]
+
+a_2 <- which(a.lomihi[[10]]$alter.age == age_levels[2])
+e.lomihi[[14]] <- e.lomihi_copy[e.lomihi_copy$Source %in% a_1 | e.lomihi_copy$Target %in% a_1 | e.lomihi_copy$Target %in% a_2 | e.lomihi_copy$Target %in% a_2, ]
+a.lomihi[14] <- a.lomihi[10]
+
 graphs <- clustered.graphs(a.lomihi, e.lomihi, "alter.age") 
+#E(graphs[[6]])$grp.density
 
-vis.clustered.graphs(graphs, vertex.min.size = 45, vertex.max.size = 200,
-                     labels = T, to.pdf = F)
-
-vis.clustered.graphs(graphs, vertex.min.size = 45, vertex.max.size = 200,
-                     labels = F, to.pdf = T)
-
+# vis.clustered.graphs(graphs, node.size.multiplier = 2, node.max.size = 200, edge.width.multiplier = 40,
+#                      label.size = 0.8)
+# 
+# 
+# vis.clustered.graphs(graphs, node.size.multiplier = 1, node.min.size = 45, node.max.size = 200, edge.width.multiplier = 40,
+#                      labels = T, label.size = 1, to.pdf = F)
+# 
+# vis.clustered.graphs(graphs, node.min.size = 45, node.size.multiplier = 0.5, node.max.size = 200,
+#                      labels = F, to.pdf = F)
+# 
+# vis.clustered.graphs(graphs, node.min.size = 45, node.max.size = 200,
+#                      labels = F, to.pdf = T, legend.node.size = 70, legend.label.size = 1)
+# vis.clustered.graphs(graphs, node.min.size = 45, node.max.size = 200,
+#                      labels = T, to.pdf = T, legend.node.size = 70, legend.label.size = 1)
+# 
+# vis.clustered.graphs(graphs, node.min.size = 45, node.max.size = 200,
+#                      labels = F, to.pdf = T, legend.label.size = 3)
+# vis.clustered.graphs(graphs, node.min.size = 45, node.max.size = 200,
+#                      labels = F, to.pdf = T, legend.label.size = 3.5)
 #library(igraph)
-E(graphs[[4]])$grp.density
+#E(graphs[[4]])$grp.density
 
 
 
