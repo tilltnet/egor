@@ -10,6 +10,8 @@ generate.sample.ego.data(net.count, max.alteri, netsize = NULL)
 \item{net.count}{Number of networks/ egos to generate.}
 
 \item{max.alteri}{Maximum size of networks.}
+
+\item{netsize}{\code{Numeric} for fixed network sizes.}
 }
 \description{
 This function generates random ego-centric-network data for a specified number of networks with a maximum network size. The network size of the generated networks is a normal distribution with sd=5.

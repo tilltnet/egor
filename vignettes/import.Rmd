@@ -78,5 +78,5 @@ alteri_two <- read.csv2("alteri_8.csv")
 
     read.egonet.folders(egos, alter.folder, edge.folder, netID = "netID")
 
-![Single Command Import](01-import easy_small.png)
+![Single Command Import](01-import_easy_small.png)
 *Functions providing Single Command Import*

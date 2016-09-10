@@ -11,6 +11,8 @@
 #' was only collected for a subsample of all alteri per network.
 #' @param directed logical indicating if the alter-alter relation data/ edges 
 #' are directed or undirected.
+#' @param weight \code{Character} naming a variable containing the weight values
+#' of relations.
 #' @return returns a \code{vector} of network density values.
 #' @keywords ego-centric network analysis
 #' @export

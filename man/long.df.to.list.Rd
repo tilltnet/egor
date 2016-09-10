@@ -11,7 +11,7 @@ long.df.to.list(long, netsize, egoID, back.to.df = F)
 
 \item{netsize}{\code{vector} containing values of network size per ego.}
 
-\item{egoID}{Name of the variable identifying egos (default: "egoID").}
+\item{egoID}{\code{Character}. Name of the variable identifying egos (default: "egoID").}
 
 \item{back.to.df}{If \code{TRUE} a dataframe is returned, if \code{FALSE} a 
 list. Defaults to \code{FALSE}.}

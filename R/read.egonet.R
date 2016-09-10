@@ -315,12 +315,17 @@ read.egonet.one.file <- function(egos, netsize,  egoID = "egoID",
 #' one file contains the ego attributes and the edge information and the other file 
 #' contains the alteri data. This form of data storage for ego-centered network data 
 #' is proposed by Muller, Wellman and Marin (1999).
-#' @template netsize
-#' @template egoID
-#' @param e.max.alteri Maximum number of alteri that are included in edge data.
-#' @param e.first.var Index of first column in \code{egos} containing edge data.
 #' @template egos
 #' @template alteri
+#' @template netsize
+#' @template egoID
+#' @template alterID
+#' @param e.max.alteri Maximum number of alteri that are included in edge data.
+#' @param e.first.var Index of first column in \code{egos} containing edge data.
+#' @param ego.vars \code{Character vector} naming variables in the egos data,
+#' in order to copy them in to the long alteri \code{dataframe}.
+#' @param selection \code{Character} naming \code{numeric} variable indicating 
+#' alteri selection with zeros and ones. 
 #' @template return_egoR
 #' @keywords import
 #' @export

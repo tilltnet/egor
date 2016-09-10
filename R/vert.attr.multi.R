@@ -25,7 +25,7 @@
 #' @return An igraph object.
 #' 
 #' @section Uses: 
-#' \code{\link{vert.attr()}}
+#' \code{\link{vert.attr}}
 #' 
 #' 
 vert.attr.multi <- function(data, graph, dataID, graphID= "name", attributes, FUN=NA, attr.names= attributes) {

@@ -22,6 +22,9 @@ read.openeddi(egos.file = NULL, alteri.file = NULL, edges.file = NULL,
 \item{alteri.df}{\code{dataframe} containing alteri data (alteri as cases),
 alteri are separated by a variable containg an egoID.}
 
+\item{edges}{\code{Dataframe}. A global edge list, first column separates 
+egos.}
+
 \item{ID.vars}{A character vector specifying ID variable names used (egoID, 
 alterID, source, target).}
 
@@ -32,6 +35,8 @@ alterID, source, target).}
 \item{edges.file}{A character specifiying the filename of the edge data.}
 
 \item{egos.file}{A character specifiying the filename of the ego data.}
+
+\item{alteri.file}{\code{Character} name of the alteri data file.}
 }
 \value{
 A \code{list} of six objects - the **egoR** object: (1) egos.df: \code{dataframe} of all

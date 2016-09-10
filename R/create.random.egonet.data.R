@@ -4,8 +4,7 @@
 #' Generate a random edge list for one network.
 #'
 #' Here should be a a longer description of this function.
-#' @param alter.folder Here should be a a longer description of this param.
-#' @param edge.folder Here should be a a longer description of this param.
+#' @param max.alteri \code{Numeric} indicating maximum number of alteri.
 #' @keywords ego-centric network
 #' @keywords internal
 generate.sample.edge.list <- function(max.alteri) {
@@ -32,6 +31,7 @@ generate.sample.edge.list <- function(max.alteri) {
 #' This function generates random ego-centric-network data for a specified number of networks with a maximum network size. The network size of the generated networks is a normal distribution with sd=5.
 #' @param net.count Number of networks/ egos to generate.
 #' @param max.alteri Maximum size of networks.
+#' @param netsize \code{Numeric} for fixed network sizes.
 #' @keywords ego-centric network
 #' @keywords random
 #' @export

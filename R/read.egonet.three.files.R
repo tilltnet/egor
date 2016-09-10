@@ -51,6 +51,9 @@ check.ID.unique <- function(x, ID) {
 #' @param ID.vars A character vector specifying ID variable names used (egoID, 
 #' alterID, source, target). 
 #' @template ego_vars
+#' @param edges \code{Dataframe}. A global edge list, first column separates 
+#' egos.
+#' @param alteri.file \code{Character} name of the alteri data file.
 #' @template return_egoR
 #' @export
 read.egonet.three.files <- function(egos, alteri.df, edges, 

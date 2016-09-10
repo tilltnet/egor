@@ -4,6 +4,8 @@
 #'
 #' @template max_alteri
 #' @template directed
+#' @param x \code{Numeric}.
+#' @param y \code{Numeric}.
 #' @name helper
 NULL
 

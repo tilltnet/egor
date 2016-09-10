@@ -16,11 +16,19 @@ alteri are separated by a variable containg an egoID.}
 
 \item{netsize}{\code{vector} containing values of network size per ego.}
 
-\item{egoID}{Name of the variable identifying egos (default: "egoID").}
+\item{egoID}{\code{Character}. Name of the variable identifying egos (default: "egoID").}
+
+\item{alterID}{\code{Character}. Name of the variable identifying egos (default: "alterID").}
 
 \item{e.max.alteri}{Maximum number of alteri that are included in edge data.}
 
 \item{e.first.var}{Index of first column in \code{egos} containing edge data.}
+
+\item{ego.vars}{\code{Character vector} naming variables in the egos data,
+in order to copy them in to the long alteri \code{dataframe}.}
+
+\item{selection}{\code{Character} naming \code{numeric} variable indicating 
+alteri selection with zeros and ones.}
 }
 \value{
 A \code{list} of six objects - the **egoR** object: (1) egos.df: \code{dataframe} of all

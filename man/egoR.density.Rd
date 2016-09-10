@@ -10,6 +10,9 @@ egoR.density(egoR, weight = NULL, max.netsize = NULL, directed = FALSE)
 \item{egoR}{A list of six data objects, created by one of egonetR's import 
 functions.}
 
+\item{weight}{\code{Character} naming a variable containing the weight values
+of relations.}
+
 \item{max.netsize}{Optional parameter. Only needed if the density information
 was only collected for a subsample of all alteri per network.}
 

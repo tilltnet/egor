@@ -17,7 +17,12 @@ separate .csv files for each ego/ network.}
 \item{edge.folder}{Folder name of the folder containing the edge/ tie data in
 separate .csv files for each ego/ network.}
 
-\item{egoID}{Name of the variable identifying egos (default: "egoID").}
+\item{csv.sep}{\code{Character} indicating the seperator used in csv files.}
+
+\item{egoID}{\code{Character}. Name of the variable identifying egos (default: "egoID").}
+
+\item{first.col.row.names}{\code{Boolean} indicating if first column contains
+row names, that are to be skipped, default is \code{FALSE}.}
 }
 \value{
 A \code{list} of six objects - the **egoR** object: (1) egos.df: \code{dataframe} of all

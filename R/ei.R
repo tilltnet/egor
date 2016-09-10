@@ -11,7 +11,10 @@
 #' @param alteri \code{List} of alteri attribute \code{data.frame}s 
 #' or \code{data.frame} of alteri attributes.
 #' @param edges_ \code{List} of edgelist-\code{dataframes} or one 
-#' \code{dataframes} #' containing all edges_, 
+#' \code{dataframes} #' containing all edges_
+#' @param var_name \code{Character} naming grouping variable.
+#' @param egoID \code{Character} naming ego ID variable.
+#' @param alterID \code{Character} naming alter ID variable.
 #' @references Krackhardt, D., Stern, R.N., 1988. Informal networks and 
 #' organizational crises: an experimental simulation. Social Psychology 
 #' Quarterly 51 (2), 123-140.

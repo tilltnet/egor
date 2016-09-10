@@ -15,7 +15,7 @@ alteri are separated by a variable containg an egoID.}
 
 \item{netsize}{A vector of network sizes.}
 
-\item{egoID}{Name of the variable identifying egos (default: "egoID").}
+\item{egoID}{\code{Character}. Name of the variable identifying egos (default: "egoID").}
 
 \item{v_ego}{Character vector containing the ego attribute. Only needed if homophily should be calculated. Caution: Levels of v_alt and v_ego need to correspond.}
 

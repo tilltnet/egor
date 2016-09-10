@@ -24,6 +24,10 @@ din.page.dist(x)
 
 \item{directed}{A \code{logical} value indicating directedness of alter-alter
 data.}
+
+\item{x}{\code{Numeric}.}
+
+\item{y}{\code{Numeric}.}
 }
 \description{
 Helper functions for ego centric network analysis

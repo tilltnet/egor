@@ -11,7 +11,13 @@ EI(alteri, edges_, var_name, egoID = "egoID", alterID = "alterID")
 or \code{data.frame} of alteri attributes.}
 
 \item{edges_}{\code{List} of edgelist-\code{dataframes} or one 
-\code{dataframes} #' containing all edges_,}
+\code{dataframes} #' containing all edges_}
+
+\item{var_name}{\code{Character} naming grouping variable.}
+
+\item{egoID}{\code{Character} naming ego ID variable.}
+
+\item{alterID}{\code{Character} naming alter ID variable.}
 }
 \description{
 The EI-Index compares the intra-group edge density to the outer-group edge 

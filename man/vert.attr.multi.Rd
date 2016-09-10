@@ -42,6 +42,6 @@ sort order.
 }
 \section{Uses}{
  
-\code{\link{vert.attr()}}
+\code{\link{vert.attr}}
 }
 

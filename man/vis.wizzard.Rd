@@ -6,13 +6,6 @@
 \usage{
 vis.wizzard()
 }
-\arguments{
-\item{egoR}{A list of six data objects, created by one of egonetR's import 
-functions.}
-
-\item{max.netsize}{Optional parameter. Only needed if the density information
-was only collected for a subsample of all alteri per network.}
-}
 \value{
 returns a \code{vector} of network density values.
 }

@@ -10,7 +10,7 @@ wide.to.long(wide, egoID = "egoID", max.alteri, start.col, end.col,
 \arguments{
 \item{wide}{A \code{data.frame} of alteri attributes in the wide format.}
 
-\item{egoID}{Name of the variable identifying egos (default: "egoID").}
+\item{egoID}{\code{Character}. Name of the variable identifying egos (default: "egoID").}
 
 \item{max.alteri}{A \code{numeric} giving the maximum number of alteri.}
 

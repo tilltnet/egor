@@ -12,7 +12,7 @@ read.egonet.one.file(egos, netsize, egoID = "egoID", attr.start.col,
 
 \item{netsize}{\code{vector} containing values of network size per ego.}
 
-\item{egoID}{Name of the variable identifying egos (default: "egoID").}
+\item{egoID}{\code{Character}. Name of the variable identifying egos (default: "egoID").}
 
 \item{attr.start.col}{First colum containing alter attributes.}
 
