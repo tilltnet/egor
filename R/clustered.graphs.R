@@ -1,32 +1,24 @@
-#' Cluster ego-centered networks by a factor and visualise the results
-#'
+#' Cluster ego-centered networks by a grouping factor
+#' 
 #' The idea of clustered graphs is to reduce the complexity of an ego-centered network
-#' graph by visualising its aggregated form. It is developed by
+#' graph by visualising its group aggregated form. It is developed by
 #' Lerner et al. (2008). It helps to discover and visualise structural and 
 #' compostional properties of ego-centered networks, based on a pre-defined
-#' factor variable on the alter level.
+#' factor variable on the alter level. clustered.graphs() calculates group sizes,
+#' inter- and intragroup densities and these informations in a \code{list} of
+#' \code{igraph} objects.
 #' @param alteri.list \code{List} of \code{data frames} containing the alteri 
 #' data.
 #' @param edges.list \code{List} of \code{data frames} containing the edge 
 #' lists (= alter-alter relations).
 #' @param clust.groups A \code{character} naming the \code{factor} variable building the groups.
-#' @param graphs \code{List} of \code{graph} objects, representing the clustered
-#' graphs.
-#' @param vertex.min.size \code{Numeric} indicating minimum size of plotted 
-#' vertices.
-#' @param vertex.max.size \code{Numeric} indicating maximum size of plotted 
-#' vertices.
-#' @param center \code{Numeric} indicating the vertex to be plotted in center.
-#' @param labels \code{Boolean}. Plots with turned off labels will be preceeded 
-#' by a 'legend' plot giving the labels of the vertices.
-#' @param to.pdf \code{Boolean}.
 #' @references Brandes, U., Lerner, J., Lubbers, M. J., McCarty, C., & Molina, 
 #' J. L. (2008). Visual Statistics for Collections of Clustered Graphs. 2008 
 #' IEEE Pacific Visualization Symposium, 47-54.
 #' @return \code{clustered.graphs} returns a list of graph objects representing 
-#' the clustered ego-centered network data; \code{vis.clustered.graphs} plots
-#' the clustered graphs (into a pdf file, if indicated)
+#' the clustered ego-centered network data;
 #' @keywords ego-centric network analysis
+#' @seealso \code{\link{vis.clustered.graphs}} for visualising clustered graphs
 #' @export
 clustered.graphs <- function(alteri.list, edges.list, clust.groups) {
   GetGroupSizes <- function(x) {
@@ -43,14 +35,14 @@ clustered.graphs <- function(alteri.list, edges.list, clust.groups) {
   
   graphs <- to.network(e.lists = edges.list, alteri.list = alteri.list)
   
-  # Store colnames of edges and alteri for consistency check.
-  alteri.names<- lapply(alteri.list, FUN = names)
-  if(length(unique(alteri.names))==1) print("alteri.list names check out")
-  edges.names <- lapply(edges.list, FUN = names)
-  if(length(unique(edges.names))==1) print("edges.list names check out")
-  #!# Create warning, when names are not the same throug all
+  # # Store colnames of edges and alteri for consistency check.
+  # alteri.names<- lapply(alteri.list, FUN = names)
+  # if(length(unique(alteri.names))==1) print("alteri.list names check out")
+  # edges.names <- lapply(edges.list, FUN = names)
+  # if(length(unique(edges.names))==1) print("edges.list names check out")
+  # #!# Create warning, when names are not the same throug all
   
-  ## Extracting edges within and between groups ------------------------------
+# Extracting edges within and between groups ------------------------------
   
   calculateGrpDensities <- function(g, alteri.group.n, clust.groups) {
     SelectGroupEdges <- function(g, clust.groups, group1, group2 = group1) {
@@ -61,7 +53,7 @@ clustered.graphs <- function(alteri.list, edges.list, clust.groups) {
     
     
     # Check if all groups are zero sized, if so: return empty entries for grp.df and asdad
-    if(length(V(g)) < 1) {
+    if(length(igraph::V(g)) < 1) {
       groups.list <- list()
       grps.df <- data.frame(i.name= character(0), j.name= character(0), grp.size = numeric(0),
                             grp.possible.dyads = numeric(0), grp.density = numeric(0))
@@ -121,7 +113,7 @@ clustered.graphs <- function(alteri.list, edges.list, clust.groups) {
   
   grp.densities <- mapply(FUN = calculateGrpDensities, graphs, alteri.grped.list, clust.groups, SIMPLIFY = F)
   
-  ## Create 'clustered graphs' igraph object  --------------------------------
+# Create 'clustered graphs' igraph object  --------------------------------
   
   
   clustered.graphs <- lapply(grp.densities, 
@@ -133,20 +125,67 @@ clustered.graphs <- function(alteri.list, edges.list, clust.groups) {
 }
 
 
-#' @describeIn clustered.graphs Visualises clustered.graphs using the formerly
+#' Visualise clustered graphs
+#' 
+#' \code{vis.clustered.graphs} visualises clustered.graphs using a list of
+#' clustered graphs created with \code{\link{clustered.graphs}}
 #' created clustered graph objects.
+#' @param graphs \code{List} of \code{graph} objects, representing the clustered
+#' graphs.
+#' @param node.size.multiplier \code{Numeric} used to multiply the node diameter
+#' of visualised nodes.
+#' @param node.min.size \code{Numeric} indicating minimum size of plotted 
+#' nodes
+#' @param node.max.size \code{Numeric} indicating maximum size of plotted 
+#' nodes
+#' @param edge.width.multiplier \code{Numeric} used to mutliply the edge width.
+#' @param center \code{Numeric} indicating the vertex to be plotted in center.
+#' @param label.size \code{Numeric}.
+#' @param labels \code{Boolean}. Plots with turned off labels will be preceeded 
+#' by a 'legend' plot giving the labels of the vertices.
+#' @param legend.node.size \code{Numeric} used as node diameter of legend graph.
+#' @param to.pdf \code{Boolean}.
+#' @return \code{vis.clustered.graphs} plots
+#' a \code{list} of \code{igraph} objects created by the \code{clustered.graphs}
+#' function.
+#' @references Brandes, U., Lerner, J., Lubbers, M. J., McCarty, C., & Molina, 
+#' J. L. (2008). Visual Statistics for Collections of Clustered Graphs. 2008 
+#' IEEE Pacific Visualization Symposium, 47-54.
+#' @return \code{clustered.graphs} returns a list of graph objects representing 
+#' the clustered ego-centered network data;
+#' @keywords ego-centric network analysis
+#' @seealso \code{\link{clustered.graphs}} for creating clustered graphs objects
 #' @export
-vis.clustered.graphs <- function(graphs, vertex.min.size = 0, vertex.max.size = 200,
-                               center = 1, labels = F, to.pdf = T) {
+vis.clustered.graphs <- function(graphs, 
+                                 node.size.multiplier = 1, 
+                                 node.min.size = 0,
+                                 node.max.size = 200, 
+                                 edge.width.multiplier = 30,
+                                 center = 1, 
+                                 label.size = 0.8, 
+                                 labels = F, 
+                                 legend.node.size = 45, 
+                                 to.pdf = F) {
 
-    plotLegendGraph <- function(grps.graph, center) {
+  plotLegendGraph <- function(grps.graph, center) {
+      # set all edges to 1
+      vertex_names <- names(igraph::V(grps.graph))
+      vertex_df <- data.frame(x1 = vertex_names)
+      vertex_length <- length(vertex_names) 
+      edges_mat <- matrix(1, nrow = vertex_length, ncol = vertex_length, dimnames = list(vertex_names, vertex_names))
+      diag(edges_mat) <- 0
+      edges_mat[upper.tri(edges_mat)] <- 0
+      edges_graph <- graph_from_adjacency_matrix(edges_mat)
+      edge_list <- ends(edges_graph, igraph::E(edges_graph), names = T)
+      grps.graph <- igraph::graph.data.frame(d= edge_list, vertices= vertex_df, directed= FALSE)
+      #grps.graph <- igraph::graph.data.frame(d= data.frame(x=character(0), y=character(0)), vertices= vertex_df, directed= FALSE)
       igraph::plot.igraph(grps.graph, 
                 vertex.color = "grey", 
                 vertex.frame.color = NA, 
-                vertex.size = 25,
-                edge.width = 5,
+                vertex.size = legend.node.size,
+                edge.width = 1,
                 vertex.label.color = "black", 
-                vertex.label.cex = 4,
+                vertex.label.cex = label.size,
                 vertex.label.family = "sans",
                 #vertex.label.dist = 4,
                 #vertex.label.degree = ifelse(igraph::layout.star(grps.graph, center = center)[,1] >= 1, 0, pi),
@@ -159,11 +198,11 @@ vis.clustered.graphs <- function(graphs, vertex.min.size = 0, vertex.max.size = 
                             round(igraph::V(graph)$grp.density, digits = 2), sep = "\n")
       vertex.label.b <- paste(igraph::V(graph)$name, " ",  " ", sep = "\n")
       edge.label <- ifelse(igraph::E(graph)$grp.density == 0, "" , round(igraph::E(graph)$grp.density, digits = 2))
-      print(edge.label)
-      grey.shades <- gray(seq(1, 0, -0.008))[igraph::V(graph)$grp.density*100]
+      #print(edge.label)
+      grey.shades <- gray(seq(1, 0, -0.008))[igraph::V(graph)$grp.density*100+1]
       grey.shades <-  strtoi(substr(gsub("#", replacement = "0x", grey.shades), start = 1, stop = 4))
       label.shades <- ifelse(grey.shades < 120, "white", "black")
-      label.shades <- ifelse(length(label.shades) == 0, "black", label.shades)
+      if(length(label.shades) == 0) label.shades <- "black"
     } else {
       vertex.label <- NA
       vertex.label.b <- NA
@@ -171,26 +210,26 @@ vis.clustered.graphs <- function(graphs, vertex.min.size = 0, vertex.max.size = 
       label.shades <- NA
     }
     
-    vertex.size <- igraph::V(graph)$grp.size + vertex.min.size
+    vertex.size <- igraph::V(graph)$grp.size * node.size.multiplier + node.min.size
     #vertex.size <- ifelse(vertex.size < vertex.min.size, vertex.min.size, vertex.size)
-    vertex.size[vertex.size > vertex.max.size] <- vertex.max.size
+    vertex.size[vertex.size > node.max.size] <- node.max.size
     
     igraph::plot.igraph(graph, 
                 vertex.color = gray(seq(1, 0, -0.008))[igraph::V(graph)$grp.density*100+1], 
                 vertex.frame.color = ifelse(igraph::V(graph)$grp.density == 0 | is.na(igraph::V(graph)$grp.density), "black", NA), 
                 vertex.size = vertex.size,
                 vertex.label.color = label.shades, 
-                vertex.label.cex = 0.8,
+                vertex.label.cex = label.size,
                 vertex.label = vertex.label,
                 vertex.label.family = "sans",
                 vertex.label.font = 1,
-                edge.width = igraph::E(graph)$grp.density * 30,
+                edge.width = igraph::E(graph)$grp.density * edge.width.multiplier,
                 edge.arrow.size = 0, 
                 edge.label = edge.label,
                 edge.label.color = "black",
                 edge.label.cex = edge.label.cex,
                 edge.label.family = "sans",
-                edge.color = ifelse(igraph::E(graph)$grp.density == 0, "white", "grey"),
+                edge.color = ifelse(igraph::E(graph)$grp.density == 0, NA, "grey"),
                 layout = layout_)
     
     igraph::plot.igraph(graph, add = T,
@@ -198,7 +237,7 @@ vis.clustered.graphs <- function(graphs, vertex.min.size = 0, vertex.max.size = 
                 vertex.frame.color = NA, 
                 vertex.size = vertex.size,
                 vertex.label.color = label.shades, 
-                vertex.label.cex = 0.8,
+                vertex.label.cex = label.size,
                 vertex.label = vertex.label.b,
                 vertex.label.family = "serif",
                 vertex.label.font = 2,
@@ -224,7 +263,7 @@ vis.clustered.graphs <- function(graphs, vertex.min.size = 0, vertex.max.size = 
   }
   
   if(!labels) {
-    if(length(V(example.graph)) < 4) {
+    if(length(igraph::V(example.graph)) < 4) {
       layout_ <- igraph::layout.circle
     } else {
       layout_ <- igraph::layout_as_star(example.graph, center = center)
@@ -236,11 +275,11 @@ vis.clustered.graphs <- function(graphs, vertex.min.size = 0, vertex.max.size = 
   edge.label.cex <- 0.7
   edge.label.color <- "black"
   for(graph in graphs) {
-    if(length(V(graph))<1) {
+    if(length(igraph::V(graph))<1) {
       plot.new()
     } else {
        
-      if(length(V(graph)) < 4) {
+      if(length(igraph::V(graph)) < 4) {
         layout_ <- igraph::layout.circle
       } else {
         layout_ <- igraph::layout_as_star(graph, center = center)

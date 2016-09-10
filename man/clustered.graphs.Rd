@@ -2,13 +2,9 @@
 % Please edit documentation in R/clustered.graphs.R
 \name{clustered.graphs}
 \alias{clustered.graphs}
-\alias{vis.clustered.graphs}
-\title{Cluster ego-centered networks by a factor and visualise the results}
+\title{Cluster ego-centered networks by a grouping factor}
 \usage{
 clustered.graphs(alteri.list, edges.list, clust.groups)
-
-vis.clustered.graphs(graphs, vertex.min.size, vertex.max.size, center = 1,
-  labels = F, to.pdf = T)
 }
 \arguments{
 \item{alteri.list}{\code{List} of \code{data frames} containing the alteri 
@@ -17,45 +13,28 @@ data.}
 \item{edges.list}{\code{List} of \code{data frames} containing the edge 
 lists (= alter-alter relations).}
 
-\item{clust.groups}{A \code{factor} variable building the groups.}
-
-\item{graphs}{\code{List} of \code{graph} objects, representing the clustered
-graphs.}
-
-\item{vertex.min.size}{\code{Numeric} indicating minimum size of plotted 
-vertices.}
-
-\item{vertex.max.size}{\code{Numeric} indicating maximum size of plotted 
-vertices.}
-
-\item{center}{\code{Numeric} indicating the vertex to be plotted in center.}
-
-\item{labels}{\code{Boolean}. Plots with turned off labels will be preceeded 
-by a 'legend' plot giving the labels of the vertices.}
-
-\item{to.pdf}{\code{Boolean}.}
+\item{clust.groups}{A \code{character} naming the \code{factor} variable building the groups.}
 }
 \value{
 \code{clustered.graphs} returns a list of graph objects representing 
-the clustered ego-centered network data; \code{vis.clustered.graphs} plots
-the clustered graphs (into a pdf file, if indicated)
+the clustered ego-centered network data;
 }
 \description{
 The idea of clustered graphs is to reduce the complexity of an ego-centered network
-graph by visualising its aggregated form. It is developed by
+graph by visualising its group aggregated form. It is developed by
 Lerner et al. (2008). It helps to discover and visualise structural and 
 compostional properties of ego-centered networks, based on a pre-defined
-factor variable on the alter level.
+factor variable on the alter level. clustered.graphs() calculates group sizes,
+inter- and intragroup densities and these informations in a \code{list} of
+\code{igraph} objects.
 }
-\section{Functions}{
-\itemize{
-\item \code{vis.clustered.graphs}: Visualises clustered.graphs using the formerly
-created clustered graph objects.
-}}
 \references{
 Brandes, U., Lerner, J., Lubbers, M. J., McCarty, C., & Molina, 
 J. L. (2008). Visual Statistics for Collections of Clustered Graphs. 2008 
 IEEE Pacific Visualization Symposium, 47-54.
+}
+\seealso{
+\code{\link{vis.clustered.graphs}} for visualising clustered graphs
 }
 \keyword{analysis}
 \keyword{ego-centric}

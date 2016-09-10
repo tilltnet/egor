@@ -4,7 +4,7 @@
 \alias{egoR.density}
 \title{Calculate the density for n+many ego-centered networks.}
 \usage{
-egoR.density(egoR, weight = "weight", max.netsize = NULL)
+egoR.density(egoR, weight = NULL, max.netsize = NULL, directed = FALSE)
 }
 \arguments{
 \item{egoR}{A list of six data objects, created by one of egonetR's import 
@@ -12,6 +12,9 @@ functions.}
 
 \item{max.netsize}{Optional parameter. Only needed if the density information
 was only collected for a subsample of all alteri per network.}
+
+\item{directed}{logical indicating if the alter-alter relation data/ edges 
+are directed or undirected.}
 }
 \value{
 returns a \code{vector} of network density values.
