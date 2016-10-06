@@ -87,6 +87,9 @@ read.egonet.folders <- function(egos.file, alter.folder, edge.folder, csv.sep = 
 
   graphs <- to.network(e.lists = elist.list, alteri.list = alter.attr.list)
   
+  # Recreate alteri.list to ensure complete factor levels
+  alteri.list <- split(x = alter.attr.df, f = alter.attr.df[[egoID]])
+  
   # Return:
   list(egos.df = egos, alteri.df = alter.attr.df, alteri.list = alter.attr.list, edges = elist.list, graphs = graphs, results = data.frame(netsize))
 } 
