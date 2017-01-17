@@ -39,3 +39,18 @@ egoR.density <- function(egoR, weight = NULL, max.netsize = NULL, directed = FAL
   density <- as.vector(dyaden_real / dyad_poss)
   density
 }
+
+#' Average Alteri Relation Count
+#' 
+#' @template egoR
+#' @template netsize
+#' @seealso \code{\link{egoR.density}}
+#' @export
+egoR.avg.rel <- function(egoR, netsize = NULL) {
+  if(is.null(netsize)) netsize <- egoR$results$netsize
+  calc_avg_rel <- function(e_list, size) {
+    sum(table(c(e_list[[1]], e_list[[2]])) / (size - 1))
+  }
+  as.vector(mapply(egoR$edges, netsize, FUN = calc_avg_rel, SIMPLIFY = T))
+}
+
