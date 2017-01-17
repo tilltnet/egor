@@ -1,4 +1,4 @@
-#' Order edeg list colums with source and target at the beginning.
+#' Order edge list colums with source and target at the beginning.
 #' @keywords internal
 order.edge.list.columns <- function(edges, source_, target) {
   cbind(edges[c(source_, target)], edges[!names(edges) %in% c(source_, target)])
@@ -19,8 +19,8 @@ ensure.ID.integrity <- function(egos, alteri.df, edges, egoID = "egoID",
                                 alterID = "alterID") {
   valid_IDs <- check.ID.integrity(egos, alteri.df, edges, egoID = egoID, alterID = alterID)
   objs <- list(egos, alteri.df, edges)
-  valid_objs <- mapply(FUN = function(x, y)x[y, ], objs, valid_IDs)
-  invalid_objs <- mapply(FUN = function(x, y)x[!y, ], objs, valid_IDs)
+  valid_objs <- mapply(FUN = function(x, y)x[y, ], objs, valid_IDs, SIMPLIFY = F)
+  invalid_objs <- mapply(FUN = function(x, y)x[!y, ], objs, valid_IDs, SIMPLIFY = F)
   names(valid_objs) <- c("egos", "alteri.df", "edges")
   names(invalid_objs) <- c("egos", "alteri.df", "edges")
   
