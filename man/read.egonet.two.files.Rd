@@ -18,7 +18,7 @@ alteri are separated by a variable containg an egoID.}
 
 \item{egoID}{\code{Character}. Name of the variable identifying egos (default: "egoID").}
 
-\item{alterID}{\code{Character}. Name of the variable identifying egos (default: "alterID").}
+\item{alterID}{\code{Character}. Name of the variable identifying alteri (default: "alterID").}
 
 \item{e.max.alteri}{Maximum number of alteri that are included in edge data.}
 
