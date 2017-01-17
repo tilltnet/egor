@@ -57,7 +57,7 @@ read.egonet.folders <- function(egos.file, alter.folder, edge.folder, csv.sep = 
   }
 
   
-  # ...create tie df,...
+  # ...create alteri df,...
   message("Creating $alteri.df and $alteri.list")
   alter.attr.df <- data.frame()
   alter.attr.list <- list()
@@ -87,8 +87,8 @@ read.egonet.folders <- function(egos.file, alter.folder, edge.folder, csv.sep = 
 
   graphs <- to.network(e.lists = elist.list, alteri.list = alter.attr.list)
   
-  # Recreate alteri.list to ensure complete factor levels
-  alteri.list <- split(x = alter.attr.df, f = alter.attr.df[[egoID]])
+  # Recreate alteri.list to ensure complete factor levels #!# We need to make sure, that the original order is maintained
+  # alteri.list <- split(x = alter.attr.df, f = alter.attr.df[[egoID]])
   
   # Return:
   list(egos.df = egos, alteri.df = alter.attr.df, alteri.list = alter.attr.list, edges = elist.list, graphs = graphs, results = data.frame(netsize))
