@@ -332,8 +332,6 @@ read.egonet.one.file <- function(egos, netsize,  egoID = "egoID",
 read.egonet.two.files <- function(egos, alteri, netsize = NULL,  egoID = "egoID",
                                   alterID = NULL, e.max.alteri, e.first.var,
                                   ego.vars = NULL, selection = NULL) {
-
-  
   if(!is.null(alterID)) {
     message("alterID specified; moving to first column of $alteri.df.")
     alterID.col <- match(alterID , names(alteri))
