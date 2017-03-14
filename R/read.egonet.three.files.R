@@ -109,7 +109,7 @@ read.egonet.three.files <- function(egos, alteri.df, edges,
   # - calc netsize
   message("Calculating/ guessing netsize by egoID in alteri data.")
   netsize.df <- aggregate(alteri.df[[egoID]], by=alteri.df[egoID], FUN = NROW)
-  
+  names(netsize.df)[2] <- "netsize"
 
   
   # - split to alteri.list
