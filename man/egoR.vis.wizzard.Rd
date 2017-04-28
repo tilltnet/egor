@@ -18,6 +18,10 @@ This function uses an 'egoR' object (list of data objects created by an
 egonetR import function), extracts the graphs object and uses it to visualise
 all networks contained in an interactive Browser Application (R-Shiny).
 }
+\examples{
+data("egoR32")
+egoR.vis.wizzard(egoR32)
+}
 \keyword{analysis}
 \keyword{ego-centric}
 \keyword{network}

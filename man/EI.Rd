@@ -29,6 +29,11 @@ to other groups. Additionally, the EI index can be employ as a measurment
 for egos tendendy to homo-/heterphily - use the \code{composition} command
 for this version, as it is a compositional measure.
 }
+\examples{
+data("alteri32")
+data("edges32")
+EI(alteri32, edges32, var_name = "alter.sex")
+}
 \references{
 Krackhardt, D., Stern, R.N., 1988. Informal networks and 
 organizational crises: an experimental simulation. Social Psychology 

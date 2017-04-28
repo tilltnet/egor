@@ -17,7 +17,7 @@ read.openeddi(egos.file = NULL, alteri.file = NULL, edges.file = NULL,
   ID.vars = c("puid", "nameid", "nameid", "targetid"), ego.vars = NULL)
 }
 \arguments{
-\item{egos}{\code{dataframe} containg ego data (egos as cases)}
+\item{egos}{\code{Data frame} containg ego data (egos as cases)}
 
 \item{alteri.df}{\code{dataframe} containing alteri data (alteri as cases),
 alteri are separated by a variable containg an egoID.}
@@ -69,4 +69,25 @@ in the working directory. By default the standard ID variable names of openeddi
 are used, if you need to specify the ID variable names use the ID.vars parameter.
 Further Information: www.openeddi.com
 }}
+\examples{
+# The data for read.egonet.threefiles() needs to be loaded with read.csv(), 
+# for it to be converted to an egoR object.
+egos.file <-  system.file("extdata", "egos_32.csv", package = "egonetR")
+alteri.file <- system.file("extdata", "alteri_32.csv", package = "egonetR")
+edges.file <-  system.file("extdata", "edges_32.csv", package = "egonetR")
+
+egos <- read.csv2(egos.file)
+alteri <- read.csv2(alteri.file)
+edges <- read.csv2(edges.file)
+
+tf <- read.egonet.three.files(egos = egos, alteri.df = alteri, edges = edges)
+
+# read.egoweb() and read.openeddi() read the files directly from the disk.
+setwd(system.file("extdata", "openeddi", package = "egonetR"))
+oe <- read.openeddi()
+
+setwd(system.file("extdata", "egoweb", package = "egonetR"))
+ew <- read.egoweb(alter.file = "alteri_32.csv", edges.file = "edges_32.csv", 
+                  egos.file = "egos_32.csv")
+}
 

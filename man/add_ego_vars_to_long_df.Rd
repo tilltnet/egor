@@ -11,9 +11,9 @@ add_ego_vars_to_long_df(alteri.list, egos.df, ego.vars, netsize)
 
 \item{ego.vars}{A \code{data.frame} of alteri attributes in the wide format.}
 
-\item{netsize}{\code{vector} containing values of network size per ego.}
+\item{netsize}{\code{Vector} containing values of network size per ego.}
 
-\item{egos}{\code{dataframe} containg ego data (egos as cases)}
+\item{egos}{\code{Data frame} containg ego data (egos as cases)}
 }
 \description{
 This function adds ego attributes to a 'alteri.list' object of ego-centered

@@ -8,9 +8,9 @@ read.egonet.one.file(egos, netsize, egoID = "egoID", attr.start.col,
   attr.end.col, dy.max.alteri, dy.first.var, ego.vars = NULL, var.wise = F)
 }
 \arguments{
-\item{egos}{\code{dataframe} containg ego data (egos as cases)}
+\item{egos}{\code{Data frame} containg ego data (egos as cases)}
 
-\item{netsize}{\code{vector} containing values of network size per ego.}
+\item{netsize}{\code{Vector} containing values of network size per ego.}
 
 \item{egoID}{\code{Character}. Name of the variable identifying egos (default: "egoID").}
 

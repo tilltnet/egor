@@ -9,7 +9,7 @@ long.df.to.list(long, netsize, egoID, back.to.df = F)
 \arguments{
 \item{long}{A 'long' dataframe with alteri/dyads in rows.}
 
-\item{netsize}{\code{vector} containing values of network size per ego.}
+\item{netsize}{\code{Vector} containing values of network size per ego.}
 
 \item{egoID}{\code{Character}. Name of the variable identifying egos (default: "egoID").}
 

@@ -7,7 +7,7 @@
 egoR.avg.rel(egoR, netsize = NULL)
 }
 \arguments{
-\item{netsize}{\code{vector} containing values of network size per ego.}
+\item{netsize}{\code{Vector} containing values of network size per ego.}
 
 \item{A}{\code{list} of six objects - the **egoR** object: (1) egos.df: \code{dataframe} of all
 egos and their attributes; (2) alteri.df: \code{dataframe} of all alteri;
@@ -21,5 +21,7 @@ Average Alteri Relation Count
 }
 \seealso{
 \code{\link{egoR.density}}
+data("egoR32")
+egoR.avg.rel(egoR32)
 }
 

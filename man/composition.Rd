@@ -8,16 +8,16 @@ composition(alteri, v_alt, netsize, egoID = "egoID", v_ego = NULL,
   mode = "regular")
 }
 \arguments{
-\item{alteri}{\code{dataframe} containing alteri data (alteri as cases),
+\item{alteri}{\code{Data frame} containing alteri data (alteri as cases),
 alteri are separated by a variable containg an egoID.}
 
 \item{v_alt}{A character naming the variable containg the alter-attribute.}
 
-\item{netsize}{A vector of network sizes.}
+\item{netsize}{\code{Vector} containing values of network size per ego.}
 
 \item{egoID}{\code{Character}. Name of the variable identifying egos (default: "egoID").}
 
-\item{v_ego}{Character vector containing the ego attribute. Only needed if homophily should be calculated. Caution: Levels of v_alt and v_ego need to correspond.}
+\item{v_ego}{Character vector containing the ego attribute. Only needed for homophily index (EI). Caution: Levels of v_alt and v_ego need to correspond (see Details).}
 
 \item{mode}{A character. "regular" for a basic output, "all" for a complete output.}
 }
@@ -28,8 +28,33 @@ Returns a dataframe with category counts, diversity and EI-Index values in an eg
 This function outputs a dataframe containg serveral compositional measures 
 for ego-centered-network data. It reports the proportion of each group in the
 network, the absolute count of groups present and, if provided the 
-corresponding ego attriburte, the EI-Index is employed as a measurment for ego's tendency
+corresponding ego attribute, the EI-Index is employed as a measurment for ego's tendency
 to homo-/heterophily.
+}
+\details{
+v_ego is expected to consist of one entry per ego. The ego 
+attributes are usually drawn from the ego dataframe. If the ego attribute is
+stored alongside the alteri data, make sure to drop repeated values per 
+alteri (see example two).
+}
+\examples{
+# Load example data
+data("egos32")
+data("alteri32")
+
+# Example one
+composition(alteri32, v_alt = "alter.sex", netsize = egos32$netsize, 
+            v_ego = egos32$sex)
+
+# Example two
+# - using an ego attribute stored in the alter dataframe.
+ego.sex <- alteri32[!duplicated(alteri32$egoID), ]$ego.sex
+res <- composition(alteri32, v_alt = "alter.sex", netsize = egos32$netsize, 
+                   v_ego = ego.sex)
+
+# Using cbind() to show the ego attribute alongside the results might
+# be helpful in many cases:
+cbind(res, ego.sex)
 }
 \keyword{analysis}
 \keyword{ego-centered}

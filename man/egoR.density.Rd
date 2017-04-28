@@ -27,6 +27,10 @@ This function uses an 'egoR' object (list of data objects created by an
 egonetR import function) and calculates the density of all 
 the ego-centered networks listed in the 'egoR' object.
 }
+\examples{
+data("egoR32")
+egoR.density(egoR32)
+}
 \keyword{analysis}
 \keyword{ego-centric}
 \keyword{network}

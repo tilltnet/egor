@@ -9,12 +9,12 @@ read.egonet.two.files(egos, alteri, netsize = NULL, egoID = "egoID",
   selection = NULL)
 }
 \arguments{
-\item{egos}{\code{dataframe} containg ego data (egos as cases)}
+\item{egos}{\code{Data frame} containg ego data (egos as cases)}
 
-\item{alteri}{\code{dataframe} containing alteri data (alteri as cases),
+\item{alteri}{\code{Data frame} containing alteri data (alteri as cases),
 alteri are separated by a variable containg an egoID.}
 
-\item{netsize}{\code{vector} containing values of network size per ego.}
+\item{netsize}{\code{Vector} containing values of network size per ego.}
 
 \item{egoID}{\code{Character}. Name of the variable identifying egos (default: "egoID").}
 
