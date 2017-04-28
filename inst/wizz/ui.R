@@ -28,7 +28,7 @@ shiny::shinyUI(fluidPage(
   # Application title
   shiny::titlePanel("Network Visualisation Wizzard"),
   shiny::mainPanel(
-    shiny::plotOutput("Plot")
+    shiny::plotOutput("Plot", width = "100%", height = "600px")
   ),
 
   # Sidebar
