@@ -27,3 +27,8 @@ write.csv(alteri_df, file = "alter_data.csv", row.names = F)
 # Finally:
 egoW3 <- read.egoweb(alter.file = "alter_data.csv", 
                      edges.file = "example egoweb edgelist.csv")
+
+
+# Example
+setwd(system.file("extdata", "egoweb", package = "egonetR"))
+ew <- read.egoweb(alter.file = "alteri_32.csv", edges.file = "edges_32.csv", egos.file = "egos_32.csv")

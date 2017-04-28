@@ -119,7 +119,7 @@ a.lomihi[14] <- a.lomihi[10]
 
 graphs <- clustered.graphs(a.lomihi, e.lomihi, "alter.age") 
 #E(graphs[[6]])$grp.density
-
+vis.clustered.graphs(graphs)
 # vis.clustered.graphs(graphs, node.size.multiplier = 2, node.max.size = 200, edge.width.multiplier = 40,
 #                      label.size = 0.8)
 # 
