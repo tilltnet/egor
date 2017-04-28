@@ -101,16 +101,38 @@ comp.diversity <- function(cat.counts, netsize) {
 #' This function outputs a dataframe containg serveral compositional measures 
 #' for ego-centered-network data. It reports the proportion of each group in the
 #' network, the absolute count of groups present and, if provided the 
-#' corresponding ego attriburte, the EI-Index is employed as a measurment for ego's tendency
+#' corresponding ego attribute, the EI-Index is employed as a measurment for ego's tendency
 #' to homo-/heterophily.
 #' @template alteri
 #' @param v_alt A character naming the variable containg the alter-attribute.
-#' @param netsize A vector of network sizes.
+#' @template netsize
 #' @template egoID
-#' @param v_ego Character vector containing the ego attribute. Only needed if homophily should be calculated. Caution: Levels of v_alt and v_ego need to correspond.
+#' @param v_ego Character vector containing the ego attribute. Only needed for homophily index (EI). Caution: Levels of v_alt and v_ego need to correspond (see Details).
 #' @param mode A character. "regular" for a basic output, "all" for a complete output.
 #' @return Returns a dataframe with category counts, diversity and EI-Index values in an ego-centered network for a provided alter attribute.
+#' @details v_ego is expected to consist of one entry per ego. The ego 
+#' attributes are usually drawn from the ego dataframe. If the ego attribute is
+#' stored alongside the alteri data, make sure to drop repeated values per 
+#' alteri (see example two).
 #' @keywords ego-centered network analysis
+#' @examples
+#' # Load example data
+#' data("egos32")
+#' data("alteri32")
+#' 
+#' # Example one
+#' composition(alteri32, v_alt = "alter.sex", netsize = egos32$netsize, 
+#'             v_ego = egos32$sex)
+#' 
+#' # Example two
+#' # - using an ego attribute stored in the alter dataframe.
+#' ego.sex <- alteri32[!duplicated(alteri32$egoID), ]$ego.sex
+#' res <- composition(alteri32, v_alt = "alter.sex", netsize = egos32$netsize, 
+#'                    v_ego = ego.sex)
+#' 
+#' # Using cbind() to show the ego attribute alongside the results might
+#' # be helpful in many cases:
+#' cbind(res, ego.sex)
 #' @export
 composition <- function (alteri, v_alt, netsize, egoID = "egoID", v_ego = NULL, mode = "regular") { # regular, all
   ## Generate category counts/ proportions.

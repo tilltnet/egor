@@ -55,6 +55,26 @@ check.ID.unique <- function(x, ID) {
 #' egos.
 #' @param alteri.file \code{Character} name of the alteri data file.
 #' @template return_egoR
+#' @examples 
+#' # The data for read.egonet.threefiles() needs to be loaded with read.csv(), 
+#' # for it to be converted to an egoR object.
+#' egos.file <-  system.file("extdata", "egos_32.csv", package = "egonetR")
+#' alteri.file <- system.file("extdata", "alteri_32.csv", package = "egonetR")
+#' edges.file <-  system.file("extdata", "edges_32.csv", package = "egonetR")
+#' 
+#' egos <- read.csv2(egos.file)
+#' alteri <- read.csv2(alteri.file)
+#' edges <- read.csv2(edges.file)
+#' 
+#' tf <- read.egonet.three.files(egos = egos, alteri.df = alteri, edges = edges)
+#' 
+#' # read.egoweb() and read.openeddi() read the files directly from the disk.
+#' setwd(system.file("extdata", "openeddi", package = "egonetR"))
+#' oe <- read.openeddi()
+#' 
+#' setwd(system.file("extdata", "egoweb", package = "egonetR"))
+#' ew <- read.egoweb(alter.file = "alteri_32.csv", edges.file = "edges_32.csv", 
+#'                   egos.file = "egos_32.csv")
 #' @export
 read.egonet.three.files <- function(egos, alteri.df, edges, 
                                     ID.vars = c("egoID", "alterID", "Source", "Target"),

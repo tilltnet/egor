@@ -15,6 +15,9 @@
 #' of relations.
 #' @return returns a \code{vector} of network density values.
 #' @keywords ego-centric network analysis
+#' @examples 
+#' data("egoR32")
+#' egoR.density(egoR32)
 #' @export
 egoR.density <- function(egoR, weight = NULL, max.netsize = NULL, directed = FALSE) {
 
@@ -45,6 +48,8 @@ egoR.density <- function(egoR, weight = NULL, max.netsize = NULL, directed = FAL
 #' @template egoR
 #' @template netsize
 #' @seealso \code{\link{egoR.density}}
+#' data("egoR32")
+#' egoR.avg.rel(egoR32)
 #' @export
 egoR.avg.rel <- function(egoR, netsize = NULL) {
   if(is.null(netsize)) netsize <- egoR$results$netsize

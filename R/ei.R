@@ -22,6 +22,10 @@
 #' based centrality: E-I and G-F centrality. Social Networks, 34(4), 562-569. 
 #' @keywords ego-centered network
 #' @keywords sna
+#' @examples
+#' data("alteri32")
+#' data("edges32")
+#' EI(alteri32, edges32, var_name = "alter.sex")
 #' @export
 EI <- function(alteri, edges_, var_name, egoID = "egoID", alterID = "alterID") {
   
@@ -159,7 +163,7 @@ EI <- function(alteri, edges_, var_name, egoID = "egoID", alterID = "alterID") {
 #' @keywords ego-centered network
 #' @keywords sna
 #' @export
-fragmentations <- function(alteri.list, edges.list) {
+fragmentations <- function(alteri.list, edges.list) { #!# This function should be taken out soon!
   graphs <- to.network(edges.list, alteri.list)
   frags <- lapply(graphs, FUN = 
                     function(x) igraph::clusters(x)$no)

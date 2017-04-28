@@ -19,6 +19,7 @@
 #' the clustered ego-centered network data;
 #' @keywords ego-centric network analysis
 #' @seealso \code{\link{vis.clustered.graphs}} for visualising clustered graphs
+#' @example /inst/examples/ex_cg.r
 #' @export
 clustered.graphs <- function(alteri.list, edges.list, clust.groups) {
   GetGroupSizes <- function(x) {
@@ -155,6 +156,7 @@ clustered.graphs <- function(alteri.list, edges.list, clust.groups) {
 #' the clustered ego-centered network data;
 #' @keywords ego-centric network analysis
 #' @seealso \code{\link{clustered.graphs}} for creating clustered graphs objects
+#' @example /inst/examples/ex_cg.r
 #' @export
 vis.clustered.graphs <- function(graphs, 
                                  node.size.multiplier = 1, 
@@ -175,8 +177,8 @@ vis.clustered.graphs <- function(graphs,
       edges_mat <- matrix(1, nrow = vertex_length, ncol = vertex_length, dimnames = list(vertex_names, vertex_names))
       diag(edges_mat) <- 0
       edges_mat[upper.tri(edges_mat)] <- 0
-      edges_graph <- graph_from_adjacency_matrix(edges_mat)
-      edge_list <- ends(edges_graph, igraph::E(edges_graph), names = T)
+      edges_graph <- igraph::graph_from_adjacency_matrix(edges_mat)
+      edge_list <- igraph::ends(edges_graph, igraph::E(edges_graph), names = T)
       grps.graph <- igraph::graph.data.frame(d= edge_list, vertices= vertex_df, directed= FALSE)
       #grps.graph <- igraph::graph.data.frame(d= data.frame(x=character(0), y=character(0)), vertices= vertex_df, directed= FALSE)
       igraph::plot.igraph(grps.graph, 
@@ -201,7 +203,8 @@ vis.clustered.graphs <- function(graphs,
       #print(edge.label)
       grey.shades <- gray(seq(1, 0, -0.008))[igraph::V(graph)$grp.density*100+1]
       grey.shades <-  strtoi(substr(gsub("#", replacement = "0x", grey.shades), start = 1, stop = 4))
-      label.shades <- ifelse(grey.shades < 120, "white", "black")
+      label.shades <- ifelse(grey.shades < 120, "#cccccc", "black")
+      label.shades.b <- ifelse(grey.shades > 120, "white", "black")
       if(length(label.shades) == 0) label.shades <- "black"
     } else {
       vertex.label <- NA
@@ -214,7 +217,15 @@ vis.clustered.graphs <- function(graphs,
     #vertex.size <- ifelse(vertex.size < vertex.min.size, vertex.min.size, vertex.size)
     vertex.size[vertex.size > node.max.size] <- node.max.size
     
+    #lx <- layout.star(graph)[,1]
+    #ly <- layout.star(graph)[,2]
+    #plot(-2:2, -2:2, type = "n", xlab = "", ylab = "", axes = F)
+    
+    #plotrix::boxed.labels(lx, ly, vertex.label.b, col = "blue", border = F, bg = "orange")
+    
     igraph::plot.igraph(graph, 
+                #add = T,
+                #rescale = F,
                 vertex.color = gray(seq(1, 0, -0.008))[igraph::V(graph)$grp.density*100+1], 
                 vertex.frame.color = ifelse(igraph::V(graph)$grp.density == 0 | is.na(igraph::V(graph)$grp.density), "black", NA), 
                 vertex.size = vertex.size,
@@ -232,7 +243,24 @@ vis.clustered.graphs <- function(graphs,
                 edge.color = ifelse(igraph::E(graph)$grp.density == 0, NA, "grey"),
                 layout = layout_)
     
-    igraph::plot.igraph(graph, add = T,
+      # igraph::plot.igraph(graph, add = T,
+      #                   vertex.color = NA, 
+      #                   vertex.frame.color = NA, 
+      #                   vertex.size = vertex.size,
+      #                   vertex.label.color = label.shades.b, 
+      #                   vertex.label.cex = label.size + 0.1,
+      #                   vertex.label = vertex.label.b,
+      #                   vertex.label.family = "serif",
+      #                   vertex.label.font = 2,
+      #                   #vertex.label.dist = 0.02,
+      #                   edge.width = 0,
+      #                   edge.color = NA,
+      #                   edge.arrow.size = 0, 
+      #                   layout = layout_)
+      
+      igraph::plot.igraph(graph, 
+                add = T,
+                #rescale = F,
                 vertex.color = NA, 
                 vertex.frame.color = NA, 
                 vertex.size = vertex.size,
@@ -272,7 +300,7 @@ vis.clustered.graphs <- function(graphs,
   }
   
   
-  edge.label.cex <- 0.7
+  edge.label.cex <- label.size
   edge.label.color <- "black"
   for(graph in graphs) {
     if(length(igraph::V(graph))<1) {
