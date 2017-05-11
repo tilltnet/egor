@@ -1,4 +1,4 @@
-Package: egonetR
+Package: egor
 Type: Package
 Title: Import and analyse ego-centric network data
 Version: 0.17.01
@@ -8,16 +8,16 @@ Authors@R: c(
     role = c("aut")),
     person("Andreas", "Herz", email = "herzand@uni-hildesheim.de",
     role = c("aut")),
-    person("Till", "Krenz", email = "egonetR@tillt.net",
+    person("Till", "Krenz", email = "egor@tillt.net",
     role = c("aut", "cre")),
     person("Christopher", "McCarty", email = "ufchris@ufl.edu",
     role = c("aut")),
     person("Raffaele", "Vacca", email = "r.vacca@ufl.edu",
     role = c("aut")))
-Description: egonetR aids with the process of importing, analysing
+Description: egor aids with the process of importing, analysing
     and visualising ego-centric network data. It supports several data formats,
     including the export formats of EgoNet (McCarty 2011), EgoWeb 2.0 (Kennedy 
-    et al.) and openeddi (Eddens/ Fagan). egonetR offers an interactive (shiny) app 
+    et al.) and openeddi (Eddens/ Fagan). egor offers an interactive (shiny) app 
     for the intuitive visulisation of ego-centered  networks. It also includes 
     procedures for creating and visualising Clustered Graphs (Lerner et. al 
     2008).

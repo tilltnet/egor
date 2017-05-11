@@ -1,4 +1,4 @@
-library(egonetR)
+library(egor)
 
 mpf <- generate.sample.ego.data(20, 50)
 

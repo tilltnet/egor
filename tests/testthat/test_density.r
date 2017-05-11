@@ -1,7 +1,7 @@
 # Test Density
 # One File
-library(egonetR)
-path_to_one_file_8 <- system.file("extdata", "one_file_8.csv", package = "egonetR")
+library(egor)
+path_to_one_file_8 <- system.file("extdata", "one_file_8.csv", package = "egor")
 egos_8 <- read.csv2(path_to_one_file_8, row.names = 1)
 
 attr.start.col <- which(names(egos_8) == "alter.sex.1")

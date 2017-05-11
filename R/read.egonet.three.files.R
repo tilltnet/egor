@@ -58,9 +58,9 @@ check.ID.unique <- function(x, ID) {
 #' @examples 
 #' # The data for read.egonet.threefiles() needs to be loaded with read.csv(), 
 #' # for it to be converted to an egoR object.
-#' egos.file <-  system.file("extdata", "egos_32.csv", package = "egonetR")
-#' alteri.file <- system.file("extdata", "alteri_32.csv", package = "egonetR")
-#' edges.file <-  system.file("extdata", "edges_32.csv", package = "egonetR")
+#' egos.file <-  system.file("extdata", "egos_32.csv", package = "egor")
+#' alteri.file <- system.file("extdata", "alteri_32.csv", package = "egor")
+#' edges.file <-  system.file("extdata", "edges_32.csv", package = "egor")
 #' 
 #' egos <- read.csv2(egos.file)
 #' alteri <- read.csv2(alteri.file)
@@ -69,10 +69,10 @@ check.ID.unique <- function(x, ID) {
 #' tf <- read.egonet.three.files(egos = egos, alteri.df = alteri, edges = edges)
 #' 
 #' # read.egoweb() and read.openeddi() read the files directly from the disk.
-#' setwd(system.file("extdata", "openeddi", package = "egonetR"))
+#' setwd(system.file("extdata", "openeddi", package = "egor"))
 #' oe <- read.openeddi()
 #' 
-#' setwd(system.file("extdata", "egoweb", package = "egonetR"))
+#' setwd(system.file("extdata", "egoweb", package = "egor"))
 #' ew <- read.egoweb(alter.file = "alteri_32.csv", edges.file = "edges_32.csv", 
 #'                   egos.file = "egos_32.csv")
 #' @export
@@ -138,7 +138,7 @@ read.egonet.three.files <- function(egos, alteri.df, edges,
   
 
   # 6. to network
-  graphs <- egonetR::to.network(edges, alteri.list)
+  graphs <- egor::to.network(edges, alteri.list)
   
   # 7. return egoR
   egoR <- list(egos = egos, 

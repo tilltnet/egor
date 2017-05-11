@@ -88,7 +88,7 @@ clustered.graphs <- function(alteri.list, edges.list, clust.groups) {
           if(j.name != i.name) {
             grp.possible.dyads <- dyads.possible.between.groups(groups.size.i, groups.size.j)
           } else {
-            grp.possible.dyads <- egonetR:::dyad.poss(groups.size.i)
+            grp.possible.dyads <- egor:::dyad.poss(groups.size.i)
           }
           grp.density <- real.dyads / grp.possible.dyads 
           #grp.density.fake <- sample(0:100/100, 10)

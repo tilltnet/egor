@@ -1,4 +1,4 @@
-egonetR
+egor
 =======
 
- Please find all further information here: http://tilltnet.github.io/egonetR/
+ Please find all further information here: http://tilltnet.github.io/egor/

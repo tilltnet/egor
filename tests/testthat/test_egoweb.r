@@ -1,6 +1,6 @@
 setwd("C:/Users/Till/ownCloud/Diss/rwd/read_egonet/read egoweb")
 setwd("C:/Users/K.Seiz/ownCloud/Diss/rwd/read_egonet/read egoweb")
-library(egonetR)
+library(egor)
 # This Line produces an error in the creation of the igraph objects, because of
 # duplicate alter names/ vertex names.
 egoW <- read.egoweb(alter.file = "example egoweb ego alter data with stats exported.csv", edges.file = "example egoweb edgelist.csv")
@@ -30,5 +30,5 @@ egoW3 <- read.egoweb(alter.file = "alter_data.csv",
 
 
 # Example
-setwd(system.file("extdata", "egoweb", package = "egonetR"))
+setwd(system.file("extdata", "egoweb", package = "egor"))
 ew <- read.egoweb(alter.file = "alteri_32.csv", edges.file = "edges_32.csv", egos.file = "egos_32.csv")

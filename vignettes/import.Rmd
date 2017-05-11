@@ -1,5 +1,5 @@
 ---
-title: "Importing ego-centered network data into R using egonetR"
+title: "Importing ego-centered network data into R using egor"
 author: "Till Krenz"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -25,13 +25,13 @@ variables (wide-format.)
 Finally the **edges** can be stored as edgelists (in one or in seperate files), as
 matrices or in colums of a `dataframe` (wide-format).
 
-`egonetR` helps with the importing of all these formats into R, by 
+`egor` helps with the importing of all these formats into R, by 
 providing seperate functions that are dedicated to handle each kind of format.
 In addition there are three funtcions that let you import all of the data in one
 line of code:
 
 ## Single Command Import
-`egonetR` supports importing three different data formats with a single command.
+`egor` supports importing three different data formats with a single command.
 These are:
 
 - **One-File**: All the data is stored in one file; egos as rows; alteri and edge data
@@ -55,7 +55,7 @@ load the datasets intro R first. If your data is stored as .csv-Files, use the
 
 
 ```{r, eval = TRUE}
-setwd(system.file("extdata", package = "egonetR"))
+setwd(system.file("extdata", package = "egor"))
 
 egos_one <- read.csv2("one_file_8.csv")
 ```
@@ -63,7 +63,7 @@ egos_one <- read.csv2("one_file_8.csv")
 
 **Two-Files:**
 ```{r}
-setwd(system.file("extdata", package = "egonetR"))
+setwd(system.file("extdata", package = "egor"))
 
 egos_two <- read.csv2("two_files_8_egos.csv")
 

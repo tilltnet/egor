@@ -3,9 +3,9 @@
 #' Calculate the density for n+many ego-centered networks. 
 #'
 #' This function uses an 'egoR' object (list of data objects created by an 
-#' egonetR import function) and calculates the density of all 
+#' egor import function) and calculates the density of all 
 #' the ego-centered networks listed in the 'egoR' object.
-#' @param egoR A list of six data objects, created by one of egonetR's import 
+#' @param egoR A list of six data objects, created by one of egor's import 
 #' functions.
 #' @param max.netsize Optional parameter. Only needed if the density information
 #' was only collected for a subsample of all alteri per network.
