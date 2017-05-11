@@ -1,4 +1,4 @@
 library(testthat)
-library(egonetR)
+library(egor)
 
-test_check("egonetR")
+test_check("egor")

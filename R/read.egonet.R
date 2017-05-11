@@ -362,7 +362,7 @@ read.egonet.two.files <- function(egos, alteri, netsize = NULL,  egoID = "egoID"
   
   
   message("Preparing alteri data.")
-  alteri.list <- egonetR:::long.df.to.list(long = alteri, netsize = netsize, egoID = egoID)
+  alteri.list <- egor:::long.df.to.list(long = alteri, netsize = netsize, egoID = egoID)
   alteri.list <- lapply(alteri.list, FUN = function(x) 
     data.frame(alterID = as.character(c(1:NROW(x))), x)) #!# This generates two alteriIDs in the transnat import, not good!
   

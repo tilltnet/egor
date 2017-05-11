@@ -22,9 +22,9 @@
 #' row names, that are to be skipped, default is \code{FALSE}.
 #' @keywords ego-centric import
 #' @examples 
-#' egos.file <-  system.file("extdata", "egos_32.csv", package = "egonetR")
-#' alteri.folder <- system.file("extdata", "alteri_32", package = "egonetR")
-#' edge.folder <-  system.file("extdata", "edges_32", package = "egonetR")
+#' egos.file <-  system.file("extdata", "egos_32.csv", package = "egor")
+#' alteri.folder <- system.file("extdata", "alteri_32", package = "egor")
+#' edge.folder <-  system.file("extdata", "edges_32", package = "egor")
 #' 
 #' ef <- read.egonet.folders(egos.file = egos.file, alter.folder = alteri.folder, edge.folder = edge.folder, csv.sep = ";")
 #' @export
