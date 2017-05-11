@@ -7,7 +7,7 @@
 egoR.density(egoR, weight = NULL, max.netsize = NULL, directed = FALSE)
 }
 \arguments{
-\item{egoR}{A list of six data objects, created by one of egonetR's import 
+\item{egoR}{A list of six data objects, created by one of egor's import 
 functions.}
 
 \item{weight}{\code{Character} naming a variable containing the weight values
@@ -24,7 +24,7 @@ returns a \code{vector} of network density values.
 }
 \description{
 This function uses an 'egoR' object (list of data objects created by an 
-egonetR import function) and calculates the density of all 
+egor import function) and calculates the density of all 
 the ego-centered networks listed in the 'egoR' object.
 }
 \examples{

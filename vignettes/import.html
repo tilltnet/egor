@@ -12,9 +12,9 @@
 
 <meta name="author" content="Till Krenz" />
 
-<meta name="date" content="2016-09-10" />
+<meta name="date" content="2017-05-11" />
 
-<title>Importing ego-centered network data into R using egonetR</title>
+<title>Importing ego-centered network data into R using egor</title>
 
 
 
@@ -68,9 +68,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 
-<h1 class="title toc-ignore">Importing ego-centered network data into R using egonetR</h1>
+<h1 class="title toc-ignore">Importing ego-centered network data into R using egor</h1>
 <h4 class="author"><em>Till Krenz</em></h4>
-<h4 class="date"><em>2016-09-10</em></h4>
+<h4 class="date"><em>2017-05-11</em></h4>
 
 
 
@@ -83,10 +83,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>The inforamtion on the <strong>egos</strong> is usually stored in a <code>dataframe</code>.</p>
 <p><strong>Alteri</strong> data can be stored in a single <code>dataframe</code> with the alteri as the rows (long-format), the data might be split up into seperate files for each ego/ network or it might be in the same dataset as the egos data, with the alteri information in colums <em>or</em> as variables (wide-format.)</p>
 <p>Finally the <strong>edges</strong> can be stored as edgelists (in one or in seperate files), as matrices or in colums of a <code>dataframe</code> (wide-format).</p>
-<p><code>egonetR</code> helps with the importing of all these formats into R, by providing seperate functions that are dedicated to handle each kind of format. In addition there are three funtcions that let you import all of the data in one line of code:</p>
+<p><code>egor</code> helps with the importing of all these formats into R, by providing seperate functions that are dedicated to handle each kind of format. In addition there are three funtcions that let you import all of the data in one line of code:</p>
 <div id="single-command-import" class="section level2">
 <h2>Single Command Import</h2>
-<p><code>egonetR</code> supports importing three different data formats with a single command. These are:</p>
+<p><code>egor</code> supports importing three different data formats with a single command. These are:</p>
 <ul>
 <li><p><strong>One-File</strong>: All the data is stored in one file; egos as rows; alteri and edge data in the wide-format.</p></li>
 <li><p><strong>Two-Files</strong>: Ego data and edges (wide-format) are stored in one file and the alteri (long-format) in another.</p></li>
@@ -97,11 +97,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h3>One- &amp; Two-File(s) Format</h3>
 <p>In order to import data stored in the One- or Two-File(s) format you need to load the datasets intro R first. If your data is stored as .csv-Files, use the <code>read.csv()</code> or <code>read.csv2()</code> command.</p>
 <p>**One-<a href="File:**" class="uri">File:**</a></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setwd</span>(<span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;egonetR&quot;</span>))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setwd</span>(<span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;egor&quot;</span>))
 
 egos_one &lt;-<span class="st"> </span><span class="kw">read.csv2</span>(<span class="st">&quot;one_file_8.csv&quot;</span>)</code></pre></div>
 <p><strong>Two-Files:</strong></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setwd</span>(<span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;egonetR&quot;</span>))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setwd</span>(<span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;egor&quot;</span>))
 
 egos_two &lt;-<span class="st"> </span><span class="kw">read.csv2</span>(<span class="st">&quot;two_files_8_egos.csv&quot;</span>)
 
