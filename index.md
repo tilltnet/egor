@@ -1,24 +1,24 @@
-egonetR is a package in R for importing, analyzing and visualizing ego-centered network data. Ego-centered networks are here understood as the network of a focal actor (ego), including the relationships of ego to alters and the relationships between these alters (also called ego-centric networks or personal networks). The intention of egonetR is to enable users to conduct ego-centered network analysis with very basic R programming knowledge.
+egor is a package in R for importing, analyzing and visualizing ego-centered network data. Ego-centered networks are here understood as the network of a focal actor (ego), including the relationships of ego to alters and the relationships between these alters (also called ego-centric networks or personal networks). The intention of egor is to enable users to conduct ego-centered network analysis with very basic R programming knowledge.
 
 
-What is egonetR developed for?
+What is egor developed for?
 -------
-- Import and data handling: Loading data from different formats to R and generating a so called egoR object which facilitates the handling of different data formats. Ego-centered network data can – depending on the software or approach you choose during data collection – be stored in different ways (see different data formats). EgonetR allows to load data from different source formats, without manipulating the source data structure (e.g. from the so called “one file”, “two files” or “folders” format; find more information on this [here](http://tilltnet.github.io/egonetR/downloads/egonetR_Formats_Import.pdf). (If you are not familiar with the different data structures in R, you can learn about it in this [short introduction ](http://tilltnet.github.io/egonetR/downloads/01_basics.html).)
-- Data analysis: ego-centered network analysis is commonly conducted on two different level. On the alter level the analysis focusses on the qualities of the ego-alter-relationships; on the network level analysis focuses the structure and composition of the ego-centered network. For both levels egonetR allows to calculate a range of network measures.
+- Import and data handling: Loading data from different formats to R and generating a so called egoR object which facilitates the handling of different data formats. Ego-centered network data can – depending on the software or approach you choose during data collection – be stored in different ways (see different data formats). EgonetR allows to load data from different source formats, without manipulating the source data structure (e.g. from the so called “one file”, “two files” or “folders” format; find more information on this [here](http://tilltnet.github.io/egor/downloads/egor_Formats_Import.pdf). (If you are not familiar with the different data structures in R, you can learn about it in this [short introduction ](http://tilltnet.github.io/egor/downloads/01_basics.html).)
+- Data analysis: ego-centered network analysis is commonly conducted on two different level. On the alter level the analysis focusses on the qualities of the ego-alter-relationships; on the network level analysis focuses the structure and composition of the ego-centered network. For both levels egor allows to calculate a range of network measures.
     - On alter level: multiplexity, homophily
     - On network level: size, density, EI-Index, diversity, components, proportions of ties with specific attributes.
-- By providing the egoR object encompassing the different data formats, egonetR allows a quick use in additional R packages e.g. to typologyze ego-networks (cluster analysis), perform different kinds of regression analysis (dependent variable on alter or network level). 
-- Visualization: egonetR supports visual analysis of ego-centered networks in two ways. Via the so called visualization wizard and the so called clustered graphs. 
+- By providing the egoR object encompassing the different data formats, egor allows a quick use in additional R packages e.g. to typologyze ego-networks (cluster analysis), perform different kinds of regression analysis (dependent variable on alter or network level). 
+- Visualization: egor supports visual analysis of ego-centered networks in two ways. Via the so called visualization wizard and the so called clustered graphs. 
 - Visualization wizard: This function opens a browser and allows to visualize all networks along alter-level, ego-level, network-level information.
-- Clustered graphs: egonetR has built in the function to generate so called clustered graphs to cluster, aggregate, and visualize collections of ego-centered networks along structural and compositional properties as developed by Lerner et al. (2008).
+- Clustered graphs: egor has built in the function to generate so called clustered graphs to cluster, aggregate, and visualize collections of ego-centered networks along structural and compositional properties as developed by Lerner et al. (2008).
 
-Installation of R, R-Studio and egonetR
+Installation of R, R-Studio and egor
 ----------------------------
 1. Installation of R can be done from http://cran.r-project.org/
 2. Installation of a graphical user interface such as R-Studio via www.rstudio.com (optional, but recommended)
-3. Installation of egonetR:
+3. Installation of egor:
 
-    - [Download](https://github.com/tilltnet/egonetR/releases) latest release and install manually
+    - [Download](https://github.com/tilltnet/egor/releases) latest release and install manually
     - Install [Development Version](devel_install.html)
 
 ## Basic functionality
@@ -42,7 +42,7 @@ EgoR object is a list of six objects:
 6. results: a result dataframe, pre-populated with the network size of each network
 
 ### Analysis
-EgonetR allows to calculate a range of network measures, e.g.:
+egor allows to calculate a range of network measures, e.g.:
 - density: egoR.density(egoR, weight = "weight", max.netsize = NULL) 
 - compositional measures for ego-centered-network data (diversity, EI-Index): composition(alteri, v_alt, netsize, egoID = "egoID", v_ego = NULL, mode = "regular")
 
@@ -52,8 +52,8 @@ EgonetR allows to calculate a range of network measures, e.g.:
 - Clustered graphs: clustered.graphs(alteri.list, edges.list, clust.groups)
 ![Clustered graphs](downloads/clustered_graphs.png)
 
-## Workhshops with egonetR
-egonetR is regularily (introd)used in workshops. Please find a list of past and upcoming events below: 
+## Workhshops with egor (fomerly egonetR)
+egor is regularily (introd)used in workshops. Please find a list of past and upcoming events below: 
 
 ### Future Workshops 
 - 01.06 - 03.06.2016: Erhebung und Analyse egozentrierter Netzwerke, GESIS/ Köln (Till Krenz, Andreas Herz, Markus Gamper, Sören Petermann)
