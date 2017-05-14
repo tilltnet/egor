@@ -4,13 +4,13 @@
 \alias{generate.sample.edge.list}
 \title{Generate a random edge list for one network.}
 \usage{
-generate.sample.edge.list(max.alteri)
+generate.sample.edge.list(max.alters)
 }
 \arguments{
-\item{max.alteri}{\code{Numeric} indicating maximum number of alteri.}
+\item{max.alters}{\code{Numeric} indicating maximum number of alters.}
 }
 \description{
-Here should be a a longer description of this function.
+Generate a random edge list for one network.
 }
 \keyword{ego-centric}
 \keyword{internal}

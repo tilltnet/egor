@@ -4,12 +4,12 @@
 \alias{generate.sample.ego.data}
 \title{Generate random ego-centric-network data.}
 \usage{
-generate.sample.ego.data(net.count, max.alteri, netsize = NULL)
+generate.sample.ego.data(net.count, max.alters, netsize = NULL)
 }
 \arguments{
 \item{net.count}{Number of networks/ egos to generate.}
 
-\item{max.alteri}{Maximum size of networks.}
+\item{max.alters}{Maximum size of networks.}
 
 \item{netsize}{\code{Numeric} for fixed network sizes.}
 }
