@@ -8,7 +8,7 @@
 #' the style of and edge list.
 #' @param egoID Name of ego ID variable.
 #' @param max.netsize Optional parameter. Constant value used if the
-#' number of alteri whose relations were collected is limited.
+#' number of alters whose relations were collected is limited.
 #' @return returns an \code{egor} object. An egor is a \code{data.frame}, which
 #' consists of an ego ID column, nested columns for alter and alte-alter tie 
 #' data and regular columns for ego-level data.

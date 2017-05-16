@@ -1,5 +1,5 @@
 asd <- egor:::generate.sample.ego.data(32, 20)
-alters.df <- asd$alteri
+alters.df <- asd$alters
 egos.df <-  asd$egos
 alters.df$egoID <- as.integer(alters.df$egoID)
 alter_ties <- mapply(FUN = function(x, y) data.frame(egoID = y, x), asd$edges, 1:length(asd$edges), SIMPLIFY = F)
