@@ -74,8 +74,8 @@ summary.egor <- function(egor) {
   # Average netsize
   nts <- sum(unlist(lapply(egor$alters, FUN = NROW))) / nc
   
-  # Average netsize
-  if("alter_ties" %in% names(egor)) dens <- sum(egoR.density(egor)) / nc else dens <- NULL
+  # Average density
+  if("alter_ties" %in% names(egor)) dens <- sum(ego_density(egor), na.rm = T) / nc else dens <- NULL
   
   cat(paste(nc, "Egos/ Ego Networks", "\nAverage Netsize", nts, "\n"))
   if(!is.null(dens)) cat(paste("Average Density", dens))
