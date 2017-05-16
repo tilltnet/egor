@@ -101,6 +101,7 @@ read.egonet.three.files <- function(egos, alters.df, edges,
     if(NROW(excluded$alteri.df) > 0) message("Some alters are being excluded.")
     if(NROW(excluded$edges) > 0) message("Some edges are being excluded.")
     message("Check $excluded to find out which egos, alters and/or edge data is excluded.")
+    message("Check $excluded to find out which egos, alteri and/or edge data is excluded.")
     message("----------------------------")
   }
   # 2. Reorder edgelist columns and split to list

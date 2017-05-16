@@ -1,6 +1,15 @@
 asd <- generate.sample.ego.data(32, 20)
 alters.df <- asd$alters
 egos.df <-  asd[ , -c(2,3)]
+
+asd <- generate.sample.ego.data(32, 20)
+alters.df <- asd$alters
+egos.df <-  asd[ , -c(2,3)]
+
+asd <- egor:::generate.sample.ego.data(32, 20)
+alters.df <- asd$alters
+egos.df <-  asd$egos
+
 alters.df$egoID <- as.integer(alters.df$egoID)
 alter_ties <- mapply(FUN = function(x, y) data.frame(egoID = y, x), asd$alter_ties, 1:length(asd$alter_ties), SIMPLIFY = F)
 
@@ -68,28 +77,28 @@ ego_density(err_d4)
 
 
 # filter
-cond_1 <- "alter.sex"
-cond_2 <- "w"
-e1$alters[[1]][cond ==, ]
-lapply(X= e1$alters, FUN = function(x, att, cond) 
-  x[x[att] == cond, ]
-, att = "alter.sex", cond = "w")
-
-
-dplyr::filter(e1$alters[[1]], alter.sex == "w")
-
-
-filter()
-
-if
-
-dplyr::filter_
-
-class(~13<2)
-lm
-
-
-cond <- ~alter.sex == "w"
-if(eval(cond, parent.frame())) {}
-cond
-model.matrix.default
+# cond_1 <- "alter.sex"
+# cond_2 <- "w"
+# e1$alters[[1]][cond ==, ]
+# lapply(X= e1$alters, FUN = function(x, att, cond) 
+#   x[x[att] == cond, ]
+# , att = "alter.sex", cond = "w")
+# 
+# 
+# dplyr::filter(e1$alters[[1]], alter.sex == "w")
+# 
+# 
+# filter()
+# 
+# if
+# 
+# dplyr::filter_
+# 
+# class(~13<2)
+# lm
+# 
+# 
+# cond <- ~alter.sex == "w"
+# if(eval(cond, parent.frame())) {}
+# cond
+# model.matrix.default

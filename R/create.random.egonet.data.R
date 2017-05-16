@@ -3,13 +3,11 @@
 
 #' Generate a random edge list for one network.
 #'
-#' Generate a random edge list for one network.
 #' @param max.alters \code{Numeric} indicating maximum number of alters.
 #' @keywords ego-centric network
 #' @keywords internal
 generate.sample.edge.list <- function(max.alters) {
   dp <- egor:::dyad.poss(max.alters)
-
   Source <- c()
   for (i in 1:max.alters) {
     tmp <- rep(i, max.alters - i)
@@ -60,6 +58,10 @@ generate.sample.ego.data <- function(net.count, max.alters, netsize = NULL) {
   # Generating alters data
   alterID <- rep(1:max.alters, net.count)
   egoID <- gl(net.count, max.alters)
+
+  alterID <- rep(1:max.alters, net.count)
+  egoID <- gl(net.count, max.alters)
+
   alter.sex <- rep(chartr("12", "wm", sample(1:2, net.count, replace = T)), 
                    max.alters)
   alter.age <- rep(sample(1:7, net.count, replace = T), max.alters)
