@@ -11,17 +11,17 @@ vignette: >
 Ego-centererd network data includes three kinds of data:
 
 1. Ego data
-2. Alteri data
+2. Alters data
 3. Edge data
 
 The inforamtion on the **egos** is usually stored in a dataset,
 represented in R as a `dataframe`. With the exception of the ego data, there are
 several formats the data can be stored in.
 
-**Alteri** data can be stored in a 
-single `dataframe` with the alteri as the rows (long-format), the data might be 
+**Alters** data can be stored in a 
+single `dataframe` with the alters as the rows (long-format), the data might be 
 split up into seperate files for each ego/ network or it might be in the same 
-dataset as the egos data, with the alteri information in colums _or_ as 
+dataset as the egos data, with the alters information in colums _or_ as 
 variables (wide-format.)
 
 Finally the **edges** can be stored as edgelists (in one or in seperate files), as
@@ -36,13 +36,13 @@ line of code:
 `egor` supports importing three different data formats with a single command.
 These are:
 
-- **One-File**: All the data is stored in one file; egos as rows; alteri and edge data
+- **One-File**: All the data is stored in one file; egos as rows; alters and edge data
 in the wide-format.
 
 - **Two-Files**: Ego data and edges (wide-format) are stored in one file and the
-alteri (long-format) in another.
+alters (long-format) in another.
 
-- **Folders**: Egos in one file; folders of files per ego for alteri and edges.
+- **Folders**: Egos in one file; folders of files per ego for alters and edges.
 
 ![Formats](02-formats.png)
 *Formats that can be imported using Single Command Import*
@@ -69,14 +69,14 @@ setwd(system.file("extdata", package = "egor"))
 
 egos_two <- read.csv2("two_files_8_egos.csv")
 
-alteri_two <- read.csv2("alteri_8.csv")
+alters_two <- read.csv2("alters_8.csv")
 ```
 
     
 
-    read.egonet.one.file(egos, netsize,  netID = "netID", attr.start.col, attr.end.col, dy.max.alteri, dy.first.var)
+    read.egonet.one.file(egos, netsize,  netID = "netID", attr.start.col, attr.end.col, dy.max.alters, dy.first.var)
     
-    read.egonet.two.files(egos, long, netsize = NULL,  netID = "netID", alterID = NULL, dy.max.alteri, dy.first.var)
+    read.egonet.two.files(egos, long, netsize = NULL,  netID = "netID", alterID = NULL, dy.max.alters, dy.first.var)
 
     read.egonet.folders(egos, alter.folder, edge.folder, netID = "netID")
 

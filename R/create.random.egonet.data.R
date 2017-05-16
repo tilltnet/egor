@@ -3,12 +3,20 @@
 
 #' Generate a random edge list for one network.
 #'
+<<<<<<< HEAD
 #' Generate a random edge list for one network.
+=======
+#' Here should be a a longer description of this function.
+>>>>>>> 92f476aaa4b6195de1556e5486f2e8da4e13ec37
 #' @param max.alters \code{Numeric} indicating maximum number of alters.
 #' @keywords ego-centric network
 #' @keywords internal
 generate.sample.edge.list <- function(max.alters) {
+<<<<<<< HEAD
   dp <- egor:::dyad.poss(max.alters)
+=======
+  dp <- dyad.poss(max.alters)
+>>>>>>> 92f476aaa4b6195de1556e5486f2e8da4e13ec37
   
   Source <- c()
   for (i in 1:max.alters) {
@@ -58,17 +66,29 @@ generate.sample.ego.data <- function(net.count, max.alters, netsize = NULL) {
   egos <- data.frame(egoID, sex, age, netsize)
   
   # Generating alters data
+<<<<<<< HEAD
   altersD <- rep(1:max.alters, net.count)
   egoID <- as.numeric(gl(net.count, max.alters))
+=======
+  alterID <- rep(1:max.alters, net.count)
+  egoID <- gl(net.count, max.alters)
+>>>>>>> 92f476aaa4b6195de1556e5486f2e8da4e13ec37
   alter.sex <- rep(chartr("12", "wm", sample(1:2, net.count, replace = T)), 
                    max.alters)
   alter.age <- rep(sample(1:7, net.count, replace = T), max.alters)
   alter.age <- factor(alter.age, levels = c(1, 2, 3, 4, 5, 6, 7), labels = c("0 - 17", 
       "18 - 25", "26 - 35", "36 - 45", "46 - 55", "56 - 65", "66 - 100"))
+<<<<<<< HEAD
   alters <- data.frame(egoID, altersD, alter.sex, alter.age)
   
   # Trimming down alters per network using netsize
   alters <- egor:::long.df.to.list(alters, egos$netsize, egoID = "egoID", back.to.df = T)
+=======
+  alters <- data.frame(egoID, alterID, alter.sex, alter.age)
+  
+  # Trimming down alters per network using netsize
+  alters <- long.df.to.list(alters, egos$netsize, egoID = "egoID", back.to.df = T)
+>>>>>>> 92f476aaa4b6195de1556e5486f2e8da4e13ec37
     
   # Generating edges
   edge.list <- list()
@@ -80,7 +100,11 @@ generate.sample.ego.data <- function(net.count, max.alters, netsize = NULL) {
   alter_ties.df <- do.call(rbind, alter_ties)
   
   # Return
+<<<<<<< HEAD
   egor(alters, egos, alter_ties.df)
+=======
+  list(egos = egos, alters = alters, edges = edge.list)
+>>>>>>> 92f476aaa4b6195de1556e5486f2e8da4e13ec37
 } 
 
 # mimi <- generate.sample.ego.data(net.count = 128, max.alters = 8, netsize = 'fixed')

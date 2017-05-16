@@ -1,6 +1,12 @@
+<<<<<<< HEAD:tests/testthat/test_egor.r
 asd <- generate.sample.ego.data(32, 20)
 alters.df <- asd$alters
 egos.df <-  asd[ , -c(2,3)]
+=======
+asd <- egor:::generate.sample.ego.data(32, 20)
+alters.df <- asd$alters
+egos.df <-  asd$egos
+>>>>>>> 92f476aaa4b6195de1556e5486f2e8da4e13ec37:tests/testthat/test_egor.R
 alters.df$egoID <- as.integer(alters.df$egoID)
 alter_ties <- mapply(FUN = function(x, y) data.frame(egoID = y, x), asd$alter_ties, 1:length(asd$alter_ties), SIMPLIFY = F)
 

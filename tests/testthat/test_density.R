@@ -12,7 +12,7 @@ of <- read.egonet.one.file(egos_8, egos_8$netsize,
                            attr.start.col = attr.start.col, 
                            attr.end.col = attr.end.col, 
                            dy.first.var = dy.first.var,
-                           dy.max.alteri = 8)
+                           dy.max.alters = 8)
 of$edges <- lapply(of$edges, FUN= function(x) transform(x, n_weight = weight/3))
 
 # Weighted

@@ -8,7 +8,7 @@
 #' the style of and edge list.
 #' @param egoID Name of ego ID variable.
 #' @param max.netsize Optional parameter. Constant value used if the
-#' number of alteri whose relations were collected is limited.
+#' number of alters whose relations were collected is limited.
 #' @return returns an \code{egor} object. An egor is a \code{data.frame}, which
 #' consists of an ego ID column, nested columns for alter and alte-alter tie 
 #' data and regular columns for ego-level data.
@@ -66,15 +66,15 @@ filter_egor <- function(egor, obj = c("alters", "alter_ties"), cond) {
 }
 
 
-summary.egor <- function(egor) {
+summary.egor <- function(object, ...) {
   # Network count
-  nc <- NROW(egor)
+  nc <- NROW(object)
   
   # Average netsize
-  nts <- sum(unlist(lapply(egor$alters, FUN = NROW))) / nc
+  nts <- sum(unlist(lapply(object$alters, FUN = NROW))) / nc
   
   # Average density
-  if("alter_ties" %in% names(egor)) dens <- sum(ego_density(egor), na.rm = T) / nc else dens <- NULL
+  if("alter_ties" %in% names(object)) dens <- sum(ego_density(object), na.rm = T) / nc else dens <- NULL
   
   cat(paste(nc, "Egos/ Ego Networks", "\nAverage Netsize", nts, "\n"))
   if(!is.null(dens)) cat(paste("Average Density", dens))
