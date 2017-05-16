@@ -1,8 +1,8 @@
-asd <- egor:::generate.sample.ego.data(32, 20)
-alters.df <- asd$alteri
-egos.df <-  asd$egos
+asd <- generate.sample.ego.data(32, 20)
+alters.df <- asd$alters
+egos.df <-  asd[ , -c(2,3)]
 alters.df$egoID <- as.integer(alters.df$egoID)
-alter_ties <- mapply(FUN = function(x, y) data.frame(egoID = y, x), asd$edges, 1:length(asd$edges), SIMPLIFY = F)
+alter_ties <- mapply(FUN = function(x, y) data.frame(egoID = y, x), asd$alter_ties, 1:length(asd$alter_ties), SIMPLIFY = F)
 
 alter_ties.df <- do.call(rbind, alter_ties)
 

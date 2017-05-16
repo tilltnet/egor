@@ -97,9 +97,9 @@ read.egonet.three.files <- function(egos, alteri.df, edges,
   excluded <- valid_invalid[[2]]
   if(NROW(excluded$egos) + NROW(excluded$alteri.df)+ NROW(excluded$edges) > 0) {
     message("----------------------------")
-    if(NROW(excluded$egos) > 0) message("Egos are being excluded.")
-    if(NROW(excluded$alteri.df) > 0) message("Alteri are being excluded.")
-    if(NROW(excluded$edges) > 0) message("Edges are being excluded.")
+    if(NROW(excluded$egos) > 0) message("Some egos are being excluded.")
+    if(NROW(excluded$alteri.df) > 0) message("Some alter are being excluded.")
+    if(NROW(excluded$edges) > 0) message("Some edges are being excluded.")
     message("Check $excluded to find out which egos, alteri and/or edge data is excluded.")
     message("----------------------------")
   }

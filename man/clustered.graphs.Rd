@@ -13,7 +13,7 @@ data.}
 \item{edges.list}{\code{List} of \code{data frames} containing the edge 
 lists (= alter-alter relations).}
 
-\item{clust.groups}{A \code{character} naming the \code{factor} variable building the groups.}
+\item{clust.groups}{A \code{character} naming the \code{factor} variable defining the groups.}
 }
 \value{
 \code{clustered.graphs} returns a list of graph objects representing 
