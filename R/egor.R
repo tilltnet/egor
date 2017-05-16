@@ -90,6 +90,7 @@ summary.egor <- function(object, ...) {
   if(!is.null(dens)) cat(paste("Average Density", dens))
 
   # Meta Data
-
+  cat("Design information:\n")
+  print(attr(object, "design"))
 }
 
