@@ -7,6 +7,9 @@
 #' @param alter_ties.df \code{data.frame} containing the alter-alter relations in
 #' the style of and edge list.
 #' @param egoID Name of ego ID variable.
+#' @param design A list of arguments to \code{\link{svydesign}}
+#'   specifying the sampling design for the egos. If formulas, they
+#'   can refer to columns of `egos.df`.
 #' @param max.netsize Optional parameter. Constant value used if the
 #' number of alteri whose relations were collected is limited.
 #' @return returns an \code{egor} object. An egor is a \code{data.frame}, which
@@ -19,7 +22,7 @@
 #' @examples 
 #' 
 #' @export
-egor <- function(alters.df, egos.df = NULL, alter_ties.df = NULL, egoID="egoID") {
+egor <- function(alters.df, egos.df = NULL, alter_ties.df = NULL, egoID="egoID", design = list(~1)) {
   # FUN: Inject empty data.frames with correct colums in to NULL cells in 
   # $alters and $alter_ties
   inj_zero_dfs <- function(x, y) {
@@ -57,6 +60,13 @@ egor <- function(alters.df, egos.df = NULL, alter_ties.df = NULL, egoID="egoID")
   # Add meta attribute
   #  ----><----
 
+  # Add design information.
+
+  # TODO: Save space by only including the columns with the design
+  # information.
+  design$data <- egor
+  attr(egor, "design") <- do.call(svydesign, design)
+  
   class(egor) <- c("egor", class(egor))
   egor
 }
