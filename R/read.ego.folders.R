@@ -4,10 +4,10 @@
 # (https://github.com/raffaelevacca/).
 
 #' Import ego-centric network data from separate folders for edgelist and 
-#' alteri-attributes.
+#' alters-attributes.
 #'
 #' This function imports ego-centric network data from folders with separate 
-#' files for alteri-level and edge data. It will run some basic checks upon
+#' files for alters-level and edge data. It will run some basic checks upon
 #' the completness of the data and inform the user of potential problems. This
 #' functions can be used to import data exported from EgoNet (McCarty 2011).
 #' @param egos.file File name of the .csv file containg the ego data.
@@ -23,10 +23,10 @@
 #' @keywords ego-centric import
 #' @examples 
 #' egos.file <-  system.file("extdata", "egos_32.csv", package = "egor")
-#' alteri.folder <- system.file("extdata", "alteri_32", package = "egor")
+#' alters.folder <- system.file("extdata", "alters_32", package = "egor")
 #' edge.folder <-  system.file("extdata", "edges_32", package = "egor")
 #' 
-#' ef <- read.egonet.folders(egos.file = egos.file, alter.folder = alteri.folder, edge.folder = edge.folder, csv.sep = ";")
+#' ef <- read.egonet.folders(egos.file = egos.file, alter.folder = alters.folder, edge.folder = edge.folder, csv.sep = ";")
 #' @export
 read.egonet.folders <- function(egos.file, alter.folder, edge.folder, csv.sep = ",",
                                 egoID = "egoID", first.col.row.names = FALSE) {
@@ -48,10 +48,10 @@ read.egonet.folders <- function(egos.file, alter.folder, edge.folder, csv.sep = 
   
   if (!all.equal(check.alter.files, check.edge.files)) {
     print(data.frame(check, alter.files, edge.files))
-    stop("Edge and alteri data do not match up!")    
+    stop("Edge and alters data do not match up!")    
   }
   
-  message("Looking for egos without edges/alteri.")
+  message("Looking for egos without edges/alters.")
   # Exclude egos from egos dataframe that are missing alter and edge files.
   egos.to.exclude <- setdiff(egos[[egoID]], check.alter.files)
   if(is.double(egos.to.exclude)) egos <- subset(egos, !is.element(egos[[egoID]], egos.to.exclude))
@@ -63,8 +63,8 @@ read.egonet.folders <- function(egos.file, alter.folder, edge.folder, csv.sep = 
   }
 
   
-  # ...create alteri df,...
-  message("Creating $alteri.df and $alteri.list")
+  # ...create alters df,...
+  message("Creating $alters.df and $alters.list")
   alter.attr.df <- data.frame()
   alter.attr.list <- list()
   for (i in 1:length(alter.files)) {
@@ -91,11 +91,11 @@ read.egonet.folders <- function(egos.file, alter.folder, edge.folder, csv.sep = 
       names(elist.list[i]) <- cur_egoID
   }
 
-  graphs <- to.network(e.lists = elist.list, alteri.list = alter.attr.list)
+  graphs <- to.network(e.lists = elist.list, alters.list = alter.attr.list)
   
-  # Recreate alteri.list to ensure complete factor levels #!# We need to make sure, that the original order is maintained
-  # alteri.list <- split(x = alter.attr.df, f = alter.attr.df[[egoID]])
+  # Recreate alters.list to ensure complete factor levels #!# We need to make sure, that the original order is maintained
+  # alters.list <- split(x = alter.attr.df, f = alter.attr.df[[egoID]])
   
   # Return:
-  list(egos.df = egos, alteri.df = alter.attr.df, alteri.list = alter.attr.list, edges = elist.list, graphs = graphs, results = data.frame(netsize))
+  list(egos.df = egos, alters.df = alter.attr.df, alters.list = alter.attr.list, edges = elist.list, graphs = graphs, results = data.frame(netsize))
 } 

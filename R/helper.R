@@ -2,7 +2,7 @@
 #'
 #' Helper functions for ego centric network analysis
 #'
-#' @template max_alteri
+#' @template max_alters
 #' @template directed
 #' @param x \code{Numeric}.
 #' @param y \code{Numeric}.
@@ -10,9 +10,9 @@
 NULL
 
 #' @describeIn helper Returns the count of possible edges in an
-#' undirected or directed, ego-centered network, based on the number of alteri.
-dyad.poss <- function(max.alteri, directed = F) {
-  dp <- (max.alteri^2-max.alteri)
+#' undirected or directed, ego-centered network, based on the number of alters.
+dyad.poss <- function(max.alters, directed = F) {
+  dp <- (max.alters^2-max.alters)
   if (!directed) {
     dp <- dp/2 
   }
@@ -24,8 +24,8 @@ dyad.poss <- function(max.alteri, directed = F) {
 #' network size. This is useful for sanitizing alter-alter relations in the wide 
 #' format.
 #' @export
-sanitize.wide.edges <- function(max.alteri) {
-  x <- max.alteri
+sanitize.wide.edges <- function(max.alters) {
+  x <- max.alters
   dp <- dyad.poss(x)
   
   names_ <- create.edge.names.wide(x)

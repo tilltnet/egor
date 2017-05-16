@@ -9,7 +9,7 @@
 #' @keywords internal
 generate.sample.edge.list <- function(max.alters) {
   dp <- egor:::dyad.poss(max.alters)
-  
+
   Source <- c()
   for (i in 1:max.alters) {
     tmp <- rep(i, max.alters - i)
@@ -58,18 +58,19 @@ generate.sample.ego.data <- function(net.count, max.alters, netsize = NULL) {
   egos <- data.frame(egoID, sex, age, netsize)
   
   # Generating alters data
-  altersD <- rep(1:max.alters, net.count)
-  egoID <- as.numeric(gl(net.count, max.alters))
+  alterID <- rep(1:max.alters, net.count)
+  egoID <- gl(net.count, max.alters)
   alter.sex <- rep(chartr("12", "wm", sample(1:2, net.count, replace = T)), 
                    max.alters)
   alter.age <- rep(sample(1:7, net.count, replace = T), max.alters)
   alter.age <- factor(alter.age, levels = c(1, 2, 3, 4, 5, 6, 7), labels = c("0 - 17", 
       "18 - 25", "26 - 35", "36 - 45", "46 - 55", "56 - 65", "66 - 100"))
-  alters <- data.frame(egoID, altersD, alter.sex, alter.age)
+
+  alters <- data.frame(egoID, alterID, alter.sex, alter.age)
   
   # Trimming down alters per network using netsize
-  alters <- egor:::long.df.to.list(alters, egos$netsize, egoID = "egoID", back.to.df = T)
-    
+  alters <- long.df.to.list(alters, egos$netsize, egoID = "egoID", back.to.df = T)
+
   # Generating edges
   edge.list <- list()
   for (i in 1:net.count) {

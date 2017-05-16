@@ -8,5 +8,5 @@ setwd(system.file("extdata", package = "egor"))
 
 egos_two <- read.csv2("two_files_8_egos.csv")
 
-alteri_two <- read.csv2("alteri_8.csv")
+alters_two <- read.csv2("alters_8.csv")
 
