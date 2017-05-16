@@ -9,7 +9,7 @@
 #' for egos tendendy to homo-/heterphily - use the \code{composition} command
 #' for this version, as it is a compositional measure.
 #' @param alters \code{List} of alters attribute \code{data.frame}s 
-#' or \code{data.frame} of alters attributes.
+#' or \code{data.frame} of alter attributes.
 #' @param edges_ \code{List} of edgelist-\code{dataframes} or one 
 #' \code{dataframes} #' containing all edges_
 #' @param var_name \code{Character} naming grouping variable.

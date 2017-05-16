@@ -183,9 +183,9 @@ wide.dyads.to.edgelist <- function(e.wide, first.var, max.alters,
 #' edges.attributes.to.network
 #'
 #' This function generates one igraph object from an edgelist and a dataframe 
-#' alters attributes.
+#' containing alter attributes.
 #' @param e.list \code{data.frame} containg edge data/ one edgelist.
-#' @param alters \code{data.frame} containg alters attributes.
+#' @param alters \code{data.frame} containg alter attributes.
 #' @keywords internal
 edges.attributes.to.network <- function(e.list, alters) {
   #print(attributes$alterID)
@@ -196,7 +196,7 @@ edges.attributes.to.network <- function(e.list, alters) {
 #' Generate list of igraph objects from alters and edge data
 #'
 #' This function generates a list of igraph objects from a edgelists organized in list and a list of
-#' dataframes containing alters attributes.
+#' dataframes containing alter attributes.
 #' @param e.lists \code{List} of \code{data.frame}s containg edge data/ one edgelist.
 #' @template alters_list
 #' @keywords igraph
