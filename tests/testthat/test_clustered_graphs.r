@@ -2,21 +2,21 @@ library(egor)
 
 mpf <- generate.sample.ego.data(20, 50)
 
-alteri.list <- split(x = mpf$alteri, f = mpf$alteri$egoID)
+alters.list <- split(x = mpf$alters, f = mpf$alters$egoID)
 edges.list <- mpf$edges
 
 
 # Create nationality/ ethnicity variable
-CreateRamdomGroups <- function(alteri) {
+CreateRamdomGroups <- function(alters) {
   group.names <- c("ITA", "GER", "USA", "ESP")
-  random.groups <- sample(group.names, NROW(alteri), replace = TRUE)
-  alteri <- data.frame(alteri, random.groups)
-  alteri
+  random.groups <- sample(group.names, NROW(alters), replace = TRUE)
+  alters <- data.frame(alters, random.groups)
+  alters
 }
 
-alteri.list <- lapply(X = alteri.list, FUN = CreateRamdomGroups)
+alters.list <- lapply(X = alters.list, FUN = CreateRamdomGroups)
 
-alteri.list <- lapply(X = alteri.list, FUN = function (x) x[2:5])
+alters.list <- lapply(X = alters.list, FUN = function (x) x[2:5])
 
 # Delete random edges, but not too random
 deleteRandomEdges <- function(edge.list) {
@@ -28,7 +28,7 @@ deleteRandomEdges <- function(edge.list) {
 
 edges.list <- lapply(edges.list, FUN = deleteRandomEdges)
 
-graphs <- clustered.graphs(alteri.list, edges.list, "random.groups") 
+graphs <- clustered.graphs(alters.list, edges.list, "random.groups") 
 
 # vis.clustered.graphs(graphs, node.min.size = 45, node.max.size = 200,
 #                    labels = T, to.pdf = F)
@@ -37,7 +37,7 @@ graphs <- clustered.graphs(alteri.list, edges.list, "random.groups")
 #                    labels = F, to.pdf = T)
 
 # Test if empty categories break.
-a <- alteri.list[[1]]
+a <- alters.list[[1]]
 NROW(a)
 a <- a[a$random.groups != "GER",]
 NROW(a)
@@ -47,12 +47,12 @@ NROW(e)
 e <- e[e$Source %in% a$alterID & e$Target %in% a$alterID, ]
 NROW(e)
 
-alteri.list[[1]] <- a
+alters.list[[1]] <- a
 edges.list[[1]] <- e
 
 
 
-graphs_ex <- clustered.graphs(alteri.list[1], edges.list[1], "random.groups") 
+graphs_ex <- clustered.graphs(alters.list[1], edges.list[1], "random.groups") 
 #vis.clustered.graphs(graphs_ex, node.min.size = 45, node.max.size = 200,
 #                     labels = F, to.pdf = F)
 
@@ -60,9 +60,9 @@ graphs_ex <- clustered.graphs(alteri.list[1], edges.list[1], "random.groups")
 # Testing extreme data situations ---------------------------------------------
 
 ## Create and extract data
-lomihi <- generate.sample.ego.data(net.count = 10, max.alteri = 120, netsize = 120)
-lomihi$alteri$alter.age <- factor(lomihi$alteri$alter.age)
-a.lomihi <- split(x = lomihi$alteri, f = lomihi$alteri$egoID)
+lomihi <- generate.sample.ego.data(net.count = 10, max.alters = 120, netsize = 120)
+lomihi$alters$alter.age <- factor(lomihi$alters$alter.age)
+a.lomihi <- split(x = lomihi$alters, f = lomihi$alters$egoID)
 a.lomihi <- lapply(a.lomihi, function(x) x[2:4])
 e.lomihi <- lomihi$edges
 
@@ -70,11 +70,11 @@ e.lomihi <- lomihi$edges
 e.lomihi[[1]] <- e.lomihi[[1]][e.lomihi[[1]]$weight == 0, ]
 a.lomihi[[1]] <- a.lomihi[[1]][a.lomihi[[1]]$alterID < 12, ]
 
-# No edges - no alteri in some groups
+# No edges - no alters in some groups
 e.lomihi[[2]] <- e.lomihi[[2]][e.lomihi[[2]]$weight == 4, ]
 a.lomihi[[2]] <- a.lomihi[[2]][a.lomihi[[2]]$alter.age == levels(a.lomihi[[2]]$alter.age)[1], ]
 
-# No edges - no alteri at all
+# No edges - no alters at all
 e.lomihi[[3]] <- e.lomihi[[3]][e.lomihi[[3]]$weight == 4, ]
 a.lomihi[[3]] <- a.lomihi[[3]][a.lomihi[[3]]$alter.age == "x", ] # This breaks clustered.graphs()
 

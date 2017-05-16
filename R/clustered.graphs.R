@@ -7,7 +7,7 @@
 #' factor variable on the alter level. clustered.graphs() calculates group sizes,
 #' inter- and intragroup densities and these informations in a \code{list} of
 #' \code{igraph} objects.
-#' @param alteri.list \code{List} of \code{data frames} containing the alteri 
+#' @param alters.list \code{List} of \code{data frames} containing the alters 
 #' data.
 #' @param edges.list \code{List} of \code{data frames} containing the edge 
 #' lists (= alter-alter relations).
@@ -21,7 +21,7 @@
 #' @seealso \code{\link{vis.clustered.graphs}} for visualising clustered graphs
 #' @example /inst/examples/ex_cg.r
 #' @export
-clustered.graphs <- function(alteri.list, edges.list, clust.groups) {
+clustered.graphs <- function(alters.list, edges.list, clust.groups) {
   GetGroupSizes <- function(x) {
     #y <- aggregate(x$alterID, by = x[clust.groups], FUN = NROW)
     y <- data.frame(table(x[clust.groups]))
@@ -29,23 +29,23 @@ clustered.graphs <- function(alteri.list, edges.list, clust.groups) {
     y
   }
   
-  alteri.grped.list <- lapply(alteri.list, FUN = GetGroupSizes)
+  alters.grped.list <- lapply(alters.list, FUN = GetGroupSizes)
   
   # Exclude NAs in clust.groups
-  alteri.list <- lapply(alteri.list, FUN = function(y) y[!is.na(y[clust.groups]), ])
+  alters.list <- lapply(alters.list, FUN = function(y) y[!is.na(y[clust.groups]), ])
   
-  graphs <- to.network(e.lists = edges.list, alteri.list = alteri.list)
+  graphs <- to.network(e.lists = edges.list, alters.list = alters.list)
   
-  # # Store colnames of edges and alteri for consistency check.
-  # alteri.names<- lapply(alteri.list, FUN = names)
-  # if(length(unique(alteri.names))==1) print("alteri.list names check out")
+  # # Store colnames of edges and alters for consistency check.
+  # alters.names<- lapply(alters.list, FUN = names)
+  # if(length(unique(alters.names))==1) print("alters.list names check out")
   # edges.names <- lapply(edges.list, FUN = names)
   # if(length(unique(edges.names))==1) print("edges.list names check out")
   # #!# Create warning, when names are not the same throug all
   
 # Extracting edges within and between groups ------------------------------
   
-  calculateGrpDensities <- function(g, alteri.group.n, clust.groups) {
+  calculateGrpDensities <- function(g, alters.group.n, clust.groups) {
     SelectGroupEdges <- function(g, clust.groups, group1, group2 = group1) {
       V.group1 <- igraph::V(g)[igraph::get.vertex.attribute(g, clust.groups) == group1]
       V.group2 <- igraph::V(g)[igraph::get.vertex.attribute(g, clust.groups) == group2]
@@ -78,8 +78,8 @@ clustered.graphs <- function(alteri.list, edges.list, clust.groups) {
           
           groups.list[[ij.name]] <- SelectGroupEdges(g, clust.groups, i.name, j.name) 
           real.dyads <- length(groups.list[[ij.name]])
-          groups.size.i <- alteri.group.n$size[alteri.group.n$groups == i.name]
-          groups.size.j <- alteri.group.n$size[alteri.group.n$groups == j.name]
+          groups.size.i <- alters.group.n$size[alters.group.n$groups == i.name]
+          groups.size.j <- alters.group.n$size[alters.group.n$groups == j.name]
           
           
           grp.size <-  ifelse(i.name == j.name, groups.size.i, groups.size.i + groups.size.j)
@@ -99,7 +99,7 @@ clustered.graphs <- function(alteri.list, edges.list, clust.groups) {
         }
       }
       # Check for empty categories and add dummy vertex.
-      empty_cats <- alteri.group.n$groups[!alteri.group.n$groups %in% grps.df$i.name]
+      empty_cats <- alters.group.n$groups[!alters.group.n$groups %in% grps.df$i.name]
       if (length(empty_cats) > 0) {
         for(i in 1:length(empty_cats)) {
           empty_dummy <- data.frame(empty_cats[i], empty_cats[i], 0, NaN, NA)
@@ -112,7 +112,7 @@ clustered.graphs <- function(alteri.list, edges.list, clust.groups) {
     list(grp.densities = grps.df, edges.lists = groups.list)
   }
   
-  grp.densities <- mapply(FUN = calculateGrpDensities, graphs, alteri.grped.list, clust.groups, SIMPLIFY = F)
+  grp.densities <- mapply(FUN = calculateGrpDensities, graphs, alters.grped.list, clust.groups, SIMPLIFY = F)
   
 # Create 'clustered graphs' igraph object  --------------------------------
   

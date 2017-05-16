@@ -13,7 +13,7 @@
 #' @param egoID Name of ego ID variable. Only needs to be specified if alter
 #' and alter-alter data is provided in global data.frames.
 #' @param max.netsize Optional parameter. Constant value used if the
-#' number of alteri whose relations were collected is limited.
+#' number of alters whose relations were collected is limited.
 #' @param directed logical indicating if the alter-alter relation data/ edges 
 #' are directed or undirected.
 #' @param weight \code{Character} naming a variable containing the weight values
