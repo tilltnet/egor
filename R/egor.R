@@ -76,15 +76,15 @@ filter_egor <- function(egor, obj = c("alters", "alter_ties"), cond) {
 }
 
 
-summary.egor <- function(egor) {
+summary.egor <- function(object, ...) {
   # Network count
-  nc <- NROW(egor)
+  nc <- NROW(object)
   
   # Average netsize
-  nts <- sum(unlist(lapply(egor$alters, FUN = NROW))) / nc
+  nts <- sum(unlist(lapply(object$alters, FUN = NROW))) / nc
   
   # Average density
-  if("alter_ties" %in% names(egor)) dens <- sum(ego_density(egor), na.rm = T) / nc else dens <- NULL
+  if("alter_ties" %in% names(object)) dens <- sum(ego_density(object), na.rm = T) / nc else dens <- NULL
   
   cat(paste(nc, "Egos/ Ego Networks", "\nAverage Netsize", nts, "\n"))
   if(!is.null(dens)) cat(paste("Average Density", dens))
