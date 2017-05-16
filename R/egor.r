@@ -30,25 +30,24 @@ egor <- function(alters.df, egos.df = NULL, alter_ties.df = NULL, egoID="egoID")
     x
   }
   
-  # Create initial egor object from alters
+  # Create initial egor object from ALTERS
   egor <- tidyr::nest_(data = alters.df, 
                              key_col = "alters", 
                              names(alters.df)[names(alters.df) != egoID]) # Select all but the egoID column for nesting
   
-  # If speciefied add ego data to egor
-  if(!is.null(egos.df)) {
+  # If specified add alter_ties data to egor
+  if(!is.null(alter_ties.df)) {
     alter_ties.tib <- tidyr::nest_(data = alter_ties.df, 
                                    key_col = "alter_ties",    
                                    names(alter_ties.df)[names(alter_ties.df) != egoID])
     egor <- dplyr::full_join(egor, alter_ties.tib, by = egoID)
-    egor <- inj_zero_dfs(egor, "alters")
+    egor <- inj_zero_dfs(egor, "alter_ties")
   }
   
-  # If specified add alter_ties data to egor
-  if(!is.null(alter_ties.df)) {
+  # If speciefied add ego data to egor
+  if(!is.null(egos.df)) {
     egor <- dplyr::full_join(egor, egos.df, by = egoID)
-    egor <- inj_zero_dfs(egor, "alter_ties")
-    
+    egor <- inj_zero_dfs(egor, "alters")
   }
   
   # Check If egoIDs valid
