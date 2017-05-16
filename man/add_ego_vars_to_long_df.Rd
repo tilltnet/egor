@@ -4,19 +4,19 @@
 \alias{add_ego_vars_to_long_df}
 \title{add_ego_vars_to_long_df}
 \usage{
-add_ego_vars_to_long_df(alteri.list, egos.df, ego.vars, netsize)
+add_ego_vars_to_long_df(alters.list, egos.df, ego.vars, netsize)
 }
 \arguments{
-\item{alteri.list}{\code{List} of \code{data.frame}s containg alteri attributes.}
+\item{alters.list}{\code{List} of \code{data.frame}s containg alter attributes.}
 
-\item{ego.vars}{A \code{data.frame} of alteri attributes in the wide format.}
+\item{ego.vars}{A \code{data.frame} of alter attributes in the wide format.}
 
 \item{netsize}{\code{Vector} containing values of network size per ego.}
 
 \item{egos}{\code{Data frame} containg ego data (egos as cases)}
 }
 \description{
-This function adds ego attributes to a 'alteri.list' object of ego-centered
+This function adds ego attributes to a 'alters.list' object of ego-centered
 networks. This is helpful if (multi-level) regressions are to be executed.
 }
 \keyword{internal}

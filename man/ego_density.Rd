@@ -21,7 +21,7 @@ and alter-alter data is provided in global data.frames.}
 of relations. Weights should range from 0 to 1.}
 
 \item{max.netsize}{Optional parameter. Constant value used if the
-number of alteri whose relations were collected is limited.}
+number of alters whose relations were collected is limited.}
 
 \item{directed}{logical indicating if the alter-alter relation data/ edges 
 are directed or undirected.}

@@ -4,7 +4,7 @@
 \alias{ensure.ID.integrity}
 \title{Ensure ID integrity}
 \usage{
-ensure.ID.integrity(egos, alteri.df, edges, egoID = "egoID",
+ensure.ID.integrity(egos, alters.df, edges, egoID = "egoID",
   alterID = "alterID")
 }
 \description{

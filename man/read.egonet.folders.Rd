@@ -3,7 +3,7 @@
 \name{read.egonet.folders}
 \alias{read.egonet.folders}
 \title{Import ego-centric network data from separate folders for edgelist and 
-alteri-attributes.}
+alters-attributes.}
 \usage{
 read.egonet.folders(egos.file, alter.folder, edge.folder, csv.sep = ",",
   egoID = "egoID", first.col.row.names = FALSE)
@@ -26,24 +26,24 @@ row names, that are to be skipped, default is \code{FALSE}.}
 }
 \value{
 A \code{list} of six objects - the **egoR** object: (1) egos.df: \code{dataframe} of all
-egos and their attributes; (2) alteri.df: \code{dataframe} of all alteri;
-(3) alteri.list: \code{list} of \code{dataframes} of all alteri per ego;
+egos and their attributes; (2) alters.df: \code{dataframe} of all alters;
+(3) alters.list: \code{list} of \code{dataframes} of all alters per ego;
 (4) edges: \code{list} of \code{dataframes} with edge lists per network; (5)
 graphs: \code{list} of igraph objects; (6) results: a result \code{dataframe},
 pre-populated with the network size of each network
 }
 \description{
 This function imports ego-centric network data from folders with separate 
-files for alteri-level and edge data. It will run some basic checks upon
+files for alters-level and edge data. It will run some basic checks upon
 the completness of the data and inform the user of potential problems. This
 functions can be used to import data exported from EgoNet (McCarty 2011).
 }
 \examples{
 egos.file <-  system.file("extdata", "egos_32.csv", package = "egor")
-alteri.folder <- system.file("extdata", "alteri_32", package = "egor")
+alters.folder <- system.file("extdata", "alters_32", package = "egor")
 edge.folder <-  system.file("extdata", "edges_32", package = "egor")
 
-ef <- read.egonet.folders(egos.file = egos.file, alter.folder = alteri.folder, edge.folder = edge.folder, csv.sep = ";")
+ef <- read.egonet.folders(egos.file = egos.file, alter.folder = alters.folder, edge.folder = edge.folder, csv.sep = ";")
 }
 \keyword{ego-centric}
 \keyword{import}

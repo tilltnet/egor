@@ -7,20 +7,20 @@
 \title{Read ego-centered network data from the three files format, EgoWeb2.0 or
 openeddi.}
 \usage{
-read.egonet.three.files(egos, alteri.df, edges, ID.vars = c("egoID",
+read.egonet.three.files(egos, alters.df, edges, ID.vars = c("egoID",
   "alterID", "Source", "Target"), ego.vars = NULL)
 
 read.egoweb(alter.file, edges.file, egos.file = NULL, ID.vars = c("EgoID",
   "Alter.Number", "Alter.1.Number", "Alter.2.Number"), ego.vars = NULL)
 
-read.openeddi(egos.file = NULL, alteri.file = NULL, edges.file = NULL,
+read.openeddi(egos.file = NULL, alters.file = NULL, edges.file = NULL,
   ID.vars = c("puid", "nameid", "nameid", "targetid"), ego.vars = NULL)
 }
 \arguments{
 \item{egos}{\code{Data frame} containg ego data (egos as cases)}
 
-\item{alteri.df}{\code{dataframe} containing alteri data (alteri as cases),
-alteri are separated by a variable containg an egoID.}
+\item{alters.df}{\code{dataframe} containing alters data (alters as cases),
+alters are separated by a variable containg an egoID.}
 
 \item{edges}{\code{Dataframe}. A global edge list, first column separates 
 egos.}
@@ -28,20 +28,20 @@ egos.}
 \item{ID.vars}{A character vector specifying ID variable names used (egoID, 
 alterID, source, target).}
 
-\item{ego.vars}{A \code{data.frame} of alteri attributes in the wide format.}
+\item{ego.vars}{A \code{data.frame} of alter attributes in the wide format.}
 
-\item{alter.file}{A character specifiying the filename of the alteri data.}
+\item{alter.file}{A character specifiying the filename of the alters data.}
 
 \item{edges.file}{A character specifiying the filename of the edge data.}
 
 \item{egos.file}{A character specifiying the filename of the ego data.}
 
-\item{alteri.file}{\code{Character} name of the alteri data file.}
+\item{alters.file}{\code{Character} name of the alters data file.}
 }
 \value{
 A \code{list} of six objects - the **egoR** object: (1) egos.df: \code{dataframe} of all
-egos and their attributes; (2) alteri.df: \code{dataframe} of all alteri;
-(3) alteri.list: \code{list} of \code{dataframes} of all alteri per ego;
+egos and their attributes; (2) alters.df: \code{dataframe} of all alters;
+(3) alters.list: \code{list} of \code{dataframes} of all alters per ego;
 (4) edges: \code{list} of \code{dataframes} with edge lists per network; (5)
 graphs: \code{list} of igraph objects; (6) results: a result \code{dataframe},
 pre-populated with the network size of each network
@@ -49,14 +49,14 @@ pre-populated with the network size of each network
 \description{
 These functions read ego-centered network data from the three files
 format, EgoWeb2.0 or openeddi and transform it to an egoR object. The three 
-files format consists of an ego file, on alteri file and one file containing
+files format consists of an ego file, on alters file and one file containing
 the edge data. EgoWeb2.0 and openeddi use variations of this format.
 }
 \section{Functions}{
 \itemize{
 \item \code{read.egoweb}: This function reads in data from
 an EgoWeb 2.0 survey and transforms it to an egoR object. If no file name for
-the egos file is provided ego data is assumed to be merged with alteri data
+the egos file is provided ego data is assumed to be merged with alters data
 and it will be extracted by \code{read.egoweb}. By default the 
 standard ID variable names of EgoWeb are used, if you need to specify the ID
 variable names use the ID.vars parameter. Further Information: 
@@ -73,21 +73,21 @@ Further Information: www.openeddi.com
 # The data for read.egonet.threefiles() needs to be loaded with read.csv(), 
 # for it to be converted to an egoR object.
 egos.file <-  system.file("extdata", "egos_32.csv", package = "egor")
-alteri.file <- system.file("extdata", "alteri_32.csv", package = "egor")
+alters.file <- system.file("extdata", "alters_32.csv", package = "egor")
 edges.file <-  system.file("extdata", "edges_32.csv", package = "egor")
 
 egos <- read.csv2(egos.file)
-alteri <- read.csv2(alteri.file)
+alters <- read.csv2(alters.file)
 edges <- read.csv2(edges.file)
 
-tf <- read.egonet.three.files(egos = egos, alteri.df = alteri, edges = edges)
+tf <- read.egonet.three.files(egos = egos, alters.df = alters, edges = edges)
 
 # read.egoweb() and read.openeddi() read the files directly from the disk.
 setwd(system.file("extdata", "openeddi", package = "egor"))
 oe <- read.openeddi()
 
 setwd(system.file("extdata", "egoweb", package = "egor"))
-ew <- read.egoweb(alter.file = "alteri_32.csv", edges.file = "edges_32.csv", 
+ew <- read.egoweb(alter.file = "alters_32.csv", edges.file = "edges_32.csv", 
                   egos.file = "egos_32.csv")
 }
 

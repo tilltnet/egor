@@ -4,15 +4,15 @@
 \alias{comp.cat.counts}
 \title{Count category frequencies of an alter attribute for ego-centered-network data.}
 \usage{
-comp.cat.counts(alteri, var, egoID = "egoID", fun = fun.count)
+comp.cat.counts(alters, var, egoID = "egoID", fun = fun.count)
 }
 \arguments{
-\item{alteri}{A 'long' dataframe with alteri in rows.}
+\item{alters}{A 'long' dataframe with alters in rows.}
 
 \item{var}{Alter attribute which categories are to be counted.}
 
 \item{egoID}{\code{Character} giving the name of the variable identifying 
-egos (default = "egoID") in \code{alteri}.}
+egos (default = "egoID") in \code{alters}.}
 
 \item{fun}{Function to be used for counting. \code{fun.count} for absolute counts \code{fun.prop} propotional counts.}
 }

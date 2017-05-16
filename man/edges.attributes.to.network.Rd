@@ -4,16 +4,16 @@
 \alias{edges.attributes.to.network}
 \title{edges.attributes.to.network}
 \usage{
-edges.attributes.to.network(e.list, alteri)
+edges.attributes.to.network(e.list, alters)
 }
 \arguments{
 \item{e.list}{\code{data.frame} containg edge data/ one edgelist.}
 
-\item{alteri}{\code{data.frame} containg alteri attributes.}
+\item{alters}{\code{data.frame} containg alter attributes.}
 }
 \description{
 This function generates one igraph object from an edgelist and a dataframe 
-alteri attributes.
+containing alter attributes.
 }
 \keyword{internal}
 
