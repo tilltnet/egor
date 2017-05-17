@@ -27,6 +27,8 @@ Imports:
     shiny,
     plyr,
     survey
+    tidyr,
+    dplyr
 Suggests:
     knitr,
     testthat
