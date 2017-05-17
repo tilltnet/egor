@@ -25,7 +25,9 @@ License: AGPL-3
 Imports:
     igraph,
     shiny,
-    plyr
+    plyr,
+    tidyr,
+    dplyr
 Suggests:
     knitr,
     testthat
