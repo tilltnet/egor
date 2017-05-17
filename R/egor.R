@@ -100,6 +100,6 @@ summary.egor <- function(object, ...) {
   cat("Design information:\nEgo selection:")
   print(attr(object, "ego.design"))
   cat("Alter settings:\n")
-  cat("Maximum nominations:", attr(object, "alter.design")$max)
+  cat("  Maximum nominations:", attr(object, "alter.design")$max,"\n")
 }
 
