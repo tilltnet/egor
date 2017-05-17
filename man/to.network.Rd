@@ -2,18 +2,18 @@
 % Please edit documentation in R/read.egonet.R
 \name{to.network}
 \alias{to.network}
-\title{Generate list of igraph objects from alteri and edge data}
+\title{Generate list of igraph objects from alters and edge data}
 \usage{
-to.network(e.lists, alteri.list)
+to.network(e.lists, alters.list)
 }
 \arguments{
 \item{e.lists}{\code{List} of \code{data.frame}s containg edge data/ one edgelist.}
 
-\item{alteri.list}{\code{List} of \code{data.frame}s containg alteri attributes.}
+\item{alters.list}{\code{List} of \code{data.frame}s containg alter attributes.}
 }
 \description{
 This function generates a list of igraph objects from a edgelists organized in list and a list of
-dataframes containing alteri attributes.
+dataframes containing alter attributes.
 }
 \keyword{igraph}
 

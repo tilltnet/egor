@@ -4,11 +4,11 @@
 \alias{EI}
 \title{Calculate the EI-Index}
 \usage{
-EI(alteri, edges_, var_name, egoID = "egoID", alterID = "alterID")
+EI(alters, edges_, var_name, egoID = "egoID", alterID = "alterID")
 }
 \arguments{
-\item{alteri}{\code{List} of alteri attribute \code{data.frame}s 
-or \code{data.frame} of alteri attributes.}
+\item{alters}{\code{List} of alters attribute \code{data.frame}s 
+or \code{data.frame} of alter attributes.}
 
 \item{edges_}{\code{List} of edgelist-\code{dataframes} or one 
 \code{dataframes} #' containing all edges_}
@@ -30,9 +30,9 @@ for egos tendendy to homo-/heterphily - use the \code{composition} command
 for this version, as it is a compositional measure.
 }
 \examples{
-data("alteri32")
+data("alters32")
 data("edges32")
-EI(alteri32, edges32, var_name = "alter.sex")
+EI(alters32, edges32, var_name = "alter.sex")
 }
 \references{
 Krackhardt, D., Stern, R.N., 1988. Informal networks and 

@@ -4,10 +4,10 @@
 \alias{fragmentations}
 \title{Network fragments of ego-centerd networks}
 \usage{
-fragmentations(alteri.list, edges.list)
+fragmentations(alters.list, edges.list)
 }
 \arguments{
-\item{alteri.list}{\code{List} of \code{data frames} containing the alteri 
+\item{alters.list}{\code{List} of \code{data frames} containing the alters 
 data.}
 
 \item{edges.list}{\code{List} of \code{data frames} containing the edge 

@@ -4,20 +4,20 @@
 \alias{wide.to.long}
 \title{Transform 'wide' alter-level data to the 'long'-format}
 \usage{
-wide.to.long(wide, egoID = "egoID", max.alteri, start.col, end.col,
+wide.to.long(wide, egoID = "egoID", max.alters, start.col, end.col,
   ego.vars = NULL, var.wise = F)
 }
 \arguments{
-\item{wide}{A \code{data.frame} of alteri attributes in the wide format.}
+\item{wide}{A \code{data.frame} of alter attributes in the wide format.}
 
 \item{egoID}{\code{Character}. Name of the variable identifying egos (default: "egoID").}
 
-\item{max.alteri}{A \code{numeric} giving the maximum number of alteri.}
+\item{max.alters}{A \code{numeric} giving the maximum number of alters.}
 
 \item{start.col}{Number of first colum containg alter-alter relation data. 
 #!# Should: Defaults to first column of \code{wide}.}
 
-\item{ego.vars}{A \code{data.frame} of alteri attributes in the wide format.}
+\item{ego.vars}{A \code{data.frame} of alter attributes in the wide format.}
 
 \item{var.wise}{a logical value indicating wheter the alter attributes are
 stored variable-wise, if FALSE alter-wise storage is assumed.}

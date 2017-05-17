@@ -3,13 +3,11 @@
 
 #' Generate a random edge list for one network.
 #'
-#' Here should be a a longer description of this function.
 #' @param max.alters \code{Numeric} indicating maximum number of alters.
 #' @keywords ego-centric network
 #' @keywords internal
 generate.sample.edge.list <- function(max.alters) {
-  dp <- dyad.poss(max.alters)
-  
+  dp <- egor:::dyad.poss(max.alters)
   Source <- c()
   for (i in 1:max.alters) {
     tmp <- rep(i, max.alters - i)
@@ -60,24 +58,32 @@ generate.sample.ego.data <- function(net.count, max.alters, netsize = NULL) {
   # Generating alters data
   alterID <- rep(1:max.alters, net.count)
   egoID <- gl(net.count, max.alters)
+
+  alterID <- rep(1:max.alters, net.count)
+  egoID <- gl(net.count, max.alters)
+
   alter.sex <- rep(chartr("12", "wm", sample(1:2, net.count, replace = T)), 
                    max.alters)
   alter.age <- rep(sample(1:7, net.count, replace = T), max.alters)
   alter.age <- factor(alter.age, levels = c(1, 2, 3, 4, 5, 6, 7), labels = c("0 - 17", 
       "18 - 25", "26 - 35", "36 - 45", "46 - 55", "56 - 65", "66 - 100"))
+
   alters <- data.frame(egoID, alterID, alter.sex, alter.age)
   
   # Trimming down alters per network using netsize
   alters <- long.df.to.list(alters, egos$netsize, egoID = "egoID", back.to.df = T)
-    
+
   # Generating edges
   edge.list <- list()
   for (i in 1:net.count) {
-    edge.list[[i]] <- generate.sample.edge.list(egos[i,]$netsize)
+    edge.list[[i]] <- generate.sample.edge.list(egos[i, ]$netsize)
   }
   
+  alter_ties <- mapply(FUN = function(x, y) data.frame(egoID = y, x), edge.list, 1:length(edge.list), SIMPLIFY = F)
+  alter_ties.df <- do.call(rbind, alter_ties)
+  
   # Return
-  list(egos = egos, alters = alters, edges = edge.list)
+  egor(alters, egos, alter_ties.df)
 } 
 
 # mimi <- generate.sample.ego.data(net.count = 128, max.alters = 8, netsize = 'fixed')

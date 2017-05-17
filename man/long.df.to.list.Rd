@@ -7,7 +7,7 @@
 long.df.to.list(long, netsize, egoID, back.to.df = F)
 }
 \arguments{
-\item{long}{A 'long' dataframe with alteri/dyads in rows.}
+\item{long}{A 'long' dataframe with alters/dyads in rows.}
 
 \item{netsize}{\code{Vector} containing values of network size per ego.}
 
@@ -16,7 +16,7 @@ long.df.to.list(long, netsize, egoID, back.to.df = F)
 \item{back.to.df}{If \code{TRUE} a dataframe is returned, if \code{FALSE} a 
 list. Defaults to \code{FALSE}.}
 
-\item{wide}{A \code{data.frame} of alteri attributes in the wide format.}
+\item{wide}{A \code{data.frame} of alter attributes in the wide format.}
 }
 \value{
 Returns a \code{list} of \code{dataframes} where every 
@@ -26,8 +26,8 @@ called the \code{list} entries are combined to one \code{dataframe}, in the
 'long' format.
 }
 \description{
-This function generates the \code{alteri.list} object. \code{alteri.list} is a list where 
-each entry entails a \code{dataframe} of the alteri of one ego. By using
+This function generates the \code{alters.list} object. \code{alters.list} is a list where 
+each entry entails a \code{dataframe} of the alters of one ego. By using
 the \code{netsize} variable it is ensured, that the list entries are of the
 correct length and possibly present rows of NA values are deleted.
 }

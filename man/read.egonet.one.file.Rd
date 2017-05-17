@@ -5,7 +5,7 @@
 \title{Import ego-centric network data from 'one file format'}
 \usage{
 read.egonet.one.file(egos, netsize, egoID = "egoID", attr.start.col,
-  attr.end.col, dy.max.alteri, dy.first.var, ego.vars = NULL, var.wise = F)
+  attr.end.col, dy.max.alters, dy.first.var, ego.vars = NULL, var.wise = F)
 }
 \arguments{
 \item{egos}{\code{Data frame} containg ego data (egos as cases)}
@@ -18,18 +18,18 @@ read.egonet.one.file(egos, netsize, egoID = "egoID", attr.start.col,
 
 \item{attr.end.col}{Last colum containing alter attributes.}
 
-\item{dy.max.alteri}{Maximum number of alteri.}
+\item{dy.max.alters}{Maximum number of alters.}
 
 \item{dy.first.var}{First column containing alter-alter relations/ edges.}
 
-\item{ego.vars}{A \code{data.frame} of alteri attributes in the wide format.}
+\item{ego.vars}{A \code{data.frame} of alter attributes in the wide format.}
 
 \item{var.wise}{Logical value indicatin if the alter attributes are sorted variable wise (defaults to FALSE).}
 }
 \value{
 A \code{list} of six objects - the **egoR** object: (1) egos.df: \code{dataframe} of all
-egos and their attributes; (2) alteri.df: \code{dataframe} of all alteri;
-(3) alteri.list: \code{list} of \code{dataframes} of all alteri per ego;
+egos and their attributes; (2) alters.df: \code{dataframe} of all alters;
+(3) alters.list: \code{list} of \code{dataframes} of all alters per ego;
 (4) edges: \code{list} of \code{dataframes} with edge lists per network; (5)
 graphs: \code{list} of igraph objects; (6) results: a result \code{dataframe},
 pre-populated with the network size of each network

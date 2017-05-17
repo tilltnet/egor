@@ -4,12 +4,12 @@
 \alias{composition}
 \title{Calculate compositional measurements (Proportion, Diversity, EI-Index)}
 \usage{
-composition(alteri, v_alt, netsize, egoID = "egoID", v_ego = NULL,
+composition(alters, v_alt, netsize, egoID = "egoID", v_ego = NULL,
   mode = "regular")
 }
 \arguments{
-\item{alteri}{\code{Data frame} containing alteri data (alteri as cases),
-alteri are separated by a variable containg an egoID.}
+\item{alters}{\code{Data frame} containing alters data (alters as cases),
+alters are separated by a variable containg an egoID.}
 
 \item{v_alt}{A character naming the variable containg the alter-attribute.}
 
@@ -34,22 +34,22 @@ to homo-/heterophily.
 \details{
 v_ego is expected to consist of one entry per ego. The ego 
 attributes are usually drawn from the ego dataframe. If the ego attribute is
-stored alongside the alteri data, make sure to drop repeated values per 
-alteri (see example two).
+stored alongside the alters data, make sure to drop repeated values per 
+alters (see example two).
 }
 \examples{
 # Load example data
 data("egos32")
-data("alteri32")
+data("alters32")
 
 # Example one
-composition(alteri32, v_alt = "alter.sex", netsize = egos32$netsize, 
+composition(alters32, v_alt = "alter.sex", netsize = egos32$netsize, 
             v_ego = egos32$sex)
 
 # Example two
 # - using an ego attribute stored in the alter dataframe.
-ego.sex <- alteri32[!duplicated(alteri32$egoID), ]$ego.sex
-res <- composition(alteri32, v_alt = "alter.sex", netsize = egos32$netsize, 
+ego.sex <- alters32[!duplicated(alters32$egoID), ]$ego.sex
+res <- composition(alters32, v_alt = "alter.sex", netsize = egos32$netsize, 
                    v_ego = ego.sex)
 
 # Using cbind() to show the ego attribute alongside the results might

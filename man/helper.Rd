@@ -9,9 +9,9 @@
 \alias{sanitize.wide.edges}
 \title{General helper functions}
 \usage{
-dyad.poss(max.alteri, directed = F)
+dyad.poss(max.alters, directed = F)
 
-sanitize.wide.edges(max.alteri)
+sanitize.wide.edges(max.alters)
 
 create.edge.names.wide(x)
 
@@ -20,7 +20,7 @@ dyads.possible.between.groups(x, y)
 din.page.dist(x)
 }
 \arguments{
-\item{max.alteri}{A \code{numeric} giving the maximum number of alteri.}
+\item{max.alters}{A \code{numeric} giving the maximum number of alters.}
 
 \item{directed}{A \code{logical} value indicating directedness of alter-alter
 data.}
@@ -35,7 +35,7 @@ Helper functions for ego centric network analysis
 \section{Functions}{
 \itemize{
 \item \code{dyad.poss}: Returns the count of possible edges in an
-undirected or directed, ego-centered network, based on the number of alteri.
+undirected or directed, ego-centered network, based on the number of alters.
 
 \item \code{sanitize.wide.edges}: Generates a \code{data.frame} marking possible dyads in 
 a wide alter-alter relation \code{data.frame}. Row names corresponds to the 

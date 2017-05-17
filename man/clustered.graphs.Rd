@@ -4,16 +4,16 @@
 \alias{clustered.graphs}
 \title{Cluster ego-centered networks by a grouping factor}
 \usage{
-clustered.graphs(alteri.list, edges.list, clust.groups)
+clustered.graphs(alters.list, edges.list, clust.groups)
 }
 \arguments{
-\item{alteri.list}{\code{List} of \code{data frames} containing the alteri 
+\item{alters.list}{\code{List} of \code{data frames} containing the alters 
 data.}
 
 \item{edges.list}{\code{List} of \code{data frames} containing the edge 
 lists (= alter-alter relations).}
 
-\item{clust.groups}{A \code{character} naming the \code{factor} variable building the groups.}
+\item{clust.groups}{A \code{character} naming the \code{factor} variable defining the groups.}
 }
 \value{
 \code{clustered.graphs} returns a list of graph objects representing 
@@ -32,7 +32,7 @@ inter- and intragroup densities and these informations in a \code{list} of
 data("egoR32")
 
 # Simplify networks to clustered graphs, stored as igraph objects
-graphs <- clustered.graphs(egoR32$alteri.list, egoR32$edges, "alter.age") 
+graphs <- clustered.graphs(egoR32$alters.list, egoR32$edges, "alter.age") 
 
 # Visualise
 vis.clustered.graphs(graphs)

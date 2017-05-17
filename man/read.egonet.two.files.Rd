@@ -4,36 +4,36 @@
 \alias{read.egonet.two.files}
 \title{Import ego-centric network data from two file format}
 \usage{
-read.egonet.two.files(egos, alteri, netsize = NULL, egoID = "egoID",
-  alterID = NULL, e.max.alteri, e.first.var, ego.vars = NULL,
+read.egonet.two.files(egos, alters, netsize = NULL, egoID = "egoID",
+  alterID = NULL, e.max.alters, e.first.var, ego.vars = NULL,
   selection = NULL)
 }
 \arguments{
 \item{egos}{\code{Data frame} containg ego data (egos as cases)}
 
-\item{alteri}{\code{Data frame} containing alteri data (alteri as cases),
-alteri are separated by a variable containg an egoID.}
+\item{alters}{\code{Data frame} containing alters data (alters as cases),
+alters are separated by a variable containg an egoID.}
 
 \item{netsize}{\code{Vector} containing values of network size per ego.}
 
 \item{egoID}{\code{Character}. Name of the variable identifying egos (default: "egoID").}
 
-\item{alterID}{\code{Character}. Name of the variable identifying alteri (default: "alterID").}
+\item{alterID}{\code{Character}. Name of the variable identifying alters (default: "alterID").}
 
-\item{e.max.alteri}{Maximum number of alteri that are included in edge data.}
+\item{e.max.alters}{Maximum number of alters that are included in edge data.}
 
 \item{e.first.var}{Index of first column in \code{egos} containing edge data.}
 
 \item{ego.vars}{\code{Character vector} naming variables in the egos data,
-in order to copy them in to the long alteri \code{dataframe}.}
+in order to copy them in to the long alters \code{dataframe}.}
 
 \item{selection}{\code{Character} naming \code{numeric} variable indicating 
-alteri selection with zeros and ones.}
+alters selection with zeros and ones.}
 }
 \value{
 A \code{list} of six objects - the **egoR** object: (1) egos.df: \code{dataframe} of all
-egos and their attributes; (2) alteri.df: \code{dataframe} of all alteri;
-(3) alteri.list: \code{list} of \code{dataframes} of all alteri per ego;
+egos and their attributes; (2) alters.df: \code{dataframe} of all alters;
+(3) alters.list: \code{list} of \code{dataframes} of all alters per ego;
 (4) edges: \code{list} of \code{dataframes} with edge lists per network; (5)
 graphs: \code{list} of igraph objects; (6) results: a result \code{dataframe},
 pre-populated with the network size of each network
@@ -41,7 +41,7 @@ pre-populated with the network size of each network
 \description{
 This function imports ego-centric network data, stored in two files, where 
 one file contains the ego attributes and the edge information and the other file 
-contains the alteri data. This form of data storage for ego-centered network data 
+contains the alters data. This form of data storage for ego-centered network data 
 is proposed by Muller, Wellman and Marin (1999).
 }
 \keyword{import}

@@ -11,7 +11,7 @@
 #' data.
 #' @param edges.list \code{List} of \code{data frames} containing the edge 
 #' lists (= alter-alter relations).
-#' @param clust.groups A \code{character} naming the \code{factor} variable building the groups.
+#' @param clust.groups A \code{character} naming the \code{factor} variable defining the groups.
 #' @references Brandes, U., Lerner, J., Lubbers, M. J., McCarty, C., & Molina, 
 #' J. L. (2008). Visual Statistics for Collections of Clustered Graphs. 2008 
 #' IEEE Pacific Visualization Symposium, 47-54.

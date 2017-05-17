@@ -7,7 +7,7 @@
 fun.count(x)
 }
 \arguments{
-\item{x}{A factor representing an alteri-attribute variable.}
+\item{x}{A factor representing an alters-attribute variable.}
 }
 \description{
 This function generates Variables counting the frequency of each category of a variable. To use on data aggregated from the long ego-centered network data format.
