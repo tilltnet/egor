@@ -19,7 +19,7 @@
 #' the clustered ego-centered network data;
 #' @keywords ego-centric network analysis
 #' @seealso \code{\link{vis.clustered.graphs}} for visualising clustered graphs
-#' @example /inst/examples/ex_cg.r
+#' @example /inst/examples/ex_cg.R
 #' @export
 clustered.graphs <- function(alters.list, edges.list, clust.groups) {
   GetGroupSizes <- function(x) {
@@ -156,7 +156,7 @@ clustered.graphs <- function(alters.list, edges.list, clust.groups) {
 #' the clustered ego-centered network data;
 #' @keywords ego-centric network analysis
 #' @seealso \code{\link{clustered.graphs}} for creating clustered graphs objects
-#' @example /inst/examples/ex_cg.r
+#' @example /inst/examples/ex_cg.R
 #' @export
 vis.clustered.graphs <- function(graphs, 
                                  node.size.multiplier = 1, 
