@@ -13,4 +13,3 @@ fun.count(x)
 This function generates Variables counting the frequency of each category of a variable. To use on data aggregated from the long ego-centered network data format.
 }
 \keyword{internal}
-

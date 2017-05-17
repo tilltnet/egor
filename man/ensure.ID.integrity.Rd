@@ -11,4 +11,3 @@ ensure.ID.integrity(egos, alters.df, edges, egoID = "egoID",
 Ensure ID integrity
 }
 \keyword{internal}
-

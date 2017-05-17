@@ -32,4 +32,3 @@ the created dataframe numerous networks can be distinguished by a network ID
 (egoID).
 }
 \keyword{internal}
-

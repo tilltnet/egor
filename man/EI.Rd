@@ -45,4 +45,3 @@ based centrality: E-I and G-F centrality. Social Networks, 34(4), 562-569.
 \keyword{ego-centered}
 \keyword{network}
 \keyword{sna}
-

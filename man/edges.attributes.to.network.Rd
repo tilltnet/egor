@@ -16,4 +16,3 @@ This function generates one igraph object from an edgelist and a dataframe
 containing alter attributes.
 }
 \keyword{internal}
-

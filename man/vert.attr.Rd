@@ -57,4 +57,3 @@ in 'data').
 \seealso{
 \code{\link{vert.attr.multi}}
 }
-

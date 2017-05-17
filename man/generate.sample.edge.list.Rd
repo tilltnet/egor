@@ -15,4 +15,3 @@ Generate a random edge list for one network.
 \keyword{ego-centric}
 \keyword{internal}
 \keyword{network}
-

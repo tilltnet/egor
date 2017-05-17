@@ -25,4 +25,3 @@ egoR.vis.wizzard(egoR32)
 \keyword{analysis}
 \keyword{ego-centric}
 \keyword{network}
-

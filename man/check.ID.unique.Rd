@@ -10,4 +10,3 @@ check.ID.unique(x, ID)
 Check for ID uniqueness
 }
 \keyword{internal}
-

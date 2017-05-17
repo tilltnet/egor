@@ -39,4 +39,3 @@ is necessary to create an egor object, egos.df and alter_ties.df are optional.
 \keyword{analysis}
 \keyword{ego-centric}
 \keyword{network}
-

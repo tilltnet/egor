@@ -48,4 +48,3 @@ IEEE Pacific Visualization Symposium, 47-54.
 \keyword{analysis}
 \keyword{ego-centric}
 \keyword{network}
-

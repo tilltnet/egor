@@ -15,4 +15,3 @@ comp.cat.counts.na(cat.counts, netsize)
 This function sets compositional results to NA if netsize is missing (NA), zero or not a number (NaN).
 }
 \keyword{internal}
-

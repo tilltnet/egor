@@ -65,7 +65,7 @@ filter_egor <- function(egor, obj = c("alters", "alter_ties"), cond) {
   
 }
 
-
+#' @export
 summary.egor <- function(object, ...) {
   # Network count
   nc <- NROW(object)

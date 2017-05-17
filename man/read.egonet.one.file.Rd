@@ -45,4 +45,3 @@ Study Ego-Centered Networks. Bulletin de Methodologie Sociologique,
 64(1), 83–100.
 }
 \keyword{import}
-

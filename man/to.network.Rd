@@ -16,4 +16,3 @@ This function generates a list of igraph objects from a edgelists organized in l
 dataframes containing alter attributes.
 }
 \keyword{igraph}
-
