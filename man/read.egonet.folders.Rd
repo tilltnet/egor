@@ -47,4 +47,3 @@ ef <- read.egonet.folders(egos.file = egos.file, alter.folder = alters.folder, e
 }
 \keyword{ego-centric}
 \keyword{import}
-

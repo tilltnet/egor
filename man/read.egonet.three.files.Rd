@@ -69,6 +69,7 @@ in the working directory. By default the standard ID variable names of openeddi
 are used, if you need to specify the ID variable names use the ID.vars parameter.
 Further Information: www.openeddi.com
 }}
+
 \examples{
 # The data for read.egonet.threefiles() needs to be loaded with read.csv(), 
 # for it to be converted to an egoR object.
@@ -90,4 +91,3 @@ setwd(system.file("extdata", "egoweb", package = "egor"))
 ew <- read.egoweb(alter.file = "alters_32.csv", edges.file = "edges_32.csv", 
                   egos.file = "egos_32.csv")
 }
-

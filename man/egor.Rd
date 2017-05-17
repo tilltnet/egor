@@ -4,34 +4,43 @@
 \alias{egor}
 \title{egor - a data class for ego-centered network data.}
 \usage{
-egor(alters.df, egos.df = NULL, alter_ties.df = NULL, egoID = "egoID")
+egor(alters.df, egos.df = NULL, alter_ties.df = NULL, egoID = "egoID",
+  ego.design = list(~1), alter.design = list(max = Inf))
 }
 \arguments{
 \item{alters.df}{\code{data.frame} containing the alters.}
 
 \item{egos.df}{\code{data.frame} containing the egos.}
 
-\item{alter_ties.df}{\code{data.frame} containing the alter-alter relations in
-the style of and edge list.}
+\item{alter_ties.df}{\code{data.frame} containing the alter-alter
+relations in the style of and edge list.}
 
 \item{egoID}{Name of ego ID variable.}
 
-\item{max.netsize}{Optional parameter. Constant value used if the
-number of alters whose relations were collected is limited.}
+\item{ego.design}{A \code{\link{list}} of arguments to
+\code{\link{svydesign}} specifying the sampling design for the
+egos. If formulas, they can refer to columns of `egos.df`.}
+
+\item{alter.design}{A \code{\link{list}} of arguments specifying
+nomination information. Currently, the following elements are
+supported: \describe{\item{\code{"max"}}{Maximum number of alters
+that an ego can nominate.}}}
 }
 \value{
-returns an \code{egor} object. An egor is a \code{data.frame}, which
-consists of an ego ID column, nested columns for alter and alte-alter tie 
-data and regular columns for ego-level data.
+returns an \code{egor} object. An egor is a
+  \code{data.frame}, which consists of an ego ID column, nested
+  columns for alter and alte-alter tie data and regular columns for
+  ego-level data.
 }
 \description{
-The function \code{egor()} is used to create an egor object from 
+The function \code{egor()} is used to create an egor object from
 ego-centered network data.
 }
 \details{
-The parameters alters.df, egos.df and alter_ties need to share a common
-ego ID variable, with corresponding values. Of the three parameters only alters.df
-is necessary to create an egor object, egos.df and alter_ties.df are optional.
+The parameters alters.df, egos.df and alter_ties need to
+  share a common ego ID variable, with corresponding values. Of the
+  three parameters only alters.df is necessary to create an egor
+  object, egos.df and alter_ties.df are optional.
 }
 \examples{
 
@@ -39,4 +48,3 @@ is necessary to create an egor object, egos.df and alter_ties.df are optional.
 \keyword{analysis}
 \keyword{ego-centric}
 \keyword{network}
-

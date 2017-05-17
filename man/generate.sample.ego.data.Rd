@@ -19,4 +19,3 @@ This function generates random ego-centric-network data for a specified number o
 \keyword{ego-centric}
 \keyword{network}
 \keyword{random}
-

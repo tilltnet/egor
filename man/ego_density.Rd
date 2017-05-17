@@ -42,4 +42,3 @@ egor_density(egor32)
 \keyword{analysis}
 \keyword{ego-centric}
 \keyword{network}
-

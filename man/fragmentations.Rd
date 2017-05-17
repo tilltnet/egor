@@ -20,4 +20,3 @@ respective egos are removed from the network.
 \keyword{ego-centered}
 \keyword{network}
 \keyword{sna}
-

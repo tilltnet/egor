@@ -45,4 +45,3 @@ contains the alters data. This form of data storage for ego-centered network dat
 is proposed by Muller, Wellman and Marin (1999).
 }
 \keyword{import}
-

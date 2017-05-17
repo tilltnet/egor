@@ -47,15 +47,6 @@ the clustered ego-centered network data;
 clustered graphs created with \code{\link{clustered.graphs}}
 created clustered graph objects.
 }
-\examples{
-data("egoR32")
-
-# Simplify networks to clustered graphs, stored as igraph objects
-graphs <- clustered.graphs(egoR32$alters.list, egoR32$edges, "alter.age") 
-
-# Visualise
-vis.clustered.graphs(graphs)
-}
 \references{
 Brandes, U., Lerner, J., Lubbers, M. J., McCarty, C., & Molina, 
 J. L. (2008). Visual Statistics for Collections of Clustered Graphs. 2008 
@@ -67,4 +58,3 @@ IEEE Pacific Visualization Symposium, 47-54.
 \keyword{analysis}
 \keyword{ego-centric}
 \keyword{network}
-

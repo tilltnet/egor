@@ -59,4 +59,3 @@ cbind(res, ego.sex)
 \keyword{analysis}
 \keyword{ego-centered}
 \keyword{network}
-

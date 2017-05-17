@@ -27,4 +27,3 @@ common use the 'wide' dataformat. This function transforms such data to an
 edge lists.
 }
 \keyword{internal}
-

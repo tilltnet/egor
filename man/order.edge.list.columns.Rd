@@ -10,4 +10,3 @@ order.edge.list.columns(edges, source_, target)
 Order edge list colums with source and target at the beginning.
 }
 \keyword{internal}
-

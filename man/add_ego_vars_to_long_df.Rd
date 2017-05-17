@@ -20,4 +20,3 @@ This function adds ego attributes to a 'alters.list' object of ego-centered
 networks. This is helpful if (multi-level) regressions are to be executed.
 }
 \keyword{internal}
-

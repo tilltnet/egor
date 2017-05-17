@@ -32,4 +32,3 @@ the \code{netsize} variable it is ensured, that the list entries are of the
 correct length and possibly present rows of NA values are deleted.
 }
 \keyword{internal}
-
