@@ -1,28 +1,32 @@
 #' egor - a data class for ego-centered network data.
 #'
-#' The function \code{egor()} is used to create an egor object from 
+#' The function \code{egor()} is used to create an egor object from
 #' ego-centered network data.
 #' @param alters.df \code{data.frame} containing the alters.
 #' @param egos.df \code{data.frame} containing the egos.
-#' @param alter_ties.df \code{data.frame} containing the alter-alter relations in
-#' the style of and edge list.
+#' @param alter_ties.df \code{data.frame} containing the alter-alter
+#'   relations in the style of and edge list.
 #' @param egoID Name of ego ID variable.
-#' @param design A list of arguments to \code{\link{svydesign}}
-#'   specifying the sampling design for the egos. If formulas, they
-#'   can refer to columns of `egos.df`.
-#' @param max.netsize Optional parameter. Constant value used if the
-#' number of alters whose relations were collected is limited.
-#' @return returns an \code{egor} object. An egor is a \code{data.frame}, which
-#' consists of an ego ID column, nested columns for alter and alte-alter tie 
-#' data and regular columns for ego-level data.
-#' @details The parameters alters.df, egos.df and alter_ties need to share a common
-#' ego ID variable, with corresponding values. Of the three parameters only alters.df
-#' is necessary to create an egor object, egos.df and alter_ties.df are optional.
+#' @param ego.design A \code{\link{list}} of arguments to
+#'   \code{\link{svydesign}} specifying the sampling design for the
+#'   egos. If formulas, they can refer to columns of `egos.df`.
+#' @param alter.design A \code{\link{list}} of arguments specifying
+#'   nomination information. Currently, the following elements are
+#'   supported: \describe{\item{\code{"max"}}{Maximum number of alters
+#'   that an ego can nominate.}}
+#' @return returns an \code{egor} object. An egor is a
+#'   \code{data.frame}, which consists of an ego ID column, nested
+#'   columns for alter and alte-alter tie data and regular columns for
+#'   ego-level data.
+#' @details The parameters alters.df, egos.df and alter_ties need to
+#'   share a common ego ID variable, with corresponding values. Of the
+#'   three parameters only alters.df is necessary to create an egor
+#'   object, egos.df and alter_ties.df are optional.
 #' @keywords ego-centric network analysis
 #' @examples 
 #' 
 #' @export
-egor <- function(alters.df, egos.df = NULL, alter_ties.df = NULL, egoID="egoID", design = list(~1)) {
+egor <- function(alters.df, egos.df = NULL, alter_ties.df = NULL, egoID="egoID", ego.design = list(~1), alter.design = list(max = Inf)) {
   # FUN: Inject empty data.frames with correct colums in to NULL cells in 
   # $alters and $alter_ties
   inj_zero_dfs <- function(x, y) {
@@ -64,8 +68,11 @@ egor <- function(alters.df, egos.df = NULL, alter_ties.df = NULL, egoID="egoID",
 
   # TODO: Save space by only including the columns with the design
   # information.
-  design$data <- egor
-  attr(egor, "design") <- do.call(svydesign, design)
+  ego.design$data <- egor
+  attr(egor, "ego.design") <- do.call(svydesign, ego.design)
+
+  # TODO: Implement name expansion/checking, possibly an S3 class.
+  attr(egor, "alter.design") <- alter.design
   
   class(egor) <- c("egor", class(egor))
   egor
@@ -90,7 +97,9 @@ summary.egor <- function(object, ...) {
   if(!is.null(dens)) cat(paste("Average Density", dens))
 
   # Meta Data
-  cat("Design information:\n")
-  print(attr(object, "design"))
+  cat("Design information:\nEgo selection:")
+  print(attr(object, "ego.design"))
+  cat("Alter settings:\n")
+  cat("Maximum nominations:", attr(object, "alter.design")$max)
 }
 
