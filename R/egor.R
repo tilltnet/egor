@@ -24,7 +24,8 @@
 #'   object, egos.df and alter_ties.df are optional.
 #' @keywords ego-centric network analysis
 #' @examples 
-#' 
+#'
+#' @importFrom survey svydesign
 #' @export
 egor <- function(alters.df, egos.df = NULL, alter_ties.df = NULL, egoID="egoID", ego.design = list(~1), alter.design = list(max = Inf)) {
   # FUN: Inject empty data.frames with correct colums in to NULL cells in 
@@ -68,8 +69,10 @@ egor <- function(alters.df, egos.df = NULL, alter_ties.df = NULL, egoID="egoID",
 
   # TODO: Save space by only including the columns with the design
   # information.
-  ego.design$data <- egor
-  attr(egor, "ego.design") <- do.call(svydesign, ego.design)
+  svyenv <- new.env(parent=parent.frame(2))
+  assign("egor", egor, envir=svyenv) 
+  svycall <- as.call(c(call("::",as.name("survey"),as.name("svydesign")), ego.design, list(data = as.name("egor"))))
+  attr(egor, "ego.design") <- eval(svycall, svyenv)
 
   # TODO: Implement name expansion/checking, possibly an S3 class.
   attr(egor, "alter.design") <- alter.design
@@ -97,9 +100,10 @@ summary.egor <- function(object, ...) {
   if(!is.null(dens)) cat(paste("Average Density", dens))
 
   # Meta Data
-  cat("Design information:\nEgo selection:")
-  print(attr(object, "ego.design"))
-  cat("Alter settings:\n")
+  cat("Ego sampling design:\n")
+  writeLines(paste("  ", capture.output(print(attr(object, "ego.design"))), sep=""))
+
+  cat("Alter survey design:\n")
   cat("  Maximum nominations:", attr(object, "alter.design")$max,"\n")
 }
 
