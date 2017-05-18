@@ -30,11 +30,11 @@ ego_density <- function (x, alters = NULL, egoID = "egoID", weight = NULL, max.n
 
 ego_density.data.frame <- function(x, egoID = "egoID", weight = NULL, max.netsize = NULL, directed = FALSE) {
   x <- split(x, x$egoID)
-  ego_density(x = x, alters = e1$alters, weight = weight, max.netsize = max.netsize, directed = directed)
+  ego_density(x = x, alters = e1$.alters, weight = weight, max.netsize = max.netsize, directed = directed)
 }
 
 ego_density.egor <- function(x, weight = NULL, max.netsize = NULL, directed = FALSE) {
-  ego_density(x = x$alter_ties, alters =  x$alters, weight = weight, max.netsize = max.netsize, directed = directed)
+  ego_density(x = x$.alter_ties, alters =  x$.alters, weight = weight, max.netsize = max.netsize, directed = directed)
 }
 
 ego_density.list <- function(x, alters, weight = NULL, max.netsize = NULL, directed = FALSE) {
