@@ -2,7 +2,7 @@ library(egor)
 
 mpf <- generate.sample.ego.data(20, 50)
 
-alters.list <- split(x = mpf$alters, f = mpf$alters$egoID)
+alters.list <- split(x = mpf$.alters, f = mpf$.alters$egoID)
 edges.list <- mpf$edges
 
 
@@ -61,8 +61,8 @@ graphs_ex <- clustered.graphs(alters.list[1], edges.list[1], "random.groups")
 
 ## Create and extract data
 lomihi <- generate.sample.ego.data(net.count = 10, max.alters = 120, netsize = 120)
-lomihi$alters$alter.age <- factor(lomihi$alters$alter.age)
-a.lomihi <- split(x = lomihi$alters, f = lomihi$alters$egoID)
+lomihi$.alters$alter.age <- factor(lomihi$.alters$alter.age)
+a.lomihi <- split(x = lomihi$.alters, f = lomihi$.alters$egoID)
 a.lomihi <- lapply(a.lomihi, function(x) x[2:4])
 e.lomihi <- lomihi$edges
 

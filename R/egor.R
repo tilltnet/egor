@@ -29,7 +29,7 @@
 #' @export
 egor <- function(alters.df, egos.df = NULL, alter_ties.df = NULL, egoID="egoID", ego.design = list(~1), alter.design = list(max = Inf)) {
   # FUN: Inject empty data.frames with correct colums in to NULL cells in 
-  # $alters and $alter_ties
+  # $.alters and $.alter_ties
   inj_zero_dfs <- function(x, y) {
     null_entries <- sapply(x[[y]], is.null)
     zero_df <- x[[y]][!null_entries][[1]][0, ]
@@ -40,22 +40,22 @@ egor <- function(alters.df, egos.df = NULL, alter_ties.df = NULL, egoID="egoID",
   
   # Create initial egor object from ALTERS
   egor <- tidyr::nest_(data = alters.df, 
-                             key_col = "alters", 
+                             key_col = ".alters", 
                              names(alters.df)[names(alters.df) != egoID]) # Select all but the egoID column for nesting
   
   # If specified add alter_ties data to egor
   if(!is.null(alter_ties.df)) {
     alter_ties.tib <- tidyr::nest_(data = alter_ties.df, 
-                                   key_col = "alter_ties",    
+                                   key_col = ".alter_ties",    
                                    names(alter_ties.df)[names(alter_ties.df) != egoID])
     egor <- dplyr::full_join(egor, alter_ties.tib, by = egoID)
-    egor <- inj_zero_dfs(egor, "alter_ties")
+    egor <- inj_zero_dfs(egor, ".alter_ties")
   }
   
   # If speciefied add ego data to egor
   if(!is.null(egos.df)) {
     egor <- dplyr::full_join(egor, egos.df, by = egoID)
-    egor <- inj_zero_dfs(egor, "alters")
+    egor <- inj_zero_dfs(egor, ".alters")
   }
   
   # Check If egoIDs valid
@@ -81,7 +81,7 @@ egor <- function(alters.df, egos.df = NULL, alter_ties.df = NULL, egoID="egoID",
   egor
 }
 
-filter_egor <- function(egor, obj = c("alters", "alter_ties"), cond) {
+filter_egor <- function(egor, obj = c(".alters", ".alter_ties"), cond) {
   
 }
 
@@ -91,10 +91,10 @@ summary.egor <- function(object, ...) {
   nc <- NROW(object)
   
   # Average netsize
-  nts <- sum(unlist(lapply(object$alters, FUN = NROW))) / nc
+  nts <- sum(unlist(lapply(object$.alters, FUN = NROW))) / nc
   
   # Average density
-  if("alter_ties" %in% names(object)) dens <- sum(ego_density(object), na.rm = T) / nc else dens <- NULL
+  if(".alter_ties" %in% names(object)) dens <- sum(ego_density(object), na.rm = T) / nc else dens <- NULL
   
   cat(paste(nc, "Egos/ Ego Networks", "\nAverage Netsize", nts, "\n"))
   if(!is.null(dens)) cat(paste("Average Density", dens))
