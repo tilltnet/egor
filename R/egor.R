@@ -99,7 +99,7 @@ filter_egor <- function(egor, obj = c(".alters", ".alter_ties"), cond) {
 #' @export
 summary.egor <- function(object, ...) {
   # Network count
-  nc <- NROW(object)
+  nc <- nrow(object)
   
   # Average netsize
   nts <- sum(unlist(lapply(object$.alters, FUN = NROW))) / nc
@@ -112,6 +112,12 @@ summary.egor <- function(object, ...) {
 
   # Meta Data
 
+}
+
+#' @export
+print.egor <- function(object, ...) {
+  class(object) <- class(object)[-seq_len(which(class(object)=="egor"))]
+  print(tibble::as_tibble(object))
 }
 
 #' @export
