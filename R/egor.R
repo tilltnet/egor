@@ -115,9 +115,11 @@ summary.egor <- function(object, ...) {
 }
 
 #' @export
+#' @import tibble
 print.egor <- function(object, ...) {
   class(object) <- class(object)[-seq_len(which(class(object)=="egor"))]
-  print(tibble::as_tibble(object))
+  print(as_tibble(object))
+  print(attr(object,"ego.design"))
 }
 
 #' @export
