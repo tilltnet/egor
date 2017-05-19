@@ -114,3 +114,5 @@ summary.egor <- function(object, ...) {
 
 }
 
+#' @export
+as.egor <- function(x, ...) UseMethod("as.egor")
