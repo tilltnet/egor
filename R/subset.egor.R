@@ -92,7 +92,7 @@ subset.egor <- function(x, subset, aspect = c("egos","alters","ties"), ...){
 #'   logical vector specifying which columns to keep.
 #' 
 #' @export
-`[.egor` <- function(x, i, j, aspect = c("egos","alters","ties")){
+`[.egor` <- function(x, i, j, aspect = c("egos","alters","ties"), ...){
   aspect <- match.arg(aspect)
 
   switch(aspect,
