@@ -7,7 +7,7 @@
 \usage{
 \method{subset}{egor}(x, subset, aspect = c("egos", "alters", "ties"), ...)
 
-\method{[}{egor}(x, i, j, aspect = c("egos", "alters", "ties"))
+\method{[}{egor}(x, i, j, aspect = c("egos", "alters", "ties"), ...)
 }
 \arguments{
 \item{x}{an \code{\link[=egor]{egor()}} object.}
