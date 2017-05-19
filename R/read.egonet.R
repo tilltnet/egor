@@ -287,26 +287,13 @@ read.egonet.one.file <- function(egos, netsize,  egoID = "egoID",
   e.lists <- wide.dyads.to.edgelist(e.wide = egos, first.var = dy.first.var, 
                                    dy.max.alters)
   
-  # Check if all egoIDs have alters associated to them, if not: exclude 0/NA Networks
-  egos_have_alters <- egos[[egoID]] %in% unique(alters.df[["egoID"]])
-  excluded <- egos[!egos_have_alters, ]
-  egos <- egos[egos_have_alters, ]
-  netsize <- netsize[egos_have_alters]
-  e.lists <- e.lists[egos_have_alters]
-  alters.list <- alters.list[egos_have_alters]
+  # Create Global edge list
+  alter_ties <- mapply(FUN = function(x, y) data.frame(egoID = y, x), e.lists, egos[[egoID]], SIMPLIFY = F)
   
-  #print("Creating igraph objects: $graphs")
-  graphs <- to.network(e.lists, alters.list)
+  alter_ties.df <- do.call(rbind, alter_ties)
   
-  message("Adding results data.frame: $results")
-  egoR <- list(egos.df = egos, alters.df = alters.df, alters.list = alters.list, edges = e.lists, 
-       graphs = graphs, results = data.frame(egos[[egoID]], netsize))
-  if(NROW(excluded) > 0) {
-    message("Egos having no alters associated to them are excluded: $excluded")
-    egoR$excluded <- excluded
-  }
-  #Return:
-  egoR
+  # Return:
+  egor(alters.df, egos, alter_ties.df)
 }
 
 #' Import ego-centric network data from two file format
@@ -351,16 +338,10 @@ read.egonet.two.files <- function(egos, alters, netsize = NULL,  egoID = "egoID"
   if(is.null(netsize)) {
     message("No netsize variable specified, calculating/ guessing netsize by egoID in alters data.")
     netsize <- aggregate(alters[[egoID]], by = list(alters[[egoID]]), NROW)    
-    #results <- merge(egos[egoID], y = netsize, by.x = egoID, by.y = "Group.1", all = T)
     netsize <- netsize[[2]]    
   }
 
-  # Check if all egoIDs have alters associated to them, if not: exclude 0/NA Networks
-  egos_have_alters <- egos[[egoID]] %in% unique(alters[[egoID]])
-  excluded <- egos[!egos_have_alters, ]
-  egos <- egos[egos_have_alters, ]
-  
-  
+
   message("Preparing alters data.")
   alters.list <- egor:::long.df.to.list(long = alters, netsize = netsize, egoID = egoID)
   alters.list <- lapply(alters.list, FUN = function(x) 
@@ -384,15 +365,12 @@ read.egonet.two.files <- function(egos, alters, netsize = NULL,  egoID = "egoID"
                                    max.alters = e.max.alters, 
                                    alters.list = alters.list, selection = selection)
   
-  #print("Creating igraph objects: $graphs")
-  graphs <- to.network(elist, attributes_)
+
+  # Create Global edge list
+  alter_ties <- mapply(FUN = function(x, y) data.frame(egoID = y, x), elist, egos[[egoID]], SIMPLIFY = F)
   
-  egoR <- list(egos.df = egos, alters.df = alters, alters.list = attributes_, edges = elist,
-       graphs = graphs, results = data.frame(egos[[egoID]], netsize))
-  if(NROW(excluded) > 0) {
-    message("Egos having no alters associated to them are excluded: $excluded")
-    egoR$excluded <- excluded
-  }
-  #Return:
-  egoR
+  alter_ties.df <- do.call(rbind, alter_ties)
+  
+  # Return:
+  egor(alters, egos, alter_ties.df)
 }
