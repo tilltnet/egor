@@ -11,7 +11,7 @@ comp.cat.counts(alters, var, egoID = "egoID", fun = fun.count)
 
 \item{var}{Alter attribute which categories are to be counted.}
 
-\item{egoID}{\code{Character} giving the name of the variable identifying 
+\item{egoID}{\code{Character} giving the name of the variable identifying
 egos (default = "egoID") in \code{alters}.}
 
 \item{fun}{Function to be used for counting. \code{fun.count} for absolute counts \code{fun.prop} propotional counts.}

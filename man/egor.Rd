@@ -7,31 +7,42 @@
 egor(alters.df, egos.df = NULL, alter_ties.df = NULL, egoID = "egoID")
 }
 \arguments{
-\item{alters.df}{\code{data.frame} containing the alters.}
+\item{alters.df}{either a \code{data.frame} containing the alters
+(whose nominator is identified by the column specified by \code{egoID}
+or a list of data frames with the same columns, one for each ego,
+with empty data frames or \code{NULL}s corresponding to egos with no
+nominees.}
 
 \item{egos.df}{\code{data.frame} containing the egos.}
 
-\item{alter_ties.df}{\code{data.frame} containing the alter-alter relations in
-the style of and edge list.}
+\item{alter_ties.df}{\code{data.frame} containing the alter-alter
+relations in the style of an edge list, or a list of data frames
+similar to \code{alters.df}.}
 
-\item{egoID}{Name of ego ID variable.}
+\item{egoID}{Name of ego ID variable; optional if \code{alters.df} and
+\code{alter_ties.df} are both lists of data frames.}
 
 \item{max.netsize}{Optional parameter. Constant value used if the
 number of alters whose relations were collected is limited.}
 }
 \value{
-returns an \code{egor} object. An egor is a \code{data.frame}, which
-consists of an ego ID column, nested columns for alter and alte-alter tie 
-data and regular columns for ego-level data.
+returns an \code{egor} object. An egor is a
+\code{data.frame}, which consists of an ego ID column, nested
+columns for alter and alte-alter tie data and regular columns for
+ego-level data.
 }
 \description{
-The function \code{egor()} is used to create an egor object from 
+The function \code{egor()} is used to create an egor object from
 ego-centered network data.
 }
 \details{
-The parameters alters.df, egos.df and alter_ties need to share a common
-ego ID variable, with corresponding values. Of the three parameters only alters.df
-is necessary to create an egor object, egos.df and alter_ties.df are optional.
+If parameters \code{alters.df}, \code{egos.df}, and \code{alter_ties.df}
+are data frames, they need to share a common ego ID variable,
+with corresponding values. If they \code{alters.df} and
+\code{alter_ties.df} are lists of data frames, \code{egoID} is ignored and
+they are matched positionally with the rows of \code{egos.df}. Of the
+three parameters only \code{alters.df} is necessary to create an
+\code{egor} object, and \code{egos.df} and \code{alter_ties.df} are optional.
 }
 \examples{
 

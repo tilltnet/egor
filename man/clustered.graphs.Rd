@@ -7,22 +7,22 @@
 clustered.graphs(alters.list, edges.list, clust.groups)
 }
 \arguments{
-\item{alters.list}{\code{List} of \code{data frames} containing the alters 
+\item{alters.list}{\code{List} of \code{data frames} containing the alters
 data.}
 
-\item{edges.list}{\code{List} of \code{data frames} containing the edge 
+\item{edges.list}{\code{List} of \code{data frames} containing the edge
 lists (= alter-alter relations).}
 
 \item{clust.groups}{A \code{character} naming the \code{factor} variable defining the groups.}
 }
 \value{
-\code{clustered.graphs} returns a list of graph objects representing 
+\code{clustered.graphs} returns a list of graph objects representing
 the clustered ego-centered network data;
 }
 \description{
 The idea of clustered graphs is to reduce the complexity of an ego-centered network
 graph by visualising its group aggregated form. It is developed by
-Lerner et al. (2008). It helps to discover and visualise structural and 
+Lerner et al. (2008). It helps to discover and visualise structural and
 compostional properties of ego-centered networks, based on a pre-defined
 factor variable on the alter level. clustered.graphs() calculates group sizes,
 inter- and intragroup densities and these informations in a \code{list} of
@@ -38,8 +38,8 @@ graphs <- clustered.graphs(egoR32$alters.list, egoR32$edges, "alter.age")
 vis.clustered.graphs(graphs)
 }
 \references{
-Brandes, U., Lerner, J., Lubbers, M. J., McCarty, C., & Molina, 
-J. L. (2008). Visual Statistics for Collections of Clustered Graphs. 2008 
+Brandes, U., Lerner, J., Lubbers, M. J., McCarty, C., & Molina,
+J. L. (2008). Visual Statistics for Collections of Clustered Graphs. 2008
 IEEE Pacific Visualization Symposium, 47-54.
 }
 \seealso{

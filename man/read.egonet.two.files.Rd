@@ -27,7 +27,7 @@ alters are separated by a variable containg an egoID.}
 \item{ego.vars}{\code{Character vector} naming variables in the egos data,
 in order to copy them in to the long alters \code{dataframe}.}
 
-\item{selection}{\code{Character} naming \code{numeric} variable indicating 
+\item{selection}{\code{Character} naming \code{numeric} variable indicating
 alters selection with zeros and ones.}
 }
 \value{
@@ -39,9 +39,9 @@ graphs: \code{list} of igraph objects; (6) results: a result \code{dataframe},
 pre-populated with the network size of each network
 }
 \description{
-This function imports ego-centric network data, stored in two files, where 
-one file contains the ego attributes and the edge information and the other file 
-contains the alters data. This form of data storage for ego-centered network data 
+This function imports ego-centric network data, stored in two files, where
+one file contains the ego attributes and the edge information and the other file
+contains the alters data. This form of data storage for ego-centered network data
 is proposed by Muller, Wellman and Marin (1999).
 }
 \keyword{import}

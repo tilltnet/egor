@@ -2,7 +2,7 @@
 % Please edit documentation in R/read.ego.folders.R
 \name{read.egonet.folders}
 \alias{read.egonet.folders}
-\title{Import ego-centric network data from separate folders for edgelist and 
+\title{Import ego-centric network data from separate folders for edgelist and
 alters-attributes.}
 \usage{
 read.egonet.folders(egos.file, alter.folder, edge.folder, csv.sep = ",",
@@ -33,7 +33,7 @@ graphs: \code{list} of igraph objects; (6) results: a result \code{dataframe},
 pre-populated with the network size of each network
 }
 \description{
-This function imports ego-centric network data from folders with separate 
+This function imports ego-centric network data from folders with separate
 files for alters-level and edge data. It will run some basic checks upon
 the completness of the data and inform the user of potential problems. This
 functions can be used to import data exported from EgoNet (McCarty 2011).

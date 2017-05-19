@@ -37,19 +37,19 @@ Helper functions for ego centric network analysis
 \item \code{dyad.poss}: Returns the count of possible edges in an
 undirected or directed, ego-centered network, based on the number of alters.
 
-\item \code{sanitize.wide.edges}: Generates a \code{data.frame} marking possible dyads in 
-a wide alter-alter relation \code{data.frame}. Row names corresponds to the 
-network size. This is useful for sanitizing alter-alter relations in the wide 
+\item \code{sanitize.wide.edges}: Generates a \code{data.frame} marking possible dyads in
+a wide alter-alter relation \code{data.frame}. Row names corresponds to the
+network size. This is useful for sanitizing alter-alter relations in the wide
 format.
 
-\item \code{create.edge.names.wide}: Creates a \code{vector} of names for variables 
+\item \code{create.edge.names.wide}: Creates a \code{vector} of names for variables
 containing data on alter-alter relations/ dyads in ego-centered networks.
 
-\item \code{dyads.possible.between.groups}: Calculates the possible edges between members of 
+\item \code{dyads.possible.between.groups}: Calculates the possible edges between members of
 different groups in an ego-centered network.
 
-\item \code{din.page.dist}: Calculates the optimal distribution of a number of 
-equally sized objects on a DIN-Norm DIN 476 (i.e. DIN A4) page in landscape 
+\item \code{din.page.dist}: Calculates the optimal distribution of a number of
+equally sized objects on a DIN-Norm DIN 476 (i.e. DIN A4) page in landscape
 view.
 }}
 

@@ -7,14 +7,14 @@
 fragmentations(alters.list, edges.list)
 }
 \arguments{
-\item{alters.list}{\code{List} of \code{data frames} containing the alters 
+\item{alters.list}{\code{List} of \code{data frames} containing the alters
 data.}
 
-\item{edges.list}{\code{List} of \code{data frames} containing the edge 
+\item{edges.list}{\code{List} of \code{data frames} containing the edge
 lists (= alter-alter relations).}
 }
 \description{
-Calculate the count of fragments ego-centered networks form, if their 
+Calculate the count of fragments ego-centered networks form, if their
 respective egos are removed from the network.
 }
 \keyword{ego-centered}

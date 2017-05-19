@@ -9,39 +9,39 @@ vert.attr.multi(data, graph, dataID, graphID = "name", attributes, FUN = NA,
   attr.names = attributes)
 }
 \arguments{
-\item{data}{The data.frame containing the vertex attribute variables to be 
+\item{data}{The data.frame containing the vertex attribute variables to be
 imported in the graph (it must also include a authorID variable).}
 
 \item{graph}{The graph where to import the attribute.}
 
 \item{dataID}{Character. The ID variable for nodes in \code{data}. Must be the
-name of a variable in \code{data}. Will be used as a merge key with 
+name of a variable in \code{data}. Will be used as a merge key with
 \code{graphID}.}
 
-\item{graphID}{Character. The vertex attribute that contains node IDs in 
-\code{graph}. Must be the name of a vertex attribute in \code{graph}. Will be 
+\item{graphID}{Character. The vertex attribute that contains node IDs in
+\code{graph}. Must be the name of a vertex attribute in \code{graph}. Will be
 used as a merge key with \code{dataID}.}
 
 \item{attributes}{Character. Variable names in \code{data}.}
 
-\item{FUN}{Character. Function names given as character vector (the FUN 
-argument to \code{vert.attr()}). If the vector is shorter than "attributes", 
+\item{FUN}{Character. Function names given as character vector (the FUN
+argument to \code{vert.attr()}). If the vector is shorter than "attributes",
 it's recycled. Defaults to NA for all attributes.}
 
-\item{attr.names}{Character. Names to use for the attributes in the graph. 
+\item{attr.names}{Character. Names to use for the attributes in the graph.
 Defaults to \code{attributes}.}
 }
 \value{
 An igraph object.
 }
 \description{
-This function repeatedly applies vert.attr() to a set of attributes. The 
-problem that this function solves is that authors (nodes) in the graph and 
-authors (records) in the data.frame data are not necessarily in the same 
+This function repeatedly applies vert.attr() to a set of attributes. The
+problem that this function solves is that authors (nodes) in the graph and
+authors (records) in the data.frame data are not necessarily in the same
 sort order.
 }
 \section{Uses}{
- 
+
 \code{\link{vert.attr}}
 }
 
