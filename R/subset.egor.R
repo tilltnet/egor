@@ -97,9 +97,7 @@ subset.egor <- function(x, subset, aspect = c("egos","alters","ties"), ...){
 
   switch(aspect,
          egos = {
-           egor <- egor[i,j,drop=FALSE]
-           attr(egor, "design") <- attr(egor, "design")[i,]
-           egor
+           egor[i,j,drop=FALSE]
          },
          alters = {
            egor$.alters <- lapply(seq_len(nrow(x)), function(k){
