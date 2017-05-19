@@ -90,7 +90,8 @@ subset.egor <- function(x, subset, aspect = c("egos","alters","ties"), ...){
 #' @param j either an integer vector specifying which columns of the
 #'   filtered structure (egos, alters, or ties) to select, or a
 #'   logical vector specifying which columns to keep.
-#' 
+#'
+#' @import tibble
 #' @export
 `[.egor` <- function(x, i, j, aspect = c("egos","alters","ties"), ...){
   aspect <- match.arg(aspect)
