@@ -136,3 +136,5 @@ summary.egor <- function(object, ...) {
   cat("  Maximum nominations:", attr(object, "alter.design")$max,"\n")
 }
 
+#' @export
+as.egor <- function(x, ...) UseMethod("as.egor")
