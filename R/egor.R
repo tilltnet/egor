@@ -83,7 +83,7 @@ egor <- function(alters.df, egos.df = NULL, alter_ties.df = NULL, egoID="egoID")
   if (length(unique(egor[[egoID]])) < length(egor[[egoID]]))
     warning(paste(egoID, "values are note unique. Check your 'egos.df' data."))
 
-  if(alters_is_df) egor$.egoIdx <- NULL
+  if(!alters_is_df) egor$.egoIdx <- NULL
   
   # Add meta attribute
   #  ----><----
