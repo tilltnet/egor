@@ -89,7 +89,7 @@ egor <- function(alters.df, egos.df = NULL, alter_ties.df = NULL, egoID="egoID",
   if (length(unique(egor[[egoID]])) < length(egor[[egoID]]))
     warning(paste(egoID, "values are note unique. Check your 'egos.df' data."))
 
-  if(alters_is_df) egor$.egoIdx <- NULL
+  if(!alters_is_df) egor$.egoIdx <- NULL
   
   # Add meta attribute
   #  ----><----
@@ -117,7 +117,7 @@ filter_egor <- function(egor, obj = c(".alters", ".alter_ties"), cond) {
 #' @export
 summary.egor <- function(object, ...) {
   # Network count
-  nc <- NROW(object)
+  nc <- nrow(object)
   
   # Average netsize
   nts <- sum(unlist(lapply(object$.alters, FUN = NROW))) / nc
@@ -134,6 +134,13 @@ summary.egor <- function(object, ...) {
 
   cat("Alter survey design:\n")
   cat("  Maximum nominations:", attr(object, "alter.design")$max,"\n")
+}
+
+#' @export
+print.egor <- function(object, ...) {
+  class(object) <- class(object)[-seq_len(which(class(object)=="egor"))]
+  print(tibble::as_tibble(object))
+  print(attr(object,"ego.design"))
 }
 
 #' @export
