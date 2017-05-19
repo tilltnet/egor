@@ -4,10 +4,10 @@
 \alias{generate.sample.edge.list}
 \title{Generate a random edge list for one network.}
 \usage{
-generate.sample.edge.list(max.alters)
+generate.sample.edge.list(netsize)
 }
 \arguments{
-\item{max.alters}{\code{Numeric} indicating maximum number of alters.}
+\item{netsize}{\code{Numeric} indicating maximum number of alters.}
 }
 \description{
 Generate a random edge list for one network.
