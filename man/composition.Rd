@@ -25,16 +25,16 @@ alters are separated by a variable containg an egoID.}
 Returns a dataframe with category counts, diversity and EI-Index values in an ego-centered network for a provided alter attribute.
 }
 \description{
-This function outputs a dataframe containg serveral compositional measures 
+This function outputs a dataframe containg serveral compositional measures
 for ego-centered-network data. It reports the proportion of each group in the
-network, the absolute count of groups present and, if provided the 
+network, the absolute count of groups present and, if provided the
 corresponding ego attribute, the EI-Index is employed as a measurment for ego's tendency
 to homo-/heterophily.
 }
 \details{
-v_ego is expected to consist of one entry per ego. The ego 
+v_ego is expected to consist of one entry per ego. The ego
 attributes are usually drawn from the ego dataframe. If the ego attribute is
-stored alongside the alters data, make sure to drop repeated values per 
+stored alongside the alters data, make sure to drop repeated values per
 alters (see example two).
 }
 \examples{

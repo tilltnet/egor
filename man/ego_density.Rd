@@ -11,7 +11,7 @@ ego_density(x, alters = NULL, egoID = "egoID", weight = NULL,
 \item{x}{Either an \code{egor} object or a \code{data.frame/ list} containg alter-alter
 relations.}
 
-\item{alters}{\code{data.frame/ list} containg alter-alter relation data 
+\item{alters}{\code{data.frame/ list} containg alter-alter relation data
 (ignore if x is an \code{egor} object).}
 
 \item{egoID}{Name of ego ID variable. Only needs to be specified if alter
@@ -23,15 +23,15 @@ of relations. Weights should range from 0 to 1.}
 \item{max.netsize}{Optional parameter. Constant value used if the
 number of alters whose relations were collected is limited.}
 
-\item{directed}{logical indicating if the alter-alter relation data/ edges 
+\item{directed}{logical indicating if the alter-alter relation data/ edges
 are directed or undirected.}
 }
 \value{
 returns a \code{vector} of network density values.
 }
 \description{
-This function uses an \code{egor} object and calculates the density of all 
-the ego-centered networks listed in the 'egor' object. Instead of an 
+This function uses an \code{egor} object and calculates the density of all
+the ego-centered networks listed in the 'egor' object. Instead of an
 \code{egor} object, alter and alter-alter data can be provided as \code{lists}
 or \code{data.frames}.
 }

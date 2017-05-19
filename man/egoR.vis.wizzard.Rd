@@ -7,14 +7,14 @@
 egoR.vis.wizzard(egoR)
 }
 \arguments{
-\item{egoR}{A list of six data objects, created by one of egor's import 
+\item{egoR}{A list of six data objects, created by one of egor's import
 functions.}
 }
 \value{
 Opens an interactive Browser Application.
 }
 \description{
-This function uses an 'egoR' object (list of data objects created by an 
+This function uses an 'egoR' object (list of data objects created by an
 egor import function), extracts the graphs object and uses it to visualise
 all networks contained in an interactive Browser Application (R-Shiny).
 }

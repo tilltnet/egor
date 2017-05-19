@@ -7,10 +7,10 @@
 EI(alters, edges_, var_name, egoID = "egoID", alterID = "alterID")
 }
 \arguments{
-\item{alters}{\code{List} of alters attribute \code{data.frame}s 
+\item{alters}{\code{List} of alters attribute \code{data.frame}s
 or \code{data.frame} of alter attributes.}
 
-\item{edges_}{\code{List} of edgelist-\code{dataframes} or one 
+\item{edges_}{\code{List} of edgelist-\code{dataframes} or one
 \code{dataframes} #' containing all edges_}
 
 \item{var_name}{\code{Character} naming grouping variable.}
@@ -20,11 +20,11 @@ or \code{data.frame} of alter attributes.}
 \item{alterID}{\code{Character} naming alter ID variable.}
 }
 \description{
-The EI-Index compares the intra-group edge density to the outer-group edge 
+The EI-Index compares the intra-group edge density to the outer-group edge
 density. It can be calculated for the whole network and for subgroups. The
-whole network EI is a metric indicating the tendency of a network to be 
-grouped by the categories of a given factor variable. The EI value of a 
-groups describes the tendency of a group to be connected or not connected 
+whole network EI is a metric indicating the tendency of a network to be
+grouped by the categories of a given factor variable. The EI value of a
+groups describes the tendency of a group to be connected or not connected
 to other groups. Additionally, the EI index can be employ as a measurment
 for egos tendendy to homo-/heterphily - use the \code{composition} command
 for this version, as it is a compositional measure.
@@ -35,11 +35,11 @@ data("edges32")
 EI(alters32, edges32, var_name = "alter.sex")
 }
 \references{
-Krackhardt, D., Stern, R.N., 1988. Informal networks and 
-organizational crises: an experimental simulation. Social Psychology 
+Krackhardt, D., Stern, R.N., 1988. Informal networks and
+organizational crises: an experimental simulation. Social Psychology
 Quarterly 51 (2), 123-140.
 
-Everett, M. G., & Borgatti, S. P. (2012). Categorical attribute 
+Everett, M. G., & Borgatti, S. P. (2012). Categorical attribute
 based centrality: E-I and G-F centrality. Social Networks, 34(4), 562-569.
 }
 \keyword{ego-centered}

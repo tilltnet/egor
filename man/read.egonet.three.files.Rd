@@ -22,10 +22,10 @@ read.openeddi(egos.file = NULL, alters.file = NULL, edges.file = NULL,
 \item{alters.df}{\code{dataframe} containing alters data (alters as cases),
 alters are separated by a variable containg an egoID.}
 
-\item{edges}{\code{Dataframe}. A global edge list, first column separates 
+\item{edges}{\code{Dataframe}. A global edge list, first column separates
 egos.}
 
-\item{ID.vars}{A character vector specifying ID variable names used (egoID, 
+\item{ID.vars}{A character vector specifying ID variable names used (egoID,
 alterID, source, target).}
 
 \item{ego.vars}{A \code{data.frame} of alter attributes in the wide format.}
@@ -48,7 +48,7 @@ pre-populated with the network size of each network
 }
 \description{
 These functions read ego-centered network data from the three files
-format, EgoWeb2.0 or openeddi and transform it to an egoR object. The three 
+format, EgoWeb2.0 or openeddi and transform it to an egoR object. The three
 files format consists of an ego file, on alters file and one file containing
 the edge data. EgoWeb2.0 and openeddi use variations of this format.
 }
@@ -57,13 +57,13 @@ the edge data. EgoWeb2.0 and openeddi use variations of this format.
 \item \code{read.egoweb}: This function reads in data from
 an EgoWeb 2.0 survey and transforms it to an egoR object. If no file name for
 the egos file is provided ego data is assumed to be merged with alters data
-and it will be extracted by \code{read.egoweb}. By default the 
+and it will be extracted by \code{read.egoweb}. By default the
 standard ID variable names of EgoWeb are used, if you need to specify the ID
-variable names use the ID.vars parameter. Further Information: 
+variable names use the ID.vars parameter. Further Information:
 github.com/qualintitative/egoweb
 
 \item \code{read.openeddi}: This function reads in data created
-by the openeddi survey software and transforms it to an egoR object. If no 
+by the openeddi survey software and transforms it to an egoR object. If no
 parameters are provided \code{read.openeddi} will try to find the adequate files
 in the working directory. By default the standard ID variable names of openeddi
 are used, if you need to specify the ID variable names use the ID.vars parameter.

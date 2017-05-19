@@ -40,8 +40,8 @@ ego, alter and edge data. This data format is for exampled used by the Allbus 20
 and similar social surveys.
 }
 \references{
-Muller, C., Wellman, B., & Marin, A. (1999). How to Use SPSS to 
-Study Ego-Centered Networks. Bulletin de Methodologie Sociologique, 
+Muller, C., Wellman, B., & Marin, A. (1999). How to Use SPSS to
+Study Ego-Centered Networks. Bulletin de Methodologie Sociologique,
 64(1), 83–100.
 }
 \keyword{import}

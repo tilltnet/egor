@@ -3,18 +3,18 @@
 \name{wide.dyads.to.edgelist}
 \alias{wide.dyads.to.edgelist}
 \title{Transform wide alter-alter data to an edge list.
-When alter-alter for numerous networks is stored in one file/ object it is 
-common use the 'wide' dataformat. This function transforms such data to an 
+When alter-alter for numerous networks is stored in one file/ object it is
+common use the 'wide' dataformat. This function transforms such data to an
 edge lists.}
 \usage{
 wide.dyads.to.edgelist(e.wide, first.var, max.alters, alters.list = NULL,
   selection = NULL)
 }
 \arguments{
-\item{e.wide}{A dataframe containing the alter-alter relation data in the 
+\item{e.wide}{A dataframe containing the alter-alter relation data in the
 'wide' format.}
 
-\item{max.alters}{Maximum number of alters for which alter-alter relations 
+\item{max.alters}{Maximum number of alters for which alter-alter relations
 were collected.}
 
 \item{fist.var}{Number of colum containing the relation between the first and
@@ -22,8 +22,8 @@ the second network contact.}
 }
 \description{
 Transform wide alter-alter data to an edge list.
-When alter-alter for numerous networks is stored in one file/ object it is 
-common use the 'wide' dataformat. This function transforms such data to an 
+When alter-alter for numerous networks is stored in one file/ object it is
+common use the 'wide' dataformat. This function transforms such data to an
 edge lists.
 }
 \keyword{internal}

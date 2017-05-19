@@ -15,10 +15,10 @@ graphs.}
 \item{node.size.multiplier}{\code{Numeric} used to multiply the node diameter
 of visualised nodes.}
 
-\item{node.min.size}{\code{Numeric} indicating minimum size of plotted 
+\item{node.min.size}{\code{Numeric} indicating minimum size of plotted
 nodes}
 
-\item{node.max.size}{\code{Numeric} indicating maximum size of plotted 
+\item{node.max.size}{\code{Numeric} indicating maximum size of plotted
 nodes}
 
 \item{edge.width.multiplier}{\code{Numeric} used to mutliply the edge width.}
@@ -27,7 +27,7 @@ nodes}
 
 \item{label.size}{\code{Numeric}.}
 
-\item{labels}{\code{Boolean}. Plots with turned off labels will be preceeded 
+\item{labels}{\code{Boolean}. Plots with turned off labels will be preceeded
 by a 'legend' plot giving the labels of the vertices.}
 
 \item{legend.node.size}{\code{Numeric} used as node diameter of legend graph.}
@@ -39,7 +39,7 @@ by a 'legend' plot giving the labels of the vertices.}
 a \code{list} of \code{igraph} objects created by the \code{clustered.graphs}
 function.
 
-\code{clustered.graphs} returns a list of graph objects representing 
+\code{clustered.graphs} returns a list of graph objects representing
 the clustered ego-centered network data;
 }
 \description{
@@ -48,8 +48,8 @@ clustered graphs created with \code{\link{clustered.graphs}}
 created clustered graph objects.
 }
 \references{
-Brandes, U., Lerner, J., Lubbers, M. J., McCarty, C., & Molina, 
-J. L. (2008). Visual Statistics for Collections of Clustered Graphs. 2008 
+Brandes, U., Lerner, J., Lubbers, M. J., McCarty, C., & Molina,
+J. L. (2008). Visual Statistics for Collections of Clustered Graphs. 2008
 IEEE Pacific Visualization Symposium, 47-54.
 }
 \seealso{

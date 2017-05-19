@@ -12,7 +12,7 @@ edges.attributes.to.network(e.list, alters)
 \item{alters}{\code{data.frame} containg alter attributes.}
 }
 \description{
-This function generates one igraph object from an edgelist and a dataframe 
+This function generates one igraph object from an edgelist and a dataframe
 containing alter attributes.
 }
 \keyword{internal}

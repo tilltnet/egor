@@ -14,7 +14,7 @@ wide.to.long(wide, egoID = "egoID", max.alters, start.col, end.col,
 
 \item{max.alters}{A \code{numeric} giving the maximum number of alters.}
 
-\item{start.col}{Number of first colum containg alter-alter relation data. 
+\item{start.col}{Number of first colum containg alter-alter relation data.
 #!# Should: Defaults to first column of \code{wide}.}
 
 \item{ego.vars}{A \code{data.frame} of alter attributes in the wide format.}
@@ -26,9 +26,9 @@ stored variable-wise, if FALSE alter-wise storage is assumed.}
 #!# Should: Defaults to last column of \code{wide}.}
 }
 \description{
-A function to transform a wide-format dataframe of ego-centric network data 
-into a long-format data-frame, where every row represents one alter/dyad. In 
-the created dataframe numerous networks can be distinguished by a network ID 
+A function to transform a wide-format dataframe of ego-centric network data
+into a long-format data-frame, where every row represents one alter/dyad. In
+the created dataframe numerous networks can be distinguished by a network ID
 (egoID).
 }
 \keyword{internal}
