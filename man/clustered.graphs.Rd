@@ -28,6 +28,15 @@ factor variable on the alter level. clustered.graphs() calculates group sizes,
 inter- and intragroup densities and these informations in a \code{list} of
 \code{igraph} objects.
 }
+\examples{
+data("egoR32")
+
+# Simplify networks to clustered graphs, stored as igraph objects
+graphs <- clustered.graphs(egoR32$alters.list, egoR32$edges, "alter.age") 
+
+# Visualise
+vis.clustered.graphs(graphs)
+}
 \references{
 Brandes, U., Lerner, J., Lubbers, M. J., McCarty, C., & Molina,
 J. L. (2008). Visual Statistics for Collections of Clustered Graphs. 2008
