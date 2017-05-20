@@ -30,7 +30,7 @@
 #' @importFrom utils read.csv
 #' @export
 read.egonet.folders <- function(egos.file, alter.folder, edge.folder, csv.sep = ",",
-                                egoID = "egoID", first.col.row.names = FALSE) {
+                                egoID = "egoID", first.col.row.names = FALSE, ...) {
   
   # if first.col.row.names is TRUE:
   if(first.col.row.names) {row.names <- 1} else {row.names <- NULL}
@@ -101,5 +101,5 @@ read.egonet.folders <- function(egos.file, alter.folder, edge.folder, csv.sep = 
   alter_ties.df <- do.call(rbind, alter_ties)
   
   # Return:
-  egor(alter.attr.df, egos, alter_ties.df)
+  egor(alter.attr.df, egos, alter_ties.df, ...)
   } 

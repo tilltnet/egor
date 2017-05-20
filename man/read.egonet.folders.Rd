@@ -6,7 +6,7 @@
 alters-attributes.}
 \usage{
 read.egonet.folders(egos.file, alter.folder, edge.folder, csv.sep = ",",
-  egoID = "egoID", first.col.row.names = FALSE)
+  egoID = "egoID", first.col.row.names = FALSE, ...)
 }
 \arguments{
 \item{egos.file}{File name of the .csv file containg the ego data.}

@@ -8,13 +8,13 @@
 openeddi.}
 \usage{
 read.egonet.three.files(egos, alters.df, edges, ID.vars = c("egoID",
-  "alterID", "Source", "Target"), ego.vars = NULL)
+  "alterID", "Source", "Target"), ego.vars = NULL, ...)
 
 read.egoweb(alter.file, edges.file, egos.file = NULL, ID.vars = c("EgoID",
-  "Alter.Number", "Alter.1.Number", "Alter.2.Number"), ego.vars = NULL)
+  "Alter.Number", "Alter.1.Number", "Alter.2.Number"), ego.vars = NULL, ...)
 
 read.openeddi(egos.file = NULL, alters.file = NULL, edges.file = NULL,
-  ID.vars = c("puid", "nameid", "nameid", "targetid"), ego.vars = NULL)
+  ID.vars = c("puid", "nameid", "nameid", "targetid"), ego.vars = NULL, ...)
 }
 \arguments{
 \item{egos}{\code{Data frame} containg ego data (egos as cases)}

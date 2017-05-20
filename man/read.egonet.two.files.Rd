@@ -6,7 +6,7 @@
 \usage{
 read.egonet.two.files(egos, alters, netsize = NULL, egoID = "egoID",
   alterID = NULL, e.max.alters, e.first.var, ego.vars = NULL,
-  selection = NULL)
+  selection = NULL, ...)
 }
 \arguments{
 \item{egos}{\code{Data frame} containg ego data (egos as cases)}

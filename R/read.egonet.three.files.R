@@ -45,7 +45,7 @@ order.edge.list.columns <- function(edges, source_, target) {
 #' @export
 read.egonet.three.files <- function(egos, alters.df, edges, 
                                     ID.vars = c("egoID", "alterID", "Source", "Target"),
-                                    ego.vars = NULL) {
+                                    ego.vars = NULL, ...) {
   # 0. Extract ID var Names
   egoID = ID.vars[[1]]
   alterID = ID.vars[[2]]
@@ -67,7 +67,7 @@ read.egonet.three.files <- function(egos, alters.df, edges,
   }
 
   # 7. return egor
-  egor(alters.df, egos, edges)
+  egor(alters.df, egos, edges, ...)
 }
 
 #' @describeIn read.egonet.three.files This function reads in data from
@@ -84,7 +84,7 @@ read.egonet.three.files <- function(egos, alters.df, edges,
 #' @export
 read.egoweb <- function(alter.file, edges.file, egos.file = NULL, 
                         ID.vars = c("EgoID", "Alter.Number", "Alter.1.Number", 
-                                    "Alter.2.Number"), ego.vars = NULL) {
+                                    "Alter.2.Number"), ego.vars = NULL, ...) {
   # Preliminaries - Get ID var Names
 
   # Import CSVs
@@ -102,7 +102,7 @@ read.egoweb <- function(alter.file, edges.file, egos.file = NULL,
                     alters.df[c(alterID.index, egoID.index)], 
                     alters.df[-c(alterID.index, egoID.index)])
   }
-  read.egonet.three.files(egos = egos, alters.df = alters.df, edges = edges, ID.vars = ID.vars, ego.vars = ego.vars)
+  read.egonet.three.files(egos = egos, alters.df = alters.df, edges = edges, ID.vars = ID.vars, ego.vars = ego.vars, ...)
 }
 
 
@@ -118,7 +118,7 @@ read.openeddi <- function(egos.file =  NULL,
                           alters.file = NULL, 
                           edges.file = NULL, 
                           ID.vars = c("puid","nameid","nameid","targetid"), 
-                          ego.vars = NULL){
+                          ego.vars = NULL, ...){
   if(is.null(egos.file)) {
     message("No filenames specified, looking for ego, alters and edge files in working directory.")
     files <- list.files()
@@ -133,7 +133,7 @@ read.openeddi <- function(egos.file =  NULL,
   alters.df <- read.csv(alters.file)
   edges <- read.csv(edges.file)
   
-  read.egonet.three.files(egos = egos, alters.df = alters.df, edges = edges, ID.vars = ID.vars, ego.vars = ego.vars)
+  read.egonet.three.files(egos = egos, alters.df = alters.df, edges = edges, ID.vars = ID.vars, ego.vars = ego.vars, ...)
 }
 
 

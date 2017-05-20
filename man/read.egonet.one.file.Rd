@@ -5,7 +5,8 @@
 \title{Import ego-centric network data from 'one file format'}
 \usage{
 read.egonet.one.file(egos, netsize, egoID = "egoID", attr.start.col,
-  attr.end.col, dy.max.alters, dy.first.var, ego.vars = NULL, var.wise = F)
+  attr.end.col, dy.max.alters, dy.first.var, ego.vars = NULL, var.wise = F,
+  ...)
 }
 \arguments{
 \item{egos}{\code{Data frame} containg ego data (egos as cases)}

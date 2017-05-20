@@ -265,7 +265,7 @@ add_ego_vars_to_long_df <- function(alters.list, egos.df, ego.vars, netsize) {
 #' @export
 read.egonet.one.file <- function(egos, netsize,  egoID = "egoID", 
                                  attr.start.col, attr.end.col, dy.max.alters,
-                                 dy.first.var, ego.vars = NULL, var.wise = F) {
+                                 dy.first.var, ego.vars = NULL, var.wise = F, ...) {
   
   #Sort egos by egoID.
   message("Sorting data by egoID.")
@@ -295,7 +295,7 @@ read.egonet.one.file <- function(egos, netsize,  egoID = "egoID",
   alter_ties.df <- do.call(rbind, alter_ties)
   
   # Return:
-  egor(alters.df, egos, alter_ties.df)
+  egor(alters.df, egos, alter_ties.df, ...)
 }
 
 #' Import ego-centric network data from two file format
@@ -320,7 +320,7 @@ read.egonet.one.file <- function(egos, netsize,  egoID = "egoID",
 #' @export
 read.egonet.two.files <- function(egos, alters, netsize = NULL,  egoID = "egoID",
                                   alterID = NULL, e.max.alters, e.first.var,
-                                  ego.vars = NULL, selection = NULL) {
+                                  ego.vars = NULL, selection = NULL, ...) {
   if(!is.null(alterID)) {
     message("alterID specified; moving to first column of $alters.df.")
     alterID.col <- match(alterID , names(alters))
@@ -375,5 +375,5 @@ read.egonet.two.files <- function(egos, alters, netsize = NULL,  egoID = "egoID"
   alter_ties.df <- do.call(rbind, alter_ties)
   
   # Return:
-  egor(alters, egos, alter_ties.df)
+  egor(alters, egos, alter_ties.df, ...)
 }
