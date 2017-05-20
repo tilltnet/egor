@@ -12,23 +12,21 @@
 \arguments{
 \item{x}{an \code{\link[=egor]{egor()}} object.}
 
-\item{subset}{an expression evaluated on the columns of \code{\link[=egor]{egor()}}
+\item{subset}{an expression evaluated on each of the rows of \code{\link[=egor]{egor()}}
 (as in the eponymous argument of \code{\link[=subset]{subset()}}), specifying which
 egos, alters, or alter-alter ties to keep; output format depends
 on \code{aspect}: \describe{
 
-\item{\code{"egos"}}{either an integer vector of indices specifying
-which egos to select or a logical vector of length \code{nrow(x)}
-specifying which rows should be kept.}
+\item{\code{"egos"}}{a single logical value specifying whether the ego
+should be kept.}
 
-\item{\code{"alters"}}{\emph{for each ego's row}, either an integer vector of
-indices specifying which alters to select or a logical vector of
-length \code{nrow(x)} specifying which alters should be kept.}
+\item{\code{"alters"}}{either an integer vector of indices specifying
+which alters to select or a logical vector of length \code{nrow(x)}
+specifying which alters should be kept.}
 
-\item{\code{"ties"}}{\emph{for each ego's row}, either an integer vector of
-indices specifying which alter-alter ties to select or a logical
-vector of length \code{nrow(x)} specifying which alter-alter ties should
-be kept.}
+\item{\code{"ties"}}{either an integer vector of indices specifying
+which alter-alter ties to select or a logical vector of length
+\code{nrow(x)} specifying which alter-alter ties should be kept.}
 
 }}
 
