@@ -150,16 +150,20 @@ summary.egor <- function(object, ...) {
   nc <- nrow(object)
   
   # Average netsize
-  nts <- sum(unlist(lapply(object$.alters, FUN = NROW))) / nc
+  nts <- survey::svymean(unlist(lapply(object$.alters, FUN = NROW)), 
+                          ego.design(object))
   
   # Average density
-  if(".alter_ties" %in% names(object)) dens <- sum(ego_density(object), na.rm = T) / nc else dens <- NULL
+  if(".alter_ties" %in% names(object)) 
+    dens <- survey::svymean(ego_density(object), ego.design(object)) 
+  else 
+    dens <- NULL
   
   cat(paste(nc, "Egos/ Ego Networks", "\nAverage Netsize", nts, "\n"))
   if(!is.null(dens)) cat(paste("Average Density", dens))
 
   # Meta Data
-  cat("Ego sampling design:\n")
+  cat("\nEgo sampling design:\n")
 #' @importFrom utils capture.output
   writeLines(paste("  ", capture.output(print(attr(object, "ego.design"))), sep=""))
 
