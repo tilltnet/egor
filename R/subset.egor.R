@@ -129,8 +129,8 @@ subset.egor <- function(x, subset, aspect = c("egos","alters","ties"), ...){
            x
          },
          ties = {
-           x$.ties <- lapply(seq_len(nrow(x)), function(k){
-             x$.ties[[k]][i[[k]],j,drop=FALSE]
+           x$.alter_ties <- lapply(seq_len(nrow(x)), function(k){
+             x$.alter_ties[[k]][i[[k]],j,drop=FALSE]
            })
            x
          })
