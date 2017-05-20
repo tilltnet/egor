@@ -101,6 +101,7 @@ subset.egor <- function(x, subset, aspect = c("egos","alters","ties"), ...){
 #'   logical vector specifying which columns to keep.
 #'
 #' @import tibble
+#' @importFrom utils getS3method
 #' @export
 `[.egor` <- function(x, i, j, aspect = c("egos","alters","ties"), ...){
   aspect <- match.arg(aspect)

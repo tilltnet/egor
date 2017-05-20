@@ -337,6 +337,7 @@ read.egonet.two.files <- function(egos, alters, netsize = NULL,  egoID = "egoID"
   
   if(is.null(netsize)) {
     message("No netsize variable specified, calculating/ guessing netsize by egoID in alters data.")
+#' @importFrom stats aggregate
     netsize <- aggregate(alters[[egoID]], by = list(alters[[egoID]]), NROW)    
     netsize <- netsize[[2]]    
   }

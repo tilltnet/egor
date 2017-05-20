@@ -32,6 +32,7 @@ generate.sample.edge.list <- function(netsize) {
 #' @param netsize \code{Numeric} for fixed network sizes.
 #' @keywords ego-centric network
 #' @keywords random
+#'
 #' @export
 generate.sample.ego.data <- function(net.count, max.alters, netsize = NULL) {
   
@@ -44,8 +45,10 @@ generate.sample.ego.data <- function(net.count, max.alters, netsize = NULL) {
   
   # Generating netsize
   if (is.null(netsize)) {
+#' @importFrom stats dnorm
     probs <- dnorm(seq(-max.alters/2, max.alters/2, length = max.alters), sd = 5)  
     netsize <- sample(2:max.alters, net.count, prob = probs[-1], replace = T)
+#' @importFrom graphics plot
     plot(table(netsize), type="l",ylab = "frequency")
     plot(sort(netsize, decreasing = T), type="l",ylab = "netsize")
   } else if (netsize == 'fixed') {
