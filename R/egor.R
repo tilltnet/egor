@@ -145,6 +145,7 @@ print.egor <- function(object, ...) {
 }
 
 #' @export
+#' @importFrom stats weights
 weights.egor <- function(object, ...) {
   weights(attr(object,"ego.design"), ...)
 }
