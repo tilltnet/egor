@@ -24,7 +24,7 @@ weights.egor <- function(object, ...) {
 #' @param how many parents up from the calling function should the
 #'   function look for variables not in egor. If the calling function
 #'   is meant to be called directly by the user, this number should be
-#'   2; if it's called from a function called by the user, 3, etc..
+#'   1; if it's called from a function called by the user, 2; etc..
 #'
 #' @noRd
 .gen.ego.design <- function(egor, ego.design, depth){
@@ -33,7 +33,8 @@ weights.egor <- function(object, ...) {
 
   # TODO: Save space by only including the columns with the design
   # information.
-  svyenv <- new.env(parent=parent.frame(depth+1))
+  pf <- parent.frame(depth+1)
+  svyenv <- new.env(parent=pf)
   assign("egor", egor, envir=svyenv)
 #' @importFrom survey svydesign
   svycall <- as.call(c(call("::",as.name("survey"),as.name("svydesign")), ego.design, list(data = as.name("egor"))))
@@ -69,6 +70,6 @@ ego.design.egor <- function(x, ...) attr(x, "ego.design")
 #'   modified.
 #' @export
 `ego.design<-.egor` <- function(x, value){
-  attr(x, "ego.design") <- .gen.ego.design(x, value, 2)
+  attr(x, "ego.design") <- .gen.ego.design(x, value, 1)
   x
 }
