@@ -26,14 +26,14 @@ similar to \code{alters.df}.}
 \item{egoID}{Name of ego ID variable; optional if \code{alters.df} and
 \code{alter_ties.df} are both lists of data frames.}
 
-\item{ego.design}{A \code{\link{list}} of arguments to
-\code{\link[survey:svydesign]{survey::svydesign()}} specifying the sampling design for the
-egos. If formulas, they can refer to columns of \code{egos.df}.}
+\item{ego.design}{A \code{\link{list}} of arguments to \code{\link[survey:svydesign]{survey::svydesign()}}
+specifying the sampling design for the egos. If formulas, they
+can refer to columns of \code{egos.df}.}
 
-\item{alter.design}{A \code{\link{list}} of arguments specifying
-nomination information. Currently, the following elements are
-supported: \describe{\item{\code{"max"}}{Maximum number of alters
-that an ego can nominate.}}}
+\item{alter.design}{A \code{\link{list}} of arguments specifying nomination
+information. Currently, the following elements are supported:
+\describe{\item{\code{"max"}}{Maximum number of alters that an
+ego can nominate.}}}
 
 \item{x}{an object to be coerced to \code{\link{egor}}.}
 }
@@ -63,6 +63,12 @@ lists of data frames, \code{egoID} is ignored and they are matched
 positionally with the rows of \code{egos.df}. Of the three parameters
 only \code{alters.df} is necessary to create an \code{egor} object, and
 \code{egos.df} and \code{alter_ties.df} are optional.
+}
+\note{
+Column names \code{.alters}, \code{.alter_ties}, and \code{.egoIdx} are
+reserved for internal use of \code{egor} and should not be used to
+store persistent data. Other \code{.}-led column names may be reserved
+in the future.
 }
 \examples{
 

@@ -31,7 +31,7 @@ which alter-alter ties to select or a logical vector of length
 }
 the expressions can access variables in the calling environment;
 columns of \code{\link[=egor]{egor()}} as variables (which mask the variables in the
-environment), as well as a "virtual" column \code{.rowInd} which
+environment), as well as a "virtual" column \code{.egoIdx} which
 contains the index (counting from 1) of the row being
 evaluated. (This can be used to access vector variables in the
 calling environment.)}
@@ -90,12 +90,12 @@ alters and ties.
 e[1:3,]
 
 # Similarly with subset()
-subset(e, .rowInd <= 3)
+subset(e, .egoIdx <= 3)
 
 # Using an external vector
 # (though normally, we would use e[.keep,] here)
 .keep <- rep(c(TRUE, FALSE), length.out=nrow(e))
-subset(e, .keep[.rowInd])
+subset(e, .keep[.egoIdx])
 
 # Only keep egos with exactly three alters
 subset(e, nrow(.alters)==3)
