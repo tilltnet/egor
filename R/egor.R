@@ -145,4 +145,9 @@ print.egor <- function(object, ...) {
 }
 
 #' @export
+weights.egor <- function(object, ...) {
+  weights(attr(object,"ego.design"), ...)
+}
+
+#' @export
 as.egor <- function(x, ...) UseMethod("as.egor")
