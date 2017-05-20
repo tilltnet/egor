@@ -2,17 +2,11 @@
 % Please edit documentation in R/egor.R
 \name{egor}
 \alias{egor}
-\alias{summary.egor}
-\alias{print.egor}
 \alias{as.egor}
 \title{egor - a data class for ego-centered network data.}
 \usage{
 egor(alters.df, egos.df = NULL, alter_ties.df = NULL, egoID = "egoID",
   ego.design = list(~1), alter.design = list(max = Inf))
-
-summary.egor(object, ...)
-
-print.egor(object, ...)
 
 as.egor(x, ...)
 }
@@ -40,10 +34,6 @@ egos. If formulas, they can refer to columns of \code{egos.df}.}
 nomination information. Currently, the following elements are
 supported: \describe{\item{\code{"max"}}{Maximum number of alters
 that an ego can nominate.}}}
-
-\item{object}{an \code{\link{egor}} object.}
-
-\item{...}{additional arguments, either unused or passed to lower-level functions.}
 
 \item{x}{an object to be coerced to \code{\link{egor}}.}
 }

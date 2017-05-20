@@ -122,11 +122,12 @@ filter_egor <- function(egor, obj = c(".alters", ".alter_ties"), cond) {
   
 }
 
-#' @rdname egor
+#' Methods to print and summarize [`egor`] objects
 #'
-#' @param object an [`egor`] object.
-#' @param ... additional arguments, either unused or passed to lower-level functions. 
+#' @param object,x an [`egor`] object.
+#' @param ... additional arguments, either unused or passed to lower-level functions.
 #' 
+#' @docType methods
 #' @export
 summary.egor <- function(object, ...) {
   # Network count
@@ -150,15 +151,22 @@ summary.egor <- function(object, ...) {
   cat("  Maximum nominations:", attr(object, "alter.design")$max,"\n")
 }
 
-#' @rdname egor
+#' @rdname summary.egor
 #' @export
 #' @import tibble
-print.egor <- function(object, ...) {
-  class(object) <- class(object)[-seq_len(which(class(object)=="egor"))]
-  print(as_tibble(object))
-  print(attr(object,"ego.design"))
+print.egor <- function(x, ...) {
+  class(x) <- class(x)[-seq_len(which(class(x)=="egor"))]
+  print(as_tibble(x))
+  print(attr(x,"ego.design"))
 }
 
+#' [weights.egor()] extracts the (relative) sampling weights of each
+#' ego in the dataset.
+#'
+#' @param object an [`egor`] object.
+#'
+#' @seealso [survey:::weights.survey.design()]
+#'
 #' @export
 #' @importFrom stats weights
 weights.egor <- function(object, ...) {
