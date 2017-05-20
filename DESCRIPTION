@@ -1,7 +1,7 @@
 Package: egor
 Type: Package
 Title: Import and analyse ego-centric network data
-Version: 0.17.01-204-2017.05.20-10.52.08
+Version: 0.17.01-205-2017.05.20-11.49.27
 Date: 2017-05-20
 Authors@R: c(
     person("Markus", "Gamper", email = "m.gamper@uni-koeln.de",
@@ -30,7 +30,8 @@ Imports:
     tidyr,
     dplyr,
     tibble,
-    methods
+    methods,
+    utils
 Suggests:
     knitr,
     testthat
