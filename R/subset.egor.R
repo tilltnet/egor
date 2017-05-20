@@ -61,6 +61,31 @@ rowlist <- function(x){
 #' alters and ties.
 #'
 #' @return An [egor()] object.
+#'
+#' @examples
+#'
+#' # Generate a small sample dataset
+#' (e <- generate.sample.ego.data(5,4))
+#'
+#' # First three egos in the dataset
+#' e[1:3,]
+#'
+#' # Only keep egos with exactly three alters
+#' subset(e, nrow(.alters)==3)
+#'
+#' # Only keep egos with exactly two female alters
+#' subset(e, sum(.alters$alter.sex=="w")==2)
+#'
+#' # Only keep female alters
+#' subset(e, .alters$alter.sex=="w", aspect="alters")
+#'
+#' # Only keep alters of a different sex form ego
+#' subset(e, sex != .alters$alter.sex, aspect="alters")
+#'
+#' # Only keep homophilous alter-alter ties
+#' subset(e, .alters$alter.sex[.alter_ties$Source] ==
+#'           .alters$alter.sex[.alter_ties$Target],
+#'        aspect="ties")
 #' 
 #' @export
 subset.egor <- function(x, subset, aspect = c("egos","alters","ties"), ...){
@@ -95,6 +120,10 @@ subset.egor <- function(x, subset, aspect = c("egos","alters","ties"), ...){
 #' should be kept}
 #'
 #' }
+#'
+#' In general, constructing selection arrays for alters and ties is
+#' complicated and error-prone, so the use of [subset()] is
+#' recommended.
 #' 
 #' @param j either an integer vector specifying which columns of the
 #'   filtered structure (egos, alters, or ties) to select, or a
