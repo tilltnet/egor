@@ -2,10 +2,19 @@
 % Please edit documentation in R/egor.R
 \name{egor}
 \alias{egor}
+\alias{summary.egor}
+\alias{print.egor}
+\alias{as.egor}
 \title{egor - a data class for ego-centered network data.}
 \usage{
 egor(alters.df, egos.df = NULL, alter_ties.df = NULL, egoID = "egoID",
   ego.design = list(~1), alter.design = list(max = Inf))
+
+summary.egor(object, ...)
+
+print.egor(object, ...)
+
+as.egor(x, ...)
 }
 \arguments{
 \item{alters.df}{either a \code{data.frame} containing the alters
@@ -31,25 +40,39 @@ egos. If formulas, they can refer to columns of \code{egos.df}.}
 nomination information. Currently, the following elements are
 supported: \describe{\item{\code{"max"}}{Maximum number of alters
 that an ego can nominate.}}}
+
+\item{object}{an \code{\link{egor}} object.}
+
+\item{...}{additional arguments, either unused or passed to lower-level functions.}
+
+\item{x}{an object to be coerced to \code{\link{egor}}.}
 }
 \value{
-returns an \code{egor} object. An egor is a
-\code{data.frame}, which consists of an ego ID column, nested
-columns for alter and alte-alter tie data and regular columns for
-ego-level data.
+An \code{\link{egor}} object. An \code{\link{egor}} is a \code{\link{tibble}} whose
+top-level columns store the ego attributes, and which has two
+special nested columns: \code{.alters}, containing, for each row (ego)
+a table of that ego's alter attributes and \code{.alter_ties}, a table
+containing that ego's alter--alter ties, if observed.
+
+In addition, it has two attributes: \code{ego.design}, containing an
+object returned by \code{\link[survey:svydesign]{survey::svydesign()}} specifying the sampling
+design by which the egos were selected and \code{alter.design}, a
+\code{\link{list}} containing specification of how the alters were
+nominated. See the argument above for currently implemented
+settings.
 }
 \description{
-The function \code{egor()} is used to create an egor object from
+The function \code{\link[=egor]{egor()}} is used to create an egor object from
 ego-centered network data.
 }
 \details{
 If parameters \code{alters.df}, \code{egos.df}, and \code{alter_ties.df}
 are data frames, they need to share a common ego ID variable,
-with corresponding values. If they \code{alters.df} and
-\code{alter_ties.df} are lists of data frames, \code{egoID} is ignored and
-they are matched positionally with the rows of \code{egos.df}. Of the
-three parameters only \code{alters.df} is necessary to create an
-\code{egor} object, and \code{egos.df} and \code{alter_ties.df} are optional.
+with corresponding values. If \code{alters.df} and \code{alter_ties.df} are
+lists of data frames, \code{egoID} is ignored and they are matched
+positionally with the rows of \code{egos.df}. Of the three parameters
+only \code{alters.df} is necessary to create an \code{egor} object, and
+\code{egos.df} and \code{alter_ties.df} are optional.
 }
 \examples{
 

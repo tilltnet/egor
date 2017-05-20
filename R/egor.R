@@ -1,6 +1,6 @@
 #' egor - a data class for ego-centered network data.
 #'
-#' The function \code{egor()} is used to create an egor object from
+#' The function [egor()] is used to create an egor object from
 #' ego-centered network data.
 #' @param alters.df either a \code{data.frame} containing the alters
 #'   (whose nominator is identified by the column specified by `egoID`
@@ -22,15 +22,23 @@
 #'   `alter_ties.df` are both lists of data frames.
 #' @details If parameters `alters.df`, `egos.df`, and `alter_ties.df`
 #'   are data frames, they need to share a common ego ID variable,
-#'   with corresponding values. If they `alters.df` and
-#'   `alter_ties.df` are lists of data frames, `egoID` is ignored and
-#'   they are matched positionally with the rows of `egos.df`. Of the
-#'   three parameters only `alters.df` is necessary to create an
-#'   `egor` object, and `egos.df` and `alter_ties.df` are optional.
-#' @return returns an \code{egor} object. An egor is a
-#'   \code{data.frame}, which consists of an ego ID column, nested
-#'   columns for alter and alte-alter tie data and regular columns for
-#'   ego-level data.
+#'   with corresponding values. If `alters.df` and `alter_ties.df` are
+#'   lists of data frames, `egoID` is ignored and they are matched
+#'   positionally with the rows of `egos.df`. Of the three parameters
+#'   only `alters.df` is necessary to create an `egor` object, and
+#'   `egos.df` and `alter_ties.df` are optional.
+#' @return An [`egor`] object. An [`egor`] is a [`tibble`] whose
+#'   top-level columns store the ego attributes, and which has two
+#'   special nested columns: `.alters`, containing, for each row (ego)
+#'   a table of that ego's alter attributes and `.alter_ties`, a table
+#'   containing that ego's alter--alter ties, if observed.
+#'
+#'   In addition, it has two attributes: `ego.design`, containing an
+#'   object returned by [survey::svydesign()] specifying the sampling
+#'   design by which the egos were selected and `alter.design`, a
+#'   [`list`] containing specification of how the alters were
+#'   nominated. See the argument above for currently implemented
+#'   settings.
 #' @keywords ego-centric network analysis
 #' @examples 
 #'
@@ -114,6 +122,11 @@ filter_egor <- function(egor, obj = c(".alters", ".alter_ties"), cond) {
   
 }
 
+#' @rdname egor
+#'
+#' @param object an [`egor`] object.
+#' @param ... additional arguments, either unused or passed to lower-level functions. 
+#' 
 #' @export
 summary.egor <- function(object, ...) {
   # Network count
@@ -137,6 +150,7 @@ summary.egor <- function(object, ...) {
   cat("  Maximum nominations:", attr(object, "alter.design")$max,"\n")
 }
 
+#' @rdname egor
 #' @export
 #' @import tibble
 print.egor <- function(object, ...) {
@@ -151,5 +165,7 @@ weights.egor <- function(object, ...) {
   weights(attr(object,"ego.design"), ...)
 }
 
+#' @rdname egor
+#' @param x an object to be coerced to [`egor`].
 #' @export
 as.egor <- function(x, ...) UseMethod("as.egor")
