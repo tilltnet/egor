@@ -113,7 +113,10 @@ subset.egor <- function(x, subset, aspect = c("egos","alters","ties"), ...){
            # Subset using the tibble's method, then copy over all
            # attributes except for the ones that could have changed.
            if(is.list(i)) i <- unlist(i)
-           xt <- getS3method("[", "tbl_df")(x,i,j,drop=FALSE)
+           bracket <- getS3method("[", "tbl_df")
+           xt <- bracket(x,i,j,drop=FALSE)
+           if(! ".alters"%in%names(xt)) xt <- cbind(xt, .alters=bracket(x,,".alters"))
+           if(".alter_ties"%in%names(x) && ! ".alter_ties"%in%names(xt)) xt <- cbind(xt, .alter_ties=bracket(x,,".alter_ties"))
            for(a in setdiff(names(attributes(x)), c("ego.design", "names", "row.names")))
              attr(xt, a) <- attr(x, a)
            attr(xt, "ego.design") <- attr(x, "ego.design")[i,]
