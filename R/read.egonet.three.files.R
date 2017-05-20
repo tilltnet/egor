@@ -80,6 +80,7 @@ read.egonet.three.files <- function(egos, alters.df, edges,
 #' @param egos.file A character specifiying the filename of the ego data.
 #' @param alter.file A character specifiying the filename of the alters data.
 #' @param edges.file A character specifiying the filename of the edge data.
+#' @importFrom utils read.csv
 #' @export
 read.egoweb <- function(alter.file, edges.file, egos.file = NULL, 
                         ID.vars = c("EgoID", "Alter.Number", "Alter.1.Number", 
@@ -110,7 +111,8 @@ read.egoweb <- function(alter.file, edges.file, egos.file = NULL,
 #' parameters are provided \code{read.openeddi} will try to find the adequate files
 #' in the working directory. By default the standard ID variable names of openeddi
 #' are used, if you need to specify the ID variable names use the ID.vars parameter.
-#' Further Information: www.openeddi.com 
+#' Further Information: www.openeddi.com
+#' @importFrom utils read.csv
 #' @export
 read.openeddi <- function(egos.file =  NULL, 
                           alters.file = NULL, 

@@ -27,6 +27,7 @@
 #' edge.folder <-  system.file("extdata", "edges_32", package = "egor")
 #' 
 #' ef <- read.egonet.folders(egos.file = egos.file, alter.folder = alters.folder, edge.folder = edge.folder, csv.sep = ";")
+#' @importFrom utils read.csv
 #' @export
 read.egonet.folders <- function(egos.file, alter.folder, edge.folder, csv.sep = ",",
                                 egoID = "egoID", first.col.row.names = FALSE) {
