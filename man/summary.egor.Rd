@@ -6,9 +6,9 @@
 \alias{print.egor}
 \title{Methods to print and summarize \code{\link{egor}} objects}
 \usage{
-summary.egor(object, ...)
+\method{summary}{egor}(object, ...)
 
-print.egor(x, ...)
+\method{print}{egor}(x, ...)
 }
 \arguments{
 \item{object, x}{an \code{\link{egor}} object.}

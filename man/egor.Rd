@@ -27,7 +27,7 @@ similar to \code{alters.df}.}
 \code{alter_ties.df} are both lists of data frames.}
 
 \item{ego.design}{A \code{\link{list}} of arguments to
-\code{\link{svydesign}} specifying the sampling design for the
+\code{\link[survey:svydesign]{survey::svydesign()}} specifying the sampling design for the
 egos. If formulas, they can refer to columns of \code{egos.df}.}
 
 \item{alter.design}{A \code{\link{list}} of arguments specifying

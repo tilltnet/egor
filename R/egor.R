@@ -11,10 +11,10 @@
 #' @param alter_ties.df \code{data.frame} containing the alter-alter
 #'   relations in the style of an edge list, or a list of data frames
 #'   similar to `alters.df`.
-#' @param ego.design A \code{\link{list}} of arguments to
-#'   \code{\link{svydesign}} specifying the sampling design for the
+#' @param ego.design A [`list`] of arguments to
+#'   [survey::svydesign()] specifying the sampling design for the
 #'   egos. If formulas, they can refer to columns of `egos.df`.
-#' @param alter.design A \code{\link{list}} of arguments specifying
+#' @param alter.design A [`list`] of arguments specifying
 #'   nomination information. Currently, the following elements are
 #'   supported: \describe{\item{\code{"max"}}{Maximum number of alters
 #'   that an ego can nominate.}}
@@ -42,7 +42,6 @@
 #' @keywords ego-centric network analysis
 #' @examples 
 #'
-#' @importFrom survey svydesign
 #' @export
 egor <- function(alters.df, egos.df = NULL, alter_ties.df = NULL, egoID="egoID", ego.design = list(~1), alter.design = list(max = Inf)) {
   # FUN: Inject empty data.frames with correct colums in to NULL cells in 
@@ -104,12 +103,7 @@ egor <- function(alters.df, egos.df = NULL, alter_ties.df = NULL, egoID="egoID",
 
   # Add design information.
 
-  # TODO: Save space by only including the columns with the design
-  # information.
-  svyenv <- new.env(parent=parent.frame(2))
-  assign("egor", egor, envir=svyenv) 
-  svycall <- as.call(c(call("::",as.name("survey"),as.name("svydesign")), ego.design, list(data = as.name("egor"))))
-  attr(egor, "ego.design") <- eval(svycall, svyenv)
+  attr(egor, "ego.design") <- .gen.ego.design(egor, ego.design, 2)
 
   # TODO: Implement name expansion/checking, possibly an S3 class.
   attr(egor, "alter.design") <- alter.design
@@ -128,6 +122,7 @@ filter_egor <- function(egor, obj = c(".alters", ".alter_ties"), cond) {
 #' @param ... additional arguments, either unused or passed to lower-level functions.
 #' 
 #' @docType methods
+#' @method summary egor
 #' @export
 summary.egor <- function(object, ...) {
   # Network count
@@ -153,6 +148,7 @@ summary.egor <- function(object, ...) {
 
 #' @rdname summary.egor
 #' @export
+#' @method print egor
 #' @import tibble
 print.egor <- function(x, ...) {
   class(x) <- class(x)[-seq_len(which(class(x)=="egor"))]
@@ -171,6 +167,64 @@ print.egor <- function(x, ...) {
 #' @importFrom stats weights
 weights.egor <- function(object, ...) {
   weights(attr(object,"ego.design"), ...)
+}
+
+#' A helper function that takes an egor object and a list with arguments
+#' to ego.design and runs svydesign()
+#'
+#' @param egor an [`egor`] object (possibly missing design
+#'   information).
+#' @param ego.design either `survey.design` object (like one
+#'   constructed by [svydesign()]) or a [`list`] of arguments to
+#'   [svydesign()] specifying the sampling design for the egos. If the
+#'   arguments are formulas, they can refer to columns (ego
+#'   attributes) of `egor`. If `survey.design`, returned unchanged.
+#' @param how many parents up from the calling function should the
+#'   function look for variables not in egor. If the calling function
+#'   is meant to be called directly by the user, this number should be
+#'   2; if it's called from a function called by the user, 3, etc..
+#'
+#' @noRd
+.gen.ego.design <- function(egor, ego.design, depth){
+#' @importFrom methods is
+  if(is(ego.design, "survey.design")) return(ego.design)
+
+  # TODO: Save space by only including the columns with the design
+  # information.
+  svyenv <- new.env(parent=parent.frame(depth+1))
+  assign("egor", egor, envir=svyenv)
+#' @importFrom survey svydesign
+  svycall <- as.call(c(call("::",as.name("survey"),as.name("svydesign")), ego.design, list(data = as.name("egor"))))
+  eval(svycall, svyenv)
+}
+
+#' Set and query the ego sampling design
+#'
+#' Extract, set, or update the [`svydesign`] associated with an
+#' egocentric dataset.
+#'
+#' @param x an [`egor`] object.
+#' @docType methods
+ego.design <- function(x, ...) UseMethod("ego.design")
+
+#' @rdname ego.design
+ego.design.egor <- function(x, ...) attr(x, "ego.design")
+
+#' @rdname ego.design
+`ego.design<-` <- function(x, ..., value) UseMethod("ego.design")
+
+#' @rdname ego.design
+#' @param value either `survey.design` object (like one constructed by
+#'   [svydesign()]) or a [`list`] of arguments to [svydesign()]
+#'   specifying the sampling design for the egos. If the arguments are
+#'   formulas, they can refer to columns (ego attributes) of `x`.
+#'
+#' @note This can be useful for adjusting or reinitializing the ego
+#'   design information after the underlying ego attributes had been
+#'   modified.
+`ego.design<-.egor` <- function(x, value){
+  attr(x, "ego.design") <- .gen.ego.design(x, value, 2)
+  x
 }
 
 #' @rdname egor
