@@ -181,3 +181,7 @@ print.egor <- function(x, ...) {
 #' @param x an object to be coerced to [`egor`].
 #' @export
 as.egor <- function(x, ...) UseMethod("as.egor")
+
+#' @export
+#' @noRd
+as.egor.egor <- function(x, ...) x
