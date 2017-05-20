@@ -105,6 +105,7 @@ subset.egor <- function(x, subset, aspect = c("egos","alters","ties"), ...){
 #' @export
 `[.egor` <- function(x, i, j, aspect = c("egos","alters","ties"), ...){
   aspect <- match.arg(aspect)
+  if(missing(i)) i <- TRUE
   if(missing(j)) j <- TRUE
 
   switch(aspect,
