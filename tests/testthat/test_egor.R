@@ -1,45 +1,29 @@
-asd <- generate.sample.ego.data(32, 20)
-alters.df <- asd$.alters
-egos.df <-  asd[ , -c(2,3)]
+e1_gen <- generate.sample.ego.data(32, 20)
 
-asd <- generate.sample.ego.data(32, 20)
-alters.df <- asd$.alters
-egos.df <-  asd[ , -c(2,3)]
-
-asd <- egor:::generate.sample.ego.data(32, 20)
-alters.df <- asd$.alters
-egos.df <-  asd$egos
-
-alters.df$egoID <- as.integer(alters.df$egoID)
-alter_ties <- mapply(FUN = function(x, y) data.frame(egoID = y, x), asd$alter_ties, 1:length(asd$.alter_ties), SIMPLIFY = F)
-
-alter_ties.df <- do.call(rbind, alter_ties)
+test_that("e1_gen is egor object", 
+          expect_true((class(e1_gen) == "egor")[1]))
 
 
+# Draw/ Extract egos and gobal alters/alter-tie dfs from egor
+egos <- select(e1_gen, -.alters, -.alter_ties)
+alters <- tidyr::unnest(e1_gen[,c(1,5)])
+alter_ties <- tidyr::unnest(e1_gen[,c(1,6)])
 
-
-library(tidyr)
-library(dplyr)
-
-
-class(alters.df$egoID)
-class(egos.df$egoID)
-class(alter_ties.df$egoID)
-
-
-e1 <- egor(alters.df, egos.df, alter_ties.df)
+e1 <- egor(alters, egos, alter_ties)
+class(e1) # double egor :(
+summary(e1_gen)
 summary(e1)
-ego_density(e1)
-ego_density(e1, weight = "weight")
+
+test_that("density values macht up", 
+          all(ego_density(e1_gen) == ego_density(e1)))
+
+test_that("weighted density values macht up", 
+          expect_true(
+            all(ego_density(e1_gen, weight = "weight") == 
+                  ego_density(e1, weight = "weight"))))
 
 ego_density(e1$.alter_ties, e1$.alters, weight = "weight")
-ego_density(alter_ties.df, alters.df, weight = "weight")
-
-
-NROW(e1$.alter_ties[[1]])
-NROW(e1$.alters[[1]])
-x <- e1$.alter_ties
-weight = "weight"
+ego_density(alter_ties, alters, weight = "weight")
 
 
 
@@ -47,58 +31,28 @@ err_d <- generate.sample.ego.data(32, 20)
 
 
 # Checking for egos without alters
-alters <- unnest(err_d[1:2])
-alter_ties <- unnest(err_d[c(1,3)])
+alters <- unnest(select(err_d, egoID, .alters))
+alter_ties <- unnest(select(err_d, egoID, .alter_ties))
 alters <- alters[!alters$egoID %in% c(1,2,3), ]
+egos <- dplyr::select(err_d, -.alters, -.alter_ties)
+err_d1 <- egor(alters, egos, alter_ties)
 
-err_d1 <- egor(alters, err_d[c(-2, -3)], alter_ties)
-View(err_d1)
-
-View(unnest(err_d1[1:2]))
 
 
 # Checking egos without alter_ties
 alter_ties <- alter_ties[!alter_ties$egoID %in% c(4,5,9), ]
-err_d2 <- egor(alters, err_d[c(-2, -3)], alter_ties)
+err_d2 <- egor(alters, egos, alter_ties)
 
 
 # Checking for alters and alter_ties without egos
-egos <- err_d[c(-2, -3)]
+egos <- select(err_d, -.alters, -.alter_ties)
 egos <- egos[sample(egos$egoID, 24), ]
 err_d3 <- egor(alters, egos, alter_ties)
 
 # Non-Unique egoID in ego data
-egos <- err_d[c(-2, -3)]
 egos <- rbind(egos, cbind(egos[1:4, 1], egos[5:8, -1] ))
 err_d4 <- egor(alters, egos, alter_ties)
 
 summary(err_d4)
 ego_density(err_d4)
 
-
-# filter
-# cond_1 <- "alter.sex"
-# cond_2 <- "w"
-# e1$.alters[[1]][cond ==, ]
-# lapply(X= e1$.alters, FUN = function(x, att, cond) 
-#   x[x[att] == cond, ]
-# , att = "alter.sex", cond = "w")
-# 
-# 
-# dplyr::filter(e1$.alters[[1]], alter.sex == "w")
-# 
-# 
-# filter()
-# 
-# if
-# 
-# dplyr::filter_
-# 
-# class(~13<2)
-# lm
-# 
-# 
-# cond <- ~alter.sex == "w"
-# if(eval(cond, parent.frame())) {}
-# cond
-# model.matrix.default

@@ -40,7 +40,8 @@ that only one can be affected at a time.}
 
 \item{\code{"egos"}}{either an integer vector of indices specifying
 which egos to select or a logical vector of length \code{nrow(x)}
-specifying which rows should be kept.}
+specifying which rows should be kept; a logical list of length
+\code{nrow(x)} is acceptable as well.}
 
 \item{\code{"alters"}}{a ragged array (a \code{\link[=list]{list()}}) of length \code{nrow(x)},
 either of integer vectors of indices specifying which alters to

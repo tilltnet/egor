@@ -3,24 +3,24 @@
 
 #' Generate a random edge list for one network.
 #'
-#' @param max.alters \code{Numeric} indicating maximum number of alters.
+#' @param netsize \code{Numeric} indicating maximum number of alters.
 #' @keywords ego-centric network
 #' @keywords internal
-generate.sample.edge.list <- function(max.alters) {
-  dp <- egor:::dyad.poss(max.alters)
+generate.sample.edge.list <- function(netsize) {
+  dp <- egor:::dyad.poss(netsize)
   Source <- c()
-  for (i in 1:max.alters) {
-    tmp <- rep(i, max.alters - i)
+  for (i in 1:netsize) {
+    tmp <- rep(i, netsize - i)
     Source <- c(Source, tmp)
   }
   
   Target <- c()
-  for (i in 1:(max.alters - 1)) {
-    tmp <- rep((i + 1):max.alters)
+  for (i in 1:(netsize - 1)) {
+    tmp <- rep((i + 1):netsize)
     Target <- c(Target, tmp)
   }
   
-  weight <- sample(1:3, dp, replace = T)
+  weight <- sample((1:3)/3, dp, replace = T)
   data.frame(Source, Target, weight)
 } 
 
@@ -36,7 +36,7 @@ generate.sample.edge.list <- function(max.alters) {
 generate.sample.ego.data <- function(net.count, max.alters, netsize = NULL) {
   
   # Generating ego data
-  egoID <- 1:net.count
+  egoID <- as.factor(1:net.count)
   sex <- chartr("12", "wm", sample(1:2, net.count, replace = T))
   age <- sample(1:7, net.count, replace = T)
   age <- factor(age, levels = c(1, 2, 3, 4, 5, 6, 7), labels = c("0 - 17", 
@@ -45,7 +45,7 @@ generate.sample.ego.data <- function(net.count, max.alters, netsize = NULL) {
   # Generating netsize
   if (is.null(netsize)) {
     probs <- dnorm(seq(-max.alters/2, max.alters/2, length = max.alters), sd = 5)  
-    netsize <- sample(1:max.alters, net.count, prob = probs, replace = T)
+    netsize <- sample(2:max.alters, net.count, prob = probs[-1], replace = T)
     plot(table(netsize), type="l",ylab = "frequency")
     plot(sort(netsize, decreasing = T), type="l",ylab = "netsize")
   } else if (netsize == 'fixed') {
@@ -79,32 +79,13 @@ generate.sample.ego.data <- function(net.count, max.alters, netsize = NULL) {
     edge.list[[i]] <- generate.sample.edge.list(egos[i, ]$netsize)
   }
   
-  alter_ties <- mapply(FUN = function(x, y) data.frame(egoID = y, x), edge.list, 1:length(edge.list), SIMPLIFY = F)
+  alter_ties <- mapply(FUN = function(x, y) data.frame(egoID = y, x), edge.list, as.factor(1:length(edge.list)), SIMPLIFY = F)
   alter_ties.df <- do.call(rbind, alter_ties)
-  
+  alter_ties.df <- alter_ties.df[sample(1:NROW(alter_ties.df), NROW(alter_ties.df)/2), ]
   # Return
   egor(alters, egos, alter_ties.df)
 } 
 
-# mimi <- generate.sample.ego.data(net.count = 128, max.alters = 8, netsize = 'fixed')
-# edges <- mimi$edges
-# egos <- mimi$egos
-# alters <- mimi$alters
-# alters.list <- long.df.to.list(alters, egos, egos$netsize, egoID = "egoID", back.to.df = F)
-# 
-# tr_ch <- c()
-# for (i in 1:NROW(egos)) {
-#   egos_netsize <- egos[i,]$netsize
-#   alters_NROW <- NROW(alters[alters$egoID == i, ])
-#   edges_src <- length(unique(edges[[i]]$Source)) + 1
-#   edges_trgt<- length(unique(edges[[i]]$Target)) + 1
-#   print(paste("###", i, sep = ": "))
-#   print(c(egos_netsize, alters_NROW, edges_src, edges_trgt))
-#   tr <- sum(egos_netsize, alters_NROW, edges_src, edges_trgt) == 4 * egos_netsize
-#   print(tr)
-#   tr_ch <- c(tr_ch, tr)
-# }
-# all(tr_ch)
 
 # Used for generating wide edge format data. 
 #' Transfroms edge lists to alter-alter wide format data.

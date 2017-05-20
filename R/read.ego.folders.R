@@ -91,18 +91,14 @@ read.egonet.folders <- function(egos.file, alter.folder, edge.folder, csv.sep = 
       names(elist.list[i]) <- cur_egoID
   }
 
-  graphs <- to.network(e.lists = elist.list, alters.list = alter.attr.list)
+  #graphs <- to.network(e.lists = elist.list, alters.list = alter.attr.list)
   
-  # Recreate alters.list to ensure complete factor levels #!# We need to make sure, that the original order is maintained
-  # alters.list <- split(x = alter.attr.df, f = alter.attr.df[[egoID]])
-  
-  # Return:
-  #list(egos.df = egos, alters.df = alter.attr.df, alters.list = alter.attr.list, edges = elist.list, graphs = graphs, results = data.frame(netsize))
+
+  # Create Global edge list
   alter_ties <- mapply(FUN = function(x, y) data.frame(egoID = y, x), elist.list, egos[[egoID]], SIMPLIFY = F)
   
   alter_ties.df <- do.call(rbind, alter_ties)
   
-  
+  # Return:
   egor(alter.attr.df, egos, alter_ties.df)
-  
   } 
