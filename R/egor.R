@@ -205,12 +205,15 @@ weights.egor <- function(object, ...) {
 #'
 #' @param x an [`egor`] object.
 #' @docType methods
+#' @export
 ego.design <- function(x, ...) UseMethod("ego.design")
 
 #' @rdname ego.design
+#' @export
 ego.design.egor <- function(x, ...) attr(x, "ego.design")
 
 #' @rdname ego.design
+#' @export
 `ego.design<-` <- function(x, ..., value) UseMethod("ego.design")
 
 #' @rdname ego.design
@@ -222,6 +225,7 @@ ego.design.egor <- function(x, ...) attr(x, "ego.design")
 #' @note This can be useful for adjusting or reinitializing the ego
 #'   design information after the underlying ego attributes had been
 #'   modified.
+#' @export
 `ego.design<-.egor` <- function(x, value){
   attr(x, "ego.design") <- .gen.ego.design(x, value, 2)
   x
