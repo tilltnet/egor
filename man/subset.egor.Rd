@@ -28,7 +28,13 @@ specifying which alters should be kept.}
 which alter-alter ties to select or a logical vector of length
 \code{nrow(x)} specifying which alter-alter ties should be kept.}
 
-}}
+}
+the expressions can access variables in the calling environment;
+columns of \code{\link[=egor]{egor()}} as variables (which mask the variables in the
+environment), as well as a "virtual" column \code{.rowInd} which
+contains the index (counting from 1) of the row being
+evaluated. (This can be used to access vector variables in the
+calling environment.)}
 
 \item{aspect}{a selector of which aspect of an egocentric dataset
 to affect: the egos, the alters or the (alter-alter) ties. Note
@@ -82,6 +88,14 @@ alters and ties.
 
 # First three egos in the dataset
 e[1:3,]
+
+# Similarly with subset()
+subset(e, .rowInd <= 3)
+
+# Using an external vector
+# (though normally, we would use e[.keep,] here)
+.keep <- rep(c(TRUE, FALSE), length.out=nrow(e))
+subset(e, .keep[.rowInd])
 
 # Only keep egos with exactly three alters
 subset(e, nrow(.alters)==3)
