@@ -4,40 +4,6 @@ order.edge.list.columns <- function(edges, source_, target) {
   cbind(edges[c(source_, target)], edges[!names(edges) %in% c(source_, target)])
 }
 
-#' Check for ID integrity
-#' @keywords internal
-check.ID.integrity <- function(egos, alters.df, edges, egoID = "egoID", 
-                               alterID = "alterID") {
-  egos_have_alters <- egos[[egoID]] %in% unique(alters.df[[egoID]])
-  alters_have_ego <- alters.df[[egoID]] %in% egos[[egoID]]
-  edges_have_ego <- edges[[egoID]] %in% egos[[egoID]]
-  list(egos = egos_have_alters, alters = alters_have_ego, edges = edges_have_ego)
-}
-#' Ensure ID integrity
-#' @keywords internal
-ensure.ID.integrity <- function(egos, alters.df, edges, egoID = "egoID", 
-                                alterID = "alterID") {
-  valid_IDs <- check.ID.integrity(egos, alters.df, edges, egoID = egoID, alterID = alterID)
-  objs <- list(egos, alters.df, edges)
-  valid_objs <- mapply(FUN = function(x, y)x[y, ], objs, valid_IDs, SIMPLIFY = F)
-  invalid_objs <- mapply(FUN = function(x, y)x[!y, ], objs, valid_IDs, SIMPLIFY = F)
-  names(valid_objs) <- c("egos", "alters.df", "edges")
-  names(invalid_objs) <- c("egos", "alters.df", "edges")
-  
-  list(valid_objs, invalid_objs)
-}
-#' Check for ID uniqueness
-#' @keywords internal
-check.ID.unique <- function(x, ID) {
-  dup <- duplicated(x[[ID]])
-  if(!all(!dup)) {
-    message(paste(ID, "values are not unique. Returning duplicated IDs:", sep = " "))
-    data.frame(col_1 = x[[1]][dup], ID = x[[ID]][dup])
-  } else {
-    "all fine!"
-  }
-}
-
 
 #' Read ego-centered network data from the three files format, EgoWeb2.0 or
 #' openeddi.
@@ -51,7 +17,8 @@ check.ID.unique <- function(x, ID) {
 #' @param ID.vars A character vector specifying ID variable names used (egoID, 
 #' alterID, source, target). 
 #' @template ego_vars
-#' @param edges \code{Dataframe}. A global edge list, first column separates 
+#' @param edges \code{Dataframe}. A global edge list, first column is ego ID 
+#' variable. 
 #' egos.
 #' @param alters.file \code{Character} name of the alters data file.
 #' @template return_egoR
@@ -85,29 +52,6 @@ read.egonet.three.files <- function(egos, alters.df, edges,
   source_ = ID.vars[[3]]
   target = ID.vars[[4]]
   
-  # 1. Check and ensure data integretiy
-  # - Check if all alters have an ego associated, if not: exclude
-  # - Check if all egos have at least one alter listed, if not: exclude
-  message("Checking and ensuring data integrity (Rules: egos have alters, alters have egos, edges have egos).")
-  valid_invalid <- ensure.ID.integrity(egos = egos, alters.df = alters.df, edges = edges, egoID = egoID, alterID = alterID)
-  valid <- valid_invalid[[1]]
-  egos <- valid$egos
-  alters.df <- valid$alters.df
-  edges <- valid$edges
-  excluded <- valid_invalid[[2]]
-  if(NROW(excluded$egos) + NROW(excluded$alters.df)+ NROW(excluded$edges) > 0) {
-    message("----------------------------")
-    if(NROW(excluded$egos) > 0) message("Some egos are being excluded.")
-    if(NROW(excluded$alters.df) > 0) message("Some alters are being excluded.")
-    if(NROW(excluded$edges) > 0) message("Some edges are being excluded.")
-    message("Check $excluded to find out which egos, alters and/or edge data is excluded.")
-    message("Check $excluded to find out which egos, alters and/or edge data is excluded.")
-    message("----------------------------")
-  }
-  # 2. Reorder edgelist columns and split to list
-  edges_cor <- order.edge.list.columns(edges = edges, source_ = source_, target = target)
-  edges <- split(edges_cor, factor(edges_cor[[egoID]]))
-  
   # 3. Sort by egoID
   # Sort egos by egoID and alters by egoID and alterID.
   message("Sorting data by egoID and alterID.")
@@ -120,37 +64,10 @@ read.egonet.three.files <- function(egos, alters.df, edges,
     message("Adding ego variables to alters data.")
     alters.df <- merge(alters.df, egos[c(egoID, ego.vars)],  by = egoID)
     alters.df <- alters.df[order(as.numeric(alters.df[[egoID]]), as.numeric(alters.df[[alterID]])), ]
-    
   }
 
-  # - reorder
-  message("Reordering columns in alters data (alterID changed to first column).")
-  alters.df <- cbind(alters.df[alterID], alters.df[, names(alters.df) != alterID])
-  
-  # - calc netsize
-  message("Calculating/ guessing netsize by egoID in alters data.")
-  netsize.df <- aggregate(alters.df[[egoID]], by=alters.df[egoID], FUN = NROW)
-  names(netsize.df)[2] <- "netsize"
-
-  
-  # - split to alters.list
-  message("Splitting alters.df to alters.list.")
-  alters.list <- split(x = alters.df, f = factor(alters.df[[egoID]]))
-  
-
-  # 6. to network
-  graphs <- egor::to.network(edges, alters.list)
-  
-  # 7. return egoR
-  egoR <- list(egos = egos, 
-     alters.df = alters.df, 
-     alters.list = alters.list, 
-     edges = edges, 
-     graphs = graphs, 
-     results = netsize.df, 
-     excluded = excluded)
-  message(paste(c("egoR Object:", names(egoR)), collapse=" $", sep = ""))
-  egoR
+  # 7. return egor
+  egor(alters.df, egos, edges)
 }
 
 #' @describeIn read.egonet.three.files This function reads in data from

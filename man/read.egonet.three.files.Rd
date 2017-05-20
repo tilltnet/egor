@@ -22,7 +22,8 @@ read.openeddi(egos.file = NULL, alters.file = NULL, edges.file = NULL,
 \item{alters.df}{\code{dataframe} containing alters data (alters as cases),
 alters are separated by a variable containg an egoID.}
 
-\item{edges}{\code{Dataframe}. A global edge list, first column separates
+\item{edges}{\code{Dataframe}. A global edge list, first column is ego ID
+variable.
 egos.}
 
 \item{ID.vars}{A character vector specifying ID variable names used (egoID,
