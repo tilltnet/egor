@@ -130,6 +130,7 @@ summary.egor <- function(object, ...) {
 
   # Meta Data
   cat("Ego sampling design:\n")
+#' @importFrom utils capture.output
   writeLines(paste("  ", capture.output(print(attr(object, "ego.design"))), sep=""))
 
   cat("Alter survey design:\n")

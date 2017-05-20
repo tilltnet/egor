@@ -83,7 +83,8 @@ wide.to.long <- function(wide, egoID = "egoID", max.alters, start.col, end.col,
   
   ### Create a long format data.frame of the alters items.
   coll_df <- cbind(wide[start.col:end.col], wide[ego.vars])
-  
+
+#' @importFrom stats reshape
   long <- reshape(coll_df, vary, ids = wide[egoID],
                   times = times,  direction = 'long')
   
@@ -164,6 +165,7 @@ wide.dyads.to.edgelist <- function(e.wide, first.var, max.alters,
                                        weight = alter.alter[case, count.var])
         alter.alter.df <- rbind(alter.alter.df, this.alter.alter)
         count.var <- count.var + 1
+#' @importFrom stats na.omit
         alter.alter.df <- na.omit(alter.alter.df)
         rownames(alter.alter.df) <- c()
       }

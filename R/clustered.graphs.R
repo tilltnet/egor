@@ -201,6 +201,7 @@ vis.clustered.graphs <- function(graphs,
       vertex.label.b <- paste(igraph::V(graph)$name, " ",  " ", sep = "\n")
       edge.label <- ifelse(igraph::E(graph)$grp.density == 0, "" , round(igraph::E(graph)$grp.density, digits = 2))
       #print(edge.label)
+#' @importFrom grDevices gray
       grey.shades <- gray(seq(1, 0, -0.008))[igraph::V(graph)$grp.density*100+1]
       grey.shades <-  strtoi(substr(gsub("#", replacement = "0x", grey.shades), start = 1, stop = 4))
       label.shades <- ifelse(grey.shades < 120, "#cccccc", "black")
@@ -284,9 +285,11 @@ vis.clustered.graphs <- function(graphs,
     rand.chars <- paste(sample(c(0:9, letters, LETTERS),
                                8, replace=TRUE), collapse="")
     filename <- paste("clustered_graphs_" , rand.chars, ".pdf", sep = "")
+#' @importFrom grDevices pdf
     pdf(file=filename, width = 46.81, height = 33.11)
     
     page.xy <- din.page.dist(length(graphs) + 1)
+#' @importFrom graphics par
     par(mfrow=c(page.xy[1], page.xy[2]))
   }
   
@@ -304,6 +307,7 @@ vis.clustered.graphs <- function(graphs,
   edge.label.color <- "black"
   for(graph in graphs) {
     if(length(igraph::V(graph))<1) {
+#' @importFrom graphics plot.new
       plot.new()
     } else {
        
@@ -318,6 +322,7 @@ vis.clustered.graphs <- function(graphs,
   }
   
   if(to.pdf) {
+#' @importFrom grDevices dev.off
     dev.off()
   }
 }
