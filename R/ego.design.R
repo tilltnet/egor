@@ -57,7 +57,7 @@ ego.design.egor <- function(x, ...) attr(x, "ego.design")
 
 #' @rdname ego.design
 #' @export
-`ego.design<-` <- function(x, ..., value) UseMethod("ego.design")
+`ego.design<-` <- function(x, ..., value) UseMethod("ego.design<-")
 
 #' @rdname ego.design
 #' @param value either `survey.design` object (like one constructed by
