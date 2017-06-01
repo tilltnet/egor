@@ -1,6 +1,6 @@
 # Density
 
-#' Calculate the density for n+many ego-centered networks. 
+#' Calculate the relationship density in ego-centered networks
 #'
 #' This function uses an \code{egor} object and calculates the density of all 
 #' the ego-centered networks listed in the 'egor' object. Instead of an 
@@ -8,8 +8,8 @@
 #' or \code{data.frames}. 
 #' @param x Either an \code{egor} object or a \code{data.frame/ list} containg alter-alter
 #' relations.
-#' @param alters \code{data.frame/ list} containg alter-alter relation data 
-#' (ignore if x is an \code{egor} object).
+#' @param aaties \code{data.frame/ list} containg alter attributes 
+#' (not needed if x is an \code{egor} object).
 #' @param egoID Name of ego ID variable. Only needs to be specified if alter
 #' and alter-alter data is provided in global data.frames.
 #' @param max.netsize Optional parameter. Constant value used if the
@@ -24,31 +24,22 @@
 #' data("egor32")
 #' egor_density(egor32)
 #' @export
-ego_density <- function (x, alters = NULL, egoID = "egoID", weight = NULL, max.netsize = NULL, directed = FALSE) {
+ego_density <- function (x, ...) {
   UseMethod("ego_density", x)
 }
 
-#' @export
-ego_density.data.frame <- function(x, egoID = "egoID", weight = NULL, max.netsize = NULL, directed = FALSE) {
-  x <- split(x, x$egoID)
-  ego_density(x = x, alters = e1$.alters, weight = weight, max.netsize = max.netsize, directed = directed)
-}
 
+#' @rdname ego_density
 #' @export
-ego_density.egor <- function(x, weight = NULL, max.netsize = NULL, directed = FALSE) {
-  ego_density(x = x$.aaties, alters =  x$.alters, weight = weight, max.netsize = max.netsize, directed = directed)
-}
-
-#' @export
-ego_density.list <- function(x, alters, weight = NULL, max.netsize = NULL, directed = FALSE) {
+ego_density.list <- function(x, aaties, weight = NULL, max.netsize = NULL, directed = FALSE) {
   if(!is.null(weight)) {
-    dyaden_real <- plyr::ldply(x, .fun = function(x) sum(x[[weight]], na.rm = T))
+    dyaden_real <- plyr::ldply(aaties, .fun = function(x) sum(x[[weight]], na.rm = T))
     
   } else {
-    dyaden_real <- plyr::ldply(x, .fun = function(x) NROW(x))
+    dyaden_real <- plyr::ldply(aaties, .fun = function(x) NROW(x))
   }
   
-  netsize <- unlist(lapply(alters, FUN = NROW))
+  netsize <- unlist(lapply(x, FUN = NROW))
   
   if(!is.null(max.netsize)) {
     netsize[netsize > max.netsize] <- max.netsize
@@ -65,4 +56,19 @@ ego_density.list <- function(x, alters, weight = NULL, max.netsize = NULL, direc
   density
 }
 
+
+#' @rdname ego_density
+#' @export
+ego_density.egor <- function(x, weight = NULL, max.netsize = NULL, directed = FALSE) {
+  ego_density(x = x$.alters, aaties = x$.aaties,  weight = weight, max.netsize = max.netsize, directed = directed)
+}
+
+
+#' @rdname ego_density
+#' @export
+ego_density.data.frame <- function(x, aaties, egoID = "egoID", weight = NULL, max.netsize = NULL, directed = FALSE) {
+  x <- split(x, x[egoID])
+  aaties <- split(aaties, aaties[egoID])
+  ego_density(x = x, aaties = aaties, weight = weight, max.netsize = max.netsize, directed = directed)
+}
 
