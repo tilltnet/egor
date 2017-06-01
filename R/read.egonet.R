@@ -290,12 +290,12 @@ read.egonet.one.file <- function(egos, netsize,  egoID = "egoID",
                                    dy.max.alters)
   
   # Create Global edge list
-  alter_ties <- mapply(FUN = function(x, y) data.frame(egoID = y, x), e.lists, egos[[egoID]], SIMPLIFY = F)
+  aaties <- mapply(FUN = function(x, y) data.frame(egoID = y, x), e.lists, egos[[egoID]], SIMPLIFY = F)
   
-  alter_ties.df <- do.call(rbind, alter_ties)
+  aaties.df <- do.call(rbind, aaties)
   
   # Return:
-  egor(alters.df, egos, alter_ties.df, ...)
+  egor(alters.df, egos, aaties.df, ...)
 }
 
 #' Import ego-centric network data from two file format
@@ -370,10 +370,10 @@ read.egonet.two.files <- function(egos, alters, netsize = NULL,  egoID = "egoID"
   
 
   # Create Global edge list
-  alter_ties <- mapply(FUN = function(x, y) data.frame(egoID = y, x), elist, egos[[egoID]], SIMPLIFY = F)
+  aaties <- mapply(FUN = function(x, y) data.frame(egoID = y, x), elist, egos[[egoID]], SIMPLIFY = F)
   
-  alter_ties.df <- do.call(rbind, alter_ties)
+  aaties.df <- do.call(rbind, aaties)
   
   # Return:
-  egor(alters, egos, alter_ties.df, ...)
+  egor(alters, egos, aaties.df, ...)
 }

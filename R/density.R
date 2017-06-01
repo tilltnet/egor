@@ -36,7 +36,7 @@ ego_density.data.frame <- function(x, egoID = "egoID", weight = NULL, max.netsiz
 
 #' @export
 ego_density.egor <- function(x, weight = NULL, max.netsize = NULL, directed = FALSE) {
-  ego_density(x = x$.alter_ties, alters =  x$.alters, weight = weight, max.netsize = max.netsize, directed = directed)
+  ego_density(x = x$.aaties, alters =  x$.alters, weight = weight, max.netsize = max.netsize, directed = directed)
 }
 
 #' @export

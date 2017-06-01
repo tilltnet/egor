@@ -1,4 +1,4 @@
-RESERVED_COLNAMES <- c(".alters", ".alter_ties", ".egoIdx")
+RESERVED_COLNAMES <- c(".alters", ".aaties", ".egoIdx")
 
 #' egor - a data class for ego-centered network data.
 #'
@@ -10,7 +10,7 @@ RESERVED_COLNAMES <- c(".alters", ".alter_ties", ".egoIdx")
 #'   with empty data frames or `NULL`s corresponding to egos with no
 #'   nominees.
 #' @param egos.df \code{data.frame} containing the egos.
-#' @param alter_ties.df \code{data.frame} containing the alter-alter
+#' @param aaties.df \code{data.frame} containing the alter-alter
 #'   relations in the style of an edge list, or a list of data frames
 #'   similar to `alters.df`.
 #' @param ego.design A [`list`] of arguments to [survey::svydesign()]
@@ -21,22 +21,22 @@ RESERVED_COLNAMES <- c(".alters", ".alter_ties", ".egoIdx")
 #'   \describe{\item{\code{"max"}}{Maximum number of alters that an
 #'   ego can nominate.}}
 #' @param egoID Name of ego ID variable; optional if `alters.df` and
-#'   `alter_ties.df` are both lists of data frames.
-#' @details If parameters `alters.df`, `egos.df`, and `alter_ties.df`
+#'   `aaties.df` are both lists of data frames.
+#' @details If parameters `alters.df`, `egos.df`, and `aaties.df`
 #'   are data frames, they need to share a common ego ID variable,
-#'   with corresponding values. If `alters.df` and `alter_ties.df` are
+#'   with corresponding values. If `alters.df` and `aaties.df` are
 #'   lists of data frames, `egoID` is ignored and they are matched
 #'   positionally with the rows of `egos.df`. Of the three parameters
 #'   only `alters.df` is necessary to create an `egor` object, and
-#'   `egos.df` and `alter_ties.df` are optional.
-#' @note Column names `.alters`, `.alter_ties`, and `.egoIdx` are
+#'   `egos.df` and `aaties.df` are optional.
+#' @note Column names `.alters`, `.aaties`, and `.egoIdx` are
 #'   reserved for internal use of `egor` and should not be used to
 #'   store persistent data. Other `.`-led column names may be reserved
 #'   in the future.
 #' @return An [`egor`] object. An [`egor`] is a [`tibble`] whose
 #'   top-level columns store the ego attributes, and which has two
 #'   special nested columns: `.alters`, containing, for each row (ego)
-#'   a table of that ego's alter attributes and `.alter_ties`, a table
+#'   a table of that ego's alter attributes and `.aaties`, a table
 #'   containing that ego's alter--alter ties, if observed.
 #'
 #'   In addition, it has two attributes: `ego.design`, containing an
@@ -49,9 +49,9 @@ RESERVED_COLNAMES <- c(".alters", ".alter_ties", ".egoIdx")
 #' @examples 
 #'
 #' @export
-egor <- function(alters.df, egos.df = NULL, alter_ties.df = NULL, egoID="egoID", ego.design = list(~1), alter.design = list(max = Inf)) {
+egor <- function(alters.df, egos.df = NULL, aaties.df = NULL, egoID="egoID", ego.design = list(~1), alter.design = list(max = Inf)) {
   # FUN: Inject empty data.frames with correct colums in to NULL cells in 
-  # $.alters and $.alter_ties
+  # $.alters and $.aaties
   inj_zero_dfs <- function(x, y) {
     null_entries <- sapply(x[[y]], is.null)
     zero_df <- x[[y]][!null_entries][[1]][0, ]
@@ -87,21 +87,21 @@ egor <- function(alters.df, egos.df = NULL, alter_ties.df = NULL, egoID="egoID",
                      .alters=lapply(alters.df, tibble::as_tibble))
     }
   
-  # If specified add alter_ties data to egor
-  if(!is.null(alter_ties.df)){
-    check_reserved_cols(alter_ties.df, "alter-alter ties")
-    alter_ties.tib <- if(is.data.frame(alter_ties.df)){
-        if(length(reserved_cols(alter_ties.df))) stop("Table of alter-alter ties has reserved column names ",paste(reserved_cols(alter_ties.df), collapse=", "),".") 
-        tidyr::nest_(data = alter_ties.df,
-                     key_col = ".alter_ties",
-                     names(alter_ties.df)[names(alter_ties.df) != egoID])
+  # If specified add aaties data to egor
+  if(!is.null(aaties.df)){
+    check_reserved_cols(aaties.df, "alter-alter ties")
+    aaties.tib <- if(is.data.frame(aaties.df)){
+        if(length(reserved_cols(aaties.df))) stop("Table of alter-alter ties has reserved column names ",paste(reserved_cols(aaties.df), collapse=", "),".") 
+        tidyr::nest_(data = aaties.df,
+                     key_col = ".aaties",
+                     names(aaties.df)[names(aaties.df) != egoID])
       }else{
         tibble::tibble(.egoIdx=seq_along(alters.df),
-                       .alter_ties=lapply(alter_ties.df, tibble::as_tibble))
+                       .aaties=lapply(aaties.df, tibble::as_tibble))
       }
     
-    egor <- dplyr::full_join(egor, alter_ties.tib, by = egoID)
-    egor <- inj_zero_dfs(egor, ".alter_ties")
+    egor <- dplyr::full_join(egor, aaties.tib, by = egoID)
+    egor <- inj_zero_dfs(egor, ".aaties")
   }
   
   # If speciefied add ego data to egor
@@ -133,7 +133,7 @@ egor <- function(alters.df, egos.df = NULL, alter_ties.df = NULL, egoID="egoID",
   egor
 }
 
-filter_egor <- function(egor, obj = c(".alters", ".alter_ties"), cond) {
+filter_egor <- function(egor, obj = c(".alters", ".aaties"), cond) {
   
 }
 
@@ -154,7 +154,7 @@ summary.egor <- function(object, ...) {
                           ego.design(object))
   
   # Average density
-  if(".alter_ties" %in% names(object)) 
+  if(".aaties" %in% names(object)) 
     dens <- survey::svymean(ego_density(object), ego.design(object)) 
   else 
     dens <- NULL

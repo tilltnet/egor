@@ -57,7 +57,7 @@ select for the corresponding ego or of logical vectors of length
 \item{\code{"ties"}}{a ragged array (a \code{\link[=list]{list()}}) of length \code{nrow(x)},
 either of integer vectors of indices specifying which alter-alter
 ties to select for the corresponding ego or of logical vectors of
-length \code{nrow(x$.alter_ties[k,,drop=FALSE])} specifying which ties
+length \code{nrow(x$.aaties[k,,drop=FALSE])} specifying which ties
 should be kept}
 
 }
@@ -110,8 +110,8 @@ subset(e, .alters$alter.sex=="w", aspect="alters")
 subset(e, sex != .alters$alter.sex, aspect="alters")
 
 # Only keep homophilous alter-alter ties
-subset(e, .alters$alter.sex[.alter_ties$Source] ==
-          .alters$alter.sex[.alter_ties$Target],
+subset(e, .alters$alter.sex[.aaties$Source] ==
+          .alters$alter.sex[.aaties$Target],
        aspect="ties")
 
 }

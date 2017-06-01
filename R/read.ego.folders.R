@@ -96,10 +96,10 @@ read.egonet.folders <- function(egos.file, alter.folder, edge.folder, csv.sep = 
   
 
   # Create Global edge list
-  alter_ties <- mapply(FUN = function(x, y) data.frame(egoID = y, x), elist.list, egos[[egoID]], SIMPLIFY = F)
+  aaties <- mapply(FUN = function(x, y) data.frame(egoID = y, x), elist.list, egos[[egoID]], SIMPLIFY = F)
   
-  alter_ties.df <- do.call(rbind, alter_ties)
+  aaties.df <- do.call(rbind, aaties)
   
   # Return:
-  egor(alter.attr.df, egos, alter_ties.df, ...)
+  egor(alter.attr.df, egos, aaties.df, ...)
   } 

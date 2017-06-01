@@ -97,8 +97,8 @@ rowlist <- function(x){
 #' subset(e, sex != .alters$alter.sex, aspect="alters")
 #'
 #' # Only keep homophilous alter-alter ties
-#' subset(e, .alters$alter.sex[.alter_ties$Source] ==
-#'           .alters$alter.sex[.alter_ties$Target],
+#' subset(e, .alters$alter.sex[.aaties$Source] ==
+#'           .alters$alter.sex[.aaties$Target],
 #'        aspect="ties")
 #' 
 #' @export
@@ -130,7 +130,7 @@ subset.egor <- function(x, subset, aspect = c("egos","alters","ties"), ...){
 #' \item{`"ties"`}{a ragged array (a [list()]) of length `nrow(x)`,
 #' either of integer vectors of indices specifying which alter-alter
 #' ties to select for the corresponding ego or of logical vectors of
-#' length `nrow(x$.alter_ties[k,,drop=FALSE])` specifying which ties
+#' length `nrow(x$.aaties[k,,drop=FALSE])` specifying which ties
 #' should be kept}
 #'
 #' }
@@ -159,7 +159,7 @@ subset.egor <- function(x, subset, aspect = c("egos","alters","ties"), ...){
            bracket <- getS3method("[", "tbl_df")
            xt <- bracket(x,i,j,drop=FALSE)
            if(! ".alters"%in%names(xt)) xt <- cbind(xt, .alters=bracket(x,,".alters"))
-           if(".alter_ties"%in%names(x) && ! ".alter_ties"%in%names(xt)) xt <- cbind(xt, .alter_ties=bracket(x,,".alter_ties"))
+           if(".aaties"%in%names(x) && ! ".aaties"%in%names(xt)) xt <- cbind(xt, .aaties=bracket(x,,".aaties"))
            for(a in setdiff(names(attributes(x)), c("ego.design", "names", "row.names")))
              attr(xt, a) <- attr(x, a)
            attr(xt, "ego.design") <- attr(x, "ego.design")[i,]
@@ -172,8 +172,8 @@ subset.egor <- function(x, subset, aspect = c("egos","alters","ties"), ...){
            x
          },
          ties = {
-           x$.alter_ties <- lapply(seq_len(nrow(x)), function(k){
-             x$.alter_ties[[k]][i[[k]],j,drop=FALSE]
+           x$.aaties <- lapply(seq_len(nrow(x)), function(k){
+             x$.aaties[[k]][i[[k]],j,drop=FALSE]
            })
            x
          })

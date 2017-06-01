@@ -82,11 +82,11 @@ generate.sample.ego.data <- function(net.count, max.alters, netsize = NULL) {
     edge.list[[i]] <- generate.sample.edge.list(egos[i, ]$netsize)
   }
   
-  alter_ties <- mapply(FUN = function(x, y) data.frame(egoID = y, x), edge.list, as.factor(1:length(edge.list)), SIMPLIFY = F)
-  alter_ties.df <- do.call(rbind, alter_ties)
-  alter_ties.df <- alter_ties.df[sample(1:NROW(alter_ties.df), NROW(alter_ties.df)/2), ]
+  aaties <- mapply(FUN = function(x, y) data.frame(egoID = y, x), edge.list, as.factor(1:length(edge.list)), SIMPLIFY = F)
+  aaties.df <- do.call(rbind, aaties)
+  aaties.df <- aaties.df[sample(1:NROW(aaties.df), NROW(aaties.df)/2), ]
   # Return
-  egor(alters, egos, alter_ties.df)
+  egor(alters, egos, aaties.df)
 } 
 
 
