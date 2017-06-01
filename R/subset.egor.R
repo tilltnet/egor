@@ -190,15 +190,17 @@ subset.egor <- function(x, subset, aspect = c("egos","alters","ties"), ...){
            xt
          },
          alters = {
-           x$.alters <- lapply(seq_len(nrow(x)), function(k){
-             x$.alters[[k]][i[[k]],j,drop=FALSE]
-           })
+           x$.alters <- mapply(function(a, ai) a[ai,j,drop=FALSE],
+                               a=x$.alters, ai=i, SIMPLIFY=FALSE)
+           x$.aaties <- mapply(function(a, aa){
+             aa[aa$Source %in% a$alterID & aa$Target %in% a$alterID,
+                j,drop=FALSE]
+           }, a=x$.alters, aa=x$.aaties, SIMPLIFY=FALSE)
            x
          },
          ties = {
-           x$.aaties <- lapply(seq_len(nrow(x)), function(k){
-             x$.aaties[[k]][i[[k]],j,drop=FALSE]
-           })
+           x$.aaties <- mapply(function(aa, aai) aa[aai,j,drop=FALSE],
+                               aa=x$.aaties, aai=i, SIMPLIFY=FALSE)
            x
          })
 }
