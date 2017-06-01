@@ -31,10 +31,21 @@ which alter-alter ties to select or a logical vector of length
 }
 the expressions can access variables in the calling environment;
 columns of \code{\link[=egor]{egor()}} as variables (which mask the variables in the
-environment), as well as a "virtual" column \code{.egoIx} which
-contains the index (counting from 1) of the row being
+calling environment), as well as the following "virtual" columns to simplify indexing:
+\describe{
+
+\item{Ego index \code{.egoIx}}{ contains the index (counting from 1) of the row being
 evaluated. (This can be used to access vector variables in the
 calling environment.)}
+
+\item{Alter index \code{.alterIx}}{ contains the index (counting from 1) of the row number in the alter table.}
+
+\item{Alter--alter indices \code{.srcIx} and \code{.tgtIx}}{ contain the
+index (counting from 1) of the row of the alter being refereced by
+\code{Source} and \code{Target}. (This can be used to quickly access the
+attributes of the alters in question.)}
+
+}}
 
 \item{aspect}{a selector of which aspect of an egocentric dataset
 to affect: the egos, the alters or the (alter-alter) ties. Note
@@ -110,8 +121,8 @@ subset(e, .alters$alter.sex=="w", aspect="alters")
 subset(e, sex != .alters$alter.sex, aspect="alters")
 
 # Only keep homophilous alter-alter ties
-subset(e, .alters$alter.sex[.aaties$Source] ==
-          .alters$alter.sex[.aaties$Target],
+subset(e, .alters$alter.sex[.aaties$.srcIx] ==
+          .alters$alter.sex[.aaties$.tgtIx],
        aspect="ties")
 
 }

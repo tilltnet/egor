@@ -54,11 +54,22 @@ rowlist <- function(x){
 #' }
 #' the expressions can access variables in the calling environment;
 #' columns of [egor()] as variables (which mask the variables in the
-#' environment), as well as a "virtual" column `.egoIx` which
-#' contains the index (counting from 1) of the row being
+#' calling environment), as well as the following "virtual" columns to simplify indexing:
+#' \describe{
+#' 
+#' \item{Ego index `.egoIx`}{ contains the index (counting from 1) of the row being
 #' evaluated. (This can be used to access vector variables in the
-#' calling environment.)
-#'
+#' calling environment.)}
+#' 
+#' \item{Alter index `.alterIx`}{ contains the index (counting from 1) of the row number in the alter table.}
+#' 
+#' \item{Alter--alter indices `.srcIx` and `.tgtIx`}{ contain the
+#' index (counting from 1) of the row of the alter being refereced by
+#' `Source` and `Target`. (This can be used to quickly access the
+#' attributes of the alters in question.)}
+#' 
+#' }
+#' 
 #' @param ... extra arguments; currently unused.
 #'
 #' @details 
@@ -97,8 +108,8 @@ rowlist <- function(x){
 #' subset(e, sex != .alters$alter.sex, aspect="alters")
 #'
 #' # Only keep homophilous alter-alter ties
-#' subset(e, .alters$alter.sex[.aaties$Source] ==
-#'           .alters$alter.sex[.aaties$Target],
+#' subset(e, .alters$alter.sex[.aaties$.srcIx] ==
+#'           .alters$alter.sex[.aaties$.tgtIx],
 #'        aspect="ties")
 #' 
 #' @export
@@ -108,7 +119,20 @@ subset.egor <- function(x, subset, aspect = c("egos","alters","ties"), ...){
   pf <- parent.frame() 
   f <- function(r) eval(se, r, pf)
 
-  i <- lapply(rowlist(cbind(x,.egoIx=seq_len(nrow(x)))), f)
+  ## egor object augmented with extra columns
+  # Copy and add an .egoIx column
+  xa <- cbind(x,.egoIx=seq_len(nrow(x)))
+  # Add an .alterIx column to each alter
+  xa$.alters <- lapply(xa$.alters, function(a) cbind(a, .alterIx=seq_len(nrow(a))))
+  # Add an .srcIx and .tgtIx column to each alter-alter table
+  xa$.aaties <- mapply(function(a,aa)
+    cbind(aa,
+          .srcIx = match(aa$Source, a$alterID),
+          .tgtIx = match(aa$Target, a$alterID)),
+    a=xa$.alters, aa=xa$.aaties, SIMPLIFY=FALSE)
+
+  # Call the function to perform indexing
+  i <- lapply(rowlist(xa), f)
 
   x[i,,aspect=aspect]
 }
