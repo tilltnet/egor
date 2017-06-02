@@ -182,7 +182,7 @@ subset.egor <- function(x, subset, aspect = c("egos","alters","ties"), ...){
            if(is.list(i)) i <- unlist(i)
            bracket <- getS3method("[", "tbl_df")
            xt <- bracket(x,i,j,drop=FALSE)
-           if(! ".alters"%in%names(xt)) xt <- cbind(xt, .alters=bracket(x,i,".alters"))
+           if(".alters"%in%names(x) && ! ".alters"%in%names(xt)) xt <- cbind(xt, .alters=bracket(x,i,".alters"))
            if(".aaties"%in%names(x) && ! ".aaties"%in%names(xt)) xt <- cbind(xt, .aaties=bracket(x,i,".aaties"))
            for(a in setdiff(names(attributes(x)), c("ego.design", "names", "row.names")))
              attr(xt, a) <- attr(x, a)
