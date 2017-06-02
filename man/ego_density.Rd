@@ -5,7 +5,7 @@
 \alias{ego_density.list}
 \alias{ego_density.egor}
 \alias{ego_density.data.frame}
-\title{Calculate the density for n+many ego-centered networks.}
+\title{Calculate the relationship density in ego-centered networks}
 \usage{
 ego_density(x, ...)
 

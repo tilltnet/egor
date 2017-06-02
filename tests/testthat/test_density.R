@@ -40,10 +40,12 @@ test_that("density2 values are between 0 an 1", {
 # data.frame(s)
 library(tidyr)
 library(dplyr)
-class(of) <- class(of)[2:4] # 
+#class(of) <- class(of)[2:4] # 
+#class(of) <- class(of)[-seq_len(which(class(of)=="egor"))]
 
+of2 <- as_tibble.egor(of)
 
-alters <- unnest(select(of, egoID, .alters))
+alters <- unnest(select(of2, egoID, .alters))
 aaties <- unnest(select(of, egoID, .aaties))
 
 
