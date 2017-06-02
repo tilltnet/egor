@@ -189,3 +189,15 @@ as.egor <- function(x, ...) UseMethod("as.egor")
 #' @export
 #' @noRd
 as.egor.egor <- function(x, ...) x
+
+#' @export
+#' @noRd
+as_tibble.egor <- function(x, ...){
+  # There's probably a less kludgy way to do this.
+  class(x) <- class(x)[-seq_len(which(class(x)=="egor"))]
+  as_tibble(x)
+}
+
+#' @export
+#' @noRd
+as.tibble.egor <- as_tibble.egor
