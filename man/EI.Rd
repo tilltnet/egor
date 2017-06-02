@@ -2,32 +2,43 @@
 % Please edit documentation in R/ei.R
 \name{EI}
 \alias{EI}
+\alias{EI.list}
+\alias{EI.egor}
+\alias{EI.data.frame}
 \title{Calculate the EI-Index}
 \usage{
-EI(alters, edges_, var_name, egoID = "egoID", alterID = "alterID")
+EI(object, var_name, ...)
+
+\method{EI}{list}(object, aaties, var_name, egoID = "egoID",
+  alterID = "alterID")
+
+\method{EI}{egor}(object, var_name, egoID = "egoID", alterID = "alterID")
+
+\method{EI}{data.frame}(object, aaties, var_name, egoID = "egoID",
+  alterID = "alterID")
 }
 \arguments{
-\item{alters}{\code{List} of alters attribute \code{data.frame}s
-or \code{data.frame} of alter attributes.}
-
-\item{edges_}{\code{List} of edgelist-\code{dataframes} or one
-\code{dataframes} #' containing all edges_}
-
 \item{var_name}{\code{Character} naming grouping variable.}
+
+\item{aaties}{\code{List} of edgelist-\code{dataframes} or one
+\code{dataframes} #' containing all aaties}
 
 \item{egoID}{\code{Character} naming ego ID variable.}
 
 \item{alterID}{\code{Character} naming alter ID variable.}
+
+\item{alters}{\code{List} of alters attribute \code{data.frame}s
+or \code{data.frame} of alter attributes.}
 }
 \description{
 The EI-Index compares the intra-group edge density to the outer-group edge
 density. It can be calculated for the whole network and for subgroups. The
 whole network EI is a metric indicating the tendency of a network to be
-grouped by the categories of a given factor variable. The EI value of a
+clustered by the categories of a given factor variable. The EI value of a
 groups describes the tendency of a group to be connected or not connected
 to other groups. Additionally, the EI index can be employ as a measurment
 for egos tendendy to homo-/heterphily - use the \code{composition} command
-for this version, as it is a compositional measure.
+for this version.
 }
 \examples{
 data("alters32")

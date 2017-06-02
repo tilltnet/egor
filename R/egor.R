@@ -194,7 +194,8 @@ as.egor.egor <- function(x, ...) x
 as_tibble.egor <- function(x, ...){
   # There's probably a less kludgy way to do this.
   class(x) <- class(x)[-seq_len(which(class(x)=="egor"))]
-  as_tibble(x)
+  #as_tibble(x)
+  x
 }
 
 #' @export
