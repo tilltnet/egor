@@ -7,9 +7,9 @@
 #' factor variable on the alter level. clustered.graphs() calculates group sizes,
 #' inter- and intragroup densities and these informations in a \code{list} of
 #' \code{igraph} objects.
-#' @param alters.list \code{List} of \code{data frames} containing the alters 
+#' @param alters \code{List} of \code{data frames} containing the alters 
 #' data.
-#' @param edges.list \code{List} of \code{data frames} containing the edge 
+#' @param aaties \code{List} of \code{data frames} containing the edge 
 #' lists (= alter-alter relations).
 #' @param clust.groups A \code{character} naming the \code{factor} variable defining the groups.
 #' @references Brandes, U., Lerner, J., Lubbers, M. J., McCarty, C., & Molina, 
@@ -21,7 +21,11 @@
 #' @seealso \code{\link{vis.clustered.graphs}} for visualising clustered graphs
 #' @example /inst/examples/ex_cg.R
 #' @export
-clustered.graphs <- function(alters.list, edges.list, clust.groups) {
+clustered_graphs <- function(object, ..., clust.groups) UseMethod("clustered_graphs", object)
+
+#' @rdname clustered_graphs
+#' @export  
+clustered_graphs.list <- function(alters, aaties, clust.groups) {
   GetGroupSizes <- function(x) {
     #y <- aggregate(x$alterID, by = x[clust.groups], FUN = NROW)
     y <- data.frame(table(x[clust.groups]))
@@ -29,18 +33,18 @@ clustered.graphs <- function(alters.list, edges.list, clust.groups) {
     y
   }
   
-  alters.grped.list <- lapply(alters.list, FUN = GetGroupSizes)
+  alters.grped.list <- lapply(alters, FUN = GetGroupSizes)
   
   # Exclude NAs in clust.groups
-  alters.list <- lapply(alters.list, FUN = function(y) y[!is.na(y[clust.groups]), ])
+  alters <- lapply(alters, FUN = function(y) y[!is.na(y[clust.groups]), ])
   
-  graphs <- to.network(e.lists = edges.list, alters.list = alters.list)
+  graphs <- to.network(e.lists = aaties, alters = alters)
   
   # # Store colnames of edges and alters for consistency check.
-  # alters.names<- lapply(alters.list, FUN = names)
-  # if(length(unique(alters.names))==1) print("alters.list names check out")
-  # edges.names <- lapply(edges.list, FUN = names)
-  # if(length(unique(edges.names))==1) print("edges.list names check out")
+  # alters.names<- lapply(alters, FUN = names)
+  # if(length(unique(alters.names))==1) print("alters names check out")
+  # edges.names <- lapply(aaties, FUN = names)
+  # if(length(unique(edges.names))==1) print("aaties names check out")
   # #!# Create warning, when names are not the same throug all
   
 # Extracting edges within and between groups ------------------------------
@@ -109,7 +113,7 @@ clustered.graphs <- function(alters.list, edges.list, clust.groups) {
       }
     }
     
-    list(grp.densities = grps.df, edges.lists = groups.list)
+    list(grp.densities = grps.df, aatiess = groups.list)
   }
   
   grp.densities <- mapply(FUN = calculateGrpDensities, graphs, alters.grped.list, clust.groups, SIMPLIFY = F)
@@ -125,7 +129,24 @@ clustered.graphs <- function(alters.list, edges.list, clust.groups) {
   clustered.graphs
 }
 
+#' @rdname clustered_graphs
+#' @export 
+clustered_graphs.egor <- function(object, clust.groups)
+  clustered_graphs(object$.alters, object$.aaties, clust.groups)
 
+#' @rdname clustered_graphs
+#' @export 
+clustered_graphs.data.frame <- function(alters, aaties, clust.groups, egoID = "egoID") {
+  alters <- split(alters, alters[[egoID]])
+  aaties <- split(aaties, aaties[[egoID]])
+  alters <- lapply(alters, FUN = function(x) x[2:NCOL(x)])
+  aaties <- lapply(aaties, FUN = function(x) x[2:NCOL(x)])
+  
+  clustered_graphs(alters, aaties, clust.groups)
+}
+  
+  
+  
 #' Visualise clustered graphs
 #' 
 #' \code{vis.clustered.graphs} visualises clustered.graphs using a list of

@@ -46,7 +46,7 @@ library(dplyr)
 of2 <- as_tibble.egor(of)
 
 alters <- unnest(select(of2, egoID, .alters))
-aaties <- unnest(select(of, egoID, .aaties))
+aaties <- unnest(select(of2, egoID, .aaties))
 
 
 
