@@ -1,7 +1,3 @@
-## FIXME: Filtering alters does not filter corresponding ties at this
-## time.
-
-
 #' Convert a table to a list of rows
 #'
 #' A convenience function converting a [data.frame()] or a [tibble()].
