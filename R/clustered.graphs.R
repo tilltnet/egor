@@ -132,7 +132,7 @@ clustered_graphs.list <- function(alters, aaties, clust.groups) {
 #' @rdname clustered_graphs
 #' @export 
 clustered_graphs.egor <- function(object, clust.groups)
-  clustered_graphs(object$.alters, object$.aaties, clust.groups)
+  clustered_graphs(object$.alts, object$.aaties, clust.groups)
 
 #' @rdname clustered_graphs
 #' @export 

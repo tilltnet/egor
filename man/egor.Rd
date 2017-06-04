@@ -40,7 +40,7 @@ ego can nominate.}}}
 \value{
 An \code{\link{egor}} object. An \code{\link{egor}} is a \code{\link{tibble}} whose
 top-level columns store the ego attributes, and which has two
-special nested columns: \code{.alters}, containing, for each row (ego)
+special nested columns: \code{.alts}, containing, for each row (ego)
 a table of that ego's alter attributes and \code{.aaties}, a table
 containing that ego's alter--alter ties, if observed.
 
@@ -65,7 +65,7 @@ only \code{alters.df} is necessary to create an \code{egor} object, and
 \code{egos.df} and \code{aaties.df} are optional.
 }
 \note{
-Column names \code{.alters}, \code{.aaties}, and \code{.egoRow} are
+Column names \code{.alts}, \code{.aaties}, and \code{.egoRow} are
 reserved for internal use of \code{egor} and should not be used to
 store persistent data. Other \code{.}-led column names may be reserved
 in the future.

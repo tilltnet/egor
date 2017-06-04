@@ -152,7 +152,7 @@ EI.list <- function(object, aaties, var_name, egoID = "egoID", alterID = "alterI
 #' @rdname EI
 #' @export  
 EI.egor <- function(object, var_name, egoID = "egoID", alterID = "alterID") {
-  EI(object$.alters, object$.aaties, var_name = var_name, egoID = "egoID", alterID = "alterID")
+  EI(object$.alts, object$.aaties, var_name = var_name, egoID = "egoID", alterID = "alterID")
 }
 
 #' @rdname EI

@@ -63,7 +63,7 @@ specifying which rows should be kept; a logical list of length
 \item{\code{"alters"}}{a ragged array (a \code{\link[=list]{list()}}) of length \code{nrow(x)},
 either of integer vectors of indices specifying which alters to
 select for the corresponding ego or of logical vectors of length
-\code{nrow(x$.alters[k,,drop=FALSE])} specifying which alters should be kept.}
+\code{nrow(x$.alts[k,,drop=FALSE])} specifying which alters should be kept.}
 
 \item{\code{"ties"}}{a ragged array (a \code{\link[=list]{list()}}) of length \code{nrow(x)},
 either of integer vectors of indices specifying which alter-alter
@@ -109,20 +109,20 @@ subset(e, .egoRow <= 3)
 subset(e, .keep[.egoRow])
 
 # Only keep egos with exactly three alters
-subset(e, nrow(.alters)==3)
+subset(e, nrow(.alts)==3)
 
 # Only keep egos with exactly two female alters
-subset(e, sum(.alters$alter.sex=="w")==2)
+subset(e, sum(.alts$alter.sex=="w")==2)
 
 # Only keep female alters
-subset(e, .alters$alter.sex=="w", aspect="alters")
+subset(e, .alts$alter.sex=="w", aspect="alters")
 
 # Only keep alters of a different sex form ego
-subset(e, sex != .alters$alter.sex, aspect="alters")
+subset(e, sex != .alts$alter.sex, aspect="alters")
 
 # Only keep homophilous alter-alter ties
-subset(e, .alters$alter.sex[.aaties$.srcRow] ==
-          .alters$alter.sex[.aaties$.tgtRow],
+subset(e, .alts$alter.sex[.aaties$.srcRow] ==
+          .alts$alter.sex[.aaties$.tgtRow],
        aspect="ties")
 
 }

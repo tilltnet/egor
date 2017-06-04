@@ -5,7 +5,7 @@ test_that("e1_gen is egor object",
 
 
 # Draw/ Extract egos and gobal alters/alter-tie dfs from egor
-egos <- select(e1_gen, -.alters, -.aaties)
+egos <- select(e1_gen, -.alts, -.aaties)
 alters <- tidyr::unnest(e1_gen[,c(1,5)])
 aaties <- tidyr::unnest(e1_gen[,c(1,6)])
 
@@ -22,7 +22,7 @@ test_that("weighted density values macht up",
             all(ego_density(e1_gen, weight = "weight") == 
                   ego_density(e1, weight = "weight"))))
 
-ego_density(e1$.aaties, e1$.alters, weight = "weight")
+ego_density(e1$.aaties, e1$.alts, weight = "weight")
 ego_density(aaties, alters, weight = "weight")
 
 
@@ -31,10 +31,10 @@ err_d <- generate.sample.ego.data(32, 20)
 
 
 # Checking for egos without alters
-alters <- unnest(select(err_d, egoID, .alters))
+alters <- unnest(select(err_d, egoID, .alts))
 aaties <- unnest(select(err_d, egoID, .aaties))
 alters <- alters[!alters$egoID %in% c(1,2,3), ]
-egos <- dplyr::select(err_d, -.alters, -.aaties)
+egos <- dplyr::select(err_d, -.alts, -.aaties)
 err_d1 <- egor(alters, egos, aaties)
 
 
@@ -45,7 +45,7 @@ err_d2 <- egor(alters, egos, aaties)
 
 
 # Checking for alters and aaties without egos
-egos <- select(err_d, -.alters, -.aaties)
+egos <- select(err_d, -.alts, -.aaties)
 egos <- egos[sample(egos$egoID, 24), ]
 err_d3 <- egor(alters, egos, aaties)
 

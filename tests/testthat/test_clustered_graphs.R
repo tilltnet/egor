@@ -4,7 +4,7 @@ library(egor)
 
 mpf <- generate.sample.ego.data(20, 50)
 
-alters.list <- mpf$.alters
+alters.list <- mpf$.alts
 edges.list <- mpf$.aaties
 
 
@@ -17,7 +17,7 @@ CreateRamdomGroups <- function(alters) {
 }
 
 alters.list <- lapply(X = alters.list, FUN = CreateRamdomGroups)
-mpf$.alters <- alters.list
+mpf$.alts <- alters.list
 
 # test egor -------------------------------------------------------------------
 clustered_graphs(mpf, "random.groups") 
@@ -26,7 +26,7 @@ clustered_graphs(mpf, "random.groups")
 # test dataframe ----------------------------------------------------------
 of2 <- as_tibble(mpf)
 
-alters <- unnest(select(of2, egoID, .alters))
+alters <- unnest(select(of2, egoID, .alts))
 aaties <- unnest(select(of2, egoID, .aaties))
 graphs <- clustered_graphs(alters, aaties, "random.groups") 
 
@@ -67,8 +67,8 @@ graphs_ex <- clustered_graphs(alters.list[1], edges.list[1], "random.groups")
 # 
 # ## Create and extract data
 # lomihi <- generate.sample.ego.data(net.count = 10, max.alters = 120, netsize = 120)
-# lomihi$.alters$alter.age <- factor(lomihi$.alters$alter.age)
-# a.lomihi <- split(x = lomihi$.alters, f = lomihi$.alters$egoID)
+# lomihi$.alts$alter.age <- factor(lomihi$.alts$alter.age)
+# a.lomihi <- split(x = lomihi$.alts, f = lomihi$.alts$egoID)
 # a.lomihi <- lapply(a.lomihi, function(x) x[2:4])
 # e.lomihi <- lomihi$edges
 # 

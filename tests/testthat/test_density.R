@@ -22,7 +22,7 @@ test_that("density2 values are between 0 an 1", {
 
 # list(s)
 # Weighted
-densities <- ego_density(of$.alters, of$.aaties,  weight = "weight")
+densities <- ego_density(of$.alts, of$.aaties,  weight = "weight")
 
 test_that("density values are between 0 an 1", {
   expect_true(max(densities) <= 1)
@@ -30,7 +30,7 @@ test_that("density values are between 0 an 1", {
 })
 
 # Not Weighted
-densities2 <- ego_density(of$.alters, of$.aaties)
+densities2 <- ego_density(of$.alts, of$.aaties)
 
 test_that("density2 values are between 0 an 1", {
   expect_true(max(densities2) <= 1)
@@ -45,7 +45,7 @@ library(dplyr)
 
 of2 <- as_tibble.egor(of)
 
-alters <- unnest(select(of2, egoID, .alters))
+alters <- unnest(select(of2, egoID, .alts))
 aaties <- unnest(select(of2, egoID, .aaties))
 
 

@@ -60,7 +60,7 @@ ego_density.list <- function(x, aaties, weight = NULL, max.netsize = NULL, direc
 #' @rdname ego_density
 #' @export
 ego_density.egor <- function(x, weight = NULL, max.netsize = NULL, directed = FALSE) {
-  ego_density(x = x$.alters, aaties = x$.aaties,  weight = weight, max.netsize = max.netsize, directed = directed)
+  ego_density(x = x$.alts, aaties = x$.aaties,  weight = weight, max.netsize = max.netsize, directed = directed)
 }
 
 

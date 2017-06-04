@@ -1,4 +1,4 @@
-RESERVED_COLNAMES <- c(".alters", ".aaties", ".egoRow")
+RESERVED_COLNAMES <- c(".alts", ".aaties", ".egoRow")
 
 #' egor - a data class for ego-centered network data.
 #'
@@ -29,13 +29,13 @@ RESERVED_COLNAMES <- c(".alters", ".aaties", ".egoRow")
 #'   positionally with the rows of `egos.df`. Of the three parameters
 #'   only `alters.df` is necessary to create an `egor` object, and
 #'   `egos.df` and `aaties.df` are optional.
-#' @note Column names `.alters`, `.aaties`, and `.egoRow` are
+#' @note Column names `.alts`, `.aaties`, and `.egoRow` are
 #'   reserved for internal use of `egor` and should not be used to
 #'   store persistent data. Other `.`-led column names may be reserved
 #'   in the future.
 #' @return An [`egor`] object. An [`egor`] is a [`tibble`] whose
 #'   top-level columns store the ego attributes, and which has two
-#'   special nested columns: `.alters`, containing, for each row (ego)
+#'   special nested columns: `.alts`, containing, for each row (ego)
 #'   a table of that ego's alter attributes and `.aaties`, a table
 #'   containing that ego's alter--alter ties, if observed.
 #'
@@ -51,7 +51,7 @@ RESERVED_COLNAMES <- c(".alters", ".aaties", ".egoRow")
 #' @export
 egor <- function(alters.df, egos.df = NULL, aaties.df = NULL, egoID="egoID", ego.design = list(~1), alter.design = list(max = Inf)) {
   # FUN: Inject empty data.frames with correct colums in to NULL cells in 
-  # $.alters and $.aaties
+  # $.alts and $.aaties
   inj_zero_dfs <- function(x, y) {
     null_entries <- sapply(x[[y]], is.null)
     zero_df <- x[[y]][!null_entries][[1]][0, ]
@@ -78,13 +78,13 @@ egor <- function(alters.df, egos.df = NULL, aaties.df = NULL, egoID="egoID", ego
       alters_is_df <- TRUE
       # Create initial egor object from ALTERS
       tidyr::nest_(data = alters.df,
-                   key_col = ".alters",
+                   key_col = ".alts",
                    names(alters.df)[names(alters.df) != egoID]) # Select all but the egoID column for nesting
     }else{
       alters_is_df <- FALSE
       egoID <- ".egoRow"
       tibble::tibble(.egoRow=seq_along(alters.df),
-                     .alters=lapply(alters.df, tibble::as_tibble))
+                     .alts=lapply(alters.df, tibble::as_tibble))
     }
   
   # If specified add aaties data to egor
@@ -110,7 +110,7 @@ egor <- function(alters.df, egos.df = NULL, aaties.df = NULL, egoID="egoID", ego
     if(!alters_is_df) egos.df$.egoRow <- seq_len(nrow(egor))
 
     egor <- dplyr::full_join(tibble::as_tibble(egos.df), egor, by = egoID)
-    egor <- inj_zero_dfs(egor, ".alters")
+    egor <- inj_zero_dfs(egor, ".alts")
   }
   
   # Check If egoIDs valid
@@ -133,7 +133,7 @@ egor <- function(alters.df, egos.df = NULL, aaties.df = NULL, egoID="egoID", ego
   egor
 }
 
-filter_egor <- function(egor, obj = c(".alters", ".aaties"), cond) {
+filter_egor <- function(egor, obj = c(".alts", ".aaties"), cond) {
   
 }
 
@@ -150,7 +150,7 @@ summary.egor <- function(object, ...) {
   nc <- nrow(object)
   
   # Average netsize
-  nts <- survey::svymean(unlist(lapply(object$.alters, FUN = NROW)), 
+  nts <- survey::svymean(unlist(lapply(object$.alts, FUN = NROW)), 
                           ego.design(object))
   
   # Average density

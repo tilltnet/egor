@@ -92,20 +92,20 @@ rowlist <- function(x){
 #' subset(e, .keep[.egoRow])
 #'
 #' # Only keep egos with exactly three alters
-#' subset(e, nrow(.alters)==3)
+#' subset(e, nrow(.alts)==3)
 #'
 #' # Only keep egos with exactly two female alters
-#' subset(e, sum(.alters$alter.sex=="w")==2)
+#' subset(e, sum(.alts$alter.sex=="w")==2)
 #'
 #' # Only keep female alters
-#' subset(e, .alters$alter.sex=="w", aspect="alters")
+#' subset(e, .alts$alter.sex=="w", aspect="alters")
 #'
 #' # Only keep alters of a different sex form ego
-#' subset(e, sex != .alters$alter.sex, aspect="alters")
+#' subset(e, sex != .alts$alter.sex, aspect="alters")
 #'
 #' # Only keep homophilous alter-alter ties
-#' subset(e, .alters$alter.sex[.aaties$.srcRow] ==
-#'           .alters$alter.sex[.aaties$.tgtRow],
+#' subset(e, .alts$alter.sex[.aaties$.srcRow] ==
+#'           .alts$alter.sex[.aaties$.tgtRow],
 #'        aspect="ties")
 #' 
 #' @export
@@ -119,13 +119,13 @@ subset.egor <- function(x, subset, aspect = c("egos","alters","ties"), ...){
   # Copy and add an .egoRow column
   xa <- cbind(x,.egoRow=seq_len(nrow(x)))
   # Add an .alterIx column to each alter
-  xa$.alters <- lapply(xa$.alters, function(a) cbind(a, .alterIx=seq_len(nrow(a))))
+  xa$.alts <- lapply(xa$.alts, function(a) cbind(a, .alterIx=seq_len(nrow(a))))
   # Add an .srcRow and .tgtRow column to each alter-alter table
   xa$.aaties <- mapply(function(a,aa)
     cbind(aa,
           .srcRow = match(aa$Source, a$alterID),
           .tgtRow = match(aa$Target, a$alterID)),
-    a=xa$.alters, aa=xa$.aaties, SIMPLIFY=FALSE)
+    a=xa$.alts, aa=xa$.aaties, SIMPLIFY=FALSE)
 
   # Call the function to perform indexing
   i <- lapply(rowlist(xa), f)
@@ -145,7 +145,7 @@ subset.egor <- function(x, subset, aspect = c("egos","alters","ties"), ...){
 #' \item{`"alters"`}{a ragged array (a [list()]) of length `nrow(x)`,
 #' either of integer vectors of indices specifying which alters to
 #' select for the corresponding ego or of logical vectors of length
-#' `nrow(x$.alters[k,,drop=FALSE])` specifying which alters should be kept.}
+#' `nrow(x$.alts[k,,drop=FALSE])` specifying which alters should be kept.}
 #'
 #' \item{`"ties"`}{a ragged array (a [list()]) of length `nrow(x)`,
 #' either of integer vectors of indices specifying which alter-alter
@@ -178,7 +178,7 @@ subset.egor <- function(x, subset, aspect = c("egos","alters","ties"), ...){
            if(is.list(i)) i <- unlist(i)
            bracket <- getS3method("[", "tbl_df")
            xt <- bracket(x,i,j,drop=FALSE)
-           if(".alters"%in%names(x) && ! ".alters"%in%names(xt)) xt <- cbind(xt, .alters=bracket(x,i,".alters"))
+           if(".alts"%in%names(x) && ! ".alts"%in%names(xt)) xt <- cbind(xt, .alts=bracket(x,i,".alts"))
            if(".aaties"%in%names(x) && ! ".aaties"%in%names(xt)) xt <- cbind(xt, .aaties=bracket(x,i,".aaties"))
            for(a in setdiff(names(attributes(x)), c("ego.design", "names", "row.names")))
              attr(xt, a) <- attr(x, a)
@@ -186,15 +186,15 @@ subset.egor <- function(x, subset, aspect = c("egos","alters","ties"), ...){
            xt
          },
          alters = {
-           x$.alters <- mapply(function(a, ai){
+           x$.alts <- mapply(function(a, ai){
              at <- a[ai,j,drop=FALSE]
              if("alterID"%in%names(a) && ! "alterID"%in%names(at)) at <- cbind(at, alterID=a$alterID[ai])
              at
-           }, a=x$.alters, ai=i, SIMPLIFY=FALSE)
+           }, a=x$.alts, ai=i, SIMPLIFY=FALSE)
            x$.aaties <- mapply(function(a, aa){
              aa[aa$Source %in% a$alterID & aa$Target %in% a$alterID,
                 j,drop=FALSE]
-           }, a=x$.alters, aa=x$.aaties, SIMPLIFY=FALSE)
+           }, a=x$.alts, aa=x$.aaties, SIMPLIFY=FALSE)
            x
          },
          ties = {
