@@ -34,13 +34,13 @@ columns of \code{\link[=egor]{egor()}} as variables (which mask the variables in
 calling environment), as well as the following "virtual" columns to simplify indexing:
 \describe{
 
-\item{Ego index \code{.egoIx}}{ contains the index (counting from 1) of the row being
+\item{Ego index \code{.egoRow}}{ contains the index (counting from 1) of the row being
 evaluated. (This can be used to access vector variables in the
 calling environment.)}
 
 \item{Alter index \code{.alterIx}}{ contains the index (counting from 1) of the row number in the alter table.}
 
-\item{Alter--alter indices \code{.srcIx} and \code{.tgtIx}}{ contain the
+\item{Alter--alter indices \code{.srcRow} and \code{.tgtRow}}{ contain the
 index (counting from 1) of the row of the alter being refereced by
 \code{Source} and \code{Target}. (This can be used to quickly access the
 attributes of the alters in question.)}
@@ -101,12 +101,12 @@ alters and ties.
 e[1:3,]
 
 # Similarly with subset()
-subset(e, .egoIx <= 3)
+subset(e, .egoRow <= 3)
 
 # Using an external vector
 # (though normally, we would use e[.keep,] here)
 .keep <- rep(c(TRUE, FALSE), length.out=nrow(e))
-subset(e, .keep[.egoIx])
+subset(e, .keep[.egoRow])
 
 # Only keep egos with exactly three alters
 subset(e, nrow(.alters)==3)
@@ -121,8 +121,8 @@ subset(e, .alters$alter.sex=="w", aspect="alters")
 subset(e, sex != .alters$alter.sex, aspect="alters")
 
 # Only keep homophilous alter-alter ties
-subset(e, .alters$alter.sex[.aaties$.srcIx] ==
-          .alters$alter.sex[.aaties$.tgtIx],
+subset(e, .alters$alter.sex[.aaties$.srcRow] ==
+          .alters$alter.sex[.aaties$.tgtRow],
        aspect="ties")
 
 }

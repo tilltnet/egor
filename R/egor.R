@@ -1,4 +1,4 @@
-RESERVED_COLNAMES <- c(".alters", ".aaties", ".egoIx")
+RESERVED_COLNAMES <- c(".alters", ".aaties", ".egoRow")
 
 #' egor - a data class for ego-centered network data.
 #'
@@ -29,7 +29,7 @@ RESERVED_COLNAMES <- c(".alters", ".aaties", ".egoIx")
 #'   positionally with the rows of `egos.df`. Of the three parameters
 #'   only `alters.df` is necessary to create an `egor` object, and
 #'   `egos.df` and `aaties.df` are optional.
-#' @note Column names `.alters`, `.aaties`, and `.egoIx` are
+#' @note Column names `.alters`, `.aaties`, and `.egoRow` are
 #'   reserved for internal use of `egor` and should not be used to
 #'   store persistent data. Other `.`-led column names may be reserved
 #'   in the future.
@@ -82,8 +82,8 @@ egor <- function(alters.df, egos.df = NULL, aaties.df = NULL, egoID="egoID", ego
                    names(alters.df)[names(alters.df) != egoID]) # Select all but the egoID column for nesting
     }else{
       alters_is_df <- FALSE
-      egoID <- ".egoIx"
-      tibble::tibble(.egoIx=seq_along(alters.df),
+      egoID <- ".egoRow"
+      tibble::tibble(.egoRow=seq_along(alters.df),
                      .alters=lapply(alters.df, tibble::as_tibble))
     }
   
@@ -96,7 +96,7 @@ egor <- function(alters.df, egos.df = NULL, aaties.df = NULL, egoID="egoID", ego
                      key_col = ".aaties",
                      names(aaties.df)[names(aaties.df) != egoID])
       }else{
-        tibble::tibble(.egoIx=seq_along(alters.df),
+        tibble::tibble(.egoRow=seq_along(alters.df),
                        .aaties=lapply(aaties.df, tibble::as_tibble))
       }
     
@@ -107,7 +107,7 @@ egor <- function(alters.df, egos.df = NULL, aaties.df = NULL, egoID="egoID", ego
   # If speciefied add ego data to egor
   if(!is.null(egos.df)){
     check_reserved_cols(egos.df, "egos")
-    if(!alters_is_df) egos.df$.egoIx <- seq_len(nrow(egor))
+    if(!alters_is_df) egos.df$.egoRow <- seq_len(nrow(egor))
 
     egor <- dplyr::full_join(tibble::as_tibble(egos.df), egor, by = egoID)
     egor <- inj_zero_dfs(egor, ".alters")
@@ -117,7 +117,7 @@ egor <- function(alters.df, egos.df = NULL, aaties.df = NULL, egoID="egoID", ego
   if (length(unique(egor[[egoID]])) < length(egor[[egoID]]))
     warning(paste(egoID, "values are note unique. Check your 'egos.df' data."))
 
-  if(!alters_is_df) egor$.egoIx <- NULL
+  if(!alters_is_df) egor$.egoRow <- NULL
   
   # Add meta attribute
   #  ----><----

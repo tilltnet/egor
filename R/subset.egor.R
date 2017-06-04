@@ -53,13 +53,13 @@ rowlist <- function(x){
 #' calling environment), as well as the following "virtual" columns to simplify indexing:
 #' \describe{
 #' 
-#' \item{Ego index `.egoIx`}{ contains the index (counting from 1) of the row being
+#' \item{Ego index `.egoRow`}{ contains the index (counting from 1) of the row being
 #' evaluated. (This can be used to access vector variables in the
 #' calling environment.)}
 #' 
 #' \item{Alter index `.alterIx`}{ contains the index (counting from 1) of the row number in the alter table.}
 #' 
-#' \item{Alter--alter indices `.srcIx` and `.tgtIx`}{ contain the
+#' \item{Alter--alter indices `.srcRow` and `.tgtRow`}{ contain the
 #' index (counting from 1) of the row of the alter being refereced by
 #' `Source` and `Target`. (This can be used to quickly access the
 #' attributes of the alters in question.)}
@@ -84,12 +84,12 @@ rowlist <- function(x){
 #' e[1:3,]
 #'
 #' # Similarly with subset()
-#' subset(e, .egoIx <= 3)
+#' subset(e, .egoRow <= 3)
 #'
 #' # Using an external vector
 #' # (though normally, we would use e[.keep,] here)
 #' .keep <- rep(c(TRUE, FALSE), length.out=nrow(e))
-#' subset(e, .keep[.egoIx])
+#' subset(e, .keep[.egoRow])
 #'
 #' # Only keep egos with exactly three alters
 #' subset(e, nrow(.alters)==3)
@@ -104,8 +104,8 @@ rowlist <- function(x){
 #' subset(e, sex != .alters$alter.sex, aspect="alters")
 #'
 #' # Only keep homophilous alter-alter ties
-#' subset(e, .alters$alter.sex[.aaties$.srcIx] ==
-#'           .alters$alter.sex[.aaties$.tgtIx],
+#' subset(e, .alters$alter.sex[.aaties$.srcRow] ==
+#'           .alters$alter.sex[.aaties$.tgtRow],
 #'        aspect="ties")
 #' 
 #' @export
@@ -116,15 +116,15 @@ subset.egor <- function(x, subset, aspect = c("egos","alters","ties"), ...){
   f <- function(r) eval(se, r, pf)
 
   ## egor object augmented with extra columns
-  # Copy and add an .egoIx column
-  xa <- cbind(x,.egoIx=seq_len(nrow(x)))
+  # Copy and add an .egoRow column
+  xa <- cbind(x,.egoRow=seq_len(nrow(x)))
   # Add an .alterIx column to each alter
   xa$.alters <- lapply(xa$.alters, function(a) cbind(a, .alterIx=seq_len(nrow(a))))
-  # Add an .srcIx and .tgtIx column to each alter-alter table
+  # Add an .srcRow and .tgtRow column to each alter-alter table
   xa$.aaties <- mapply(function(a,aa)
     cbind(aa,
-          .srcIx = match(aa$Source, a$alterID),
-          .tgtIx = match(aa$Target, a$alterID)),
+          .srcRow = match(aa$Source, a$alterID),
+          .tgtRow = match(aa$Target, a$alterID)),
     a=xa$.alters, aa=xa$.aaties, SIMPLIFY=FALSE)
 
   # Call the function to perform indexing

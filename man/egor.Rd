@@ -65,7 +65,7 @@ only \code{alters.df} is necessary to create an \code{egor} object, and
 \code{egos.df} and \code{aaties.df} are optional.
 }
 \note{
-Column names \code{.alters}, \code{.aaties}, and \code{.egoIx} are
+Column names \code{.alters}, \code{.aaties}, and \code{.egoRow} are
 reserved for internal use of \code{egor} and should not be used to
 store persistent data. Other \code{.}-led column names may be reserved
 in the future.
