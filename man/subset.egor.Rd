@@ -5,9 +5,9 @@
 \alias{[.egor}
 \title{Filter and Subset Egocentric Datasets}
 \usage{
-\method{subset}{egor}(x, subset, ..., aspect = c("egos", "alters", "ties"))
+\method{subset}{egor}(x, subset, ..., unit = c("egos", "alters", "ties"))
 
-\method{[}{egor}(x, i, j, aspect = c("egos", "alters", "ties"), ...)
+\method{[}{egor}(x, i, j, unit = c("egos", "alters", "ties"), ...)
 }
 \arguments{
 \item{x}{an \code{\link[=egor]{egor()}} object.}
@@ -16,7 +16,7 @@
 \code{\link[=egor]{egor()}} (as in the eponymous argument of \code{\link[=subset]{subset()}}) or a
 function whose first argument is a row, specifying which egos,
 alters, or alter-alter ties to keep; output format depends on
-\code{aspect}: \describe{
+\code{unit}: \describe{
 
 \item{\code{"egos"}}{a single logical value specifying whether the ego
 should be kept.}
@@ -50,11 +50,11 @@ attributes of the alters in question.)}
 
 \item{...}{extra arguments to \code{subset} if \code{subset} is a function; otherwise unused.}
 
-\item{aspect}{a selector of which aspect of an egocentric dataset
-to affect: the egos, the alters or the (alter-alter) ties. Note
-that only one can be affected at a time.}
+\item{unit}{a selector of the unit of analysis being affected: the
+egos, the alters or the (alter-alter) ties. Note that only one
+type of unit can be affected at a time.}
 
-\item{i}{depends on \code{aspect}: \describe{
+\item{i}{depends on \code{unit}: \describe{
 
 \item{\code{"egos"}}{either an integer vector of indices specifying
 which egos to select or a logical vector of length \code{nrow(x)}
@@ -119,14 +119,14 @@ subset(e, nrow(.alts)==3)
 subset(e, sum(.alts$alter.sex=="w")==2)
 
 # Only keep female alters
-subset(e, .alts$alter.sex=="w", aspect="alters")
+subset(e, .alts$alter.sex=="w", unit="alters")
 
 # Only keep alters of a different sex form ego
-subset(e, sex != .alts$alter.sex, aspect="alters")
+subset(e, sex != .alts$alter.sex, unit="alters")
 
 # Only keep homophilous alter-alter ties
 subset(e, .alts$alter.sex[.aaties$.srcRow] ==
           .alts$alter.sex[.aaties$.tgtRow],
-       aspect="ties")
+       unit="ties")
 
 }

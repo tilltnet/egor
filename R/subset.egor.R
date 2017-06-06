@@ -27,15 +27,15 @@ rowlist <- function(x){
 #' egos, alters, or alter-alter ties.
 #'
 #' @param x an [egor()] object.
-#' @param aspect a selector of which aspect of an egocentric dataset
-#'   to affect: the egos, the alters or the (alter-alter) ties. Note
-#'   that only one can be affected at a time.
+#' @param unit a selector of the unit of analysis being affected: the
+#'   egos, the alters or the (alter-alter) ties. Note that only one
+#'   type of unit can be affected at a time.
 #'
 #' @param subset either an expression evaluated on each of the rows of
 #'   [egor()] (as in the eponymous argument of [subset()]) or a
 #'   function whose first argument is a row, specifying which egos,
 #'   alters, or alter-alter ties to keep; output format depends on
-#'   `aspect`: \describe{
+#'   `unit`: \describe{
 #'
 #' \item{`"egos"`}{a single logical value specifying whether the ego
 #' should be kept.}
@@ -102,20 +102,20 @@ rowlist <- function(x){
 #' subset(e, sum(.alts$alter.sex=="w")==2)
 #'
 #' # Only keep female alters
-#' subset(e, .alts$alter.sex=="w", aspect="alters")
+#' subset(e, .alts$alter.sex=="w", unit="alters")
 #'
 #' # Only keep alters of a different sex form ego
-#' subset(e, sex != .alts$alter.sex, aspect="alters")
+#' subset(e, sex != .alts$alter.sex, unit="alters")
 #'
 #' # Only keep homophilous alter-alter ties
 #' subset(e, .alts$alter.sex[.aaties$.srcRow] ==
 #'           .alts$alter.sex[.aaties$.tgtRow],
-#'        aspect="ties")
+#'        unit="ties")
 #'
 #' @importFrom methods is
 #' @export
-subset.egor <- function(x, subset, ..., aspect = c("egos","alters","ties")){
-  aspect <- match.arg(aspect)
+subset.egor <- function(x, subset, ..., unit = c("egos","alters","ties")){
+  unit <- match.arg(unit)
   f <- try(is.function(subset), silent=TRUE)
   if(is(f, "try-error") || !f){
     se <- substitute(subset)
@@ -138,12 +138,12 @@ subset.egor <- function(x, subset, ..., aspect = c("egos","alters","ties")){
   # Call the function to perform indexing
   i <- lapply(rowlist(xa), f, ...)
 
-  x[i,,aspect=aspect]
+  x[i,,unit=unit]
 }
 
 #' @rdname subset.egor
 #'
-#' @param i depends on `aspect`: \describe{
+#' @param i depends on `unit`: \describe{
 #'
 #' \item{`"egos"`}{either an integer vector of indices specifying
 #' which egos to select or a logical vector of length `nrow(x)`
@@ -174,12 +174,12 @@ subset.egor <- function(x, subset, ..., aspect = c("egos","alters","ties")){
 #' @import tibble
 #' @importFrom utils getS3method
 #' @export
-`[.egor` <- function(x, i, j, aspect = c("egos","alters","ties"), ...){
-  aspect <- match.arg(aspect)
+`[.egor` <- function(x, i, j, unit = c("egos","alters","ties"), ...){
+  unit <- match.arg(unit)
   if(missing(i)) i <- TRUE
   if(missing(j)) j <- TRUE
 
-  switch(aspect,
+  switch(unit,
          egos = {
            # Subset using the tibble's method, then copy over all
            # attributes except for the ones that could have changed.
