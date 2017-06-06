@@ -31,10 +31,11 @@ rowlist <- function(x){
 #'   to affect: the egos, the alters or the (alter-alter) ties. Note
 #'   that only one can be affected at a time.
 #'
-#' @param subset an expression evaluated on each of the rows of [egor()]
-#'   (as in the eponymous argument of [subset()]), specifying which
-#'   egos, alters, or alter-alter ties to keep; output format depends
-#'   on `aspect`: \describe{
+#' @param subset either an expression evaluated on each of the rows of
+#'   [egor()] (as in the eponymous argument of [subset()]) or a
+#'   function whose first argument is a row, specifying which egos,
+#'   alters, or alter-alter ties to keep; output format depends on
+#'   `aspect`: \describe{
 #'
 #' \item{`"egos"`}{a single logical value specifying whether the ego
 #' should be kept.}
@@ -66,7 +67,7 @@ rowlist <- function(x){
 #' 
 #' }
 #' 
-#' @param ... extra arguments; currently unused.
+#' @param ... extra arguments to `subset` if `subset` is a function; otherwise unused.
 #'
 #' @details 
 #'
@@ -90,6 +91,9 @@ rowlist <- function(x){
 #' # (though normally, we would use e[.keep,] here)
 #' .keep <- rep(c(TRUE, FALSE), length.out=nrow(e))
 #' subset(e, .keep[.egoRow])
+#' # a more robust version of the above: pass a function of row and
+#' # keep (which is passed as an additional argument to the function):
+#' subset(e, function(r, keep) keep[r$.egoRow], .keep)
 #'
 #' # Only keep egos with exactly three alters
 #' subset(e, nrow(.alts)==3)
@@ -107,14 +111,18 @@ rowlist <- function(x){
 #' subset(e, .alts$alter.sex[.aaties$.srcRow] ==
 #'           .alts$alter.sex[.aaties$.tgtRow],
 #'        aspect="ties")
-#' 
+#'
+#' @importFrom methods is
 #' @export
-subset.egor <- function(x, subset, aspect = c("egos","alters","ties"), ...){
+subset.egor <- function(x, subset, ..., aspect = c("egos","alters","ties")){
   aspect <- match.arg(aspect)
-  se <- substitute(subset)
-  pf <- parent.frame() 
-  f <- function(r) eval(se, r, pf)
-
+  f <- try(is.function(subset), silent=TRUE)
+  if(is(f, "try-error") || !f){
+    se <- substitute(subset)
+    pf <- parent.frame()
+    f <- function(r) eval(se, r, pf)
+  }else f <- subset
+  
   ## egor object augmented with extra columns
   # Copy and add an .egoRow column
   xa <- cbind(x,.egoRow=seq_len(nrow(x)))
@@ -128,7 +136,7 @@ subset.egor <- function(x, subset, aspect = c("egos","alters","ties"), ...){
     a=xa$.alts, aa=xa$.aaties, SIMPLIFY=FALSE)
 
   # Call the function to perform indexing
-  i <- lapply(rowlist(xa), f)
+  i <- lapply(rowlist(xa), f, ...)
 
   x[i,,aspect=aspect]
 }

@@ -5,17 +5,18 @@
 \alias{[.egor}
 \title{Filter and Subset Egocentric Datasets}
 \usage{
-\method{subset}{egor}(x, subset, aspect = c("egos", "alters", "ties"), ...)
+\method{subset}{egor}(x, subset, ..., aspect = c("egos", "alters", "ties"))
 
 \method{[}{egor}(x, i, j, aspect = c("egos", "alters", "ties"), ...)
 }
 \arguments{
 \item{x}{an \code{\link[=egor]{egor()}} object.}
 
-\item{subset}{an expression evaluated on each of the rows of \code{\link[=egor]{egor()}}
-(as in the eponymous argument of \code{\link[=subset]{subset()}}), specifying which
-egos, alters, or alter-alter ties to keep; output format depends
-on \code{aspect}: \describe{
+\item{subset}{either an expression evaluated on each of the rows of
+\code{\link[=egor]{egor()}} (as in the eponymous argument of \code{\link[=subset]{subset()}}) or a
+function whose first argument is a row, specifying which egos,
+alters, or alter-alter ties to keep; output format depends on
+\code{aspect}: \describe{
 
 \item{\code{"egos"}}{a single logical value specifying whether the ego
 should be kept.}
@@ -47,11 +48,11 @@ attributes of the alters in question.)}
 
 }}
 
+\item{...}{extra arguments to \code{subset} if \code{subset} is a function; otherwise unused.}
+
 \item{aspect}{a selector of which aspect of an egocentric dataset
 to affect: the egos, the alters or the (alter-alter) ties. Note
 that only one can be affected at a time.}
-
-\item{...}{extra arguments; currently unused.}
 
 \item{i}{depends on \code{aspect}: \describe{
 
@@ -107,6 +108,9 @@ subset(e, .egoRow <= 3)
 # (though normally, we would use e[.keep,] here)
 .keep <- rep(c(TRUE, FALSE), length.out=nrow(e))
 subset(e, .keep[.egoRow])
+# a more robust version of the above: pass a function of row and
+# keep (which is passed as an additional argument to the function):
+subset(e, function(r, keep) keep[r$.egoRow], .keep)
 
 # Only keep egos with exactly three alters
 subset(e, nrow(.alts)==3)
