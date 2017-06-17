@@ -37,14 +37,14 @@ rowlist <- function(x){
 #'   alters, or alter-alter ties to keep; output format depends on
 #'   `unit`: \describe{
 #'
-#' \item{`"egos"`}{a single logical value specifying whether the ego
+#' \item{`"ego"`}{a single logical value specifying whether the ego
 #' should be kept.}
 #'
-#' \item{`"alters"`}{either an integer vector of indices specifying
+#' \item{`"alter"`}{either an integer vector of indices specifying
 #' which alters to select or a logical vector of length `nrow(x)`
 #' specifying which alters should be kept.}
 #'
-#' \item{`"ties"`}{either an integer vector of indices specifying
+#' \item{`"aatie"`}{either an integer vector of indices specifying
 #' which alter-alter ties to select or a logical vector of length
 #' `nrow(x)` specifying which alter-alter ties should be kept.}
 #' 
@@ -102,19 +102,19 @@ rowlist <- function(x){
 #' subset(e, sum(.alts$alter.sex=="w")==2)
 #'
 #' # Only keep female alters
-#' subset(e, .alts$alter.sex=="w", unit="alters")
+#' subset(e, .alts$alter.sex=="w", unit="alter")
 #'
 #' # Only keep alters of a different sex form ego
-#' subset(e, sex != .alts$alter.sex, unit="alters")
+#' subset(e, sex != .alts$alter.sex, unit="alter")
 #'
 #' # Only keep homophilous alter-alter ties
 #' subset(e, .alts$alter.sex[.aaties$.srcRow] ==
 #'           .alts$alter.sex[.aaties$.tgtRow],
-#'        unit="ties")
+#'        unit="aatie")
 #'
 #' @importFrom methods is
 #' @export
-subset.egor <- function(x, subset, ..., unit = c("egos","alters","ties")){
+subset.egor <- function(x, subset, ..., unit = c("ego","alter","aatie")){
   unit <- match.arg(unit)
   f <- try(is.function(subset), silent=TRUE)
   if(is(f, "try-error") || !f){
@@ -145,17 +145,17 @@ subset.egor <- function(x, subset, ..., unit = c("egos","alters","ties")){
 #'
 #' @param i depends on `unit`: \describe{
 #'
-#' \item{`"egos"`}{either an integer vector of indices specifying
+#' \item{`"ego"`}{either an integer vector of indices specifying
 #' which egos to select or a logical vector of length `nrow(x)`
 #' specifying which rows should be kept; a logical list of length
 #' `nrow(x)` is acceptable as well.}
 #'
-#' \item{`"alters"`}{a ragged array (a [list()]) of length `nrow(x)`,
+#' \item{`"alter"`}{a ragged array (a [list()]) of length `nrow(x)`,
 #' either of integer vectors of indices specifying which alters to
 #' select for the corresponding ego or of logical vectors of length
 #' `nrow(x$.alts[k,,drop=FALSE])` specifying which alters should be kept.}
 #'
-#' \item{`"ties"`}{a ragged array (a [list()]) of length `nrow(x)`,
+#' \item{`"aatie"`}{a ragged array (a [list()]) of length `nrow(x)`,
 #' either of integer vectors of indices specifying which alter-alter
 #' ties to select for the corresponding ego or of logical vectors of
 #' length `nrow(x$.aaties[k,,drop=FALSE])` specifying which ties
@@ -168,19 +168,19 @@ subset.egor <- function(x, subset, ..., unit = c("egos","alters","ties")){
 #' recommended.
 #' 
 #' @param j either an integer vector specifying which columns of the
-#'   filtered structure (egos, alters, or ties) to select, or a
+#'   filtered structure (ego, alters, or ties) to select, or a
 #'   logical vector specifying which columns to keep.
 #'
 #' @import tibble
 #' @importFrom utils getS3method
 #' @export
-`[.egor` <- function(x, i, j, unit = c("egos","alters","ties"), ...){
+`[.egor` <- function(x, i, j, unit = c("ego","alter","aatie"), ...){
   unit <- match.arg(unit)
   if(missing(i)) i <- TRUE
   if(missing(j)) j <- TRUE
 
   switch(unit,
-         egos = {
+         ego = {
            # Subset using the tibble's method, then copy over all
            # attributes except for the ones that could have changed.
            if(is.list(i)) i <- unlist(i)
@@ -193,7 +193,7 @@ subset.egor <- function(x, subset, ..., unit = c("egos","alters","ties")){
            attr(xt, "ego.design") <- attr(x, "ego.design")[i,]
            xt
          },
-         alters = {
+         alter = {
            x$.alts <- mapply(function(a, ai){
              at <- a[ai,j,drop=FALSE]
              if(".altID"%in%names(a) && ! ".altID"%in%names(at)) at <- cbind(at, .altID=a$.altID[ai])
@@ -205,7 +205,7 @@ subset.egor <- function(x, subset, ..., unit = c("egos","alters","ties")){
            }, a=x$.alts, aa=x$.aaties, SIMPLIFY=FALSE)
            x
          },
-         ties = {
+         aatie = {
            x$.aaties <- mapply(function(aa, aai){
              aat <- aa[aai,j,drop=FALSE]
              if(! ".srcID"%in%names(aat)) aat <- cbind(aat, .srcID=aa$.srcID[aai])

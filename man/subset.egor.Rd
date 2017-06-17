@@ -5,9 +5,9 @@
 \alias{[.egor}
 \title{Filter and Subset Egocentric Datasets}
 \usage{
-\method{subset}{egor}(x, subset, ..., unit = c("egos", "alters", "ties"))
+\method{subset}{egor}(x, subset, ..., unit = c("ego", "alter", "aatie"))
 
-\method{[}{egor}(x, i, j, unit = c("egos", "alters", "ties"), ...)
+\method{[}{egor}(x, i, j, unit = c("ego", "alter", "aatie"), ...)
 }
 \arguments{
 \item{x}{an \code{\link[=egor]{egor()}} object.}
@@ -18,14 +18,14 @@ function whose first argument is a row, specifying which egos,
 alters, or alter-alter ties to keep; output format depends on
 \code{unit}: \describe{
 
-\item{\code{"egos"}}{a single logical value specifying whether the ego
+\item{\code{"ego"}}{a single logical value specifying whether the ego
 should be kept.}
 
-\item{\code{"alters"}}{either an integer vector of indices specifying
+\item{\code{"alter"}}{either an integer vector of indices specifying
 which alters to select or a logical vector of length \code{nrow(x)}
 specifying which alters should be kept.}
 
-\item{\code{"ties"}}{either an integer vector of indices specifying
+\item{\code{"aatie"}}{either an integer vector of indices specifying
 which alter-alter ties to select or a logical vector of length
 \code{nrow(x)} specifying which alter-alter ties should be kept.}
 
@@ -56,17 +56,17 @@ type of unit can be affected at a time.}
 
 \item{i}{depends on \code{unit}: \describe{
 
-\item{\code{"egos"}}{either an integer vector of indices specifying
+\item{\code{"ego"}}{either an integer vector of indices specifying
 which egos to select or a logical vector of length \code{nrow(x)}
 specifying which rows should be kept; a logical list of length
 \code{nrow(x)} is acceptable as well.}
 
-\item{\code{"alters"}}{a ragged array (a \code{\link[=list]{list()}}) of length \code{nrow(x)},
+\item{\code{"alter"}}{a ragged array (a \code{\link[=list]{list()}}) of length \code{nrow(x)},
 either of integer vectors of indices specifying which alters to
 select for the corresponding ego or of logical vectors of length
 \code{nrow(x$.alts[k,,drop=FALSE])} specifying which alters should be kept.}
 
-\item{\code{"ties"}}{a ragged array (a \code{\link[=list]{list()}}) of length \code{nrow(x)},
+\item{\code{"aatie"}}{a ragged array (a \code{\link[=list]{list()}}) of length \code{nrow(x)},
 either of integer vectors of indices specifying which alter-alter
 ties to select for the corresponding ego or of logical vectors of
 length \code{nrow(x$.aaties[k,,drop=FALSE])} specifying which ties
@@ -79,7 +79,7 @@ complicated and error-prone, so the use of \code{\link[=subset]{subset()}} is
 recommended.}
 
 \item{j}{either an integer vector specifying which columns of the
-filtered structure (egos, alters, or ties) to select, or a
+filtered structure (ego, alters, or ties) to select, or a
 logical vector specifying which columns to keep.}
 }
 \value{
@@ -119,14 +119,14 @@ subset(e, nrow(.alts)==3)
 subset(e, sum(.alts$alter.sex=="w")==2)
 
 # Only keep female alters
-subset(e, .alts$alter.sex=="w", unit="alters")
+subset(e, .alts$alter.sex=="w", unit="alter")
 
 # Only keep alters of a different sex form ego
-subset(e, sex != .alts$alter.sex, unit="alters")
+subset(e, sex != .alts$alter.sex, unit="alter")
 
 # Only keep homophilous alter-alter ties
 subset(e, .alts$alter.sex[.aaties$.srcRow] ==
           .alts$alter.sex[.aaties$.tgtRow],
-       unit="ties")
+       unit="aatie")
 
 }
