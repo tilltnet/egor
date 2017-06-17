@@ -30,7 +30,9 @@
 #' @importFrom utils read.csv
 #' @export
 read.egonet.folders <- function(egos.file, alter.folder, edge.folder, csv.sep = ",",
-                                egoID = "egoID", first.col.row.names = FALSE, ...) {
+                                ID.vars=list(ego="egoID", alter="alterID", source="Source", target="Target"),
+                                first.col.row.names = FALSE, ...) {
+  IDv <- modifyList(eval(formals()$ID.vars), ID.vars)
   
   # if first.col.row.names is TRUE:
   if(first.col.row.names) {row.names <- 1} else {row.names <- NULL}
@@ -54,8 +56,8 @@ read.egonet.folders <- function(egos.file, alter.folder, edge.folder, csv.sep = 
   
   message("Looking for egos without edges/alters.")
   # Exclude egos from egos dataframe that are missing alter and edge files.
-  egos.to.exclude <- setdiff(egos[[egoID]], check.alter.files)
-  if(is.double(egos.to.exclude)) egos <- subset(egos, !is.element(egos[[egoID]], egos.to.exclude))
+  egos.to.exclude <- setdiff(egos[[IDv$ego]], check.alter.files)
+  if(is.double(egos.to.exclude)) egos <- subset(egos, !is.element(egos[[IDv$ego]], egos.to.exclude))
     
   if (length(egos.to.exclude) > 0 ) {
     print("The following egos are excluded from the egos dataframe,")
@@ -77,8 +79,8 @@ read.egonet.folders <- function(egos.file, alter.folder, edge.folder, csv.sep = 
   }
   # ...netsize var...
   message("Calculating netsize values.")
-  netsize <- aggregate(alter.attr.df[[egoID]], by = list(alter.attr.df[[egoID]]), FUN = function(x) NROW(x))
-  netsize <- merge(egos, netsize, by.x = egoID, by.y = "Group.1", all.x = T)$x
+  netsize <- aggregate(alter.attr.df[[IDv$ego]], by = list(alter.attr.df[[IDv$ego]]), FUN = function(x) NROW(x))
+  netsize <- merge(egos, netsize, by.x = IDv$ego, by.y = "Group.1", all.x = T)$x
   
   message("Creating edge lists: $edges")
   elist.list <- list()
@@ -86,7 +88,7 @@ read.egonet.folders <- function(egos.file, alter.folder, edge.folder, csv.sep = 
   for (i in 1:length(edge.files)) {
     file <- edge.files[i]
     cur_egoID <- gsub("[^0-9]", "", file)
-    #if (is.element(cur_egoID, egos[[egoID]])) {
+    #if (is.element(cur_egoID, egos[[IDv$ego]])) {
       elist.list[[i]] <- read.csv(paste(edge.folder, file, sep = "//"), sep = csv.sep, row.names = row.names)
       j <- j + 1
       names(elist.list[i]) <- cur_egoID
@@ -96,10 +98,10 @@ read.egonet.folders <- function(egos.file, alter.folder, edge.folder, csv.sep = 
   
 
   # Create Global edge list
-  aaties <- mapply(FUN = function(x, y) data.frame(egoID = y, x), elist.list, egos[[egoID]], SIMPLIFY = F)
+  aaties <- mapply(FUN = function(x, y) data.frame(egoID = y, x), elist.list, egos[[IDv$ego]], SIMPLIFY = F)
   
   aaties.df <- do.call(rbind, aaties)
   
   # Return:
-  egor(alter.attr.df, egos, aaties.df, ...)
+  egor(alter.attr.df, egos, aaties.df, ID.vars=IDv, ...)
   } 

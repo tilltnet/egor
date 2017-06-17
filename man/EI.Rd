@@ -9,21 +9,18 @@
 \usage{
 EI(object, var_name, ...)
 
-\method{EI}{list}(object, aaties, var_name, egoID = "egoID",
-  alterID = "alterID")
+\method{EI}{list}(object, aaties, var_name, alterID = "alterID", ...)
 
-\method{EI}{egor}(object, var_name, egoID = "egoID", alterID = "alterID")
+\method{EI}{egor}(object, var_name, ...)
 
 \method{EI}{data.frame}(object, aaties, var_name, egoID = "egoID",
-  alterID = "alterID")
+  alterID = "alterID", ...)
 }
 \arguments{
 \item{var_name}{\code{Character} naming grouping variable.}
 
 \item{aaties}{\code{List} of edgelist-\code{dataframes} or one
 \code{dataframes} #' containing all aaties}
-
-\item{egoID}{\code{Character} naming ego ID variable.}
 
 \item{alterID}{\code{Character} naming alter ID variable.}
 

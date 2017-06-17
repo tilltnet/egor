@@ -6,7 +6,8 @@
 alters-attributes.}
 \usage{
 read.egonet.folders(egos.file, alter.folder, edge.folder, csv.sep = ",",
-  egoID = "egoID", first.col.row.names = FALSE, ...)
+  ID.vars = list(ego = "egoID", alter = "alterID", source = "Source", target =
+  "Target"), first.col.row.names = FALSE, ...)
 }
 \arguments{
 \item{egos.file}{File name of the .csv file containg the ego data.}
@@ -19,10 +20,10 @@ separate .csv files for each ego/ network.}
 
 \item{csv.sep}{\code{Character} indicating the seperator used in csv files.}
 
-\item{egoID}{\code{Character}. Name of the variable identifying egos (default: "egoID").}
-
 \item{first.col.row.names}{\code{Boolean} indicating if first column contains
 row names, that are to be skipped, default is \code{FALSE}.}
+
+\item{egoID}{\code{Character}. Name of the variable identifying egos (default: "egoID").}
 }
 \value{
 A \code{list} of six objects - the **egoR** object: (1) egos.df: \code{dataframe} of all

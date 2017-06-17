@@ -13,7 +13,6 @@
 #' @param aaties \code{List} of edgelist-\code{dataframes} or one 
 #' \code{dataframes} #' containing all aaties
 #' @param var_name \code{Character} naming grouping variable.
-#' @param egoID \code{Character} naming ego ID variable.
 #' @param alterID \code{Character} naming alter ID variable.
 #' @references Krackhardt, D., Stern, R.N., 1988. Informal networks and 
 #' organizational crises: an experimental simulation. Social Psychology 
@@ -31,7 +30,7 @@ EI <- function(object, var_name, ...) UseMethod("EI", object)
 
 #' @rdname EI
 #' @export
-EI.list <- function(object, aaties, var_name, egoID = "egoID", alterID = "alterID") {
+EI.list <- function(object, aaties, var_name, alterID = "alterID", ...) {
     #!# to do: Test if var_name is present in object, else stop.
   
   
@@ -151,16 +150,16 @@ EI.list <- function(object, aaties, var_name, egoID = "egoID", alterID = "alterI
 
 #' @rdname EI
 #' @export  
-EI.egor <- function(object, var_name, egoID = "egoID", alterID = "alterID") {
-  EI(object$.alts, object$.aaties, var_name = var_name, egoID = "egoID", alterID = "alterID")
+EI.egor <- function(object, var_name, ...) {
+  EI(object$.alts, object$.aaties, var_name = var_name, alterID = ".altID", ...)
 }
 
 #' @rdname EI
 #' @export
-EI.data.frame <- function(object, aaties, var_name, egoID = "egoID", alterID = "alterID") {
+EI.data.frame <- function(object, aaties, var_name, egoID = "egoID", alterID = "alterID", ...) {
   aaties.list <- split(aaties, as.numeric(aaties[[egoID]]))
   alters.list <- split(alters, as.numeric(alters[[egoID]]))
-  EI(aaties.list, alters.list, var_name = var_name, egoID = "egoID", alterID = "alterID") 
+  EI(aaties.list, alters.list, var_name = var_name, egoID = "egoID", alterID = "alterID", ...) 
 }
 
 

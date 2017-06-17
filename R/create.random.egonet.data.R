@@ -56,7 +56,7 @@ generate.sample.ego.data <- function(net.count, max.alters, netsize = NULL) {
   }
   
   # Creating egos return object
-  egos <- data.frame(egoID, sex, age, netsize)
+  egos <- data.frame(egoID, sex, age)
   
   # Generating alters data
   alterID <- rep(1:max.alters, net.count)
@@ -74,12 +74,12 @@ generate.sample.ego.data <- function(net.count, max.alters, netsize = NULL) {
   alters <- data.frame(egoID, alterID, alter.sex, alter.age)
   
   # Trimming down alters per network using netsize
-  alters <- long.df.to.list(alters, egos$netsize, egoID = "egoID", back.to.df = T)
+  alters <- long.df.to.list(alters, netsize, egoID = "egoID", back.to.df = T)
 
   # Generating edges
   edge.list <- list()
   for (i in 1:net.count) {
-    edge.list[[i]] <- generate.sample.edge.list(egos[i, ]$netsize)
+    edge.list[[i]] <- generate.sample.edge.list(netsize[i])
   }
   
   aaties <- mapply(FUN = function(x, y) data.frame(egoID = y, x), edge.list, as.factor(1:length(edge.list)), SIMPLIFY = F)
@@ -88,7 +88,6 @@ generate.sample.ego.data <- function(net.count, max.alters, netsize = NULL) {
   # Return
   egor(alters, egos, aaties.df)
 } 
-
 
 # Used for generating wide edge format data. 
 #' Transfroms edge lists to alter-alter wide format data.

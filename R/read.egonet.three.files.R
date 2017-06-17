@@ -14,8 +14,7 @@ order.edge.list.columns <- function(edges, source_, target) {
 #' the edge data. EgoWeb2.0 and openeddi use variations of this format.
 #' @template egos
 #' @template alters_df
-#' @param ID.vars A character vector specifying ID variable names used (egoID, 
-#' alterID, source, target). 
+#' @template ID.vars
 #' @template ego_vars
 #' @param edges \code{Dataframe}. A global edge list, first column is ego ID 
 #' variable. 
@@ -44,30 +43,27 @@ order.edge.list.columns <- function(edges, source_, target) {
 #'                   egos.file = "egos_32.csv")
 #' @export
 read.egonet.three.files <- function(egos, alters.df, edges, 
-                                    ID.vars = c("egoID", "alterID", "Source", "Target"),
+                                    ID.vars = list(ego="egoID", alter="alterID", source="Source", target="Target"),
                                     ego.vars = NULL, ...) {
   # 0. Extract ID var Names
-  egoID = ID.vars[[1]]
-  alterID = ID.vars[[2]]
-  source_ = ID.vars[[3]]
-  target = ID.vars[[4]]
+  IDv <- modifyList(eval(formals()$ID.vars), ID.vars)
   
-  # 3. Sort by egoID
-  # Sort egos by egoID and alters by egoID and alterID.
+  # 3. Sort by IDv$ego
+  # Sort egos by IDv$ego and alters by IDv$ego and IDv$alter.
   message("Sorting data by egoID and alterID.")
-  egos <- egos[order(as.numeric(egos[[egoID]])), ]
-  alters.df <- alters.df[order(as.numeric(alters.df[[egoID]]), as.numeric(alters.df[[alterID]])), ]
+  egos <- egos[order(as.numeric(egos[[IDv$ego]])), ]
+  alters.df <- alters.df[order(as.numeric(alters.df[[IDv$ego]]), as.numeric(alters.df[[IDv$alter]])), ]
 
-  # 4. (Add ego.vars, ) Reorder alters columns (alterID first!) and split to alters.df
+  # 4. (Add ego.vars, ) Reorder alters columns (IDv$alter first!) and split to alters.df
   # - add ego.vars
   if(!is.null(ego.vars)) {
     message("Adding ego variables to alters data.")
-    alters.df <- merge(alters.df, egos[c(egoID, ego.vars)],  by = egoID)
-    alters.df <- alters.df[order(as.numeric(alters.df[[egoID]]), as.numeric(alters.df[[alterID]])), ]
+    alters.df <- merge(alters.df, egos[c(IDv$ego, ego.vars)],  by = IDv$ego)
+    alters.df <- alters.df[order(as.numeric(alters.df[[IDv$ego]]), as.numeric(alters.df[[IDv$alter]])), ]
   }
 
   # 7. return egor
-  egor(alters.df, egos, edges, ...)
+  egor(alters.df, egos, edges, ID.vars = IDv, ...)
 }
 
 #' @describeIn read.egonet.three.files This function reads in data from
@@ -83,9 +79,10 @@ read.egonet.three.files <- function(egos, alters.df, edges,
 #' @importFrom utils read.csv
 #' @export
 read.egoweb <- function(alter.file, edges.file, egos.file = NULL, 
-                        ID.vars = c("EgoID", "Alter.Number", "Alter.1.Number", 
-                                    "Alter.2.Number"), ego.vars = NULL, ...) {
+                        ID.vars = list(ego="EgoID", alter="Alter.Number", source="Alter.1.Number", 
+                                       target="Alter.2.Number"), ego.vars = NULL, ...) {
   # Preliminaries - Get ID var Names
+  IDv <- modifyList(eval(formals()$ID.vars), ID.vars)
 
   # Import CSVs
   alters.df <- read.csv(file = alter.file)
@@ -93,16 +90,16 @@ read.egoweb <- function(alter.file, edges.file, egos.file = NULL,
   if (!is.null(egos.file)) { egos <- read.csv(file = egos.file) 
    } else {
     # Extract ego data
-    alterID.index <- which(names(alters.df) == ID.vars[2])
+    alterID.index <- which(names(alters.df) == IDv$alter)
     egos <- unique(alters.df[1:(alterID.index - 1)])
     
     # Extract alter data
-    egoID.index <- which(names(alters.df) == ID.vars[1])
+    egoID.index <- which(names(alters.df) == IDv$ego)
     alters.df <- cbind(
                     alters.df[c(alterID.index, egoID.index)], 
                     alters.df[-c(alterID.index, egoID.index)])
   }
-  read.egonet.three.files(egos = egos, alters.df = alters.df, edges = edges, ID.vars = ID.vars, ego.vars = ego.vars, ...)
+  read.egonet.three.files(egos = egos, alters.df = alters.df, edges = edges, ID.vars = IDv, ego.vars = ego.vars, ...)
 }
 
 
@@ -117,8 +114,9 @@ read.egoweb <- function(alter.file, edges.file, egos.file = NULL,
 read.openeddi <- function(egos.file =  NULL, 
                           alters.file = NULL, 
                           edges.file = NULL, 
-                          ID.vars = c("puid","nameid","nameid","targetid"), 
+                          ID.vars = list(ego="puid",alter="nameid",source="nameid",target="targetid"), 
                           ego.vars = NULL, ...){
+  IDv <- modifyList(eval(formals()$ID.vars), ID.vars)
   if(is.null(egos.file)) {
     message("No filenames specified, looking for ego, alters and edge files in working directory.")
     files <- list.files()
@@ -133,7 +131,7 @@ read.openeddi <- function(egos.file =  NULL,
   alters.df <- read.csv(alters.file)
   edges <- read.csv(edges.file)
   
-  read.egonet.three.files(egos = egos, alters.df = alters.df, edges = edges, ID.vars = ID.vars, ego.vars = ego.vars, ...)
+  read.egonet.three.files(egos = egos, alters.df = alters.df, edges = edges, ID.vars = IDv, ego.vars = ego.vars, ...)
 }
 
 

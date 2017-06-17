@@ -13,6 +13,7 @@ RESERVED_COLNAMES <- c(".alts", ".aaties", ".egoRow", ".altID", ".srcID", ".tgtI
 #' @param aaties.df \code{data.frame} containing the alter-alter
 #'   relations in the style of an edge list, or a list of data frames
 #'   similar to `alters.df`.
+#' @template ID.vars
 #' @param ego.design A [`list`] of arguments to [survey::svydesign()]
 #'   specifying the sampling design for the egos. If formulas, they
 #'   can refer to columns of `egos.df`.
@@ -20,24 +21,6 @@ RESERVED_COLNAMES <- c(".alts", ".aaties", ".egoRow", ".altID", ".srcID", ".tgtI
 #'   information. Currently, the following elements are supported:
 #'   \describe{\item{\code{"max"}}{Maximum number of alters that an
 #'   ego can nominate.}}
-#' @param IDvars A named list containing column names of the relevant
-#'   input columns: \describe{
-#'
-#' \item{`ego`}{unique identifier associated with each ego, defaulting
-#'   to `"egoID"`; has no effect if `alters.df` and `aaties.df` are
-#'   both lists of data frames.}
-#' 
-#' \item{`alter`}{unique-within-ego identifier associated with each
-#'   alter, defaulting to `"alterID"`; optional `aaties.df` are not
-#'   provided.}
-#'
-#' \item{`source`}{if `aaties.df` is provided, the column given the
-#'   alter identifier of the origin of a relation.}
-#'
-#' \item{`target`}{if `aaties.df` is provided, the column given the
-#'   alter identifier of the destination of a relation.}
-#'
-#' }
 #' 
 #' @details If parameters `alters.df`, `egos.df`, and `aaties.df` are
 #'   data frames, they need to share a common ego ID variable, with
@@ -67,7 +50,7 @@ RESERVED_COLNAMES <- c(".alts", ".aaties", ".egoRow", ".altID", ".srcID", ".tgtI
 #'
 #' @export
 egor <- function(alters.df, egos.df = NULL, aaties.df = NULL, ID.vars=list(ego="egoID", alter="alterID", source="Source", target="Target"), ego.design = list(~1), alter.design = list(max = Inf)) {
-  IDv <- modifyList(eval(formals(egor::egor)$ID.vars), ID.vars)
+  IDv <- modifyList(eval(formals()$ID.vars), ID.vars)
   # FUN: Inject empty data.frames with correct colums in to NULL cells in 
   # $.alts and $.aaties
   inj_zero_dfs <- function(x, y) {

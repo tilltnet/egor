@@ -24,6 +24,25 @@ nominees.}
 relations in the style of an edge list, or a list of data frames
 similar to \code{alters.df}.}
 
+\item{ID.vars}{A named list containing column names of the relevant
+  input columns: \describe{
+
+\item{`ego`}{unique identifier associated with each ego, defaulting
+  to `"egoID"`; has no effect if `alters.df` and `aaties.df` are
+  both lists of data frames.}
+
+\item{`alter`}{unique-within-ego identifier associated with each
+  alter, defaulting to `"alterID"`; optional `aaties.df` are not
+  provided.}
+
+\item{`source`}{if `aaties.df` is provided, the column given the
+  alter identifier of the origin of a relation.}
+
+\item{`target`}{if `aaties.df` is provided, the column given the
+  alter identifier of the destination of a relation.}
+
+}}
+
 \item{ego.design}{A \code{\link{list}} of arguments to \code{\link[survey:svydesign]{survey::svydesign()}}
 specifying the sampling design for the egos. If formulas, they
 can refer to columns of \code{egos.df}.}
@@ -34,25 +53,6 @@ information. Currently, the following elements are supported:
 ego can nominate.}}}
 
 \item{x}{an object to be coerced to \code{\link{egor}}.}
-
-\item{IDvars}{A named list containing column names of the relevant
-input columns: \describe{
-
-\item{\code{ego}}{unique identifier associated with each ego, defaulting
-to \code{"egoID"}; has no effect if \code{alters.df} and \code{aaties.df} are
-both lists of data frames.}
-
-\item{\code{alter}}{unique-within-ego identifier associated with each
-alter, defaulting to \code{"alterID"}; optional \code{aaties.df} are not
-provided.}
-
-\item{\code{source}}{if \code{aaties.df} is provided, the column given the
-alter identifier of the origin of a relation.}
-
-\item{\code{target}}{if \code{aaties.df} is provided, the column given the
-alter identifier of the destination of a relation.}
-
-}}
 }
 \value{
 An \code{\link{egor}} object. An \code{\link{egor}} is a \code{\link{tibble}} whose

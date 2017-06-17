@@ -7,14 +7,17 @@
 \title{Read ego-centered network data from the three files format, EgoWeb2.0 or
 openeddi.}
 \usage{
-read.egonet.three.files(egos, alters.df, edges, ID.vars = c("egoID",
-  "alterID", "Source", "Target"), ego.vars = NULL, ...)
+read.egonet.three.files(egos, alters.df, edges, ID.vars = list(ego = "egoID",
+  alter = "alterID", source = "Source", target = "Target"), ego.vars = NULL,
+  ...)
 
-read.egoweb(alter.file, edges.file, egos.file = NULL, ID.vars = c("EgoID",
-  "Alter.Number", "Alter.1.Number", "Alter.2.Number"), ego.vars = NULL, ...)
+read.egoweb(alter.file, edges.file, egos.file = NULL, ID.vars = list(ego =
+  "EgoID", alter = "Alter.Number", source = "Alter.1.Number", target =
+  "Alter.2.Number"), ego.vars = NULL, ...)
 
 read.openeddi(egos.file = NULL, alters.file = NULL, edges.file = NULL,
-  ID.vars = c("puid", "nameid", "nameid", "targetid"), ego.vars = NULL, ...)
+  ID.vars = list(ego = "puid", alter = "nameid", source = "nameid", target =
+  "targetid"), ego.vars = NULL, ...)
 }
 \arguments{
 \item{egos}{\code{Data frame} containg ego data (egos as cases)}
@@ -26,8 +29,24 @@ alters are separated by a variable containg an egoID.}
 variable.
 egos.}
 
-\item{ID.vars}{A character vector specifying ID variable names used (egoID,
-alterID, source, target).}
+\item{ID.vars}{A named list containing column names of the relevant
+  input columns: \describe{
+
+\item{`ego`}{unique identifier associated with each ego, defaulting
+  to `"egoID"`; has no effect if `alters.df` and `aaties.df` are
+  both lists of data frames.}
+
+\item{`alter`}{unique-within-ego identifier associated with each
+  alter, defaulting to `"alterID"`; optional `aaties.df` are not
+  provided.}
+
+\item{`source`}{if `aaties.df` is provided, the column given the
+  alter identifier of the origin of a relation.}
+
+\item{`target`}{if `aaties.df` is provided, the column given the
+  alter identifier of the destination of a relation.}
+
+}}
 
 \item{ego.vars}{A \code{data.frame} of alter attributes in the wide format.}
 

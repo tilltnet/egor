@@ -307,8 +307,7 @@ read.egonet.one.file <- function(egos, netsize,  egoID = "egoID",
 #' @template egos
 #' @template alters
 #' @template netsize
-#' @template egoID
-#' @template alterID
+#' @template ID.vars
 #' @param e.max.alters Maximum number of alters that are included in edge data.
 #' @param e.first.var Index of first column in \code{egos} containing edge data.
 #' @param ego.vars \code{Character vector} naming variables in the egos data,
@@ -318,35 +317,36 @@ read.egonet.one.file <- function(egos, netsize,  egoID = "egoID",
 #' @template return_egoR
 #' @keywords import
 #' @export
-read.egonet.two.files <- function(egos, alters, netsize = NULL,  egoID = "egoID",
-                                  alterID = NULL, e.max.alters, e.first.var,
+read.egonet.two.files <- function(egos, alters, netsize = NULL,
+                                  ID.vars=list(ego="egoID", alter="alterID", source="Source", target="Target"),
+                                  e.max.alters, e.first.var,
                                   ego.vars = NULL, selection = NULL, ...) {
-  if(!is.null(alterID)) {
+  IDv <- modifyList(eval(formals()$ID.vars), ID.vars)
+  if(!is.null(IDv$alter)) {
     message("alterID specified; moving to first column of $alters.df.")
-    alterID.col <- match(alterID , names(alters))
+    alterID.col <- match(IDv$alter , names(alters))
     #alterID.col
     # Return:
     #!# What happens if alterID is already in column 1?
-    alters <- data.frame(alterID = alters[[alterID]], alters[1:(alterID.col - 1)], 
+    alters <- data.frame(alterID = alters[[IDv$alter]], alters[1:(alterID.col - 1)], 
                        alters[(alterID.col + 1) : ncol(alters)])
   } 
   
-  if(is.null(alterID)) alterID <- "alterID"
   # Sort egos by egoID and alters by egoID and alterID.
   message("Sorting data by egoID and alterID.")
-  egos <- egos[order(as.numeric(egos[[egoID]])), ]
-  alters <- alters[order(as.numeric(alters[[egoID]]), as.numeric(alters[[alterID]])), ]
+  egos <- egos[order(as.numeric(egos[[IDv$ego]])), ]
+  alters <- alters[order(as.numeric(alters[[IDv$ego]]), as.numeric(alters[[IDv$alter]])), ]
   
   if(is.null(netsize)) {
     message("No netsize variable specified, calculating/ guessing netsize by egoID in alters data.")
 #' @importFrom stats aggregate
-    netsize <- aggregate(alters[[egoID]], by = list(alters[[egoID]]), NROW)    
+    netsize <- aggregate(alters[[IDv$ego]], by = list(alters[[IDv$ego]]), NROW)    
     netsize <- netsize[[2]]    
   }
 
 
   message("Preparing alters data.")
-  alters.list <- egor:::long.df.to.list(long = alters, netsize = netsize, egoID = egoID)
+  alters.list <- egor:::long.df.to.list(long = alters, netsize = netsize, egoID = IDv$ego)
   alters.list <- lapply(alters.list, FUN = function(x) 
     data.frame(alterID = as.character(c(1:NROW(x))), x)) #!# This generates two alterIDs in the transnat import, not good!
   
@@ -360,7 +360,7 @@ read.egonet.two.files <- function(egos, alters, netsize = NULL,  egoID = "egoID"
   }
 
   message("Splitting alters data into list entries for each network: $alters.list")
-  attributes_ <- long.df.to.list(long = alters, netsize = netsize, egoID = egoID,
+  attributes_ <- long.df.to.list(long = alters, netsize = netsize, egoID = IDv$ego,
                                 back.to.df = F)
   
   message("Transforming wide edge data to edgelist: $edges")
@@ -370,10 +370,10 @@ read.egonet.two.files <- function(egos, alters, netsize = NULL,  egoID = "egoID"
   
 
   # Create Global edge list
-  aaties <- mapply(FUN = function(x, y) data.frame(egoID = y, x), elist, egos[[egoID]], SIMPLIFY = F)
+  aaties <- mapply(FUN = function(x, y) data.frame(egoID = y, x), elist, egos[[IDv$ego]], SIMPLIFY = F)
   
   aaties.df <- do.call(rbind, aaties)
   
   # Return:
-  egor(alters, egos, aaties.df, ...)
+  egor(alters, egos, aaties.df, ID.vars = IDv, ...)
 }

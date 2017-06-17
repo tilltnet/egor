@@ -4,9 +4,9 @@
 \alias{read.egonet.two.files}
 \title{Import ego-centric network data from two file format}
 \usage{
-read.egonet.two.files(egos, alters, netsize = NULL, egoID = "egoID",
-  alterID = NULL, e.max.alters, e.first.var, ego.vars = NULL,
-  selection = NULL, ...)
+read.egonet.two.files(egos, alters, netsize = NULL, ID.vars = list(ego =
+  "egoID", alter = "alterID", source = "Source", target = "Target"),
+  e.max.alters, e.first.var, ego.vars = NULL, selection = NULL, ...)
 }
 \arguments{
 \item{egos}{\code{Data frame} containg ego data (egos as cases)}
@@ -16,9 +16,24 @@ alters are separated by a variable containg an egoID.}
 
 \item{netsize}{\code{Vector} containing values of network size per ego.}
 
-\item{egoID}{\code{Character}. Name of the variable identifying egos (default: "egoID").}
+\item{ID.vars}{A named list containing column names of the relevant
+  input columns: \describe{
 
-\item{alterID}{\code{Character}. Name of the variable identifying alters (default: "alterID").}
+\item{`ego`}{unique identifier associated with each ego, defaulting
+  to `"egoID"`; has no effect if `alters.df` and `aaties.df` are
+  both lists of data frames.}
+
+\item{`alter`}{unique-within-ego identifier associated with each
+  alter, defaulting to `"alterID"`; optional `aaties.df` are not
+  provided.}
+
+\item{`source`}{if `aaties.df` is provided, the column given the
+  alter identifier of the origin of a relation.}
+
+\item{`target`}{if `aaties.df` is provided, the column given the
+  alter identifier of the destination of a relation.}
+
+}}
 
 \item{e.max.alters}{Maximum number of alters that are included in edge data.}
 
