@@ -39,7 +39,13 @@ RESERVED_COLNAMES <- c(".alts", ".aaties", ".egoRow", ".altID", ".srcID", ".tgtI
 #'   table of that ego's alter attributes and `.aaties`, a table
 #'   containing that ego's alter--alter ties, if observed.
 #'
-#'   In addition, it has two attributes: `ego.design`, containing an
+#'   If alter-alter ties are observed, `.alts` also has a column
+#'   `.altID` giving a unique (within each ego) ID of the alter, by
+#'   which the alter can be identified in the `.aaties` table for that
+#'   ego. `.aaties`, in turn, has columns `.srcID` and `.tgtID` that
+#'   contain the source and the target of the alter-alter relation.
+#'
+#'   In addition, `egor` has two attributes: `ego.design`, containing an
 #'   object returned by [survey::svydesign()] specifying the sampling
 #'   design by which the egos were selected and `alter.design`, a
 #'   [`list`] containing specification of how the alters were

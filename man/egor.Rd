@@ -61,7 +61,13 @@ special nested columns: \code{.alts}, containing, for each row (ego) a
 table of that ego's alter attributes and \code{.aaties}, a table
 containing that ego's alter--alter ties, if observed.
 
-In addition, it has two attributes: \code{ego.design}, containing an
+If alter-alter ties are observed, \code{.alts} also has a column
+\code{.altID} giving a unique (within each ego) ID of the alter, by
+which the alter can be identified in the \code{.aaties} table for that
+ego. \code{.aaties}, in turn, has columns \code{.srcID} and \code{.tgtID} that
+contain the source and the target of the alter-alter relation.
+
+In addition, \code{egor} has two attributes: \code{ego.design}, containing an
 object returned by \code{\link[survey:svydesign]{survey::svydesign()}} specifying the sampling
 design by which the egos were selected and \code{alter.design}, a
 \code{\link{list}} containing specification of how the alters were
