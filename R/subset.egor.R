@@ -58,11 +58,11 @@ rowlist <- function(x){
 #' evaluated. (This can be used to access vector variables in the
 #' calling environment.)}
 #' 
-#' \item{Alter index `.alterIx`}{ contains the index (counting from 1) of the row number in the alter table.}
+#' \item{Alter index `.alterRow`}{ contains the index (counting from 1) of the row number in the alter table.}
 #' 
 #' \item{Alter--alter indices `.srcRow` and `.tgtRow`}{ contain the
 #' index (counting from 1) of the row of the alter being refereced by
-#' `Source` and `Target`. (This can be used to quickly access the
+#' `.srcID` and `.tgtID`. (This can be used to quickly access the
 #' attributes of the alters in question.)}
 #' 
 #' }
@@ -126,13 +126,13 @@ subset.egor <- function(x, subset, ..., unit = c("egos","alters","ties")){
   ## egor object augmented with extra columns
   # Copy and add an .egoRow column
   xa <- cbind(x,.egoRow=seq_len(nrow(x)))
-  # Add an .alterIx column to each alter
-  xa$.alts <- lapply(xa$.alts, function(a) cbind(a, .alterIx=seq_len(nrow(a))))
+  # Add an .alterRow column to each alter
+  xa$.alts <- lapply(xa$.alts, function(a) cbind(a, .alterRow=seq_len(nrow(a))))
   # Add an .srcRow and .tgtRow column to each alter-alter table
   xa$.aaties <- mapply(function(a,aa)
     cbind(aa,
-          .srcRow = match(aa$Source, a$alterID),
-          .tgtRow = match(aa$Target, a$alterID)),
+          .srcRow = match(aa$.srcID, a$.altID),
+          .tgtRow = match(aa$.srcID, a$.altID)),
     a=xa$.alts, aa=xa$.aaties, SIMPLIFY=FALSE)
 
   # Call the function to perform indexing
@@ -196,11 +196,11 @@ subset.egor <- function(x, subset, ..., unit = c("egos","alters","ties")){
          alters = {
            x$.alts <- mapply(function(a, ai){
              at <- a[ai,j,drop=FALSE]
-             if("alterID"%in%names(a) && ! "alterID"%in%names(at)) at <- cbind(at, alterID=a$alterID[ai])
+             if(".altID"%in%names(a) && ! ".altID"%in%names(at)) at <- cbind(at, .altID=a$.altID[ai])
              at
            }, a=x$.alts, ai=i, SIMPLIFY=FALSE)
            x$.aaties <- mapply(function(a, aa){
-             aa[aa$Source %in% a$alterID & aa$Target %in% a$alterID,
+             aa[aa$.srcID %in% a$.altID & aa$.tgtID %in% a$.altID,
                 j,drop=FALSE]
            }, a=x$.alts, aa=x$.aaties, SIMPLIFY=FALSE)
            x
@@ -208,8 +208,8 @@ subset.egor <- function(x, subset, ..., unit = c("egos","alters","ties")){
          ties = {
            x$.aaties <- mapply(function(aa, aai){
              aat <- aa[aai,j,drop=FALSE]
-             if(! "Source"%in%names(aat)) aat <- cbind(aat, Source=aa$Source[aai])
-             if(! "Target"%in%names(aat)) aat <- cbind(aat, Target=aa$Target[aai])
+             if(! ".srcID"%in%names(aat)) aat <- cbind(aat, .srcID=aa$.srcID[aai])
+             if(! ".tgtID"%in%names(aat)) aat <- cbind(aat, .tgtID=aa$.tgtID[aai])
              aat
            }, aa=x$.aaties, aai=i, SIMPLIFY=FALSE)
            x

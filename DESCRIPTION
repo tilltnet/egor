@@ -1,8 +1,8 @@
 Package: egor
 Type: Package
 Title: Import and analyse ego-centric network data
-Version: 0.17.01-242-2017.06.06-15.32.50
-Date: 2017-06-06
+Version: 0.17.01-243-2017.06.17-10.42.30
+Date: 2017-06-17
 Authors@R: c(
     person("Markus", "Gamper", email = "m.gamper@uni-koeln.de",
     role = c("aut")),

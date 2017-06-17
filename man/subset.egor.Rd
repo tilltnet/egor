@@ -39,11 +39,11 @@ calling environment), as well as the following "virtual" columns to simplify ind
 evaluated. (This can be used to access vector variables in the
 calling environment.)}
 
-\item{Alter index \code{.alterIx}}{ contains the index (counting from 1) of the row number in the alter table.}
+\item{Alter index \code{.alterRow}}{ contains the index (counting from 1) of the row number in the alter table.}
 
 \item{Alter--alter indices \code{.srcRow} and \code{.tgtRow}}{ contain the
 index (counting from 1) of the row of the alter being refereced by
-\code{Source} and \code{Target}. (This can be used to quickly access the
+\code{.srcID} and \code{.tgtID}. (This can be used to quickly access the
 attributes of the alters in question.)}
 
 }}

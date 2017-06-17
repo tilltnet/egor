@@ -1,4 +1,4 @@
-RESERVED_COLNAMES <- c(".alts", ".aaties", ".egoRow")
+RESERVED_COLNAMES <- c(".alts", ".aaties", ".egoRow", ".altID", ".srcID", ".tgtID", ".altRow", ".srcRow", ".tgtRow")
 
 #' egor - a data class for ego-centered network data.
 #'
@@ -20,23 +20,40 @@ RESERVED_COLNAMES <- c(".alts", ".aaties", ".egoRow")
 #'   information. Currently, the following elements are supported:
 #'   \describe{\item{\code{"max"}}{Maximum number of alters that an
 #'   ego can nominate.}}
-#' @param egoID Name of ego ID variable; optional if `alters.df` and
-#'   `aaties.df` are both lists of data frames.
-#' @details If parameters `alters.df`, `egos.df`, and `aaties.df`
-#'   are data frames, they need to share a common ego ID variable,
-#'   with corresponding values. If `alters.df` and `aaties.df` are
-#'   lists of data frames, `egoID` is ignored and they are matched
-#'   positionally with the rows of `egos.df`. Of the three parameters
-#'   only `alters.df` is necessary to create an `egor` object, and
+#' @param IDvars A named list containing column names of the relevant
+#'   input columns: \describe{
+#'
+#' \item{`ego`}{unique identifier associated with each ego, defaulting
+#'   to `"egoID"`; has no effect if `alters.df` and `aaties.df` are
+#'   both lists of data frames.}
+#' 
+#' \item{`alter`}{unique-within-ego identifier associated with each
+#'   alter, defaulting to `"alterID"`; optional `aaties.df` are not
+#'   provided.}
+#'
+#' \item{`source`}{if `aaties.df` is provided, the column given the
+#'   alter identifier of the origin of a relation.}
+#'
+#' \item{`target`}{if `aaties.df` is provided, the column given the
+#'   alter identifier of the destination of a relation.}
+#'
+#' }
+#' 
+#' @details If parameters `alters.df`, `egos.df`, and `aaties.df` are
+#'   data frames, they need to share a common ego ID variable, with
+#'   corresponding values. If `alters.df` and `aaties.df` are lists of
+#'   data frames, `egoID` is ignored and they are matched positionally
+#'   with the rows of `egos.df`. Of the three parameters only
+#'   `alters.df` is necessary to create an `egor` object, and
 #'   `egos.df` and `aaties.df` are optional.
-#' @note Column names `.alts`, `.aaties`, and `.egoRow` are
-#'   reserved for internal use of `egor` and should not be used to
-#'   store persistent data. Other `.`-led column names may be reserved
-#'   in the future.
+#' @note Column names `.alts`, `.aaties`, and `.egoRow` are reserved
+#'   for internal use of `egor` and should not be used to store
+#'   persistent data. Other `.`-led column names may be reserved in
+#'   the future.
 #' @return An [`egor`] object. An [`egor`] is a [`tibble`] whose
 #'   top-level columns store the ego attributes, and which has two
-#'   special nested columns: `.alts`, containing, for each row (ego)
-#'   a table of that ego's alter attributes and `.aaties`, a table
+#'   special nested columns: `.alts`, containing, for each row (ego) a
+#'   table of that ego's alter attributes and `.aaties`, a table
 #'   containing that ego's alter--alter ties, if observed.
 #'
 #'   In addition, it has two attributes: `ego.design`, containing an
@@ -49,7 +66,8 @@ RESERVED_COLNAMES <- c(".alts", ".aaties", ".egoRow")
 #' @examples 
 #'
 #' @export
-egor <- function(alters.df, egos.df = NULL, aaties.df = NULL, egoID="egoID", ego.design = list(~1), alter.design = list(max = Inf)) {
+egor <- function(alters.df, egos.df = NULL, aaties.df = NULL, ID.vars=list(ego="egoID", alter="alterID", source="Source", target="Target"), ego.design = list(~1), alter.design = list(max = Inf)) {
+  IDv <- modifyList(eval(formals(egor::egor)$ID.vars), ID.vars)
   # FUN: Inject empty data.frames with correct colums in to NULL cells in 
   # $.alts and $.aaties
   inj_zero_dfs <- function(x, y) {
@@ -79,13 +97,19 @@ egor <- function(alters.df, egos.df = NULL, aaties.df = NULL, egoID="egoID", ego
       # Create initial egor object from ALTERS
       tidyr::nest_(data = alters.df,
                    key_col = ".alts",
-                   names(alters.df)[names(alters.df) != egoID]) # Select all but the egoID column for nesting
+                   names(alters.df)[names(alters.df) != IDv$ego]) # Select all but the IDv$ego column for nesting
     }else{
       alters_is_df <- FALSE
-      egoID <- ".egoRow"
+      IDv$ego <- ".egoRow"
       tibble::tibble(.egoRow=seq_along(alters.df),
                      .alts=lapply(alters.df, tibble::as_tibble))
     }
+
+  # Rename the alter ID column to standard name.
+  egor$.alts <- lapply(egor$.alts, function(x){
+    names(x)[names(x)==IDv$alter] <- ".altID"
+    x
+  })
   
   # If specified add aaties data to egor
   if(!is.null(aaties.df)){
@@ -94,14 +118,21 @@ egor <- function(alters.df, egos.df = NULL, aaties.df = NULL, egoID="egoID", ego
         if(length(reserved_cols(aaties.df))) stop("Table of alter-alter ties has reserved column names ",paste(reserved_cols(aaties.df), collapse=", "),".") 
         tidyr::nest_(data = aaties.df,
                      key_col = ".aaties",
-                     names(aaties.df)[names(aaties.df) != egoID])
+                     names(aaties.df)[names(aaties.df) != IDv$ego])
       }else{
         tibble::tibble(.egoRow=seq_along(alters.df),
                        .aaties=lapply(aaties.df, tibble::as_tibble))
       }
     
-    egor <- dplyr::full_join(egor, aaties.tib, by = egoID)
+    egor <- dplyr::full_join(egor, aaties.tib, by = IDv$ego)
     egor <- inj_zero_dfs(egor, ".aaties")
+
+    # Rename the source and target ID column to standard names.
+    egor$.aaties <- lapply(egor$.aaties, function(x){
+      names(x)[names(x)==IDv$source] <- ".srcID"
+      names(x)[names(x)==IDv$target] <- ".tgtID"
+      x
+    })
   }
   
   # If speciefied add ego data to egor
@@ -109,13 +140,13 @@ egor <- function(alters.df, egos.df = NULL, aaties.df = NULL, egoID="egoID", ego
     check_reserved_cols(egos.df, "egos")
     if(!alters_is_df) egos.df$.egoRow <- seq_len(nrow(egor))
 
-    egor <- dplyr::full_join(tibble::as_tibble(egos.df), egor, by = egoID)
+    egor <- dplyr::full_join(tibble::as_tibble(egos.df), egor, by = IDv$ego)
     egor <- inj_zero_dfs(egor, ".alts")
   }
   
-  # Check If egoIDs valid
-  if (length(unique(egor[[egoID]])) < length(egor[[egoID]]))
-    warning(paste(egoID, "values are note unique. Check your 'egos.df' data."))
+  # Check If IDv$egos valid
+  if (length(unique(egor[[IDv$ego]])) < length(egor[[IDv$ego]]))
+    warning(paste(IDv$ego, "values are note unique. Check your 'egos.df' data."))
 
   if(!alters_is_df) egor$.egoRow <- NULL
   

@@ -5,7 +5,8 @@
 \alias{as.egor}
 \title{egor - a data class for ego-centered network data.}
 \usage{
-egor(alters.df, egos.df = NULL, aaties.df = NULL, egoID = "egoID",
+egor(alters.df, egos.df = NULL, aaties.df = NULL, ID.vars = list(ego =
+  "egoID", alter = "alterID", source = "Source", target = "Target"),
   ego.design = list(~1), alter.design = list(max = Inf))
 
 as.egor(x, ...)
@@ -23,9 +24,6 @@ nominees.}
 relations in the style of an edge list, or a list of data frames
 similar to \code{alters.df}.}
 
-\item{egoID}{Name of ego ID variable; optional if \code{alters.df} and
-\code{aaties.df} are both lists of data frames.}
-
 \item{ego.design}{A \code{\link{list}} of arguments to \code{\link[survey:svydesign]{survey::svydesign()}}
 specifying the sampling design for the egos. If formulas, they
 can refer to columns of \code{egos.df}.}
@@ -36,12 +34,31 @@ information. Currently, the following elements are supported:
 ego can nominate.}}}
 
 \item{x}{an object to be coerced to \code{\link{egor}}.}
+
+\item{IDvars}{A named list containing column names of the relevant
+input columns: \describe{
+
+\item{\code{ego}}{unique identifier associated with each ego, defaulting
+to \code{"egoID"}; has no effect if \code{alters.df} and \code{aaties.df} are
+both lists of data frames.}
+
+\item{\code{alter}}{unique-within-ego identifier associated with each
+alter, defaulting to \code{"alterID"}; optional \code{aaties.df} are not
+provided.}
+
+\item{\code{source}}{if \code{aaties.df} is provided, the column given the
+alter identifier of the origin of a relation.}
+
+\item{\code{target}}{if \code{aaties.df} is provided, the column given the
+alter identifier of the destination of a relation.}
+
+}}
 }
 \value{
 An \code{\link{egor}} object. An \code{\link{egor}} is a \code{\link{tibble}} whose
 top-level columns store the ego attributes, and which has two
-special nested columns: \code{.alts}, containing, for each row (ego)
-a table of that ego's alter attributes and \code{.aaties}, a table
+special nested columns: \code{.alts}, containing, for each row (ego) a
+table of that ego's alter attributes and \code{.aaties}, a table
 containing that ego's alter--alter ties, if observed.
 
 In addition, it has two attributes: \code{ego.design}, containing an
@@ -56,19 +73,19 @@ The function \code{\link[=egor]{egor()}} is used to create an egor object from
 ego-centered network data.
 }
 \details{
-If parameters \code{alters.df}, \code{egos.df}, and \code{aaties.df}
-are data frames, they need to share a common ego ID variable,
-with corresponding values. If \code{alters.df} and \code{aaties.df} are
-lists of data frames, \code{egoID} is ignored and they are matched
-positionally with the rows of \code{egos.df}. Of the three parameters
-only \code{alters.df} is necessary to create an \code{egor} object, and
+If parameters \code{alters.df}, \code{egos.df}, and \code{aaties.df} are
+data frames, they need to share a common ego ID variable, with
+corresponding values. If \code{alters.df} and \code{aaties.df} are lists of
+data frames, \code{egoID} is ignored and they are matched positionally
+with the rows of \code{egos.df}. Of the three parameters only
+\code{alters.df} is necessary to create an \code{egor} object, and
 \code{egos.df} and \code{aaties.df} are optional.
 }
 \note{
-Column names \code{.alts}, \code{.aaties}, and \code{.egoRow} are
-reserved for internal use of \code{egor} and should not be used to
-store persistent data. Other \code{.}-led column names may be reserved
-in the future.
+Column names \code{.alts}, \code{.aaties}, and \code{.egoRow} are reserved
+for internal use of \code{egor} and should not be used to store
+persistent data. Other \code{.}-led column names may be reserved in
+the future.
 }
 \examples{
 
