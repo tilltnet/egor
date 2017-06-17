@@ -4,7 +4,8 @@
 \alias{generate.sample.ego.data}
 \title{Generate random ego-centric-network data.}
 \usage{
-generate.sample.ego.data(net.count, max.alters, netsize = NULL)
+generate.sample.ego.data(net.count, max.alters, netsize = NULL,
+  plot = FALSE)
 }
 \arguments{
 \item{net.count}{Number of networks/ egos to generate.}
@@ -12,6 +13,8 @@ generate.sample.ego.data(net.count, max.alters, netsize = NULL)
 \item{max.alters}{Maximum size of networks.}
 
 \item{netsize}{\code{Numeric} for fixed network sizes.}
+
+\item{plot}{whether to plot the network size distribution.}
 }
 \description{
 This function generates random ego-centric-network data for a specified number of networks with a maximum network size. The network size of the generated networks is a normal distribution with sd=5.
