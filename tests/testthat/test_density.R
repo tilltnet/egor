@@ -1,6 +1,7 @@
 # Test Density
 # egor
 library(egor)
+library(tibble)
 of <- generate.sample.ego.data(net.count = 32, max.alters = 16)
 
 # Weighted
@@ -45,8 +46,8 @@ library(dplyr)
 
 of2 <- as_tibble.egor(of)
 
-alters <- unnest(select(of2, egoID, .alts))
-aaties <- unnest(select(of2, egoID, .aaties))
+alters <- tidyr::unnest(dplyr::select(of2, egoID, .alts))
+aaties <- tidyr::unnest(dplyr::select(of2, egoID, .aaties))
 
 
 

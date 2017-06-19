@@ -26,6 +26,8 @@ read.egonet.one.file(egos, netsize, egoID = "egoID", attr.start.col,
 \item{ego.vars}{A \code{data.frame} of alter attributes in the wide format.}
 
 \item{var.wise}{Logical value indicatin if the alter attributes are sorted variable wise (defaults to FALSE).}
+
+\item{...}{additional arguments to \code{\link[=egor]{egor()}}.}
 }
 \value{
 A \code{list} of six objects - the **egoR** object: (1) egos.df: \code{dataframe} of all

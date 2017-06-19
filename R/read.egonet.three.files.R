@@ -20,6 +20,7 @@ order.edge.list.columns <- function(edges, source_, target) {
 #' variable. 
 #' egos.
 #' @param alters.file \code{Character} name of the alters data file.
+#' @param ... additional arguments to [egor()].
 #' @template return_egoR
 #' @examples 
 #' # The data for read.egonet.threefiles() needs to be loaded with read.csv(), 

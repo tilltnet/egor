@@ -4,7 +4,7 @@
 #' graph by visualising its group aggregated form. It is developed by
 #' Lerner et al. (2008). It helps to discover and visualise structural and 
 #' compostional properties of ego-centered networks, based on a pre-defined
-#' factor variable on the alter level. clustered.graphs() calculates group sizes,
+#' factor variable on the alter level. clustered_graphs() calculates group sizes,
 #' inter- and intragroup densities and these informations in a \code{list} of
 #' \code{igraph} objects.
 #' @param alters \code{List} of \code{data frames} containing the alters 
@@ -15,10 +15,10 @@
 #' @references Brandes, U., Lerner, J., Lubbers, M. J., McCarty, C., & Molina, 
 #' J. L. (2008). Visual Statistics for Collections of Clustered Graphs. 2008 
 #' IEEE Pacific Visualization Symposium, 47-54.
-#' @return \code{clustered.graphs} returns a list of graph objects representing 
+#' @return \code{clustered_graphs} returns a list of graph objects representing 
 #' the clustered ego-centered network data;
 #' @keywords ego-centric network analysis
-#' @seealso \code{\link{vis.clustered.graphs}} for visualising clustered graphs
+#' @seealso \code{\link{vis.clustered_graphs}} for visualising clustered graphs
 #' @example /inst/examples/ex_cg.R
 #' @export
 clustered_graphs <- function(object, ..., clust.groups) UseMethod("clustered_graphs", object)
@@ -121,12 +121,12 @@ clustered_graphs.list <- function(alters, aaties, clust.groups) {
 # Create 'clustered graphs' igraph object  --------------------------------
   
   
-  clustered.graphs <- lapply(grp.densities, 
+  clustered_graphs <- lapply(grp.densities, 
                              FUN = function(x) igraph::graph.data.frame(
                                x$grp.densities[x$grp.densities$i.name != x$grp.densities$j.name, ],
                                vertices = x$grp.densities[x$grp.densities$i.name == x$grp.densities$j.name, ],
                                directed = F))
-  clustered.graphs
+  clustered_graphs
 }
 
 #' @rdname clustered_graphs
@@ -149,8 +149,8 @@ clustered_graphs.data.frame <- function(alters, aaties, clust.groups, egoID = "e
   
 #' Visualise clustered graphs
 #' 
-#' \code{vis.clustered.graphs} visualises clustered.graphs using a list of
-#' clustered graphs created with \code{\link{clustered.graphs}}
+#' \code{vis.clustered_graphs} visualises clustered_graphs using a list of
+#' clustered graphs created with \code{\link{clustered_graphs}}
 #' created clustered graph objects.
 #' @param graphs \code{List} of \code{graph} objects, representing the clustered
 #' graphs.
@@ -167,19 +167,19 @@ clustered_graphs.data.frame <- function(alters, aaties, clust.groups, egoID = "e
 #' by a 'legend' plot giving the labels of the vertices.
 #' @param legend.node.size \code{Numeric} used as node diameter of legend graph.
 #' @param to.pdf \code{Boolean}.
-#' @return \code{vis.clustered.graphs} plots
-#' a \code{list} of \code{igraph} objects created by the \code{clustered.graphs}
+#' @return \code{vis.clustered_graphs} plots
+#' a \code{list} of \code{igraph} objects created by the \code{clustered_graphs}
 #' function.
 #' @references Brandes, U., Lerner, J., Lubbers, M. J., McCarty, C., & Molina, 
 #' J. L. (2008). Visual Statistics for Collections of Clustered Graphs. 2008 
 #' IEEE Pacific Visualization Symposium, 47-54.
-#' @return \code{clustered.graphs} returns a list of graph objects representing 
+#' @return \code{clustered_graphs} returns a list of graph objects representing 
 #' the clustered ego-centered network data;
 #' @keywords ego-centric network analysis
-#' @seealso \code{\link{clustered.graphs}} for creating clustered graphs objects
+#' @seealso \code{\link{clustered_graphs}} for creating clustered graphs objects
 #' @example /inst/examples/ex_cg.R
 #' @export
-vis.clustered.graphs <- function(graphs, 
+vis.clustered_graphs <- function(graphs, 
                                  node.size.multiplier = 1, 
                                  node.min.size = 0,
                                  node.max.size = 200, 

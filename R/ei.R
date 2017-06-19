@@ -158,7 +158,7 @@ EI.egor <- function(object, var_name, ...) {
 #' @export
 EI.data.frame <- function(object, aaties, var_name, egoID = "egoID", alterID = "alterID", ...) {
   aaties.list <- split(aaties, as.numeric(aaties[[egoID]]))
-  alters.list <- split(alters, as.numeric(alters[[egoID]]))
+  alters.list <- split(object, as.numeric(object[[egoID]]))
   EI(aaties.list, alters.list, var_name = var_name, egoID = "egoID", alterID = "alterID", ...) 
 }
 

@@ -1,3 +1,4 @@
+library(egor)
 e1_gen <- generate.sample.ego.data(32, 20)
 
 test_that("e1_gen is egor object", 
@@ -5,7 +6,7 @@ test_that("e1_gen is egor object",
 
 
 # Draw/ Extract egos and gobal alters/alter-tie dfs from egor
-egos <- select(e1_gen, -.alts, -.aaties)
+egos <- dplyr::select(e1_gen, -.alts, -.aaties)
 alters <- tidyr::unnest(e1_gen[,c(1,5)])
 aaties <- tidyr::unnest(e1_gen[,c(1,6)])
 
@@ -31,8 +32,8 @@ err_d <- generate.sample.ego.data(32, 20)
 
 
 # Checking for egos without alters
-alters <- unnest(select(err_d, egoID, .alts))
-aaties <- unnest(select(err_d, egoID, .aaties))
+alters <- tidyr::unnest(dplyr::select(err_d, egoID, .alts))
+aaties <- tidyr::unnest(dplyr::select(err_d, egoID, .aaties))
 alters <- alters[!alters$egoID %in% c(1,2,3), ]
 egos <- dplyr::select(err_d, -.alts, -.aaties)
 err_d1 <- egor(alters, egos, aaties)
@@ -45,7 +46,7 @@ err_d2 <- egor(alters, egos, aaties)
 
 
 # Checking for alters and aaties without egos
-egos <- select(err_d, -.alts, -.aaties)
+egos <- dplyr::select(err_d, -.alts, -.aaties)
 egos <- egos[sample(egos$egoID, 24), ]
 err_d3 <- egor(alters, egos, aaties)
 

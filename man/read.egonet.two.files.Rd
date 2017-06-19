@@ -44,6 +44,8 @@ in order to copy them in to the long alters \code{dataframe}.}
 
 \item{selection}{\code{Character} naming \code{numeric} variable indicating
 alters selection with zeros and ones.}
+
+\item{...}{additional arguments to \code{\link[=egor]{egor()}}.}
 }
 \value{
 A \code{list} of six objects - the **egoR** object: (1) egos.df: \code{dataframe} of all

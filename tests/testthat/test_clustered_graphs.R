@@ -26,8 +26,8 @@ clustered_graphs(mpf, "random.groups")
 # test dataframe ----------------------------------------------------------
 of2 <- as_tibble(mpf)
 
-alters <- unnest(select(of2, egoID, .alts))
-aaties <- unnest(select(of2, egoID, .aaties))
+alters <- tidyr::unnest(dplyr::select(of2, egoID, .alts))
+aaties <- tidyr::unnest(dplyr::select(of2, egoID, .aaties))
 graphs <- clustered_graphs(alters, aaties, "random.groups") 
 
 
@@ -50,7 +50,7 @@ NROW(a)
 
 e <- edges.list[[1]]
 NROW(e)
-e <- e[e$Source %in% a$alterID & e$Target %in% a$alterID, ]
+e <- e[e$.srcID %in% a$.altID & e$.tgtID %in% a$.altID, ]
 NROW(e)
 
 alters.list[[1]] <- a
@@ -74,7 +74,7 @@ graphs_ex <- clustered_graphs(alters.list[1], edges.list[1], "random.groups")
 # 
 # # No edges
 # e.lomihi[[1]] <- e.lomihi[[1]][e.lomihi[[1]]$weight == 0, ]
-# a.lomihi[[1]] <- a.lomihi[[1]][a.lomihi[[1]]$alterID < 12, ]
+# a.lomihi[[1]] <- a.lomihi[[1]][a.lomihi[[1]]$.altID < 12, ]
 # 
 # # No edges - no alters in some groups
 # e.lomihi[[2]] <- e.lomihi[[2]][e.lomihi[[2]]$weight == 4, ]
@@ -99,28 +99,28 @@ graphs_ex <- clustered_graphs(alters.list[1], edges.list[1], "random.groups")
 # table(a.lomihi[[6]]$alter.age)
 # age_levels <- levels(a.lomihi[[6]]$alter.age)
 # a_1 <- which(a.lomihi[[6]]$alter.age == age_levels[1])
-# e.lomihi[[6]] <- e.lomihi[[6]][e.lomihi[[6]]$Source %in% a_1 & e.lomihi[[6]]$Target %in% a_1, ]
+# e.lomihi[[6]] <- e.lomihi[[6]][e.lomihi[[6]]$.srcID %in% a_1 & e.lomihi[[6]]$.tgtID %in% a_1, ]
 # a_1 <- which(a.lomihi[[7]]$alter.age == age_levels[1])
-# e.lomihi[[7]] <- e.lomihi[[7]][e.lomihi[[7]]$Source %in% a_1 | e.lomihi[[7]]$Target %in% a_1, ]
+# e.lomihi[[7]] <- e.lomihi[[7]][e.lomihi[[7]]$.srcID %in% a_1 | e.lomihi[[7]]$.tgtID %in% a_1, ]
 # 
 # a_2 <- which(a.lomihi[[8]]$alter.age == age_levels[2])
-# e.lomihi[[8]] <- e.lomihi[[8]][e.lomihi[[8]]$Source %in% a_2 & e.lomihi[[8]]$Target %in% a_2, ]
+# e.lomihi[[8]] <- e.lomihi[[8]][e.lomihi[[8]]$.srcID %in% a_2 & e.lomihi[[8]]$.tgtID %in% a_2, ]
 # a_2 <- which(a.lomihi[[9]]$alter.age == age_levels[2])
-# e.lomihi[[9]] <- e.lomihi[[9]][e.lomihi[[9]]$Source %in% a_2 | e.lomihi[[9]]$Target %in% a_2, ]
+# e.lomihi[[9]] <- e.lomihi[[9]][e.lomihi[[9]]$.srcID %in% a_2 | e.lomihi[[9]]$.tgtID %in% a_2, ]
 # 
 # tmp <- NROW(e.lomihi[[10]])
 # ind <- sample(1:tmp, tmp/2)
 # e.lomihi_copy <- e.lomihi[[10]][ind, ]
 # age_levels <- levels(a.lomihi[[10]]$alter.age)
 # a_1 <- which(a.lomihi[[10]]$alter.age == age_levels[1])
-# e.lomihi[[10]] <- e.lomihi_copy[e.lomihi_copy$Source %in% a_1 & e.lomihi_copy$Target %in% a_1, ]
-# e.lomihi[[11]] <- e.lomihi_copy[e.lomihi_copy$Source %in% a_1 | e.lomihi_copy$Target %in% a_1, ]
-# e.lomihi[[12]] <- e.lomihi_copy[e.lomihi_copy$Source %in% a_2 & e.lomihi_copy$Target %in% a_2, ]
-# e.lomihi[[13]] <- e.lomihi_copy[e.lomihi_copy$Source %in% a_2 | e.lomihi_copy$Target %in% a_2, ]
+# e.lomihi[[10]] <- e.lomihi_copy[e.lomihi_copy$.srcID %in% a_1 & e.lomihi_copy$.tgtID %in% a_1, ]
+# e.lomihi[[11]] <- e.lomihi_copy[e.lomihi_copy$.srcID %in% a_1 | e.lomihi_copy$.tgtID %in% a_1, ]
+# e.lomihi[[12]] <- e.lomihi_copy[e.lomihi_copy$.srcID %in% a_2 & e.lomihi_copy$.tgtID %in% a_2, ]
+# e.lomihi[[13]] <- e.lomihi_copy[e.lomihi_copy$.srcID %in% a_2 | e.lomihi_copy$.tgtID %in% a_2, ]
 # a.lomihi[11:13] <- a.lomihi[10]
 # 
 # a_2 <- which(a.lomihi[[10]]$alter.age == age_levels[2])
-# e.lomihi[[14]] <- e.lomihi_copy[e.lomihi_copy$Source %in% a_1 | e.lomihi_copy$Target %in% a_1 | e.lomihi_copy$Target %in% a_2 | e.lomihi_copy$Target %in% a_2, ]
+# e.lomihi[[14]] <- e.lomihi_copy[e.lomihi_copy$.srcID %in% a_1 | e.lomihi_copy$.tgtID %in% a_1 | e.lomihi_copy$.tgtID %in% a_2 | e.lomihi_copy$.tgtID %in% a_2, ]
 # a.lomihi[14] <- a.lomihi[10]
 # 
 # graphs <- clustered_graphs(a.lomihi, e.lomihi, "alter.age") 

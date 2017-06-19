@@ -20,10 +20,29 @@ separate .csv files for each ego/ network.}
 
 \item{csv.sep}{\code{Character} indicating the seperator used in csv files.}
 
+\item{ID.vars}{A named list containing column names of the relevant
+  input columns: \describe{
+
+\item{`ego`}{unique identifier associated with each ego, defaulting
+  to `"egoID"`; has no effect if `alters.df` and `aaties.df` are
+  both lists of data frames.}
+
+\item{`alter`}{unique-within-ego identifier associated with each
+  alter, defaulting to `"alterID"`; optional `aaties.df` are not
+  provided.}
+
+\item{`source`}{if `aaties.df` is provided, the column given the
+  alter identifier of the origin of a relation.}
+
+\item{`target`}{if `aaties.df` is provided, the column given the
+  alter identifier of the destination of a relation.}
+
+}}
+
 \item{first.col.row.names}{\code{Boolean} indicating if first column contains
 row names, that are to be skipped, default is \code{FALSE}.}
 
-\item{egoID}{\code{Character}. Name of the variable identifying egos (default: "egoID").}
+\item{...}{additional arguments to \code{\link[=egor]{egor()}}.}
 }
 \value{
 A \code{list} of six objects - the **egoR** object: (1) egos.df: \code{dataframe} of all

@@ -50,6 +50,8 @@ egos.}
 
 \item{ego.vars}{A \code{data.frame} of alter attributes in the wide format.}
 
+\item{...}{additional arguments to \code{\link[=egor]{egor()}}.}
+
 \item{alter.file}{A character specifiying the filename of the alters data.}
 
 \item{edges.file}{A character specifiying the filename of the edge data.}

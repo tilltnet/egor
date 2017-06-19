@@ -1,3 +1,5 @@
+library(egor)
+
 egos.file <-  system.file("extdata", "egos_32.csv", package = "egor")
 alters.file <- system.file("extdata", "alters_32.csv", package = "egor")
 edges.file <-  system.file("extdata", "edges_32.csv", package = "egor")

@@ -257,6 +257,7 @@ add_ego_vars_to_long_df <- function(alters.list, egos.df, ego.vars, netsize) {
 #' @param dy.first.var First column containing alter-alter relations/ edges.
 #' @template ego_vars
 #' @param var.wise Logical value indicatin if the alter attributes are sorted variable wise (defaults to FALSE).
+#' @param ... additional arguments to [egor()].
 #' @template return_egoR
 #' @references Muller, C., Wellman, B., & Marin, A. (1999). How to Use SPSS to 
 #' Study Ego-Centered Networks. Bulletin de Methodologie Sociologique, 
@@ -314,6 +315,7 @@ read.egonet.one.file <- function(egos, netsize,  egoID = "egoID",
 #' in order to copy them in to the long alters \code{dataframe}.
 #' @param selection \code{Character} naming \code{numeric} variable indicating 
 #' alters selection with zeros and ones. 
+#' @param ... additional arguments to [egor()].
 #' @template return_egoR
 #' @keywords import
 #' @export

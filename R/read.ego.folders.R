@@ -15,11 +15,12 @@
 #' separate .csv files for each ego/ network.
 #' @param edge.folder Folder name of the folder containing the edge/ tie data in
 #' separate .csv files for each ego/ network.
-#' @template egoID
+#' @template ID.vars
 #' @template return_egoR
 #' @param csv.sep \code{Character} indicating the seperator used in csv files.
 #' @param first.col.row.names \code{Boolean} indicating if first column contains
 #' row names, that are to be skipped, default is \code{FALSE}.
+#' @param ... additional arguments to [egor()].
 #' @keywords ego-centric import
 #' @examples 
 #' egos.file <-  system.file("extdata", "egos_32.csv", package = "egor")
