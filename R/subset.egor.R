@@ -132,7 +132,7 @@ subset.egor <- function(x, subset, ..., unit = c("ego","alter","aatie")){
   xa$.aaties <- mapply(function(a,aa)
     cbind(aa,
           .srcRow = match(aa$.srcID, a$.altID),
-          .tgtRow = match(aa$.srcID, a$.altID)),
+          .tgtRow = match(aa$.tgtID, a$.altID)),
     a=xa$.alts, aa=xa$.aaties, SIMPLIFY=FALSE)
 
   # Call the function to perform indexing
