@@ -1,3 +1,5 @@
+cat(" \nTestfile  test_read_three_files.r \n")
+
 library(egor)
 
 egos.file <-  system.file("extdata", "egos_32.csv", package = "egor")

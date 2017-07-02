@@ -1,3 +1,5 @@
+cat(" \nTestfile  test_read_folders.r \n")
+
 egos.file <-  system.file("extdata", "egos_32.csv", package = "egor")
 alters.folder <- system.file("extdata", "alters_32", package = "egor")
 edges.folder <-  system.file("extdata", "edges_32", package = "egor")

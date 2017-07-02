@@ -1,3 +1,5 @@
+cat(" \nTestfile  test_read.r \n")
+
 library(egor)
 
 # One File
@@ -29,7 +31,7 @@ path_to_egos_32.csv <- system.file("extdata", "egos_32.csv", package = "egor")
 fo <- read.egonet.folders(egos.file = path_to_egos_32.csv, 
                           edge.folder = paste(path_to_edges_folder, "/", sep = ""),
                           alter.folder = paste(path_to_alters_folder, "/", sep = ""),
-                          first.col.row.names = TRUE, csv.sep = ";")
+                          first.col.row.names = FALSE, csv.sep = ";")
 
 
 # Test Cases to build

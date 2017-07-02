@@ -1,3 +1,5 @@
+cat(" \nTestfile  test_egor.r \n")
+
 library(egor)
 e1_gen <- generate.sample.ego.data(32, 20)
 
@@ -7,11 +9,13 @@ test_that("e1_gen is egor object",
 
 # Draw/ Extract egos and gobal alters/alter-tie dfs from egor
 egos <- dplyr::select(e1_gen, -.alts, -.aaties)
-alters <- tidyr::unnest(e1_gen[,c(1,5)])
-aaties <- tidyr::unnest(e1_gen[,c(1,6)])
+alters <- tidyr::unnest(tibble::as_tibble(e1_gen)[, c("egoID",".alts")])
+aaties <- tidyr::unnest(tibble::as_tibble(e1_gen)[, c("egoID",".aaties")])
+
+names(alters)[2] <- "alterID"
+names(aaties)[2:3] <- c("Source", "Target")
 
 e1 <- egor(alters, egos, aaties)
-class(e1) # double egor :(
 summary(e1_gen)
 summary(e1)
 
@@ -32,8 +36,10 @@ err_d <- generate.sample.ego.data(32, 20)
 
 
 # Checking for egos without alters
-alters <- tidyr::unnest(dplyr::select(err_d, egoID, .alts))
-aaties <- tidyr::unnest(dplyr::select(err_d, egoID, .aaties))
+alters <- tidyr::unnest(tibble::as_tibble(e1_gen)[, c("egoID",".alts")])
+aaties <- tidyr::unnest(tibble::as_tibble(e1_gen)[, c("egoID",".aaties")])
+names(alters)[2] <- "alterID"
+names(aaties)[2:3] <- c("Source", "Target")
 alters <- alters[!alters$egoID %in% c(1,2,3), ]
 egos <- dplyr::select(err_d, -.alts, -.aaties)
 err_d1 <- egor(alters, egos, aaties)

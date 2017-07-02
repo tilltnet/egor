@@ -1,6 +1,8 @@
+cat(" \nTestfile test_ei.r \n")
+
 library(egor)
 
-egor32 <- generate.sample.ego.data(32, 20)
+eigor <- generate.sample.ego.data(32, 20)
 
 
 EI(eigor, var_name = "alter.sex")

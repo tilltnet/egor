@@ -1,3 +1,5 @@
+cat(" \nTestfile  test_clustered_graphs.r \n")
+
 library(egor)
 
 # Create test data
