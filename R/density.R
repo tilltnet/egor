@@ -6,10 +6,8 @@
 #' the ego-centered networks listed in the 'egor' object. Instead of an 
 #' \code{egor} object, alter and alter-alter data can be provided as \code{lists}
 #' or \code{data.frames}. 
-#' @param x Either an \code{egor} object or a \code{data.frame/ list} containg alter-alter
-#' relations.
-#' @param aaties \code{data.frame/ list} containg alter attributes 
-#' (not needed if x is an \code{egor} object).
+#' @template object
+#' @template aaties
 #' @param egoID Name of ego ID variable. Only needs to be specified if alter
 #' and alter-alter data is provided in global data.frames.
 #' @param max.netsize Optional parameter. Constant value used if the
@@ -59,16 +57,16 @@ ego_density.list <- function(object, aaties, weight = NULL, max.netsize = NULL, 
 
 #' @rdname ego_density
 #' @export
-ego_density.egor <- function(x, weight = NULL, max.netsize = NULL, directed = FALSE) {
-  ego_density(x = x$.alts, aaties = x$.aaties,  weight = weight, max.netsize = max.netsize, directed = directed)
+ego_density.egor <- function(object, weight = NULL, max.netsize = NULL, directed = FALSE) {
+  ego_density(object = object$.alts, aaties = object$.aaties,  weight = weight, max.netsize = max.netsize, directed = directed)
 }
 
 
 #' @rdname ego_density
 #' @export
-ego_density.data.frame <- function(x, aaties, egoID = "egoID", weight = NULL, max.netsize = NULL, directed = FALSE) {
-  x <- split(x, x[egoID])
+ego_density.data.frame <- function(object, aaties, egoID = "egoID", weight = NULL, max.netsize = NULL, directed = FALSE) {
+  object <- split(object, object[egoID])
   aaties <- split(aaties, aaties[egoID])
-  ego_density(x = x, aaties = aaties, weight = weight, max.netsize = max.netsize, directed = directed)
+  ego_density(object = object, aaties = aaties, weight = weight, max.netsize = max.netsize, directed = directed)
 }
 

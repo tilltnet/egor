@@ -10,25 +10,26 @@
 EI(object, ...)
 
 \method{EI}{list}(object, aaties, var_name, egoID = "egoID",
-  alterID = "alterID")
+  altID = ".altID")
 
-\method{EI}{egor}(object, var_name, egoID = "egoID", alterID = "alterID")
+\method{EI}{egor}(object, var_name, egoID = "egoID", altID = ".altID")
 
 \method{EI}{data.frame}(object, aaties, var_name, egoID = "egoID",
-  alterID = "alterID")
+  altID = ".altID")
 }
 \arguments{
-\item{aaties}{\code{List} of edgelist-\code{dataframes} or one
-\code{dataframes} #' containing all aaties}
+\item{object}{Either an \code{egor} object or a \code{data.frame/ list} 
+containg alter attributes.}
+
+\item{aaties}{\code{data.frame/ list} containg alter-alter relations as a 
+'global edge list' or as a list of 'edge lists'.
+(not needed if \code{object} is an \code{egor} object).}
 
 \item{var_name}{\code{Character} naming grouping variable.}
 
 \item{egoID}{\code{Character} naming ego ID variable.}
 
-\item{alterID}{\code{Character} naming alter ID variable.}
-
-\item{alters}{\code{List} of alters attribute \code{data.frame}s
-or \code{data.frame} of alter attributes.}
+\item{altID}{\code{Character} naming alter ID variable.}
 }
 \description{
 The EI-Index compares the intra-group edge density to the outer-group edge
@@ -42,8 +43,8 @@ for this version.
 }
 \examples{
 data("alters32")
-data("aaties32")
-EI(alters32, aaties32, var_name = "alter.sex")
+data("edges32")
+EI(alters32, aaties32, var_name = "alter.sex", altID = "alterID")
 }
 \references{
 Krackhardt, D., Stern, R.N., 1988. Informal networks and

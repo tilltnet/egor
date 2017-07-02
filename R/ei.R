@@ -8,10 +8,8 @@
 #' to other groups. Additionally, the EI index can be employ as a measurment
 #' for egos tendendy to homo-/heterphily - use the \code{composition} command
 #' for this version.
-#' @param alters \code{List} of alters attribute \code{data.frame}s 
-#' or \code{data.frame} of alter attributes.
-#' @param aaties \code{List} of edgelist-\code{dataframes} or one 
-#' \code{dataframes} #' containing all aaties
+#' @template object
+#' @template aaties
 #' @param var_name \code{Character} naming grouping variable.
 #' @param egoID \code{Character} naming ego ID variable.
 #' @param altID \code{Character} naming alter ID variable.
@@ -24,8 +22,8 @@
 #' @keywords sna
 #' @examples
 #' data("alters32")
-#' data("aaties32")
-#' EI(alters32, aaties32, var_name = "alter.sex")
+#' data("edges32")
+#' EI(alters32, aaties32, var_name = "alter.sex", altID = "alterID")
 #' @export
 EI <- function(object, ...)
   UseMethod("EI", object)
@@ -46,7 +44,7 @@ EI.list <- function(object, aaties, var_name, egoID = "egoID", altID = '.altID')
     
     alters_groups <- split(alters, alters[[var_name]])
     tble_var <- sapply(alters_groups, FUN = NROW)
-    poss_internal <- sapply(tble_var, FUN=egor:::dyad.poss, simplify = T)
+    poss_internal <- sapply(tble_var, FUN=dyad.poss, simplify = T)
     
     poss_external <- sapply(tble_var, FUN=function(x) {
       poss_ext_aaties <- (NROW(alters) - x) * x
@@ -64,7 +62,8 @@ EI.list <- function(object, aaties, var_name, egoID = "egoID", altID = '.altID')
       source_ <- as.numeric(as.character(edge[1,1]))
       target_ <- as.numeric(as.character(edge[1,2]))
     }
-    hm_ht <- ifelse(alters[as.numeric(as.character(alters[[altID]])) == source_, ][[var_name]] == alters[as.numeric(as.character(alters[[altID]])) == target_, ][[var_name]], 'HM', 'HT')
+    hm_ht <- ifelse(alters[as.numeric(as.character(alters[[altID]])) == source_, ][[var_name]] == 
+                    alters[as.numeric(as.character(alters[[altID]])) == target_, ][[var_name]], 'HM', 'HT')
     hm_ht
   }
   
