@@ -24,14 +24,14 @@
 #' data("egor32")
 #' egor_density(egor32)
 #' @export
-ego_density <- function (x, ...) {
-  UseMethod("ego_density", x)
+ego_density <- function (object, ...) {
+  UseMethod("ego_density", object)
 }
 
 
 #' @rdname ego_density
 #' @export
-ego_density.list <- function(x, aaties, weight = NULL, max.netsize = NULL, directed = FALSE) {
+ego_density.list <- function(object, aaties, weight = NULL, max.netsize = NULL, directed = FALSE) {
   if(!is.null(weight)) {
     dyaden_real <- plyr::ldply(aaties, .fun = function(x) sum(x[[weight]], na.rm = T))
     
@@ -39,7 +39,7 @@ ego_density.list <- function(x, aaties, weight = NULL, max.netsize = NULL, direc
     dyaden_real <- plyr::ldply(aaties, .fun = function(x) NROW(x))
   }
   
-  netsize <- unlist(lapply(x, FUN = NROW))
+  netsize <- unlist(lapply(object, FUN = NROW))
   
   if(!is.null(max.netsize)) {
     netsize[netsize > max.netsize] <- max.netsize

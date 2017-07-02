@@ -7,10 +7,10 @@
 \alias{ego_density.data.frame}
 \title{Calculate the relationship density in ego-centered networks}
 \usage{
-ego_density(x, ...)
+ego_density(object, ...)
 
-\method{ego_density}{list}(x, aaties, weight = NULL, max.netsize = NULL,
-  directed = FALSE)
+\method{ego_density}{list}(object, aaties, weight = NULL,
+  max.netsize = NULL, directed = FALSE)
 
 \method{ego_density}{egor}(x, weight = NULL, max.netsize = NULL,
   directed = FALSE)
@@ -19,9 +19,6 @@ ego_density(x, ...)
   max.netsize = NULL, directed = FALSE)
 }
 \arguments{
-\item{x}{Either an \code{egor} object or a \code{data.frame/ list} containg alter-alter
-relations.}
-
 \item{aaties}{\code{data.frame/ list} containg alter attributes
 (not needed if x is an \code{egor} object).}
 
@@ -33,6 +30,9 @@ number of alters whose relations were collected is limited.}
 
 \item{directed}{logical indicating if the alter-alter relation data/ edges
 are directed or undirected.}
+
+\item{x}{Either an \code{egor} object or a \code{data.frame/ list} containg alter-alter
+relations.}
 
 \item{egoID}{Name of ego ID variable. Only needs to be specified if alter
 and alter-alter data is provided in global data.frames.}
