@@ -20,7 +20,7 @@
 #' @keywords ego-centric network analysis
 #' @examples 
 #' data("egor32")
-#' egor_density(egor32)
+#' ego_density(egor32)
 #' @export
 ego_density <- function (object, ...) {
   UseMethod("ego_density", object)

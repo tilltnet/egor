@@ -49,7 +49,7 @@ or \code{data.frames}.
 }
 \examples{
 data("egor32")
-egor_density(egor32)
+ego_density(egor32)
 }
 \keyword{analysis}
 \keyword{ego-centric}
