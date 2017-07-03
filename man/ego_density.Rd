@@ -13,7 +13,7 @@ ego_density(object, ...)
   max.netsize = NULL, directed = FALSE, ...)
 
 \method{ego_density}{egor}(object, weight = NULL, max.netsize = NULL,
-  directed = FALSE)
+  directed = FALSE, ...)
 
 \method{ego_density}{data.frame}(object, aaties, egoID = "egoID",
   weight = NULL, max.netsize = NULL, directed = FALSE, ...)
