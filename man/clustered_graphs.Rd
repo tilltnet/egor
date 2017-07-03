@@ -13,7 +13,7 @@ clustered_graphs(object, ..., clust.groups)
 
 \method{clustered_graphs}{egor}(object, clust.groups, ...)
 
-\method{clustered_graphs}{data.frame}(alters, aaties, clust.groups,
+\method{clustered_graphs}{data.frame}(object, aaties, clust.groups,
   egoID = "egoID", ...)
 }
 \arguments{
