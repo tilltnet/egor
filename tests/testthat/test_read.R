@@ -10,7 +10,7 @@ attr.start.col <- which(names(egos_8) == "alter.sex.1")
 attr.end.col <- which(names(egos_8) == "alter.age.8")
 dy.first.var <- which(names(egos_8) == "X1.to.2")
 
-of <- read.egonet.one.file(egos_8, egos_8$netsize, 
+of <- read.egonet.one.file(egos = egos_8, netsize = egos_8$netsize, 
                            attr.start.col = attr.start.col, 
                            attr.end.col = attr.end.col, 
                            dy.first.var = dy.first.var,

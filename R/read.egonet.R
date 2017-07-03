@@ -85,8 +85,9 @@ wide.to.long <- function(wide, egoID = "egoID", max.alters, start.col, end.col,
   coll_df <- cbind(wide[start.col:end.col], wide[ego.vars])
 
 #' @importFrom stats reshape
-  long <- reshape(coll_df, vary, ids = wide[egoID],
-                  times = times,  direction = 'long')
+  long <- reshape(coll_df, varying = vary, ids = wide[egoID],
+                  times = times,  direction = 'long', 
+                  new.row.names = 1:(NROW(wide)*length(times)))
   
   ### Change names of alterID and egoID variables.
   colnames(long)[which(names(long) == "time")] <- "alterID"
