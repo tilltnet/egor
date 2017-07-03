@@ -19,8 +19,10 @@ egor import function), extracts the graphs object and uses it to visualise
 all networks contained in an interactive Browser Application (R-Shiny).
 }
 \examples{
+\dontrun{
 data("egor32")
 egoR.vis.wizzard(egor32)
+}
 }
 \keyword{analysis}
 \keyword{ego-centric}

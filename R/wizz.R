@@ -9,8 +9,10 @@
 #' functions.
 #' @return Opens an interactive Browser Application.
 #' @examples 
+#' \dontrun{
 #' data("egor32")
 #' egoR.vis.wizzard(egor32)
+#' }
 #' @keywords ego-centric network analysis
 #' @export
 egoR.vis.wizzard <- function(egoR) {
