@@ -9,8 +9,8 @@
 #' functions.
 #' @return Opens an interactive Browser Application.
 #' @examples 
-#' data("egoR32")
-#' egoR.vis.wizzard(egoR32)
+#' data("egor32")
+#' egoR.vis.wizzard(egor32)
 #' @keywords ego-centric network analysis
 #' @export
 egoR.vis.wizzard <- function(egoR) {
