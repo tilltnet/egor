@@ -10,13 +10,13 @@
 ego_density(object, ...)
 
 \method{ego_density}{list}(object, aaties, weight = NULL,
-  max.netsize = NULL, directed = FALSE)
+  max.netsize = NULL, directed = FALSE, ...)
 
 \method{ego_density}{egor}(object, weight = NULL, max.netsize = NULL,
   directed = FALSE)
 
 \method{ego_density}{data.frame}(object, aaties, egoID = "egoID",
-  weight = NULL, max.netsize = NULL, directed = FALSE)
+  weight = NULL, max.netsize = NULL, directed = FALSE, ...)
 }
 \arguments{
 \item{object}{Either an \code{egor} object or a \code{data.frame/ list} 

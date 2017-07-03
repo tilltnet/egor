@@ -31,7 +31,7 @@ EI <- function(object, ...)
 
 #' @rdname EI
 #' @export
-EI.list <- function(object, aaties, var_name, egoID = "egoID", altID = '.altID') {
+EI.list <- function(object, aaties, var_name, egoID = "egoID", altID = '.altID', ...) {
   aaties.list <- aaties
   alters.list <- object
   # Function: calculating possible dyads between a given number of alters/ nodes.
@@ -143,13 +143,13 @@ EI.list <- function(object, aaties, var_name, egoID = "egoID", altID = '.altID')
 
 #' @rdname EI
 #' @export
-EI.egor <- function(object, var_name, egoID = "egoID", altID = '.altID') {
+EI.egor <- function(object, var_name, egoID = "egoID", altID = '.altID', ...) {
   EI(object = object$.alts, aaties = object$.aaties,  var_name = var_name, egoID = egoID, altID = altID)
 }
 
 #' @rdname EI
 #' @export
-EI.data.frame <- function(object, aaties, var_name, egoID = "egoID", altID = '.altID') {
+EI.data.frame <- function(object, aaties, var_name, egoID = "egoID", altID = '.altID', ...) {
   aaties.list <- split(aaties, as.numeric(aaties[[egoID]]))
   alters.list <- split(object, as.numeric(object[[egoID]]))
   EI(alters.list, aaties.list, var_name = var_name, egoID = egoID, altID = altID)

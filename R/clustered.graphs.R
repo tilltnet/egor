@@ -25,7 +25,7 @@ clustered_graphs <- function(object, ..., clust.groups) UseMethod("clustered_gra
 
 #' @rdname clustered_graphs
 #' @export  
-clustered_graphs.list <- function(alters, aaties, clust.groups) {
+clustered_graphs.list <- function(alters, aaties, clust.groups, ...) {
   GetGroupSizes <- function(x) {
     #y <- aggregate(x$alterID, by = x[clust.groups], FUN = NROW)
     y <- data.frame(table(x[clust.groups]))
@@ -131,12 +131,12 @@ clustered_graphs.list <- function(alters, aaties, clust.groups) {
 
 #' @rdname clustered_graphs
 #' @export 
-clustered_graphs.egor <- function(object, clust.groups)
+clustered_graphs.egor <- function(object, clust.groups, ...)
   clustered_graphs(object$.alts, object$.aaties, clust.groups)
 
 #' @rdname clustered_graphs
 #' @export 
-clustered_graphs.data.frame <- function(alters, aaties, clust.groups, egoID = "egoID") {
+clustered_graphs.data.frame <- function(alters, aaties, clust.groups, egoID = "egoID", ...) {
   alters <- split(alters, alters[[egoID]])
   aaties <- split(aaties, aaties[[egoID]])
   alters <- lapply(alters, FUN = function(x) x[2:NCOL(x)])

@@ -30,7 +30,7 @@ ego_density <- function (object, ...) {
 
 #' @rdname ego_density
 #' @export
-ego_density.list <- function(object, aaties, weight = NULL, max.netsize = NULL, directed = FALSE) {
+ego_density.list <- function(object, aaties, weight = NULL, max.netsize = NULL, directed = FALSE, ...) {
   if(!is.null(weight)) {
     dyaden_real <- plyr::ldply(aaties, .fun = function(x) sum(x[[weight]], na.rm = T))
     
@@ -59,13 +59,13 @@ ego_density.list <- function(object, aaties, weight = NULL, max.netsize = NULL, 
 #' @rdname ego_density
 #' @export
 ego_density.egor <- function(object, weight = NULL, max.netsize = NULL, directed = FALSE) {
-  ego_density(object = object$.alts, aaties = object$.aaties,  weight = weight, max.netsize = max.netsize, directed = directed)
+  ego_density(object = object$.alts, aaties = object$.aaties,  weight = weight, max.netsize = max.netsize, directed = directed, ...)
 }
 
 
 #' @rdname ego_density
 #' @export
-ego_density.data.frame <- function(object, aaties, egoID = "egoID", weight = NULL, max.netsize = NULL, directed = FALSE) {
+ego_density.data.frame <- function(object, aaties, egoID = "egoID", weight = NULL, max.netsize = NULL, directed = FALSE, ...) {
   object <- split(object, object[egoID])
   aaties <- split(aaties, aaties[egoID])
   ego_density(object = object, aaties = aaties, weight = weight, max.netsize = max.netsize, directed = directed)

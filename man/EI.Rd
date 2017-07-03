@@ -10,12 +10,12 @@
 EI(object, ...)
 
 \method{EI}{list}(object, aaties, var_name, egoID = "egoID",
-  altID = ".altID")
+  altID = ".altID", ...)
 
-\method{EI}{egor}(object, var_name, egoID = "egoID", altID = ".altID")
+\method{EI}{egor}(object, var_name, egoID = "egoID", altID = ".altID", ...)
 
 \method{EI}{data.frame}(object, aaties, var_name, egoID = "egoID",
-  altID = ".altID")
+  altID = ".altID", ...)
 }
 \arguments{
 \item{object}{Either an \code{egor} object or a \code{data.frame/ list} 
