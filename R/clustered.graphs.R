@@ -136,8 +136,8 @@ clustered_graphs.egor <- function(object, clust.groups, ...)
 
 #' @rdname clustered_graphs
 #' @export 
-clustered_graphs.data.frame <- function(alters, aaties, clust.groups, egoID = "egoID", ...) {
-  alters <- split(alters, alters[[egoID]])
+clustered_graphs.data.frame <- function(object, aaties, clust.groups, egoID = "egoID", ...) {
+  alters <- split(object, object[[egoID]])
   aaties <- split(aaties, aaties[[egoID]])
   alters <- lapply(alters, FUN = function(x) x[2:NCOL(x)])
   aaties <- lapply(aaties, FUN = function(x) x[2:NCOL(x)])
