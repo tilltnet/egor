@@ -4,20 +4,20 @@
 \alias{helper}
 \alias{dyad.poss}
 \alias{sanitize.wide.edges}
-\alias{create.edge.names.wide}
-\alias{dyads.possible.between.groups}
-\alias{din.page.dist}
+\alias{create_edge_names_wide}
+\alias{dyads_possible_between_groups}
+\alias{din_page_dist}
 \title{General helper functions}
 \usage{
 dyad.poss(max.alters, directed = F)
 
 sanitize.wide.edges(max.alters)
 
-create.edge.names.wide(x)
+create_edge_names_wide(x)
 
-dyads.possible.between.groups(x, y)
+dyads_possible_between_groups(x, y)
 
-din.page.dist(x)
+din_page_dist(x)
 }
 \arguments{
 \item{max.alters}{A \code{numeric} giving the maximum number of alters.}
@@ -42,13 +42,13 @@ a wide alter-alter relation \code{data.frame}. Row names corresponds to the
 network size. This is useful for sanitizing alter-alter relations in the wide
 format.
 
-\item \code{create.edge.names.wide}: Creates a \code{vector} of names for variables
+\item \code{create_edge_names_wide}: Creates a \code{vector} of names for variables
 containing data on alter-alter relations/ dyads in ego-centered networks.
 
-\item \code{dyads.possible.between.groups}: Calculates the possible edges between members of
+\item \code{dyads_possible_between_groups}: Calculates the possible edges between members of
 different groups in an ego-centered network.
 
-\item \code{din.page.dist}: Calculates the optimal distribution of a number of
+\item \code{din_page_dist}: Calculates the optimal distribution of a number of
 equally sized objects on a DIN-Norm DIN 476 (i.e. DIN A4) page in landscape
 view.
 }}

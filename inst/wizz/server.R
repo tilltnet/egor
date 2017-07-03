@@ -1,8 +1,9 @@
 library(shiny)
 library(igraph)
+library(tibble)
 
-graphs <- graphs_
-results <- results_
+graphs <- egor::to.network(eigor$.aaties, eigor$.alts)
+results <- as_tibble(eigor)
 colors_ <- blues9
 e_colors <- grey(0.6)
 
@@ -10,6 +11,8 @@ e_colors <- grey(0.6)
 
 
 
+
+egors <- ls(envir = .GlobalEnv)[sapply(mget(ls(envir = .GlobalEnv), envir = .GlobalEnv), function(x) class(x)[1] == "egor")]
 
 shiny::shinyServer(function(input, output) {
   
@@ -105,7 +108,7 @@ shiny::shinyServer(function(input, output) {
     for (result_name in input$disp.results) {
       text(-2 , y_pos_res, 
            paste(sane_disp_results[which(colnames(results) == result_name)],
-          ": ", results[result_name][nnumber, ], sep = ""), adj = c(0,0))
+          ": ", results[nnumber, result_name], sep = ""), adj = c(0,0))
       y_pos_res = y_pos_res - 0.2
     }
     

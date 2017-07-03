@@ -4,7 +4,7 @@
 \name{edges32}
 \alias{edges32}
 \title{32 sets of randomly created alter-alter ties belonging to ego-centered networks}
-\format{A data frame with 32 sets of alter-alter relations and 3 variables:
+\format{A data frame with 32 sets of alter-alter relations and 4 variables:
 \describe{
 \item{egoID}{ego identifier}
 \item{Source}{source alter ID}

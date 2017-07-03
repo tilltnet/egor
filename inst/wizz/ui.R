@@ -1,8 +1,10 @@
 library(shiny)
 library(igraph)
 
-graphs <- graphs_
-results <- results_
+graphs <- egor::to.network(eigor$.aaties, eigor$.alts)
+results <- as_tibble(eigor)
+egors <- ls(envir = .GlobalEnv)[sapply(mget(ls(envir = .GlobalEnv), envir = .GlobalEnv), function(x) class(x)[1] == "egor")]
+
 
 for(i in 1:round(length(graphs))) {
   if(!length(V(graphs[[i]])) < 1) {
@@ -36,7 +38,8 @@ shiny::shinyUI(fluidPage(
     
     shiny::fluidRow(
     shiny::sidebarPanel(
-      
+        shiny::selectInput("egor", "Select egor object", egors),
+        
         shiny::numericInput("nnumber",
                             "Network No.:",
                             step = 1,

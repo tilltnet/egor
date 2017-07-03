@@ -33,17 +33,17 @@ order.edge.list.columns <- function(edges, source_, target) {
 #' alters <- read.csv2(alters.file)
 #' edges <- read.csv2(edges.file)
 #' 
-#' tf <- read.egonet.three.files(egos = egos, alters.df = alters, edges = edges)
+#' tf <- threefiles_to_egor(egos = egos, alters.df = alters, edges = edges)
 #' 
-#' # read.egoweb() and read.openeddi() read the files directly from the disk.
+#' # read_egoweb() and read_openeddi() read the files directly from the disk.
 #' setwd(system.file("extdata", "openeddi", package = "egor"))
-#' oe <- read.openeddi()
+#' oe <- read_openeddi()
 #' 
 #' setwd(system.file("extdata", "egoweb", package = "egor"))
-#' ew <- read.egoweb(alter.file = "alters_32.csv", edges.file = "edges_32.csv", 
+#' ew <- read_egoweb(alter.file = "alters_32.csv", edges.file = "edges_32.csv", 
 #'                   egos.file = "egos_32.csv")
 #' @export
-read.egonet.three.files <- function(egos, alters.df, edges, 
+threefiles_to_egor <- function(egos, alters.df, edges, 
                                     ID.vars = list(ego="egoID", alter="alterID", source="Source", target="Target"),
                                     ego.vars = NULL, ...) {
   # 0. Extract ID var Names
@@ -67,10 +67,10 @@ read.egonet.three.files <- function(egos, alters.df, edges,
   egor(alters.df, egos, edges, ID.vars = IDv, ...)
 }
 
-#' @describeIn read.egonet.three.files This function reads in data from
+#' @describeIn threefiles_to_egor This function reads in data from
 #' an EgoWeb 2.0 survey and transforms it to an egoR object. If no file name for
 #' the egos file is provided ego data is assumed to be merged with alters data
-#' and it will be extracted by \code{read.egoweb}. By default the 
+#' and it will be extracted by \code{read_egoweb}. By default the 
 #' standard ID variable names of EgoWeb are used, if you need to specify the ID
 #' variable names use the ID.vars parameter. Further Information: 
 #' github.com/qualintitative/egoweb
@@ -79,7 +79,7 @@ read.egonet.three.files <- function(egos, alters.df, edges,
 #' @param edges.file A character specifiying the filename of the edge data.
 #' @importFrom utils read.csv
 #' @export
-read.egoweb <- function(alter.file, edges.file, egos.file = NULL, 
+read_egoweb <- function(alter.file, edges.file, egos.file = NULL, 
                         ID.vars = list(ego="EgoID", alter="Alter.Number", source="Alter.1.Number", 
                                        target="Alter.2.Number"), ego.vars = NULL, ...) {
   # Preliminaries - Get ID var Names
@@ -100,19 +100,19 @@ read.egoweb <- function(alter.file, edges.file, egos.file = NULL,
                     alters.df[c(alterID.index, egoID.index)], 
                     alters.df[-c(alterID.index, egoID.index)])
   }
-  read.egonet.three.files(egos = egos, alters.df = alters.df, edges = edges, ID.vars = IDv, ego.vars = ego.vars, ...)
+  threefiles_to_egor(egos = egos, alters.df = alters.df, edges = edges, ID.vars = IDv, ego.vars = ego.vars, ...)
 }
 
 
-#' @describeIn read.egonet.three.files This function reads in data created
+#' @describeIn threefiles_to_egor This function reads in data created
 #' by the openeddi survey software and transforms it to an egoR object. If no 
-#' parameters are provided \code{read.openeddi} will try to find the adequate files
+#' parameters are provided \code{read_openeddi} will try to find the adequate files
 #' in the working directory. By default the standard ID variable names of openeddi
 #' are used, if you need to specify the ID variable names use the ID.vars parameter.
 #' Further Information: www.openeddi.com
 #' @importFrom utils read.csv
 #' @export
-read.openeddi <- function(egos.file =  NULL, 
+read_openeddi <- function(egos.file =  NULL, 
                           alters.file = NULL, 
                           edges.file = NULL, 
                           ID.vars = list(ego="puid",alter="nameid",source="nameid",target="targetid"), 
@@ -132,7 +132,7 @@ read.openeddi <- function(egos.file =  NULL,
   alters.df <- read.csv(alters.file)
   edges <- read.csv(edges.file)
   
-  read.egonet.three.files(egos = egos, alters.df = alters.df, edges = edges, ID.vars = IDv, ego.vars = ego.vars, ...)
+  threefiles_to_egor(egos = egos, alters.df = alters.df, edges = edges, ID.vars = IDv, ego.vars = ego.vars, ...)
 }
 
 

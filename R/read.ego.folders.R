@@ -27,13 +27,13 @@
 #' alters.folder <- system.file("extdata", "alters_32", package = "egor")
 #' edge.folder <-  system.file("extdata", "edges_32", package = "egor")
 #' 
-#' ef <- read.egonet.folders(egos.file = egos.file, 
+#' ef <- read_egonet(egos.file = egos.file, 
 #'                           alter.folder = alters.folder, 
 #'                           edge.folder = edge.folder, 
 #'                           csv.sep = ";")
 #' @importFrom utils read.csv
 #' @export
-read.egonet.folders <- function(egos.file, alter.folder, edge.folder, csv.sep = ",",
+read_egonet <- function(egos.file, alter.folder, edge.folder, csv.sep = ",",
                                 ID.vars=list(ego="egoID", alter="alterID", source="Source", target="Target"),
                                 first.col.row.names = FALSE, ...) {
   IDv <- modifyList(eval(formals()$ID.vars), ID.vars)

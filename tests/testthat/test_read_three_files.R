@@ -10,5 +10,5 @@ egos <- read.csv2(egos.file)
 alters <- read.csv2(alters.file)
 edges <- read.csv2(edges.file)
 
-read.egonet.three.files(egos = egos, alters.df = alters, edges = edges)
+threefiles_to_egor(egos = egos, alters.df = alters, edges = edges)
 

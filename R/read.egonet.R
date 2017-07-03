@@ -265,7 +265,7 @@ add_ego_vars_to_long_df <- function(alters.list, egos.df, ego.vars, netsize) {
 #' 64(1), 83-100.
 #' @keywords import
 #' @export
-read.egonet.one.file <- function(egos, netsize,  egoID = "egoID", 
+onefile_to_egor <- function(egos, netsize,  egoID = "egoID", 
                                  attr.start.col, attr.end.col, dy.max.alters,
                                  dy.first.var, ego.vars = NULL, var.wise = F, ...) {
   
@@ -320,7 +320,7 @@ read.egonet.one.file <- function(egos, netsize,  egoID = "egoID",
 #' @template return_egoR
 #' @keywords import
 #' @export
-read.egonet.two.files <- function(egos, alters, netsize = NULL,
+twofiles_to_egor <- function(egos, alters, netsize = NULL,
                                   ID.vars=list(ego="egoID", alter="alterID", source="Source", target="Target"),
                                   e.max.alters, e.first.var,
                                   ego.vars = NULL, selection = NULL, ...) {

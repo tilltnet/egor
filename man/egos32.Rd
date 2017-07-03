@@ -4,7 +4,7 @@
 \name{egos32}
 \alias{egos32}
 \title{32 randomly created egos belonging to ego-centered networks}
-\format{A data frame with 32 sets of alter-alter relations and 3 variables:
+\format{A data frame with 32 sets of alter-alter relations and 4 variables:
 \describe{
 \item{egoID}{ego identifier}
 \item{sex}{ego's gender}

@@ -28,7 +28,7 @@ sanitize.wide.edges <- function(max.alters) {
   x <- max.alters
   dp <- dyad.poss(x)
   
-  names_ <- create.edge.names.wide(x)
+  names_ <- create_edge_names_wide(x)
   
   m <- matrix(0, nrow = x, ncol = x)
   m[lower.tri(m)] <- 99
@@ -46,7 +46,7 @@ sanitize.wide.edges <- function(max.alters) {
 #' @describeIn helper Creates a \code{vector} of names for variables 
 #' containing data on alter-alter relations/ dyads in ego-centered networks.
 #' @export
-create.edge.names.wide <- function(x) {
+create_edge_names_wide <- function(x) {
   leading.zeros.character <- paste("%0",
                                    nchar(as.character(x)),
                                    "d", sep = "")
@@ -65,13 +65,13 @@ create.edge.names.wide <- function(x) {
 #' @describeIn helper Calculates the possible edges between members of 
 #' different groups in an ego-centered network.
 #' @export
-dyads.possible.between.groups <- function(x, y) x*y
+dyads_possible_between_groups <- function(x, y) x*y
 
 #' @describeIn helper Calculates the optimal distribution of a number of 
 #' equally sized objects on a DIN-Norm DIN 476 (i.e. DIN A4) page in landscape 
 #' view.
 #' @export
-din.page.dist <- function(x) {
+din_page_dist <- function(x) {
   for(yps in 2:x) {
     ix <- x / yps
     if(ix/yps <= sqrt(2)) {

@@ -38,10 +38,10 @@ graphs <- clustered_graphs(alters, aaties, "random.groups")
 graphs <- clustered_graphs(alters.list, edges.list, "random.groups") 
 
 
-# vis.clustered_graphs(graphs, node.min.size = 45, node.max.size = 200,
+# vis_clustered_graphs(graphs, node.min.size = 45, node.max.size = 200,
 #                    labels = T, to.pdf = F)
 # 
-# vis.clustered_graphs(graphs, node.min.size = 45, node.max.size = 200,
+# vis_clustered_graphs(graphs, node.min.size = 45, node.max.size = 200,
 #                    labels = F, to.pdf = T)
 
 # Test if empty categories break.
@@ -61,7 +61,7 @@ edges.list[[1]] <- e
 
 
 graphs_ex <- clustered_graphs(alters.list[1], edges.list[1], "random.groups") 
-#vis.clustered_graphs(graphs_ex, node.min.size = 45, node.max.size = 200,
+#vis_clustered_graphs(graphs_ex, node.min.size = 45, node.max.size = 200,
 #                     labels = F, to.pdf = F)
 
 
@@ -127,25 +127,25 @@ graphs_ex <- clustered_graphs(alters.list[1], edges.list[1], "random.groups")
 # 
 # graphs <- clustered_graphs(a.lomihi, e.lomihi, "alter.age") 
 # #E(graphs[[6]])$grp.density
-# vis.clustered_graphs(graphs)
-# vis.clustered_graphs(graphs, node.size.multiplier = 2, node.max.size = 200, edge.width.multiplier = 40,
+# vis_clustered_graphs(graphs)
+# vis_clustered_graphs(graphs, node.size.multiplier = 2, node.max.size = 200, edge.width.multiplier = 40,
 #                      label.size = 0.8)
 # 
 # 
-# vis.clustered_graphs(graphs, node.size.multiplier = 1, node.min.size = 45, node.max.size = 200, edge.width.multiplier = 40,
+# vis_clustered_graphs(graphs, node.size.multiplier = 1, node.min.size = 45, node.max.size = 200, edge.width.multiplier = 40,
 #                      labels = T, label.size = 1, to.pdf = F)
 # 
-# vis.clustered_graphs(graphs, node.min.size = 45, node.size.multiplier = 0.5, node.max.size = 200,
+# vis_clustered_graphs(graphs, node.min.size = 45, node.size.multiplier = 0.5, node.max.size = 200,
 #                      labels = F, to.pdf = F)
 # 
-# vis.clustered_graphs(graphs, node.min.size = 45, node.max.size = 200,
+# vis_clustered_graphs(graphs, node.min.size = 45, node.max.size = 200,
 #                      labels = F, to.pdf = T, legend.node.size = 70, legend.label.size = 1)
-# vis.clustered_graphs(graphs, node.min.size = 45, node.max.size = 200,
+# vis_clustered_graphs(graphs, node.min.size = 45, node.max.size = 200,
 #                      labels = T, to.pdf = T, legend.node.size = 70, legend.label.size = 1)
 # 
-# vis.clustered_graphs(graphs, node.min.size = 45, node.max.size = 200,
+# vis_clustered_graphs(graphs, node.min.size = 45, node.max.size = 200,
 #                      labels = F, to.pdf = T, legend.label.size = 3)
-# vis.clustered_graphs(graphs, node.min.size = 45, node.max.size = 200,
+# vis_clustered_graphs(graphs, node.min.size = 45, node.max.size = 200,
 #                      labels = F, to.pdf = T, legend.label.size = 3.5)
 #library(igraph)
 #E(graphs[[4]])$grp.density

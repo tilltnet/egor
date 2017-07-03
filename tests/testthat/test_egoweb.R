@@ -5,4 +5,4 @@ library(egor)
 
 # Example
 setwd(system.file("extdata", "egoweb", package = "egor"))
-ew <- read.egoweb(alter.file = "alters_32.csv", edges.file = "edges_32.csv", egos.file = "egos_32.csv")
+ew <- read_egoweb(alter.file = "alters_32.csv", edges.file = "edges_32.csv", egos.file = "egos_32.csv")

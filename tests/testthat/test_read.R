@@ -10,7 +10,7 @@ attr.start.col <- which(names(egos_8) == "alter.sex.1")
 attr.end.col <- which(names(egos_8) == "alter.age.8")
 dy.first.var <- which(names(egos_8) == "X1.to.2")
 
-of <- read.egonet.one.file(egos = egos_8, netsize = egos_8$netsize, 
+of <- onefile_to_egor(egos = egos_8, netsize = egos_8$netsize, 
                            attr.start.col = attr.start.col, 
                            attr.end.col = attr.end.col, 
                            dy.first.var = dy.first.var,
@@ -20,7 +20,7 @@ of <- read.egonet.one.file(egos = egos_8, netsize = egos_8$netsize,
 path_to_alters_8.csv <- system.file("extdata", "alters_8.csv", package = "egor")
 alters_8 <- read.csv2(path_to_alters_8.csv, row.names = 1)
 
-tf <- read.egonet.two.files(egos = egos_8, alters = alters_8, e.max.alters = 8,
+tf <- twofiles_to_egor(egos = egos_8, alters = alters_8, e.max.alters = 8,
                             e.first.var = dy.first.var)
 
 # Folders
@@ -28,7 +28,7 @@ path_to_edges_folder <- system.file("extdata", "edges_32", package = "egor")
 path_to_alters_folder <- system.file("extdata", "alters_32", package = "egor")
 path_to_egos_32.csv <- system.file("extdata", "egos_32.csv", package = "egor")
 
-fo <- read.egonet.folders(egos.file = path_to_egos_32.csv, 
+fo <- read_egonet(egos.file = path_to_egos_32.csv, 
                           edge.folder = paste(path_to_edges_folder, "/", sep = ""),
                           alter.folder = paste(path_to_alters_folder, "/", sep = ""),
                           first.col.row.names = FALSE, csv.sep = ";")

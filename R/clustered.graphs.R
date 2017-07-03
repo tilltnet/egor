@@ -18,7 +18,7 @@
 #' @return \code{clustered_graphs} returns a list of graph objects representing 
 #' the clustered ego-centered network data;
 #' @keywords ego-centric network analysis
-#' @seealso \code{\link{vis.clustered_graphs}} for visualising clustered graphs
+#' @seealso \code{\link{vis_clustered_graphs}} for visualising clustered graphs
 #' @example /inst/examples/ex_cg.R
 #' @export
 clustered_graphs <- function(object, ..., clust.groups) UseMethod("clustered_graphs", object)
@@ -90,7 +90,7 @@ clustered_graphs.list <- function(alters, aaties, clust.groups, ...) {
           
           
           if(j.name != i.name) {
-            grp.possible.dyads <- dyads.possible.between.groups(groups.size.i, groups.size.j)
+            grp.possible.dyads <- dyads_possible_between_groups(groups.size.i, groups.size.j)
           } else {
             grp.possible.dyads <- dyad.poss(groups.size.i)
           }
@@ -149,7 +149,7 @@ clustered_graphs.data.frame <- function(object, aaties, clust.groups, egoID = "e
   
 #' Visualise clustered graphs
 #' 
-#' \code{vis.clustered_graphs} visualises clustered_graphs using a list of
+#' \code{vis_clustered_graphs} visualises clustered_graphs using a list of
 #' clustered graphs created with \code{\link{clustered_graphs}}
 #' created clustered graph objects.
 #' @param graphs \code{List} of \code{graph} objects, representing the clustered
@@ -167,7 +167,7 @@ clustered_graphs.data.frame <- function(object, aaties, clust.groups, egoID = "e
 #' by a 'legend' plot giving the labels of the vertices.
 #' @param legend.node.size \code{Numeric} used as node diameter of legend graph.
 #' @param to.pdf \code{Boolean}.
-#' @return \code{vis.clustered_graphs} plots
+#' @return \code{vis_clustered_graphs} plots
 #' a \code{list} of \code{igraph} objects created by the \code{clustered_graphs}
 #' function.
 #' @references Brandes, U., Lerner, J., Lubbers, M. J., McCarty, C., & Molina, 
@@ -179,7 +179,7 @@ clustered_graphs.data.frame <- function(object, aaties, clust.groups, egoID = "e
 #' @seealso \code{\link{clustered_graphs}} for creating clustered graphs objects
 #' @example /inst/examples/ex_cg.R
 #' @export
-vis.clustered_graphs <- function(graphs, 
+vis_clustered_graphs <- function(graphs, 
                                  node.size.multiplier = 1, 
                                  node.min.size = 0,
                                  node.max.size = 200, 
@@ -309,7 +309,7 @@ vis.clustered_graphs <- function(graphs,
 #' @importFrom grDevices pdf
     pdf(file=filename, width = 46.81, height = 33.11)
     
-    page.xy <- din.page.dist(length(graphs) + 1)
+    page.xy <- din_page_dist(length(graphs) + 1)
 #' @importFrom graphics par
     par(mfrow=c(page.xy[1], page.xy[2]))
   }

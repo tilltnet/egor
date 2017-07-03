@@ -50,7 +50,7 @@ data("egor32")
 graphs <- clustered_graphs(egor32, "alter.age") 
 
 # Visualise
-vis.clustered_graphs(graphs)
+vis_clustered_graphs(graphs)
 }
 \references{
 Brandes, U., Lerner, J., Lubbers, M. J., McCarty, C., & Molina,
@@ -58,7 +58,7 @@ J. L. (2008). Visual Statistics for Collections of Clustered Graphs. 2008
 IEEE Pacific Visualization Symposium, 47-54.
 }
 \seealso{
-\code{\link{vis.clustered_graphs}} for visualising clustered graphs
+\code{\link{vis_clustered_graphs}} for visualising clustered graphs
 }
 \keyword{analysis}
 \keyword{ego-centric}

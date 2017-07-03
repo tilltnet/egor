@@ -4,4 +4,4 @@ data("egor32")
 graphs <- clustered_graphs(egor32, "alter.age") 
 
 # Visualise
-vis.clustered_graphs(graphs)
+vis_clustered_graphs(graphs)
