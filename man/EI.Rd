@@ -44,7 +44,7 @@ for this version.
 \examples{
 data("alters32")
 data("edges32")
-EI(alters32, aaties32, var_name = "alter.sex", altID = "alterID")
+EI(alters32, edges32, var_name = "alter.sex", altID = "alterID")
 }
 \references{
 Krackhardt, D., Stern, R.N., 1988. Informal networks and

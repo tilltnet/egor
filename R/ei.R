@@ -23,7 +23,7 @@
 #' @examples
 #' data("alters32")
 #' data("edges32")
-#' EI(alters32, aaties32, var_name = "alter.sex", altID = "alterID")
+#' EI(alters32, edges32, var_name = "alter.sex", altID = "alterID")
 #' @export
 EI <- function(object, ...)
   UseMethod("EI", object)
