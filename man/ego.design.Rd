@@ -19,6 +19,8 @@ ego.design(x, ...) <- value
 \arguments{
 \item{x}{an \code{\link{egor}} object.}
 
+\item{...}{arguments to be passed to methods}
+
 \item{value}{either \code{survey.design} object (like one constructed by
 \code{\link[=svydesign]{svydesign()}}) or a \code{\link{list}} of arguments to \code{\link[=svydesign]{svydesign()}}
 specifying the sampling design for the egos. If the arguments are

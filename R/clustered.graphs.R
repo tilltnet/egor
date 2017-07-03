@@ -7,11 +7,11 @@
 #' factor variable on the alter level. clustered_graphs() calculates group sizes,
 #' inter- and intragroup densities and these informations in a \code{list} of
 #' \code{igraph} objects.
-#' @param alters \code{List} of \code{data frames} containing the alters 
-#' data.
-#' @param aaties \code{List} of \code{data frames} containing the edge 
-#' lists (= alter-alter relations).
+#' @template object
+#' @template aaties
+#' @template egoID
 #' @param clust.groups A \code{character} naming the \code{factor} variable defining the groups.
+#' @template meth_dots
 #' @references Brandes, U., Lerner, J., Lubbers, M. J., McCarty, C., & Molina, 
 #' J. L. (2008). Visual Statistics for Collections of Clustered Graphs. 2008 
 #' IEEE Pacific Visualization Symposium, 47-54.

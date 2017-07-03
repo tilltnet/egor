@@ -2,6 +2,7 @@
 #' ego in the dataset.
 #'
 #' @param object an [`egor`] object.
+#' @template meth_dots
 #'
 #' @seealso [survey:::weights.survey.design()]
 #'
@@ -47,6 +48,7 @@ weights.egor <- function(object, ...) {
 #' egocentric dataset.
 #'
 #' @param x an [`egor`] object.
+#' @template meth_dots
 #' @docType methods
 #' @export
 ego.design <- function(x, ...) UseMethod("ego.design")

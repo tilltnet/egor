@@ -9,6 +9,8 @@ ego in the dataset.}
 }
 \arguments{
 \item{object}{an \code{\link{egor}} object.}
+
+\item{...}{arguments to be passed to methods}
 }
 \description{
 \code{\link[=weights.egor]{weights.egor()}} extracts the (relative) sampling weights of each

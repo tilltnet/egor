@@ -21,6 +21,7 @@ RESERVED_COLNAMES <- c(".alts", ".aaties", ".egoRow", ".altID", ".srcID", ".tgtI
 #'   information. Currently, the following elements are supported:
 #'   \describe{\item{\code{"max"}}{Maximum number of alters that an
 #'   ego can nominate.}}
+#' @template meth_dots
 #' 
 #' @details If parameters `alters.df`, `egos.df`, and `aaties.df` are
 #'   data frames, they need to share a common ego ID variable, with

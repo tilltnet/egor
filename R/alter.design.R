@@ -4,6 +4,7 @@
 #' an egocentric dataset.
 #'
 #' @param x an [`egor`] object.
+#' @template meth_dots
 #' @docType methods
 #' @export
 alter.design <- function(x, ...) UseMethod("alter.design")

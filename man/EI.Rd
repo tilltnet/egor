@@ -21,6 +21,8 @@ EI(object, ...)
 \item{object}{Either an \code{egor} object or a \code{data.frame/ list} 
 containg alter attributes.}
 
+\item{...}{arguments to be passed to methods}
+
 \item{aaties}{\code{data.frame/ list} containg alter-alter relations as a 
 'global edge list' or as a list of 'edge lists'.
 (not needed if \code{object} is an \code{egor} object).}
@@ -32,14 +34,14 @@ containg alter attributes.}
 \item{altID}{\code{Character} naming alter ID variable.}
 }
 \description{
-The EI-Index compares the intra-group edge density to the outer-group edge
+The EI-Index is the division of the intra-group edge density and the outer-group edge
 density. It can be calculated for the whole network and for subgroups. The
 whole network EI is a metric indicating the tendency of a network to be
 clustered by the categories of a given factor variable. The EI value of a
 groups describes the tendency of a group to be connected or not connected
-to other groups. Additionally, the EI index can be employ as a measurment
+to other groups. Additionally, the EI index can be employed as a measurment
 for egos tendendy to homo-/heterphily - use the \code{composition} command
-for this version.
+for individual EI-Index.
 }
 \examples{
 data("alters32")

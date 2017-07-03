@@ -19,6 +19,8 @@ alter.design(x, ...) <- value
 \arguments{
 \item{x}{an \code{\link{egor}} object.}
 
+\item{...}{arguments to be passed to methods}
+
 \item{which}{name of the alter design setting to query or replace}
 
 \item{value}{if \code{which} is specified, the new value of the

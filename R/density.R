@@ -16,6 +16,7 @@
 #' are directed or undirected.
 #' @param weight \code{Character} naming a variable containing the weight values
 #' of relations. Weights should range from 0 to 1.
+#' @template meth_dots
 #' @return returns a \code{vector} of network density values.
 #' @keywords ego-centric network analysis
 #' @examples 

@@ -53,6 +53,8 @@ information. Currently, the following elements are supported:
 ego can nominate.}}}
 
 \item{x}{an object to be coerced to \code{\link{egor}}.}
+
+\item{...}{arguments to be passed to methods}
 }
 \value{
 An \code{\link{egor}} object. An \code{\link{egor}} is a \code{\link{tibble}} whose
