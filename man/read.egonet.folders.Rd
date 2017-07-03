@@ -63,7 +63,10 @@ egos.file <-  system.file("extdata", "egos_32.csv", package = "egor")
 alters.folder <- system.file("extdata", "alters_32", package = "egor")
 edge.folder <-  system.file("extdata", "edges_32", package = "egor")
 
-ef <- read.egonet.folders(egos.file = egos.file, alter.folder = alters.folder, edge.folder = edge.folder, csv.sep = ";")
+ef <- read.egonet.folders(egos.file = egos.file, 
+                          alter.folder = alters.folder, 
+                          edge.folder = edge.folder, 
+                          csv.sep = ";")
 }
 \keyword{ego-centric}
 \keyword{import}
