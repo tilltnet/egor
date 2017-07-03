@@ -7,7 +7,7 @@
 #' @keywords ego-centric network
 #' @keywords internal
 generate.sample.edge.list <- function(netsize) {
-  dp <- egor:::dyad.poss(netsize)
+  dp <- dyad.poss(netsize)
   Source <- c()
   for (i in 1:netsize) {
     tmp <- rep(i, netsize - i)
