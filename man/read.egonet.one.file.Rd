@@ -45,6 +45,6 @@ and similar social surveys.
 \references{
 Muller, C., Wellman, B., & Marin, A. (1999). How to Use SPSS to
 Study Ego-Centered Networks. Bulletin de Methodologie Sociologique,
-64(1), 83–100.
+64(1), 83-100.
 }
 \keyword{import}
