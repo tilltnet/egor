@@ -129,11 +129,12 @@ subset.egor <- function(x, subset, ..., unit = c("ego","alter","aatie")){
   # Add an .altRow column to each alter
   xa$.alts <- lapply(xa$.alts, function(a) cbind(a, .altRow=seq_len(nrow(a))))
   # Add an .srcRow and .tgtRow column to each alter-alter table
-  xa$.aaties <- mapply(function(a,aa)
-    cbind(aa,
-          .srcRow = match(aa$.srcID, a$.altID),
-          .tgtRow = match(aa$.tgtID, a$.altID)),
-    a=xa$.alts, aa=xa$.aaties, SIMPLIFY=FALSE)
+  if(".aaties"%in%names(xa))
+    xa$.aaties <- mapply(function(a,aa)
+      cbind(aa,
+            .srcRow = match(aa$.srcID, a$.altID),
+            .tgtRow = match(aa$.tgtID, a$.altID)),
+      a=xa$.alts, aa=xa$.aaties, SIMPLIFY=FALSE)
 
   # Call the function to perform indexing
   i <- lapply(rowlist(xa), f, ...)
@@ -199,13 +200,16 @@ subset.egor <- function(x, subset, ..., unit = c("ego","alter","aatie")){
              if(".altID"%in%names(a) && ! ".altID"%in%names(at)) at <- cbind(at, .altID=a$.altID[ai])
              at
            }, a=x$.alts, ai=i, SIMPLIFY=FALSE)
-           x$.aaties <- mapply(function(a, aa){
-             aa[aa$.srcID %in% a$.altID & aa$.tgtID %in% a$.altID,
-                j,drop=FALSE]
-           }, a=x$.alts, aa=x$.aaties, SIMPLIFY=FALSE)
+           if(".aaties"%in%names(x))
+             x$.aaties <- mapply(function(a, aa){
+               aa[aa$.srcID %in% a$.altID & aa$.tgtID %in% a$.altID,
+                  j,drop=FALSE]
+             }, a=x$.alts, aa=x$.aaties, SIMPLIFY=FALSE)
            x
          },
          aatie = {
+           if(! ".aaties"%in%names(x))
+             stop("Attempted indexing of alter-alter ties on an object with no alter-alter ties observed.")
            x$.aaties <- mapply(function(aa, aai){
              aat <- aa[aai,j,drop=FALSE]
              if(! ".srcID"%in%names(aat)) aat <- cbind(aat, .srcID=aa$.srcID[aai])
