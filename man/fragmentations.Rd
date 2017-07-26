@@ -4,13 +4,13 @@
 \alias{fragmentations}
 \title{Network fragments of ego-centerd networks}
 \usage{
-fragmentations(alters.list, aaties.list)
+fragmentations(alters_list, aaties_list)
 }
 \arguments{
-\item{alters.list}{\code{List} of \code{data frames} containing the alters
+\item{alters_list}{\code{List} of \code{data frames} containing the alters
 data.}
 
-\item{aaties.list}{\code{List} of \code{data frames} containing the edge
+\item{aaties_list}{\code{List} of \code{data frames} containing the edge
 lists (= alter-alter relations).}
 }
 \description{

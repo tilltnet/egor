@@ -32,20 +32,23 @@ EI <- function(object, ...)
 #' @rdname EI
 #' @export
 EI.list <- function(object, aaties, var_name, egoID = "egoID", altID = '.altID', ...) {
-  aaties.list <- aaties
-  alters.list <- object
+  
+  aaties_list <- aaties
+  alters_list <- object
+  
   # Function: calculating possible dyads between a given number of alters/ nodes.
-  dyad.poss <- function(max.alters) { (max.alters ^ 2 - max.alters) / 2 }
+  aaties_poss <- function(max.alters) { (max.alters ^ 2 - max.alters) / 2 }
   
   # Function for calculating the possible internal and external aaties.
-  possible_aaties <- function(alters, var_name) {
+  grp_aaties_pos <- function(alters, var_name) {
     
     # Select only those alters for which the variable in question was collected.
     alters <- alters[!is.na(alters[[var_name]]), ]
     
+    # 
     alters_groups <- split(alters, alters[[var_name]])
     tble_var <- sapply(alters_groups, FUN = NROW)
-    poss_internal <- sapply(tble_var, FUN=dyad.poss, simplify = T)
+    poss_internal <- sapply(tble_var, FUN=aaties_poss, simplify = T)
     
     poss_external <- sapply(tble_var, FUN=function(x) {
       poss_ext_aaties <- (NROW(alters) - x) * x
@@ -55,7 +58,7 @@ EI.list <- function(object, aaties, var_name, egoID = "egoID", altID = '.altID',
   }
   
   # Classify a single edge as heterogen or homogen.
-  rows_to_hm_hts <- function(edge, alters) {
+  classify_aatie <- function(edge, alters) {
     if ('Source' %in% names(edge)) {
       source_ <- edge$Source
       target_ <- edge$Target
@@ -70,27 +73,32 @@ EI.list <- function(object, aaties, var_name, egoID = "egoID", altID = '.altID',
   
   # Calculate group and network EIs.
   lists_to_EIs <- function(aaties, alters, altID) {
+    
+    # Return na.df for 'incomplete' networks
     if(NROW(aaties)<1 | !NROW(alters)>1 ) return(na.df)
-    if(length(table(alters[[var_name]])) < 2) return(na.df)
+    if(length(table(factor(alters[[var_name]]))) < 2) return(na.df)
     if(sum(!is.na(alters[[var_name]])) < 2) return(na.df)
+    
     # Make sure alters are sorted and there is a useful altID
     alters <- alters[order(alters[[altID]]), ]
-    #alters[[altID]] <- 1:NROW(alters)
-    
+
     # Function for calulation EI.
     calc.EI <- function(E, I) {(E-I)/(E+I)}
-    # Classify all aaties as homogen, or heterogen.
-    hm_hts <- plyr::adply(aaties, .margins = 1, .fun = rows_to_hm_hts, alters)
+   
+     # Classify all aaties as homogen, or heterogen.
+    hm_hts <- plyr::adply(aaties, .margins = 1, .fun = classify_aatie, alters)
     hm_hts_ <- factor(rev(hm_hts)[[1]], levels = c('HM', 'HT'))
     tble_hm_hts <- table(hm_hts_)
-    #if(is.na(tble_hm_hts[1]) | length(tble_hm_hts)<2) return(na.df)
+
     # Calculate regular EI for whole network.
     EIs <- as.numeric(calc.EI(tble_hm_hts['HT'], tble_hm_hts['HM']))
+    
     # Get possible aaties for all groups (internal and external).
-    poss_int_ext <- possible_aaties(alters, var_name)
+    poss_int_ext <- grp_aaties_pos(alters, var_name)
+    
     # Count internal and external aaties for all groups.
     int_ext <- list()
-    var_levels <- levels(factor(alters[[var_name]]))
+    var_levels <- levels(alters[[var_name]])
     for(i in 1:length(var_levels)) {
       
       alters_ids <- alters[altID][ alters[[var_name]] == var_levels[[i]] , ]
@@ -109,12 +117,15 @@ EI.list <- function(object, aaties, var_name, egoID = "egoID", altID = '.altID',
     } 
     # Dichte für alle Gruppen berechnen. 
     densities <- mapply(function(x,y) x/y, int_ext, poss_int_ext)
+    
     # Calculate group EIs, controlled by group-size.
     group_EIs <- calc.EI(densities[, 2], densities[, 1])
+    
     # Average of group EIs.
     #avg_net_EIs <-  sum(group_EIs)/length(var_levels)
+    
     # Calculate possible external aaties for whole network.
-    poss_all <- dyad.poss(NROW(alters))
+    poss_all <- aaties_poss(NROW(alters))
     poss_ext_all <- poss_all - sum(poss_int_ext$poss_internal)
     
     # Calculate size controlled EI for whole network.
@@ -122,21 +133,37 @@ EI.list <- function(object, aaties, var_name, egoID = "egoID", altID = '.altID',
     sc_e <- (as.numeric(tble_hm_hts['HT']) / poss_ext_all)
     net_EIs_sc <- calc.EI(sc_e, sc_i)
     
+    if(NROW(aaties)<1 | !NROW(alters)>1 ) return(na.df)
+    
     # Return data.frame with all EIs.
     data.frame(EI = EIs, sc_EI = net_EIs_sc, t(group_EIs))
     #data.frame(EI = net_EIs_sc, t(group_EIs))
   }
   
+  # Cast factor() on non factor group vars
+  alters <- do.call(rbind, alters_list)
+  if(!is.factor(alters[[var_name]])) 
+    alters_list <- lapply(alters_list, FUN = function(x) {
+      message("MOOOO")
+      x[[var_name]] <- factor(x[[var_name]])
+      x
+    })
+  
   # Create NA data-frame row for networks with missing data or only a single group
-  alters <- alters.list[[1]]
   na.df <- data.frame(t(c(EI = NA, sc_EI = NA, rep(NA, nlevels(factor(alters[[var_name]]))))))
   names(na.df) <- c(names(na.df)[1:2], levels(factor(alters[[var_name]])))
   na.df <- data.frame(na.df)
   
-  # Invoke mapply on aaties and alters using list_to_EIs.
-  EIs <- mapply(lists_to_EIs, aaties.list, alters.list, MoreArgs = list(altID = altID), SIMPLIFY = F)
-  #class(EIs)
-  lapply(EIs, FUN = function(x) colnames(x) <- colnames(EIs[[1]]))
+  # Invoke list_to_EIs
+  EIs <- mapply(FUN = lists_to_EIs, 
+                aaties_list, 
+                alters_list, 
+                MoreArgs = list(altID = altID), 
+                SIMPLIFY = F)
+
+  lapply(EIs, FUN = function(x) 
+        colnames(x) <- colnames(na.df))
+  
   res <- do.call(rbind, EIs)
   res[2:NCOL(res)]
 }
@@ -150,9 +177,9 @@ EI.egor <- function(object, var_name, egoID = "egoID", altID = '.altID', ...) {
 #' @rdname EI
 #' @export
 EI.data.frame <- function(object, aaties, var_name, egoID = "egoID", altID = '.altID', ...) {
-  aaties.list <- split(aaties, as.numeric(aaties[[egoID]]))
-  alters.list <- split(object, as.numeric(object[[egoID]]))
-  EI(alters.list, aaties.list, var_name = var_name, egoID = egoID, altID = altID)
+  aaties_list <- split(aaties, as.numeric(aaties[[egoID]]))
+  alters_list <- split(object, as.numeric(object[[egoID]]))
+  EI(alters_list, aaties_list, var_name = var_name, egoID = egoID, altID = altID)
 }
 
 
@@ -160,15 +187,15 @@ EI.data.frame <- function(object, aaties, var_name, egoID = "egoID", altID = '.a
 #'
 #' Calculate the count of fragments ego-centered networks form, if their 
 #' respective egos are removed from the network.
-#' @param alters.list \code{List} of \code{data frames} containing the alters 
+#' @param alters_list \code{List} of \code{data frames} containing the alters 
 #' data.
-#' @param aaties.list \code{List} of \code{data frames} containing the edge 
+#' @param aaties_list \code{List} of \code{data frames} containing the edge 
 #' lists (= alter-alter relations).
 #' @keywords ego-centered network
 #' @keywords sna
 #' @export
-fragmentations <- function(alters.list, aaties.list) { #!# This function should be taken out soon!
-  graphs <- to.network(aaties.list, alters.list)
+fragmentations <- function(alters_list, aaties_list) { #!# This function should be taken out soon! -> Example in WS Script!
+  graphs <- to.network(aaties_list, alters_list)
   frags <- lapply(graphs, FUN = 
                     function(x) igraph::clusters(x)$no)
   data.frame(fragmentations = unlist(frags))$fragmentations
