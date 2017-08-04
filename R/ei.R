@@ -140,19 +140,21 @@ EI.list <- function(object, aaties, var_name, egoID = "egoID", altID = '.altID',
     #data.frame(EI = net_EIs_sc, t(group_EIs))
   }
   
-  # Cast factor() on non factor group vars
-  alters <- do.call(rbind, alters_list)
-  if(!is.factor(alters[[var_name]])) 
-    alters_list <- lapply(alters_list, FUN = function(x) {
-      message("MOOOO")
-      x[[var_name]] <- factor(x[[var_name]])
-      x
-    })
+
   
   # Create NA data-frame row for networks with missing data or only a single group
+  alters <- do.call(rbind, alters_list)
   na.df <- data.frame(t(c(EI = NA, sc_EI = NA, rep(NA, nlevels(factor(alters[[var_name]]))))))
-  names(na.df) <- c(names(na.df)[1:2], levels(factor(alters[[var_name]])))
+  glob_levels <- c(names(na.df)[1:2], levels(factor(alters[[var_name]])))
+  names(na.df) <- glob_levels
   na.df <- data.frame(na.df)
+  
+  # Cast factor() on non factor group vars
+  if(!is.factor(alters[[var_name]])) 
+    alters_list <- lapply(alters_list, FUN = function(x) {
+      x[[var_name]] <- factor(x[[var_name]], levels = glob_levels)
+      x
+    })
   
   # Invoke list_to_EIs
   EIs <- mapply(FUN = lists_to_EIs, 
@@ -163,7 +165,7 @@ EI.list <- function(object, aaties, var_name, egoID = "egoID", altID = '.altID',
 
   lapply(EIs, FUN = function(x) 
         colnames(x) <- colnames(na.df))
-  
+  1
   res <- do.call(rbind, EIs)
   res[2:NCOL(res)]
 }
@@ -183,21 +185,5 @@ EI.data.frame <- function(object, aaties, var_name, egoID = "egoID", altID = '.a
 }
 
 
-#' Network fragments of ego-centerd networks
-#'
-#' Calculate the count of fragments ego-centered networks form, if their 
-#' respective egos are removed from the network.
-#' @param alters_list \code{List} of \code{data frames} containing the alters 
-#' data.
-#' @param aaties_list \code{List} of \code{data frames} containing the edge 
-#' lists (= alter-alter relations).
-#' @keywords ego-centered network
-#' @keywords sna
-#' @export
-fragmentations <- function(alters_list, aaties_list) { #!# This function should be taken out soon! -> Example in WS Script!
-  graphs <- to.network(aaties_list, alters_list)
-  frags <- lapply(graphs, FUN = 
-                    function(x) igraph::clusters(x)$no)
-  data.frame(fragmentations = unlist(frags))$fragmentations
-}
+
 
