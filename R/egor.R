@@ -174,6 +174,9 @@ summary.egor <- function(object, ...) {
   nts <- survey::svymean(unlist(lapply(object$.alts, FUN = NROW)), 
                           ego.design(object))
   
+  # Total number of alters
+  alts_count <- sum(unlist(lapply(object$.alts, FUN = NROW)))
+  
   # Average density
   if(".aaties" %in% names(object)) 
     dens <- survey::svymean(ego_density(object), ego.design(object)) 
@@ -181,6 +184,7 @@ summary.egor <- function(object, ...) {
     dens <- NULL
   
   cat(paste(nc, "Egos/ Ego Networks", "\nAverage Netsize", nts, "\n"))
+  cat(paste(alts_count, "Alters"))
   if(!is.null(dens)) cat(paste("Average Density", dens))
 
   # Meta Data
