@@ -154,10 +154,6 @@ egor <- function(alters.df, egos.df = NULL, aaties.df = NULL, ID.vars=list(ego="
   egor
 }
 
-filter_egor <- function(egor, obj = c(".alts", ".aaties"), cond) {
-  
-}
-
 #' Methods to print and summarize [`egor`] objects
 #'
 #' @param object,x an [`egor`] object.
@@ -179,12 +175,13 @@ summary.egor <- function(object, ...) {
   
   # Average density
   if(".aaties" %in% names(object)) 
-    dens <- survey::svymean(ego_density(object), ego.design(object)) 
+    dens <- survey::svymean(ego_density(object), ego.design(object), na.rm = T) 
   else 
     dens <- NULL
   
-  cat(paste(nc, "Egos/ Ego Networks", "\nAverage Netsize", nts, "\n"))
-  cat(paste(alts_count, "Alters"))
+  cat(paste(nc, "Egos/ Ego Networks", 
+            paste("\n", alts_count, "Alters"),
+            "\nAverage Netsize", nts, "\n"))
   if(!is.null(dens)) cat(paste("Average Density", dens))
 
   # Meta Data
@@ -200,9 +197,13 @@ summary.egor <- function(object, ...) {
 #' @export
 #' @method print egor
 #' @import tibble
+#' @importFrom dplyr group_vars
 print.egor <- function(x, ...) {
   print(as_tibble(x))
   print(attr(x,"ego.design"))
+  if("grouped_df" %in% class(x))
+     cat("Grouped by: ")
+     cat(group_vars(x))
 }
 
 #' @rdname egor
