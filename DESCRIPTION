@@ -26,6 +26,7 @@ Description: egor aids with the process of importing, analysing
 License: AGPL-3
 Imports:
     igraph,
+    network,
     shiny,
     plyr,
     survey,
