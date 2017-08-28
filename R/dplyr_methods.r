@@ -5,6 +5,15 @@ restore_egor_attributes <- function(result, egor_obj) {
   attrs_new <- attributes(result)
   attrs_new <- attrs_new[!names(attrs_new) %in% names(attrs_old)]
   attributes(result) <-  c(attrs_old, attrs_new)
+  update_ego_design(result)
+}
+
+update_ego_design <- function(result) {
+  new_variables <- as_tibble(result)
+  attr_keep <- attributes(new_variables)
+  attr_keep <- attr_keep[names(attr_keep) %in% c("names", "row.names", "class")]
+  attributes(new_variables) <- attr_keep
+  attributes(result)$ego.design$variables <- new_variables
   result
 }
 
@@ -22,7 +31,7 @@ transmute.egor <- function(.data, ...) {
   restore_egor_attributes(result, .data)
 }
 
-# select seems to keep attributes already
+# select seems to maintain attributes already
 #' @export
 #' @noRd
 select.egor <- function(.data, ...) {
@@ -34,7 +43,10 @@ select.egor <- function(.data, ...) {
 #' @noRd
 filter.egor <- function(.data, ...) {
   result <- NextMethod()
-  restore_egor_attributes(result, .data)
+  result <- restore_egor_attributes(result, .data)
+  ed <- attributes(result)$ego.design
+  attributes(result)$ego.design <- subset(ed, subset = ...)
+  result
 }
 
 #' @export
