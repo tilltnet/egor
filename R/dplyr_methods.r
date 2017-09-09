@@ -42,23 +42,16 @@ select.egor <- function(.data, ...) {
 #' @export
 #' @noRd
 filter.egor <- function(.data, ...) {
+  lrow_ix <- NROW(.data)
+  #' @importFrom dplyr bind_cols
+  .data <- bind_cols(.data, tmp_ix__ = 1:lrow_ix)
   result <- NextMethod()
   result <- restore_egor_attributes(result, .data)
   ed <- attributes(result)$ego.design
-  attributes(result)$ego.design <- subset(ed, subset = ...)
-  result
+  attributes(result)$ego.design <- ed[result$tmp_ix__, ]
+  #' @importFrom dplyr select
+  select(result, -tmp_ix__)
 }
-
-#' @export
-#' @noRd
-summarise.egor <- function(.data, ...) {
-  result <- NextMethod()
-  restore_egor_attributes(result, .data)
-}
-
-#' @export
-#' @noRd
-summarize.egor <- summarise.egor
 
 #' @export
 #' @noRd

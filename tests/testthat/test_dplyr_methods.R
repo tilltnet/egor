@@ -1,5 +1,5 @@
 library(testthat)
-
+library(dplyr)
 data(egor32)
 
 # Mutate
@@ -17,7 +17,7 @@ res <- rename(egor32, pim = "sex")
 expect_is(res, "egor")
 
 # Filter
-res <- filter(egor32, sex == "w", age == "18 - 25") # This will currently not subset the svydesign object corretly...
+res <- filter(egor32, sex == "w", age == "18 - 25") # This will currently not subset the svydesign object correctly...
 res <- filter(egor32, sex == "w" & age == "18 - 25") # ...while this will.
 expect_is(res, "egor")
 
