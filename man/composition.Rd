@@ -2,14 +2,24 @@
 % Please edit documentation in R/composition.R
 \name{composition}
 \alias{composition}
+\alias{composition.list}
+\alias{composition.egor}
+\alias{composition.data.frame}
 \title{Calculate compositional measurements (Proportion, Diversity, EI-Index)}
 \usage{
-composition(alters, v_alt, netsize, egoID = "egoID", v_ego = NULL,
-  mode = "regular")
+composition(object, ...)
+
+\method{composition}{list}(object, v_alt, netsize, egoID = "egoID",
+  v_ego = NULL, mode = "regular")
+
+\method{composition}{egor}(object, v_alt, netsize, egoID = "egoID",
+  v_ego = NULL, mode = "regular")
+
+\method{composition}{data.frame}(object, v_alt, netsize, egoID = "egoID",
+  v_ego = NULL, mode = "regular")
 }
 \arguments{
-\item{alters}{\code{Data frame} containing alters data (alters as cases),
-alters are separated by a variable containg an egoID.}
+\item{object}{An egor object, a list or data.frame of alter attributes.}
 
 \item{v_alt}{A character naming the variable containg the alter-attribute.}
 

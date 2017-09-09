@@ -103,7 +103,7 @@ comp.diversity <- function(cat.counts, netsize) {
 #' network, the absolute count of groups present and, if provided the 
 #' corresponding ego attribute, the EI-Index is employed as a measurment for ego's tendency
 #' to homo-/heterophily.
-#' @template alters
+#' @param object An egor object, a list or data.frame of alter attributes.
 #' @param v_alt A character naming the variable containg the alter-attribute.
 #' @template netsize
 #' @template egoID
@@ -134,10 +134,30 @@ comp.diversity <- function(cat.counts, netsize) {
 #' # be helpful in many cases:
 #' cbind(res, ego.sex)
 #' @export
-composition <- function (alters, v_alt, netsize, egoID = "egoID", v_ego = NULL, mode = "regular") { # regular, all
+composition <- function (object, ...) {
+  UseMethod("composition", object)
+}
+
+#' @rdname composition
+#' @export
+composition.list <- function(object, v_alt, netsize, egoID = "egoID", v_ego = NULL, mode = "regular"){
+  object <- do.call(rbind, object)
+  NextMethod()
+}
+
+#' @rdname composition
+#' @export
+composition.egor <- function(object, v_alt, netsize, egoID = "egoID", v_ego = NULL, mode = "regular") {
+  object <- as_alts_df(object, T)
+  NextMethod()
+}
+
+#' @rdname composition
+#' @export
+composition.data.frame <- function (object, v_alt, netsize, egoID = "egoID", v_ego = NULL, mode = "regular") { # regular, all
   ## Generate category counts/ proportions.
-  cat_counts <- comp.cat.counts(alters, var = v_alt, fun = fun.count, egoID = egoID)
-  cat_counts_prop <- comp.cat.counts(alters, var = v_alt, fun = fun.prop , egoID = egoID)
+  cat_counts <- comp.cat.counts(object, var = v_alt, fun = fun.count, egoID = egoID)
+  cat_counts_prop <- comp.cat.counts(object, var = v_alt, fun = fun.prop , egoID = egoID)
   names(cat_counts_prop) <- paste("prop", colnames(cat_counts_prop), sep = "_")
   
   ## Insert NAs, when netsize is zero or NA.
