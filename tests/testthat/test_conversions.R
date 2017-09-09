@@ -1,0 +1,64 @@
+library(testthat)
+library(dplyr)
+library(egor)
+
+data("egor32")
+
+
+
+egor32$.alts <- lapply(egor32$.alts, FUN = function(x) {
+  x$int_var <- sample(1:3, NROW(x), replace  = T)
+  x
+})
+
+egor32$networks <- to_network(egor32)
+network::list.vertex.attributes(egor32$networks[[1]])
+network::list.edge.attributes(egor32$networks[[1]])
+network::get.edge.attribute(egor32$networks[[1]], "na")
+network::get.edge.attribute(egor32$networks[[1]], "weight")
+
+egor32$networks <- to_network(egor32, include.ego = T, ego.attrs = "sex", ego.alter.weights = "int_var")
+egor32$networks <- to_network(egor32, include.ego = T)
+network::get.edge.attribute(egor32$networks[[1]], "weight")
+network::get.vertex.attribute(egor32$networks[[1]], "sex")
+
+
+
+network::get.vertex.attribute(egor32$networks[[1]], "vertex.names")
+network::list.vertex.attributes(egor32$networks[[1]])
+network::add.vertices(nn, 1, vattr=asdf)
+get.vertex.attribute(nn, "vertex.names")
+list.vertex.attributes(nn)
+
+
+egor32$igraphs <- to_igraph(egor32, include.ego = T)
+get.vertex.attribute(egor32$igraphs[[1]])
+egor32$igraphs <- to_igraph(egor32, include.ego = T, ego.attrs = c("sex", "age"), ego.alter.weights = "int_var")
+get.vertex.attribute(egor32$igraphs[[1]])
+get.edge.attribute(egor32$igraphs[[1]])
+
+
+names(egor32)
+egor32$.alts <- lapply(egor32$.alts, FUN = function(x) {
+  names(x)[2:4] <- c("sex", "age", "weight")
+  x
+})
+
+egor32$igraphs <- to_igraph(egor32, include.ego = T, ego.attrs = c("sex", "age"), ego.alter.weights = "weight")
+egor32$networks <- to_network(egor32, include.ego = T, ego.attrs = c("sex", "age"), ego.alter.weights = "weight")
+
+V(egor32$igraphs[[1]])$age
+
+# Global alters dataframe
+as_alts_df(egor32)
+as_alts_df(egor32, F)
+as_alts_df(egor32, F, T)
+
+egor32 %>% select(-egoID) %>% as_alts_df(F)
+
+# Global alter-alter ties
+as_ties_df(egor32)
+as_ties_df(egor32, F)
+as_ties_df(egor32, F, T)
+as_ties_df(egor32, F, T, T)
+as_ties_df(egor32, F, F, T)
