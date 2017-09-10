@@ -152,7 +152,7 @@ EI.list <- function(object, aaties, var_name, egoID = "egoID", altID = '.altID',
   # Cast factor() on non factor group vars
   if(!is.factor(alters[[var_name]])) 
     alters_list <- lapply(alters_list, FUN = function(x) {
-      x[[var_name]] <- factor(x[[var_name]], levels = glob_levels)
+      x[[var_name]] <- factor(x[[var_name]], levels = levels(factor(alters[[var_name]])))
       x
     })
   
