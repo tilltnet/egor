@@ -363,7 +363,7 @@ twofiles_to_egor <- function(egos, alters, netsize = NULL,
   }
 
   message("Splitting alters data into list entries for each network: $alters.list")
-  attributes_ <- long.df.to.list(long = alters, netsize = netsize, egoID = IDv$ego,
+  alters <- long.df.to.list(long = alters, netsize = netsize, egoID = IDv$ego,
                                 back.to.df = F)
   
   message("Transforming wide edge data to edgelist: $edges")
@@ -371,12 +371,6 @@ twofiles_to_egor <- function(egos, alters, netsize = NULL,
                                    max.alters = e.max.alters, 
                                    alters.list = alters.list, selection = selection)
   
-
-  # Create Global edge list
-  aaties <- mapply(FUN = function(x, y) data.frame(egoID = y, x), elist, egos[[IDv$ego]], SIMPLIFY = F)
-  
-  aaties.df <- do.call(rbind, aaties)
-  
   # Return:
-  egor(alters, egos, aaties.df, ID.vars = IDv, ...)
+  egor(alters, egos, elist, ID.vars = IDv, ...)
 }
