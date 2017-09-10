@@ -148,7 +148,7 @@ composition.list <- function(object, v_alt, netsize, egoID = "egoID", v_ego = NU
 #' @rdname composition
 #' @export
 composition.egor <- function(object, v_alt, netsize, egoID = "egoID", v_ego = NULL, mode = "regular") {
-  object <- as_alts_df(object, T)
+  object <- as_alts_df(object, egoID = egoID)
   NextMethod()
 }
 
