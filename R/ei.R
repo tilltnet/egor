@@ -73,7 +73,7 @@ EI.list <- function(object, aaties, var_name, egoID = "egoID", altID = '.altID',
   
   # Calculate group and network EIs.
   lists_to_EIs <- function(aaties, alters, altID) {
-    
+    print(alters$alterID.1)
     # Return na.df for 'incomplete' networks
     if(NROW(aaties)<1 | !NROW(alters)>1 ) return(na.df)
     if(length(table(factor(alters[[var_name]]))) < 2) return(na.df)
@@ -140,7 +140,7 @@ EI.list <- function(object, aaties, var_name, egoID = "egoID", altID = '.altID',
     #data.frame(EI = net_EIs_sc, t(group_EIs))
   }
   
-
+  
   
   # Create NA data-frame row for networks with missing data or only a single group
   alters <- do.call(rbind, alters_list)
@@ -165,7 +165,7 @@ EI.list <- function(object, aaties, var_name, egoID = "egoID", altID = '.altID',
 
   lapply(EIs, FUN = function(x) 
         colnames(x) <- colnames(na.df))
-  1
+  
   res <- do.call(rbind, EIs)
   res[2:NCOL(res)]
 }
@@ -181,7 +181,7 @@ EI.egor <- function(object, var_name, egoID = "egoID", altID = '.altID', ...) {
 EI.data.frame <- function(object, aaties, var_name, egoID = "egoID", altID = '.altID', ...) {
   aaties_list <- split(aaties, as.numeric(aaties[[egoID]]))
   alters_list <- split(object, as.numeric(object[[egoID]]))
-  EI(alters_list, aaties_list, var_name = var_name, egoID = egoID, altID = altID)
+  EI(object = alters_list, aaties = aaties_list, var_name = var_name, egoID = egoID, altID = altID)
 }
 
 
