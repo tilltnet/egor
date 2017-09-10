@@ -5,21 +5,20 @@
 \alias{as_ties_df}
 \title{Create global alters and alter-alter relations dataframes from an egor object}
 \usage{
-as_alts_df(object, create.egoID = T, include.ego.vars = F)
+as_alts_df(object, egoID = "egoID", include.ego.vars = F)
 
-as_ties_df(object, create.egoID = T, include.ego.vars = F,
-  include.alt.vars = F, egoID = "egoID")
+as_ties_df(object, egoID = "egoID", include.ego.vars = F,
+  include.alt.vars = F, aatie_vars = c(".srcID", "tgtID"))
 }
 \arguments{
 \item{object}{An egor object.}
 
-\item{create.egoID}{Logical, specifying if an ego identifier should be created.}
+\item{egoID}{Character, naming the variable used to identify egos. If this variable does not exist,
+a new variable with the specified name is created.}
 
 \item{include.ego.vars}{Logical, specifying if ego variables should be included in the result.}
 
 \item{include.alt.vars}{Logical, specifying if alter variables should be included in the result.}
-
-\item{egoID}{Character, naming the variable used to identify egos.}
 }
 \description{
 Provided an egor-object, these functions create a 'global' \code{data.frame},

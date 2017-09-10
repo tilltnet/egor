@@ -146,10 +146,10 @@ to_network <- function(object,
 #' are useful for advanced analysis procedures, e.g. multi-level regressions.
 #' 
 #' @param object An egor object.
-#' @param create.egoID Logical, specifying if an ego identifier should be created.
+#' @param egoID Character, naming the variable used to identify egos. If this variable does not exist,
+#' a new variable with the specified name is created.
 #' @param include.ego.vars Logical, specifying if ego variables should be included in the result.
 #' @param include.alt.vars Logical, specifying if alter variables should be included in the result.
-#' @param egoID Character, naming the variable used to identify egos.
 #' @examples 
 #' # Load example data
 #' data(egor32)
@@ -171,42 +171,68 @@ to_network <- function(object,
 #' as_ties_df(egor32, include.alt.vars = T)
 
 #' @export
-as_alts_df <- function(object, create.egoID = T, include.ego.vars = F) {
-  if(create.egoID) object$egoID <- 1:NROW(object)
+as_alts_df <- function(object, egoID = "egoID", include.ego.vars = F) {
+  alts_names <- names(object$.alts[[1]])
   
+  # Check if egoID is present in ego vars; yes: delete  (possibly existing) 
+  # egoID from alters list; no: check if egoID does not exisit in alter list; 
+  # yes: create new egoID with name specfied in egoID param
+  if(egoID %in% names(object)) {
+    object$.alts <- lapply(object$.alts, FUN = function(x) {
+      x[, !names(x) %in% egoID]
+    }) 
+    alts_names <- names(object$.alts[[1]])
+  } else if(!egoID %in% alts_names) {
+    object[egoID] <- 1:NROW(object)
+  }
+    
   object <- tibble::as_tibble(object)
-  ego_vars <- names(object)[!names(object) %in% c("egoID",  ".alts")]
+  ego_names <- names(object)[!names(object) %in% c(".alts", egoID)]
   
   object <- tidyr::unnest_(object,  ".alts")
-  if(!include.ego.vars)
-    object[, !names(object) %in% ego_vars]
-  else
+  if(!include.ego.vars) {
+    object <- object[, !names(object) %in% c(ego_names)]
+    names(object)[2:NCOL(object)] <- alts_names
     object
+  } else {
+    object
+  }
 }
 
 #' @rdname as_alts_df
 #' @export
 as_ties_df <- function(object, 
-                       create.egoID = T, 
+                       egoID = "egoID", 
                        include.ego.vars = F,
                        include.alt.vars = F,
-                       egoID = "egoID") {
+                       aatie_vars = c(".srcID", "tgtID")) {
+  aaties_names <- names(object$.aaties[[1]])
   
-  if(create.egoID) object$egoID <- 1:NROW(object)
-  
+  # Check if egoID is present in ego vars; yes: delete (possibly existing) 
+  # egoID from aaties list; no: check if egoID does not exisit in aaties list; 
+  # yes: create new egoID with name specfied in egoID param
+  if(egoID %in% names(object)) {
+    object$.aaties <- lapply(object$.aaties, FUN = function(x) {
+      x[, !names(x) %in% egoID]
+    }) 
+    aaties_names <- names(object$.aaties[[1]])
+  } else if(!egoID %in% aaties_names) {
+    object[egoID] <- 1:NROW(object)
+  }
+
   result <- tibble::as_tibble(object)
-  ego_vars <- names(result)[!names(result) %in% c("egoID",  ".alts")]
+  ego_names <- names(result)[!names(result) %in% c(".alts", ".aaties", egoID)]
   
   result <- tidyr::unnest_(result,  ".aaties")
   
   if(include.alt.vars) {
-    .alts <- as_alts_df(object, F)
+    .alts <- as_alts_df(object, egoID = egoID)
     result <- full_join(result, .alts, by = c(".srcID" = ".altID", egoID))
     result <- full_join(result, .alts, by = c(".tgtID" = ".altID", egoID))
   }
   
   if(!include.ego.vars)
-    result[, !names(result) %in% ego_vars]
+    result[, !names(result) %in% ego_names]
   else
     result
 }

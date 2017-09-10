@@ -50,15 +50,21 @@ egor32$networks <- to_network(egor32, include.ego = T, ego.attrs = c("sex", "age
 V(egor32$igraphs[[1]])$age
 
 # Global alters dataframe
+as_alts_df(egor32, "ID")
 as_alts_df(egor32)
-as_alts_df(egor32, F)
-as_alts_df(egor32, F, T)
+
 
 egor32 %>% select(-egoID) %>% as_alts_df(F)
 
 # Global alter-alter ties
 as_ties_df(egor32)
-as_ties_df(egor32, F)
-as_ties_df(egor32, F, T)
-as_ties_df(egor32, F, T, T)
-as_ties_df(egor32, F, F, T)
+
+as_ties_df(object = egor32, include.alt.vars = T)
+
+# Same names in egos and alter vars
+egor32$.alts <- lapply(egor32$.alts, FUN = function(x) {
+  names(x)[2:3] <- c("sex", "age")
+  x
+})
+
+as_alts_df(egor32)
