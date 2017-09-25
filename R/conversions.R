@@ -24,7 +24,7 @@ NULL
 #' @describeIn convert_egor Creates a list of igraph objects from an
 #' egor object.
 #' @export
-to_igraph <- function(object, 
+as_igraph <- function(object, 
                       directed = F, 
                       include.ego = F, 
                       ego.attrs = NULL, 
@@ -82,7 +82,7 @@ to_igraph <- function(object,
 #' @importFrom network network 
 #' @importFrom network set.vertex.attribute 
 #' @importFrom network set.edge.attribute
-to_network <- function(object, 
+as_network <- function(object, 
                        directed = F, 
                        include.ego = F, 
                        ego.attrs = NULL, 

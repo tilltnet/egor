@@ -2,14 +2,14 @@
 % Please edit documentation in R/conversions.R
 \name{convert_egor}
 \alias{convert_egor}
-\alias{to_igraph}
-\alias{to_network}
+\alias{as_igraph}
+\alias{as_network}
 \title{Convert egor object to network or igraph objects}
 \usage{
-to_igraph(object, directed = F, include.ego = F, ego.attrs = NULL,
+as_igraph(object, directed = F, include.ego = F, ego.attrs = NULL,
   ego.alter.weights = NULL)
 
-to_network(object, directed = F, include.ego = F, ego.attrs = NULL,
+as_network(object, directed = F, include.ego = F, ego.attrs = NULL,
   ego.alter.weights = NULL)
 }
 \arguments{
@@ -38,10 +38,10 @@ object (see example).
 }
 \section{Functions}{
 \itemize{
-\item \code{to_igraph}: Creates a list of igraph objects from an
+\item \code{as_igraph}: Creates a list of igraph objects from an
 egor object.
 
-\item \code{to_network}: Creates a list of statnet's network objects, from an
+\item \code{as_network}: Creates a list of statnet's network objects, from an
 egor object.
 }}
 
