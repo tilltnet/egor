@@ -1,8 +1,8 @@
 Package: egor
 Type: Package
 Title: Import and analyse ego-centric network data
-Version: 0.17.01-296
-Date: 2017-08-29
+Version: 0.17.01-307
+Date: 2017-10-23
 Authors@R: c(
     person("Markus", "Gamper", email = "m.gamper@uni-koeln.de",
     role = c("aut")),
@@ -39,5 +39,5 @@ Suggests:
     knitr,
     testthat
 VignetteBuilder: knitr
-RoxygenNote: 6.0.1
+RoxygenNote: 6.0.1.9000
 Roxygen: list(markdown = TRUE)

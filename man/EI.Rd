@@ -18,12 +18,12 @@ EI(object, ...)
   altID = ".altID", ...)
 }
 \arguments{
-\item{object}{Either an \code{egor} object or a \code{data.frame/ list} 
+\item{object}{Either an \code{egor} object or a \code{data.frame/ list}
 containg alter attributes.}
 
 \item{...}{arguments to be passed to methods}
 
-\item{aaties}{\code{data.frame/ list} containg alter-alter relations as a 
+\item{aaties}{\code{data.frame/ list} containg alter-alter relations as a
 'global edge list' or as a list of 'edge lists'.
 (not needed if \code{object} is an \code{egor} object).}
 

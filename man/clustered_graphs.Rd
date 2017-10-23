@@ -17,14 +17,14 @@ clustered_graphs(object, ..., clust.groups)
   egoID = "egoID", ...)
 }
 \arguments{
-\item{object}{Either an \code{egor} object or a \code{data.frame/ list} 
+\item{object}{Either an \code{egor} object or a \code{data.frame/ list}
 containg alter attributes.}
 
 \item{...}{arguments to be passed to methods}
 
 \item{clust.groups}{A \code{character} naming the \code{factor} variable defining the groups.}
 
-\item{aaties}{\code{data.frame/ list} containg alter-alter relations as a 
+\item{aaties}{\code{data.frame/ list} containg alter-alter relations as a
 'global edge list' or as a list of 'edge lists'.
 (not needed if \code{object} is an \code{egor} object).}
 

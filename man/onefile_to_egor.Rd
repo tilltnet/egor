@@ -4,23 +4,41 @@
 \alias{onefile_to_egor}
 \title{Import ego-centric network data from 'one file format'}
 \usage{
-onefile_to_egor(egos, netsize, egoID = "egoID", attr.start.col, attr.end.col,
-  dy.max.alters, dy.first.var, ego.vars = NULL, var.wise = F, ...)
+onefile_to_egor(egos, netsize, ID.vars = list(ego = "egoID"), attr.start.col,
+  attr.end.col, max.alters, aa.first.var, ego.vars = NULL, var.wise = F,
+  ...)
 }
 \arguments{
 \item{egos}{\code{Data frame} containg ego data (egos as cases)}
 
 \item{netsize}{\code{Vector} containing values of network size per ego.}
 
-\item{egoID}{\code{Character}. Name of the variable identifying egos (default: "egoID").}
+\item{ID.vars}{A named list containing column names of the relevant
+input columns: \describe{
 
-\item{attr.start.col}{First colum containing alter attributes.}
+\item{\code{ego}}{unique identifier associated with each ego, defaulting
+to \code{"egoID"}; has no effect if \code{alters.df} and \code{aaties.df} are
+both lists of data frames.}
 
-\item{attr.end.col}{Last colum containing alter attributes.}
+\item{\code{alter}}{unique-within-ego identifier associated with each
+alter, defaulting to \code{"alterID"}; optional \code{aaties.df} are not
+provided.}
 
-\item{dy.max.alters}{Maximum number of alters.}
+\item{\code{source}}{if \code{aaties.df} is provided, the column given the
+alter identifier of the origin of a relation.}
 
-\item{dy.first.var}{First column containing alter-alter relations/ edges.}
+\item{\code{target}}{if \code{aaties.df} is provided, the column given the
+alter identifier of the destination of a relation.}
+
+}}
+
+\item{attr.start.col}{Index or name of the first colum containing alter attributes.}
+
+\item{attr.end.col}{Index or name of the last colum containing alter attributes.}
+
+\item{max.alters}{Maximum number of alters.}
+
+\item{aa.first.var}{First column containing alter-alter relations/ edges.}
 
 \item{ego.vars}{A \code{data.frame} of alter attributes in the wide format.}
 
@@ -29,7 +47,7 @@ onefile_to_egor(egos, netsize, egoID = "egoID", attr.start.col, attr.end.col,
 \item{...}{additional arguments to \code{\link[=egor]{egor()}}.}
 }
 \value{
-A \code{list} of six objects - the **egoR** object: (1) egos.df: \code{dataframe} of all
+A \code{list} of six objects - the \strong{egoR} object: (1) egos.df: \code{dataframe} of all
 egos and their attributes; (2) alters.df: \code{dataframe} of all alters;
 (3) alters.list: \code{list} of \code{dataframes} of all alters per ego;
 (4) edges: \code{list} of \code{dataframes} with edge lists per network; (5)
