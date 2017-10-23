@@ -4,7 +4,7 @@
 \alias{long.df.to.list}
 \title{Trim/listify ego-centric network data}
 \usage{
-long.df.to.list(long, netsize, egoID, back.to.df = F)
+long.df.to.list(long, netsize, egoID, back.to.df = FALSE)
 }
 \arguments{
 \item{long}{A 'long' dataframe with alters/dyads in rows.}

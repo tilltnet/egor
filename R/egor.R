@@ -175,7 +175,7 @@ summary.egor <- function(object, ...) {
   
   # Average density
   if(".aaties" %in% names(object)) 
-    dens <- survey::svymean(ego_density(object), ego.design(object), na.rm = T) 
+    dens <- survey::svymean(ego_density(object), ego.design(object), na.rm = TRUE) 
   else 
     dens <- NULL
   

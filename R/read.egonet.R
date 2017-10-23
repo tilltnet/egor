@@ -38,7 +38,7 @@ col_idx <- function(name, df){
 #' called the \code{list} entries are combined to one \code{dataframe}, in the
 #' 'long' format.
 #' @keywords internal
-long.df.to.list <- function(long, netsize, egoID, back.to.df = F) {
+long.df.to.list <- function(long, netsize, egoID, back.to.df = FALSE) {
   # Create list where every entry contains all alters of one ego.
   
   tie_list <- split(x = long, f = long[[egoID]])
@@ -52,10 +52,10 @@ long.df.to.list <- function(long, netsize, egoID, back.to.df = F) {
   netsize_nona[is.nan(netsize_nona)] <- 0
   tie_list_nona <- mapply(FUN = function(x, netsize) x[0:netsize, ], 
                              x = tie_list, netsize = netsize_nona, 
-                             SIMPLIFY = F)
+                             SIMPLIFY = FALSE)
   
   
-  if (back.to.df == T) 
+  if (back.to.df == TRUE) 
     return(do.call("rbind", tie_list_nona))
   tie_list_nona
 } 
@@ -79,17 +79,17 @@ long.df.to.list <- function(long, netsize, egoID, back.to.df = F) {
 #' stored variable-wise, if FALSE alter-wise storage is assumed.
 #' @keywords internal
 wide.to.long <- function(wide, egoID = "egoID", max.alters, start.col, end.col, 
-                         ego.vars = NULL, var.wise = F) {
+                         ego.vars = NULL, var.wise = FALSE) {
   start.col <- col_idx(start.col, wide)
   end.col <- col_idx(end.col, wide)
   ### Generating a matrix containing all variable names of one particular alters
   ### item (sex, age, etc.).
-  mt_dimmer <- ifelse(var.wise == T, max.alters, ncol(wide[start.col:end.col]) / max.alters)
+  mt_dimmer <- ifelse(var.wise == TRUE, max.alters, ncol(wide[start.col:end.col]) / max.alters)
   #print(mt_dimmer)
   name_mt <- matrix(names(wide[start.col:end.col]), mt_dimmer)
   #print(name_mt)
   if(var.wise) name_mt <- t(name_mt)
-  #if(!var.wise) print("var.wise not T")
+  #if(!var.wise) print("var.wise not TRUE")
   
   ### Transfrom Matrix to a list where every entry is a vector of the variables 
   ### for one item (sex, age, etc.).
@@ -296,24 +296,24 @@ add_ego_vars_to_long_df <- function(alters.list, egos.df, ego.vars, netsize) {
 #' @export
 onefile_to_egor <- function(egos, netsize,  ID.vars = list(ego = "egoID"), 
                                  attr.start.col, attr.end.col, max.alters,
-                            aa.first.var, ego.vars = NULL, var.wise = F, ...) {
+                            aa.first.var, ego.vars = NULL, var.wise = FALSE, ...) {
   IDv <- modifyList(eval(formals()$ID.vars), ID.vars)
   attr.start.col <- col_idx(attr.start.col, egos)
   attr.end.col <- col_idx(attr.end.col, egos)
   aa.first.var <- col_idx(aa.first.var, egos)
   #Sort egos by egoID.
   message("Sorting data by egoID.")
-  egos <- egos[order(as.numeric(egos[[egoID]])), ]
+  egos <- egos[order(as.numeric(egos[[IDv$egoID]])), ]
   
   message("Transforming alters data to long format.")
-  alters.df <- wide.to.long(wide = egos, egoID, max.alters = max.alters,
+  alters.df <- wide.to.long(wide = egos, IDv$egoID, max.alters = max.alters,
                         start.col = attr.start.col, end.col = attr.end.col, 
                         ego.vars = ego.vars, var.wise = var.wise)
   
   message("Deleting NA rows in long alters data.")
   message("Splitting long alters data into list entries for each network: $alters.list")
   alters.list <- long.df.to.list(long = alters.df, netsize = netsize, 
-                  egoID = egoID, back.to.df = F)
+                  egoID = IDv$egoID, back.to.df = FALSE)
   
   message("Transforming wide dyad data to edgelist: $edges")
   e.lists <- wide.dyads.to.edgelist(e.wide = egos, first.var = aa.first.var, 
@@ -321,7 +321,7 @@ onefile_to_egor <- function(egos, netsize,  ID.vars = list(ego = "egoID"),
   
   
   # Return:
-  egor(alters.list, egos[-c(attr.start.col:attr.end.col,aa.first.var:ncol(egos))], e.lists, ID.vars=list(ego=egoID,source="from",target="to"), alter.design = list(max=max.alters),...)
+  egor(alters.list, egos[-c(attr.start.col:attr.end.col,aa.first.var:ncol(egos))], e.lists, ID.vars=list(ego=IDv$egoID,source="from",target="to"), alter.design = list(max=max.alters),...)
 }
 
 #' Import ego-centric network data from two file format
@@ -388,7 +388,7 @@ twofiles_to_egor <- function(egos, alters, netsize = NULL,
 
   message("Splitting alters data into list entries for each network: $alters.list")
   alters <- long.df.to.list(long = alters, netsize = netsize, egoID = IDv$ego,
-                                back.to.df = F)
+                                back.to.df = FALSE)
   
   message("Transforming wide edge data to edgelist: $edges")
   elist <- wide.dyads.to.edgelist(e.wide = egos, first.var = e.first.var,

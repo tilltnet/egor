@@ -25,8 +25,8 @@ NULL
 #' egor object.
 #' @export
 as_igraph <- function(object, 
-                      directed = F, 
-                      include.ego = F, 
+                      directed = FALSE, 
+                      include.ego = FALSE, 
                       ego.attrs = NULL, 
                       ego.alter.weights = NULL) {
   
@@ -55,7 +55,7 @@ as_igraph <- function(object,
       alter_names <- names(igraph::V(graph))[-length(igraph::V(graph))]
       ego_edges <- Reduce(c,sapply(alter_names, 
                                    FUN = function(x)  c("ego",x), 
-                                   simplify = T))
+                                   simplify = TRUE))
       graph <- igraph::add_edges(graph, 
                                  ego_edges, 
                                  attr = alts[ego.alter.weights])
@@ -68,7 +68,7 @@ as_igraph <- function(object,
                       object$.alts, 
                       object$.aaties, 
                       split(tibble::as_tibble(object)[ego.attrs], 
-                            rownames(object)), SIMPLIFY = F)
+                            rownames(object)), SIMPLIFY = FALSE)
   }
   # Return
   igraphs
@@ -83,8 +83,8 @@ as_igraph <- function(object,
 #' @importFrom network set.vertex.attribute 
 #' @importFrom network set.edge.attribute
 as_network <- function(object, 
-                       directed = F, 
-                       include.ego = F, 
+                       directed = FALSE, 
+                       include.ego = FALSE, 
                        ego.attrs = NULL, 
                        ego.alter.weights = NULL) {
   
@@ -99,7 +99,7 @@ as_network <- function(object,
       obj$.alts[[1]] <- dplyr::bind_rows(obj$.alts[[1]], 
                                          data.frame(.altID = "ego", 
                                                     obj[ego.attrs],
-                                                    stringsAsFactors = F))
+                                                    stringsAsFactors = FALSE))
       
       # Add ego alter edges
       alter_names <- as.character(obj$.alts[[1]]$.altID)
@@ -111,7 +111,7 @@ as_network <- function(object,
                                            data.frame(.srcID = "ego", 
                                                       .tgtID = alter_names,
                                                       obj$.alts[[1]][ego.alter.weights][-len,],
-                                                      stringsAsFactors = F))
+                                                      stringsAsFactors = FALSE))
       obj
     }
     
@@ -132,7 +132,7 @@ as_network <- function(object,
   networks <- mapply(FUN = network.data.frame,
                      object$.aaties,
                      object$.alts,
-                     SIMPLIFY = F)
+                     SIMPLIFY = FALSE)
   
   
   # Return
@@ -159,19 +159,19 @@ as_network <- function(object,
 #' as_alts_df(egor32)
 #' 
 #' # ... without creating a new egoID
-#' as_alts_df(egor32, F)
+#' as_alts_df(egor32, FALSE)
 #' 
 #' # ... keeping ego variables
-#' as_alts_df(egor32, F, T) 
+#' as_alts_df(egor32, FALSE, TRUE) 
 #' 
 #' # Create global alter-alter relaions dataframes
 #' as_ties_df(egor32)
 #' 
 #' # ... adding alter variables
-#' as_ties_df(egor32, include.alt.vars = T)
+#' as_ties_df(egor32, include.alt.vars = TRUE)
 
 #' @export
-as_alts_df <- function(object, egoID = "egoID", include.ego.vars = F) {
+as_alts_df <- function(object, egoID = "egoID", include.ego.vars = FALSE) {
   alts_names <- names(object$.alts[[1]])
   
   # Check if egoID is present in ego vars; yes: delete  (possibly existing) 
@@ -203,8 +203,8 @@ as_alts_df <- function(object, egoID = "egoID", include.ego.vars = F) {
 #' @export
 as_ties_df <- function(object, 
                        egoID = "egoID", 
-                       include.ego.vars = F,
-                       include.alt.vars = F,
+                       include.ego.vars = FALSE,
+                       include.alt.vars = FALSE,
                        aatie_vars = c(".srcID", "tgtID")) {
   aaties_names <- names(object$.aaties[[1]])
   

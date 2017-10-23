@@ -48,7 +48,7 @@ EI.list <- function(object, aaties, var_name, egoID = "egoID", altID = '.altID',
     # 
     alters_groups <- split(alters, alters[[var_name]])
     tble_var <- sapply(alters_groups, FUN = NROW)
-    poss_internal <- sapply(tble_var, FUN=aaties_poss, simplify = T)
+    poss_internal <- sapply(tble_var, FUN=aaties_poss, simplify = TRUE)
     
     poss_external <- sapply(tble_var, FUN=function(x) {
       poss_ext_aaties <- (NROW(alters) - x) * x
@@ -161,7 +161,7 @@ EI.list <- function(object, aaties, var_name, egoID = "egoID", altID = '.altID',
                 aaties_list, 
                 alters_list, 
                 MoreArgs = list(altID = altID), 
-                SIMPLIFY = F)
+                SIMPLIFY = FALSE)
 
   lapply(EIs, FUN = function(x) 
         colnames(x) <- colnames(na.df))

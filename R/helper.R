@@ -11,7 +11,7 @@ NULL
 
 #' @describeIn helper Returns the count of possible edges in an
 #' undirected or directed, ego-centered network, based on the number of alters.
-dyad.poss <- function(max.alters, directed = F) {
+dyad.poss <- function(max.alters, directed = FALSE) {
   dp <- (max.alters^2-max.alters)
   if (!directed) {
     dp <- dp/2 

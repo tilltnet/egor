@@ -5,7 +5,7 @@
 \title{Import ego-centric network data from 'one file format'}
 \usage{
 onefile_to_egor(egos, netsize, ID.vars = list(ego = "egoID"), attr.start.col,
-  attr.end.col, max.alters, aa.first.var, ego.vars = NULL, var.wise = F,
+  attr.end.col, max.alters, aa.first.var, ego.vars = NULL, var.wise = FALSE,
   ...)
 }
 \arguments{

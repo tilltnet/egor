@@ -84,7 +84,7 @@ read_egonet <- function(egos.file, alter.folder, edge.folder, csv.sep = ",",
   # ...netsize var...
   message("Calculating netsize values.")
   netsize <- aggregate(alter.attr.df[[IDv$ego]], by = list(alter.attr.df[[IDv$ego]]), FUN = function(x) NROW(x))
-  netsize <- merge(egos, netsize, by.x = IDv$ego, by.y = "Group.1", all.x = T)$x
+  netsize <- merge(egos, netsize, by.x = IDv$ego, by.y = "Group.1", all.x = TRUE)$x
   
   message("Creating edge lists: $edges")
   elist.list <- list()

@@ -116,7 +116,7 @@ clustered_graphs.list <- function(alters, aaties, clust.groups, ...) {
     list(grp.densities = grps.df, aatiess = groups.list)
   }
   
-  grp.densities <- mapply(FUN = calculateGrpDensities, graphs, alters.grped.list, clust.groups, SIMPLIFY = F)
+  grp.densities <- mapply(FUN = calculateGrpDensities, graphs, alters.grped.list, clust.groups, SIMPLIFY = FALSE)
   
 # Create 'clustered graphs' igraph object  --------------------------------
   
@@ -125,7 +125,7 @@ clustered_graphs.list <- function(alters, aaties, clust.groups, ...) {
                              FUN = function(x) igraph::graph.data.frame(
                                x$grp.densities[x$grp.densities$i.name != x$grp.densities$j.name, ],
                                vertices = x$grp.densities[x$grp.densities$i.name == x$grp.densities$j.name, ],
-                               directed = F))
+                               directed = FALSE))
   clustered_graphs
 }
 
@@ -186,9 +186,9 @@ vis_clustered_graphs <- function(graphs,
                                  edge.width.multiplier = 30,
                                  center = 1, 
                                  label.size = 0.8, 
-                                 labels = F, 
+                                 labels = FALSE, 
                                  legend.node.size = 45, 
-                                 to.pdf = F) {
+                                 to.pdf = FALSE) {
 
   plotLegendGraph <- function(grps.graph, center) {
       # set all edges to 1
@@ -199,7 +199,7 @@ vis_clustered_graphs <- function(graphs,
       diag(edges_mat) <- 0
       edges_mat[upper.tri(edges_mat)] <- 0
       edges_graph <- igraph::graph_from_adjacency_matrix(edges_mat)
-      edge_list <- igraph::ends(edges_graph, igraph::E(edges_graph), names = T)
+      edge_list <- igraph::ends(edges_graph, igraph::E(edges_graph), names = TRUE)
       grps.graph <- igraph::graph.data.frame(d= edge_list, vertices= vertex_df, directed= FALSE)
       #grps.graph <- igraph::graph.data.frame(d= data.frame(x=character(0), y=character(0)), vertices= vertex_df, directed= FALSE)
       igraph::plot.igraph(grps.graph, 
@@ -241,13 +241,13 @@ vis_clustered_graphs <- function(graphs,
     
     #lx <- layout.star(graph)[,1]
     #ly <- layout.star(graph)[,2]
-    #plot(-2:2, -2:2, type = "n", xlab = "", ylab = "", axes = F)
+    #plot(-2:2, -2:2, type = "n", xlab = "", ylab = "", axes = FALSE)
     
-    #plotrix::boxed.labels(lx, ly, vertex.label.b, col = "blue", border = F, bg = "orange")
+    #plotrix::boxed.labels(lx, ly, vertex.label.b, col = "blue", border = FALSE, bg = "orange")
     
     igraph::plot.igraph(graph, 
-                #add = T,
-                #rescale = F,
+                #add = TRUE,
+                #rescale = FALSE,
                 vertex.color = gray(seq(1, 0, -0.008))[igraph::V(graph)$grp.density*100+1], 
                 vertex.frame.color = ifelse(igraph::V(graph)$grp.density == 0 | is.na(igraph::V(graph)$grp.density), "black", NA), 
                 vertex.size = vertex.size,
@@ -265,7 +265,7 @@ vis_clustered_graphs <- function(graphs,
                 edge.color = ifelse(igraph::E(graph)$grp.density == 0, NA, "grey"),
                 layout = layout_)
     
-      # igraph::plot.igraph(graph, add = T,
+      # igraph::plot.igraph(graph, add = TRUE,
       #                   vertex.color = NA, 
       #                   vertex.frame.color = NA, 
       #                   vertex.size = vertex.size,
@@ -281,8 +281,8 @@ vis_clustered_graphs <- function(graphs,
       #                   layout = layout_)
       
       igraph::plot.igraph(graph, 
-                add = T,
-                #rescale = F,
+                add = TRUE,
+                #rescale = FALSE,
                 vertex.color = NA, 
                 vertex.frame.color = NA, 
                 vertex.size = vertex.size,

@@ -32,7 +32,7 @@ ego_density <- function (object, ...) {
 #' @export
 ego_density.list <- function(object, aaties, weight = NULL, max.netsize = NULL, directed = FALSE, ...) {
   if(!is.null(weight)) {
-    dyaden_real <- plyr::ldply(aaties, .fun = function(x) sum(x[[weight]], na.rm = T))
+    dyaden_real <- plyr::ldply(aaties, .fun = function(x) sum(x[[weight]], na.rm = TRUE))
     
   } else {
     dyaden_real <- plyr::ldply(aaties, .fun = function(x) NROW(x))

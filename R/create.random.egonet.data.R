@@ -20,7 +20,7 @@ generate.sample.edge.list <- function(netsize) {
     Target <- c(Target, tmp)
   }
   
-  weight <- sample((1:3)/3, dp, replace = T)
+  weight <- sample((1:3)/3, dp, replace = TRUE)
   data.frame(Source, Target, weight)
 } 
 
@@ -39,8 +39,8 @@ generate.sample.ego.data <- function(net.count, max.alters, netsize = NULL, plot
   
   # Generating ego data
   egoID <- as.factor(1:net.count)
-  sex <- chartr("12", "wm", sample(1:2, net.count, replace = T))
-  age <- sample(1:7, net.count, replace = T)
+  sex <- chartr("12", "wm", sample(1:2, net.count, replace = TRUE))
+  age <- sample(1:7, net.count, replace = TRUE)
   age <- factor(age, levels = c(1, 2, 3, 4, 5, 6, 7), labels = c("0 - 17", 
       "18 - 25", "26 - 35", "36 - 45", "46 - 55", "56 - 65", "66 - 100"))
   
@@ -48,11 +48,11 @@ generate.sample.ego.data <- function(net.count, max.alters, netsize = NULL, plot
   if (is.null(netsize)) {
 #' @importFrom stats dnorm
     probs <- dnorm(seq(-max.alters/2, max.alters/2, length = max.alters), sd = 5)  
-    netsize <- sample(2:max.alters, net.count, prob = probs[-1], replace = T)
+    netsize <- sample(2:max.alters, net.count, prob = probs[-1], replace = TRUE)
 #' @importFrom graphics plot
     if(plot){
       plot(table(netsize), type="l",ylab = "frequency")
-      plot(sort(netsize, decreasing = T), type="l",ylab = "netsize")
+      plot(sort(netsize, decreasing = TRUE), type="l",ylab = "netsize")
     }
   } else if (netsize == 'fixed') {
     netsize <- max.alters
@@ -68,16 +68,16 @@ generate.sample.ego.data <- function(net.count, max.alters, netsize = NULL, plot
   alterID <- rep(1:max.alters, net.count)
   egoID <- gl(net.count, max.alters)
 
-  alter.sex <- rep(chartr("12", "wm", sample(1:2, net.count, replace = T)), 
+  alter.sex <- rep(chartr("12", "wm", sample(1:2, net.count, replace = TRUE)), 
                    max.alters)
-  alter.age <- rep(sample(1:7, net.count, replace = T), max.alters)
+  alter.age <- rep(sample(1:7, net.count, replace = TRUE), max.alters)
   alter.age <- factor(alter.age, levels = c(1, 2, 3, 4, 5, 6, 7), labels = c("0 - 17", 
       "18 - 25", "26 - 35", "36 - 45", "46 - 55", "56 - 65", "66 - 100"))
 
   alters <- data.frame(egoID, alterID, alter.sex, alter.age)
   
   # Trimming down alters per network using netsize
-  alters <- long.df.to.list(alters, netsize, egoID = "egoID", back.to.df = T)
+  alters <- long.df.to.list(alters, netsize, egoID = "egoID", back.to.df = TRUE)
 
   # Generating edges
   edge.list <- list()
@@ -85,7 +85,7 @@ generate.sample.ego.data <- function(net.count, max.alters, netsize = NULL, plot
     edge.list[[i]] <- generate.sample.edge.list(netsize[i])
   }
   
-  aaties <- mapply(FUN = function(x, y) data.frame(egoID = y, x), edge.list, as.factor(1:length(edge.list)), SIMPLIFY = F)
+  aaties <- mapply(FUN = function(x, y) data.frame(egoID = y, x), edge.list, as.factor(1:length(edge.list)), SIMPLIFY = FALSE)
   aaties.df <- do.call(rbind, aaties)
   aaties.df <- aaties.df[sample(1:NROW(aaties.df), NROW(aaties.df)/2), ]
   # Return

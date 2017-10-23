@@ -94,7 +94,7 @@ egor_vis_wizzard <- function(object) {
                               selectInput("e.color_pal", "Color Palette:", choices = col_pal_names))
               ),
               tabPanel("Results",
-                       selectInput("disp.results", "Results 3:", choices = result_names, multiple = T)
+                       selectInput("disp.results", "Results 3:", choices = result_names, multiple = TRUE)
                        
               ),tabPanel("Export",
                          downloadButton("save_plot", label = "Save this Plot"),
@@ -225,7 +225,7 @@ egor_vis_wizzard <- function(object) {
             paste("plots_export", "pdf", sep=".")
           },
           content = function(file){
-            pdf(file, width = 9, onefile = T)
+            pdf(file, width = 9, onefile = TRUE)
             for (i in 1:length(graphs)) {
               plot_graph(i, graphs, input, object)
             }

@@ -6,11 +6,11 @@
 \alias{as_network}
 \title{Convert egor object to network or igraph objects}
 \usage{
-as_igraph(object, directed = F, include.ego = F, ego.attrs = NULL,
+as_igraph(object, directed = FALSE, include.ego = FALSE, ego.attrs = NULL,
   ego.alter.weights = NULL)
 
-as_network(object, directed = F, include.ego = F, ego.attrs = NULL,
-  ego.alter.weights = NULL)
+as_network(object, directed = FALSE, include.ego = FALSE,
+  ego.attrs = NULL, ego.alter.weights = NULL)
 }
 \arguments{
 \item{object}{An egor object.}

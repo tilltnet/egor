@@ -9,7 +9,7 @@
 \alias{din_page_dist}
 \title{General helper functions}
 \usage{
-dyad.poss(max.alters, directed = F)
+dyad.poss(max.alters, directed = FALSE)
 
 sanitize.wide.edges(max.alters)
 

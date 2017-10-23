@@ -5,7 +5,7 @@
 \title{Transform 'wide' alter-level data to the 'long'-format}
 \usage{
 wide.to.long(wide, egoID = "egoID", max.alters, start.col, end.col,
-  ego.vars = NULL, var.wise = F)
+  ego.vars = NULL, var.wise = FALSE)
 }
 \arguments{
 \item{wide}{A \code{data.frame} of alter attributes in the wide format.}

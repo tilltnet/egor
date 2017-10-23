@@ -5,10 +5,10 @@
 \alias{as_ties_df}
 \title{Create global alters and alter-alter relations dataframes from an egor object}
 \usage{
-as_alts_df(object, egoID = "egoID", include.ego.vars = F)
+as_alts_df(object, egoID = "egoID", include.ego.vars = FALSE)
 
-as_ties_df(object, egoID = "egoID", include.ego.vars = F,
-  include.alt.vars = F, aatie_vars = c(".srcID", "tgtID"))
+as_ties_df(object, egoID = "egoID", include.ego.vars = FALSE,
+  include.alt.vars = FALSE, aatie_vars = c(".srcID", "tgtID"))
 }
 \arguments{
 \item{object}{An egor object.}
@@ -34,14 +34,14 @@ data(egor32)
 as_alts_df(egor32)
 
 # ... without creating a new egoID
-as_alts_df(egor32, F)
+as_alts_df(egor32, FALSE)
 
 # ... keeping ego variables
-as_alts_df(egor32, F, T) 
+as_alts_df(egor32, FALSE, TRUE) 
 
 # Create global alter-alter relaions dataframes
 as_ties_df(egor32)
 
 # ... adding alter variables
-as_ties_df(egor32, include.alt.vars = T)
+as_ties_df(egor32, include.alt.vars = TRUE)
 }
