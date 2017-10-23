@@ -8,7 +8,7 @@ an error if there is a problem.}
 col_idx(name, df)
 }
 \arguments{
-\item{name}{a character vector of length one giving the name of the column.}
+\item{name}{a character vector giving the names of the columns to look up.}
 
 \item{df}{a \code{\link{data.frame}} or a \code{\link{list}} object.}
 }

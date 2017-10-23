@@ -3,7 +3,7 @@
 #' Obtain the index of a column in a data frame (or a list), producing
 #' an error if there is a problem.
 #'
-#' @param name a character vector of length one giving the name of the column.
+#' @param name a character vector giving the names of the columns to look up.
 #' @param df a [`data.frame`] or a [`list`] object.
 #'
 #' @return An integer giving the column index of the named column.
@@ -14,10 +14,25 @@
 col_idx <- function(name, df){
   if(is.numeric(name)) name
   else{
-    col <- which(name == names(df))
-    if(length(col)!=1) stop("Column ",sQuote(name)," is not found in ", deparse(substitute(df)),".")
+    col <- which(names(df) %in% name)
+    if(length(col)!=length(name)) stop("Column ",sQuote(name)," is not found in ", deparse(substitute(df))," or is ambiguous.")
     col
   }
+}
+
+
+#' Longest common prefix of a set of strings.
+#'
+#' @param x a character vector.
+#'
+#' @return A character vector that is the longest common substring at
+#'   the start of each of the input vectors.
+#' @keywords internal
+common_prefix <- function(x){
+  j <- 0
+  # There is probably a faster way to do this.
+  while(length(unique(sapply(x, substr, 1, j+1)))==1) j <- j+1
+  substr(x[1], 1, j)
 }
 
 #' Trim/listify ego-centric network data
@@ -99,11 +114,7 @@ wide.to.long <- function(wide, egoID = "egoID", max.alters, start.col, end.col,
   # Wenn var.wise max.alters, statt alters.item.count nehmen!!! #!#
   for(i in 1:dim(name_mt)[1]) {
     vary[[i]] <-   name_mt[i,]
-    vn  <- c(vn, {
-      j <- 0
-      while(length(unique(sapply(vary[[i]], substr, 1, j+1)))==1) j <- j+1
-      substr(vary[[i]][1], 1, j)
-    })
+    vn  <- c(vn, common_prefix(vary[[i]]))
   }
   
   # Generate a vector giving numbers to the alters (alterID).
@@ -132,8 +143,8 @@ wide.to.long <- function(wide, egoID = "egoID", max.alters, start.col, end.col,
 
 #' Transform wide alter-alter data to an edge list.
 #
-#' When alter-alter for numerous networks is stored in one file/ object it is 
-#' common use the 'wide' dataformat. This function transforms such data to an 
+#' When alter-alter for numerous networks is stored in one file/object it is 
+#' common use the 'wide' data format. This function transforms such data to an 
 #' edge lists.
 #' @param e.wide A dataframe containing the alter-alter relation data in the 
 #' 'wide' format.
@@ -191,7 +202,7 @@ wide.dyads.to.edgelist <- function(e.wide, first.var, max.alters,
     i <- 1
     for(i in 1:(max.alters - 1)) {
       for(j in 1:(max.alters - i)) {
-        this.alter.alter <- data.frame(from = name.matrix[i, 1], to = name.matrix[i+1, j], 
+        this.alter.alter <- data.frame(.tmp.srcID = name.matrix[i, 1], .tmp.tgtID = name.matrix[i+1, j], 
                                        weight = alter.alter[case, count.var])
         alter.alter.df <- rbind(alter.alter.df, this.alter.alter)
         count.var <- count.var + 1
@@ -210,6 +221,56 @@ wide.dyads.to.edgelist <- function(e.wide, first.var, max.alters,
   ### Return:
   alter.alter.list2 
 }
+
+
+#' Transform wide alter-alter data to an edge list.
+#
+#' A regex based implementation to convert a wide list to an edgelist.
+#' 
+#' @param e.wide A dataframe containing the alter-alter relation data
+#'   in the 'wide' format.
+#' @template aa.regex
+#' @template netsize
+#' @keywords internal
+wide.dyads.to.edgelist.regex <- function(e.wide, aa.regex, netsize) {
+  en <- names(e.wide)
+  ms <- gregexpr(aa.regex, en, perl=TRUE)
+
+  um <- which(unlist(ms)==-1)
+  if(length(um)){
+    warning("Columns ", paste(sQuote(en[um]), collapse=","), " did not match the regular expression and were omitted.")
+    e.wide <- e.wide[-nm]
+    if(ncol(e.wide)==0) stop("None of the columns matched the regular expression.")
+    en <- names(e.wide)
+    ms <- gregexpr(aa.regex, en, perl=TRUE)
+  }
+
+  cps <- mapply(function(cn, m){
+    ss <- attr(m,"capture.start")
+    ls <- attr(m,"capture.length")
+    ns <- attr(m,"capture.names")
+    mapply(function(s, l, n) structure(substr(cn, s, s+l-1), names=n), ss, ls, ns)
+  }, en, ms, SIMPLIFY=FALSE)
+
+  col.list <- mapply(function(col, cp){
+    col <- data.frame(col, .egoRow=seq_along(col), .tmp.srcID=as.integer(cp["src"]),.tmp.tgtID=as.integer(cp["tgt"]))
+    names(col)[1] <- cp["attr"]
+    col
+  }, e.wide, cps, SIMPLIFY=FALSE)
+
+  col.df <- Reduce(function(x,y){
+    if(names(x)[1]==names(y)[1]) rbind(x,y)
+    else merge(x, y, by=c(".egoRow",".tmp.srcID",".tmp.tgtID"), all=TRUE)
+  }, col.list)
+
+  col.df.list <- split(col.df, col.df$.egoRow)
+
+  col.df.list <- mapply(function(e, n){
+    e <- e[-col_idx('.egoRow', e)]
+    e <- e[e$.tmp.srcID<=n & e$.tmp.tgtID<=n,]
+  }, col.df.list, netsize, SIMPLIFY=FALSE)
+}
+
 
 
 #' edges.attributes.to.network
@@ -285,6 +346,7 @@ add_ego_vars_to_long_df <- function(alters.list, egos.df, ego.vars, netsize) {
 #' @param attr.end.col Index or name of the last colum containing alter attributes.
 #' @param max.alters Maximum number of alters.
 #' @param aa.first.var First column containing alter-alter relations/ edges.
+#' @template aa.regex
 #' @template ego_vars
 #' @param var.wise Logical value indicatin if the alter attributes are sorted variable wise (defaults to FALSE).
 #' @param ... additional arguments to [egor()].
@@ -296,7 +358,7 @@ add_ego_vars_to_long_df <- function(alters.list, egos.df, ego.vars, netsize) {
 #' @export
 onefile_to_egor <- function(egos, netsize,  ID.vars = list(ego = "egoID"), 
                                  attr.start.col, attr.end.col, max.alters,
-                            aa.first.var, ego.vars = NULL, var.wise = FALSE, ...) {
+                            aa.first.var, aa.regex=NULL, ego.vars = NULL, var.wise = FALSE, ...) {
   IDv <- modifyList(eval(formals()$ID.vars), ID.vars)
   attr.start.col <- col_idx(attr.start.col, egos)
   attr.end.col <- col_idx(attr.end.col, egos)
@@ -313,15 +375,16 @@ onefile_to_egor <- function(egos, netsize,  ID.vars = list(ego = "egoID"),
   message("Deleting NA rows in long alters data.")
   message("Splitting long alters data into list entries for each network: $alters.list")
   alters.list <- long.df.to.list(long = alters.df, netsize = netsize, 
-                  egoID = IDv$ego, back.to.df = FALSE)
+                                 egoID = IDv$ego, back.to.df = FALSE)
   
   message("Transforming wide dyad data to edgelist: $edges")
-  e.lists <- wide.dyads.to.edgelist(e.wide = egos, first.var = aa.first.var, 
-                                   max.alters)
-  
+  e.lists <- if(is.null(aa.regex)) wide.dyads.to.edgelist(e.wide = egos, first.var = aa.first.var, 
+                                                          max.alters)
+             else wide.dyads.to.edgelist.regex(e.wide = egos[aa.first.var:ncol(egos)],
+                                               aa.regex=aa.regex,netsize=netsize)
   
   # Return:
-  egor(alters.list, egos[-c(attr.start.col:attr.end.col,aa.first.var:ncol(egos))], e.lists, ID.vars=list(ego=IDv$ego,source="from",target="to"), alter.design = list(max=max.alters),...)
+  egor(alters.list, egos[-c(attr.start.col:attr.end.col,aa.first.var:ncol(egos))], e.lists, ID.vars=list(ego=IDv$ego,source=".tmp.srcID",target=".tmp.tgtID"), alter.design = list(max=max.alters),...)
 }
 
 #' Import ego-centric network data from two file format

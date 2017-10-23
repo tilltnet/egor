@@ -5,8 +5,8 @@
 \title{Import ego-centric network data from 'one file format'}
 \usage{
 onefile_to_egor(egos, netsize, ID.vars = list(ego = "egoID"), attr.start.col,
-  attr.end.col, max.alters, aa.first.var, ego.vars = NULL, var.wise = FALSE,
-  ...)
+  attr.end.col, max.alters, aa.first.var, aa.regex = NULL, ego.vars = NULL,
+  var.wise = FALSE, ...)
 }
 \arguments{
 \item{egos}{\code{Data frame} containg ego data (egos as cases)}
@@ -39,6 +39,14 @@ alter identifier of the destination of a relation.}
 \item{max.alters}{Maximum number of alters.}
 
 \item{aa.first.var}{First column containing alter-alter relations/ edges.}
+
+\item{aa.regex}{A Perl regular expression with name capture,
+intended to be run on column names and capturing via named
+capture the following regex groups: \code{"attr"}, \code{"src"}, and
+\code{"tgt"}, representing the edge attribute being captured, the
+source (or the first alter identified), and the target (or the
+second alter identified) of the edge, respectively. See \code{\link{regex}}
+for more information.}
 
 \item{ego.vars}{A \code{data.frame} of alter attributes in the wide format.}
 
