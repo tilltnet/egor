@@ -303,17 +303,17 @@ onefile_to_egor <- function(egos, netsize,  ID.vars = list(ego = "egoID"),
   aa.first.var <- col_idx(aa.first.var, egos)
   #Sort egos by egoID.
   message("Sorting data by egoID.")
-  egos <- egos[order(as.numeric(egos[[IDv$egoID]])), ]
+  egos <- egos[order(as.numeric(egos[[IDv$ego]])), ]
   
   message("Transforming alters data to long format.")
-  alters.df <- wide.to.long(wide = egos, IDv$egoID, max.alters = max.alters,
+  alters.df <- wide.to.long(wide = egos, IDv$ego, max.alters = max.alters,
                         start.col = attr.start.col, end.col = attr.end.col, 
                         ego.vars = ego.vars, var.wise = var.wise)
   
   message("Deleting NA rows in long alters data.")
   message("Splitting long alters data into list entries for each network: $alters.list")
   alters.list <- long.df.to.list(long = alters.df, netsize = netsize, 
-                  egoID = IDv$egoID, back.to.df = FALSE)
+                  egoID = IDv$ego, back.to.df = FALSE)
   
   message("Transforming wide dyad data to edgelist: $edges")
   e.lists <- wide.dyads.to.edgelist(e.wide = egos, first.var = aa.first.var, 
@@ -321,7 +321,7 @@ onefile_to_egor <- function(egos, netsize,  ID.vars = list(ego = "egoID"),
   
   
   # Return:
-  egor(alters.list, egos[-c(attr.start.col:attr.end.col,aa.first.var:ncol(egos))], e.lists, ID.vars=list(ego=IDv$egoID,source="from",target="to"), alter.design = list(max=max.alters),...)
+  egor(alters.list, egos[-c(attr.start.col:attr.end.col,aa.first.var:ncol(egos))], e.lists, ID.vars=list(ego=IDv$ego,source="from",target="to"), alter.design = list(max=max.alters),...)
 }
 
 #' Import ego-centric network data from two file format
