@@ -1,6 +1,26 @@
 # Read ego-centric-network data from single file format or two-file format.
 
-#' Trim/ listify ego-centric network data
+#' Obtain the index of a column in a data frame (or a list), producing
+#' an error if there is a problem.
+#'
+#' @param name a character vector of length one giving the name of the column.
+#' @param df a [`data.frame`] or a [`list`] object.
+#'
+#' @return An integer giving the column index of the named column.
+#'
+#' @note Numeric inputs for `name` are passed through, so this
+#'   function is safe to use if the input is already a column index.
+#' @keywords internal
+col_idx <- function(name, df){
+  if(is.numeric(name)) name
+  else{
+    col <- which(name == names(df))
+    if(length(col)!=1) stop("Column ",sQuote(name)," is not found in ", deparse(substitute(df)),".")
+    col
+  }
+}
+
+#' Trim/listify ego-centric network data
 #'
 #' This function generates the \code{alters.list} object. \code{alters.list} is a list where 
 #' each entry entails a \code{dataframe} of the alters of one ego. By using
@@ -50,19 +70,21 @@ long.df.to.list <- function(long, netsize, egoID, back.to.df = F) {
 #' @template wide
 #' @template egoID
 #' @template max_alters
-#' @param start.col Number of first colum containg alter-alter relation data. 
+#' @param start.col Index or name of the first colum containg alter-alter relation data. 
 #' #!# Should: Defaults to first column of \code{wide}.
-#' @param last.col Number of first colum containg alter-alter relation data.
+#' @param last.col Index or name of the first colum containg alter-alter relation data.
 #' #!# Should: Defaults to last column of \code{wide}.
 #' @template ego_vars
 #' @param var.wise a logical value indicating wheter the alter attributes are
 #' stored variable-wise, if FALSE alter-wise storage is assumed.
 #' @keywords internal
 wide.to.long <- function(wide, egoID = "egoID", max.alters, start.col, end.col, 
-                          ego.vars = NULL, var.wise = F) {
+                         ego.vars = NULL, var.wise = F) {
+  start.col <- col_idx(start.col, wide)
+  end.col <- col_idx(end.col, wide)
   ### Generating a matrix containing all variable names of one particular alters
   ### item (sex, age, etc.).
-  mt_dimmer <- ifelse(var.wise == T, max.alters, NROW(wide[start.col:end.col, ]) / max.alters)
+  mt_dimmer <- ifelse(var.wise == T, max.alters, ncol(wide[start.col:end.col]) / max.alters)
   #print(mt_dimmer)
   name_mt <- matrix(names(wide[start.col:end.col]), mt_dimmer)
   #print(name_mt)
@@ -72,10 +94,16 @@ wide.to.long <- function(wide, egoID = "egoID", max.alters, start.col, end.col,
   ### Transfrom Matrix to a list where every entry is a vector of the variables 
   ### for one item (sex, age, etc.).
   vary <- list()
+  vn <- c()
   
   # Wenn var.wise max.alters, statt alters.item.count nehmen!!! #!#
   for(i in 1:dim(name_mt)[1]) {
     vary[[i]] <-   name_mt[i,]
+    vn  <- c(vn, {
+      j <- 0
+      while(length(unique(sapply(vary[[i]], substr, 1, j+1)))==1) j <- j+1
+      substr(vary[[i]][1], 1, j)
+    })
   }
   
   # Generate a vector giving numbers to the alters (alterID).
@@ -85,18 +113,17 @@ wide.to.long <- function(wide, egoID = "egoID", max.alters, start.col, end.col,
   coll_df <- cbind(wide[start.col:end.col], wide[ego.vars])
 
 #' @importFrom stats reshape
-  long <- reshape(coll_df, varying = vary, ids = wide[egoID],
-                  times = times,  direction = 'long', 
+  long <- reshape(coll_df, varying = vary, ids = wide[egoID], v.names = vn,
+                  times = times,  direction = 'long', idvar=egoID,
                   new.row.names = 1:(NROW(wide)*length(times)))
   
   ### Change names of alterID and egoID variables.
   colnames(long)[which(names(long) == "time")] <- "alterID"
-  colnames(long)[which(names(long) == "id")] <- "egoID"
   #print(which(names(long) == "id"))
-  egoID_idx <- grep("egoID", names(long))
-  alterID_idx <- grep("alterID", names(long))
-  long <- data.frame(alterID = long["alterID"], egoID = long["egoID"], long[, -c(egoID_idx, alterID_idx)])
-  long <- long[with(long, order(egoID)), ]
+  egoID_idx <- col_idx(egoID, long)
+  alterID_idx <- col_idx("alterID", long)
+  long <- cbind(egoID = long[egoID], alterID = long["alterID"], long[, -c(egoID_idx, alterID_idx)])
+  long <- long[order(long[[egoID]],long$alterID), ]
   
   ### Return:
   long
@@ -116,7 +143,9 @@ wide.to.long <- function(wide, egoID = "egoID", max.alters, start.col, end.col,
 #' were collected.
 #' @keywords internal
 wide.dyads.to.edgelist <- function(e.wide, first.var, max.alters,
-                                    alters.list = NULL, selection = NULL) {
+                                   alters.list = NULL, selection = NULL) {
+  first.var <- col_idx(first.var, e.wide)
+
   
   ### Calculate max. possible count of dyads per network.
   dp <- dyad.poss(max.alters)
@@ -251,11 +280,11 @@ add_ego_vars_to_long_df <- function(alters.list, egos.df, ego.vars, netsize) {
 #' and similar social surveys.
 #' @template egos
 #' @template netsize
-#' @template egoID
-#' @param attr.start.col First colum containing alter attributes.
-#' @param attr.end.col Last colum containing alter attributes.
-#' @param dy.max.alters Maximum number of alters.
-#' @param dy.first.var First column containing alter-alter relations/ edges.
+#' @template ID.vars
+#' @param attr.start.col Index or name of the first colum containing alter attributes.
+#' @param attr.end.col Index or name of the last colum containing alter attributes.
+#' @param max.alters Maximum number of alters.
+#' @param aa.first.var First column containing alter-alter relations/ edges.
 #' @template ego_vars
 #' @param var.wise Logical value indicatin if the alter attributes are sorted variable wise (defaults to FALSE).
 #' @param ... additional arguments to [egor()].
@@ -265,39 +294,34 @@ add_ego_vars_to_long_df <- function(alters.list, egos.df, ego.vars, netsize) {
 #' 64(1), 83-100.
 #' @keywords import
 #' @export
-onefile_to_egor <- function(egos, netsize,  egoID = "egoID", 
-                                 attr.start.col, attr.end.col, dy.max.alters,
-                                 dy.first.var, ego.vars = NULL, var.wise = F, ...) {
-  
+onefile_to_egor <- function(egos, netsize,  ID.vars = list(ego = "egoID"), 
+                                 attr.start.col, attr.end.col, max.alters,
+                            aa.first.var, ego.vars = NULL, var.wise = F, ...) {
+  IDv <- modifyList(eval(formals()$ID.vars), ID.vars)
+  attr.start.col <- col_idx(attr.start.col, egos)
+  attr.end.col <- col_idx(attr.end.col, egos)
+  aa.first.var <- col_idx(aa.first.var, egos)
   #Sort egos by egoID.
   message("Sorting data by egoID.")
   egos <- egos[order(as.numeric(egos[[egoID]])), ]
   
   message("Transforming alters data to long format.")
-  alters.df <- wide.to.long(wide = egos, egoID, max.alters = dy.max.alters,
+  alters.df <- wide.to.long(wide = egos, egoID, max.alters = max.alters,
                         start.col = attr.start.col, end.col = attr.end.col, 
                         ego.vars = ego.vars, var.wise = var.wise)
   
   message("Deleting NA rows in long alters data.")
   message("Splitting long alters data into list entries for each network: $alters.list")
   alters.list <- long.df.to.list(long = alters.df, netsize = netsize, 
-                  egoID = "egoID", back.to.df = F)
-  
-  message("Combining trimmed alters.list to data.frame: $alters.df")
-  
-  alters.df <- do.call(rbind, alters.list)
+                  egoID = egoID, back.to.df = F)
   
   message("Transforming wide dyad data to edgelist: $edges")
-  e.lists <- wide.dyads.to.edgelist(e.wide = egos, first.var = dy.first.var, 
-                                   dy.max.alters)
+  e.lists <- wide.dyads.to.edgelist(e.wide = egos, first.var = aa.first.var, 
+                                   max.alters)
   
-  # Create Global edge list
-  aaties <- mapply(FUN = function(x, y) data.frame(egoID = y, x), e.lists, egos[[egoID]], SIMPLIFY = F)
-  
-  aaties.df <- do.call(rbind, aaties)
   
   # Return:
-  egor(alters.df, egos, aaties.df, ...)
+  egor(alters.list, egos[-c(attr.start.col:attr.end.col,aa.first.var:ncol(egos))], e.lists, ID.vars=list(ego=egoID,source="from",target="to"), alter.design = list(max=max.alters),...)
 }
 
 #' Import ego-centric network data from two file format
@@ -311,7 +335,7 @@ onefile_to_egor <- function(egos, netsize,  egoID = "egoID",
 #' @template netsize
 #' @template ID.vars
 #' @param e.max.alters Maximum number of alters that are included in edge data.
-#' @param e.first.var Index of first column in \code{egos} containing edge data.
+#' @param e.first.var Index or name of the first column in \code{egos} containing edge data.
 #' @param ego.vars \code{Character vector} naming variables in the egos data,
 #' in order to copy them in to the long alters \code{dataframe}.
 #' @param selection \code{Character} naming \code{numeric} variable indicating 
