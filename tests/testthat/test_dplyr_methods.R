@@ -1,3 +1,5 @@
+cat(" \nTestfile  test_dplyr_methods.R \n")
+
 library(testthat)
 library(dplyr)
 data(egor32)
@@ -10,7 +12,7 @@ res <- transmute(egor32, b = sex)
 expect_is(res, "egor")
 
 # Select
-res <- select(egor32_g, "sex")
+res <- select(egor32, "sex")
 expect_is(res, "egor")
 
 res <- rename(egor32, pim = "sex")
