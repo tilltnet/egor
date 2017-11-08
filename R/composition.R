@@ -31,11 +31,11 @@ comp.cat.counts <- function(alters, var, egoID = "egoID", fun = fun.count) {
   } else {
     tmp_matrix <- aggregate(alters[[var]], by = list(alters[[egoID]]), FUN = fun)
   }
-  cat.counts <- data.frame(tmp_matrix[[2]])
+  cat.counts <- data.frame(egoID = tmp_matrix$Group.1, tmp_matrix[[2]])
   if(!is.factor(alters[[var]])) {
-    names(cat.counts) <- levels(factor(alters[[var]]))
+    names(cat.counts) <- c(egoID, trimws(levels(factor(alters[[var]]))))
   } else {
-    names(cat.counts) <- levels(alters[[var]])
+    names(cat.counts) <- c(egoID, trimws(levels(alters[[var]])))
   }
   cat.counts
 }
@@ -83,7 +83,7 @@ comp.homophily <- function(cat.counts, v_ego, netsize) {
 #' @keywords internal
 comp.diversity <- function(cat.counts, netsize) {
   diversity <- 0
-  for(i in 1:ncol(cat.counts)) {
+  for(i in 2:ncol(cat.counts)) {
     diversity <- ifelse(cat.counts[[i]] > 0, diversity + 1, diversity)
   }
   # NAs are set if diversity is zero or netsize is zero or NA.
@@ -130,9 +130,6 @@ comp.diversity <- function(cat.counts, netsize) {
 #' res <- composition(alters32, v_alt = "alter.sex", netsize = egos32$netsize, 
 #'                    v_ego = ego.sex)
 #' 
-#' # Using cbind() to show the ego attribute alongside the results might
-#' # be helpful in many cases:
-#' cbind(res, ego.sex)
 #' @export
 composition <- function (object, ...) {
   UseMethod("composition", object)
@@ -158,29 +155,30 @@ composition.data.frame <- function (object, v_alt, netsize, egoID = "egoID", v_e
   ## Generate category counts/ proportions.
   cat_counts <- comp.cat.counts(object, var = v_alt, fun = fun.count, egoID = egoID)
   cat_counts_prop <- comp.cat.counts(object, var = v_alt, fun = fun.prop , egoID = egoID)
+  cat_counts_prop <- cat_counts_prop[names(cat_counts_prop) != egoID]
   names(cat_counts_prop) <- paste("prop", colnames(cat_counts_prop), sep = "_")
   
   ## Insert NAs, when netsize is zero or NA.
   cat_counts <- comp.cat.counts.na(cat_counts, netsize)
   cat_counts_prop <- comp.cat.counts.na(cat_counts_prop, netsize)
   
-  ## Switcher for regular and all
+  ## Switch for regular and all
   if(mode == "all") tmp_df <- data.frame(cat_counts, cat_counts_prop, check.names = FALSE)
-  if(mode != "all") tmp_df <- data.frame(cat_counts_prop, check.names = FALSE)
+  if(mode != "all") tmp_df <- data.frame(cat_counts[egoID], cat_counts_prop, check.names = FALSE)
     
   ## If v_ego is not empty calculte EI and include it in output/ tmp_df
   if(!is.null(v_ego)) {
     #assign
     EI <- comp.homophily(cat_counts, v_ego, netsize)
     tmp_df <- data.frame(tmp_df, ego_EI = EI, check.names = FALSE)
-    names(tmp_df) <- c(names(tmp_df)[1 : (NROW(names(tmp_df)) - 1 )], paste(v_alt, "EI", sep = "_")) 
+    names(tmp_df)[ncol(tmp_df)] <- paste(v_alt, "EI", sep = "_")
   }
   
   ## Calculate diversity count/ proportions
   diversity <- comp.diversity(cat_counts, netsize)
   
   tmp_df <- data.frame(tmp_df, diversity, check.names = FALSE)
-  names(tmp_df) <- c(names(tmp_df)[1 : (NROW(names(tmp_df)) - 2 )], paste(v_alt, "diversity", sep = "_"))
-  names(tmp_df) <- c(names(tmp_df)[1 : (NROW(names(tmp_df)) - 1 )], paste(v_alt, "div_prop", sep = "_")) 
+  names(tmp_df)[(ncol(tmp_df) - 1) : ncol(tmp_df)] <- c(paste(v_alt, "diversity", sep = "_"),
+                                                        paste(v_alt, "div_prop", sep = "_")) 
   tmp_df
 }

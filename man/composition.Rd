@@ -62,9 +62,6 @@ ego.sex <- alters32[!duplicated(alters32$egoID), ]$ego.sex
 res <- composition(alters32, v_alt = "alter.sex", netsize = egos32$netsize, 
                    v_ego = ego.sex)
 
-# Using cbind() to show the ego attribute alongside the results might
-# be helpful in many cases:
-cbind(res, ego.sex)
 }
 \keyword{analysis}
 \keyword{ego-centered}
