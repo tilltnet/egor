@@ -62,18 +62,17 @@ EI.list <- function(object, aaties, var_name, egoID = "egoID", altID = '.altID',
     if ('Source' %in% names(edge)) {
       source_ <- edge$Source
       target_ <- edge$Target
-    } else {
-      source_ <- as.numeric(as.character(edge[1,1]))
-      target_ <- as.numeric(as.character(edge[1,2]))
+    } else if ('.srcID' %in% names(edge)){
+      source_ <- as.character(edge[1,1])
+      target_ <- as.character(edge[1,2])
     }
-    hm_ht <- ifelse(alters[as.numeric(as.character(alters[[altID]])) == source_, ][[var_name]] == 
-                    alters[as.numeric(as.character(alters[[altID]])) == target_, ][[var_name]], 'HM', 'HT')
+    hm_ht <- ifelse(alters[as.character(alters[[altID]]) == source_, ][[var_name]] == 
+                    alters[as.character(alters[[altID]]) == target_, ][[var_name]], 'HM', 'HT')
     hm_ht
   }
   
   # Calculate group and network EIs.
   lists_to_EIs <- function(aaties, alters, altID) {
-    print(alters$alterID.1)
     # Return na.df for 'incomplete' networks
     if(NROW(aaties)<1 | !NROW(alters)>1 ) return(na.df)
     if(length(table(factor(alters[[var_name]]))) < 2) return(na.df)
@@ -102,12 +101,12 @@ EI.list <- function(object, aaties, var_name, egoID = "egoID", altID = '.altID',
     for(i in 1:length(var_levels)) {
       
       alters_ids <- alters[altID][ alters[[var_name]] == var_levels[[i]] , ]
-      if (class(alters_ids)[[1]] == "tbl_df") alters_ids <- alters_ids[[1]]
+      if(class(alters_ids)[[1]] == "tbl_df") alters_ids <- alters_ids[[1]]
       
-      if ('Source' %in% names(hm_hts)) {
+      if('Source' %in% names(hm_hts)) {
         grp_aaties <- hm_hts[hm_hts$Source %in%  alters_ids | hm_hts$Target %in%  alters_ids, ]
       } else {
-        grp_aaties <- hm_hts[hm_hts[1,1] %in%  alters_ids | hm_hts[1,2] %in%  alters_ids, ]
+        grp_aaties <- hm_hts[hm_hts[[1]] %in%  alters_ids | hm_hts[[2]] %in%  alters_ids, ]
       }
       grp_aaties <- rev(grp_aaties)[[1]]
       grp_aaties <- factor(grp_aaties, c("HM", "HT"))
@@ -129,9 +128,10 @@ EI.list <- function(object, aaties, var_name, egoID = "egoID", altID = '.altID',
     poss_ext_all <- poss_all - sum(poss_int_ext$poss_internal)
     
     # Calculate size controlled EI for whole network.
-    sc_i <- (sum(densities[, 1]) / length(var_levels))
-    sc_e <- (as.numeric(tble_hm_hts['HT']) / poss_ext_all)
-    net_EIs_sc <- calc.EI(sc_e, sc_i)
+    #sc_i <- (sum(densities[, 1]) / length(var_levels))
+    sc_i <- as.numeric(tble_hm_hts['HM']) / sum(poss_int_ext$poss_internal)
+    sc_e <- as.numeric(tble_hm_hts['HT']) / poss_ext_all
+    net_EIs_sc <- round(calc.EI(sc_e, sc_i), 3)
     
     if(NROW(aaties)<1 | !NROW(alters)>1 ) return(na.df)
     
@@ -172,8 +172,87 @@ EI.list <- function(object, aaties, var_name, egoID = "egoID", altID = '.altID',
 
 #' @rdname EI
 #' @export
+#' @importFrom dplyr group_by_
+#' @importFrom dplyr summarise
+#' @importFrom dplyr full_join
+#' @importFrom tidyr spread_
+#' @importFrom tibble as_tibble
 EI.egor <- function(object, var_name, egoID = "egoID", altID = '.altID', ...) {
-  EI(object = object$.alts, aaties = object$.aaties,  var_name = var_name, egoID = egoID, altID = altID)
+  #EI(object = object$.alts, aaties = object$.aaties,  var_name = var_name, egoID = egoID, altID = altID)
+  ties_df <- as_ties_df(object, include.alt.vars = T)
+  sn <- paste0("src_", var_name)
+  tn <- paste0("tgt_", var_name)
+  ties_df$hm_hts <- ifelse(ties_df[sn] == ties_df[tn],
+                           "HM",
+                           "HT")
+
+  alts <- as_alts_df(object)
+  alts <- alts[!is.na(alts[[var_name]]), ]
+  
+  alts_by_egoID <- group_by_(alts, "egoID")
+  netsizes <- summarise(alts_by_egoID, 
+                        netsize = n())
+  
+  alts_by_var <- group_by_(alts, "egoID", var_name)
+  grp_sizes <- summarise(alts_by_var, grpsize = n())
+  
+  ngs <- full_join(netsizes, grp_sizes, by = egoID)
+  ngs$poss_ext <- (ngs$netsize - ngs$grpsize) * ngs$grpsize
+  ngs$poss_int <- (ngs$grpsize ^ 2 - ngs$grpsize) / 2
+  
+  ngs_by_egoID <- group_by_(ngs, egoID)
+  ngs_sum <- summarise(ngs_by_egoID, 
+                       poss_int = sum(poss_int), 
+                       netsize = first(netsize),
+                       poss_ext = (netsize^2-netsize)/2 - poss_int)
+  
+  ties_df <- group_by_(ties_df, egoID, "hm_hts")
+  ties_df_sum <- summarise(ties_df, n = n())
+  
+  net_eis <- full_join(ngs_sum,
+                       spread_(ties_df_sum, "hm_hts", "n"),
+                       by = egoID)
+  net_eis <- data.frame(net_eis, 
+                        e = net_eis$HT/net_eis$poss_ext, 
+                        i = net_eis$HM/net_eis$poss_int)
+  net_eis <- data.frame(net_eis[egoID], 
+                        ei_sc = (net_eis$e - net_eis$i)/(net_eis$e + net_eis$i))
+  
+  grp_eis <- lapply(split(ties_df, ties_df[egoID]), FUN = function(x) {
+       
+    netsize <- netsizes[netsizes[[egoID]] == x[[egoID]][1], ]$netsize
+    grp_names <- levels(factor(alts[[var_name]]))
+    
+       grps <- lapply(grp_names, FUN = function(y) {
+         alts_x <- alts[alts[[egoID]] == x[[egoID]][1], ]
+         alters_ids <- alts_x[[altID]][alts_x[var_name] == y]
+         tmp <- x[x$.srcID %in% alters_ids | x$.tgtID %in% alters_ids, ]
+         tmp <- group_by_(tmp, "hm_hts")
+         tmp <- summarise(tmp, n = n())
+         tmp <- na.omit(tmp)
+         if(nrow(tmp) < 2) data.frame(group = y, ei = NA)
+         else {
+           pie <- ngs[ngs[[egoID]] == x[[egoID]][1] &
+                      ngs[[var_name]]  == y &
+                      !is.na(ngs$poss_int) &
+                      !is.na(ngs[[var_name]]), ]
+           I <- tmp$n[tmp$hm_hts=="HM"] / pie$poss_int
+           E <- tmp$n[tmp$hm_hts=="HT"] / pie$poss_ext
+           data.frame(group = y, ei = (E - I) / (E + I), stringsAsFactors = FALSE)[1,]
+           }
+      })
+        res <- do.call(rbind, grps)
+        res <- data.frame(x[[egoID]][1], spread_(res, "group", "ei"), stringsAsFactors = FALSE)
+        names(res)[1] <- egoID
+        res
+    })
+  
+    grp_eis <- do.call(rbind, grp_eis)
+    rownames(grp_eis) <- sequence(nrow(grp_eis))
+    res <- full_join(net_eis, 
+                     grp_eis,
+                     by = egoID)
+    as_tibble(res)
 }
 
 #' @rdname EI

@@ -5,12 +5,12 @@ library(egor)
 eigor <- generate.sample.ego.data(32, 20)
 
 
-EI(eigor, var_name = "alter.sex")
+#View(EI(eigor, var_name = "alter.sex"))
 
 aaties <- eigor$.aaties
 alters <- eigor$.alts
 
-EI(alters, aaties, var_name = "alter.sex")
+EI(object = alters, aaties =  aaties, var_name = "alter.sex")
 
 data("alters32")
 data("edges32")
