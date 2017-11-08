@@ -201,6 +201,7 @@ as_alts_df <- function(object, egoID = "egoID", include.ego.vars = FALSE) {
 
 #' @rdname as_alts_df
 #' @export
+#' @importFrom dplyr left_join
 as_ties_df <- function(object, 
                        egoID = "egoID", 
                        include.ego.vars = FALSE,
@@ -227,8 +228,18 @@ as_ties_df <- function(object,
   
   if(include.alt.vars) {
     .alts <- as_alts_df(object, egoID = egoID)
-    result <- full_join(result, .alts, by = c(".srcID" = ".altID", egoID))
-    result <- full_join(result, .alts, by = c(".tgtID" = ".altID", egoID))
+    
+    alt_names <- names(.alts)
+    alt_names_src <- paste0("src_", alt_names)
+    alt_names_src[1:2] <- c(egoID, ".altID")
+    names(.alts) <- alt_names_src
+    result <- left_join(result, .alts, by = c(".srcID" = ".altID", egoID))
+    
+    names(.alts) <- alt_names
+    alt_names_tgt <- paste0("tgt_", alt_names)
+    alt_names_tgt[1:2] <- c(egoID, ".altID")
+    names(.alts) <- alt_names_tgt
+    result <- left_join(result, .alts, by = c(".tgtID" = ".altID", egoID))
   }
   
   if(!include.ego.vars)

@@ -11,31 +11,29 @@ egor32$.alts <- lapply(egor32$.alts, FUN = function(x) {
   x
 })
 
-egor32$networks <- to_network(egor32)
+egor32$networks <- as_network(egor32)
 network::list.vertex.attributes(egor32$networks[[1]])
 network::list.edge.attributes(egor32$networks[[1]])
 network::get.edge.attribute(egor32$networks[[1]], "na")
 network::get.edge.attribute(egor32$networks[[1]], "weight")
 
-egor32$networks <- to_network(egor32, include.ego = T, ego.attrs = "sex", ego.alter.weights = "int_var")
-egor32$networks <- to_network(egor32, include.ego = T)
+egor32$networks <- as_network(egor32, include.ego = T, ego.attrs = "sex", ego.alter.weights = "int_var")
+egor32$networks <- as_network(egor32, include.ego = T)
 network::get.edge.attribute(egor32$networks[[1]], "weight")
-network::get.vertex.attribute(egor32$networks[[1]], "sex")
+network::get.vertex.attribute(egor32$networks[[1]], "alter.sex")
 
 
 
 network::get.vertex.attribute(egor32$networks[[1]], "vertex.names")
 network::list.vertex.attributes(egor32$networks[[1]])
-network::add.vertices(nn, 1, vattr=asdf)
-get.vertex.attribute(nn, "vertex.names")
-list.vertex.attributes(nn)
 
 
-egor32$igraphs <- to_igraph(egor32, include.ego = T)
-get.vertex.attribute(egor32$igraphs[[1]])
-egor32$igraphs <- to_igraph(egor32, include.ego = T, ego.attrs = c("sex", "age"), ego.alter.weights = "int_var")
-get.vertex.attribute(egor32$igraphs[[1]])
-get.edge.attribute(egor32$igraphs[[1]])
+
+egor32$igraphs <- as_igraph(egor32, include.ego = T)
+igraph::get.vertex.attribute(egor32$igraphs[[1]])
+egor32$igraphs <- as_igraph(egor32, include.ego = T, ego.attrs = c("sex", "age"), ego.alter.weights = "int_var")
+igraph::get.vertex.attribute(egor32$igraphs[[1]])
+igraph::get.edge.attribute(egor32$igraphs[[1]])
 
 
 names(egor32)
@@ -44,10 +42,10 @@ egor32$.alts <- lapply(egor32$.alts, FUN = function(x) {
   x
 })
 
-egor32$igraphs <- to_igraph(egor32, include.ego = T, ego.attrs = c("sex", "age"), ego.alter.weights = "weight")
-egor32$networks <- to_network(egor32, include.ego = T, ego.attrs = c("sex", "age"), ego.alter.weights = "weight")
+egor32$igraphs <- as_igraph(egor32, include.ego = T, ego.attrs = c("sex", "age"), ego.alter.weights = "weight")
+egor32$networks <- as_network(egor32, include.ego = T, ego.attrs = c("sex", "age"), ego.alter.weights = "weight")
 
-V(egor32$igraphs[[1]])$age
+igraph::V(egor32$igraphs[[1]])$age
 
 # Global alters dataframe
 as_alts_df(egor32, "ID")
@@ -67,4 +65,5 @@ egor32$.alts <- lapply(egor32$.alts, FUN = function(x) {
   x
 })
 
-as_alts_df(egor32)
+as_alts_df(egor32, include.ego.vars = T) #!# add helpful refixes. Only if duplicated names present or always?
+
