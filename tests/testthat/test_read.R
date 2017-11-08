@@ -13,8 +13,8 @@ dy.first.var <- which(names(egos_8) == "X1.to.2")
 of <- onefile_to_egor(egos = egos_8, netsize = egos_8$netsize, 
                            attr.start.col = attr.start.col, 
                            attr.end.col = attr.end.col, 
-                           dy.first.var = dy.first.var,
-                           dy.max.alters = 8)
+                           aa.first.var = dy.first.var,
+                           max.alters = 8)
 
 # Two Files
 path_to_alters_8.csv <- system.file("extdata", "alters_8.csv", package = "egor")
