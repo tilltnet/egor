@@ -50,6 +50,7 @@ egor_vis_wizzard <- function(object) {
   
   
   result_names <- names(object)
+
   
   shinyApp(
     ui = fluidPage(
@@ -180,6 +181,7 @@ egor_vis_wizzard <- function(object) {
           # Plot Error message.
           plot(NA, xlim = c(1,10), ylim = c(0.75,10),  type = "n",  yaxt="n", xaxt="n", ylab="", xlab="", bty="L")
           text(5,1,'No network data available for this entry.')
+          return()
         }
         
         #' @importFrom igraph layout.fruchterman.reingold
