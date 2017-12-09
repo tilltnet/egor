@@ -179,21 +179,21 @@ EI.list <- function(object, aaties, var_name, egoID = "egoID", altID = '.altID',
 #' @importFrom tibble as_tibble
 EI.egor <- function(object, var_name, egoID = "egoID", altID = '.altID', ...) {
   #EI(object = object$.alts, aaties = object$.aaties,  var_name = var_name, egoID = egoID, altID = altID)
-  ties_df <- as_ties_df(object, include.alt.vars = T)
+  ties_df <- as_ties_df(object, egoID=egoID, include.alt.vars = TRUE)
   sn <- paste0("src_", var_name)
   tn <- paste0("tgt_", var_name)
   ties_df$hm_hts <- ifelse(ties_df[sn] == ties_df[tn],
                            "HM",
                            "HT")
 
-  alts <- as_alts_df(object)
+  alts <- as_alts_df(object,egoID=egoID)
   alts <- alts[!is.na(alts[[var_name]]), ]
   
-  alts_by_egoID <- group_by_(alts, "egoID")
+  alts_by_egoID <- group_by_(alts, egoID)
   netsizes <- summarise(alts_by_egoID, 
                         netsize = n())
   
-  alts_by_var <- group_by_(alts, "egoID", var_name)
+  alts_by_var <- group_by_(alts, egoID, var_name)
   grp_sizes <- summarise(alts_by_var, grpsize = n())
   
   ngs <- full_join(netsizes, grp_sizes, by = egoID)
