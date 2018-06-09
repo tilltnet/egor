@@ -116,17 +116,17 @@ subset(e, function(r, keep) keep[r$.egoRow], .keep)
 subset(e, nrow(.alts)==3)
 
 # Only keep egos with exactly two female alters
-subset(e, sum(.alts$alter.sex=="w")==2)
+subset(e, sum(.alts$sex=="w")==2)
 
 # Only keep female alters
-subset(e, .alts$alter.sex=="w", unit="alter")
+subset(e, .alts$sex=="w", unit="alter")
 
 # Only keep alters of a different sex form ego
-subset(e, sex != .alts$alter.sex, unit="alter")
+subset(e, sex != .alts$sex, unit="alter")
 
 # Only keep homophilous alter-alter ties
-subset(e, .alts$alter.sex[.aaties$.srcRow] ==
-          .alts$alter.sex[.aaties$.tgtRow],
+subset(e, .alts$sex[.aaties$.srcRow] ==
+          .alts$sex[.aaties$.tgtRow],
        unit="aatie")
 
 }

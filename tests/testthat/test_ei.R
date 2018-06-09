@@ -17,7 +17,7 @@ data("edges32")
 EI(alters32, edges32, var_name = "alter.sex", altID = "alterID")
 
 data("egor32")
-EI(egor32, var_name = "alter.sex")
+EI(egor32, var_name = "sex")
 
 
 # Tests with non-factor variables

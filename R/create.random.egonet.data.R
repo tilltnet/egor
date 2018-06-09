@@ -74,7 +74,7 @@ generate.sample.ego.data <- function(net.count, max.alters, netsize = NULL, plot
   alter.age <- factor(alter.age, levels = c(1, 2, 3, 4, 5, 6, 7), labels = c("0 - 17", 
       "18 - 25", "26 - 35", "36 - 45", "46 - 55", "56 - 65", "66 - 100"))
 
-  alters <- data.frame(egoID, alterID, alter.sex, alter.age)
+  alters <- data.frame(egoID, alterID, sex=alter.sex, age=alter.age)
   
   # Trimming down alters per network using netsize
   alters <- long.df.to.list(alters, netsize, egoID = "egoID", back.to.df = TRUE)

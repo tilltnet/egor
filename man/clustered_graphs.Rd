@@ -47,7 +47,7 @@ inter- and intragroup densities and these informations in a \code{list} of
 data("egor32")
 
 # Simplify networks to clustered graphs, stored as igraph objects
-graphs <- clustered_graphs(egor32, "alter.age") 
+graphs <- clustered_graphs(egor32, "age") 
 
 # Visualise
 vis_clustered_graphs(graphs)
