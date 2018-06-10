@@ -5,7 +5,7 @@ data(egor32)
 
 netsize <- sapply(egor32$.alts, FUN = NROW)
 
-composition(egor32, "alter", netsize)
+composition(egor32, "age", netsize)
 composition(egor32, "sex", netsize)
 composition(egor32, "sex", netsize, v_ego = egor32$sex)
 

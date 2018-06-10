@@ -10,7 +10,7 @@ eigor <- generate.sample.ego.data(32, 20)
 aaties <- eigor$.aaties
 alters <- eigor$.alts
 
-EI(object = alters, aaties =  aaties, var_name = "alter.sex")
+EI(object = alters, aaties =  aaties, var_name = "sex")
 
 data("alters32")
 data("edges32")
