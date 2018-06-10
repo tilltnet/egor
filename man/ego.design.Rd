@@ -14,7 +14,7 @@ ego.design(x, ...)
 
 ego.design(x, ...) <- value
 
-\method{ego.design}{egor}(x) <- value
+\method{ego.design}{egor}(x, ...) <- value
 }
 \arguments{
 \item{x}{an \code{\link{egor}} object.}

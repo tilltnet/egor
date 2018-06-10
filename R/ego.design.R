@@ -71,7 +71,7 @@ ego.design.egor <- function(x, ...) attr(x, "ego.design")
 #'   design information after the underlying ego attributes had been
 #'   modified.
 #' @export
-`ego.design<-.egor` <- function(x, value){
+`ego.design<-.egor` <- function(x, ..., value){
   attr(x, "ego.design") <- .gen.ego.design(x, value, 1)
   x
 }

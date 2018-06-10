@@ -14,7 +14,7 @@ alter.design(x, ...)
 
 alter.design(x, ...) <- value
 
-\method{alter.design}{egor}(x, which) <- value
+\method{alter.design}{egor}(x, which, ...) <- value
 }
 \arguments{
 \item{x}{an \code{\link{egor}} object.}

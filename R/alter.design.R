@@ -26,7 +26,7 @@ alter.design.egor <- function(x, which, ...){
 #'   attribute; if not, a named list of settings that replace their
 #'   old values.
 #' @export
-`alter.design<-.egor` <- function(x, which, value){
+`alter.design<-.egor` <- function(x, which, ..., value){
   if(missing(which)){
     if(!is.list(value)) stop("Specify which settings to change.")
 #' @importFrom utils modifyList
