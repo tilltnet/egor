@@ -216,7 +216,7 @@ wide.dyads.to.edgelist <- function(e.wide, first.var, max.alters,
   
   ### Delete all zero edges.
   alter.alter.list2 <- lapply(alter.alter.list, function(x)
-    subset(x, weight != 0))
+    subset(x, x$weight != 0))
   
   ### Return:
   alter.alter.list2 
