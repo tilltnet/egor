@@ -54,7 +54,13 @@ RESERVED_COLNAMES <- c(".alts", ".aaties", ".egoRow", ".altID", ".srcID", ".tgtI
 #'   settings.
 #' @keywords ego-centric network analysis
 #' @examples 
-#'
+#' data("edges32") 
+#' data("egos32")
+#' data("alters32")
+#' 
+#' egor(alters.df = alters32, 
+#'      egos.df = egos32, 
+#'      aaties = edges32)
 #' @export
 egor <- function(alters.df, egos.df = NULL, aaties.df = NULL, ID.vars=list(ego="egoID", alter="alterID", source="Source", target="Target"), ego.design = list(~1), alter.design = list(max = Inf)) {
   IDv <- modifyList(eval(formals()$ID.vars), ID.vars)
