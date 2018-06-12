@@ -115,7 +115,7 @@ egor <- function(alters.df, egos.df = NULL, aaties.df = NULL, ID.vars=list(ego="
       }
     
     egor <- dplyr::full_join(egor, aaties.tib, by = IDv$ego)
-    
+    egor <- inj_zero_dfs(egor, ".aaties")
 
     # Rename the source and target ID column to standard names.
     egor$.aaties <- lapply(egor$.aaties, function(x){
@@ -125,14 +125,14 @@ egor <- function(alters.df, egos.df = NULL, aaties.df = NULL, ID.vars=list(ego="
     })
   }
   
-  # If speciefied add ego data to egor
+  # If specified add ego data to egor
   if(!is.null(egos.df)){
     check_reserved_cols(egos.df, "egos")
     if(!alters_is_df) egos.df$.egoRow <- seq_len(nrow(egor))
 
     egor <- dplyr::full_join(tibble::as_tibble(egos.df), egor, by = IDv$ego)
     egor <- inj_zero_dfs(egor, ".alts")
-    egor <- if(exists(egor$.aaties)) inj_zero_dfs(egor, ".aaties")
+    egor <- if(".aaties" %in% names(egor)) inj_zero_dfs(egor, ".aaties")
 
   }
   
