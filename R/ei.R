@@ -180,8 +180,7 @@ EI.list <- function(object, aaties, var_name, egoID = "egoID", altID = '.altID',
 #' @importFrom tibble as_tibble
 #' @importFrom dplyr %>%
 EI.egor <- function(object, var_name, egoID = "egoID", altID = '.altID', ...) {
-<<<<<<< HEAD
-  
+
   object$.tmp_id <- 1:nrow(object)
   
   ties_df <- as_ties_df(object, egoID = egoID, include.alt.vars = TRUE)
