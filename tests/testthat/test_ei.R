@@ -11,11 +11,6 @@ eigor <- generate.sample.ego.data(32, 20)
  aaties <- eigor$.aaties
  alters <- eigor$.alts
 
-x <- data.frame("col1" = c("a","a","b","b","c","c"),
-                "col2" = c("d","e","f","g","g","g"),
-                "col3" = c(1,1,1,1,1,1),
-                "col4" = c(1,2,3,4,5,6))
-
 EI(object = alters, aaties =  aaties, var_name = "sex")
 data("alters32")
 data("edges32")

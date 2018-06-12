@@ -176,7 +176,6 @@ EI.list <- function(object, aaties, var_name, egoID = "egoID", altID = '.altID',
 #' @importFrom tidyr spread_
 #' @importFrom tidyr complete
 #' @importFrom tibble as_tibble
-
 EI.egor <- function(object, var_name, egoID = "egoID", altID = '.altID', ...) {
 
   object$.tmp_id <- 1:nrow(object)
