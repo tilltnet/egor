@@ -131,7 +131,7 @@ comp.diversity <- function(cat.counts, netsize) {
 #'                    v_ego = ego.sex)
 #' 
 #' @export
-composition <- function (object, ...) {
+composition <- function (object, v_alt, netsize, egoID = "egoID", v_ego = NULL, mode = "regular") {
   UseMethod("composition", object)
 }
 
