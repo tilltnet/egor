@@ -9,7 +9,7 @@
 \usage{
 clustered_graphs(object, ..., clust.groups)
 
-\method{clustered_graphs}{list}(alters, aaties, clust.groups, ...)
+\method{clustered_graphs}{list}(object, aaties, clust.groups, ...)
 
 \method{clustered_graphs}{egor}(object, clust.groups, ...)
 

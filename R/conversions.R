@@ -8,10 +8,11 @@
 #' 
 #' @param object An egor object.
 #' @param include.ego \code{Logical.} Should ego be included?
-#' @param ego.attr Vector of names (character) or indices (numeric) of ego 
+#' @param directed Logical, indicating if alter-alter relations are directed.
+#' @param ego.attrs Vector of names (character) or indices (numeric) of ego 
 #' variables that should be carried over to  the network/ 
 #' igraph objects.
-#' @param ego.alter.attr  Vector of names (character) or indices (numeric) of 
+#' @param ego.alter.weights  Vector of names (character) or indices (numeric) of 
 #' alter variables that should be carried over to the the 
 #' network/ igraph objects, as edge attributes of the ego-alter relations.
 #' @details The names of the variables specified in ego.attr and ego.alter.attr 
@@ -150,6 +151,7 @@ as_network <- function(object,
 #' a new variable with the specified name is created.
 #' @param include.ego.vars Logical, specifying if ego variables should be included in the result.
 #' @param include.alt.vars Logical, specifying if alter variables should be included in the result.
+#' @param aatie_vars Character vector, specifying the names of the source and target columns.
 #' @examples 
 #' # Load example data
 #' data(egor32)
@@ -202,11 +204,12 @@ as_alts_df <- function(object, egoID = "egoID", include.ego.vars = FALSE) {
 #' @rdname as_alts_df
 #' @export
 #' @importFrom dplyr left_join
+#' @importFrom purrr map_lgl
 as_ties_df <- function(object, 
                        egoID = "egoID", 
                        include.ego.vars = FALSE,
                        include.alt.vars = FALSE,
-                       aatie_vars = c(".srcID", "tgtID")) {
+                       aatie_vars = c(".srcID", ".tgtID")) {
   aaties_names <- names(object$.aaties[[1]])
   
   # Check if egoID is present in ego vars; yes: delete (possibly existing) 

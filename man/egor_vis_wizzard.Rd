@@ -7,8 +7,7 @@
 egor_vis_wizzard(object)
 }
 \arguments{
-\item{egor}{A list of six data objects, created by one of egor's import
-functions.}
+\item{object}{An egor object.}
 }
 \value{
 Opens an interactive Browser Application.

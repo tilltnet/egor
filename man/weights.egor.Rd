@@ -17,5 +17,5 @@ ego in the dataset.}
 ego in the dataset.
 }
 \seealso{
-\code{\link[survey:::weights.survey.design]{survey::::weights.survey.design()}}
+\code{\link[survey]{weights.survey.design}}
 }

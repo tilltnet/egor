@@ -36,12 +36,13 @@ order.edge.list.columns <- function(edges, source_, target) {
 #' tf <- threefiles_to_egor(egos = egos, alters.df = alters, edges = edges)
 #' 
 #' # read_egoweb() and read_openeddi() read the files directly from the disk.
+#' \dontrun{
 #' setwd(system.file("extdata", "openeddi", package = "egor"))
 #' oe <- read_openeddi()
-#' 
 #' setwd(system.file("extdata", "egoweb", package = "egor"))
 #' ew <- read_egoweb(alter.file = "alters_32.csv", edges.file = "edges_32.csv", 
 #'                   egos.file = "egos_32.csv")
+#' }
 #' @export
 threefiles_to_egor <- function(egos, alters.df, edges, 
                                     ID.vars = list(ego="egoID", alter="alterID", source="Source", target="Target"),

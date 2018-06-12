@@ -15,13 +15,15 @@ as_network(object, directed = FALSE, include.ego = FALSE,
 \arguments{
 \item{object}{An egor object.}
 
+\item{directed}{Logical, indicating if alter-alter relations are directed.}
+
 \item{include.ego}{\code{Logical.} Should ego be included?}
 
-\item{ego.attr}{Vector of names (character) or indices (numeric) of ego
+\item{ego.attrs}{Vector of names (character) or indices (numeric) of ego
 variables that should be carried over to  the network/
 igraph objects.}
 
-\item{ego.alter.attr}{Vector of names (character) or indices (numeric) of
+\item{ego.alter.weights}{Vector of names (character) or indices (numeric) of
 alter variables that should be carried over to the the
 network/ igraph objects, as edge attributes of the ego-alter relations.}
 }

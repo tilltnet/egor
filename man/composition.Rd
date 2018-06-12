@@ -7,7 +7,8 @@
 \alias{composition.data.frame}
 \title{Calculate compositional measurements (Proportion, Diversity, EI-Index)}
 \usage{
-composition(object, ...)
+composition(object, v_alt, netsize, egoID = "egoID", v_ego = NULL,
+  mode = "regular")
 
 \method{composition}{list}(object, v_alt, netsize, egoID = "egoID",
   v_ego = NULL, mode = "regular")

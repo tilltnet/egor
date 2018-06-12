@@ -8,7 +8,7 @@
 as_alts_df(object, egoID = "egoID", include.ego.vars = FALSE)
 
 as_ties_df(object, egoID = "egoID", include.ego.vars = FALSE,
-  include.alt.vars = FALSE, aatie_vars = c(".srcID", "tgtID"))
+  include.alt.vars = FALSE, aatie_vars = c(".srcID", ".tgtID"))
 }
 \arguments{
 \item{object}{An egor object.}
@@ -19,6 +19,8 @@ a new variable with the specified name is created.}
 \item{include.ego.vars}{Logical, specifying if ego variables should be included in the result.}
 
 \item{include.alt.vars}{Logical, specifying if alter variables should be included in the result.}
+
+\item{aatie_vars}{Character vector, specifying the names of the source and target columns.}
 }
 \description{
 Provided an egor-object, these functions create a 'global' \code{data.frame},

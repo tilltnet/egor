@@ -4,7 +4,7 @@
 #' @param object an [`egor`] object.
 #' @template meth_dots
 #'
-#' @seealso [survey:::weights.survey.design()]
+#' @seealso \code{\link[survey]{weights.survey.design}}
 #'
 #' @export
 #' @importFrom stats weights

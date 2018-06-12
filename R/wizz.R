@@ -5,8 +5,7 @@
 #' This function uses an 'egor' object (list of data objects created by an 
 #' egor import function), extracts the graphs object and uses it to visualise
 #' all networks contained in an interactive Browser Application (R-Shiny).
-#' @param egor A list of six data objects, created by one of egor's import 
-#' functions.
+#' @param object An egor object.
 #' @return Opens an interactive Browser Application.
 #' @examples 
 #' \dontrun{

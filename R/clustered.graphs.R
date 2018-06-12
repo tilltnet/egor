@@ -20,12 +20,13 @@
 #' @keywords ego-centric network analysis
 #' @seealso \code{\link{vis_clustered_graphs}} for visualising clustered graphs
 #' @example /inst/examples/ex_cg.R
+#' @importFrom igraph %--%
 #' @export
 clustered_graphs <- function(object, ..., clust.groups) UseMethod("clustered_graphs", object)
 
 #' @rdname clustered_graphs
 #' @export  
-clustered_graphs.list <- function(alters, aaties, clust.groups, ...) {
+clustered_graphs.list <- function(object, aaties, clust.groups, ...) {
   GetGroupSizes <- function(x) {
     #y <- aggregate(x$alterID, by = x[clust.groups], FUN = NROW)
     y <- data.frame(table(x[clust.groups]))
@@ -33,10 +34,10 @@ clustered_graphs.list <- function(alters, aaties, clust.groups, ...) {
     y
   }
   
-  alters.grped.list <- lapply(alters, FUN = GetGroupSizes)
+  alters.grped.list <- lapply(object, FUN = GetGroupSizes)
   
   # Exclude NAs in clust.groups
-  alters <- lapply(alters, FUN = function(y) y[!is.na(y[clust.groups]), ])
+  alters <- lapply(object, FUN = function(y) y[!is.na(y[clust.groups]), ])
   
   graphs <- to.network(e.lists = aaties, alters = alters)
   

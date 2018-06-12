@@ -96,7 +96,13 @@ persistent data. Other \code{.}-led column names may be reserved in
 the future.
 }
 \examples{
+data("edges32") 
+data("egos32")
+data("alters32")
 
+egor(alters.df = alters32, 
+     egos.df = egos32, 
+     aaties = edges32)
 }
 \keyword{analysis}
 \keyword{ego-centric}

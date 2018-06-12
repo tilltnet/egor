@@ -19,6 +19,7 @@ update_ego_design <- function(result) {
 
 #' @export
 #' @noRd
+#' @method mutate egor
 mutate.egor <- function(.data, ...) {
   result <- NextMethod()
   restore_egor_attributes(result, .data)
@@ -26,6 +27,7 @@ mutate.egor <- function(.data, ...) {
 
 #' @export
 #' @noRd
+#' @method transmute egor
 transmute.egor <- function(.data, ...) {
   result <- NextMethod()
   restore_egor_attributes(result, .data)
@@ -34,6 +36,7 @@ transmute.egor <- function(.data, ...) {
 # select seems to maintain attributes already
 #' @export
 #' @noRd
+#' @method select egor
 select.egor <- function(.data, ...) {
   result <- NextMethod()
   restore_egor_attributes(result, .data)
@@ -41,6 +44,7 @@ select.egor <- function(.data, ...) {
 
 #' @export
 #' @noRd
+#' @method filter egor
 filter.egor <- function(.data, ...) {
   lrow_ix <- NROW(.data)
   #' @importFrom dplyr bind_cols
@@ -55,6 +59,7 @@ filter.egor <- function(.data, ...) {
 
 #' @export
 #' @noRd
+#' @method group_by egor
 group_by.egor <- function(.data, ...) {
   result <- NextMethod()
   result <- restore_egor_attributes(result, .data)
