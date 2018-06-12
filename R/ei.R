@@ -176,24 +176,26 @@ EI.list <- function(object, aaties, var_name, egoID = "egoID", altID = '.altID',
 #' @importFrom dplyr summarise
 #' @importFrom dplyr full_join
 #' @importFrom tidyr spread_
+#' @importFrom tidyr complete
 #' @importFrom tibble as_tibble
+#' @importFrom dplyr %>%
 EI.egor <- function(object, var_name, egoID = "egoID", altID = '.altID', ...) {
-  #EI(object = object$.alts, aaties = object$.aaties,  var_name = var_name, egoID = egoID, altID = altID)
-  ties_df <- as_ties_df(object, include.alt.vars = T)
+  
+  object$.tmp_id <- 1:nrow(object)
+  
+  ties_df <- as_ties_df(object, egoID = egoID, include.alt.vars = TRUE)
   sn <- paste0("src_", var_name)
   tn <- paste0("tgt_", var_name)
-  ties_df$hm_hts <- ifelse(ties_df[sn] == ties_df[tn],
-                           "HM",
-                           "HT")
+  ties_df$hm_hts <- ties_df[sn] == ties_df[tn]
 
-  alts <- as_alts_df(object)
+  alts <- as_alts_df(object, egoID = egoID)
   alts <- alts[!is.na(alts[[var_name]]), ]
   
-  alts_by_egoID <- group_by_(alts, "egoID")
+  alts_by_egoID <- group_by_(alts, egoID)
   netsizes <- summarise(alts_by_egoID, 
                         netsize = n())
   
-  alts_by_var <- group_by_(alts, "egoID", var_name)
+  alts_by_var <- group_by_(alts, egoID, var_name)
   grp_sizes <- summarise(alts_by_var, grpsize = n())
   
   ngs <- full_join(netsizes, grp_sizes, by = egoID)
@@ -207,14 +209,22 @@ EI.egor <- function(object, var_name, egoID = "egoID", altID = '.altID', ...) {
                        poss_ext = (netsize^2-netsize)/2 - poss_int)
   
   ties_df <- group_by_(ties_df, egoID, "hm_hts")
-  ties_df_sum <- summarise(ties_df, n = n())
+  #ties_df_sum <- summarise(ties_df, n = n())
+  
+  ties_df_sum <- ties_df %>%
+    ungroup() %>%
+    mutate(hm_hts = factor(hm_hts, c(TRUE, FALSE))) %>%
+    group_by_(egoID, "hm_hts") %>%
+    summarise(n = n()) %>%
+    complete(hm_hts, fill = list(n = 0))
+  
   
   net_eis <- full_join(ngs_sum,
                        spread_(ties_df_sum, "hm_hts", "n"),
                        by = egoID)
   net_eis <- data.frame(net_eis, 
-                        e = net_eis$HT/net_eis$poss_ext, 
-                        i = net_eis$HM/net_eis$poss_int)
+                        e = net_eis$'FALSE'/net_eis$poss_ext, 
+                        i = net_eis$'TRUE'/net_eis$poss_int)
   net_eis <- data.frame(net_eis[egoID], 
                         ei_sc = (net_eis$e - net_eis$i)/(net_eis$e + net_eis$i))
   
@@ -236,8 +246,8 @@ EI.egor <- function(object, var_name, egoID = "egoID", altID = '.altID', ...) {
                       ngs[[var_name]]  == y &
                       !is.na(ngs$poss_int) &
                       !is.na(ngs[[var_name]]), ]
-           I <- tmp$n[tmp$hm_hts=="HM"] / pie$poss_int
-           E <- tmp$n[tmp$hm_hts=="HT"] / pie$poss_ext
+           I <- tmp$n[tmp$hm_hts] / pie$poss_int
+           E <- tmp$n[!tmp$hm_hts] / pie$poss_ext
            data.frame(group = y, ei = (E - I) / (E + I), stringsAsFactors = FALSE)[1,]
            }
       })
@@ -249,6 +259,7 @@ EI.egor <- function(object, var_name, egoID = "egoID", altID = '.altID', ...) {
   
     grp_eis <- do.call(rbind, grp_eis)
     rownames(grp_eis) <- sequence(nrow(grp_eis))
+    
     res <- full_join(net_eis, 
                      grp_eis,
                      by = egoID)
