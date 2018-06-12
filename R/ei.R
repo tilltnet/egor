@@ -172,13 +172,11 @@ EI.list <- function(object, aaties, var_name, egoID = "egoID", altID = '.altID',
 
 #' @rdname EI
 #' @export
-#' @importFrom dplyr group_by_
-#' @importFrom dplyr summarise
-#' @importFrom dplyr full_join
+#' @import dplyr
 #' @importFrom tidyr spread_
 #' @importFrom tidyr complete
 #' @importFrom tibble as_tibble
-#' @importFrom dplyr %>%
+
 EI.egor <- function(object, var_name, egoID = "egoID", altID = '.altID', ...) {
 
   object$.tmp_id <- 1:nrow(object)
