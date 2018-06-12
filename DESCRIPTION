@@ -24,6 +24,9 @@ Description: egor aids with the process of importing, analysing
     procedures for creating and visualising Clustered Graphs (Lerner et. al
     2008).
 License: AGPL-3
+Depends: 
+    R (>= 2.10),
+    dplyr
 Imports:
     igraph,
     network,
@@ -31,10 +34,10 @@ Imports:
     plyr,
     survey,
     tidyr,
-    dplyr,
     tibble,
     methods,
-    utils
+    utils,
+    purrr
 Suggests:
     knitr,
     testthat
