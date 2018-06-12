@@ -1,4 +1,4 @@
-cat(" \nTestfile  test_clustered_graphs.r \n")
+context("test_clustered_graphs.R")
 
 library(egor)
 

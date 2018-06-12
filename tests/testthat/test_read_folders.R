@@ -1,3 +1,5 @@
+context("test_read_folders.R")
+
 cat(" \nTestfile  test_read_folders.r \n")
 
 egos.file <-  system.file("extdata", "egos_32.csv", package = "egor")

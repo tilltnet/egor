@@ -1,3 +1,5 @@
+context("test_read_three_files.R")
+
 cat(" \nTestfile  test_read_three_files.r \n")
 
 library(egor)

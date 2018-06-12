@@ -1,3 +1,5 @@
+context("test_egoweb.R")
+
 cat(" \nTestfile  test_egoweb.r \n")
 
 library(egor)

@@ -1,3 +1,5 @@
+context("test_composition.R")
+
 library(testthat)
 library(egor)
 

@@ -1,4 +1,4 @@
-cat(" \nTestfile  test_openeddi.r \n")
+context("test_openeddi.R")
 
 library(egor)
 # Example

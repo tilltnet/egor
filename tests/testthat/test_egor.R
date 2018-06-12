@@ -1,6 +1,7 @@
-cat(" \nTestfile  test_egor.r \n")
+context("test_egor.R")
 
 library(egor)
+library(testthat)
 e1_gen <- generate.sample.ego.data(32, 20)
 
 test_that("e1_gen is egor object", 

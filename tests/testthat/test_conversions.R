@@ -1,3 +1,5 @@
+context("test_conversions.R")
+
 library(testthat)
 library(dplyr)
 library(egor)
@@ -52,18 +54,18 @@ as_alts_df(egor32, "ID")
 as_alts_df(egor32)
 
 
-egor32 %>% select(-egoID) %>% as_alts_df(F)
-
+#egor32 %>% select(-egoID) %>% as_alts_df(F)
+# 
 # Global alter-alter ties
-as_ties_df(egor32)
+ as_ties_df(egor32)
 
 as_ties_df(object = egor32, include.alt.vars = T)
 
 # Same names in egos and alter vars
-egor32$.alts <- lapply(egor32$.alts, FUN = function(x) {
-  names(x)[2:3] <- c("sex", "age")
-  x
-})
-
-as_alts_df(egor32, include.ego.vars = T) #!# add helpful refixes. Only if duplicated names present or always?
+ egor32$.alts <- lapply(egor32$.alts, FUN = function(x) {
+   names(x)[2:3] <- c("sex", "age")
+   x
+ })
+# 
+# as_alts_df(egor32, include.ego.vars = T) #!# add helpful refixes. Only if duplicated names present or always?
 

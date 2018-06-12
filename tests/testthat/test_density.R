@@ -1,10 +1,15 @@
-cat(" \nTestfile  test_density.r \n")
+context("test_density.R")
 
 # Test Density
 # egor
 library(egor)
 library(tibble)
-of <- generate.sample.ego.data(net.count = 32, max.alters = 16)
+library(testthat)
+data(egor32)
+of <- egor32
+
+#of <- egor:::generate.sample.ego.data(net.count = 32, max.alters = 16)
+
 
 # Weighted
 densities <- ego_density(of, weight = "weight", directed = F)
@@ -46,7 +51,7 @@ library(dplyr)
 #class(of) <- class(of)[2:4] # 
 #class(of) <- class(of)[-seq_len(which(class(of)=="egor"))]
 
-of2 <- as_tibble.egor(of)
+of2 <- as_tibble(of)
 
 alters <- tidyr::unnest(dplyr::select(of2, egoID, .alts))
 aaties <- tidyr::unnest(dplyr::select(of2, egoID, .aaties))

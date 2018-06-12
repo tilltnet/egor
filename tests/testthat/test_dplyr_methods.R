@@ -1,4 +1,4 @@
-cat(" \nTestfile  test_dplyr_methods.R \n")
+context("test_dplyr_methods.R")
 
 library(testthat)
 library(dplyr)
