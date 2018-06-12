@@ -138,6 +138,10 @@ composition <- function (object, ...) {
 #' @rdname composition
 #' @export
 composition.list <- function(object, v_alt, netsize, egoID = "egoID", v_ego = NULL, mode = "regular"){
+  netsize <- netsize[netsize != 0]
+  netsize <- netsize[!is.na(netsize)]
+  v_ego <- v_ego[netsize != 0]
+  v_ego <- v_ego[!is.na(netsize)]
   object <- do.call(rbind, object)
   NextMethod()
 }
@@ -145,6 +149,10 @@ composition.list <- function(object, v_alt, netsize, egoID = "egoID", v_ego = NU
 #' @rdname composition
 #' @export
 composition.egor <- function(object, v_alt, netsize, egoID = "egoID", v_ego = NULL, mode = "regular") {
+  netsize <- netsize[netsize != 0]
+  netsize <- netsize[!is.na(netsize)]
+  v_ego <- v_ego[netsize != 0]
+  v_ego <- v_ego[!is.na(netsize)]
   object <- as_alts_df(object, egoID = egoID)
   NextMethod()
 }
@@ -153,7 +161,7 @@ composition.egor <- function(object, v_alt, netsize, egoID = "egoID", v_ego = NU
 #' @export
 composition.data.frame <- function (object, v_alt, netsize, egoID = "egoID", v_ego = NULL, mode = "regular") { # regular, all
   ## Generate category counts/ proportions.
-  cat_counts <- comp.cat.counts(object, var = v_alt, fun = fun.count, egoID = egoID)
+  cat_counts <- comp.cat.counts(alters = object, var = v_alt, fun = fun.count, egoID = egoID)
   cat_counts_prop <- comp.cat.counts(object, var = v_alt, fun = fun.prop , egoID = egoID)
   cat_counts_prop <- cat_counts_prop[names(cat_counts_prop) != egoID]
   names(cat_counts_prop) <- paste("prop", colnames(cat_counts_prop), sep = "_")

@@ -20,7 +20,7 @@ network::get.edge.attribute(egor32$networks[[1]], "weight")
 egor32$networks <- as_network(egor32, include.ego = T, ego.attrs = "sex", ego.alter.weights = "int_var")
 egor32$networks <- as_network(egor32, include.ego = T)
 network::get.edge.attribute(egor32$networks[[1]], "weight")
-network::get.vertex.attribute(egor32$networks[[1]], "alter.sex")
+network::get.vertex.attribute(egor32$networks[[1]], "sex")
 
 
 

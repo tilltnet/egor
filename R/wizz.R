@@ -20,6 +20,8 @@
 #' @importFrom igraph get.edge.attribute
 #' @importFrom igraph E
 #' @importFrom igraph V
+#' @importFrom grDevices blues9 grey grey.colors heat.colors rainbow topo.colors
+#' @importFrom graphics legend text
 egor_vis_wizzard <- function(object) {
   egors <- ls(envir = .GlobalEnv)[sapply(mget(ls(envir = .GlobalEnv), envir = .GlobalEnv), function(x) class(x)[1] == "egor")]
   col_pal_names <- c("Heat Colors", "Yellow-Green", "Red-Yellow", "Blue-Red", "Black-White", "Greys", "Rainbow", "Topo Colors")

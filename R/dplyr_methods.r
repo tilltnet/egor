@@ -61,3 +61,7 @@ group_by.egor <- function(.data, ...) {
   class(result) <- c("grouped_df", class(result))
   result
 }
+
+# missing:
+# joins (full_join, etc)
+# binds (bind_rows, bind_cols)

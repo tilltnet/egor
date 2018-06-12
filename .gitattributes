@@ -1,3 +1,5 @@
+* linguist-vendored
+*.R linguist-vendored=false
 * text=auto
 data/* binary
 src/* text=lf

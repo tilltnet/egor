@@ -10,14 +10,15 @@ eigor <- generate.sample.ego.data(32, 20)
 aaties <- eigor$.aaties
 alters <- eigor$.alts
 
-EI(object = alters, aaties =  aaties, var_name = "alter.sex")
+EI(object = alters, aaties =  aaties, var_name = "sex")
 
 data("alters32")
 data("edges32")
 EI(alters32, edges32, var_name = "alter.sex", altID = "alterID")
 
 data("egor32")
-EI(object = egor32, var_name = "alter.sex")
+
+EI(egor32, var_name = "sex")
 
 
 # Tests with non-factor variables

@@ -224,7 +224,8 @@ as_ties_df <- function(object,
   result <- tibble::as_tibble(object)
   ego_names <- names(result)[!names(result) %in% c(".alts", ".aaties", egoID)]
   
-  result <- tidyr::unnest_(result,  ".aaties")
+  result <- dplyr::filter(result, !purrr::map_lgl(result$.aaties, is.null))
+  result <- tidyr::unnest_(result, ".aaties")
   
   if(include.alt.vars) {
     .alts <- as_alts_df(object, egoID = egoID)
