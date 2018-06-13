@@ -9,7 +9,6 @@
 #' for egos tendendy to homo-/heterphily - use the \code{composition} command
 #' for individual EI-Index.
 #' @param object An \code{egor} object.
-#' @template aaties
 #' @param var_name \code{Character} naming grouping variable.
 #' @references Krackhardt, D., Stern, R.N., 1988. Informal networks and 
 #' organizational crises: an experimental simulation. Social Psychology 
@@ -19,12 +18,16 @@
 #' @keywords ego-centered network
 #' @keywords sna
 #' @examples
-#' data("alters32")
-#' data("edges32")
-#' EI(alters32, edges32, var_name = "alter.sex", altID = "alterID")
+#' data("egor32")
+#' EI(egor32, "sex")
 #' @export
 #' @import dplyr
-#' @importFrom tidyr spread_
+#' @importFrom purrr map
+#' @importFrom purrr map2
+#' @importFrom purrr map_df
+#' @importFrom purrr map_dbl
+#' @importFrom tidyr spread
+#' @importFrom tidyr replace_na
 #' @importFrom tidyr complete
 #' @importFrom tibble as_tibble
 EI <- function(object, var_name) {

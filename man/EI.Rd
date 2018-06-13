@@ -10,10 +10,6 @@ EI(object, var_name)
 \item{object}{An \code{egor} object.}
 
 \item{var_name}{\code{Character} naming grouping variable.}
-
-\item{aaties}{\code{data.frame/ list} containg alter-alter relations as a 
-'global edge list' or as a list of 'edge lists'.
-(not needed if \code{object} is an \code{egor} object).}
 }
 \description{
 The EI-Index is the division of the intra-group edge density and the outer-group edge
@@ -26,9 +22,8 @@ for egos tendendy to homo-/heterphily - use the \code{composition} command
 for individual EI-Index.
 }
 \examples{
-data("alters32")
-data("edges32")
-EI(alters32, edges32, var_name = "alter.sex", altID = "alterID")
+data("egor32")
+EI(egor32, "sex")
 }
 \references{
 Krackhardt, D., Stern, R.N., 1988. Informal networks and
