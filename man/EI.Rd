@@ -2,36 +2,18 @@
 % Please edit documentation in R/ei.R
 \name{EI}
 \alias{EI}
-\alias{EI.list}
-\alias{EI.egor}
-\alias{EI.data.frame}
 \title{Calculate the EI-Index}
 \usage{
-EI(object, ...)
-
-\method{EI}{list}(object, aaties, var_name, egoID = "egoID",
-  altID = ".altID", ...)
-
-\method{EI}{egor}(object, var_name, egoID = "egoID", altID = ".altID", ...)
-
-\method{EI}{data.frame}(object, aaties, var_name, egoID = "egoID",
-  altID = ".altID", ...)
+EI(object, var_name)
 }
 \arguments{
-\item{object}{Either an \code{egor} object or a \code{data.frame/ list} 
-containg alter attributes.}
+\item{object}{An \code{egor} object.}
 
-\item{...}{arguments to be passed to methods}
+\item{var_name}{\code{Character} naming grouping variable.}
 
 \item{aaties}{\code{data.frame/ list} containg alter-alter relations as a 
 'global edge list' or as a list of 'edge lists'.
 (not needed if \code{object} is an \code{egor} object).}
-
-\item{var_name}{\code{Character} naming grouping variable.}
-
-\item{egoID}{\code{Character} naming ego ID variable.}
-
-\item{altID}{\code{Character} naming alter ID variable.}
 }
 \description{
 The EI-Index is the division of the intra-group edge density and the outer-group edge

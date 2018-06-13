@@ -6,15 +6,10 @@ library(egor)
 eigor <- generate.sample.ego.data(32, 20)
 
 
-#View(EI(eigor, var_name = "alter.sex"))
 
- aaties <- eigor$.aaties
- alters <- eigor$.alts
+EI(object = eigor, var_name = "age")
+EI(eigor, sex)
 
-EI(object = alters, aaties =  aaties, var_name = "sex")
-data("alters32")
-data("edges32")
-EI(alters32, edges32, var_name = "alter.sex", altID = "alterID")
 data("egor32")
 EI(egor32, var_name = "sex")
 
@@ -24,6 +19,7 @@ egor32$.alts <- lapply(egor32$.alts, FUN = function(x) {
  x
 })
 EI(egor32, var_name = "int_var")
+
 # Issue #16 by mbojan
 egodf <- data.frame(
  id_ego = 1:2,
@@ -41,8 +37,9 @@ aaties <- data.frame(
  close = 100
 )
 e <- egor(alters.df = alterdf, egos.df = egodf, aaties.df = aaties,
-         ID.vars = list(ego="id_ego", alter="id_alter", source="from", target="to"))
-EI(object = e, var_name = "female",  egoID="id_ego", altID="id_alter")
+         ID.vars = list(ego ="id_ego", alter="id_alter", source="from", target="to"))
+EI(object = e, var_name = "female")
+
 # same test with more complete aaties data but only one group in the network
 alterdf <- data.frame(
  id_ego = rep(1,3),
@@ -57,5 +54,6 @@ aaties <- data.frame(
 )
 e <- egor(alterdf, egodf, aaties,
          ID.vars = list(ego="id_ego", alter="id_alter", source="from", target="to"))
-EI(object = e, var_name = "female",  egoID="id_ego", altID="id_alter")
+EI(object = e, var_name = "female")
+EI(e, female)
 
