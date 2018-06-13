@@ -1,12 +1,9 @@
 #' Cluster ego-centered networks by a grouping factor
 #' 
 #' The idea of clustered graphs is to reduce the complexity of an ego-centered network
-#' graph by visualising its group aggregated form. It is developed by
-#' Lerner et al. (2008). It helps to discover and visualise structural and 
-#' compostional properties of ego-centered networks, based on a pre-defined
-#' factor variable on the alter level. clustered_graphs() calculates group sizes,
-#' inter- and intragroup densities and these informations in a \code{list} of
-#' \code{igraph} objects.
+#' graph by visualising alters in clusters defined by a categorial variable (Lerner et al. 2008).
+#' \code{clustered_graphs()} calculates group sizes, inter- and intragroup tie 
+#' densities and returns these informations in a \code{list} of #' \code{igraph} objects.
 #' @template object
 #' @template aaties
 #' @template egoID
@@ -151,8 +148,7 @@ clustered_graphs.data.frame <- function(object, aaties, clust.groups, egoID = "e
 #' Visualise clustered graphs
 #' 
 #' \code{vis_clustered_graphs} visualises clustered_graphs using a list of
-#' clustered graphs created with \code{\link{clustered_graphs}}
-#' created clustered graph objects.
+#' clustered graphs created with \code{\link{clustered_graphs}}.
 #' @param graphs \code{List} of \code{graph} objects, representing the clustered
 #' graphs.
 #' @param node.size.multiplier \code{Numeric} used to multiply the node diameter
