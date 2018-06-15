@@ -4,12 +4,12 @@
 \alias{EI}
 \title{Calculate the EI-Index}
 \usage{
-EI(object, var_name)
+EI(object, alt.attr)
 }
 \arguments{
 \item{object}{An \code{egor} object.}
 
-\item{var_name}{\code{Character} naming grouping variable.}
+\item{alt.attr}{\code{Character} naming grouping variable.}
 }
 \description{
 The EI-Index is the division of the intra-group edge density and the outer-group edge

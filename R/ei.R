@@ -9,7 +9,7 @@
 #' for egos tendendy to homo-/heterphily - use the \code{composition} command
 #' for individual EI-Index.
 #' @param object An \code{egor} object.
-#' @param var_name \code{Character} naming grouping variable.
+#' @param alt.attr \code{Character} naming grouping variable.
 #' @references Krackhardt, D., Stern, R.N., 1988. Informal networks and 
 #' organizational crises: an experimental simulation. Social Psychology 
 #' Quarterly 51 (2), 123-140.
@@ -30,14 +30,14 @@
 #' @importFrom tidyr replace_na
 #' @importFrom tidyr complete
 #' @importFrom tibble as_tibble
-EI <- function(object, var_name) {
+EI <- function(object, alt.attr) {
   ei <- function(e, i)
     (e - i) / (e + i)
   
   get_ei_tab <- function(object) {
     object %>%
       mutate(.alts = map(.alts, function(x)
-        select(x, .altID, var = !!var_name_enquo))) %>%
+        select(x, .altID, var = !!alt.attr_enquo))) %>%
       mutate(ei_tab = map2(
         .alts,
         .aaties,
@@ -80,7 +80,7 @@ EI <- function(object, var_name) {
       spread(homogen, n)
   }
   
-  var_name_enquo <- enquo(var_name)
+  alt.attr_enquo <- enquo(alt.attr)
   
   obj <- object %>%
     select(.alts, .aaties) %>%
@@ -116,7 +116,7 @@ EI <- function(object, var_name) {
       spread(fact, ei_sc)
   })
   
-  cat(paste0("EI-Index: " , substitute(var_name), "\n"))
+  cat(paste0("EI-Index: " , substitute(alt.attr), "\n"))
   bind_cols(a, b)
 }
 

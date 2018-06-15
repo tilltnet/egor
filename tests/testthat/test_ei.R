@@ -7,18 +7,18 @@ eigor <- generate.sample.ego.data(32, 20)
 
 
 
-EI(object = eigor, var_name = "age")
+EI(object = eigor, alt.attr = "age")
 EI(eigor, sex)
 
 data("egor32")
-EI(egor32, var_name = "sex")
+EI(egor32, alt.attr = "sex")
 
 # Tests with non-factor variables
 egor32$.alts <- lapply(egor32$.alts, FUN = function(x) {
  x$int_var <- sample(1:3, NROW(x), replace  = T)
  x
 })
-EI(egor32, var_name = "int_var")
+EI(egor32, alt.attr = "int_var")
 
 # Issue #16 by mbojan
 egodf <- data.frame(
@@ -38,7 +38,7 @@ aaties <- data.frame(
 )
 e <- egor(alters.df = alterdf, egos.df = egodf, aaties.df = aaties,
          ID.vars = list(ego ="id_ego", alter="id_alter", source="from", target="to"))
-EI(object = e, var_name = "female")
+EI(object = e, alt.attr = "female")
 
 # same test with more complete aaties data but only one group in the network
 alterdf <- data.frame(
@@ -54,6 +54,6 @@ aaties <- data.frame(
 )
 e <- egor(alterdf, egodf, aaties,
          ID.vars = list(ego="id_ego", alter="id_alter", source="from", target="to"))
-EI(object = e, var_name = "female")
+EI(object = e, alt.attr = "female")
 EI(e, female)
 
