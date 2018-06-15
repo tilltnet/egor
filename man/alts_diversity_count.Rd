@@ -13,6 +13,8 @@ alts_diversity_entropy(object, alt.attr, base)
 \item{object}{An egor object.}
 
 \item{alt.attr}{A \code{character} naming the variable containg the alter-attribute.}
+
+\item{base}{\code{Numeric}, base value of logarithm for entropy calculation.}
 }
 \value{
 A \code{numeric} vector.

@@ -30,8 +30,8 @@ When an ego attribute is used the \code{.f} is called like this:
 \code{.f(alt.attr, ego.attr, ...)}. \code{.f} must return a single numeric value.
 }
 \examples{
-data("egor32")
-comp_ply(egor32, "age", max, na.rm=TRUE)
+df <- generate.sample.ego.data(10, 32)
+comp_ply(df, "age_years", sd, na.rm = TRUE)
 }
 \author{
 Michał Bojanowski, \email{m.bojanowski@uw.edu.pl}

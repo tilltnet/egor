@@ -18,3 +18,7 @@ comp_ply(egor32, "age", .f = egor:::fun_homophily_ei, ego.attr = "age")
 
 alts_diversity_entropy(egor32, "age")
 alts_diversity_count(egor32, "age")
+
+# Example
+df <- generate.sample.ego.data(10, 32)
+comp_ply(df, "age_years", sd, na.rm = TRUE)
