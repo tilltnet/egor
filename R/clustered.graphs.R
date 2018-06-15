@@ -36,8 +36,18 @@ clustered_graphs.list <- function(object, aaties, clust.groups, ...) {
   # Exclude NAs in clust.groups
   alters <- lapply(object, FUN = function(y) y[!is.na(y[clust.groups]), ])
   
-  graphs <- to.network(e.lists = aaties, alters = alters)
-  
+  graphs <- mapply(
+    FUN = function(x, y)
+      igraph::graph.data.frame(
+        d = x,
+        vertices = y,
+        directed = FALSE
+      ),
+    aaties,
+    alters,
+    SIMPLIFY = FALSE
+  )
+ 
   # # Store colnames of edges and alters for consistency check.
   # alters.names<- lapply(alters, FUN = names)
   # if(length(unique(alters.names))==1) print("alters names check out")
@@ -130,7 +140,7 @@ clustered_graphs.list <- function(object, aaties, clust.groups, ...) {
 #' @rdname clustered_graphs
 #' @export 
 clustered_graphs.egor <- function(object, clust.groups, ...)
-  clustered_graphs(object$.alts, object$.aaties, clust.groups)
+  clustered_graphs(object = object$.alts, aaties = object$.aaties, clust.groups = clust.groups)
 
 #' @rdname clustered_graphs
 #' @export 

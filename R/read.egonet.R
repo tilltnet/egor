@@ -272,46 +272,6 @@ wide.dyads.to.edgelist.regex <- function(e.wide, aa.regex, netsize) {
 }
 
 
-
-#' edges.attributes.to.network
-#'
-#' This function generates one igraph object from an edgelist and a dataframe 
-#' containing alter attributes.
-#' @param e.list \code{data.frame} containg edge data/ one edgelist.
-#' @param alters \code{data.frame} containg alter attributes.
-#' @keywords internal
-edges.attributes.to.network <- function(e.list, alters) {
-  #print(attributes$alterID)
-  igraph::graph.data.frame(d= e.list, vertices= alters, directed= FALSE)
-}
-
-
-#' Generate list of igraph objects from alters and edge data
-#'
-#' This function generates a list of igraph objects from a edgelists organized in list and a list of
-#' dataframes containing alter attributes.
-#' @param e.lists \code{List} of \code{data.frame}s containg edge data/ one edgelist.
-#' @template alters_list
-#' @keywords igraph
-#' @export
-to.network <- function(e.lists, alters.list) {  
-  graph.list <- tryCatch({
-    message("Creating igraph objects: $graphs")
-    mapply(FUN= edges.attributes.to.network, e.lists, alters.list, 
-                       SIMPLIFY=FALSE)},
-    warning=function (cond) {
-      message("WARNING: There was an warning trying to combine alter and edge data to igraph objects. Carefully check objects for correctness!")
-      message(paste("igraph warning: ", cond))
-      return(mapply(FUN= edges.attributes.to.network, e.lists, alters.list, 
-                    SIMPLIFY=FALSE))},
-    error=function (cond) {
-      message("WARNING: There was an error trying to combine alter and edge data to igraph objects. $graphs will be empty!")
-      message(paste("igraph error: ", cond))
-      return(list())}
-    )
-  graph.list
-}
-
 #' add_ego_vars_to_long_df
 #'
 #' This function adds ego attributes to a 'alters.list' object of ego-centered

@@ -20,7 +20,7 @@ all networks contained in an interactive Browser Application (R-Shiny).
 \examples{
 \dontrun{
 data("egor32")
-egor.vis.wizzard(egor32)
+egor_vis_wizzard(egor32)
 }
 }
 \keyword{analysis}

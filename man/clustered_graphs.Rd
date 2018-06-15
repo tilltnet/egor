@@ -36,12 +36,9 @@ the clustered ego-centered network data;
 }
 \description{
 The idea of clustered graphs is to reduce the complexity of an ego-centered network
-graph by visualising its group aggregated form. It is developed by
-Lerner et al. (2008). It helps to discover and visualise structural and
-compostional properties of ego-centered networks, based on a pre-defined
-factor variable on the alter level. clustered_graphs() calculates group sizes,
-inter- and intragroup densities and these informations in a \code{list} of
-\code{igraph} objects.
+graph by visualising alters in clusters defined by a categorial variable (Lerner et al. 2008).
+\code{clustered_graphs()} calculates group sizes, inter- and intragroup tie
+densities and returns these informations in a \code{list} of #' \code{igraph} objects.
 }
 \examples{
 data("egor32")

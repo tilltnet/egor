@@ -45,8 +45,7 @@ the clustered ego-centered network data;
 }
 \description{
 \code{vis_clustered_graphs} visualises clustered_graphs using a list of
-clustered graphs created with \code{\link{clustered_graphs}}
-created clustered graph objects.
+clustered graphs created with \code{\link{clustered_graphs}}.
 }
 \examples{
 data("egor32")

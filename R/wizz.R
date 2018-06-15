@@ -10,7 +10,7 @@
 #' @examples 
 #' \dontrun{
 #' data("egor32")
-#' egor.vis.wizzard(egor32)
+#' egor_vis_wizzard(egor32)
 #' }
 #' @keywords ego-centric network analysis
 #' @export
@@ -27,7 +27,7 @@ egor_vis_wizzard <- function(object) {
   colors_ <- blues9
   e_colors <- grey(0.6)
   
-  graphs <- to.network(object$.aaties, object$.alts)
+  graphs <- as_igraph(object)
   #' @importFrom tibble as_tibble
   object <- as_tibble(object)
 
