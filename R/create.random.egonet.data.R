@@ -37,12 +37,17 @@ generate.sample.edge.list <- function(netsize) {
 #' @export
 generate.sample.ego.data <- function(net.count, max.alters, netsize = NULL, plot=FALSE) {
   
+  country_names <- c("Poland", "Australia", "USA", "Germany")
+  
   # Generating ego data
   egoID <- as.factor(1:net.count)
   sex <- chartr("12", "wm", sample(1:2, net.count, replace = TRUE))
-  age <- sample(1:7, net.count, replace = TRUE)
+  age_years <- sample(1:100, net.count, replace = TRUE)
+  age <- findInterval(age_years, c(0,17,26,36,46,56,66))
   age <- factor(age, levels = c(1, 2, 3, 4, 5, 6, 7), labels = c("0 - 17", 
       "18 - 25", "26 - 35", "36 - 45", "46 - 55", "56 - 65", "66 - 100"))
+  country <- sample(country_names, net.count, replace = TRUE)
+  income <- sample(1:200*365, net.count, replace = TRUE)
   
   # Generating netsize
   if (is.null(netsize)) {
@@ -59,7 +64,7 @@ generate.sample.ego.data <- function(net.count, max.alters, netsize = NULL, plot
   }
   
   # Creating egos return object
-  egos <- data.frame(egoID, sex, age)
+  egos <- data.frame(egoID, sex, age, age.years = age_years, country, income)
   
   # Generating alters data
   alterID <- rep(1:max.alters, net.count)
@@ -70,11 +75,21 @@ generate.sample.ego.data <- function(net.count, max.alters, netsize = NULL, plot
 
   alter.sex <- rep(chartr("12", "wm", sample(1:2, net.count, replace = TRUE)), 
                    max.alters)
-  alter.age <- rep(sample(1:7, net.count, replace = TRUE), max.alters)
+  alter.age.years <- rep(sample(1:100, net.count, replace = TRUE), max.alters)
+  alter.age <- findInterval(alter.age.years, c(0,17,26,36,46,56,66))
   alter.age <- factor(alter.age, levels = c(1, 2, 3, 4, 5, 6, 7), labels = c("0 - 17", 
       "18 - 25", "26 - 35", "36 - 45", "46 - 55", "56 - 65", "66 - 100"))
-
-  alters <- data.frame(egoID, alterID, sex=alter.sex, age=alter.age)
+  
+  alter.country <- rep(sample(country_names, net.count, replace = TRUE), max.alters)
+  alter.income <- rep(sample(1:200*365, net.count, replace = TRUE), max.alters)
+  
+  alters <- data.frame(egoID, 
+                       alterID, 
+                       sex = alter.sex, 
+                       age = alter.age,
+                       age_years = alter.age.years,
+                       country = alter.country,
+                       income = alter.income)
   
   # Trimming down alters per network using netsize
   alters <- long.df.to.list(alters, netsize, egoID = "egoID", back.to.df = TRUE)
