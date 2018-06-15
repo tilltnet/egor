@@ -5,25 +5,17 @@ library(egor)
 
 data(egor32)
 
-netsize <- sapply(egor32$.alts, FUN = NROW)
+composition(egor32, "age", T)
+composition(egor32, "age")
 
-composition(egor32, "age", netsize)
-composition(egor32, "sex", netsize)
-composition(egor32, "sex", netsize, v_ego = egor32$sex)
-
-alters.df <- as_alts_df(egor32)
-composition(object = alters.df, v_alt = "sex", netsize, v_ego = egor32$sex)
+egor_diversity(egor32, "age")
+homophily_ei(egor32, "sex")
 
 
-# Same names in egos and alter vars
+comp_ply(egor32, "age", .f = egor:::fun_alts_diversity)
+comp_ply(egor32, "age", .f = egor:::fun_entropy, base = 7)
+comp_ply(egor32, "age", .f = egor:::fun_homophily_ei, ego.attr = "age")
 
 
-
-egor32$.alts <- lapply(egor32$.alts, FUN = function(x) {
-  names(x)[2:3] <- c("sex", "age")
-  x
-})
-
-composition(egor32, "sex", netsize)
-composition(egor32, "sex", netsize, v_ego = egor32$sex)
-
+alts_diversity_entropy(egor32, "age")
+alts_diversity_count(egor32, "age")

@@ -2,67 +2,27 @@
 % Please edit documentation in R/composition.R
 \name{composition}
 \alias{composition}
-\alias{composition.list}
-\alias{composition.egor}
-\alias{composition.data.frame}
-\title{Calculate compositional measurements (Proportion, Diversity, EI-Index)}
+\title{Calculate the composition of alter attributes in an egor object}
 \usage{
-composition(object, v_alt, netsize, egoID = "egoID", v_ego = NULL,
-  mode = "regular")
-
-\method{composition}{list}(object, v_alt, netsize, egoID = "egoID",
-  v_ego = NULL, mode = "regular")
-
-\method{composition}{egor}(object, v_alt, netsize, egoID = "egoID",
-  v_ego = NULL, mode = "regular")
-
-\method{composition}{data.frame}(object, v_alt, netsize, egoID = "egoID",
-  v_ego = NULL, mode = "regular")
+composition(object, alt.attr, absolute = FALSE)
 }
 \arguments{
-\item{object}{An egor object, a list or data.frame of alter attributes.}
+\item{object}{An egor object.}
 
-\item{v_alt}{A character naming the variable containg the alter-attribute.}
+\item{alt.attr}{A \code{character} naming the variable containg the alter-attribute.}
 
-\item{netsize}{\code{Vector} containing values of network size per ego.}
-
-\item{egoID}{\code{Character}. Name of the variable identifying egos (default: "egoID").}
-
-\item{v_ego}{Character vector containing the ego attribute. Only needed for homophily index (EI). Caution: Levels of v_alt and v_ego need to correspond (see Details).}
-
-\item{mode}{A character. "regular" for a basic output, "all" for a complete output.}
+\item{absolute}{\code{Logical} indicating if the results should be absolute.}
 }
 \value{
-Returns a dataframe with category counts, diversity and EI-Index values in an ego-centered network for a provided alter attribute.
+A \code{tibble} with the values per category in the columns.
 }
 \description{
-This function outputs a dataframe containg serveral compositional measures
-for ego-centered-network data. It reports the proportion of each group in the
-network, the absolute count of groups present and, if provided the
-corresponding ego attribute, the EI-Index is employed as a measurment for ego's tendency
-to homo-/heterophily.
-}
-\details{
-v_ego is expected to consist of one entry per ego. The ego
-attributes are usually drawn from the ego dataframe. If the ego attribute is
-stored alongside the alters data, make sure to drop repeated values per
-alters (see example two).
+\code{composition()} calculates the proportional or absolute composition of
+alters for a given attribute/variable.
 }
 \examples{
-# Load example data
-data("egos32")
-data("alters32")
-
-# Example one
-composition(alters32, v_alt = "alter.sex", netsize = egos32$netsize, 
-            v_ego = egos32$sex)
-
-# Example two
-# - using an ego attribute stored in the alter dataframe.
-ego.sex <- alters32[!duplicated(alters32$egoID), ]$ego.sex
-res <- composition(alters32, v_alt = "alter.sex", netsize = egos32$netsize, 
-                   v_ego = ego.sex)
-
+data("egor32")
+composition(egor32, "sex")
 }
 \keyword{analysis}
 \keyword{ego-centered}
