@@ -53,8 +53,8 @@ library(dplyr)
 
 of2 <- as_tibble(of)
 
-alters <- tidyr::unnest(dplyr::select(of2, egoID, .alts))
-aaties <- tidyr::unnest(dplyr::select(of2, egoID, .aaties))
+alters <- tidyr::unnest(dplyr::select(of2, .alts), .id = "egoID")
+aaties <- tidyr::unnest(dplyr::select(of2, .aaties), .id = "egoID")
 
 
 
@@ -72,3 +72,4 @@ test_that("density2 values are between 0 an 1", {
   expect_true(max(densities2) <= 1)
   expect_true(min(densities2) >= 0)
 })
+
