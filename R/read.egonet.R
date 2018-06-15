@@ -222,7 +222,7 @@ wide.dyads.to.edgelist <- function(e.wide, first.var, max.alters,
   alter.alter.list2 
 }
 
-
+if(getRversion() >= "2.15.1") utils::globalVariables(c("nm"))
 #' Transform wide alter-alter data to an edge list.
 #
 #' A regex based implementation to convert a wide list to an edgelist.

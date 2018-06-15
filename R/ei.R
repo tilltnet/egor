@@ -1,3 +1,5 @@
+if(getRversion() >= "2.15.1") utils::globalVariables(c(".alts", ".altID", "fact", "fact.x", "fact.y", "homogen", "netsize", "grp_sizes", "poss_ext", "poss_int", "grp_ei_tab", "ei_sc", ".aaties", "ei_tab", "poss"))
+
 #' Calculate the EI-Index
 #'
 #' The EI-Index is the division of the intra-group edge density and the outer-group edge 
@@ -24,7 +26,7 @@
 #' @import dplyr
 #' @importFrom purrr map
 #' @importFrom purrr map2
-#' @importFrom purrr map_df
+#' @importFrom purrr map_dfr
 #' @importFrom purrr map_dbl
 #' @importFrom tidyr spread
 #' @importFrom tidyr replace_na
@@ -37,14 +39,14 @@ EI <- function(object, alt.attr) {
   get_ei_tab <- function(object) {
     object %>%
       mutate(.alts = map(.alts, function(x)
-        select(x, .altID, var = !!alt.attr_enquo))) %>%
+        select(x, .altID, fact = !!alt.attr_enquo))) %>%
       mutate(ei_tab = map2(
         .alts,
         .aaties,
         .f = function(x, y) {
           left_join(y, x, by = c(".srcID" = ".altID")) %>%
             left_join(x, by = c(".tgtID" = ".altID")) %>%
-            mutate(homogen =  var.x == var.y) %>%
+            mutate(homogen =  fact.x == fact.y) %>%
             mutate(homogen = factor(
               homogen,
               levels = c("TRUE", "FALSE"),
@@ -59,7 +61,7 @@ EI <- function(object, alt.attr) {
       mutate(netsize = map_dbl(.alts, nrow)) %>%
       mutate(grp_sizes = map(.alts, function(x) {
         as_tibble(x) %>%
-          count(var)
+          count(fact)
       })) %>%
       mutate(poss_ext = map2(netsize, grp_sizes, function(x, y) {
         mutate(y, poss_ext = (x - n) * n)
@@ -68,12 +70,12 @@ EI <- function(object, alt.attr) {
         mutate(x, poss_int = (n ^ 2 - n) / 2)
       })) %>%
       mutate(poss = map2(poss_ext, poss_int, function(x, y)
-        full_join(x, y, by = c("var", "n"))))
+        full_join(x, y, by = c("fact", "n"))))
   }
   
   calc_grp_ei_tab <- function(ei_tab, fact) {
     ei_tab %>%
-      filter(var.x == fact | var.y == fact) %>%
+      filter(fact.x == fact | fact.y == fact) %>%
       count(homogen) %>%
       complete(homogen) %>%
       replace_na(list(n = 0)) %>%
@@ -91,16 +93,16 @@ EI <- function(object, alt.attr) {
       if(nrow(y) < 1) return(
         mutate_all(tibble(fact = NA, E = NA, I = NA), as.numeric))
       
-      map(y$var, function(z) {
+      map(y$fact, function(z) {
         calc_grp_ei_tab(x, z)
       }) %>%
         bind_rows() %>%
-        bind_cols(fact = y$var)
+        bind_cols(fact = y$fact)
     })) %>%
     mutate(grp_ei_tab = map2(grp_ei_tab, poss, function(x, y)
-      full_join(x, y, by = c("fact" = "var"))))
+      full_join(x, y, by = "fact")))
   
-  a <- map_df(obj$grp_ei_tab, function(x)
+  a <- map_dfr(obj$grp_ei_tab, function(x)
     x %>%
       summarise_if(is.numeric, sum) %>%
       mutate(
@@ -109,7 +111,7 @@ EI <- function(object, alt.attr) {
       ) %>%
       select(ei_sc))
   
-  b <- map_df(obj$grp_ei_tab, function(x) {
+  b <- map_dfr(obj$grp_ei_tab, function(x) {
     x %>%
       mutate(ei_sc = ei(E / poss_ext, I / poss_int)) %>%
       select(fact, ei_sc) %>%

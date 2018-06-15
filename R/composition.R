@@ -1,3 +1,17 @@
+if(getRversion() >= "2.15.1") utils::globalVariables(c(
+  "tmp",
+  "prop",
+  "fact",
+  "fact.x",
+  "fact.y",
+  "homogen",
+  "netsize",
+  "grp_sizes",
+  "poss_ext",
+  "poss_int",
+  "grp_ei_tab",
+  "ei_sc"))
+
 #' Calculate the composition of alter attributes in an egor object
 #'
 #' `composition()` calculates the proportional or absolute composition of 
@@ -45,10 +59,11 @@ composition <- function(object, alt.attr, absolute = FALSE) {
 #' `.f(alt.attr, ego.attr, ...)`. `.f` must return a single numeric value.
 #' @keywords ego-centered network analysis
 #' @examples
-#' data("egor32")
-#' comp_ply(egor32, "age", max, na.rm=TRUE)
+#' df <- generate.sample.ego.data(10, 32)
+#' comp_ply(df, "age_years", sd, na.rm = TRUE)
 #' @author Michał Bojanowski, \email{m.bojanowski@uw.edu.pl}
 #' @author Till Krenz, \email{public@tillt.net}
+#' @importFrom purrr map2_dbl
 #' @export
 comp_ply <- function(object, alt.attr, .f, ..., ego.attr = NULL) {
   alt.attr_enquo <- enquo(alt.attr)
@@ -68,6 +83,7 @@ comp_ply <- function(object, alt.attr, .f, ..., ego.attr = NULL) {
 #' entropy as a mesaurment for diversity of an alter attribute.
 #' @param object An egor object.
 #' @param alt.attr A `character` naming the variable containg the alter-attribute.
+#' @param base `Numeric`, base value of logarithm for entropy calculation.
 #' @return A `numeric` vector.
 #' @keywords ego-centered network analysis
 #' @examples

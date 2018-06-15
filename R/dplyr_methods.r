@@ -1,3 +1,5 @@
+if(getRversion() >= "2.15.1") utils::globalVariables(c("tmp_ix__"))
+
 # dplyr methods
 restore_egor_attributes <- function(result, egor_obj) {
   attrs_old <- attributes(egor_obj)
