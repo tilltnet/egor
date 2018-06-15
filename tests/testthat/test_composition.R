@@ -8,8 +8,7 @@ data(egor32)
 composition(egor32, "age", T)
 composition(egor32, "age")
 
-egor_diversity(egor32, "age")
-homophily_ei(egor32, "sex")
+homophily_ei(egor32, "sex", "sex")
 
 
 comp_ply(egor32, "age", .f = egor:::fun_alts_diversity)

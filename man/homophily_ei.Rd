@@ -4,17 +4,17 @@
 \alias{homophily_ei}
 \title{Calculate the EI-Indices of an egor object as a measurement of ego-alter homophily}
 \usage{
-homophily_ei(onject, alt.attr, ego.attr)
+homophily_ei(object, alt.attr, ego.attr)
 }
 \arguments{
+\item{object}{An egor object.}
+
 \item{alt.attr}{A \code{character} naming the variable containg the alter-attribute.}
 
 \item{ego.attr}{A \code{character} naming an ego attribute.}
-
-\item{object}{An egor object.}
 }
 \value{
-A \code{numeric vector}.
+A \code{numeric} vector.
 }
 \description{
 \code{homophily_ei()} calculates the EI-Index values as a measurement for ego-alter homophily.

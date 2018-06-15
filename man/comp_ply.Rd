@@ -18,7 +18,7 @@ comp_ply(object, alt.attr, .f, ..., ego.attr = NULL)
 \item{ego.attr}{Optional  \code{character} naming an ego attribute.}
 }
 \value{
-A \code{numeric vector}.
+A \code{numeric} vector.
 }
 \description{
 \code{comp_ply()} applies a function, that uses an alter attribute to calculate

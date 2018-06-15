@@ -7,7 +7,7 @@
 \usage{
 alts_diversity_count(object, alt.attr)
 
-alts_diversity_entropy(object, alt.attr)
+alts_diversity_entropy(object, alt.attr, base)
 }
 \arguments{
 \item{object}{An egor object.}
@@ -15,7 +15,7 @@ alts_diversity_entropy(object, alt.attr)
 \item{alt.attr}{A \code{character} naming the variable containg the alter-attribute.}
 }
 \value{
-A \code{numeric vector}.
+A \code{numeric} vector.
 }
 \description{
 \code{alts_diversity_count()} counts the categories of a variable present in the

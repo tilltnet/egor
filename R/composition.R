@@ -86,10 +86,10 @@ fun_alts_diversity <- function(x, var_name) {
 
 #' @rdname alts_diversity_count
 #' @export
-alts_diversity_entropy <- function(object, alt.attr) 
-  comp_ply(object, alt.attr, .f = fun_entropy, base = 7)
+alts_diversity_entropy <- function(object, alt.attr, base) 
+  comp_ply(object, alt.attr, .f = fun_entropy, base = base)
 
-fun_entropy <- function(x, base=2) {
+fun_entropy <- function(x, base = 2) {
   ptab <- prop.table(table(factor(x)))
   sum(ptab * log(1/ptab, base=base))
 }
@@ -106,8 +106,8 @@ fun_entropy <- function(x, base=2) {
 #' data("egor32")
 #' homophily_ei(egor32, "age", "age")
 #' @export
-homophily_ei <- function(onject, alt.attr, ego.attr) 
-  comp_ply(egor32, alt.attr, .f = fun_homophily_ei, ego.attr = ego.attr)
+homophily_ei <- function(object, alt.attr, ego.attr) 
+  comp_ply(object, alt.attr, .f = fun_homophily_ei, ego.attr = ego.attr)
 
 fun_homophily_ei <- function(x, ego_var) {
   homogen <- x == ego_var
