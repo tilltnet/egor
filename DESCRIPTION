@@ -24,7 +24,7 @@ Description: egor aids with the process of importing, analysing
     procedures for creating and visualising Clustered Graphs (Lerner et. al
     2008).
 License: AGPL-3
-Depends: 
+Depends:
     R (>= 2.10),
     dplyr
 Imports:
@@ -40,7 +40,8 @@ Imports:
     purrr
 Suggests:
     knitr,
-    testthat
+    testthat,
+    rmarkdown
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1.9000
 Roxygen: list(markdown = TRUE)

@@ -1,0 +1,269 @@
+---
+title: "Using egor to analyse ego-centered network data"
+author: "Till Krenz"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  dev = "CairoPNG"
+)
+
+library(knitr)
+library(egor)
+```
+
+## The egor object
+
+```
+library(egor)
+```
+An egor object contains all data levels associated with ego-centered network 
+analysis, those levels are: ego, alter, alter-alter ties. By providing the 
+`egor()`-function with `data.frames` containing data corresponding to these data
+levels, we construct an egor object. Here is an example of what the `data.frames`
+could look like. Pay attention to the ID variables connecting the levels with 
+each other. 
+
+```{r}
+data("alters32")
+data("egos32")
+data("edges32") 
+```
+
+```{r echo=FALSE}
+alters32 %>%
+  head() %>%
+  kable(caption = "First rows of alter data.")
+
+egos32 %>%
+  head() %>%
+  kable(caption = "First rows of ego data.")
+
+edges32 %>%
+  head() %>%
+  kable(caption = "First rows of alter-alter tie data.")
+```
+
+All three `data.frames` contain an egoID identifying a unique ego and connecting
+their personal data to the alter and alter-alter tie data. The alterID is in the
+alter data is reused in the alter-alter tie data in the Source and Target 
+columns.
+
+Let's create an egor object from the data we just loaded.
+```{r}
+e1 <- egor(alters.df = alters32,
+           egos.df = egos32,
+           aaties = edges32,
+           ID.vars = list(
+             ego = "egoID",
+             alter = "alterID",
+             source = "Source",
+             target = "Target"))
+e1
+```
+
+An [`egor`] object is a [`tibble`] whose top-level columns store the ego 
+attributes, and which has two special nested columns:
+
+- `.alts`, containing, for each row (ego) a `data.frame` of that ego's alters
+- `.aaties`, a `data.frame` containing that ego's alter--alter ties.
+
+## Import
+
+There are currently three importing functions that read the data exported from
+data collection tools from the harddrive and load them as an `egor` object.
+
+```
+read_openeddi()
+read_egoweb()
+read_egonet()
+```
+
+There are three functions that help with the transformation of common data 
+formats of ego-centered network data:
+
+
+```
+onefile_to_egor()
+twofiles_to_egor()
+threefiles_to_egor()
+```
+## Manipulate
+
+Manipulating an egor object can be done with base R functions or with `dplyr` verbs.
+
+### Base R
+
+The different data levels of an egor object can be manipulated using square
+bracket subsetting or the `subset()` function.
+
+Ego level:
+
+```
+e1[, "age"]
+e1[e1$netsize > 15, ]
+```
+
+Alter level:
+```
+subset(e1, .alts$alter.sex=="w", unit="alter")
+```
+
+Alter-alter tie level:
+```
+subset(e1, .aaties$weight > 1, unit="aatie")
+```
+### dplyr and purrr
+An egor object can be manipulated with dplyr verbs. In combination with the 
+`map*()` functions from the `purrr` package the list columns .alts and .aaties
+can be processed and modified. A few examples:
+
+```{r include=FALSE}
+library(dplyr)
+library(purrr)
+```
+
+```
+library(dplyr)
+library(purrr)
+```
+
+```
+e1 %>%
+  mutate(.alts = map(.alts, ~{
+    filter(., alter.sex == "m")
+  }))
+
+e1 %>%
+  mutate(.aaties = map(.aaties, ~{
+    filter(., weight > 1)
+  }))
+```
+
+
+## Analyse
+Try these function to analyse you egor object.
+
+### Summary
+```{r}
+summary(e1)
+```
+
+### Density
+```{r}
+ego_density(e1)
+```
+
+### Composition
+```{r}
+composition(e1, "alter.age") %>%
+  head() %>%
+  kable()
+```
+
+### Diversity
+```{r}
+alts_diversity_count(e1, "alter.age")
+alts_diversity_entropy(e1, "alter.age")
+```
+
+### Homophily (EI-Index)
+```{r}
+homophily_ei(e1, "alter.age", "age")
+```
+
+### EI-Index for alter-alter ties
+```{r}
+
+EI(e1, "alter.age") %>%
+  head() %>%
+  kable()
+
+
+```
+`comp_ply()` applies a user-defined function on an alter attribute and returns 
+a numeric vector with the results. It can be used to apply base R funtions like
+`sd()`, `mean()` or functions from other packages.
+
+```{r}
+e2 <- generate.sample.ego.data(15, 32)
+comp_ply(e2, "age.years", sd, na.rm = TRUE)
+```
+
+## Visualise
+
+### Clustered Graphs
+```{r}
+data("egor32")
+
+# Simplify networks to clustered graphs, stored as igraph objects
+graphs <- clustered_graphs(egor32, "age") 
+
+# Visualise
+par(mar=c(0,0,0,0))
+vis_clustered_graphs(graphs[1:3], 
+                     node.size.multiplier = 10, 
+                     edge.width.multiplier = 5,
+                     label.size = 0.6)
+
+graphs2 <- clustered_graphs(generate.sample.ego.data(400, 200)[1:4], "country") 
+
+vis_clustered_graphs(graphs2[1:4], 
+                     node.size.multiplier = 2, 
+                     edge.width.multiplier = 15,
+                     label.size = 0.6,
+                     labels = TRUE)
+```
+
+### `igraph` & `network` plotting
+
+- `as_igraph()` converts an egor object to a list of igraph objects.
+- `as_network()` converts an egor object to a list of network objects.
+
+```{r}
+par(mar=c(0,0,0,0))
+purrr::walk(as_igraph(egor32)[1:4], plot)
+purrr::walk(as_network(egor32)[1:4], plot)
+```
+
+
+### Visualisation Wizzard
+
+`egor_vis_wizzard()` starts a Shiny app that allows offers a graphical
+interface for adjusting the visualisation parameters of the networks stored
+in an egor object.
+
+```
+egor_vis_wizzard(egor32)
+```
+![Wizzard](vis_wizzard.PNG)
+
+## Conversions
+
+In addition to `as_igraph()` and `as_network()` shown in the visualisation 
+section there are to conversion functions for egor objects:
+
+`as_alts_df()` creates a global data frame of all alters.
+
+```{r}
+as_alts_df(egor32, include.ego.vars = TRUE) %>%
+  head() %>%
+  kable(caption = "First rows of global alters data frame.")
+```
+
+`as_ties_df()` creates a global data frame of alter-alter ties.
+
+```{r}
+as_ties_df(egor32, include.alt.vars = TRUE) %>%
+  head() %>%
+  kable(caption = "First rows of global alter-alter tie data frame.")
+```
+
