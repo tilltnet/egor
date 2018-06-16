@@ -186,6 +186,8 @@ EI(e1, "alter.age") %>%
   head() %>%
   kable()
 ```
+
+### `comp_ply()`
 `comp_ply()` applies a user-defined function on an alter attribute and returns 
 a numeric vector with the results. It can be used to apply base R funtions like
 `sd()`, `mean()` or functions from other packages.
