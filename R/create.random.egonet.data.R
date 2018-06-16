@@ -87,7 +87,7 @@ generate.sample.ego.data <- function(net.count, max.alters, netsize = NULL, plot
                        alterID, 
                        sex = alter.sex, 
                        age = alter.age,
-                       age_years = alter.age.years,
+                       age.years = alter.age.years,
                        country = alter.country,
                        income = alter.income)
   
