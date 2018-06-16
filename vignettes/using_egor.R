@@ -1,8 +1,8 @@
 ## ----setup, include = FALSE----------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>",
-  dev = "CairoPNG"
+  comment = "#>"#,
+  #dev = "CairoPNG"
 )
 
 library(knitr)
