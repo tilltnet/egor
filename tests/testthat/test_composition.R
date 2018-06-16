@@ -21,4 +21,4 @@ alts_diversity_count(egor32, "age")
 
 # Example
 df <- generate.sample.ego.data(10, 32)
-comp_ply(df, "age_years", sd, na.rm = TRUE)
+comp_ply(df, "age.years", sd, na.rm = TRUE)

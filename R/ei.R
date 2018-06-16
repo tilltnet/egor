@@ -85,6 +85,7 @@ EI <- function(object, alt.attr) {
   alt.attr_enquo <- enquo(alt.attr)
   
   obj <- object %>%
+    as_tibble() %>%
     select(.alts, .aaties) %>%
     get_ei_tab() %>%
     calc_grp_sizes() %>%

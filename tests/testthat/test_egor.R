@@ -21,7 +21,7 @@ summary(e1_gen)
 summary(e1)
 
 test_that("density values macht up", 
-          all(ego_density(e1_gen) == ego_density(e1)))
+          expect_true(all(ego_density(e1_gen) == ego_density(e1))))
 
 test_that("weighted density values macht up", 
           expect_true(

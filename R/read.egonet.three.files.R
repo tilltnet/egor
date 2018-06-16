@@ -45,14 +45,16 @@ order.edge.list.columns <- function(edges, source_, target) {
 #' }
 #' @export
 threefiles_to_egor <- function(egos, alters.df, edges, 
-                                    ID.vars = list(ego="egoID", alter="alterID", source="Source", target="Target"),
+                                    ID.vars = list(ego="egoID", 
+                                                   alter="alterID", 
+                                                   source="Source", 
+                                                   target="Target"),
                                     ego.vars = NULL, ...) {
   # 0. Extract ID var Names
   IDv <- modifyList(eval(formals()$ID.vars), ID.vars)
   
   # 3. Sort by IDv$ego
   # Sort egos by IDv$ego and alters by IDv$ego and IDv$alter.
-  message("Sorting data by egoID and alterID.")
   egos <- egos[order(as.numeric(egos[[IDv$ego]])), ]
   alters.df <- alters.df[order(as.numeric(alters.df[[IDv$ego]]), as.numeric(alters.df[[IDv$alter]])), ]
 
