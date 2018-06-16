@@ -4,10 +4,12 @@
 \alias{egor_vis_wizzard}
 \title{Network Visualisation Wizzard (egor)}
 \usage{
-egor_vis_wizzard(object)
+egor_vis_wizzard(object, shiny_opts = list(launch.browser = TRUE))
 }
 \arguments{
 \item{object}{An egor object.}
+
+\item{shiny_opts}{\code{List} of arguments to be passed to \code{shinyApp()}'s options argument.}
 }
 \value{
 Opens an interactive Browser Application.
