@@ -31,7 +31,7 @@ When an ego attribute is used the \code{.f} is called like this:
 }
 \examples{
 df <- generate.sample.ego.data(10, 32)
-comp_ply(df, "age_years", sd, na.rm = TRUE)
+comp_ply(df, "age.years", sd, na.rm = TRUE)
 }
 \author{
 Michał Bojanowski, \email{m.bojanowski@uw.edu.pl}
