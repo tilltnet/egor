@@ -34,7 +34,7 @@ RESERVED_COLNAMES <- c(".alts", ".aaties", ".egoRow", ".altID", ".srcID", ".tgtI
 #'   for internal use of `egor` and should not be used to store
 #'   persistent data. Other `.`-led column names may be reserved in
 #'   the future.
-#' @return An [`egor`] object. An [`egor`] is a [`tibble`] whose
+#' @return Returns an [`egor`] object. An [`egor`] object is a [`tibble`] whose
 #'   top-level columns store the ego attributes, and which has two
 #'   special nested columns: `.alts`, containing, for each row (ego) a
 #'   table of that ego's alter attributes and `.aaties`, a table

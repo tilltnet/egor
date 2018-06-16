@@ -57,7 +57,7 @@ ego can nominate.}}}
 \item{...}{arguments to be passed to methods}
 }
 \value{
-An \code{\link{egor}} object. An \code{\link{egor}} is a \code{\link{tibble}} whose
+Returns an \code{\link{egor}} object. An \code{\link{egor}} object is a \code{\link{tibble}} whose
 top-level columns store the ego attributes, and which has two
 special nested columns: \code{.alts}, containing, for each row (ego) a
 table of that ego's alter attributes and \code{.aaties}, a table
