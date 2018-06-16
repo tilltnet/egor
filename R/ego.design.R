@@ -39,7 +39,7 @@ weights.egor <- function(object, ...) {
   assign("egor", egor, envir=svyenv)
 #' @importFrom survey svydesign
   svycall <- as.call(c(call("::",as.name("survey"),as.name("svydesign")), ego.design, list(data = as.name("egor"))))
-  eval(svycall, svyenv)
+  suppressWarnings(eval(svycall, svyenv))
 }
 
 #' Set and query the ego sampling design
