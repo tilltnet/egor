@@ -7,7 +7,7 @@
 vis_clustered_graphs(graphs, node.size.multiplier = 1, node.min.size = 0,
   node.max.size = 200, edge.width.multiplier = 30, center = 1,
   label.size = 0.8, labels = FALSE, legend.node.size = 45,
-  to.pdf = FALSE)
+  to.pdf = FALSE, ...)
 }
 \arguments{
 \item{graphs}{\code{List} of \code{graph} objects, representing the clustered
@@ -34,6 +34,8 @@ by a 'legend' plot giving the labels of the vertices.}
 \item{legend.node.size}{\code{Numeric} used as node diameter of legend graph.}
 
 \item{to.pdf}{\code{Boolean}.}
+
+\item{...}{Arguments to pass to \code{plot.igraph}.}
 }
 \value{
 \code{vis_clustered_graphs} plots

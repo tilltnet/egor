@@ -174,6 +174,7 @@ clustered_graphs.data.frame <- function(object, aaties, clust.groups, egoID = "e
 #' by a 'legend' plot giving the labels of the vertices.
 #' @param legend.node.size \code{Numeric} used as node diameter of legend graph.
 #' @param to.pdf \code{Boolean}.
+#' @param ... Arguments to pass to `plot.igraph`.
 #' @return \code{vis_clustered_graphs} plots
 #' a \code{list} of \code{igraph} objects created by the \code{clustered_graphs}
 #' function.
@@ -195,7 +196,7 @@ vis_clustered_graphs <- function(graphs,
                                  label.size = 0.8, 
                                  labels = FALSE, 
                                  legend.node.size = 45, 
-                                 to.pdf = FALSE) {
+                                 to.pdf = FALSE, ...) {
 
   plotLegendGraph <- function(grps.graph, center) {
       # set all edges to 1
@@ -219,7 +220,7 @@ vis_clustered_graphs <- function(graphs,
                 vertex.label.family = "sans",
                 #vertex.label.dist = 4,
                 #vertex.label.degree = ifelse(igraph::layout.star(grps.graph, center = center)[,1] >= 1, 0, pi),
-                layout = layout_)
+                layout = layout_, ...)
   }
   
   plotGraph <- function(graph, center) {
@@ -270,7 +271,7 @@ vis_clustered_graphs <- function(graphs,
                 edge.label.cex = edge.label.cex,
                 edge.label.family = "sans",
                 edge.color = ifelse(igraph::E(graph)$grp.density == 0, NA, "grey"),
-                layout = layout_)
+                layout = layout_, ...)
     
       # igraph::plot.igraph(graph, add = TRUE,
       #                   vertex.color = NA, 
@@ -301,7 +302,7 @@ vis_clustered_graphs <- function(graphs,
                 edge.width = 0,
                 edge.color = NA,
                 edge.arrow.size = 0, 
-                layout = layout_)
+                layout = layout_, ...)
     #print(label.shades)
     #print(grey.shades)
   }
