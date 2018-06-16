@@ -1,4 +1,4 @@
-if(getRversion() >= "2.15.1") utils::globalVariables(c("tmp_ix__"))
+if(getRversion() >= "2.15.1") utils::globalVariables(c("tmp_ix__", ".srcID", ".tgtID"))
 
 # dplyr methods
 restore_egor_attributes <- function(result, egor_obj) {
@@ -24,9 +24,24 @@ update_ego_design <- function(result) {
 #' @method mutate egor
 mutate.egor <- function(.data, ...) {
   result <- NextMethod()
+  # Filter .aaties where srcID and tgtID are missing/deleted from .alts
+  result <- trim_aaties(result)
+  
   restore_egor_attributes(result, .data)
 }
 
+#' Trims alter-alter ties of alters that are missing/ deleted from alters data
+#' 
+#' @param object An `egor` object.
+#' @return An `egor` object with trimmed alter-alter ties (.aaties).
+#' @export
+trim_aaties <- function(object) {
+  object$.aaties <- map2(object$.alts, object$.aaties, function(alts, aaties) {
+    filter(aaties, .srcID %in% alts$.altID | .tgtID %in% alts$.altID)
+  })
+  object
+}
+  
 #' @export
 #' @noRd
 #' @method transmute egor
@@ -72,3 +87,5 @@ group_by.egor <- function(.data, ...) {
 # missing:
 # joins (full_join, etc)
 # binds (bind_rows, bind_cols)
+
+# add function that deletes edges that invole alters that have been deleted.
