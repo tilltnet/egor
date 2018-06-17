@@ -1,4 +1,4 @@
-# Network Visualisation Wizzard
+if(getRversion() >= "2.15.1") utils::globalVariables(c("clrs", "colors_", "e_colors", "edge.color", "edge.width", "graphs", "layout_", "vertex.label", "vertex.size"))
 
 #' Network Visualisation Wizzard (egor)
 #'
@@ -25,93 +25,140 @@
 #' @importFrom tibble as_tibble
 #' @importFrom igraph list.edge.attributes
 #' @importFrom igraph list.vertex.attributes
+#' @importFrom igraph V<-
+#' @importFrom igraph E<-
 egor_vis_wizzard <- function(object, shiny_opts = list(launch.browser = TRUE)) {
   
 # App Globals -------------------------------------------------------------
   egors <- ls(envir = .GlobalEnv)[sapply(mget(ls(envir = .GlobalEnv), envir = .GlobalEnv), function(x) class(x)[1] == "egor")]
   col_pal_names <- c("Heat Colors", "Yellow-Green", "Red-Yellow", "Blue-Red", "Black-White", "Greys", "Rainbow", "Topo Colors")
-  
+  shiny_opts <- c(shiny_opts, width="20")
+  object_enex <- as.character(enexpr(object))
   
   shinyApp(
     
 # UI ----------------------------------------------------------------------
 
-    ui = fluidPage(
-      
-      # Application title
-      titlePanel("Network Visualisation Wizzard"),
-      mainPanel(
-        plotOutput("Plot", width = "100%", height = "600px")
+ui = fluidPage(
+  title  = "Network Visualisation Wizzard",
+  
+  
+  fluidRow(width = 12,
+           plotOutput(
+             "Plot", width = "100%", height = "600px"
+           )),
+  
+  # Sidebar
+  fluidRow(
+    width = 12,
+    column(
+      3,
+      selectInput("egor",
+                  "Select egor object",
+                  egors,
+                  selected = object_enex),
+      numericInput(
+        "nnumber",
+        "Network No.:",
+        step = 1,
+        min = 1,
+        max = round(length(graphs), digits = 0),
+        value = 1
       ),
       
-      # Sidebar
-      mainPanel(
-        fluidRow(
-          # Sidebar bottom left
-          sidebarPanel(
-            selectInput("egor", "Select egor object", egors),
-            fluidRow(
-              column(12,
-                     tags$div(title="When including ego make sure that corresponding ego and alter variables have equal names in the egor object.",
-                              tags$div(checkboxInput("include.ego", 
-                                                     "Include Ego",
-                                                     FALSE),
-                                       style = "float: left;"),
-                              tags$div(icon("question-circle"),
-                                       style = "float: right; margin-top: 12px;")
-                              
-                              
-                     )
-                     )),
-            numericInput("nnumber", "Network No.:", step = 1, min = 1,
-                         max = round(length(graphs), digits = 0), value = 1),
-            sliderInput("zoom_factor_e",label = "Zoom Edges:", min = 1, max = 10, value = 3, step = .1),
-            sliderInput("zoom_factor_v",label = "Zoom Vertices:", min = 1, max = 20, value = 3, step = .1)
-            
-          ),
-          # Sidebar bottom tabs
-          mainPanel(
-            tabsetPanel(
-              tabPanel("Vertices",
-                        fluidRow(
-                          column(6,
-                                 uiOutput("choose_v.size"),
-                                 uiOutput("choose_v.color"),
-                                 selectInput("v.color_pal", 
-                                             "Color Palette:", 
-                                             choices = col_pal_names)),
-                          column(6,
-                                 uiOutput("choose_v.label"),
-                                 textInput("l.label", "Legend Label:"))
-                        )),
-              tabPanel("Edges",
-                       column(6,
-                              uiOutput("choose_e.width"),
-                              uiOutput("choose_e.color")),
-                       column(6,
-                              selectInput("e.color_pal", "Color Palette:", choices = col_pal_names))
-              ),
-              tabPanel("Results",
-                       uiOutput("choose_disp.results")
-                       
-              ),tabPanel("Export",
-                         downloadButton("save_plot", label = "Save this Plot"),
-                         downloadButton("save_all_plots", label = "Save all Plots"),
-                         downloadButton("save_egor", label = "Save egor object with igraphs (incl. plotting parameters)")
-                         
-              ))))
+       
+        tags$div(
+          title = "When including ego make sure that corresponding ego and alter variables have equal names in the egor object.",
+          tags$div(checkboxInput("include.ego",
+                                 "Include Ego",
+                                 FALSE),
+                   style = "float: left;"),
+          tags$div(icon("question-circle"),
+                   style = "float: left; margin-top: 12px; margin-left: -200px;")
+        )
+      
+    ),
+    column(
+      3,
+      
+      sliderInput(
+        "zoom_factor_e",
+        label = "Edge Width:",
+        min = 1,
+        max = 10,
+        value = 3,
+        step = .1
+      ),
+      sliderInput(
+        "zoom_factor_v",
+        label = "Vertex Size:",
+        min = 1,
+        max = 20,
+        value = 3,
+        step = .1
       )
     ),
+    column(6,
+           tabsetPanel(
+             tabPanel("Vertices",
+                      fluidRow(
+                        column(
+                          6,
+                          uiOutput("choose_v.size"),
+                          uiOutput("choose_v.color"),
+                          selectInput("v.color_pal",
+                                      "Color Palette:",
+                                      choices = col_pal_names)
+                        ),
+                        column(
+                          6,
+                          uiOutput("choose_v.label"),
+                          textInput("l.label", "Legend Label:")
+                        )
+                      )),
+             tabPanel(
+               "Edges",
+               column(6,
+                      uiOutput("choose_e.width"),
+                      uiOutput("choose_e.color")),
+               column(
+                 6,
+                 selectInput("e.color_pal", "Color Palette:", choices = col_pal_names)
+               )
+             ),
+             tabPanel("Results",
+                      uiOutput("choose_disp.results")),
+             tabPanel(
+               "Export",
+               downloadButton("save_plot", label = "Save this Plot"),
+               downloadButton("save_all_plots", label = "Save all Plots"),
+               downloadButton("save_egor", label = "Save egor object with igraphs (incl. plotting parameters)")
+               
+             )
+           ))
+    
+  ),
+  fluidRow(
+    column(12, inputPanel(tags$div(style = "height: 250px; width: 100%;",
+                                   tags$p("egor's Network Visualisation Wizzard"))))
+  )
+), 
 
 # SERVER ------------------------------------------------------------------
 
     server = function(input, output) {
-      result_names <- names(object)
-      result_names <- result_names[!result_names %in% c(".alts", ".aaties")]
+      obj <- reactive({
+        get(input$egor, envir = .GlobalEnv)
+      })
+
+      result_names <- reactive({
+        rn <- names(obj())
+        rn[!rn %in% c(".alts", ".aaties")]
+      })
       
       graphs <- reactive({
-        shared_names <- result_names[result_names %in% names(object$.alts[[1]])]
-        as_igraph(object, 
+        shared_names <- result_names()[result_names() %in% names(obj()$.alts[[1]])]
+        as_igraph(obj(), 
                   include.ego = input$include.ego,
                   ego.attrs = shared_names)
         })
@@ -144,7 +191,7 @@ egor_vis_wizzard <- function(object, shiny_opts = list(launch.browser = TRUE)) {
       })
       
       output$choose_disp.results <- renderUI({
-        selectInput("disp.results", "Results 3:", choices = result_names, multiple = TRUE)
+        selectInput("disp.results", "Results 3:", choices = result_names(), multiple = TRUE)
       })
       
       values <- reactiveValues()
@@ -177,7 +224,7 @@ egor_vis_wizzard <- function(object, shiny_opts = list(launch.browser = TRUE)) {
       
       output$Plot <- renderPlot({
         nnumber <- input$nnumber
-        plot_graph(nnumber, graphs(), input, object, values)
+        plot_graph(nnumber, graphs(), input, obj(), values)
       })
       
       output$save_all_plots <- downloadHandler(
@@ -187,7 +234,7 @@ egor_vis_wizzard <- function(object, shiny_opts = list(launch.browser = TRUE)) {
         content = function(file){
           pdf(file, width = 9, onefile = TRUE)
           for (i in 1:length(graphs())) {
-            plot_graph(i, graphs(), input, object, values)
+            plot_graph(i, graphs(), input, obj(), values)
           }
           dev.off()
         }
@@ -199,7 +246,7 @@ egor_vis_wizzard <- function(object, shiny_opts = list(launch.browser = TRUE)) {
         },
         content = function(file){
           pdf(file, width = 9)
-          plot_graph(input$nnumber, graphs(), input, object, values)
+          plot_graph(input$nnumber, graphs(), input, obj(), values)
           dev.off()
         }
       )
@@ -220,25 +267,13 @@ egor_vis_wizzard <- function(object, shiny_opts = list(launch.browser = TRUE)) {
             grph$layout <- pp$layout_
             grph
           })
-          egor_obj <- object
+          egor_obj <- obj()
           egor_obj$graphs <- gg
           save(egor_obj, file = file)
         }
-      )
-      
-      output$object_to_envir <- downloadHandler(
-        filename = function() {
-          paste("egor_export", "Rda", sep = ".")
-        },
-        content = function(file) {
-          object$graphs <- graphs()
-          class(object) <- c("egor", class(object))
-          save(object, file = file)
-        }
-      )
-      
-    }, options = shiny_opts)
-}
+        )
+      }, options = shiny_opts)
+  }
 
 make_select_vector <- function(x) {
   c("-Select Entry-",x)
