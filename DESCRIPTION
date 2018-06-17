@@ -26,7 +26,8 @@ Description: egor aids with the process of importing, analysing
 License: AGPL-3
 Depends:
     R (>= 2.10),
-    dplyr
+    dplyr,
+    tibble
 Imports:
     igraph,
     network,
@@ -34,7 +35,6 @@ Imports:
     plyr,
     survey,
     tidyr,
-    tibble,
     methods,
     utils,
     purrr
