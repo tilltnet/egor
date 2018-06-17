@@ -257,10 +257,10 @@ as_alts_df(egor32, include.ego.vars = TRUE) %>%
   kable(caption = "First rows of global alters data frame.")
 ```
 
-`as_ties_df()` creates a global data frame of alter-alter ties.
+`as_aaties_df()` creates a global data frame of alter-alter ties.
 
 ```{r}
-as_ties_df(egor32, include.alt.vars = TRUE) %>%
+as_aaties_df(egor32, include.alt.vars = TRUE) %>%
   head() %>%
   kable(caption = "First rows of global alter-alter tie data frame.")
 ```
