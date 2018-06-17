@@ -57,18 +57,9 @@ ui = fluidPage(
                   "Select `egor` object",
                   egors,
                   selected = object_enex),
-      numericInput(
-        "nnumber",
-        "Network No.:",
-        step = 1,
-        min = 1,
-        max = round(length(graphs), digits = 0),
-        value = 1
-      ),
-      
-       
-        tags$div(
-          title = "When including ego make sure that corresponding ego and alter variables have equal names in the `egor` object.",
+      uiOutput("choose_nnumber"),
+      tags$div(
+        title = "When including ego make sure that corresponding ego and alter variables have equal names in the `egor` object.",
           tags$div(checkboxInput("include.ego",
                                  "Include Ego",
                                  FALSE),
@@ -170,6 +161,11 @@ ui = fluidPage(
       e.atts <- reactive(make_select_vector(
         list.edge.attributes((graphs()[[1]]))))
          
+      output$choose_nnumber <- renderUI({
+      numericInput("nnumber","Network No.:",step = 1,min = 1, 
+                   max = length(graphs()), value = 1)
+      })
+      
       output$choose_v.size <- renderUI({
         selectInput("v.size", "Vertex Size:", choices = v.atts())
       })
@@ -200,7 +196,7 @@ ui = fluidPage(
       values$v.label <- "-Select Entry-"
       values$e.width <- "-Select Entry-"
       values$e.color <- "-Select Entry-"
-
+      values$nnumber <- 1
       values$disp.results <- c()
       
       observeEvent(input$v.size, {
@@ -218,12 +214,15 @@ ui = fluidPage(
       observeEvent(input$e.color, {
         values$e.color <- input$e.color
       })
+      observeEvent(input$nnumber, {
+        values$nnumber <- input$nnumber
+      })
       observeEvent(input$disp.results, {
         values$disp.results <- input$disp.results
       })
       
       output$Plot <- renderPlot({
-        nnumber <- input$nnumber
+        nnumber <- values$nnumber
         plot_graph(nnumber, graphs(), input, obj(), values)
       })
       
@@ -242,11 +241,11 @@ ui = fluidPage(
       
       output$save_plot <- downloadHandler(
         filename = function() {
-          paste(input$nnumber, "pdf", sep=".")
+          paste(values$nnumber, "pdf", sep=".")
         },
         content = function(file){
           pdf(file, width = 9)
-          plot_graph(input$nnumber, graphs(), input, obj(), values)
+          plot_graph(values$nnumber, graphs(), input, obj(), values)
           dev.off()
         }
       )
@@ -256,7 +255,7 @@ ui = fluidPage(
           paste("egor_export", "Rda", sep = ".")
         },
         content = function(file) {
-          gg <- map(1:length(graphs()), function(x) {
+          gg <- purrr::map(1:length(graphs()), function(x) {
             pp <- collect_plot_params(x, graphs(), input, values)
             grph <- graphs()[[x]]
             V(grph)$size <- pp$vertex.size
