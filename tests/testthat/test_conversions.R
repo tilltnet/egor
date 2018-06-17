@@ -6,7 +6,7 @@ library(egor)
 
 data("egor32")
 
-
+# as_network()
 
 egor32$.alts <- lapply(egor32$.alts, FUN = function(x) {
   x$int_var <- sample(1:3, NROW(x), replace  = T)

@@ -81,6 +81,7 @@ as_igraph <- function(object,
 #' `egor` object.
 #' @export
 #' @importFrom network network 
+#' @importFrom network network.initialize
 #' @importFrom network set.vertex.attribute 
 #' @importFrom network set.edge.attribute
 as_network <- function(object, 
@@ -122,7 +123,20 @@ as_network <- function(object,
   
   
   network.data.frame <- function(aaties, alts) {
-    n <- network(matrix(c(aaties[[1]], aaties[[2]]), ncol = 2), directed = directed)
+    if(nrow(aaties) == 0) {
+      n <- network.initialize(0)
+      } else {
+        all_alt_IDs <- alts$.altID
+        mt <- matrix(0, 
+                   (la<-length(all_alt_IDs)), 
+                   la,
+                   dimnames = list(all_alt_IDs, all_alt_IDs))
+        for(i in all_alt_IDs) {
+          mt[colnames(mt) == i, colnames(mt) %in% aaties[aaties$.srcID == i ,]$.tgtID] <- 1
+          if(!directed) mt[colnames(mt) %in% aaties[aaties$.srcID == i ,]$.tgtID, colnames(mt) == i] <- 1
+        }
+        n <- network(mt, directed = FALSE)
+    }
     for(i in 1:NCOL(alts)) 
       n <- set.vertex.attribute(n, names(alts)[i], as.character(alts[[i]]))
     if(NCOL(aaties) > 2)
@@ -167,11 +181,10 @@ as_network <- function(object,
 #' as_alts_df(egor32, FALSE, TRUE) 
 #' 
 #' # Create global alter-alter relaions dataframes
-#' as_ties_df(egor32)
+#' as_aaties_df(egor32)
 #' 
 #' # ... adding alter variables
-#' as_ties_df(egor32, include.alt.vars = TRUE)
-
+#' as_aaties_df(egor32, include.alt.vars = TRUE)
 #' @export
 as_alts_df <- function(object, egoID = "egoID", include.ego.vars = FALSE) {
   alts_names <- names(object$.alts[[1]])
@@ -205,7 +218,7 @@ as_alts_df <- function(object, egoID = "egoID", include.ego.vars = FALSE) {
 #' @export
 #' @importFrom dplyr left_join
 #' @importFrom purrr map_lgl
-as_ties_df <- function(object, 
+as_aaties_df <- function(object, 
                        egoID = "egoID", 
                        include.ego.vars = FALSE,
                        include.alt.vars = FALSE,
