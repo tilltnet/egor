@@ -3,17 +3,25 @@
 \name{convert_egor}
 \alias{convert_egor}
 \alias{as_igraph}
+\alias{as.igraph.egor}
 \alias{as_network}
+\alias{as.network.egor}
 \title{Convert \code{egor} object to \code{network} or \code{igraph} objects}
 \usage{
-as_igraph(object, directed = FALSE, include.ego = FALSE, ego.attrs = NULL,
+as_igraph(x, directed = FALSE, include.ego = FALSE, ego.attrs = NULL,
   ego.alter.weights = NULL)
 
-as_network(object, directed = FALSE, include.ego = FALSE,
+\method{as.igraph}{egor}(x, directed = FALSE, include.ego = FALSE,
+  ego.attrs = NULL, ego.alter.weights = NULL)
+
+as_network(x, directed = FALSE, include.ego = FALSE, ego.attrs = NULL,
+  ego.alter.weights = NULL)
+
+\method{as.network}{egor}(x, directed = FALSE, include.ego = FALSE,
   ego.attrs = NULL, ego.alter.weights = NULL)
 }
 \arguments{
-\item{object}{An \code{egor} object.}
+\item{x}{An \code{egor} object.}
 
 \item{directed}{Logical, indicating if alter-alter relations are directed.}
 

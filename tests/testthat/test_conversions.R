@@ -13,7 +13,7 @@ egor32$.alts <- lapply(egor32$.alts, FUN = function(x) {
   x
 })
 
-egor32$networks <- as_network(egor32)
+egor32$networks <- network::as.network(egor32)
 network::list.vertex.attributes(egor32$networks[[1]])
 network::list.edge.attributes(egor32$networks[[1]])
 network::get.edge.attribute(egor32$networks[[1]], "na")

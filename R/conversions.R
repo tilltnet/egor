@@ -6,7 +6,7 @@
 #' By default ego itself is not included in the created objects, there is 
 #' a parameter (**include.egor**) that allows for including ego.
 #' 
-#' @param object An `egor` object.
+#' @param x An `egor` object.
 #' @param include.ego \code{Logical.} Should ego be included?
 #' @param directed Logical, indicating if alter-alter relations are directed.
 #' @param ego.attrs Vector of names (character) or indices (numeric) of ego 
@@ -25,7 +25,7 @@ NULL
 #' @describeIn convert_egor Creates a list of igraph objects from an
 #' `egor` object.
 #' @export
-as_igraph <- function(object, 
+as_igraph <- function(x, 
                       directed = FALSE, 
                       include.ego = FALSE, 
                       ego.attrs = NULL, 
@@ -35,8 +35,8 @@ as_igraph <- function(object,
   igraphs <- mapply(FUN = function(x,y) igraph::graph.data.frame(d = x, 
                                                                  vertices = y, 
                                                                  directed = directed), 
-                    object$.aaties, 
-                    object$.alts, 
+                    x$.aaties, 
+                    x$.alts, 
                     SIMPLIFY = FALSE)
   
   # Include Ego
@@ -66,16 +66,19 @@ as_igraph <- function(object,
     
     igraphs <- mapply(FUN = add_ego_igraph, 
                       igraphs, 
-                      object$.alts, 
-                      object$.aaties, 
-                      split(tibble::as_tibble(object)[ego.attrs], 
-                            rownames(object)), SIMPLIFY = FALSE)
+                      x$.alts, 
+                      x$.aaties, 
+                      split(tibble::as_tibble(x)[ego.attrs], 
+                            rownames(x)), SIMPLIFY = FALSE)
   }
   # Return
   igraphs
 }
 
-
+#' @rdname convert_egor
+#' @importFrom igraph as.igraph
+#' @export
+as.igraph.egor <- as_igraph
 
 #' @describeIn convert_egor Creates a list of statnet's network objects, from an
 #' `egor` object.
@@ -84,7 +87,7 @@ as_igraph <- function(object,
 #' @importFrom network network.initialize
 #' @importFrom network set.vertex.attribute 
 #' @importFrom network set.edge.attribute
-as_network <- function(object, 
+as_network <- function(x, 
                        directed = FALSE, 
                        include.ego = FALSE, 
                        ego.attrs = NULL, 
@@ -117,8 +120,8 @@ as_network <- function(object,
       obj
     }
     
-    object <- as_tibble(object)
-    object <- do.call(rbind, lapply(split(object, rownames(object)), FUN = add_ego_network))
+    x <- as_tibble(x)
+    x <- do.call(rbind, lapply(split(x, rownames(x)), FUN = add_ego_network))
   }
   
   
@@ -145,14 +148,19 @@ as_network <- function(object,
       n
   }
   networks <- mapply(FUN = network.data.frame,
-                     object$.aaties,
-                     object$.alts,
+                     x$.aaties,
+                     x$.alts,
                      SIMPLIFY = FALSE)
   
   
   # Return
   networks
 }
+
+#' @rdname convert_egor
+#' @importFrom network as.network
+#' @export
+as.network.egor <- as_network
 
 #' Create global alters and alter-alter relations dataframes from an `egor` object
 #' 
