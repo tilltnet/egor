@@ -9,15 +9,15 @@
 #' @export
 #' @importFrom stats weights
 weights.egor <- function(object, ...) {
-  weights(attr(object,"ego.design"), ...)
+  weights(attr(object,"ego_design"), ...)
 }
 
 #' A helper function that takes an egor object and a list with arguments
-#' to ego.design and runs svydesign()
+#' to ego_design and runs svydesign()
 #'
 #' @param egor an [`egor`] object (possibly missing design
 #'   information).
-#' @param ego.design either `survey.design` object (like one
+#' @param ego_design either `survey.design` object (like one
 #'   constructed by [svydesign()]) or a [`list`] of arguments to
 #'   [svydesign()] specifying the sampling design for the egos. If the
 #'   arguments are formulas, they can refer to columns (ego
@@ -28,9 +28,9 @@ weights.egor <- function(object, ...) {
 #'   1; if it's called from a function called by the user, 2; etc..
 #'
 #' @noRd
-.gen.ego.design <- function(egor, ego.design, depth){
+.gen.ego_design <- function(egor, ego_design, depth){
 #' @importFrom methods is
-  if(is(ego.design, "survey.design")) return(ego.design)
+  if(is(ego_design, "survey.design")) return(ego_design)
 
   # TODO: Save space by only including the columns with the design
   # information.
@@ -38,7 +38,7 @@ weights.egor <- function(object, ...) {
   svyenv <- new.env(parent=pf)
   assign("egor", egor, envir=svyenv)
 #' @importFrom survey svydesign
-  svycall <- as.call(c(call("::",as.name("survey"),as.name("svydesign")), ego.design, list(data = as.name("egor"))))
+  svycall <- as.call(c(call("::",as.name("survey"),as.name("svydesign")), ego_design, list(data = as.name("egor"))))
   suppressWarnings(eval(svycall, svyenv))
 }
 
@@ -51,17 +51,17 @@ weights.egor <- function(object, ...) {
 #' @template meth_dots
 #' @docType methods
 #' @export
-ego.design <- function(x, ...) UseMethod("ego.design")
+ego_design <- function(x, ...) UseMethod("ego_design")
 
-#' @rdname ego.design
+#' @rdname ego_design
 #' @export
-ego.design.egor <- function(x, ...) attr(x, "ego.design")
+ego_design.egor <- function(x, ...) attr(x, "ego_design")
 
-#' @rdname ego.design
+#' @rdname ego_design
 #' @export
-`ego.design<-` <- function(x, ..., value) UseMethod("ego.design<-")
+`ego_design<-` <- function(x, ..., value) UseMethod("ego_design<-")
 
-#' @rdname ego.design
+#' @rdname ego_design
 #' @param value either `survey.design` object (like one constructed by
 #'   [svydesign()]) or a [`list`] of arguments to [svydesign()]
 #'   specifying the sampling design for the egos. If the arguments are
@@ -71,7 +71,7 @@ ego.design.egor <- function(x, ...) attr(x, "ego.design")
 #'   design information after the underlying ego attributes had been
 #'   modified.
 #' @export
-`ego.design<-.egor` <- function(x, ..., value){
-  attr(x, "ego.design") <- .gen.ego.design(x, value, 1)
+`ego_design<-.egor` <- function(x, ..., value){
+  attr(x, "ego_design") <- .gen.ego_design(x, value, 1)
   x
 }

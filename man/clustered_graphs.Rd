@@ -36,8 +36,8 @@ the clustered ego-centered network data;
 }
 \description{
 The idea of clustered graphs is to reduce the complexity of an ego-centered network
-graph by visualising alters in clusters defined by a categorial variable (Lerner et al. 2008).
-\code{clustered_graphs()} calculates group sizes, inter- and intragroup tie
+graph by visualizing alters in clusters defined by a categorical variable (Lerner et al. 2008).
+\code{clustered_graphs()} calculates group sizes, inter and intra group tie
 densities and returns these informations in a \code{list} of #' \code{igraph} objects.
 }
 \examples{
@@ -55,7 +55,7 @@ J. L. (2008). Visual Statistics for Collections of Clustered Graphs. 2008
 IEEE Pacific Visualization Symposium, 47-54.
 }
 \seealso{
-\code{\link{vis_clustered_graphs}} for visualising clustered graphs
+\code{\link{vis_clustered_graphs}} for visualizing clustered graphs
 }
 \keyword{analysis}
 \keyword{ego-centric}

@@ -1,8 +1,7 @@
 ## ----setup, include = FALSE----------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>",
-  dev = "CairoPNG"
+  comment = "#>"
 )
 
 library(knitr)
@@ -57,7 +56,7 @@ alts_diversity_count(e1, "alter.age")
 alts_diversity_entropy(e1, "alter.age")
 
 ## ------------------------------------------------------------------------
-homophily_ei(e1, "alter.age", "age")
+comp_ei(e1, "alter.age", "age")
 
 ## ------------------------------------------------------------------------
 EI(e1, "alter.age") %>%
@@ -65,7 +64,7 @@ EI(e1, "alter.age") %>%
   kable()
 
 ## ------------------------------------------------------------------------
-e2 <- generate.sample.ego.data(15, 32)
+e2 <- make_egor(15, 32)
 comp_ply(e2, "age.years", sd, na.rm = TRUE)
 
 ## ------------------------------------------------------------------------
@@ -74,14 +73,14 @@ data("egor32")
 # Simplify networks to clustered graphs, stored as igraph objects
 graphs <- clustered_graphs(egor32, "age") 
 
-# Visualise
+# Visualize
 par(mar=c(0,0,0,0))
 vis_clustered_graphs(graphs[1:3], 
                      node.size.multiplier = 10, 
                      edge.width.multiplier = 5,
                      label.size = 0.6)
 
-graphs2 <- clustered_graphs(generate.sample.ego.data(400, 200)[1:4], "country") 
+graphs2 <- clustered_graphs(make_egor(400, 200)[1:4], "country") 
 
 vis_clustered_graphs(graphs2[1:4], 
                      node.size.multiplier = 2, 
@@ -100,7 +99,7 @@ as_alts_df(egor32, include.ego.vars = TRUE) %>%
   kable(caption = "First rows of global alters data frame.")
 
 ## ------------------------------------------------------------------------
-as_ties_df(egor32, include.alt.vars = TRUE) %>%
+as_aaties_df(egor32, include.alt.vars = TRUE) %>%
   head() %>%
   kable(caption = "First rows of global alter-alter tie data frame.")
 

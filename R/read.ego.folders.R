@@ -1,27 +1,26 @@
-# Functions for the import of ego-centric-network data, that is stored in 
+# Functions for the import of ego-centered-network data, that is stored in 
 # seperate files (per network) and folders (alter attributes, edges).
 # The code in this file is inspired by original code from Raffaele Vacca 
 # (https://github.com/raffaelevacca/).
 
-#' Import ego-centric network data from separate folders for edgelist and 
-#' alters-attributes.
+#' Read ego-centered network data exported with EgoNet software as an `egor` object
 #'
-#' This function imports ego-centric network data from folders with separate 
+#' This function imports ego-centered network data from folders with separate 
 #' files for alters-level and edge data. It will run some basic checks upon
-#' the completness of the data and inform the user of potential problems. This
-#' functions can be used to import data exported from EgoNet (McCarty 2011).
-#' @param egos.file File name of the .csv file containg the ego data.
+#' the completeness of the data and inform the user of potential problems. This
+#' function can be used to import data exported from EgoNet (McCarty 2011).
+#' @param egos.file File name of the .csv file containing the ego data.
 #' @param alter.folder Folder name of the folder containing the alter data in
 #' separate .csv files for each ego/ network.
 #' @param edge.folder Folder name of the folder containing the edge/ tie data in
 #' separate .csv files for each ego/ network.
 #' @template ID.vars
 #' @template return_egoR
-#' @param csv.sep \code{Character} indicating the seperator used in csv files.
+#' @param csv.sep \code{Character} indicating the separator used in csv files.
 #' @param first.col.row.names \code{Boolean} indicating if first column contains
 #' row names, that are to be skipped, default is \code{FALSE}.
 #' @param ... additional arguments to [egor()].
-#' @keywords ego-centric import
+#' @keywords ego-centered import
 #' @examples 
 #' egos.file <-  system.file("extdata", "egos_32.csv", package = "egor")
 #' alters.folder <- system.file("extdata", "alters_32", package = "egor")

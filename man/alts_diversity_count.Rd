@@ -3,16 +3,16 @@
 \name{alts_diversity_count}
 \alias{alts_diversity_count}
 \alias{alts_diversity_entropy}
-\title{Calculate diversity measures on an egor object.}
+\title{Calculate diversity measures on an \code{egor} object.}
 \usage{
 alts_diversity_count(object, alt.attr)
 
 alts_diversity_entropy(object, alt.attr, base)
 }
 \arguments{
-\item{object}{An egor object.}
+\item{object}{An \code{egor} object.}
 
-\item{alt.attr}{A \code{character} naming the variable containg the alter-attribute.}
+\item{alt.attr}{A \code{character} naming the variable containing the alter-attribute.}
 
 \item{base}{\code{Numeric}, base value of logarithm for entropy calculation.}
 }
@@ -21,8 +21,8 @@ A \code{numeric} vector.
 }
 \description{
 \code{alts_diversity_count()} counts the categories of a variable present in the
-networks of an egor object. \code{alts_diversity_entropy()} calculates the Shannon
-entropy as a mesaurment for diversity of an alter attribute.
+networks of an \code{egor} object. \code{alts_diversity_entropy()} calculates the Shannon
+entropy as a measurement for diversity of an alter attribute.
 }
 \examples{
 data("egor32")

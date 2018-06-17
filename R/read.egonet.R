@@ -1,4 +1,4 @@
-# Read ego-centric-network data from single file format or two-file format.
+# Read ego-centered-network data from single file format or two-file format.
 
 #' Obtain the index of a column in a data frame (or a list), producing
 #' an error if there is a problem.
@@ -35,7 +35,7 @@ common_prefix <- function(x){
   substr(x[1], 1, j)
 }
 
-#' Trim/listify ego-centric network data
+#' Trim/listify ego-centered network data
 #'
 #' This function generates the \code{alters.list} object. \code{alters.list} is a list where 
 #' each entry entails a \code{dataframe} of the alters of one ego. By using
@@ -78,7 +78,7 @@ long.df.to.list <- function(long, netsize, egoID, back.to.df = FALSE) {
 
 #' Transform 'wide' alter-level data to the 'long'-format
 #'
-#' A function to transform a wide-format dataframe of ego-centric network data 
+#' A function to transform a wide-format dataframe of ego-centered network data 
 #' into a long-format data-frame, where every row represents one alter/dyad. In 
 #' the created dataframe numerous networks can be distinguished by a network ID 
 #' (egoID).
@@ -294,10 +294,10 @@ add_ego_vars_to_long_df <- function(alters.list, egos.df, ego.vars, netsize) {
   do.call("rbind", new_alters.list)
 }
 
-#' Import ego-centric network data from 'one file format'
+#' Import ego-centered network data from 'one file format'
 #'
-#' This function imports ego-centric network data, stored in a single file, providing
-#' ego, alter and edge data. This data format is for exampled used by the Allbus 2010 (GESIS)
+#' This function imports ego-centered network data, stored in a single file, providing
+#' ego, alter and edge data. This data format is used by the Allbus 2010 (GESIS)
 #' and similar social surveys.
 #' @template egos
 #' @template netsize
@@ -344,12 +344,12 @@ onefile_to_egor <- function(egos, netsize,  ID.vars = list(ego = "egoID"),
                                                aa.regex=aa.regex,netsize=netsize)
   
   # Return:
-  egor(alters.list, egos[-c(attr.start.col:attr.end.col,aa.first.var:ncol(egos))], e.lists, ID.vars=list(ego=IDv$ego,source=".tmp.srcID",target=".tmp.tgtID"), alter.design = list(max=max.alters),...)
+  egor(alters.list, egos[-c(attr.start.col:attr.end.col,aa.first.var:ncol(egos))], e.lists, ID.vars=list(ego=IDv$ego,source=".tmp.srcID",target=".tmp.tgtID"), alter_design = list(max=max.alters),...)
 }
 
-#' Import ego-centric network data from two file format
+#' Import ego-centered network data from two file format
 #'
-#' This function imports ego-centric network data, stored in two files, where 
+#' This function imports ego-centered network data, stored in two files, where 
 #' one file contains the ego attributes and the edge information and the other file 
 #' contains the alters data. This form of data storage for ego-centered network data 
 #' is proposed by Muller, Wellman and Marin (1999).

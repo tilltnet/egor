@@ -4,7 +4,7 @@
 \alias{convert_egor}
 \alias{as_igraph}
 \alias{as_network}
-\title{Convert egor object to network or igraph objects}
+\title{Convert \code{egor} object to \code{network} or \code{igraph} objects}
 \usage{
 as_igraph(object, directed = FALSE, include.ego = FALSE, ego.attrs = NULL,
   ego.alter.weights = NULL)
@@ -13,7 +13,7 @@ as_network(object, directed = FALSE, include.ego = FALSE,
   ego.attrs = NULL, ego.alter.weights = NULL)
 }
 \arguments{
-\item{object}{An egor object.}
+\item{object}{An \code{egor} object.}
 
 \item{directed}{Logical, indicating if alter-alter relations are directed.}
 
@@ -28,8 +28,8 @@ alter variables that should be carried over to the the
 network/ igraph objects, as edge attributes of the ego-alter relations.}
 }
 \description{
-These functions convert an egor object into a list of network or igraph objects.
-By default ego itself is not included in the created objects, but there is
+These functions convert an \code{egor} object into a list of \code{network} or \code{igraph} objects.
+By default ego itself is not included in the created objects, there is
 a parameter (\strong{include.egor}) that allows for including ego.
 }
 \details{
@@ -41,9 +41,9 @@ object (see example).
 \section{Functions}{
 \itemize{
 \item \code{as_igraph}: Creates a list of igraph objects from an
-egor object.
+\code{egor} object.
 
 \item \code{as_network}: Creates a list of statnet's network objects, from an
-egor object.
+\code{egor} object.
 }}
 

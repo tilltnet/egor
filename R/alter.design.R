@@ -7,32 +7,32 @@
 #' @template meth_dots
 #' @docType methods
 #' @export
-alter.design <- function(x, ...) UseMethod("alter.design")
+alter_design <- function(x, ...) UseMethod("alter_design")
 
-#' @rdname alter.design
+#' @rdname alter_design
 #' @param which name of the alter design setting to query or replace
 #' @export
-alter.design.egor <- function(x, which, ...){
-  if(missing(which)) attr(x, "alter.design")
-  else attr(x, "alter.design")[[which]]
+alter_design.egor <- function(x, which, ...){
+  if(missing(which)) attr(x, "alter_design")
+  else attr(x, "alter_design")[[which]]
 }
 
-#' @rdname alter.design
+#' @rdname alter_design
 #' @export
-`alter.design<-` <- function(x, ..., value) UseMethod("alter.design<-")
+`alter_design<-` <- function(x, ..., value) UseMethod("alter_design<-")
 
-#' @rdname alter.design
+#' @rdname alter_design
 #' @param value if `which` is specified, the new value of the
 #'   attribute; if not, a named list of settings that replace their
 #'   old values.
 #' @export
-`alter.design<-.egor` <- function(x, which, ..., value){
+`alter_design<-.egor` <- function(x, which, ..., value){
   if(missing(which)){
     if(!is.list(value)) stop("Specify which settings to change.")
 #' @importFrom utils modifyList
-    attr(x, "alter.design") <- modifyList(attr(x, "alter.design"), value)
+    attr(x, "alter_design") <- modifyList(attr(x, "alter_design"), value)
   }else{
-    attr(x, "alter.design")[[which]] <- value
+    attr(x, "alter_design")[[which]] <- value
   }
   x
 }

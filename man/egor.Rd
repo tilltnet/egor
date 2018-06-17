@@ -7,7 +7,7 @@
 \usage{
 egor(alters.df, egos.df = NULL, aaties.df = NULL, ID.vars = list(ego =
   "egoID", alter = "alterID", source = "Source", target = "Target"),
-  ego.design = list(~1), alter.design = list(max = Inf))
+  ego_design = list(~1), alter_design = list(max = Inf))
 
 as.egor(x, ...)
 }
@@ -43,11 +43,11 @@ similar to \code{alters.df}.}
 
 }}
 
-\item{ego.design}{A \code{\link{list}} of arguments to \code{\link[survey:svydesign]{survey::svydesign()}}
+\item{ego_design}{A \code{\link{list}} of arguments to \code{\link[survey:svydesign]{survey::svydesign()}}
 specifying the sampling design for the egos. If formulas, they
 can refer to columns of \code{egos.df}.}
 
-\item{alter.design}{A \code{\link{list}} of arguments specifying nomination
+\item{alter_design}{A \code{\link{list}} of arguments specifying nomination
 information. Currently, the following elements are supported:
 \describe{\item{\code{"max"}}{Maximum number of alters that an
 ego can nominate.}}}
@@ -69,9 +69,9 @@ which the alter can be identified in the \code{.aaties} table for that
 ego. \code{.aaties}, in turn, has columns \code{.srcID} and \code{.tgtID} that
 contain the source and the target of the alter-alter relation.
 
-In addition, \code{egor} has two attributes: \code{ego.design}, containing an
+In addition, \code{egor} has two attributes: \code{ego_design}, containing an
 object returned by \code{\link[survey:svydesign]{survey::svydesign()}} specifying the sampling
-design by which the egos were selected and \code{alter.design}, a
+design by which the egos were selected and \code{alter_design}, a
 \code{\link{list}} containing specification of how the alters were
 nominated. See the argument above for currently implemented
 settings.

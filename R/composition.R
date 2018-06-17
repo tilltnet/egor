@@ -12,12 +12,12 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
   "grp_ei_tab",
   "ei_sc"))
 
-#' Calculate the composition of alter attributes in an egor object
+#' Calculate the composition of alter attributes in an `egor` object
 #'
 #' `composition()` calculates the proportional or absolute composition of 
 #' alters for a given attribute/variable. 
-#' @param object An egor object.
-#' @param alt.attr A `character` naming the variable containg the alter-attribute.
+#' @param object An `egor` object.
+#' @param alt.attr A `character` naming the variable containing the alter-attribute.
 #' @param absolute `Logical` indicating if the results should be absolute. 
 #' @return A `tibble` with the values per category in the columns.
 #' @keywords ego-centered network analysis
@@ -44,13 +44,13 @@ composition <- function(object, alt.attr, absolute = FALSE) {
 
 
 
-#' Calculate third-party compositional measures on an egor object
+#' Calculate third-party compositional measures on an `egor` object
 #'
 #' `comp_ply()` applies a function, that uses an alter attribute to calculate
 #' a compositional measurement, on all networks in an `egor` object and returns a
 #' `numeric vector`.
-#' @param object An egor object.
-#' @param alt.attr A `character` naming the variable containg the alter-attribute.
+#' @param object An `egor` object.
+#' @param alt.attr A `character` naming the variable containing the alter-attribute.
 #' @param .f A `function` that returns a numeric.
 #' @param ... Optional arguments to `.f`.
 #' @param ego.attr Optional  `character` naming an ego attribute.
@@ -59,7 +59,7 @@ composition <- function(object, alt.attr, absolute = FALSE) {
 #' `.f(alt.attr, ego.attr, ...)`. `.f` must return a single numeric value.
 #' @keywords ego-centered network analysis
 #' @examples
-#' df <- generate.sample.ego.data(10, 32)
+#' df <- make_egor(10, 32)
 #' comp_ply(df, "age.years", sd, na.rm = TRUE)
 #' @author Michał Bojanowski, \email{m.bojanowski@uw.edu.pl}
 #' @author Till Krenz, \email{public@tillt.net}
@@ -76,13 +76,13 @@ comp_ply <- function(object, alt.attr, .f, ..., ego.attr = NULL) {
   }
 }
 
-#' Calculate diversity measures on an egor object.
+#' Calculate diversity measures on an `egor` object.
 #'
 #' `alts_diversity_count()` counts the categories of a variable present in the
-#' networks of an egor object. `alts_diversity_entropy()` calculates the Shannon
-#' entropy as a mesaurment for diversity of an alter attribute.
-#' @param object An egor object.
-#' @param alt.attr A `character` naming the variable containg the alter-attribute.
+#' networks of an `egor` object. `alts_diversity_entropy()` calculates the Shannon
+#' entropy as a measurement for diversity of an alter attribute.
+#' @param object An `egor` object.
+#' @param alt.attr A `character` naming the variable containing the alter-attribute.
 #' @param base `Numeric`, base value of logarithm for entropy calculation.
 #' @return A `numeric` vector.
 #' @keywords ego-centered network analysis
@@ -110,22 +110,22 @@ fun_entropy <- function(x, base = 2) {
   sum(ptab * log(1/ptab, base=base))
 }
 
-#' Calculate the EI-Indices of an egor object as a measurement of ego-alter homophily
+#' Calculate the EI-Indices of an `egor` object as a measurement of ego-alter homophily
 #'
-#' `homophily_ei()` calculates the EI-Index values as a measurement for ego-alter homophily.
-#' @param object An egor object.
-#' @param alt.attr A `character` naming the variable containg the alter-attribute.
+#' `comp_ei()` calculates the EI-Index values as a measurement for ego-alter homophily.
+#' @param object An `egor` object.
+#' @param alt.attr A `character` naming the variable containing the alter-attribute.
 #' @param ego.attr A `character` naming an ego attribute.
 #' @return A `numeric` vector.
 #' @keywords ego-centered network analysis
 #' @examples
 #' data("egor32")
-#' homophily_ei(egor32, "age", "age")
+#' comp_ei(egor32, "age", "age")
 #' @export
-homophily_ei <- function(object, alt.attr, ego.attr) 
-  comp_ply(object, alt.attr, .f = fun_homophily_ei, ego.attr = ego.attr)
+comp_ei <- function(object, alt.attr, ego.attr) 
+  comp_ply(object, alt.attr, .f = fun_comp_ei, ego.attr = ego.attr)
 
-fun_homophily_ei <- function(x, ego_var) {
+fun_comp_ei <- function(x, ego_var) {
   homogen <- x == ego_var
   tibble(homogen) %>%
     mutate(homogen = factor(homogen, c("TRUE", "FALSE"), c("I", "E"))) %>%

@@ -2,14 +2,14 @@
 % Please edit documentation in R/composition.R
 \name{comp_ply}
 \alias{comp_ply}
-\title{Calculate third-party compositional measures on an egor object}
+\title{Calculate third-party compositional measures on an \code{egor} object}
 \usage{
 comp_ply(object, alt.attr, .f, ..., ego.attr = NULL)
 }
 \arguments{
-\item{object}{An egor object.}
+\item{object}{An \code{egor} object.}
 
-\item{alt.attr}{A \code{character} naming the variable containg the alter-attribute.}
+\item{alt.attr}{A \code{character} naming the variable containing the alter-attribute.}
 
 \item{.f}{A \code{function} that returns a numeric.}
 
@@ -30,7 +30,7 @@ When an ego attribute is used the \code{.f} is called like this:
 \code{.f(alt.attr, ego.attr, ...)}. \code{.f} must return a single numeric value.
 }
 \examples{
-df <- generate.sample.ego.data(10, 32)
+df <- make_egor(10, 32)
 comp_ply(df, "age.years", sd, na.rm = TRUE)
 }
 \author{

@@ -14,10 +14,10 @@ RESERVED_COLNAMES <- c(".alts", ".aaties", ".egoRow", ".altID", ".srcID", ".tgtI
 #'   relations in the style of an edge list, or a list of data frames
 #'   similar to `alters.df`.
 #' @template ID.vars
-#' @param ego.design A [`list`] of arguments to [survey::svydesign()]
+#' @param ego_design A [`list`] of arguments to [survey::svydesign()]
 #'   specifying the sampling design for the egos. If formulas, they
 #'   can refer to columns of `egos.df`.
-#' @param alter.design A [`list`] of arguments specifying nomination
+#' @param alter_design A [`list`] of arguments specifying nomination
 #'   information. Currently, the following elements are supported:
 #'   \describe{\item{\code{"max"}}{Maximum number of alters that an
 #'   ego can nominate.}}
@@ -46,9 +46,9 @@ RESERVED_COLNAMES <- c(".alts", ".aaties", ".egoRow", ".altID", ".srcID", ".tgtI
 #'   ego. `.aaties`, in turn, has columns `.srcID` and `.tgtID` that
 #'   contain the source and the target of the alter-alter relation.
 #'
-#'   In addition, `egor` has two attributes: `ego.design`, containing an
+#'   In addition, `egor` has two attributes: `ego_design`, containing an
 #'   object returned by [survey::svydesign()] specifying the sampling
-#'   design by which the egos were selected and `alter.design`, a
+#'   design by which the egos were selected and `alter_design`, a
 #'   [`list`] containing specification of how the alters were
 #'   nominated. See the argument above for currently implemented
 #'   settings.
@@ -62,7 +62,7 @@ RESERVED_COLNAMES <- c(".alts", ".aaties", ".egoRow", ".altID", ".srcID", ".tgtI
 #'      egos.df = egos32, 
 #'      aaties = edges32)
 #' @export
-egor <- function(alters.df, egos.df = NULL, aaties.df = NULL, ID.vars=list(ego="egoID", alter="alterID", source="Source", target="Target"), ego.design = list(~1), alter.design = list(max = Inf)) {
+egor <- function(alters.df, egos.df = NULL, aaties.df = NULL, ID.vars=list(ego="egoID", alter="alterID", source="Source", target="Target"), ego_design = list(~1), alter_design = list(max = Inf)) {
   IDv <- modifyList(eval(formals()$ID.vars), ID.vars)
   # FUN: Inject empty data.frames with correct colums in to NULL cells in 
   # $.alts and $.aaties
@@ -153,10 +153,10 @@ egor <- function(alters.df, egos.df = NULL, aaties.df = NULL, ID.vars=list(ego="
 
   # Add design information.
 
-  attr(egor, "ego.design") <- .gen.ego.design(egor, ego.design, 2)
+  attr(egor, "ego_design") <- .gen.ego_design(egor, ego_design, 2)
 
   # TODO: Implement name expansion/checking, possibly an S3 class.
-  attr(egor, "alter.design") <- alter.design
+  attr(egor, "alter_design") <- alter_design
   
   class(egor) <- c("egor", class(egor))
   egor
@@ -176,14 +176,14 @@ summary.egor <- function(object, ...) {
   
   # Average netsize
   nts <- survey::svymean(unlist(lapply(object$.alts, FUN = NROW)), 
-                          ego.design(object))
+                          ego_design(object))
   
   # Total number of alters
   alts_count <- sum(unlist(lapply(object$.alts, FUN = NROW)))
   
   # Average density
   if(".aaties" %in% names(object)) 
-    dens <- survey::svymean(ego_density(object), ego.design(object), na.rm = TRUE) 
+    dens <- survey::svymean(ego_density(object), ego_design(object), na.rm = TRUE) 
   else 
     dens <- NULL
   
@@ -195,10 +195,10 @@ summary.egor <- function(object, ...) {
   # Meta Data
   cat("\nEgo sampling design:\n")
 #' @importFrom utils capture.output
-  writeLines(paste("  ", capture.output(print(attr(object, "ego.design"))), sep=""))
+  writeLines(paste("  ", capture.output(print(attr(object, "ego_design"))), sep=""))
 
   cat("Alter survey design:\n")
-  cat("  Maximum nominations:", attr(object, "alter.design")$max,"\n")
+  cat("  Maximum nominations:", attr(object, "alter_design")$max,"\n")
 }
 
 #' @rdname summary.egor
@@ -208,7 +208,7 @@ summary.egor <- function(object, ...) {
 #' @importFrom dplyr group_vars
 print.egor <- function(x, ...) {
   print(as_tibble(x))
-  print(attr(x,"ego.design"))
+  print(attr(x,"ego_design"))
   if("grouped_df" %in% class(x))
      cat("Grouped by: ")
      cat(group_vars(x))

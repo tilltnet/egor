@@ -5,7 +5,7 @@
 \alias{egor-package-doc}
 \title{\code{egor}}
 \description{
-R Package for importing and analysing ego-centered-network data.
+R Package for importing and analyzing ego-centered-network data.
 }
 \details{
 \href{https://tilltnet.github.io/egor/}{Further Information}

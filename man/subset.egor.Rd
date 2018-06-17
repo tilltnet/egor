@@ -96,7 +96,7 @@ alters and ties.
 \examples{
 
 # Generate a small sample dataset
-(e <- generate.sample.ego.data(5,4))
+(e <- make_egor(5,4))
 
 # First three egos in the dataset
 e[1:3,]

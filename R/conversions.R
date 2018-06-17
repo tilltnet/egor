@@ -1,12 +1,12 @@
 # egor conversions
 
-#' Convert egor object to network or igraph objects
+#' Convert `egor` object to `network` or `igraph` objects
 #' 
-#' These functions convert an egor object into a list of network or igraph objects. 
-#' By default ego itself is not included in the created objects, but there is 
+#' These functions convert an `egor` object into a list of `network` or `igraph` objects. 
+#' By default ego itself is not included in the created objects, there is 
 #' a parameter (**include.egor**) that allows for including ego.
 #' 
-#' @param object An egor object.
+#' @param object An `egor` object.
 #' @param include.ego \code{Logical.} Should ego be included?
 #' @param directed Logical, indicating if alter-alter relations are directed.
 #' @param ego.attrs Vector of names (character) or indices (numeric) of ego 
@@ -23,7 +23,7 @@
 NULL
 
 #' @describeIn convert_egor Creates a list of igraph objects from an
-#' egor object.
+#' `egor` object.
 #' @export
 as_igraph <- function(object, 
                       directed = FALSE, 
@@ -78,7 +78,7 @@ as_igraph <- function(object,
 
 
 #' @describeIn convert_egor Creates a list of statnet's network objects, from an
-#' egor object.
+#' `egor` object.
 #' @export
 #' @importFrom network network 
 #' @importFrom network set.vertex.attribute 
@@ -140,13 +140,13 @@ as_network <- function(object,
   networks
 }
 
-#' Create global alters and alter-alter relations dataframes from an egor object
+#' Create global alters and alter-alter relations dataframes from an `egor` object
 #' 
 #' Provided an egor-object, these functions create a 'global' \code{data.frame},
 #' containing alter attributes, or alter-alter relations. The resulting dataframes
 #' are useful for advanced analysis procedures, e.g. multi-level regressions.
 #' 
-#' @param object An egor object.
+#' @param object An `egor` object.
 #' @param egoID Character, naming the variable used to identify egos. If this variable does not exist,
 #' a new variable with the specified name is created.
 #' @param include.ego.vars Logical, specifying if ego variables should be included in the result.

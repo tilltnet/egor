@@ -2,7 +2,7 @@
 % Please edit documentation in R/read.egonet.R
 \name{long.df.to.list}
 \alias{long.df.to.list}
-\title{Trim/listify ego-centric network data}
+\title{Trim/listify ego-centered network data}
 \usage{
 long.df.to.list(long, netsize, egoID, back.to.df = FALSE)
 }

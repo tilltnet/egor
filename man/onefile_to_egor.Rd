@@ -2,7 +2,7 @@
 % Please edit documentation in R/read.egonet.R
 \name{onefile_to_egor}
 \alias{onefile_to_egor}
-\title{Import ego-centric network data from 'one file format'}
+\title{Import ego-centered network data from 'one file format'}
 \usage{
 onefile_to_egor(egos, netsize, ID.vars = list(ego = "egoID"), attr.start.col,
   attr.end.col, max.alters, aa.first.var, aa.regex = NULL, ego.vars = NULL,
@@ -63,8 +63,8 @@ graphs: \code{list} of igraph objects; (6) results: a result \code{dataframe},
 pre-populated with the network size of each network
 }
 \description{
-This function imports ego-centric network data, stored in a single file, providing
-ego, alter and edge data. This data format is for exampled used by the Allbus 2010 (GESIS)
+This function imports ego-centered network data, stored in a single file, providing
+ego, alter and edge data. This data format is used by the Allbus 2010 (GESIS)
 and similar social surveys.
 }
 \references{

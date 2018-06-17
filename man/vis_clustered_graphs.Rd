@@ -2,7 +2,7 @@
 % Please edit documentation in R/clustered.graphs.R
 \name{vis_clustered_graphs}
 \alias{vis_clustered_graphs}
-\title{Visualise clustered graphs}
+\title{Visualize clustered graphs}
 \usage{
 vis_clustered_graphs(graphs, node.size.multiplier = 1, node.min.size = 0,
   node.max.size = 200, edge.width.multiplier = 30, center = 1,
@@ -14,7 +14,7 @@ vis_clustered_graphs(graphs, node.size.multiplier = 1, node.min.size = 0,
 graphs.}
 
 \item{node.size.multiplier}{\code{Numeric} used to multiply the node diameter
-of visualised nodes.}
+of visualized nodes.}
 
 \item{node.min.size}{\code{Numeric} indicating minimum size of plotted
 nodes}
@@ -22,7 +22,7 @@ nodes}
 \item{node.max.size}{\code{Numeric} indicating maximum size of plotted
 nodes}
 
-\item{edge.width.multiplier}{\code{Numeric} used to mutliply the edge width.}
+\item{edge.width.multiplier}{\code{Numeric} used to multiply the edge width.}
 
 \item{center}{\code{Numeric} indicating the vertex to be plotted in center.}
 
@@ -46,7 +46,7 @@ function.
 the clustered ego-centered network data;
 }
 \description{
-\code{vis_clustered_graphs} visualises clustered_graphs using a list of
+\code{vis_clustered_graphs} visualizes clustered_graphs using a list of
 clustered graphs created with \code{\link{clustered_graphs}}.
 }
 \examples{

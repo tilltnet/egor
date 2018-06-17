@@ -6,7 +6,7 @@
 #' @param netsize \code{Numeric} indicating maximum number of alters.
 #' @keywords ego-centric network
 #' @keywords internal
-generate.sample.edge.list <- function(netsize) {
+make_edge_list <- function(netsize) {
   dp <- dyad.poss(netsize)
   Source <- c()
   for (i in 1:netsize) {
@@ -35,7 +35,7 @@ generate.sample.edge.list <- function(netsize) {
 #' @keywords random
 #'
 #' @export
-generate.sample.ego.data <- function(net.count, max.alters, netsize = NULL, plot=FALSE) {
+make_egor <- function(net.count, max.alters, netsize = NULL, plot=FALSE) {
   
   country_names <- c("Poland", "Australia", "USA", "Germany")
   
@@ -97,7 +97,7 @@ generate.sample.ego.data <- function(net.count, max.alters, netsize = NULL, plot
   # Generating edges
   edge.list <- list()
   for (i in 1:net.count) {
-    edge.list[[i]] <- generate.sample.edge.list(netsize[i])
+    edge.list[[i]] <- make_edge_list(netsize[i])
   }
   
   aaties <- mapply(FUN = function(x, y) data.frame(egoID = y, x), edge.list, as.factor(1:length(edge.list)), SIMPLIFY = FALSE)
@@ -108,13 +108,13 @@ generate.sample.ego.data <- function(net.count, max.alters, netsize = NULL, plot
 } 
 
 # Used for generating wide edge format data. 
-#' Transfroms edge lists to alter-alter wide format data.
+#' Transforms edge lists to alter-alter wide format data.
 #'
 #' Only works properly, if the netsize of all networks is constant.
-#' @param edges List of \code{data.frames} containg edge lists.
+#' @param edges List of \code{data.frames} containing edge lists.
 #' @keywords ego-centric network
 #' @keywords internal
-edges.to.wide <- function(edges) {
+edgelist_to_wide <- function(edges) {
   wide_edges <- plyr::ldply(edges, .fun= function(x) t(x$weight))
   names(wide_edges) <- paste(edges[[1]]$Source, "to", edges[[1]]$Target)
   wide_edges

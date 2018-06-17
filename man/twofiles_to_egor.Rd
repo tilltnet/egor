@@ -2,7 +2,7 @@
 % Please edit documentation in R/read.egonet.R
 \name{twofiles_to_egor}
 \alias{twofiles_to_egor}
-\title{Import ego-centric network data from two file format}
+\title{Import ego-centered network data from two file format}
 \usage{
 twofiles_to_egor(egos, alters, netsize = NULL, ID.vars = list(ego = "egoID",
   alter = "alterID", source = "Source", target = "Target"), e.max.alters,
@@ -56,7 +56,7 @@ graphs: \code{list} of igraph objects; (6) results: a result \code{dataframe},
 pre-populated with the network size of each network
 }
 \description{
-This function imports ego-centric network data, stored in two files, where
+This function imports ego-centered network data, stored in two files, where
 one file contains the ego attributes and the edge information and the other file
 contains the alters data. This form of data storage for ego-centered network data
 is proposed by Muller, Wellman and Marin (1999).

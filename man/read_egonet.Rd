@@ -2,15 +2,14 @@
 % Please edit documentation in R/read.ego.folders.R
 \name{read_egonet}
 \alias{read_egonet}
-\title{Import ego-centric network data from separate folders for edgelist and
-alters-attributes.}
+\title{Read ego-centered network data exported with EgoNet software as an \code{egor} object}
 \usage{
 read_egonet(egos.file, alter.folder, edge.folder, csv.sep = ",",
   ID.vars = list(ego = "egoID", alter = "alterID", source = "Source", target =
   "Target"), first.col.row.names = FALSE, ...)
 }
 \arguments{
-\item{egos.file}{File name of the .csv file containg the ego data.}
+\item{egos.file}{File name of the .csv file containing the ego data.}
 
 \item{alter.folder}{Folder name of the folder containing the alter data in
 separate .csv files for each ego/ network.}
@@ -18,7 +17,7 @@ separate .csv files for each ego/ network.}
 \item{edge.folder}{Folder name of the folder containing the edge/ tie data in
 separate .csv files for each ego/ network.}
 
-\item{csv.sep}{\code{Character} indicating the seperator used in csv files.}
+\item{csv.sep}{\code{Character} indicating the separator used in csv files.}
 
 \item{ID.vars}{A named list containing column names of the relevant
   input columns: \describe{
@@ -53,10 +52,10 @@ graphs: \code{list} of igraph objects; (6) results: a result \code{dataframe},
 pre-populated with the network size of each network
 }
 \description{
-This function imports ego-centric network data from folders with separate
+This function imports ego-centered network data from folders with separate
 files for alters-level and edge data. It will run some basic checks upon
-the completness of the data and inform the user of potential problems. This
-functions can be used to import data exported from EgoNet (McCarty 2011).
+the completeness of the data and inform the user of potential problems. This
+function can be used to import data exported from EgoNet (McCarty 2011).
 }
 \examples{
 egos.file <-  system.file("extdata", "egos_32.csv", package = "egor")
@@ -68,5 +67,5 @@ ef <- read_egonet(egos.file = egos.file,
                           edge.folder = edge.folder, 
                           csv.sep = ";")
 }
-\keyword{ego-centric}
+\keyword{ego-centered}
 \keyword{import}

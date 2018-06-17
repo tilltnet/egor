@@ -1,15 +1,15 @@
 if(getRversion() >= "2.15.1") utils::globalVariables(c(".alts", ".altID", "fact", "fact.x", "fact.y", "homogen", "netsize", "grp_sizes", "poss_ext", "poss_int", "grp_ei_tab", "ei_sc", ".aaties", "ei_tab", "poss"))
 
-#' Calculate the EI-Index
+#' Calculate the EI-Index for the alter-alter ties of an ego object
 #'
 #' The EI-Index is the division of the intra-group edge density and the outer-group edge 
-#' density. It can be calculated for the whole network and for subgroups. The
+#' density. It is calculated for the whole network and for subgroups. The
 #' whole network EI is a metric indicating the tendency of a network to be 
 #' clustered by the categories of a given factor variable. The EI value of a 
 #' groups describes the tendency of a group to be connected or not connected 
-#' to other groups. Additionally, the EI index can be employed as a measurment
-#' for egos tendendy to homo-/heterphily - use the \code{composition} command
-#' for individual EI-Index.
+#' to other groups. Additionally, the EI index can be employed as a measurement
+#' for egos tendency to homo-/heteorphily - use the \code{comp_ei()} command
+#' for that version of EI-Index.
 #' @param object An \code{egor} object.
 #' @param alt.attr \code{Character} naming grouping variable.
 #' @references Krackhardt, D., Stern, R.N., 1988. Informal networks and 

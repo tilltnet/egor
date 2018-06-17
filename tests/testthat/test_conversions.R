@@ -57,9 +57,9 @@ as_alts_df(egor32)
 #egor32 %>% select(-egoID) %>% as_alts_df(F)
 # 
 # Global alter-alter ties
- as_ties_df(egor32)
+ as_aaties_df(egor32)
 
-as_ties_df(object = egor32, include.alt.vars = T)
+as_aaties_df(object = egor32, include.alt.vars = T)
 
 # Same names in egos and alter vars
  egor32$.alts <- lapply(egor32$.alts, FUN = function(x) {

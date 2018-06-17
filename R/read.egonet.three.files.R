@@ -5,7 +5,7 @@ order.edge.list.columns <- function(edges, source_, target) {
 }
 
 
-#' Read ego-centered network data from the three files format, EgoWeb2.0 or
+#' Read/ import ego-centered network data from the three files format, EgoWeb2.0 or
 #' openeddi.
 #' 
 #' @description These functions read ego-centered network data from the three files

@@ -26,7 +26,7 @@ stored variable-wise, if FALSE alter-wise storage is assumed.}
 #!# Should: Defaults to last column of \code{wide}.}
 }
 \description{
-A function to transform a wide-format dataframe of ego-centric network data
+A function to transform a wide-format dataframe of ego-centered network data
 into a long-format data-frame, where every row represents one alter/dyad. In
 the created dataframe numerous networks can be distinguished by a network ID
 (egoID).

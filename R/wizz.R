@@ -1,17 +1,17 @@
 if(getRversion() >= "2.15.1") utils::globalVariables(c("clrs", "colors_", "e_colors", "edge.color", "edge.width", "graphs", "layout_", "vertex.label", "vertex.size"))
 
-#' Network Visualisation Wizzard (egor)
+#' `egor` Network Visualization App
 #'
-#' This function uses an 'egor' object (list of data objects created by an 
-#' egor import function), extracts the graphs object and uses it to visualise
-#' all networks contained in an interactive Browser Application (R-Shiny).
-#' @param object An egor object.
-#' @param shiny_opts `List` of arguments to be passed to `shinyApp()`'s options argument. 
-#' @return Opens an interactive Browser Application.
+#' Launches an interactive Shiny Web App, that creates a list of
+#' `igraph` objects from an 'egor' object and offers the user several graphical
+#' means of interacting with the visualization parameters for all networks in 
+#' the `egor` object.
+#' @param object An `egor` object.
+#' @param shiny_opts `List` of arguments to be passed to `shinyApp()`'s options argument.
 #' @examples 
 #' \dontrun{
 #' data("egor32")
-#' egor_vis_wizzard(egor32)
+#' egor_vis_app(egor32)
 #' }
 #' @keywords ego-centric network analysis
 #' @export
@@ -27,7 +27,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c("clrs", "colors_", "e_col
 #' @importFrom igraph list.vertex.attributes
 #' @importFrom igraph V<-
 #' @importFrom igraph E<-
-egor_vis_wizzard <- function(object, shiny_opts = list(launch.browser = TRUE)) {
+egor_vis_app <- function(object, shiny_opts = list(launch.browser = TRUE)) {
   
 # App Globals -------------------------------------------------------------
   egors <- ls(envir = .GlobalEnv)[sapply(mget(ls(envir = .GlobalEnv), envir = .GlobalEnv), function(x) class(x)[1] == "egor")]
@@ -40,7 +40,7 @@ egor_vis_wizzard <- function(object, shiny_opts = list(launch.browser = TRUE)) {
 # UI ----------------------------------------------------------------------
 
 ui = fluidPage(
-  title  = "Network Visualisation Wizzard",
+  title  = "egor's Network Visualization App",
   
   
   fluidRow(width = 12,
@@ -54,7 +54,7 @@ ui = fluidPage(
     column(
       3,
       selectInput("egor",
-                  "Select egor object",
+                  "Select `egor` object",
                   egors,
                   selected = object_enex),
       numericInput(
@@ -68,7 +68,7 @@ ui = fluidPage(
       
        
         tags$div(
-          title = "When including ego make sure that corresponding ego and alter variables have equal names in the egor object.",
+          title = "When including ego make sure that corresponding ego and alter variables have equal names in the `egor` object.",
           tags$div(checkboxInput("include.ego",
                                  "Include Ego",
                                  FALSE),
@@ -132,7 +132,7 @@ ui = fluidPage(
                "Export",
                downloadButton("save_plot", label = "Save this Plot"),
                downloadButton("save_all_plots", label = "Save all Plots"),
-               downloadButton("save_egor", label = "Save egor object with igraphs (incl. plotting parameters)")
+               downloadButton("save_egor", label = "Save `egor` object with igraphs (incl. plotting parameters)")
                
              )
            ))
@@ -140,7 +140,7 @@ ui = fluidPage(
   ),
   fluidRow(
     column(12, inputPanel(tags$div(style = "height: 250px; width: 100%;",
-                                   tags$p("egor's Network Visualisation Wizzard"))))
+                                   tags$p("egor's Network Visualization App"))))
   )
 ), 
 

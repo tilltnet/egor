@@ -1,6 +1,6 @@
 #' \code{egor}
 #'
-#' R Package for importing and analysing ego-centered-network data.
+#' R Package for importing and analyzing ego-centered-network data.
 #'
 #' \href{https://tilltnet.github.io/egor/}{Further Information}
 #' or \href{https://github.com/tilltnet/egor}{GitHub}

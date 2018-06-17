@@ -2,7 +2,7 @@ context("test_egor.R")
 
 library(egor)
 library(testthat)
-e1_gen <- generate.sample.ego.data(32, 20)
+e1_gen <- make_egor(32, 20)
 
 test_that("e1_gen is egor object", 
           expect_true((class(e1_gen) == "egor")[1]))
@@ -33,7 +33,7 @@ ego_density(aaties, alters, weight = "weight")
 
 
 
-err_d <- generate.sample.ego.data(32, 20)
+err_d <- make_egor(32, 20)
 
 
 # Checking for egos without alters
@@ -57,9 +57,10 @@ egos <- dplyr::select(err_d, -.alts, -.aaties)
 egos <- egos[sample(egos$egoID, 24), ]
 err_d3 <- egor(alters, egos, aaties)
 
-# Non-Unique egoID in ego data
+# Non-Unique egoID in ego data (should raise warning)
 egos <- rbind(egos, cbind(egos[1:4, 1], egos[5:8, -1] ))
-err_d4 <- egor(alters, egos, aaties)
+
+expect_warning(err_d4 <- egor(alters, egos, aaties))
 
 summary(err_d4)
 ego_density(err_d4)

@@ -2,16 +2,16 @@
 % Please edit documentation in R/conversions.R
 \name{as_alts_df}
 \alias{as_alts_df}
-\alias{as_ties_df}
-\title{Create global alters and alter-alter relations dataframes from an egor object}
+\alias{as_aaties_df}
+\title{Create global alters and alter-alter relations dataframes from an \code{egor} object}
 \usage{
 as_alts_df(object, egoID = "egoID", include.ego.vars = FALSE)
 
-as_ties_df(object, egoID = "egoID", include.ego.vars = FALSE,
+as_aaties_df(object, egoID = "egoID", include.ego.vars = FALSE,
   include.alt.vars = FALSE, aatie_vars = c(".srcID", ".tgtID"))
 }
 \arguments{
-\item{object}{An egor object.}
+\item{object}{An \code{egor} object.}
 
 \item{egoID}{Character, naming the variable used to identify egos. If this variable does not exist,
 a new variable with the specified name is created.}
@@ -42,8 +42,8 @@ as_alts_df(egor32, FALSE)
 as_alts_df(egor32, FALSE, TRUE) 
 
 # Create global alter-alter relaions dataframes
-as_ties_df(egor32)
+as_aaties_df(egor32)
 
 # ... adding alter variables
-as_ties_df(egor32, include.alt.vars = TRUE)
+as_aaties_df(egor32, include.alt.vars = TRUE)
 }

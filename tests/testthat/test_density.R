@@ -8,7 +8,7 @@ library(testthat)
 data(egor32)
 of <- egor32
 
-#of <- egor:::generate.sample.ego.data(net.count = 32, max.alters = 16)
+#of <- egor:::make_egor(net.count = 32, max.alters = 16)
 
 
 # Weighted

@@ -4,7 +4,7 @@ library(egor)
 
 # Create test data
 
-mpf <- generate.sample.ego.data(20, 50)
+mpf <- make_egor(20, 50)
 
 alters.list <- mpf$.alts
 edges.list <- mpf$.aaties
@@ -68,7 +68,7 @@ graphs_ex <- clustered_graphs(alters.list[1], edges.list[1], "random.groups")
 # # Testing extreme data situations ---------------------------------------------
 # 
 # ## Create and extract data
-# lomihi <- generate.sample.ego.data(net.count = 10, max.alters = 120, netsize = 120)
+# lomihi <- make_egor(net.count = 10, max.alters = 120, netsize = 120)
 # lomihi$.alts$age <- factor(lomihi$.alts$age)
 # a.lomihi <- split(x = lomihi$.alts, f = lomihi$.alts$egoID)
 # a.lomihi <- lapply(a.lomihi, function(x) x[2:4])

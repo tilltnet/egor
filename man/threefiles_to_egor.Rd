@@ -4,7 +4,7 @@
 \alias{threefiles_to_egor}
 \alias{read_egoweb}
 \alias{read_openeddi}
-\title{Read ego-centered network data from the three files format, EgoWeb2.0 or
+\title{Read/ import ego-centered network data from the three files format, EgoWeb2.0 or
 openeddi.}
 \usage{
 threefiles_to_egor(egos, alters.df, edges, ID.vars = list(ego = "egoID", alter

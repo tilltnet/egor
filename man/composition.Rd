@@ -2,14 +2,14 @@
 % Please edit documentation in R/composition.R
 \name{composition}
 \alias{composition}
-\title{Calculate the composition of alter attributes in an egor object}
+\title{Calculate the composition of alter attributes in an \code{egor} object}
 \usage{
 composition(object, alt.attr, absolute = FALSE)
 }
 \arguments{
-\item{object}{An egor object.}
+\item{object}{An \code{egor} object.}
 
-\item{alt.attr}{A \code{character} naming the variable containg the alter-attribute.}
+\item{alt.attr}{A \code{character} naming the variable containing the alter-attribute.}
 
 \item{absolute}{\code{Logical} indicating if the results should be absolute.}
 }

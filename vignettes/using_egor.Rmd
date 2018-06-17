@@ -1,5 +1,5 @@
 ---
-title: "Using egor to analyse ego-centered network data"
+title: "Using `egor` to analyse ego-centered network data"
 author: "Till Krenz"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -19,12 +19,12 @@ library(knitr)
 library(egor)
 ```
 
-## The egor object
+## The `egor` Object
 
 ```
 library(egor)
 ```
-An egor object contains all data levels associated with ego-centered network 
+An `egor` object contains all data levels associated with ego-centered network 
 analysis, those levels are: ego, alter, alter-alter ties. By providing the 
 `egor()`-function with `data.frames` containing data corresponding to these data
 levels, we construct an egor object. Here is an example of what the `data.frames`
@@ -121,7 +121,7 @@ Alter-alter tie level:
 subset(e1, .aaties$weight > 1, unit="aatie")
 ```
 ### dplyr and purrr
-An egor object can be manipulated with dplyr verbs. In combination with the 
+An `egor` object can be manipulated with dplyr verbs. In combination with the 
 `map*()` functions from the `purrr` package the list columns .alts and .aaties
 can be processed and modified. A few examples:
 
@@ -149,7 +149,7 @@ e1 %>%
 
 
 ## Analyse
-Try these function to analyse you egor object.
+Try these function to analyse you `egor` object.
 
 ### Summary
 ```{r}
@@ -174,12 +174,12 @@ alts_diversity_count(e1, "alter.age")
 alts_diversity_entropy(e1, "alter.age")
 ```
 
-### Homophily (EI-Index)
+### Ego-Alter Homophily (EI-Index)
 ```{r}
-homophily_ei(e1, "alter.age", "age")
+comp_ei(e1, "alter.age", "age")
 ```
 
-### EI-Index for alter-alter ties
+### EI-Index for Alter-Alter Ties
 ```{r}
 EI(e1, "alter.age") %>%
   head() %>%
@@ -188,15 +188,15 @@ EI(e1, "alter.age") %>%
 
 ### `comp_ply()`
 `comp_ply()` applies a user-defined function on an alter attribute and returns 
-a numeric vector with the results. It can be used to apply base R funtions like
+a numeric vector with the results. It can be used to apply base R functions like
 `sd()`, `mean()` or functions from other packages.
 
 ```{r}
-e2 <- generate.sample.ego.data(15, 32)
+e2 <- make_egor(15, 32)
 comp_ply(e2, "age.years", sd, na.rm = TRUE)
 ```
 
-## Visualise
+## Visualize
 
 ### Clustered Graphs
 ```{r}
@@ -205,14 +205,14 @@ data("egor32")
 # Simplify networks to clustered graphs, stored as igraph objects
 graphs <- clustered_graphs(egor32, "age") 
 
-# Visualise
+# Visualize
 par(mar=c(0,0,0,0))
 vis_clustered_graphs(graphs[1:3], 
                      node.size.multiplier = 10, 
                      edge.width.multiplier = 5,
                      label.size = 0.6)
 
-graphs2 <- clustered_graphs(generate.sample.ego.data(400, 200)[1:4], "country") 
+graphs2 <- clustered_graphs(make_egor(400, 200)[1:4], "country") 
 
 vis_clustered_graphs(graphs2[1:4], 
                      node.size.multiplier = 2, 
@@ -223,8 +223,8 @@ vis_clustered_graphs(graphs2[1:4],
 
 ### `igraph` & `network` plotting
 
-- `as_igraph()` converts an egor object to a list of igraph objects.
-- `as_network()` converts an egor object to a list of network objects.
+- `as_igraph()` converts an `egor` object to a list of igraph objects.
+- `as_network()` converts an `egor` object to a list of network objects.
 
 ```{r}
 par(mar=c(0,0,0,0))
@@ -233,21 +233,21 @@ purrr::walk(as_network(egor32)[1:4], plot)
 ```
 
 
-### Visualisation Wizzard
+### Shiny App for Visualization 
 
-`egor_vis_wizzard()` starts a Shiny app that allows offers a graphical
-interface for adjusting the visualisation parameters of the networks stored
-in an egor object.
+`egor_vis_app()` starts a Shiny app that allows offers a graphical
+interface for adjusting the visualization parameters of the networks stored
+in an `egor` object.
 
 ```
-egor_vis_wizzard(egor32)
+egor_vis_app(egor32)
 ```
-![Wizzard](vis_wizzard.PNG)
+![egor Vis App](vis_wizzard.PNG)
 
 ## Conversions
 
-In addition to `as_igraph()` and `as_network()` shown in the visualisation 
-section there are to conversion functions for egor objects:
+In addition to `as_igraph()` and `as_network()` shown in the visualization 
+section there are to conversion functions for `egor` objects:
 
 `as_alts_df()` creates a global data frame of all alters.
 

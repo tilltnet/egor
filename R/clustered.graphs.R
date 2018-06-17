@@ -1,8 +1,8 @@
 #' Cluster ego-centered networks by a grouping factor
 #' 
 #' The idea of clustered graphs is to reduce the complexity of an ego-centered network
-#' graph by visualising alters in clusters defined by a categorial variable (Lerner et al. 2008).
-#' \code{clustered_graphs()} calculates group sizes, inter- and intragroup tie 
+#' graph by visualizing alters in clusters defined by a categorical variable (Lerner et al. 2008).
+#' \code{clustered_graphs()} calculates group sizes, inter and intra group tie 
 #' densities and returns these informations in a \code{list} of #' \code{igraph} objects.
 #' @template object
 #' @template aaties
@@ -15,7 +15,7 @@
 #' @return \code{clustered_graphs} returns a list of graph objects representing 
 #' the clustered ego-centered network data;
 #' @keywords ego-centric network analysis
-#' @seealso \code{\link{vis_clustered_graphs}} for visualising clustered graphs
+#' @seealso \code{\link{vis_clustered_graphs}} for visualizing clustered graphs
 #' @example /inst/examples/ex_cg.R
 #' @importFrom igraph %--%
 #' @export
@@ -155,19 +155,19 @@ clustered_graphs.data.frame <- function(object, aaties, clust.groups, egoID = "e
   
   
   
-#' Visualise clustered graphs
+#' Visualize clustered graphs
 #' 
-#' \code{vis_clustered_graphs} visualises clustered_graphs using a list of
+#' \code{vis_clustered_graphs} visualizes clustered_graphs using a list of
 #' clustered graphs created with \code{\link{clustered_graphs}}.
 #' @param graphs \code{List} of \code{graph} objects, representing the clustered
 #' graphs.
 #' @param node.size.multiplier \code{Numeric} used to multiply the node diameter
-#' of visualised nodes.
+#' of visualized nodes.
 #' @param node.min.size \code{Numeric} indicating minimum size of plotted 
 #' nodes
 #' @param node.max.size \code{Numeric} indicating maximum size of plotted 
 #' nodes
-#' @param edge.width.multiplier \code{Numeric} used to mutliply the edge width.
+#' @param edge.width.multiplier \code{Numeric} used to multiply the edge width.
 #' @param center \code{Numeric} indicating the vertex to be plotted in center.
 #' @param label.size \code{Numeric}.
 #' @param labels \code{Boolean}. Plots with turned off labels will be preceeded 

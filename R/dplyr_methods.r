@@ -15,7 +15,7 @@ update_ego_design <- function(result) {
   attr_keep <- attributes(new_variables)
   attr_keep <- attr_keep[names(attr_keep) %in% c("names", "row.names", "class")]
   attributes(new_variables) <- attr_keep
-  attributes(result)$ego.design$variables <- new_variables
+  attributes(result)$ego_design$variables <- new_variables
   result
 }
 
@@ -68,8 +68,8 @@ filter.egor <- function(.data, ...) {
   .data <- bind_cols(.data, tmp_ix__ = 1:lrow_ix)
   result <- NextMethod()
   result <- restore_egor_attributes(result, .data)
-  ed <- attributes(result)$ego.design
-  attributes(result)$ego.design <- ed[result$tmp_ix__, ]
+  ed <- attributes(result)$ego_design
+  attributes(result)$ego_design <- ed[result$tmp_ix__, ]
   #' @importFrom dplyr select
   select(result, -tmp_ix__)
 }

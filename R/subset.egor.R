@@ -79,7 +79,7 @@ rowlist <- function(x){
 #' @examples
 #'
 #' # Generate a small sample dataset
-#' (e <- generate.sample.ego.data(5,4))
+#' (e <- make_egor(5,4))
 #'
 #' # First three egos in the dataset
 #' e[1:3,]
@@ -189,9 +189,9 @@ subset.egor <- function(x, subset, ..., unit = c("ego","alter","aatie")){
            xt <- bracket(x,i,j,drop=FALSE)
            if(".alts"%in%names(x) && ! ".alts"%in%names(xt)) xt <- cbind(xt, .alts=bracket(x,i,".alts"))
            if(".aaties"%in%names(x) && ! ".aaties"%in%names(xt)) xt <- cbind(xt, .aaties=bracket(x,i,".aaties"))
-           for(a in setdiff(names(attributes(x)), c("ego.design", "names", "row.names")))
+           for(a in setdiff(names(attributes(x)), c("ego_design", "names", "row.names")))
              attr(xt, a) <- attr(x, a)
-           attr(xt, "ego.design") <- attr(x, "ego.design")[i,]
+           attr(xt, "ego_design") <- attr(x, "ego_design")[i,]
            xt
          },
          alter = {

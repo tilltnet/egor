@@ -3,7 +3,7 @@ context("test_ei.R")
 library(egor)
 
 
-eigor <- generate.sample.ego.data(32, 20)
+eigor <- make_egor(32, 20)
 
 
 
