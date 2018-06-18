@@ -23,6 +23,8 @@ Description: egor aids with the process of importing, analyzing
     for the intuitive visualization of ego-centered  networks. It also includes
     procedures for creating and visualizing Clustered Graphs (Lerner et. al
     2008).
+URL: https://github.com/tilltnet/egor, https://tilltnet.github.io/egor/
+BugReports: https://github.com/tilltnet/egor/issues
 License: AGPL-3
 Depends:
     R (>= 2.10),
