@@ -18,9 +18,9 @@ means of interacting with the visualization parameters for all networks in
 the \code{egor} object.
 }
 \examples{
-\dontrun{
-data("egor32")
-egor_vis_app(egor32)
+if(interactive()){
+  data("egor32")
+  egor_vis_app(egor32)
 }
 }
 \keyword{analysis}
