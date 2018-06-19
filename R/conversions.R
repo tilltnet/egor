@@ -179,14 +179,7 @@ as.network.egor <- as_network
 #' data(egor32)
 #' 
 #' # Create global alters dataframes
-#' # ... creating a new egoID
 #' as_alts_df(egor32)
-#' 
-#' # ... without creating a new egoID
-#' as_alts_df(egor32, FALSE)
-#' 
-#' # ... keeping ego variables
-#' as_alts_df(egor32, FALSE, TRUE) 
 #' 
 #' # Create global alter-alter relaions dataframes
 #' as_aaties_df(egor32)
