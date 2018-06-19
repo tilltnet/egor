@@ -1,6 +1,6 @@
 context("test_openeddi.R")
 
 library(egor)
-# Example
+#Example
 #setwd(system.file("extdata", "openeddi", package = "egor"))
 #oe <- read_openeddi()

@@ -9,9 +9,9 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c("clrs", "colors_", "e_col
 #' @param object An `egor` object.
 #' @param shiny_opts `List` of arguments to be passed to `shinyApp()`'s options argument.
 #' @examples 
-#' \dontrun{
-#' data("egor32")
-#' egor_vis_app(egor32)
+#' if(interactive()){
+#'   data("egor32")
+#'   egor_vis_app(egor32)
 #' }
 #' @keywords ego-centered network analysis
 #' @export
