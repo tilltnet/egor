@@ -48,13 +48,6 @@ clustered_graphs.list <- function(object, aaties, clust.groups, ...) {
     SIMPLIFY = FALSE
   )
  
-  # # Store colnames of edges and alters for consistency check.
-  # alters.names<- lapply(alters, FUN = names)
-  # if(length(unique(alters.names))==1) print("alters names check out")
-  # edges.names <- lapply(aaties, FUN = names)
-  # if(length(unique(edges.names))==1) print("aaties names check out")
-  # #!# Create warning, when names are not the same throug all
-  
 # Extracting edges within and between groups ------------------------------
   
   calculateGrpDensities <- function(g, alters.group.n, clust.groups) {
@@ -103,8 +96,6 @@ clustered_graphs.list <- function(object, aaties, clust.groups, ...) {
             grp.possible.dyads <- dyad.poss(groups.size.i)
           }
           grp.density <- real.dyads / grp.possible.dyads 
-          #grp.density.fake <- sample(0:100/100, 10)
-          
           grps.df <- rbind(grps.df, data.frame(i.name, j.name, grp.size, grp.possible.dyads, grp.density))
           
           
@@ -209,7 +200,7 @@ vis_clustered_graphs <- function(graphs,
       edges_graph <- igraph::graph_from_adjacency_matrix(edges_mat)
       edge_list <- igraph::ends(edges_graph, igraph::E(edges_graph), names = TRUE)
       grps.graph <- igraph::graph.data.frame(d= edge_list, vertices= vertex_df, directed= FALSE)
-      #grps.graph <- igraph::graph.data.frame(d= data.frame(x=character(0), y=character(0)), vertices= vertex_df, directed= FALSE)
+
       igraph::plot.igraph(grps.graph, 
                 vertex.color = "grey", 
                 vertex.frame.color = NA, 
@@ -218,8 +209,7 @@ vis_clustered_graphs <- function(graphs,
                 vertex.label.color = "black", 
                 vertex.label.cex = label.size,
                 vertex.label.family = "sans",
-                #vertex.label.dist = 4,
-                #vertex.label.degree = ifelse(igraph::layout.star(grps.graph, center = center)[,1] >= 1, 0, pi),
+
                 layout = layout_, ...)
   }
   
@@ -229,7 +219,7 @@ vis_clustered_graphs <- function(graphs,
                             round(igraph::V(graph)$grp.density, digits = 2), sep = "\n")
       vertex.label.b <- paste(igraph::V(graph)$name, " ",  " ", sep = "\n")
       edge.label <- ifelse(igraph::E(graph)$grp.density == 0, "" , round(igraph::E(graph)$grp.density, digits = 2))
-      #print(edge.label)
+     
 #' @importFrom grDevices gray
       grey.shades <- gray(seq(1, 0, -0.008))[igraph::V(graph)$grp.density*100+1]
       grey.shades <-  strtoi(substr(gsub("#", replacement = "0x", grey.shades), start = 1, stop = 4))
@@ -244,18 +234,11 @@ vis_clustered_graphs <- function(graphs,
     }
     
     vertex.size <- igraph::V(graph)$grp.size * node.size.multiplier + node.min.size
-    #vertex.size <- ifelse(vertex.size < vertex.min.size, vertex.min.size, vertex.size)
     vertex.size[vertex.size > node.max.size] <- node.max.size
     
-    #lx <- layout.star(graph)[,1]
-    #ly <- layout.star(graph)[,2]
-    #plot(-2:2, -2:2, type = "n", xlab = "", ylab = "", axes = FALSE)
-    
-    #plotrix::boxed.labels(lx, ly, vertex.label.b, col = "blue", border = FALSE, bg = "orange")
+
     
     igraph::plot.igraph(graph, 
-                #add = TRUE,
-                #rescale = FALSE,
                 vertex.color = gray(seq(1, 0, -0.008))[igraph::V(graph)$grp.density*100+1], 
                 vertex.frame.color = ifelse(igraph::V(graph)$grp.density == 0 | is.na(igraph::V(graph)$grp.density), "black", NA), 
                 vertex.size = vertex.size,
@@ -273,24 +256,9 @@ vis_clustered_graphs <- function(graphs,
                 edge.color = ifelse(igraph::E(graph)$grp.density == 0, NA, "grey"),
                 layout = layout_, ...)
     
-      # igraph::plot.igraph(graph, add = TRUE,
-      #                   vertex.color = NA, 
-      #                   vertex.frame.color = NA, 
-      #                   vertex.size = vertex.size,
-      #                   vertex.label.color = label.shades.b, 
-      #                   vertex.label.cex = label.size + 0.1,
-      #                   vertex.label = vertex.label.b,
-      #                   vertex.label.family = "serif",
-      #                   vertex.label.font = 2,
-      #                   #vertex.label.dist = 0.02,
-      #                   edge.width = 0,
-      #                   edge.color = NA,
-      #                   edge.arrow.size = 0, 
-      #                   layout = layout_)
-      
+
       igraph::plot.igraph(graph, 
                 add = TRUE,
-                #rescale = FALSE,
                 vertex.color = NA, 
                 vertex.frame.color = NA, 
                 vertex.size = vertex.size,
@@ -303,8 +271,7 @@ vis_clustered_graphs <- function(graphs,
                 edge.color = NA,
                 edge.arrow.size = 0, 
                 layout = layout_, ...)
-    #print(label.shades)
-    #print(grey.shades)
+
   }
   
   example.graph <- graphs[[1]]

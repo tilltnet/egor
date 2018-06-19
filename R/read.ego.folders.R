@@ -91,14 +91,10 @@ read_egonet <- function(egos.file, alter.folder, edge.folder, csv.sep = ",",
   for (i in 1:length(edge.files)) {
     file <- edge.files[i]
     cur_egoID <- gsub("[^0-9]", "", file)
-    #if (is.element(cur_egoID, egos[[IDv$ego]])) {
       elist.list[[i]] <- read.csv(paste(edge.folder, file, sep = "//"), sep = csv.sep, row.names = row.names)
       j <- j + 1
       names(elist.list[i]) <- cur_egoID
   }
-
-  #graphs <- to.network(e.lists = elist.list, alters.list = alter.attr.list)
-  
 
   # Create Global edge list
   aaties <- mapply(FUN = function(x, y) data.frame(egoID = y, x), elist.list, egos[[IDv$ego]], SIMPLIFY = F)
