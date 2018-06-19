@@ -7,7 +7,7 @@
 vis_clustered_graphs(graphs, node.size.multiplier = 1, node.min.size = 0,
   node.max.size = 200, edge.width.multiplier = 30, center = 1,
   label.size = 0.8, labels = FALSE, legend.node.size = 45,
-  to.pdf = FALSE, ...)
+  pdf.name = NULL, ...)
 }
 \arguments{
 \item{graphs}{\code{List} of \code{graph} objects, representing the clustered
@@ -33,7 +33,7 @@ by a 'legend' plot giving the labels of the vertices.}
 
 \item{legend.node.size}{\code{Numeric} used as node diameter of legend graph.}
 
-\item{to.pdf}{\code{Boolean}.}
+\item{pdf.name}{\code{Character} giving the name/path of the pdf file to create.}
 
 \item{...}{Arguments to pass to \code{plot.igraph}.}
 }
@@ -53,10 +53,13 @@ clustered graphs created with \code{\link{clustered_graphs}}.
 data("egor32")
 
 # Simplify networks to clustered graphs, stored as igraph objects
-graphs <- clustered_graphs(egor32, "age") 
+graphs <- clustered_graphs(egor32, "country") 
 
 # Visualise
-vis_clustered_graphs(graphs)
+vis_clustered_graphs(graphs, 
+                     node.size.multiplier = 5, 
+                     edge.width.multiplier = 25,
+                     labels = TRUE)
 }
 \references{
 Brandes, U., Lerner, J., Lubbers, M. J., McCarty, C., & Molina,

@@ -3,7 +3,7 @@
 #' The idea of clustered graphs is to reduce the complexity of an ego-centered network
 #' graph by visualizing alters in clusters defined by a categorical variable (Lerner et al. 2008).
 #' \code{clustered_graphs()} calculates group sizes, inter and intra group tie 
-#' densities and returns these informations in a \code{list} of #' \code{igraph} objects.
+#' densities and returns these informations in a \code{list} of \code{igraph} objects.
 #' @template object
 #' @template aaties
 #' @template egoID
@@ -164,7 +164,7 @@ clustered_graphs.data.frame <- function(object, aaties, clust.groups, egoID = "e
 #' @param labels \code{Boolean}. Plots with turned off labels will be preceeded 
 #' by a 'legend' plot giving the labels of the vertices.
 #' @param legend.node.size \code{Numeric} used as node diameter of legend graph.
-#' @param to.pdf \code{Boolean}.
+#' @param pdf.name \code{Character} giving the name/path of the pdf file to create.
 #' @param ... Arguments to pass to `plot.igraph`.
 #' @return \code{vis_clustered_graphs} plots
 #' a \code{list} of \code{igraph} objects created by the \code{clustered_graphs}
@@ -187,7 +187,7 @@ vis_clustered_graphs <- function(graphs,
                                  label.size = 0.8, 
                                  labels = FALSE, 
                                  legend.node.size = 45, 
-                                 to.pdf = FALSE, ...) {
+                                 pdf.name = NULL, ...) {
 
   plotLegendGraph <- function(grps.graph, center) {
       # set all edges to 1
@@ -277,12 +277,9 @@ vis_clustered_graphs <- function(graphs,
   example.graph <- graphs[[1]]
   center.vertex.max <- length(igraph::V(example.graph))
   
-  if(to.pdf) {
-    rand.chars <- paste(sample(c(0:9, letters, LETTERS),
-                               8, replace=TRUE), collapse="")
-    filename <- paste("clustered_graphs_" , rand.chars, ".pdf", sep = "")
+  if(!missing(pdf.name)) {
 #' @importFrom grDevices pdf
-    pdf(file=filename, width = 46.81, height = 33.11)
+    pdf(file=pdf.name, width = 46.81, height = 33.11)
     
     page.xy <- din_page_dist(length(graphs) + 1)
 #' @importFrom graphics par
@@ -317,7 +314,7 @@ vis_clustered_graphs <- function(graphs,
     
   }
   
-  if(to.pdf) {
+  if(!missing(pdf.name)) {
 #' @importFrom grDevices dev.off
     dev.off()
   }

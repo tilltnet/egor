@@ -38,16 +38,19 @@ the clustered ego-centered network data;
 The idea of clustered graphs is to reduce the complexity of an ego-centered network
 graph by visualizing alters in clusters defined by a categorical variable (Lerner et al. 2008).
 \code{clustered_graphs()} calculates group sizes, inter and intra group tie
-densities and returns these informations in a \code{list} of #' \code{igraph} objects.
+densities and returns these informations in a \code{list} of \code{igraph} objects.
 }
 \examples{
 data("egor32")
 
 # Simplify networks to clustered graphs, stored as igraph objects
-graphs <- clustered_graphs(egor32, "age") 
+graphs <- clustered_graphs(egor32, "country") 
 
 # Visualise
-vis_clustered_graphs(graphs)
+vis_clustered_graphs(graphs, 
+                     node.size.multiplier = 5, 
+                     edge.width.multiplier = 25,
+                     labels = TRUE)
 }
 \references{
 Brandes, U., Lerner, J., Lubbers, M. J., McCarty, C., & Molina,
