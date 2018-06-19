@@ -18,7 +18,7 @@
 #' of relations. Weights should range from 0 to 1.
 #' @template meth_dots
 #' @return returns a \code{vector} of network density values.
-#' @keywords ego-centric network analysis
+#' @keywords ego-centered network analysis
 #' @examples 
 #' data("egor32")
 #' ego_density(egor32)

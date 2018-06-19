@@ -13,7 +13,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c("clrs", "colors_", "e_col
 #' data("egor32")
 #' egor_vis_app(egor32)
 #' }
-#' @keywords ego-centric network analysis
+#' @keywords ego-centered network analysis
 #' @export
 #' @import shiny
 #' @importFrom igraph get.vertex.attribute
@@ -83,9 +83,9 @@ ui = fluidPage(
       sliderInput(
         "zoom_factor_v",
         label = "Vertex Size:",
-        min = 1,
-        max = 20,
-        value = 3,
+        min = 0,
+        max = 75,
+        value = 25,
         step = .1
       )
     ),
@@ -311,9 +311,9 @@ collect_plot_params <- function(nnumber, graphs, input, values) {
     vertex.size[is.na(vertex.size)] <- 0.1
     vertex.size <- vertex.size * 4 + input$zoom_factor_v/2
   } else {
-    vertex.size <- rep(5, length(V(graphs[[nnumber]]))) * 4 + input$zoom_factor_v/2
+    vertex.size <- rep(5, length(V(graphs[[nnumber]]))) * 4 + input$zoom_factor_v
   }
-  
+
   # Vertex Color
   if(values$v.color != "-Select Entry-") {
     vertex.color <- get.vertex.attribute(graphs[[nnumber]], values$v.color)

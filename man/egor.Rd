@@ -105,5 +105,5 @@ egor(alters.df = alters32,
      aaties = edges32)
 }
 \keyword{analysis}
-\keyword{ego-centric}
+\keyword{ego-centered}
 \keyword{network}

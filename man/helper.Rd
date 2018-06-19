@@ -30,7 +30,7 @@ data.}
 \item{y}{\code{Numeric}.}
 }
 \description{
-Helper functions for ego centric network analysis
+Helper functions for ego centered network analysis
 }
 \section{Functions}{
 \itemize{

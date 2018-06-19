@@ -14,7 +14,7 @@
 #' IEEE Pacific Visualization Symposium, 47-54.
 #' @return \code{clustered_graphs} returns a list of graph objects representing 
 #' the clustered ego-centered network data;
-#' @keywords ego-centric network analysis
+#' @keywords ego-centered network analysis
 #' @seealso \code{\link{vis_clustered_graphs}} for visualizing clustered graphs
 #' @example /inst/examples/ex_cg.R
 #' @importFrom igraph %--%
@@ -183,7 +183,7 @@ clustered_graphs.data.frame <- function(object, aaties, clust.groups, egoID = "e
 #' IEEE Pacific Visualization Symposium, 47-54.
 #' @return \code{clustered_graphs} returns a list of graph objects representing 
 #' the clustered ego-centered network data;
-#' @keywords ego-centric network analysis
+#' @keywords ego-centered network analysis
 #' @seealso \code{\link{clustered_graphs}} for creating clustered graphs objects
 #' @example /inst/examples/ex_cg.R
 #' @export

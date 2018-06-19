@@ -1,7 +1,7 @@
 #' Set and query the alter nomination design
 #'
 #' Extract, set, or update the alter nomination design associated with
-#' an egocentric dataset.
+#' an ego-centered dataset.
 #'
 #' @param x an [`egor`] object.
 #' @template meth_dots

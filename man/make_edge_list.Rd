@@ -12,6 +12,6 @@ make_edge_list(netsize)
 \description{
 Generate a random edge list for one network.
 }
-\keyword{ego-centric}
+\keyword{ego-centered}
 \keyword{internal}
 \keyword{network}

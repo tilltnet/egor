@@ -4,7 +4,7 @@
 #' Generate a random edge list for one network.
 #'
 #' @param netsize \code{Numeric} indicating maximum number of alters.
-#' @keywords ego-centric network
+#' @keywords ego-centered network
 #' @keywords internal
 make_edge_list <- function(netsize) {
   dp <- dyad.poss(netsize)
@@ -24,14 +24,14 @@ make_edge_list <- function(netsize) {
   data.frame(Source, Target, weight)
 } 
 
-#' Generate random ego-centric-network data.
+#' Generate random ego-centered-network data.
 #'
-#' This function generates random ego-centric-network data for a specified number of networks with a maximum network size. The network size of the generated networks is a normal distribution with sd=5.
+#' This function generates random ego-centered-network data for a specified number of networks with a maximum network size. The network size of the generated networks is a normal distribution with sd=5.
 #' @param net.count Number of networks/ egos to generate.
 #' @param max.alters Maximum size of networks.
 #' @param netsize \code{Numeric} for fixed network sizes.
 #' @param plot whether to plot the network size distribution.
-#' @keywords ego-centric network
+#' @keywords ego-centered network
 #' @keywords random
 #'
 #' @export
@@ -112,7 +112,7 @@ make_egor <- function(net.count, max.alters, netsize = NULL, plot=FALSE) {
 #'
 #' Only works properly, if the netsize of all networks is constant.
 #' @param edges List of \code{data.frames} containing edge lists.
-#' @keywords ego-centric network
+#' @keywords ego-centered network
 #' @keywords internal
 edgelist_to_wide <- function(edges) {
   wide_edges <- plyr::ldply(edges, .fun= function(x) t(x$weight))

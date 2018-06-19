@@ -29,5 +29,5 @@ old values.}
 }
 \description{
 Extract, set, or update the alter nomination design associated with
-an egocentric dataset.
+an ego-centered dataset.
 }

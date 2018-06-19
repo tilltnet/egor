@@ -58,5 +58,5 @@ IEEE Pacific Visualization Symposium, 47-54.
 \code{\link{vis_clustered_graphs}} for visualizing clustered graphs
 }
 \keyword{analysis}
-\keyword{ego-centric}
+\keyword{ego-centered}
 \keyword{network}

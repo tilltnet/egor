@@ -1,6 +1,6 @@
 Package: egor
 Type: Package
-Title: Import and analyse ego-centric network data
+Title: Import and Analyse Ego-Centered Network Data
 Version: 0.18.06
 Date: 2018-06-14
 Authors@R: c(
@@ -17,7 +17,7 @@ Authors@R: c(
     person("Raffaele", "Vacca", email = "r.vacca@ufl.edu",
     role = c("aut")))
 Description: egor aids with the process of importing, analyzing
-    and visualizing ego-centric network data. It supports several data formats,
+    and visualizing ego-centered network data. It supports several data formats,
     including the export formats of EgoNet (McCarty 2011), EgoWeb 2.0 (Kennedy
     et al.) and openeddi (Eddens/ Fagan). egor offers an interactive (shiny) app
     for the intuitive visualization of ego-centered  networks. It also includes

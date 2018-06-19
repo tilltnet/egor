@@ -67,5 +67,5 @@ IEEE Pacific Visualization Symposium, 47-54.
 \code{\link{clustered_graphs}} for creating clustered graphs objects
 }
 \keyword{analysis}
-\keyword{ego-centric}
+\keyword{ego-centered}
 \keyword{network}

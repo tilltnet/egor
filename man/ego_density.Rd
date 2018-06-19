@@ -54,5 +54,5 @@ data("egor32")
 ego_density(egor32)
 }
 \keyword{analysis}
-\keyword{ego-centric}
+\keyword{ego-centered}
 \keyword{network}

@@ -12,6 +12,6 @@ edgelist_to_wide(edges)
 \description{
 Only works properly, if the netsize of all networks is constant.
 }
-\keyword{ego-centric}
+\keyword{ego-centered}
 \keyword{internal}
 \keyword{network}

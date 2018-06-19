@@ -3,7 +3,7 @@
 \name{subset.egor}
 \alias{subset.egor}
 \alias{[.egor}
-\title{Filter and Subset Egocentric Datasets}
+\title{Filter and Subset Ego-centered Datasets}
 \usage{
 \method{subset}{egor}(x, subset, ..., unit = c("ego", "alter", "aatie"))
 

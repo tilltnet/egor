@@ -28,7 +28,7 @@ formulas, they can refer to columns (ego attributes) of \code{x}.}
 }
 \description{
 Extract, set, or update the \code{\link{svydesign}} associated with an
-egocentric dataset.
+ego-centered dataset.
 }
 \note{
 This can be useful for adjusting or reinitializing the ego

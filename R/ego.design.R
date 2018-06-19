@@ -45,7 +45,7 @@ weights.egor <- function(object, ...) {
 #' Set and query the ego sampling design
 #'
 #' Extract, set, or update the [`svydesign`] associated with an
-#' egocentric dataset.
+#' ego-centered dataset.
 #'
 #' @param x an [`egor`] object.
 #' @template meth_dots

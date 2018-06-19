@@ -21,7 +21,7 @@ rowlist <- function(x){
 }
 
 
-#' Filter and Subset Egocentric Datasets
+#' Filter and Subset Ego-centered Datasets
 #'
 #' Functions to index and take subsets of [egor()] objects: manipulate
 #' egos, alters, or alter-alter ties.

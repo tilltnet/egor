@@ -2,7 +2,7 @@
 % Please edit documentation in R/create.random.egonet.data.R
 \name{make_egor}
 \alias{make_egor}
-\title{Generate random ego-centric-network data.}
+\title{Generate random ego-centered-network data.}
 \usage{
 make_egor(net.count, max.alters, netsize = NULL, plot = FALSE)
 }
@@ -16,8 +16,8 @@ make_egor(net.count, max.alters, netsize = NULL, plot = FALSE)
 \item{plot}{whether to plot the network size distribution.}
 }
 \description{
-This function generates random ego-centric-network data for a specified number of networks with a maximum network size. The network size of the generated networks is a normal distribution with sd=5.
+This function generates random ego-centered-network data for a specified number of networks with a maximum network size. The network size of the generated networks is a normal distribution with sd=5.
 }
-\keyword{ego-centric}
+\keyword{ego-centered}
 \keyword{network}
 \keyword{random}

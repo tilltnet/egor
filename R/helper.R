@@ -1,6 +1,6 @@
 #' General helper functions
 #'
-#' Helper functions for ego centric network analysis
+#' Helper functions for ego centered network analysis
 #'
 #' @template max_alters
 #' @template directed

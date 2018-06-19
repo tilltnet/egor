@@ -97,7 +97,7 @@ alts_diversity_count <- function(object, alt.attr)
   comp_ply(object, alt.attr, .f = fun_alts_diversity)
 
 fun_alts_diversity <- function(x, var_name) {
-  factor(x) %>% unique() %>% length()
+  na.omit(x) %>% factor() %>% unique() %>% length()
 }
 
 #' @rdname alts_diversity_count

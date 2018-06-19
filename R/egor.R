@@ -52,7 +52,7 @@ RESERVED_COLNAMES <- c(".alts", ".aaties", ".egoRow", ".altID", ".srcID", ".tgtI
 #'   [`list`] containing specification of how the alters were
 #'   nominated. See the argument above for currently implemented
 #'   settings.
-#' @keywords ego-centric network analysis
+#' @keywords ego-centered network analysis
 #' @examples 
 #' data("edges32") 
 #' data("egos32")
