@@ -61,9 +61,9 @@ test_that(
   "as_aaties_df works.",
   {
     e <- make_egor(3, 22)
-    expect_error(as_aaties_df(egor32), NA)
-    expect_error(as_aaties_df(egor32, egoID = "ID"), NA)
-    expect_error(as_aaties_df(object = egor32, include.alt.vars = T), NA)
+    expect_error(as_aaties_df(e), NA)
+    expect_error(as_aaties_df(e, egoID = "ID"), NA)
+    expect_error(as_aaties_df(object = e, include.alt.vars = T), NA)
   }
 )
 
