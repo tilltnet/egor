@@ -100,10 +100,12 @@ as_network <- function(x,
     
     # Add ego vertex
     add_ego_network <- function(obj) {
-      obj$.alts[[1]]$.altID <- as.character(obj$.alts[[1]]$.altID)
+      #obj$.alts[[1]]$.altID <- as.character(obj$.alts[[1]]$.altID)
+      obj$.alts[[1]] <- mutate_all(obj$.alts[[1]], as.character)
+      alt_rows <- mutate_all(obj[ego.attrs], as.character)
       obj$.alts[[1]] <- dplyr::bind_rows(obj$.alts[[1]], 
                                          data.frame(.altID = "ego", 
-                                                    obj[ego.attrs],
+                                                    alt_rows,
                                                     stringsAsFactors = FALSE))
       
       # Add ego alter edges
@@ -112,11 +114,18 @@ as_network <- function(x,
       alter_names <- alter_names[-len]
       obj$.aaties[[1]]$.srcID <- as.character(obj$.aaties[[1]]$.srcID)
       obj$.aaties[[1]]$.tgtID <- as.character(obj$.aaties[[1]]$.tgtID)
-      obj$.aaties[[1]] <- dplyr::bind_rows(obj$.aaties[[1]], 
-                                           data.frame(.srcID = "ego", 
-                                                      .tgtID = alter_names,
-                                                      obj$.alts[[1]][ego.alter.weights][-len,],
-                                                      stringsAsFactors = FALSE))
+      obj$.aaties[[1]][ego.alter.weights] <- 
+        as.character(obj$.aaties[[1]][ego.alter.weights])
+      
+      ea_rows <- obj$.alts[[1]][ego.alter.weights][-len,]
+      ea_rows <- as.character(ea_rows)
+      ea_rows <- data.frame(.srcID = "ego", 
+                            .tgtID = alter_names,
+                            ea_rows,
+                            stringsAsFactors = FALSE)
+        
+      names(ea_rows)[3] <- ego.alter.weights
+      obj$.aaties[[1]] <- dplyr::bind_rows(obj$.aaties[[1]], ea_rows)
       obj
     }
     
