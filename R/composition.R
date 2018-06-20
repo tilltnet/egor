@@ -126,7 +126,7 @@ comp_ei <- function(object, alt.attr, ego.attr)
   comp_ply(object, alt.attr, .f = fun_comp_ei, ego.attr = ego.attr)
 
 fun_comp_ei <- function(x, ego_var) {
-  homogen <- x == ego_var
+  homogen <- as.character(x) == as.character(ego_var)
   tibble(homogen) %>%
     mutate(homogen = factor(homogen, c("TRUE", "FALSE"), c("I", "E"))) %>%
     count(homogen) %>%
