@@ -25,7 +25,7 @@ clustered_graphs <- function(object, ..., clust.groups) UseMethod("clustered_gra
 #' @export  
 clustered_graphs.list <- function(object, aaties, clust.groups, ...) {
   GetGroupSizes <- function(x) {
-    #y <- aggregate(x$alterID, by = x[clust.groups], FUN = NROW)
+    if(all(is.na(x[[clust.groups]]))) return(data.frame(groups = NA, size = NA))
     y <- data.frame(table(x[clust.groups]))
     names(y) <- c("groups", "size")
     y
@@ -35,7 +35,16 @@ clustered_graphs.list <- function(object, aaties, clust.groups, ...) {
   
   # Exclude NAs in clust.groups
   alters <- lapply(object, FUN = function(y) y[!is.na(y[clust.groups]), ])
+  aaties <- mapply(FUN = function(x, y) {
+    x <- x[x[[1]] %in% y[[1]], ]
+    x <- x[x[[2]] %in% y[[1]], ]
+    x
+  },
+  aaties,
+  alters,
+  SIMPLIFY = FALSE)
   
+
   graphs <- mapply(
     FUN = function(x, y)
       igraph::graph.data.frame(
