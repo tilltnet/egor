@@ -5,8 +5,8 @@
 \title{Read ego-centered network data exported with EgoNet software as an \code{egor} object}
 \usage{
 read_egonet(egos.file, alter.folder, edge.folder, csv.sep = ",",
-  ID.vars = list(ego = "egoID", alter = "alterID", source = "Source", target =
-  "Target"), first.col.row.names = FALSE, ...)
+  ID.vars = list(ego = "egoID", alter = "alterID", source = "Source",
+  target = "Target"), first.col.row.names = FALSE, ...)
 }
 \arguments{
 \item{egos.file}{File name of the .csv file containing the ego data.}
@@ -20,21 +20,21 @@ separate .csv files for each ego/ network.}
 \item{csv.sep}{\code{Character} indicating the separator used in csv files.}
 
 \item{ID.vars}{A named list containing column names of the relevant
-  input columns: \describe{
+input columns: \describe{
 
-\item{`ego`}{unique identifier associated with each ego, defaulting
-  to `"egoID"`; has no effect if `alters.df` and `aaties.df` are
-  both lists of data frames.}
+\item{\code{ego}}{unique identifier associated with each ego, defaulting
+to \code{"egoID"}; has no effect if \code{alters.df} and \code{aaties.df} are
+both lists of data frames.}
 
-\item{`alter`}{unique-within-ego identifier associated with each
-  alter, defaulting to `"alterID"`; optional `aaties.df` are not
-  provided.}
+\item{\code{alter}}{unique-within-ego identifier associated with each
+alter, defaulting to \code{"alterID"}; optional \code{aaties.df} are not
+provided.}
 
-\item{`source`}{if `aaties.df` is provided, the column given the
-  alter identifier of the origin of a relation.}
+\item{\code{source}}{if \code{aaties.df} is provided, the column given the
+alter identifier of the origin of a relation.}
 
-\item{`target`}{if `aaties.df` is provided, the column given the
-  alter identifier of the destination of a relation.}
+\item{\code{target}}{if \code{aaties.df} is provided, the column given the
+alter identifier of the destination of a relation.}
 
 }}
 
@@ -44,7 +44,7 @@ row names, that are to be skipped, default is \code{FALSE}.}
 \item{...}{additional arguments to \code{\link[=egor]{egor()}}.}
 }
 \value{
-A \code{list} of six objects - the **egoR** object: (1) egos.df: \code{dataframe} of all
+A \code{list} of six objects - the \strong{egoR} object: (1) egos.df: \code{dataframe} of all
 egos and their attributes; (2) alters.df: \code{dataframe} of all alters;
 (3) alters.list: \code{list} of \code{dataframes} of all alters per ego;
 (4) edges: \code{list} of \code{dataframes} with edge lists per network; (5)

@@ -4,9 +4,9 @@
 \alias{onefile_to_egor}
 \title{Import ego-centered network data from 'one file format'}
 \usage{
-onefile_to_egor(egos, netsize, ID.vars = list(ego = "egoID"), attr.start.col,
-  attr.end.col, max.alters, aa.first.var, aa.regex = NULL, ego.vars = NULL,
-  var.wise = FALSE, ...)
+onefile_to_egor(egos, netsize, ID.vars = list(ego = "egoID"),
+  attr.start.col, attr.end.col, max.alters, aa.first.var,
+  aa.regex = NULL, ego.vars = NULL, var.wise = FALSE, ...)
 }
 \arguments{
 \item{egos}{\code{Data frame} containg ego data (egos as cases)}
@@ -14,21 +14,21 @@ onefile_to_egor(egos, netsize, ID.vars = list(ego = "egoID"), attr.start.col,
 \item{netsize}{\code{Vector} containing values of network size per ego.}
 
 \item{ID.vars}{A named list containing column names of the relevant
-  input columns: \describe{
+input columns: \describe{
 
-\item{`ego`}{unique identifier associated with each ego, defaulting
-  to `"egoID"`; has no effect if `alters.df` and `aaties.df` are
-  both lists of data frames.}
+\item{\code{ego}}{unique identifier associated with each ego, defaulting
+to \code{"egoID"}; has no effect if \code{alters.df} and \code{aaties.df} are
+both lists of data frames.}
 
-\item{`alter`}{unique-within-ego identifier associated with each
-  alter, defaulting to `"alterID"`; optional `aaties.df` are not
-  provided.}
+\item{\code{alter}}{unique-within-ego identifier associated with each
+alter, defaulting to \code{"alterID"}; optional \code{aaties.df} are not
+provided.}
 
-\item{`source`}{if `aaties.df` is provided, the column given the
-  alter identifier of the origin of a relation.}
+\item{\code{source}}{if \code{aaties.df} is provided, the column given the
+alter identifier of the origin of a relation.}
 
-\item{`target`}{if `aaties.df` is provided, the column given the
-  alter identifier of the destination of a relation.}
+\item{\code{target}}{if \code{aaties.df} is provided, the column given the
+alter identifier of the destination of a relation.}
 
 }}
 
@@ -42,10 +42,10 @@ onefile_to_egor(egos, netsize, ID.vars = list(ego = "egoID"), attr.start.col,
 
 \item{aa.regex}{A Perl regular expression with name capture,
 intended to be run on column names and capturing via named
-capture the following regex groups: `"attr"`, `"src"`, and
-`"tgt"`, representing the edge attribute being captured, the
+capture the following regex groups: \code{"attr"}, \code{"src"}, and
+\code{"tgt"}, representing the edge attribute being captured, the
 source (or the first alter identified), and the target (or the
-second alter identified) of the edge, respectively. See [`regex`]
+second alter identified) of the edge, respectively. See \code{\link{regex}}
 for more information.}
 
 \item{ego.vars}{A \code{data.frame} of alter attributes in the wide format.}
@@ -55,7 +55,7 @@ for more information.}
 \item{...}{additional arguments to \code{\link[=egor]{egor()}}.}
 }
 \value{
-A \code{list} of six objects - the **egoR** object: (1) egos.df: \code{dataframe} of all
+A \code{list} of six objects - the \strong{egoR} object: (1) egos.df: \code{dataframe} of all
 egos and their attributes; (2) alters.df: \code{dataframe} of all alters;
 (3) alters.list: \code{list} of \code{dataframes} of all alters per ego;
 (4) edges: \code{list} of \code{dataframes} with edge lists per network; (5)

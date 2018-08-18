@@ -4,9 +4,9 @@
 \alias{twofiles_to_egor}
 \title{Import ego-centered network data from two file format}
 \usage{
-twofiles_to_egor(egos, alters, netsize = NULL, ID.vars = list(ego = "egoID",
-  alter = "alterID", source = "Source", target = "Target"), e.max.alters,
-  e.first.var, ego.vars = NULL, selection = NULL, ...)
+twofiles_to_egor(egos, alters, netsize = NULL, ID.vars = list(ego =
+  "egoID", alter = "alterID", source = "Source", target = "Target"),
+  e.max.alters, e.first.var, ego.vars = NULL, selection = NULL, ...)
 }
 \arguments{
 \item{egos}{\code{Data frame} containg ego data (egos as cases)}
@@ -17,21 +17,21 @@ alters are separated by a variable containg an egoID.}
 \item{netsize}{\code{Vector} containing values of network size per ego.}
 
 \item{ID.vars}{A named list containing column names of the relevant
-  input columns: \describe{
+input columns: \describe{
 
-\item{`ego`}{unique identifier associated with each ego, defaulting
-  to `"egoID"`; has no effect if `alters.df` and `aaties.df` are
-  both lists of data frames.}
+\item{\code{ego}}{unique identifier associated with each ego, defaulting
+to \code{"egoID"}; has no effect if \code{alters.df} and \code{aaties.df} are
+both lists of data frames.}
 
-\item{`alter`}{unique-within-ego identifier associated with each
-  alter, defaulting to `"alterID"`; optional `aaties.df` are not
-  provided.}
+\item{\code{alter}}{unique-within-ego identifier associated with each
+alter, defaulting to \code{"alterID"}; optional \code{aaties.df} are not
+provided.}
 
-\item{`source`}{if `aaties.df` is provided, the column given the
-  alter identifier of the origin of a relation.}
+\item{\code{source}}{if \code{aaties.df} is provided, the column given the
+alter identifier of the origin of a relation.}
 
-\item{`target`}{if `aaties.df` is provided, the column given the
-  alter identifier of the destination of a relation.}
+\item{\code{target}}{if \code{aaties.df} is provided, the column given the
+alter identifier of the destination of a relation.}
 
 }}
 
@@ -48,7 +48,7 @@ alters selection with zeros and ones.}
 \item{...}{additional arguments to \code{\link[=egor]{egor()}}.}
 }
 \value{
-A \code{list} of six objects - the **egoR** object: (1) egos.df: \code{dataframe} of all
+A \code{list} of six objects - the \strong{egoR} object: (1) egos.df: \code{dataframe} of all
 egos and their attributes; (2) alters.df: \code{dataframe} of all alters;
 (3) alters.list: \code{list} of \code{dataframes} of all alters per ego;
 (4) edges: \code{list} of \code{dataframes} with edge lists per network; (5)

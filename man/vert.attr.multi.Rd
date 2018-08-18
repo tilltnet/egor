@@ -5,8 +5,8 @@
 \title{Get multiple variables from a data.frame and set them as vertex attributes
 in a graph. Uses \code{vert.attr()} in a loop.}
 \usage{
-vert.attr.multi(data, graph, dataID, graphID = "name", attributes, FUN = NA,
-  attr.names = attributes)
+vert.attr.multi(data, graph, dataID, graphID = "name", attributes,
+  FUN = NA, attr.names = attributes)
 }
 \arguments{
 \item{data}{The data.frame containing the vertex attribute variables to be

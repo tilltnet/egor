@@ -14,8 +14,8 @@ as_igraph(x, directed = FALSE, include.ego = FALSE, ego.attrs = NULL,
 \method{as.igraph}{egor}(x, directed = FALSE, include.ego = FALSE,
   ego.attrs = NULL, ego.alter.weights = NULL)
 
-as_network(x, directed = FALSE, include.ego = FALSE, ego.attrs = NULL,
-  ego.alter.weights = NULL)
+as_network(x, directed = FALSE, include.ego = FALSE,
+  ego.attrs = NULL, ego.alter.weights = NULL)
 
 \method{as.network}{egor}(x, directed = FALSE, include.ego = FALSE,
   ego.attrs = NULL, ego.alter.weights = NULL)

@@ -13,10 +13,10 @@ in the 'wide' format.}
 
 \item{aa.regex}{A Perl regular expression with name capture,
 intended to be run on column names and capturing via named
-capture the following regex groups: `"attr"`, `"src"`, and
-`"tgt"`, representing the edge attribute being captured, the
+capture the following regex groups: \code{"attr"}, \code{"src"}, and
+\code{"tgt"}, representing the edge attribute being captured, the
 source (or the first alter identified), and the target (or the
-second alter identified) of the edge, respectively. See [`regex`]
+second alter identified) of the edge, respectively. See \code{\link{regex}}
 for more information.}
 
 \item{netsize}{\code{Vector} containing values of network size per ego.}

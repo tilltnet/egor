@@ -5,8 +5,8 @@
 \alias{as.egor}
 \title{egor - a data class for ego-centered network data.}
 \usage{
-egor(alters.df, egos.df = NULL, aaties.df = NULL, ID.vars = list(ego =
-  "egoID", alter = "alterID", source = "Source", target = "Target"),
+egor(alters.df, egos.df = NULL, aaties.df = NULL, ID.vars = list(ego
+  = "egoID", alter = "alterID", source = "Source", target = "Target"),
   ego_design = list(~1), alter_design = list(max = Inf))
 
 as.egor(x, ...)
@@ -25,21 +25,21 @@ relations in the style of an edge list, or a list of data frames
 similar to \code{alters.df}.}
 
 \item{ID.vars}{A named list containing column names of the relevant
-  input columns: \describe{
+input columns: \describe{
 
-\item{`ego`}{unique identifier associated with each ego, defaulting
-  to `"egoID"`; has no effect if `alters.df` and `aaties.df` are
-  both lists of data frames.}
+\item{\code{ego}}{unique identifier associated with each ego, defaulting
+to \code{"egoID"}; has no effect if \code{alters.df} and \code{aaties.df} are
+both lists of data frames.}
 
-\item{`alter`}{unique-within-ego identifier associated with each
-  alter, defaulting to `"alterID"`; optional `aaties.df` are not
-  provided.}
+\item{\code{alter}}{unique-within-ego identifier associated with each
+alter, defaulting to \code{"alterID"}; optional \code{aaties.df} are not
+provided.}
 
-\item{`source`}{if `aaties.df` is provided, the column given the
-  alter identifier of the origin of a relation.}
+\item{\code{source}}{if \code{aaties.df} is provided, the column given the
+alter identifier of the origin of a relation.}
 
-\item{`target`}{if `aaties.df` is provided, the column given the
-  alter identifier of the destination of a relation.}
+\item{\code{target}}{if \code{aaties.df} is provided, the column given the
+alter identifier of the destination of a relation.}
 
 }}
 
