@@ -20,11 +20,11 @@
 #'   \item{sex}{Ego's sex. 1=male, 2=female}
 #'   \item{marital}{Ego's marital status. 1=married, 2=widowed, 3=divorced, 4=separated, 5=never married}
 #'   \item{numgiven}{Number of alters mentioned}
-#'   \item{age[1-5]}{Alter's age in years}
-#'   \item{race[1-5]}{Alter's race. 1=asian, 2=black, 3=hispanic, 4=white, 5=other}
-#'   \item{sex[1-5]}{Alter's sex. 1=male, 2=female}
-#'   \item{spouse[1-5]}{Whether alter is a spouse of ego. 1=mentioned, 2=not mentioned}
-#'   \item{close[1-4][2-5]}{How close are the two alters according to ego. 1=especially close, 2=know each other, 3=total strangers}
+#'   \item{age\[1-5\]}{Alter's age in years}
+#'   \item{race\[1-5\]}{Alter's race. 1=asian, 2=black, 3=hispanic, 4=white, 5=other}
+#'   \item{sex\[1-5\]}{Alter's sex. 1=male, 2=female}
+#'   \item{spouse\[1-5\]}{Whether alter is a spouse of ego. 1=mentioned, 2=not mentioned}
+#'   \item{close\[1-4\]\[2-5\]}{How close are the two alters according to ego. 1=especially close, 2=know each other, 3=total strangers}
 #' }
 #' 
 #' @details 
