@@ -138,7 +138,7 @@ egor <- function(alters.df, egos.df = NULL, aaties.df = NULL, ID.vars=list(ego="
 
     egor <- dplyr::full_join(tibble::as_tibble(egos.df), egor, by = IDv$ego)
     egor <- inj_zero_dfs(egor, ".alts")
-    egor <- if(".aaties" %in% names(egor)) inj_zero_dfs(egor, ".aaties")
+    if(".aaties" %in% names(egor)) egor <- inj_zero_dfs(egor, ".aaties")
 
   }
   
