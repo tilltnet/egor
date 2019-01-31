@@ -1,21 +1,23 @@
 Package: egor
 Type: Package
 Title: Import and Analyse Ego-Centered Network Data
-Version: 0.18.08-405
+Version: 0.19.01
 Date: 2018-10-06
 Authors@R: c(
-    person("Markus", "Gamper", email = "m.gamper@uni-koeln.de",
-    role = c("aut")),
-    person("Andreas", "Herz", email = "herzand@uni-hildesheim.de",
-    role = c("aut")),
     person("Till", "Krenz", email = "egor@tillt.net",
     role = c("aut", "cre")),
-    person("Christopher", "McCarty", email = "ufchris@ufl.edu",
-    role = c("aut")),
     person("Pavel N.", "Krivitsky", email="pavel@uow.edu.au",
     role=c("aut")),
     person("Raffaele", "Vacca", email = "r.vacca@ufl.edu",
-    role = c("aut")))
+    role = c("aut")),
+    person("Michal", "Bojanowski", email = "m.bojanowski at icm.edu.pl",
+    role = c("aut")),
+    person("Markus", "Gamper", email = "m.gamper@uni-koeln.de",
+    role = c("ctb")),
+    person("Andreas", "Herz", email = "herzand@uni-hildesheim.de",
+    role = c("aut")),
+    person("Christopher", "McCarty", email = "ufchris@ufl.edu",
+    role = c("ctb")))
 Description: Tools for importing, analyzing and visualizing ego-centered
     network data. Supports several data formats, including the export formats of
     'EgoNet', 'EgoWeb 2.0' and 'openeddi'. An interactive (shiny) app for the
@@ -44,6 +46,6 @@ Suggests:
     testthat,
     rmarkdown
 VignetteBuilder: knitr
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1.9000
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
