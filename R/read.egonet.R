@@ -344,7 +344,11 @@ onefile_to_egor <- function(egos, netsize,  ID.vars = list(ego = "egoID"),
                                                aa.regex=aa.regex,netsize=netsize)
   
   # Return:
-  egor(alters.list, egos[-c(attr.start.col:attr.end.col,aa.first.var:ncol(egos))], e.lists, ID.vars=list(ego=IDv$ego,source=".tmp.srcID",target=".tmp.tgtID"), alter_design = list(max=max.alters),...)
+  egor(alters.df = alters.list,
+       egos.df = egos[-c(attr.start.col:attr.end.col,aa.first.var:ncol(egos))], 
+       aaties.df = e.lists,
+       ID.vars=list(ego=IDv$ego,source=".tmp.srcID",target=".tmp.tgtID"),
+       alter_design = list(max=max.alters),...)
 }
 
 #' Import ego-centered network data from two file format

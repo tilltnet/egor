@@ -91,6 +91,7 @@ egor <- function(alters.df, egos.df = NULL, aaties.df = NULL, ID.vars=list(ego="
     if(is.data.frame(alters.df)){
       alters_is_df <- TRUE
       # Create initial egor object from ALTERS
+      alters.df[[IDv$ego]] <- as.character(alters.df[[IDv$ego]])
       tidyr::nest_(data = alters.df,
                    key_col = ".alts",
                    names(alters.df)[names(alters.df) != IDv$ego]) # Select all but the IDv$ego column for nesting
@@ -112,6 +113,7 @@ egor <- function(alters.df, egos.df = NULL, aaties.df = NULL, ID.vars=list(ego="
     check_reserved_cols(aaties.df, "alter-alter ties")
     aaties.tib <- if(is.data.frame(aaties.df)){
         if(length(reserved_cols(aaties.df))) stop("Table of alter-alter ties has reserved column names ",paste(reserved_cols(aaties.df), collapse=", "),".") 
+      aaties.df[[IDv$ego]] <- as.character(aaties.df[[IDv$ego]])
         tidyr::nest_(data = aaties.df,
                      key_col = ".aaties",
                      names(aaties.df)[names(aaties.df) != IDv$ego])
@@ -134,7 +136,8 @@ egor <- function(alters.df, egos.df = NULL, aaties.df = NULL, ID.vars=list(ego="
   # If specified add ego data to egor
   if(!is.null(egos.df)){
     check_reserved_cols(egos.df, "egos")
-    if(!alters_is_df) egos.df$.egoRow <- seq_len(nrow(egor))
+    if(!alters_is_df) egos.df$.egoRow <- seq_len(nrow(egor)) else 
+      egos.df[[IDv$ego]] <- as.character(egos.df[[IDv$ego]])
 
     egor <- dplyr::full_join(tibble::as_tibble(egos.df), egor, by = IDv$ego)
     egor <- inj_zero_dfs(egor, ".alts")
@@ -223,8 +226,9 @@ as.egor <- function(x, ...) UseMethod("as.egor")
 #' @noRd
 as.egor.egor <- function(x, ...) x
 
+
+#' @method as_tibble egor
 #' @export
-#' @noRd
 as_tibble.egor <- function(x, ...){
   # There's probably a less kludgy way to do this.
   class(x) <- class(x)[-seq_len(which(class(x)=="egor"))]
@@ -232,6 +236,6 @@ as_tibble.egor <- function(x, ...){
   x
 }
 
+#' @method as.tibble egor
 #' @export
-#' @noRd
 as.tibble.egor <- as_tibble.egor

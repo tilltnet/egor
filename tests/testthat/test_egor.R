@@ -29,20 +29,23 @@ test_that(
 test_that(
   "egor() works with missing alters/ aaties / egos.",
   {
-    e <- make_egor(32, 20)
+    e <- make_egor(net.count = 32, max.alters = 20)
     alters <- tidyr::unnest(tibble::as_tibble(e)[, c("egoID",".alts")])
     aaties <- tidyr::unnest(tibble::as_tibble(e)[, c("egoID",".aaties")])
     names(alters)[2] <- "alterID"
     names(aaties)[2:3] <- c("Source", "Target")
     alters <- alters[!as.numeric(alters$egoID) %in% 1, ]
+    
     egos <- dplyr::select(e, -.alts, -.aaties)
-    expect_error(e1 <- egor(alters, egos, aaties), NA)
+    expect_error(e1 <- egor(alters.df = alters,
+                            egos.df = egos, 
+                            aaties.df =  aaties), NA)
     
     aaties <- aaties[!aaties$egoID %in% 2, ]
     expect_error(egor(alters, egos, aaties), NA)
     
     egos <- dplyr::select(e, -.alts, -.aaties)
-    egos <- egos[sample(egos$egoID, 24), ]
+    egos <- egos[as.numeric(sample(egos$egoID, 24)), ]
     expect_error(egor(alters, egos, aaties), NA)
   }
 )
@@ -57,7 +60,7 @@ test_that(
     names(alters)[2] <- "alterID"
     names(aaties)[2:3] <- c("Source", "Target")
     egos <- dplyr::select(e, -.alts, -.aaties)
-    egos <- egos[sample(egos$egoID, 24), ]
+    egos <- egos[as.numeric(sample(egos$egoID, 24)), ]
     egos <- rbind(egos, cbind(egos[1:4, 1], egos[5:8, -1] ))
     
     expect_warning(egor(alters, egos, aaties))
