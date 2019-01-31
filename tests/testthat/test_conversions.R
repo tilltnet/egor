@@ -15,7 +15,7 @@ test_that(
       )
     expect_error(
       as_network(x = e,
-                 include.ego = T, 
+                 include.ego = TRUE, 
                  ego.attrs = c("sex", "age"),
                  ego.alter.weights = "weight"),
       NA, 

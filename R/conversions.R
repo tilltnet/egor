@@ -1,3 +1,5 @@
+if(getRversion() >= "2.15.1") utils::globalVariables(c(".tmp_row_id"))
+
 # egor conversions
 
 #' Convert `egor` object to `network` or `igraph` objects
@@ -96,8 +98,7 @@ as_network <- function(x,
   # Incldude Ego
   if(include.ego) {
     if(is.null(ego.attrs)) ego.attrs <- 0
-    if(is.null(ego.alter.weights)) ego.alter.weights <- 0
-    
+
     # Add ego vertex
     add_ego_network <- function(obj) {
       #obj$.alts[[1]]$.altID <- as.character(obj$.alts[[1]]$.altID)
@@ -114,23 +115,31 @@ as_network <- function(x,
       alter_names <- alter_names[-len]
       obj$.aaties[[1]]$.srcID <- as.character(obj$.aaties[[1]]$.srcID)
       obj$.aaties[[1]]$.tgtID <- as.character(obj$.aaties[[1]]$.tgtID)
-      obj$.aaties[[1]][ego.alter.weights] <- 
-        as.character(obj$.aaties[[1]][ego.alter.weights])
-      
-      ea_rows <- obj$.alts[[1]][ego.alter.weights][-len,]
-      ea_rows <- as.character(ea_rows)
+
+      if(!is.null(ego.alter.weights)) {
+        ea_weights <- obj$.alts[[1]][ego.alter.weights][1:(len-1),]
+        ea_weights <- mutate_all(tibble(ea_weights = ea_weights), as.character)
+        suppressWarnings(
+          obj$.aaties[[1]] <- dplyr::mutate_at(
+            obj$.aaties[[1]], 
+            dplyr::vars(dplyr::one_of(ego.alter.weights)),
+            as.character)
+        )
+      }
       ea_rows <- data.frame(.srcID = "ego", 
                             .tgtID = alter_names,
-                            ea_rows,
                             stringsAsFactors = FALSE)
+      if(!is.null(ego.alter.weights)) ea_rows <- dplyr::bind_cols(ea_rows, ea_weights)
         
-      names(ea_rows)[3] <- ego.alter.weights
+      
       obj$.aaties[[1]] <- dplyr::bind_rows(obj$.aaties[[1]], ea_rows)
       obj
     }
     
     x <- as_tibble(x)
-    x <- do.call(rbind, lapply(split(x, rownames(x)), FUN = add_ego_network))
+    x$.tmp_row_id <- 1:nrow(x)
+    x <- do.call(rbind, lapply(split(x, x$.tmp_row_id), FUN = add_ego_network))
+    subset(x, select = -.tmp_row_id)
   }
   
   
