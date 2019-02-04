@@ -162,7 +162,12 @@ egor <- function(alters.df, egos.df = NULL, aaties.df = NULL, ID.vars=list(ego="
   attr(egor, "alter_design") <- alter_design
   
   class(egor) <- c("egor", class(egor))
-  egor
+  egor <- list(egos = select(egor, -.alts, -.aaties),
+               alters = as_alts_df(egor),
+               aaties = as_aaties_df(egor)
+               )
+  class(egor) <- c("egor", class(egor))
+  activate(egor, "egos")
 }
 
 #' Methods to print and summarize [`egor`] objects
@@ -210,11 +215,11 @@ summary.egor <- function(object, ...) {
 #' @import tibble
 #' @importFrom dplyr group_vars
 print.egor <- function(x, ...) {
-  print(as_tibble(x))
-  print(attr(x,"ego_design"))
-  if("grouped_df" %in% class(x))
-     cat("Grouped by: ")
-     cat(group_vars(x))
+  cat(paste0("Active tibble: ", attr(x, "active"), "\n"))
+  purrr::walk2(x, c("egos: ", "alters: ", "aaties: "), ~{
+    cat(.y)
+    tibble:::print.tbl(.x, n = 3)
+    })
 }
 
 #' @rdname egor
