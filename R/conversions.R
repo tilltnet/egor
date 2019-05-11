@@ -205,7 +205,7 @@ as.network.egor <- as_network
 #' # ... adding alter variables
 #' as_aaties_df(egor32, include.alt.vars = TRUE)
 #' @export
-as_alts_df <- function(object, egoID = "egoID", include.ego.vars = FALSE) {
+as_alts_df <- function(object, egoID = IDVARS$ego, include.ego.vars = FALSE) {
   alts_names <- names(object$.alts[[1]])
   
   # Check if egoID is present in ego vars; yes: delete  (possibly existing) 
@@ -238,10 +238,10 @@ as_alts_df <- function(object, egoID = "egoID", include.ego.vars = FALSE) {
 #' @importFrom dplyr left_join
 #' @importFrom purrr map_lgl
 as_aaties_df <- function(object, 
-                       egoID = "egoID", 
+                       egoID = IDVARS$ego, 
                        include.ego.vars = FALSE,
                        include.alt.vars = FALSE,
-                       aatie_vars = c(".srcID", ".tgtID")) {
+                       aatie_vars = IDVARS[c("source","target")]) {
   aaties_names <- names(object$.aaties[[1]])
   
   # Check if egoID is present in ego vars; yes: delete (possibly existing) 

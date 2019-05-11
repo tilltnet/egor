@@ -1,5 +1,3 @@
-RESERVED_COLNAMES <- c(".alts", ".aaties", ".egoRow", ".altID", ".srcID", ".tgtID", ".altRow", ".srcRow", ".tgtRow")
-
 #' egor - a data class for ego-centered network data.
 #'
 #' The function [egor()] is used to create an egor object from
