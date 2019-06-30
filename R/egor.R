@@ -95,8 +95,8 @@ egor <- function(alters.df, egos.df = NULL, aaties.df = NULL, ID.vars=list(ego="
                    names(alters.df)[names(alters.df) != IDv$ego]) # Select all but the IDv$ego column for nesting
     }else{
       alters_is_df <- FALSE
-      IDv$ego <- ".egoRow"
-      tibble::tibble(.egoRow=seq_along(alters.df),
+      #IDv$ego <- ".egoRow"
+      tibble::tibble(egoID=seq_along(alters.df),
                      .alts=lapply(alters.df, tibble::as_tibble))
     }
 
@@ -107,16 +107,16 @@ egor <- function(alters.df, egos.df = NULL, aaties.df = NULL, ID.vars=list(ego="
   })
   
   # If specified add aaties data to egor
-  if(!is.null(aaties.df)){
+  if (!is.null(aaties.df)) {
     check_reserved_cols(aaties.df, "alter-alter ties")
-    aaties.tib <- if(is.data.frame(aaties.df)){
+    aaties.tib <- if(is.data.frame(aaties.df)) {
         if(length(reserved_cols(aaties.df))) stop("Table of alter-alter ties has reserved column names ",paste(reserved_cols(aaties.df), collapse=", "),".") 
       aaties.df[[IDv$ego]] <- as.character(aaties.df[[IDv$ego]])
         tidyr::nest_(data = aaties.df,
                      key_col = ".aaties",
                      names(aaties.df)[names(aaties.df) != IDv$ego])
       }else{
-        tibble::tibble(.egoRow=seq_along(alters.df),
+        tibble::tibble(egoID=seq_along(alters.df),
                        .aaties=lapply(aaties.df, tibble::as_tibble))
       }
     
@@ -125,21 +125,22 @@ egor <- function(alters.df, egos.df = NULL, aaties.df = NULL, ID.vars=list(ego="
 
     # Rename the source and target ID column to standard names.
     egor$.aaties <- lapply(egor$.aaties, function(x){
-      names(x)[names(x)==IDv$source] <- ".srcID"
-      names(x)[names(x)==IDv$target] <- ".tgtID"
+      names(x)[names(x) == IDv$source] <- ".srcID"
+      names(x)[names(x) == IDv$target] <- ".tgtID"
       x
     })
   }
   
   # If specified add ego data to egor
-  if(!is.null(egos.df)){
+  if (!is.null(egos.df)) {
     check_reserved_cols(egos.df, "egos")
     if(!alters_is_df) egos.df$.egoRow <- seq_len(nrow(egor)) else 
       egos.df[[IDv$ego]] <- as.character(egos.df[[IDv$ego]])
 
     egor <- dplyr::full_join(tibble::as_tibble(egos.df), egor, by = IDv$ego)
+    
     egor <- inj_zero_dfs(egor, ".alts")
-    if(".aaties" %in% names(egor)) egor <- inj_zero_dfs(egor, ".aaties")
+    if (".aaties" %in% names(egor)) egor <- inj_zero_dfs(egor, ".aaties")
 
   }
   
@@ -147,25 +148,28 @@ egor <- function(alters.df, egos.df = NULL, aaties.df = NULL, ID.vars=list(ego="
   if (length(unique(egor[[IDv$ego]])) < length(egor[[IDv$ego]]))
     warning(paste(IDv$ego, "values are note unique. Check your 'egos.df' data."))
 
-  if(!alters_is_df) egor$.egoRow <- NULL
+  if (!alters_is_df) egor$.egoRow <- NULL
   
   # Add meta attribute
   #  ----><----
 
   # Add design information.
 
-  attr(egor, "ego_design") <- .gen.ego_design(egor, ego_design, 2)
+  #attr(egor, "ego_design") <- egor:::.gen.ego_design(egor, ego_design, 2)
 
   # TODO: Implement name expansion/checking, possibly an S3 class.
   attr(egor, "alter_design") <- alter_design
   
-  class(egor) <- c("egor", class(egor))
+  # rename egoID to .egoID
+  names(egor)[names(egor) == IDv$ego] <- ".egoID"
+  
+  #class(egor) <- c("egor", class(egor))
   egor <- list(egos = select(egor, -.alts, -.aaties),
                alters = as_alts_df(egor),
                aaties = as_aaties_df(egor)
                )
   class(egor) <- c("egor", class(egor))
-  activate(egor, "egos")
+  activate(egor, "ego")
 }
 
 #' Methods to print and summarize [`egor`] objects
@@ -178,30 +182,28 @@ egor <- function(alters.df, egos.df = NULL, aaties.df = NULL, ID.vars=list(ego="
 #' @export
 summary.egor <- function(object, ...) {
   # Network count
-  nc <- nrow(object)
+  nc <- nrow(object$egos)
   
   # Average netsize
-  nts <- survey::svymean(unlist(lapply(object$.alts, FUN = NROW)), 
-                          ego_design(object))
+  nts <- object$alters %>% 
+    pull(.altID) %>% unique() %>% length()
   
   # Total number of alters
-  alts_count <- sum(unlist(lapply(object$.alts, FUN = NROW)))
+  alts_count <- nrow(object$alters)
   
   # Average density
-  if(".aaties" %in% names(object)) 
-    dens <- survey::svymean(ego_density(object), ego_design(object), na.rm = TRUE) 
-  else 
-    dens <- NULL
+  if ("aaties" %in% names(object)) 
+    dens <- mean(ego_density(object = object), na.rm = TRUE)
   
   cat(paste(nc, "Egos/ Ego Networks", 
             paste("\n", alts_count, "Alters"),
             "\nAverage Netsize", nts, "\n"))
-  if(!is.null(dens)) cat(paste("Average Density", dens))
+  if (!is.null(dens)) cat(paste("Average Density", dens))
 
   # Meta Data
   cat("\nEgo sampling design:\n")
 #' @importFrom utils capture.output
-  writeLines(paste("  ", capture.output(print(attr(object, "ego_design"))), sep=""))
+  writeLines(paste("  ", capture.output(print(attr(object, "ego_design"))), sep = ""))
 
   cat("Alter survey design:\n")
   cat("  Maximum nominations:", attr(object, "alter_design")$max,"\n")
@@ -213,7 +215,10 @@ summary.egor <- function(object, ...) {
 #' @import tibble
 #' @importFrom dplyr group_vars
 print.egor <- function(x, ...) {
-  cat(paste0("Active tibble: ", attr(x, "active"), "\n"))
+    #class(x) <- "list"
+  
+    cat(paste0("Active tibble: ", attr(x, "active"), "\n"))
+  
   purrr::walk2(x, c("egos: ", "alters: ", "aaties: "), ~{
     cat(.y)
     tibble:::print.tbl(.x, n = 3)

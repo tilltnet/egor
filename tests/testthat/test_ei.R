@@ -5,7 +5,7 @@ library(egor)
 test_that(
   "EI() works.",
   {
-    eigor <- make_egor(6, 20)
+    eigor <- make_egor(net.count = 6, max.alters = 20)
     
     expect_error(EI(object = eigor, alt.attr = "age"), NA, label = "regular")
     expect_error(EI(eigor, alt.attr = "sex"), NA, label = "regular 2")
@@ -13,10 +13,8 @@ test_that(
     
     
     
-    eigor$.alts <- lapply(eigor$.alts, FUN = function(x) {
-      x$int_var <- sample(1:3, NROW(x), replace  = T)
-      x
-    })
+    eigor$alters$int_var <- sample(1:3, NROW(eigor$alters), replace  = T)
+    
     expect_error(EI(eigor, alt.attr = "int_var"), NA, "non-factor variable")
     
     # Issue #16 by mbojan
@@ -63,7 +61,7 @@ test_that(
 
 test_that("comp_ei handles extreme values (only one group in alts) correctly",
           {
-            data("egor32")
+            egor32 <- make_egor(32, 10)
             
             make_nas <- function(var) {
               if(is.tibble(var)) var <- var[[1]]
@@ -71,19 +69,17 @@ test_that("comp_ei handles extreme values (only one group in alts) correctly",
               var
             }
             
-            egor32$sexy <- make_nas(egor32$sex)
-            egor32 <- egor32 %>% 
-              mutate(.alts = purrr::map(.alts, function(x) 
-                mutate(x, sex = make_nas(sex))))
+            egor32$egos$sex <- make_nas(egor32$egos$sex)
+            egor32$alters$sex <- make_nas(egor32$alters$sex)
             
-            e <-  egor32[1:4, ]
+            e <- egor32
             
-            e$.alts[[1]]$sex <- factor("w")
-            e$.alts[[2]]$sex <- factor("m")
-            e$.alts[[3]]$sex[1:length(e$.alts[[3]]$sex)/2] <- factor("w")
-            e$.alts[[3]]$sex[21:40] <- factor("m")
-            e$.alts[[4]]$sex[1:15] <- factor("m")
-            e$.alts[[4]]$sex[16:20] <- factor("w")
+            e$alters[1,]$sex <- factor("w")
+            e$alters[2,]$sex <- factor("m")
+            e$alters[3,]$sex[1:length(e$.alts[[3]]$sex)/2] <- factor("w")
+            e$alters[4,]$sex[21:40] <- factor("m")
+            e$alters[5,]$sex[1:15] <- factor("m")
+            e$alters[6,]$sex[16:20] <- factor("w")
             
             e[5:60, ] <- e[4, ]
             
@@ -102,8 +98,6 @@ test_that("comp_ei handles character vectors correctly",
             e1 <- egor32
             e1$sex <- as.character(e1$sex)
             e1$.alts[[1]]$sex <- as.character(e1$.alts[[1]]$sex)
-            
-            
             
             expect_equal(comp_ei(e1, "sex", ego.attr = "sex"),
                   comp_ei(egor32, "sex",ego.attr = "sex"))

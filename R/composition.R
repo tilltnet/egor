@@ -67,6 +67,12 @@ composition <- function(object, alt.attr, absolute = FALSE) {
 #' @export
 comp_ply <- function(object, alt.attr, .f, ..., ego.attr = NULL) {
   alt.attr_enquo <- enquo(alt.attr)
+  
+  object <- 
+    object$egos %>% 
+    full_join(tidyr::nest(object$alters, -.egoID) %>% rename(.alts = data)) %>% 
+    full_join(tidyr::nest(object$aaties, -.egoID) %>% rename(.aaties = data))
+  
   if (!is.null(ego.attr)) {
     map2_dbl(object$.alts, object[[ego.attr]], function(x, y)
       pull(x, !!alt.attr_enquo) %>% .f(y, ...))

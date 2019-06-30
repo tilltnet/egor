@@ -139,7 +139,8 @@ ui = fluidPage(
 
     server = function(input, output) {
       obj <- reactive({
-        get(input$egor, envir = .GlobalEnv)
+        get(input$egor, envir = .GlobalEnv) %>% 
+          new_egor_to_old()
       })
 
       result_names <- reactive({
@@ -378,7 +379,7 @@ plot_graph <- function(nnumber, graphs, input, object, values) {
   }
   list2env(collect_plot_params(nnumber, graphs, input, values), environment())
   #' @importFrom igraph plot.igraph
-  
+  set.seed(1)
   plot.igraph(
     graphs[[nnumber]],
     vertex.size = vertex.size,

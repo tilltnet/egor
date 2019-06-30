@@ -84,7 +84,13 @@ EI <- function(object, alt.attr) {
   
   alt.attr_enquo <- enquo(alt.attr)
   
-  obj <- object %>%
+  object2 <- 
+    object$egos %>% 
+    full_join(tidyr::nest(object$alters, -.egoID) %>% rename(.alts = data)) %>% 
+    full_join(tidyr::nest(object$aaties, -.egoID) %>% rename(.aaties = data))
+    
+  obj <- 
+    object2 %>%
     as_tibble() %>%
     select(.alts, .aaties) %>%
     get_ei_tab() %>%

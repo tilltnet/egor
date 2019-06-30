@@ -104,7 +104,9 @@ make_egor <- function(net.count, max.alters, netsize = NULL, plot=FALSE) {
   aaties.df <- do.call(rbind, aaties)
   aaties.df <- aaties.df[sample(1:NROW(aaties.df), NROW(aaties.df)/2), ]
   # Return
-  egor(alters, egos, aaties.df)
+  egor(alters.df = alters, 
+       egos.df = egos, 
+       aaties.df = aaties.df)
 } 
 
 # Used for generating wide edge format data. 

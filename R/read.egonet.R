@@ -392,7 +392,7 @@ twofiles_to_egor <- function(egos, alters, netsize = NULL,
   alters <- alters[order(as.numeric(alters[[IDv$ego]]), as.numeric(alters[[IDv$alter]])), ]
   
   if(is.null(netsize)) {
-    message("No netsize variable specified, calculating/ guessing netsize by egoID in alters data.")
+    message("No netsize variable specified, calculating netsize by egoID in alters data.")
 #' @importFrom stats aggregate
     netsize <- aggregate(alters[[IDv$ego]], by = list(alters[[IDv$ego]]), NROW)    
     netsize <- netsize[[2]]    
@@ -423,9 +423,9 @@ twofiles_to_egor <- function(egos, alters, netsize = NULL,
                                    alters.list = alters.list, selection = selection)
   
   # Return:
-  egor(alters,
-       egos,
-       elist,
+  egor(alters.df = alters,
+       egos.df = egos,
+       aaties.df = elist,
        ID.vars = list(ego = IDv$ego,
                       alter = IDv$alter,
                       source = ".tmp.srcID",
