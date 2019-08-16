@@ -29,7 +29,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c("clrs", "colors_", "e_col
 #' @importFrom igraph E<-
 egor_vis_app <- function(object, shiny_opts = list(launch.browser = TRUE)) {
   
-# App Globals -------------------------------------------------------------
+  # App Globals -------------------------------------------------------------
   egors <- ls(envir = .GlobalEnv)[sapply(mget(ls(envir = .GlobalEnv), envir = .GlobalEnv), function(x) class(x)[1] == "egor")]
   col_pal_names <- c("Heat Colors", "Yellow-Green", "Red-Yellow", "Blue-Red", "Black-White", "Greys", "Rainbow", "Topo Colors")
   shiny_opts <- c(shiny_opts, width="20")
@@ -37,111 +37,132 @@ egor_vis_app <- function(object, shiny_opts = list(launch.browser = TRUE)) {
   
   shinyApp(
     
-# UI ----------------------------------------------------------------------
-
-ui = fluidPage(
-  title  = "egor's Network Visualization App",
-  
-  
-  fluidRow(width = 12,
-           plotOutput(
-             "Plot", width = "100%", height = "600px"
-           )),
-  
-  # Sidebar
-  fluidRow(
-    width = 12,
-    column(
-      3,
-      selectInput("egor",
-                  "Select `egor` object",
-                  egors,
-                  selected = object_enex),
-      uiOutput("choose_nnumber"),
-      tags$div(
-        title = "When including ego make sure that corresponding ego and alter variables have equal names in the `egor` object.",
-          tags$div(checkboxInput("include.ego",
-                                 "Include Ego",
-                                 FALSE),
-                   style = "float: left;"),
-          tags$div(icon("question-circle"),
-                   style = "float: left; margin-top: 12px; margin-left: -200px;")
-        )
-      
-    ),
-    column(
-      3,
-      
-      sliderInput(
-        "zoom_factor_e",
-        label = "Edge Width:",
-        min = 1,
-        max = 10,
-        value = 3,
-        step = .1
-      ),
-      sliderInput(
-        "zoom_factor_v",
-        label = "Vertex Size:",
-        min = 0,
-        max = 75,
-        value = 25,
-        step = .1
-      )
-    ),
-    column(6,
-           tabsetPanel(
-             tabPanel("Vertices",
-                      fluidRow(
-                        column(
-                          6,
-                          uiOutput("choose_v.size"),
-                          uiOutput("choose_v.color"),
-                          selectInput("v.color_pal",
-                                      "Color Palette:",
-                                      choices = col_pal_names)
-                        ),
-                        column(
-                          6,
-                          uiOutput("choose_v.label"),
-                          textInput("l.label", "Legend Label:")
-                        )
-                      )),
-             tabPanel(
-               "Edges",
-               column(6,
-                      uiOutput("choose_e.width"),
-                      uiOutput("choose_e.color")),
-               column(
-                 6,
-                 selectInput("e.color_pal", "Color Palette:", choices = col_pal_names)
-               )
-             ),
-             tabPanel("Results",
-                      uiOutput("choose_disp.results")),
-             tabPanel(
-               "Export",
-               downloadButton("save_plot", label = "Save this Plot"),
-               downloadButton("save_all_plots", label = "Save all Plots"),
-               downloadButton("save_egor", label = "Save `egor` object with igraphs (incl. plotting parameters)")
-               
-             )
-           ))
+    # UI ----------------------------------------------------------------------
     
-  ),
-  fluidRow(
-    column(12, inputPanel(tags$div(style = "height: 250px; width: 100%;",
-                                   tags$p("egor's Network Visualization App"))))
-  )
-), 
-
-# SERVER ------------------------------------------------------------------
-
+    ui = fluidPage(
+      title  = "egor's Network Visualization App",
+      
+      
+      fluidRow(width = 12,
+               plotOutput(
+                 "Plot", width = "100%", height = 780
+               )),
+      
+      # Sidebar
+      fluidRow(
+        width = 12,
+        column(
+          3,
+          selectInput("egor",
+                      "Select `egor` object",
+                      egors,
+                      selected = object_enex),
+          uiOutput("choose_nnumber"),
+          numericInput("x_dim", "Columns", 3, min = 1),
+          numericInput("y_dim", "Rows", 2, min = 1),
+          tags$div(
+            title = "When including ego make sure that corresponding ego and alter variables have equal names in the `egor` object.",
+            tags$div(checkboxInput("include.ego",
+                                   "Include Ego",
+                                   FALSE),
+                     style = "float: left;"),
+            tags$div(icon("question-circle"),
+                     style = "float: left; margin-top: 12px; margin-left: -200px;")
+          )
+          
+        ),
+        column(
+          3,
+          
+          sliderInput(
+            "zoom_factor_e",
+            label = "Edge Width:",
+            min = 1,
+            max = 10,
+            value = 3,
+            step = .1
+          ),
+          sliderInput(
+            "zoom_factor_v",
+            label = "Vertex Size:",
+            min = 0,
+            max = 75,
+            value = 25,
+            step = .1
+          )
+        ),
+        column(6,
+               tabsetPanel(
+                 tabPanel("Sort",
+                          uiOutput("choose_sort_by"),
+                          uiOutput("choose_filter_var"),
+                          textInput("filter", "Filter Rules:"),
+                          uiOutput("choose_box_color"),
+                          selectInput("box_col_pal",
+                                      "Color Palette:",
+                                      choices = col_pal_names)),
+                 tabPanel("Vertices",
+                          fluidRow(
+                            column(
+                              6,
+                              uiOutput("choose_v.size"),
+                              uiOutput("choose_v.color"),
+                              selectInput("v.color_pal",
+                                          "Color Palette:",
+                                          choices = col_pal_names)
+                            ),
+                            column(
+                              6,
+                              uiOutput("choose_v.label"),
+                              textInput("l.label", "Legend Label:")
+                            )
+                          )),
+                 tabPanel(
+                   "Edges",
+                   column(6,
+                          uiOutput("choose_e.width"),
+                          uiOutput("choose_e.color")),
+                   column(
+                     6,
+                     selectInput("e.color_pal", "Color Palette:", choices = col_pal_names)
+                   )
+                 ),
+                 tabPanel("Results",
+                          uiOutput("choose_disp.results")),
+                 tabPanel(
+                   "Export",
+                   downloadButton("save_plot", label = "Save this Plot"),
+                   downloadButton("save_all_plots", label = "Save all Plots"),
+                   downloadButton("save_egor", label = "Save `egor` object with igraphs (incl. plotting parameters)")
+                   
+                 )
+               ))
+        
+      ),
+      fluidRow(
+        column(12, inputPanel(tags$div(style = "height: 250px; width: 100%;",
+                                       tags$p("egor's Network Visualization App"))))
+      )
+    ), 
+    
+    # SERVER ------------------------------------------------------------------
+    
     server = function(input, output) {
       obj <- reactive({
-        get(input$egor, envir = .GlobalEnv)
+        x <- get(input$egor, envir = .GlobalEnv)
+        try(x <- arrange(x, !!sym(input$sort_by)), silent = TRUE)
+        if (input$filter != "") try(x <- filter(x, !!input$filter_var %in% !!input$filter))
+        x
       })
-
+      
+      asd <- reactive({
+        input$sort_by
+      })
+      
+      fgh <- reactive({
+        input$filter_var
+      })
+      
       result_names <- reactive({
         rn <- names(obj())
         rn[!rn %in% c(".alts", ".aaties")]
@@ -152,18 +173,30 @@ ui = fluidPage(
         as_igraph(obj(), 
                   include.ego = input$include.ego,
                   ego.attrs = shared_names)
-        })
+      })
       
       #object <- as_tibble(object)
-
+      
       v.atts <- reactive(make_select_vector(
         list.vertex.attributes((graphs()[[1]]))))
       e.atts <- reactive(make_select_vector(
         list.edge.attributes((graphs()[[1]]))))
-         
+      
       output$choose_nnumber <- renderUI({
-      numericInput("nnumber","Network No.:",step = 1,min = 1, 
-                   max = length(graphs()), value = 1)
+        numericInput("nnumber","Network No.:", step = input$x_dim * input$y_dim, min = 1, 
+                     max = length(graphs()), value = 1)
+      })
+      
+      output$choose_filter_var <- renderUI({
+        varSelectInput("filter_var", "Filter by:", obj(), selected = fgh())
+      })
+      
+      output$choose_sort_by <- renderUI({
+        varSelectInput("sort_by", "Sort by:", obj(), selected = asd())
+      })
+      
+      output$choose_box_color <- renderUI({
+        selectInput("box_color", "Highlight:", choices = v.atts())
       })
       
       output$choose_v.size <- renderUI({
@@ -173,7 +206,7 @@ ui = fluidPage(
       output$choose_v.color <- renderUI({
         selectInput("v.color", "Vertex Color:", choices = v.atts())
       })
-
+      
       output$choose_v.label <- renderUI({
         selectInput("v.label", "Vertex Labels:", choices = v.atts())
       })
@@ -199,6 +232,10 @@ ui = fluidPage(
       values$nnumber <- 1
       values$disp.results <- c()
       
+      
+      observeEvent(input$box_col, {
+        values$box_color <- input$box_col
+      })
       observeEvent(input$v.size, {
         values$v.size <- input$v.size
       })
@@ -223,7 +260,7 @@ ui = fluidPage(
       
       output$Plot <- renderPlot({
         nnumber <- values$nnumber
-        plot_graph(nnumber, graphs(), input, obj(), values)
+        plot_graphs(nnumber, input$x_dim, input$y_dim, graphs(), input, obj(), values)
       })
       
       output$save_all_plots <- downloadHandler(
@@ -270,12 +307,17 @@ ui = fluidPage(
           egor_obj$graphs <- gg
           save(egor_obj, file = file)
         }
-        )
-      }, options = shiny_opts)
-  }
+      )
+    }, options = shiny_opts)
+}
 
 make_select_vector <- function(x) {
   c("-Select Entry-",x)
+}
+
+filter_by <- function (df, ...) {
+  filter_conditions <- rlang::quos(...)
+  dplyr::filter(df, !!!filter_conditions)
 }
 
 # Server Functions --------------------------------------------------------
@@ -313,7 +355,7 @@ collect_plot_params <- function(nnumber, graphs, input, values) {
   } else {
     vertex.size <- rep(5, length(V(graphs[[nnumber]]))) * 4 + input$zoom_factor_v
   }
-
+  
   # Vertex Color
   if(values$v.color != "-Select Entry-") {
     vertex.color <- get.vertex.attribute(graphs[[nnumber]], values$v.color)
@@ -369,7 +411,24 @@ collect_plot_params <- function(nnumber, graphs, input, values) {
   res
 }
 
-plot_graph <- function(nnumber, graphs, input, object, values) {
+plot_graphs <- function(nnumber, x_dim, y_dim, graphs, input, object, values) {
+  par(mfrow = c(y_dim, x_dim), mar = c(0.5,0.5,0.5,0.5))
+  for (i in nnumber:(nnumber + (x_dim * y_dim - 1))) {
+    if (i <= length(graphs)) {
+      if (input$box_color != "-Select Entry-") {
+        var_ <- factor(object[[input$box_color]])
+        boxi_color <- egor_col_pal(input$box_col_pal, 
+                                   length(levels(var_)))[var_][i]
+      } else
+        boxi_color <- "white"
+      plot_graph(i, graphs, input, object, values, box_col_val = boxi_color)
+    
+
+    }
+  }
+}
+
+plot_graph <- function(nnumber, graphs, input, object, values, box_col_val = "white") {
   if (!sum(V(graphs[[nnumber]])) > 0) {
     # Plot Error message.
     plot(NA, xlim = c(1,10), ylim = c(0.75,10),  type = "n",  yaxt="n", xaxt="n", ylab="", xlab="", bty="L")
@@ -378,6 +437,8 @@ plot_graph <- function(nnumber, graphs, input, object, values) {
   }
   list2env(collect_plot_params(nnumber, graphs, input, values), environment())
   #' @importFrom igraph plot.igraph
+  
+  set.seed(1337)
   
   plot.igraph(
     graphs[[nnumber]],
@@ -409,4 +470,5 @@ plot_graph <- function(nnumber, graphs, input, object, values) {
     title_ <- ifelse(input$l.label == "", values$v.color, input$l.label)
     legend(x =-2, y = -0.8, legend= levels(factor(color_var)), pt.bg = colors_, pt.cex = 1.5,  pch = 22, bty ="n", y.intersp = 1, title = title_)
   }
+  box(lty = 'solid', col = box_col_val, lwd = 5)
 }
