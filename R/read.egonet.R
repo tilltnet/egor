@@ -363,7 +363,6 @@ onefile_to_egor <- function(egos, netsize,  ID.vars = list(ego = "egoID"),
 #' @template ID.vars
 #' @param e.max.alters Maximum number of alters that are included in edge data.
 #' @param e.first.var Index or name of the first column in \code{egos} containing edge data.
-#' @param ego.vars \code{Character vector} naming variables in the egos data,
 #' in order to copy them in to the long alters \code{dataframe}.
 #' @param selection \code{Character} naming \code{numeric} variable indicating 
 #' alters selection with zeros and ones. 
@@ -372,66 +371,61 @@ onefile_to_egor <- function(egos, netsize,  ID.vars = list(ego = "egoID"),
 #' @keywords import
 #' @export
 twofiles_to_egor <- function(egos, alters, netsize = NULL,
-                                  ID.vars=list(ego="egoID", alter="alterID", source="Source", target="Target"),
+                                  ID.vars=list(ego = "egoID", alter = "alterID", source = "Source", target = "Target"),
                                   e.max.alters, e.first.var,
                                   ego.vars = NULL, selection = NULL, ...) {
   IDv <- modifyList(eval(formals()$ID.vars), ID.vars)
-  if(!is.null(IDv$alter)) {
-    message("alterID specified; moving to first column of $alters.df.")
-    alterID.col <- match(IDv$alter , names(alters))
-    #alterID.col
-    # Return:
-    #!# What happens if alterID is already in column 1?
-    alters <- data.frame(alterID = alters[[IDv$alter]], alters[1:(alterID.col - 1)], 
-                       alters[(alterID.col + 1) : ncol(alters)])
-    names(alters)[1] <- IDv$alter
-  } 
-  
-  
   
   # Sort egos by egoID and alters by egoID and alterID.
   message("Sorting data by egoID and alterID.")
   egos <- egos[order(as.numeric(egos[[IDv$ego]])), ]
   alters <- alters[order(as.numeric(alters[[IDv$ego]]), as.numeric(alters[[IDv$alter]])), ]
+  alters_list <- split(alters, factor(alters[[IDv$ego]], levels = unique(alters[[IDv$ego]])))
   
-  if(is.null(netsize)) {
-    message("No netsize variable specified, calculating/ guessing netsize by egoID in alters data.")
-#' @importFrom stats aggregate
-    netsize <- aggregate(alters[[IDv$ego]], by = list(alters[[IDv$ego]]), NROW)    
-    netsize <- netsize[[2]]    
-  }
-
-
-  message("Preparing alters data.")
-  alters.list <- long.df.to.list(long = alters, netsize = netsize, egoID = IDv$ego)
-  alters.list <- lapply(alters.list, FUN = function(x) 
-    data.frame(alterID = as.character(c(1:NROW(x))), x)) #!# This generates two alterIDs in the transnat impor
-  
-  if(!is.null(ego.vars)) {
-    message("ego.vars defined, adding them to $alters.df")
-    alters <- add_ego_vars_to_long_df(alters.list = alters.list, egos.df = egos, 
-                            ego.vars = ego.vars, netsize = netsize)
+  if (!IDv$alter %in% names(alters)) {
+    message("Alter ID not found. Creating alterID.")
+    alters_list <- lapply(alters_list, function(x){
+      x[[IDv$alter]] <-  1:nrow(x)
+      cbind(x[IDv$alter], x[names(x) != IDv$alter])
+    })
+    alters <- do.call(rbind, alters_list)
   } else {
-    message("Restructuring alters data: $alters.df")
-    alters <- do.call("rbind", alters.list)
+    message("Alter ID found; moving to first column of $.alts.")
+    alters <- cbind(alters[IDv$alter], alters[names(alters) != IDv$alter])
+ } 
+
+  if (is.null(netsize)) {
+    message("No netsize variable specified, calculating/ guessing netsize by egoID in alters data.")
+    netsize <- sapply(alters_list, nrow)    
   }
 
-  message("Splitting alters data into list entries for each network: $alters.list")
-  alters <- long.df.to.list(long = alters, netsize = netsize, egoID = IDv$ego,
-                                back.to.df = FALSE)
-  
   message("Transforming wide edge data to edgelist: $edges")
   elist <- wide.dyads.to.edgelist(e.wide = egos, first.var = e.first.var,
                                    max.alters = e.max.alters, 
-                                   alters.list = alters.list, selection = selection)
+                                   alters.list = alters_list, selection = selection)
+  
+  elist <-
+    mapply(
+      FUN = function(x, y) {
+        if (nrow(x) > 0) {
+          x[IDv$ego] <- y
+          x
+        }
+      },
+      elist,
+      egos[[IDv$ego]],
+      SIMPLIFY = FALSE
+    )
+  
+  el <- do.call(rbind, elist)
   
   # Return:
   egor(alters,
        egos,
-       elist,
+       el,
        ID.vars = list(ego = IDv$ego,
                       alter = IDv$alter,
                       source = ".tmp.srcID",
-                      target = ".tmp.tgtID"), ...)
+                      target = ".tmp.tgtID"))
 }
 
