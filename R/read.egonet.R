@@ -386,6 +386,8 @@ twofiles_to_egor <- function(egos, alters, netsize = NULL,
                        alters[(alterID.col + 1) : ncol(alters)])
   } 
   
+  names(alters)[1] <- IDv$alter
+  
   # Sort egos by egoID and alters by egoID and alterID.
   message("Sorting data by egoID and alterID.")
   egos <- egos[order(as.numeric(egos[[IDv$ego]])), ]
