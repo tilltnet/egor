@@ -384,9 +384,10 @@ twofiles_to_egor <- function(egos, alters, netsize = NULL,
     #!# What happens if alterID is already in column 1?
     alters <- data.frame(alterID = alters[[IDv$alter]], alters[1:(alterID.col - 1)], 
                        alters[(alterID.col + 1) : ncol(alters)])
+    names(alters)[1] <- IDv$alter
   } 
   
-  names(alters)[1] <- IDv$alter
+  
   
   # Sort egos by egoID and alters by egoID and alterID.
   message("Sorting data by egoID and alterID.")
