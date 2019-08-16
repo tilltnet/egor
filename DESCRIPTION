@@ -40,7 +40,8 @@ Imports:
     tidyr,
     methods,
     utils,
-    purrr
+    purrr,
+    rlang
 Suggests:
     knitr,
     testthat,
