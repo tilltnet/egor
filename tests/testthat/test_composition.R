@@ -24,3 +24,11 @@ test_that(
     expect_error(alts_diversity_count(e, "age"), NA, label = "diversiy_count")
   }
 )
+
+e$alter %>% 
+  count(.egoID, sex)
+comp_ply(e, "age.years", sd, na.rm = TRUE)
+
+x$alter <- 
+  x$alter %>% 
+  filter(.egoID != 1)

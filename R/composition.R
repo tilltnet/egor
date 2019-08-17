@@ -28,18 +28,18 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 composition <- function(object, alt.attr, absolute = FALSE) {
   alt.attr_enquo <- enquo(alt.attr)
   
-  if(absolute) {
-    comp <- function(x) select(x, tmp = !!alt.attr_enquo) %>%
-      count(tmp) %>%
+  if (absolute) {
+    comp <- function(x) select(x, .egoID, tmp = !!alt.attr_enquo) %>%
+      count(.egoID, tmp) %>%
       spread(tmp, n) 
   } else {
-    comp <- function(x) select(x, tmp = !!alt.attr_enquo) %>%
-      count(tmp) %>%
+    comp <- function(x) select(x, .egoID, tmp = !!alt.attr_enquo) %>%
+      count(.egoID, tmp) %>%
       mutate(prop = n / sum(n)) %>%
       select(tmp, prop) %>%
       spread(tmp, prop)
   }
-  map_dfr(object$.alts, comp)
+  comp(object$alter)
 }
 
 
@@ -67,19 +67,22 @@ composition <- function(object, alt.attr, absolute = FALSE) {
 #' @export
 comp_ply <- function(object, alt.attr, .f, ..., ego.attr = NULL) {
   alt.attr_enquo <- enquo(alt.attr)
-  
-  object <- 
-    object$egos %>% 
-    full_join(tidyr::nest(object$alters, -.egoID) %>% rename(.alts = data)) %>% 
-    full_join(tidyr::nest(object$aaties, -.egoID) %>% rename(.aaties = data))
+  alter_l <- split(object$alter,
+                   factor(object$alter$.egoID,
+                          levels = unique(object$ego$.egoID)))
   
   if (!is.null(ego.attr)) {
-    map2_dbl(object$.alts, object[[ego.attr]], function(x, y)
+    res <- map2_dbl(alter_l, object$ego[[ego.attr]], function(x, y)
       pull(x, !!alt.attr_enquo) %>% .f(y, ...))
   } else {
-    map_dbl(object$.alts, function(x)
+    res <- map_dbl(alter_l, function(x)
       pull(x, !!alt.attr_enquo) %>% .f(...))
   }
+    res %>%
+    {
+      tibble(.egoID = names(.),
+             result = .)
+    }
 }
 
 #' Calculate diversity measures on an `egor` object.
