@@ -1,7 +1,44 @@
 context("test_dplyr_methods.R")
 
-library(testthat)
-library(dplyr)
+
+test_that(
+  "methods for dplyr are working",
+  {
+    expect_error({
+      e <- make_egor(5,50)
+      e
+      trim_aaties(e)
+      trim_alters(e)
+      mutate(e, sex = 1)
+      
+      e %>% 
+        activate("aatie") %>% 
+        mutate(weight2 = 2 + weight) %>% 
+        activate("alter") %>% 
+        mutate(age.years = age.years^3)
+      
+      mutate(e, x = 1)
+      transmute.egor(e, x = age.years/2)
+      count(e, age)
+      select.egor(e, sex)
+      filter(e, sex == "w")$alter
+      
+      activate(e, "alter") %>% 
+        filter(sex == "w")
+      
+      e %>% 
+        activate("alter") %>% 
+        group_by(.egoID) %>% 
+        summarise(average_age = mean(age.years))
+      
+      arrange(e, age.years)
+      arrange(e, desc(age.years))
+      
+      full_join(e, tibble(.egoID = factor(1), new_data = "asdwd"), NA)
+    })
+  }
+)
+
 
 
 test_that(
