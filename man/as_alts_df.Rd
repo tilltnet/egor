@@ -5,10 +5,10 @@
 \alias{as_aaties_df}
 \title{Create global alters and alter-alter relations dataframes from an \code{egor} object}
 \usage{
-as_alts_df(object, egoID = "egoID", include.ego.vars = FALSE)
+as_alts_df(object, egoID = IDVARS$ego, include.ego.vars = FALSE)
 
-as_aaties_df(object, egoID = "egoID", include.ego.vars = FALSE,
-  include.alt.vars = FALSE, aatie_vars = c(".srcID", ".tgtID"))
+as_aaties_df(object, egoID = IDVARS$ego, include.ego.vars = FALSE,
+  include.alt.vars = FALSE, aatie_vars = IDVARS[c("source", "target")])
 }
 \arguments{
 \item{object}{An \code{egor} object.}
