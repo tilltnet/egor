@@ -27,13 +27,19 @@ update_ego_design <- function(result) {
 trim_aaties <- function(object) {
   object$aatie <-
     purrr::map_dfr(split(object$aatie, object$aatie$.egoID),
-                    function(x) {
-                      alter_subset <- filter(object$alter, .egoID == x$.egoID[[1]])
-                    
-                      filter(x, 
-                             .egoID %in% object$ego$.egoID,
-                             .srcID %in% alter_subset$.altID,
-                             .tgtID %in% alter_subset$.altID)})
+                   function(x) {
+                     if (nrow(x) > 0) {
+                       alter_subset <- filter(object$alter, .egoID == x$.egoID[[1]])
+                       
+                       filter(
+                         x,
+                         .egoID %in% object$ego$.egoID,
+                         .srcID %in% alter_subset$.altID,
+                         .tgtID %in% alter_subset$.altID
+                       )
+                     } else x
+                   })
+  
   object
 }
 
@@ -75,12 +81,27 @@ transmute.egor <- function(.data, ...) {
   trim_alters(.data)
 }
 
-# select seems to maintain attributes already
 #' @export
 #' @noRd
 #' @method select egor
 select.egor <- function(.data, ...) {
   result <- select(.data[[attr(.data, "active")]], ...)
+  result <- 
+    bind_cols(
+      select(.data[[attr(.data, "active")]],
+             ends_with("ID")),
+      result
+    )
+  .data[[attr(.data, "active")]] <- result
+  .data <- trim_aaties(.data)
+  trim_alters(.data)
+}
+
+#' @export
+#' @noRd
+#' @method select egor
+rename.egor <- function(.data, ...) {
+  result <- rename(.data[[attr(.data, "active")]], ...)
   result <- 
     bind_cols(
       select(.data[[attr(.data, "active")]],
