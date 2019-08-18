@@ -9,6 +9,20 @@
 #' @name helper
 NULL
 
+#' @describeIn helper Converts an egor object to a "legacy" egor object with 
+#' nested .alts and .aaties columns.
+#' @export
+as_nested_egor <- function(x) {
+  x$aatie <- select(x$aatie, .srcID, .tgtID, .egoID)
+  alters_l <- split(x$alter, factor(x$alter$.egoID, levels = x$ego$.egoID))
+  aaties_l <- split(x$aatie, factor(x$aatie$.egoID, levels = x$ego$.egoID))
+  x <- x$ego
+  x$.aaties <- aaties_l
+  x$.alts <- alters_l
+  class(x) <- c("nested_egor", class(x))
+  x
+}
+
 #' @describeIn helper Returns the count of possible edges in an
 #' undirected or directed, ego-centered network, based on the number of alters.
 dyad.poss <- function(max.alters, directed = FALSE) {

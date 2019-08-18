@@ -139,12 +139,14 @@ clustered_graphs.list <- function(object, aaties, clust.groups, ...) {
 
 #' @rdname clustered_graphs
 #' @export 
-clustered_graphs.egor <- function(object, clust.groups, ...)
+clustered_graphs.egor <- function(object, clust.groups, ...) {
+  object <- as_nested_egor(object)
   clustered_graphs(object = object$.alts, aaties = object$.aaties, clust.groups = clust.groups)
+}
 
 #' @rdname clustered_graphs
 #' @export 
-clustered_graphs.data.frame <- function(object, aaties, clust.groups, egoID = "egoID", ...) {
+clustered_graphs.data.frame <- function(object, aaties, clust.groups, egoID = ".egoID", ...) {
   alters <- split(object, object[[egoID]])
   aaties <- split(aaties, aaties[[egoID]])
   alters <- lapply(alters, FUN = function(x) x[2:NCOL(x)])
@@ -152,8 +154,6 @@ clustered_graphs.data.frame <- function(object, aaties, clust.groups, egoID = "e
   
   clustered_graphs(alters, aaties, clust.groups)
 }
-  
-  
   
 #' Visualize clustered graphs
 #' 

@@ -84,10 +84,7 @@ EI <- function(object, alt.attr) {
   
   alt.attr_enquo <- enquo(alt.attr)
   
-  object2 <- 
-    object$egos %>% 
-    full_join(tidyr::nest(object$alters, -.egoID) %>% rename(.alts = data)) %>% 
-    full_join(tidyr::nest(object$aaties, -.egoID) %>% rename(.aaties = data))
+  object2 <- as_nested_egor(object)
     
   obj <- 
     object2 %>%
