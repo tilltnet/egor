@@ -35,7 +35,7 @@ test_that(
     alters <- tibble(egoID = gl(4,4), 
                      alterID = rep(1:4, 4),
                      fav_color = sample(c("red", "green", "blue"), 16, replace = TRUE))
-    aaties <- tibble(egoID = sample(1:5, 32, replace = TRUE),
+    aaties <- tibble(egoID = sample(1:4, 32, replace = TRUE),
                      Source = sample(1:4, 32, replace = TRUE),
                      Target = sample(1:4, 32, replace = TRUE))
     expect_error(egor(alters, aaties = aaties), NA)
@@ -122,9 +122,9 @@ test_that(
     egos <- tibble(egoID = c(1, 1:4))
     
     
-    expect_error(egor(alters,
+    expect_warning(egor(alters,
                       egos, 
-                      aaties), NA)
+                      aaties))
     
     expect_warning(summary(egor(alters, egos, aaties)))
   }
@@ -143,9 +143,9 @@ test_that(
     egos <- tibble(egoID = 2:4)
     
     
-    expect_error(egor(alters,
+    expect_warning(egor(alters,
                       egos, 
-                      aaties), NA)
+                      aaties))
     
     expect_warning(summary(egor(alters, egos, aaties)))
   }
@@ -193,3 +193,4 @@ test_that(
     expect_warning(summary(egor(alters_df, egos_df, aaties_df)), NA)
   }
 )
+

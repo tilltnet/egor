@@ -228,11 +228,33 @@ as.egor.egor <- function(x, ...) x
 
 #' @method as_tibble egor
 #' @export
-as_tibble.egor <- function(x, ...){
-  # There's probably a less kludgy way to do this.
-  class(x) <- class(x)[-seq_len(which(class(x) == "egor"))]
-  #as_tibble(x)
-  x
+as_tibble.egor <- function(x, 
+                           ..., 
+                           include.ego.vars = FALSE, 
+                           include.alter.vars = FALSE){
+  res <- x[[attr(x, "active")]]
+  
+  if (include.ego.vars & attr(x, "active") != "ego") {
+    
+    names(x$ego)[names(x$ego) != ".egoID"] <- 
+      paste0(names(x$ego)[names(x$ego) != ".egoID"] , "_ego")
+    
+    
+    res <- full_join(res, x$ego,
+                     by = ".egoID")
+  }
+  
+  if (include.alter.vars & attr(x, "active") == "aatie") {
+    res <- left_join(res, 
+                     x$alter, 
+                     by = c(".egoID", ".srcID" = ".altID"))
+    res <- left_join(res, 
+                     x$alter, 
+                     by = c(".egoID", ".tgtID" = ".altID"),
+                     suffix = c("_src","_tgt"))
+  }
+  
+  res
 }
 
 #' @method as.tibble egor
