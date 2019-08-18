@@ -70,9 +70,6 @@ make_egor <- function(net.count, max.alters, netsize = NULL, plot=FALSE) {
   alterID <- rep(1:max.alters, net.count)
   egoID <- gl(net.count, max.alters)
 
-  alterID <- rep(1:max.alters, net.count)
-  egoID <- gl(net.count, max.alters)
-
   alter.sex <- rep(chartr("12", "wm", sample(1:2, net.count, replace = TRUE)), 
                    max.alters)
   alter.age.years <- rep(sample(1:100, net.count, replace = TRUE), max.alters)
@@ -104,9 +101,9 @@ make_egor <- function(net.count, max.alters, netsize = NULL, plot=FALSE) {
   aaties.df <- do.call(rbind, aaties)
   aaties.df <- aaties.df[sample(1:NROW(aaties.df), NROW(aaties.df)/2), ]
   # Return
-  egor(alters.df = alters, 
-       egos.df = egos, 
-       aaties.df = aaties.df)
+  egor(alters, 
+       egos, 
+       aaties.df)
 } 
 
 # Used for generating wide edge format data. 

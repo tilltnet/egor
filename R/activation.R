@@ -4,7 +4,6 @@
 #' @param obj The \code{egor} object.
 #' @param what \code{Character} naming the level to activate, this can be "ego", "alter" or "aatie".
 #' @keywords ego-centered network
-#'
 #' @export
 activate <- function(obj, what) {
   what <- match.arg(what, UNITS)

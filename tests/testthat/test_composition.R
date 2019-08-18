@@ -25,10 +25,3 @@ test_that(
   }
 )
 
-e$alter %>% 
-  count(.egoID, sex)
-comp_ply(e, "age.years", sd, na.rm = TRUE)
-
-x$alter <- 
-  x$alter %>% 
-  filter(.egoID != 1)

@@ -7,7 +7,7 @@
 \usage{
 alts_diversity_count(object, alt.attr)
 
-alts_diversity_entropy(object, alt.attr, base)
+alts_diversity_entropy(object, alt.attr, base = 2)
 }
 \arguments{
 \item{object}{An \code{egor} object.}

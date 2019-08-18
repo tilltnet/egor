@@ -23,20 +23,3 @@ test_that("density2 values are between 0 an 1", {
   expect_true(min(densities2) >= 0)
 })
 
-
-# list(s)
-# Weighted
-densities <- ego_density(of$.alts, of$.aaties,  weight = "weight")
-
-test_that("density values are between 0 an 1", {
-  expect_true(max(densities) <= 1)
-  expect_true(min(densities) >= 0)
-})
-
-# Not Weighted
-densities2 <- ego_density(of$.alts, of$.aaties)
-
-test_that("density2 values are between 0 an 1", {
-  expect_true(max(densities2) <= 1)
-  expect_true(min(densities2) >= 0)
-})
