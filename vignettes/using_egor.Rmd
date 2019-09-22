@@ -12,18 +12,25 @@ vignette: >
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  dev.args = list(type = "cairo")
 )
 
 library(knitr)
 library(egor)
 ```
 
-## The `egor` Object
+## The `egor` Package
 
-```
-library(egor)
-```
+egor provides
+
+- import functions
+- egor object organizes ego-centered network, allowing for a smooth workflow
+- dplyr methods: enable tidy data analysis strategies
+- descriptive analysis (network composition, density, homophily, diversity)
+- visualisation (clustered graphs, egographs, egogram)
+- interacitve visualisation app
+
 An `egor` object contains all data levels associated with ego-centered network 
 analysis, those levels are: ego, alter, alter-alter ties. By providing the 
 `egor()`-function with `data.frames` containing data corresponding to these data
@@ -34,7 +41,7 @@ each other.
 ```{r}
 data("alters32")
 data("egos32")
-data("edges32") 
+data("aaties32") 
 ```
 
 ```{r echo=FALSE}
@@ -46,7 +53,7 @@ egos32 %>%
   head() %>%
   kable(caption = "First rows of ego data.")
 
-edges32 %>%
+aaties32 %>%
   head() %>%
   kable(caption = "First rows of alter-alter tie data.")
 ```
@@ -56,24 +63,24 @@ their personal data to the alter and alter-alter tie data. The alterID is in the
 alter data is reused in the alter-alter tie data in the Source and Target 
 columns.
 
+```
+library(egor)
+```
+
 Let's create an egor object from the data we just loaded.
 ```{r}
-e1 <- egor(alters.df = alters32,
-           egos.df = egos32,
-           aaties = edges32,
+e1 <- egor(alters = alters32,
+           egos = egos32,
+           aaties = aaties32,
            ID.vars = list(
-             ego = "egoID",
-             alter = "alterID",
-             source = "Source",
-             target = "Target"))
+             ego = ".EGOID",
+             alter = ".ALTID",
+             source = ".SRCID",
+             target = ".TGTID"))
 e1
 ```
 
-An [`egor`] object is a [`tibble`] whose top-level columns store the ego 
-attributes, and which has two special nested columns:
-
-- `.alts`, containing, for each row (ego) a `data.frame` of that ego's alters
-- `.aaties`, a `data.frame` containing that ego's alter--alter ties.
+An [`egor`] object is a [`list`] of three [`tibbles`], named "ego", "alter" and "aatie", containg ego, alter and alter-alter tie data.
 
 ## Import
 
@@ -86,8 +93,8 @@ read_egoweb()
 read_egonet()
 ```
 
-There are three functions that help with the transformation of common data 
-formats of ego-centered network data:
+In addition there are three functions that help with the transformation of common data 
+formats of ego-centered network data into egor objects:
 
 
 ```
@@ -95,6 +102,7 @@ onefile_to_egor()
 twofiles_to_egor()
 threefiles_to_egor()
 ```
+
 ## Manipulate
 
 Manipulating an egor object can be done with base R functions or with `dplyr` verbs.
@@ -106,45 +114,41 @@ bracket subsetting or the `subset()` function.
 
 Ego level:
 
-```
-e1[, "age"]
-e1[e1$netsize > 15, ]
+```{r}
+e1[e1$ego$age.years > 35, ]
 ```
 
 Alter level:
-```
-subset(e1, .alts$alter.sex=="w", unit="alter")
+```{r}
+subset(e1, e1$alter$sex == "w", unit = "alter")
 ```
 
 Alter-alter tie level:
-```
-subset(e1, .aaties$weight > 1, unit="aatie")
-```
-### dplyr and purrr
-An `egor` object can be manipulated with dplyr verbs. In combination with the 
-`map*()` functions from the `purrr` package the list columns .alts and .aaties
-can be processed and modified. A few examples:
-
-```{r include=FALSE}
-library(dplyr)
-library(purrr)
+```{r}
+subset(e1, e1$aatie$weight > 0.5, unit = "aatie")
 ```
 
-```
-library(dplyr)
-library(purrr)
-```
+### activate() and dplyr verbs
 
-```
-e1 %>%
-  mutate(.alts = map(.alts, ~{
-    filter(., alter.sex == "m")
-  }))
+An `egor` object can be manipulated with dplyr verbs. Using the activate()
+command, the data level to execute manipulations on, can be changed. This concept
+is borrwed from the tidygraph package.
 
-e1 %>%
-  mutate(.aaties = map(.aaties, ~{
-    filter(., weight > 1)
-  }))
+If the manipulation leads to the deletion of egos, the respective alters and
+alter-alter ties are deleted as well. Similarly deletions of alters lead to
+the exclusion of the alter-alter ties of the deleted alters.
+
+```{r}
+e1 %>% 
+  filter(income > 36000)
+
+e1 %>% 
+  activate(alter) %>% 
+  filter(country %in% c("USA", "Poland"))
+
+e1 %>% 
+  activate(aatie) %>% 
+  filter(weight > 0.7)
 ```
 
 
@@ -163,25 +167,25 @@ ego_density(e1)
 
 ### Composition
 ```{r}
-composition(e1, "alter.age") %>%
+composition(e1, "age") %>%
   head() %>%
   kable()
 ```
 
 ### Diversity
 ```{r}
-alts_diversity_count(e1, "alter.age")
-alts_diversity_entropy(e1, "alter.age")
+alts_diversity_count(e1, "age")
+alts_diversity_entropy(e1, "age")
 ```
 
 ### Ego-Alter Homophily (EI-Index)
 ```{r}
-comp_ei(e1, "alter.age", "age")
+comp_ei(e1, "age", "age")
 ```
 
 ### EI-Index for Alter-Alter Ties
 ```{r}
-EI(e1, "alter.age") %>%
+EI(e1, "age") %>%
   head() %>%
   kable()
 ```
@@ -221,6 +225,7 @@ vis_clustered_graphs(graphs2[1:4],
                      labels = TRUE)
 ```
 
+
 ### `igraph` & `network` plotting
 
 - `as_igraph()` converts an `egor` object to a list of igraph objects.
@@ -233,9 +238,18 @@ purrr::walk(as_network(egor32)[1:4], plot)
 ```
 
 
+```{r fig.height=6, fig.width=8}
+plot(egor32)
+```
+
+```{r fig.height=6, fig.width=8}
+plot(make_egor(32,16), venn_var = "sex", pie_var = "country", type = "egogram")
+```
+
+
 ### Shiny App for Visualization 
 
-`egor_vis_app()` starts a Shiny app that allows offers a graphical
+`egor_vis_app()` starts a Shiny app which offers a graphical
 interface for adjusting the visualization parameters of the networks stored
 in an `egor` object.
 
@@ -246,22 +260,4 @@ egor_vis_app(egor32)
 
 ## Conversions
 
-In addition to `as_igraph()` and `as_network()` shown in the visualization 
-section there are to conversion functions for `egor` objects:
-
-`as_alts_df()` creates a global data frame of all alters.
-
-```{r}
-as_alts_df(egor32, include.ego.vars = TRUE) %>%
-  head() %>%
-  kable(caption = "First rows of global alters data frame.")
-```
-
-`as_aaties_df()` creates a global data frame of alter-alter ties.
-
-```{r}
-as_aaties_df(egor32, include.alt.vars = TRUE) %>%
-  head() %>%
-  kable(caption = "First rows of global alter-alter tie data frame.")
-```
-
+With `as_igraph()` and `as_network()` all ego networks are transformed into a list of igraph/network objects.
