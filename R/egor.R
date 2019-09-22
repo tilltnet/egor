@@ -1,14 +1,16 @@
+if (getRversion() >= "2.15.1") utils::globalVariables(c(":="))
+
 #' egor - a data class for ego-centered network data.
 #'
 #' The function [egor()] is used to create an egor object from
 #' ego-centered network data.
-#' @param alters.df either a \code{data.frame} containing the alters
+#' @param alters either a \code{data.frame} containing the alters
 #'   (whose nominator is identified by the column specified by `egoID`
 #'   or a list of data frames with the same columns, one for each ego,
 #'   with empty data frames or `NULL`s corresponding to egos with no
 #'   nominees.
-#' @param egos.df \code{data.frame} containing the egos.
-#' @param aaties.df \code{data.frame} containing the alter-alter
+#' @param egos \code{data.frame} containing the egos.
+#' @param aaties \code{data.frame} containing the alter-alter
 #'   relations in the style of an edge list, or a list of data frames
 #'   similar to `alters.df`.
 #' @template ID.vars
@@ -52,13 +54,17 @@
 #'   settings.
 #' @keywords ego-centered network analysis
 #' @examples 
-#' data("edges32") 
 #' data("egos32")
 #' data("alters32")
+#' data("aaties32") 
 #' 
-#' egor(alters.df = alters32, 
-#'      egos.df = egos32, 
-#'      aaties = edges32)
+#' egor(alters32, 
+#'      egos32, 
+#'      aaties32,
+#'      ID.vars = list(ego = ".EGOID", 
+#'                     alter = ".ALTID", 
+#'                     source = ".SRCID",
+#'                     target =  ".TGTID"))
 #' @export
 egor <- function(alters,
                     egos = NULL,
@@ -97,7 +103,7 @@ egor <- function(alters,
   
   # Alters
   
-  if (!is.tibble(alters)) {
+  if (!is_tibble(alters)) {
     alters <- as_tibble(alters)
   }
   
@@ -122,7 +128,7 @@ egor <- function(alters,
   if (is.null(aaties)) {
     aaties <- tibble(.srcID = 0, .tgtID = 0)[0,]
   } else {
-    if (!is.tibble(aaties)) {
+    if (!is_tibble(aaties)) {
       aaties <- as_tibble(aaties)
     }
     aaties <- select(
@@ -164,7 +170,7 @@ egor <- function(alters,
 #'
 #' @param object,x an [`egor`] object.
 #' @param ... additional arguments, either unused or passed to lower-level functions.
-#' 
+#' @param n Number of rows to print.
 #' @docType methods
 #' @method summary egor
 #' @export
@@ -202,18 +208,20 @@ summary.egor <- function(object, ...) {
 #' @method print egor
 #' @import tibble
 #' @importFrom dplyr group_vars
-print.egor <- function(x, ...) {
+print.egor <- function(x, ..., n = 3) {
   class(x) <- "list"
   active_lgl <- attr(x, "active") == names(x)
   y <- c(x[active_lgl],
-            x[!active_lgl])
+         x[!active_lgl])
   
-  cat("(*active*) ")
-
-  purrr::walk2(y, names(y), ~{
-    cat(paste0(.y, "\n"))
-    tibble:::print.tbl(.x, n = 3)
-    })
+  purrr::pwalk(list(y, names(y), c(TRUE, FALSE, FALSE)), function(x, y, z) {
+    if (z)
+      cat(paste0("# ", toupper(y), " data (active)", "\n"))
+    else
+      cat(paste0("# ", toupper(y), " data \n"))
+    print(tibble::trunc_mat(x, n = n))
+  })
+  invisible(x)
 }
 
 #' @rdname egor
