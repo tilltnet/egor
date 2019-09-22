@@ -9,7 +9,9 @@ test_that(
       e
       trim_aaties(e)
       trim_alters(e)
+      
       mutate(e, sex = 1)
+      
       
       e %>% 
         activate("aatie") %>% 
@@ -18,13 +20,39 @@ test_that(
         mutate(age.years = age.years^3)
       
       mutate(e, x = 1)
-      transmute.egor(e, x = age.years/2)
+      transmute(e, .egoID = age.years/2)
+      
+      
+      
+      select(e, .egoID, sex)
+      group_by(e, country)
+      
       count(e, age)
-      select.egor(e, sex)
+      tally(e, income)
+      # add_count(e, income)
+      # add_tally(e, income)
+      
+      top_n(e, 2, income)
+      egor::activate(e, alter) %>%
+        top_n(2, income)
+      
+      
+      result <- transmute(e[[attr(e, "active")]], x = age.years/2)
+      egor:::bind_IDs_if_missing(.data = e, result = result)
+      
       filter(e, sex == "w")$alter
       
-      activate(e, "alter") %>% 
+      rename(e, p = sex)
+      egor::activate(e, "alter") %>% 
         filter(sex == "w")
+      
+      slice(e, 1)
+      
+      activate(e, alter) %>% 
+        slice(1, 5, 6)
+      
+      activate(e, aatie) %>% 
+        slice(1:2)
       
       e %>% 
         activate("alter") %>% 
@@ -34,11 +62,27 @@ test_that(
       arrange(e, age.years)
       arrange(e, desc(age.years))
       
-      full_join(e, tibble(.egoID = factor(1), new_data = "asdwd"), NA)
-    })
+      expect_warning(
+        full_join(e, tibble(.egoID = factor(1), new_data = "asdwd")))
+      
+      
+      select_all(e, toupper)
+      rename_all(e, toupper)
+      
+      egor::activate(e, alter) %>% 
+        select_at(vars(contains("x")), toupper)
+      rename_at(e, .vars = vars(contains("x")), toupper)
+      mutate_at(e, vars(sex, country), toupper)
+      
+      
+      # select_if(e, is.factor, toupper)               
+      # rename_if(e, function(x) is.factor(x), toupper)
+      # mutate_if(e, is.double, function(x) x^2)
+      
+      tbl_vars(e)
+    }, NA)
   }
 )
-
 
 
 test_that(
@@ -96,5 +140,11 @@ test_that(
   }
 )
 
+test_that("quasi quotation works with activate",
+          {
+            e <- make_egor(12, 15)
+            expect_error(activate(e, alter), NA)
+            expect_error(activate(e, "aatie"), NA)
+          })
 
        
