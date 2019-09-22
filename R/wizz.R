@@ -6,7 +6,6 @@ if(getRversion() >= "2.15.1")
       "e_colors",
       "edge.color",
       "edge.width",
-      "graphs",
       "layout_",
       "vertex.label",
       "vertex.size"
@@ -40,10 +39,10 @@ if(getRversion() >= "2.15.1")
 #' @importFrom igraph list.vertex.attributes
 #' @importFrom igraph V<-
 #' @importFrom igraph E<-
-egor_vis_app <- function(object,
+egor_vis_app <- function(object = NULL,
                          shiny_opts = list(launch.browser = TRUE)) {
-  object <- as_nested_egor(object)
   # App Globals -------------------------------------------------------------
+  IDVARS <- source("R/zzz.R")
   egors <-
     ls(envir = .GlobalEnv)[sapply(mget(ls(envir = .GlobalEnv), envir = .GlobalEnv), function(x)
       class(x)[1] == "egor")]
@@ -60,7 +59,7 @@ egor_vis_app <- function(object,
     )
   shiny_opts <- c(shiny_opts, width = "20")
   object_enex <- as.character(enexpr(object))
-  
+                    
   shinyApp(
     # UI ----------------------------------------------------------------------
     
@@ -87,7 +86,7 @@ egor_vis_app <- function(object,
           numericInput("y_dim", "Rows", 2, min = 1),
           tags$div(
             title = "When including ego make sure that corresponding ego and alter variables have equal names in the `egor` object.",
-            tags$div(checkboxInput("include.ego",
+            tags$div(checkboxInput("include_ego",
                                    "Include Ego",
                                    FALSE),
                      style = "float: left;"),
@@ -98,7 +97,14 @@ egor_vis_app <- function(object,
         ),
         column(
           3,
-          
+          sliderInput(
+            "zoom_factor_v",
+            label = "Vertex Size:",
+            min = 0,
+            max = 75,
+            value = 15,
+            step = .1
+          ),
           sliderInput(
             "zoom_factor_e",
             label = "Edge Width:",
@@ -108,18 +114,17 @@ egor_vis_app <- function(object,
             step = .1
           ),
           sliderInput(
-            "zoom_factor_v",
-            label = "Vertex Size:",
-            min = 0,
-            max = 75,
-            value = 25,
+            "font_size",
+            label = "Font Size:",
+            min = 0.5,
+            max = 5,
+            value = 1,
             step = .1
           )
         ),
         column(
           6,
           tabsetPanel(
-            
             tabPanel("Vertices",
                      fluidRow(
                        column(
@@ -162,14 +167,13 @@ egor_vis_app <- function(object,
                             "Color Palette:",
                             choices = col_pal_names)
               )
-            ), 
+            ),
             tabPanel("Results",
                      uiOutput("choose_disp.results")),
             tabPanel(
               "Export",
               downloadButton("save_plot", label = "Save this Plot"),
-              downloadButton("save_all_plots", label = "Save all Plots"),
-              downloadButton("save_egor", label = "Save `egor` object with igraphs (incl. plotting parameters)")
+              downloadButton("save_all_plots", label = "Save all Plots")
               
             )
           )
@@ -185,44 +189,30 @@ egor_vis_app <- function(object,
     # SERVER ------------------------------------------------------------------
     
     server = function(input, output) {
+      library(egor)
       obj <- reactive({
+        
         x <- get(input$egor, envir = .GlobalEnv)
-        x <- as_nested_egor(x)
-        try(x <- arrange(x,!!sym(input$sort_by)), silent = TRUE)
-        if (input$filter != "")
-          try(x <- filter(x,!!input$filter_var %in% !!input$filter))
+        #x <- as_nested_egor(x)
+        if (!is.null(input$sort_by))
+          if(input$sort_by != "-Select Entry-") x <- arrange(x, !!sym(input$sort_by))
+        if (input$filter != "") {
+
+          x <- filter.egor(x, !!sym(input$filter_var) %in% !!input$filter)
+        
+        print(x) }
         x
       })
       
-      f_sort_by <- 
-        reactive({
-          input$sort_by
-        })
-      f_filter_var <- 
-        reactive({
-          input$filter_var
-        })
-   
-
       result_names <- reactive({
-        rn <- names(obj())
-        rn[!rn %in% c(".alts", ".aaties")]
+        rn <- names(obj()$ego)
+        rn[!rn %in% c("alter", "aatie")]
       })
       
-      graphs <- reactive({
-        shared_names <-
-          result_names()[result_names() %in% names(obj()$.alts[[1]])]
-        as_igraph(obj(),
-                  include.ego = input$include.ego,
-                  ego.attrs = shared_names)
-      })
-      
-      #object <- as_tibble(object)
-      
-      v.atts <- reactive(make_select_vector(igraph::list.vertex.attributes((graphs(
-      )[[1]]))))
-      e.atts <- reactive(make_select_vector(igraph::list.edge.attributes((graphs(
-      )[[1]]))))
+      v.atts <-
+        reactive(make_select_vector(names(obj()$alter)))
+      e.atts <-
+        reactive(make_select_vector(names(obj()$aatie), e = TRUE))
       
       output$choose_nnumber <- renderUI({
         numericInput(
@@ -230,17 +220,17 @@ egor_vis_app <- function(object,
           "Network No.:",
           step = input$x_dim * input$y_dim,
           min = 1,
-          max = length(graphs()),
+          max = nrow(obj()$ego),
           value = 1
         )
       })
       
       output$choose_filter_var <- renderUI({
-        varSelectInput("filter_var", "Filter by:", obj(), selected = f_filter_var())
+        selectInput("filter_var", "Filter by:", isolate(obj()), choices = isolate(v.atts()))
       })
       
       output$choose_sort_by <- renderUI({
-        varSelectInput("sort_by", "Sort by:", obj(), selected = f_sort_by())
+        selectInput("sort_by", "Sort by:", isolate(obj()), choices = isolate(v.atts()))
       })
       
       output$choose_box_color <- renderUI({
@@ -280,13 +270,14 @@ egor_vis_app <- function(object,
       values$v.label <- "-Select Entry-"
       values$e.width <- "-Select Entry-"
       values$e.color <- "-Select Entry-"
+      values$box_color <- "-Select Entry-"
       values$nnumber <- 1
       values$disp.results <- c()
       
       
-      observeEvent(input$box_col, {
-        values$box_color <- input$box_col
-      }, ignoreNULL = FALSE)
+      observeEvent(input$box_color, {
+        values$box_color <- input$box_color
+      })
       
       observeEvent(input$v.size, {
         values$v.size <- input$v.size
@@ -315,25 +306,102 @@ egor_vis_app <- function(object,
         values$disp.results <- input$disp.results
       })
       
-      output$Plot <- renderPlot({
-        nnumber <- values$nnumber
-        plot_graphs(nnumber,
-                    input$x_dim,
-                    input$y_dim,
-                    graphs(),
-                    input,
-                    obj(),
-                    values)
-      })
+      
+      # plot Output -------------------------------------------------------------
+      
+      output$Plot <-
+        renderPlot({
+          plot_ego_graphs(
+            obj(),
+            values$nnumber,
+            input$x_dim,
+            input$y_dim,
+            vertex_size_var = if (values$v.size != "-Select Entry-")
+              values$v.size
+            else
+              NULL,
+            vertex_color_var = if (values$v.color != "-Select Entry-")
+              values$v.color
+            else
+              NULL,
+            vertex_color_palette = input$v.color_pal,
+            vertex_color_legend_label = input$l.label,
+            vertex_label_var =  if (input$v.label != "-Select Entry-")
+              input$v.label
+            else
+              NULL,
+            edge_width_var = if (values$e.width != "-Select Entry-")
+              values$e.width
+            else
+              NULL,
+            edge_color_var = if (values$e.color != "-Select Entry-")
+              values$e.color
+            else
+              NULL,
+            edge_color_palette = input$e.color_pal,
+            highlight_box_col_var = if (values$box_color != "-Select Entry-")
+              values$box_color
+            else
+              NULL,
+            highlight_box_col_palette = input$box_col_pal,
+            res_disp_vars  = values$disp.results,
+            vertex_zoom = input$zoom_factor_v,
+            edge_zoom = input$zoom_factor_e,
+            font_size = input$font_size,
+            include_ego = input$include_ego
+            
+            
+          )
+        })
       
       output$save_all_plots <- downloadHandler(
         filename = function() {
-          paste("plots_export", "pdf", sep = ".")
+          paste(input$egor, "_plots_export", ".pdf", sep = "")
         },
         content = function(file) {
-          pdf(file, width = 9, onefile = TRUE)
-          for (i in 1:length(graphs())) {
-            plot_graph(i, graphs(), input, obj(), values)
+          pdf(file, width = 16, onefile = TRUE)
+          for (i in seq(1, nrow(obj()), by = input$x_dim * input$y_dim)) {
+            plot_ego_graphs(
+              obj(),
+              values$nnumber,
+              input$x_dim,
+              input$y_dim,
+              vertex_size_var = if (values$v.size != "-Select Entry-")
+                values$v.size
+              else
+                NULL,
+              vertex_color_var = if (values$v.color != "-Select Entry-")
+                values$v.color
+              else
+                NULL,
+              vertex_color_palette = input$v.color_pal,
+              vertex_color_legend_label = input$l.label,
+              vertex_label_var =  if (input$v.label != "-Select Entry-")
+                input$v.label
+              else
+                NULL,
+              edge_width_var = if (values$e.width != "-Select Entry-")
+                values$e.width
+              else
+                NULL,
+              edge_color_var = if (values$e.color != "-Select Entry-")
+                values$e.color
+              else
+                NULL,
+              edge_color_palette = input$e.color_pal,
+              highlight_box_col_var = if (values$box_color != "-Select Entry-")
+                values$box_color
+              else
+                NULL,
+              highlight_box_col_palette = input$box_col_pal,
+              res_disp_vars  = values$disp.results,
+              vertex_zoom = input$zoom_factor_v,
+              edge_zoom = input$zoom_factor_e,
+              font_size = input$font_size,
+              include_ego = input$include_ego
+              
+              
+            )
           }
           dev.off()
         }
@@ -341,51 +409,66 @@ egor_vis_app <- function(object,
       
       output$save_plot <- downloadHandler(
         filename = function() {
-          paste(values$nnumber, "pdf", sep = ".")
+          paste(input$egor, "_", values$nnumber, ".pdf", sep = "")
         },
         content = function(file) {
-          pdf(file, width = 9)
-          plot_graph(values$nnumber, graphs(), input, obj(), values)
+          pdf(file, width = 16)
+          plot_ego_graphs(
+            obj(),
+            values$nnumber,
+            input$x_dim,
+            input$y_dim,
+            vertex_size_var = if (values$v.size != "-Select Entry-")
+              values$v.size
+            else
+              NULL,
+            vertex_color_var = if (values$v.color != "-Select Entry-")
+              values$v.color
+            else
+              NULL,
+            vertex_color_palette = input$v.color_pal,
+            vertex_color_legend_label = input$l.label,
+            vertex_label_var =  if (input$v.label != "-Select Entry-")
+              input$v.label
+            else
+              NULL,
+            edge_width_var = values$e.width,
+            edge_color_var = values$e.color,
+            edge_color_palette = input$e.color_pal,
+            highlight_box_col_var = if (values$box_color != "-Select Entry-")
+              values$box_color
+            else
+              NULL,
+            highlight_box_col_palette = input$box_col_pal,
+            res_disp_vars  = values$disp.results,
+            vertex_zoom = input$zoom_factor_v,
+            edge_zoom = input$zoom_factor_e,
+            font_size = input$font_size
+            
+          )
           dev.off()
         }
       )
       
-      output$save_egor <- downloadHandler(
-        filename = function() {
-          paste("egor_export", "Rda", sep = ".")
-        },
-        content = function(file) {
-          gg <- purrr::map(1:length(graphs()), function(x) {
-            pp <- collect_plot_params(x, graphs(), input, values)
-            grph <- graphs()[[x]]
-            igraph::V(grph)$size <- pp$vertex.size
-            igraph::V(grph)$color <- pp$clrs
-            igraph::V(grph)$label <- pp$vertex.label
-            igraph::E(grph)$width <- pp$edge.width
-            igraph::E(grph)$color <- pp$e_colors[pp$edge.color]
-            grph$layout <- pp$layout_
-            grph
-          })
-          egor_obj <- obj()
-          egor_obj$graphs <- gg
-          save(egor_obj, file = file)
-        }
-      )
     },
     options = shiny_opts
   )
 }
 
-make_select_vector <- function(x) {
-  c("-Select Entry-", x)
-}
-
-filter_by <- function (df, ...) {
-  filter_conditions <- rlang::quos(...)
-  dplyr::filter(df,!!!filter_conditions)
-}
 
 # Server Functions --------------------------------------------------------
+
+make_select_vector <- function(x, e = FALSE) {
+  if (e)
+    c("-Select Entry-", x[!x %in% IDVARS])
+  else
+    c("-Select Entry-", "name", x[x != ".altID"])
+}
+
+filter_by <- function(df, ...) {
+  filter_conditions <- rlang::quos(...)
+  dplyr::filter(df, !!!filter_conditions)
+}
 
 egor_col_pal <- function(pal_name = "Heat Colors", n) {
   if (pal_name == "Heat Colors")
@@ -415,185 +498,3 @@ egor_col_pal <- function(pal_name = "Heat Colors", n) {
   rev(pal)
 }
 
-collect_plot_params <- function(nnumber, graphs, input, values) {
-  # Default Colors
-  colors_ <- blues9
-  e_colors <- grey(0.6)
-  
-  # Vertex Size
-  if (values$v.size != "-Select Entry-") {
-    vertex.size <-
-      as.numeric(as.factor(igraph::get.vertex.attribute(graphs[[nnumber]], values$v.size)))
-    vertex.size[is.na(vertex.size)] <- 0.1
-    vertex.size <- vertex.size * 4 + input$zoom_factor_v / 2
-  } else {
-    vertex.size <-
-      rep(5, length(igraph::V(graphs[[nnumber]]))) * 4 + input$zoom_factor_v
-  }
-  
-  # Vertex Color
-  if (values$v.color != "-Select Entry-") {
-    vertex.color <-
-      igraph::get.vertex.attribute(graphs[[nnumber]], values$v.color)
-    #vertex.color[is.na(vertex.color)] <- 0
-    vertex.color <- factor(vertex.color)
-    colors_ <- egor_col_pal(input$v.color_pal,
-                            length(levels(factor(
-                              igraph::get.vertex.attribute(graphs[[nnumber]],
-                                                   values$v.color)
-                            ))))
-    clrs <- colors_[vertex.color]
-    clrs[is.na(clrs)] <- "#ffffff"
-  } else {
-    vertex.color <- 1
-    clrs <- "#eeeeff"
-  }
-  
-  # Edge Width
-  if (values$e.width != "-Select Entry-") {
-    edge.width <-
-      igraph::get.edge.attribute(graphs[[nnumber]], values$e.width) * input$zoom_factor_e
-    #edge.width[is.na(edge.width)] <- 0
-  } else {
-    edge.width <-
-      rep(1, length(igraph::E(graphs[[nnumber]]))) * input$zoom_factor_e
-  }
-  
-  # Edge Color
-  if (values$e.color != "-Select Entry-") {
-    edge.color <- igraph::get.edge.attribute(graphs[[nnumber]], values$e.color)
-    #edge.color[is.na(edge.color)] <- 0
-    edge.color <- as.numeric(factor(edge.color))
-    e_colors <- egor_col_pal(input$e.color_pal,
-                             length(levels(factor(
-                               get.edge.attribute(graphs[[nnumber]],
-                                                  values$e.color)
-                             ))))
-  } else {
-    edge.color <- 1
-  }
-  
-  # Label
-  if (values$v.label != "-Select Entry-") {
-    vertex.label <-
-      igraph::get.vertex.attribute(graphs[[nnumber]], values$v.label)
-    vertex.label[is.na(vertex.label)] <- 0
-  } else {
-    vertex.label <- igraph::V(graphs[[nnumber]])
-  }
-  
-  
-  #' @importFrom igraph layout.fruchterman.reingold
-  layout_ <-
-    igraph::layout.fruchterman.reingold(graphs[[nnumber]], weights = edge.width)
-  
-  # Collect and return all params
-  ls_ <- ls()
-  ls_ <- ls_[!ls_ %in% c("input", "graphs", "nnumber")]
-  res <- mget(ls_)
-  names(res) <- ls_
-  res
-}
-
-plot_graphs <- function(nnumber,
-                        x_dim,
-                        y_dim,
-                        graphs,
-                        input,
-                        object,
-                        values) {
-  par(mfrow = c(y_dim, x_dim),
-      mar = c(0.5, 0.5, 0.5, 0.5))
-  for (i in nnumber:(nnumber + (x_dim * y_dim - 1))) {
-    if (i <= length(graphs)) {
-      boxi_color <- "white"
-      if (!is.null(input$box_color)) {
-        if (input$box_color != "-Select Entry-") {
-          var_ <- factor(object[[input$box_color]])
-          boxi_color <- egor_col_pal(input$box_col_pal,
-                                     length(levels(var_)))[var_][i]
-        }
-      }
-
-        
-      plot_graph(i, graphs, input, object, values, box_col_val = boxi_color)
-      
-      
-    }
-  }
-}
-
-plot_graph <- function(nnumber,
-                       graphs,
-                       input,
-                       object,
-                       values,
-                       box_col_val = "white") {
-  if (!sum(igraph::V(graphs[[nnumber]])) > 0) {
-    # Plot Error message.
-    plot(
-      NA,
-      xlim = c(1, 10),
-      ylim = c(0.75, 10),
-      type = "n",
-      yaxt = "n",
-      xaxt = "n",
-      ylab = "",
-      xlab = "",
-      bty = "L"
-    )
-    text(5, 1, 'No network data available for this entry.')
-    return()
-  }
-  list2env(collect_plot_params(nnumber, graphs, input, values),
-           environment())
-  #' @importFrom igraph plot.igraph
-  
-  set.seed(1337)
-  
-  igraph::plot.igraph(
-    graphs[[nnumber]],
-    vertex.size = vertex.size,
-    vertex.color = clrs,
-    edge.width = edge.width,
-    vertex.label = vertex.label,
-    edge.color = e_colors[edge.color],
-    layout = layout_
-  )
-  # Sanitize Variable Names
-  sane_disp_results <- gsub("\\.",  " ", names(object))
-  sane_disp_results <- gsub("  ",  " ", sane_disp_results)
-  sane_disp_results <-
-    gsub("(\\w)(\\w*)", "\\U\\1\\L\\2", sane_disp_results, perl = TRUE)
-  
-  # Print results on plot canvas
-  y_pos_res = 1.2
-  for (result_name in values$disp.results) {
-    text(-2 ,
-         y_pos_res,
-         paste(sane_disp_results[which(colnames(object) == result_name)],
-               ": ", object[nnumber, result_name][[1]], sep = ""),
-         adj = c(0, 0))
-    y_pos_res = y_pos_res - 0.2
-  }
-  
-  # Legend
-  if (values$v.color != "-Select Entry-") {
-    color_var <- get.vertex.attribute(graphs[[nnumber]], values$v.color)
-    #color_var[is.na(color_var)] <- 0
-    title_ <-
-      ifelse(input$l.label == "", values$v.color, input$l.label)
-    legend(
-      x = -2,
-      y = -0.8,
-      legend = levels(factor(color_var)),
-      pt.bg = colors_,
-      pt.cex = 1.5,
-      pch = 22,
-      bty = "n",
-      y.intersp = 1,
-      title = title_
-    )
-  }
-  box(lty = 'solid', col = box_col_val, lwd = 5)
-}

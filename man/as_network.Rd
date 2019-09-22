@@ -12,6 +12,17 @@ as_network(x, directed = FALSE, include.ego = FALSE,
 \method{as.network}{egor}(x, directed = FALSE, include.ego = FALSE,
   ego.attrs = NULL, ego.alter.weights = NULL)
 }
+\arguments{
+\item{x}{An egor Object.}
+
+\item{directed}{Logical.}
+
+\item{include.ego}{Logical.}
+
+\item{ego.attrs}{Names of ego variables.}
+
+\item{ego.alter.weights}{Name of ego alter weight variable.}
+}
 \description{
 Creates a list of statnet's network objects, from an
 \code{egor} object.

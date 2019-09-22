@@ -6,10 +6,12 @@
 \title{32 randomly created egos belonging to ego-centered networks}
 \format{A data frame with 32 sets of alter-alter relations and 4 variables:
 \describe{
-\item{egoID}{ego identifier}
-\item{sex}{ego's gender}
-\item{age}{ego's age}
-\item{netsize}{size of ego's network}
+\item{.EGOID}{ego identifier}
+\item{age}{age in categories}
+\item{age.years}{age in years}
+\item{country}{country}
+\item{income}{income}
+\item{sex}{gender}
 }}
 \usage{
 egos32

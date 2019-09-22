@@ -11,16 +11,12 @@ as_aaties_df(object, include.ego.vars = FALSE,
   include.alt.vars = FALSE)
 }
 \arguments{
-\item{object}{An \code{egor} object.}
+\item{object}{An \code{egor} object.
+a new variable with the specified name is created.}
 
 \item{include.ego.vars}{Logical, specifying if ego variables should be included in the result.}
 
 \item{include.alt.vars}{Logical, specifying if alter variables should be included in the result.}
-
-\item{egoID}{Character, naming the variable used to identify egos. If this variable does not exist,
-a new variable with the specified name is created.}
-
-\item{aatie_vars}{Character vector, specifying the names of the source and target columns.}
 }
 \description{
 Provided an egor-object, these functions create a 'global' \code{data.frame},

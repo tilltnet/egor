@@ -14,7 +14,7 @@ clustered_graphs(object, ..., clust.groups)
 \method{clustered_graphs}{egor}(object, clust.groups, ...)
 
 \method{clustered_graphs}{data.frame}(object, aaties, clust.groups,
-  egoID = "egoID", ...)
+  egoID = ".egoID", ...)
 }
 \arguments{
 \item{object}{Either an \code{egor} object or a \code{data.frame/ list}

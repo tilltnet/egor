@@ -6,13 +6,13 @@
 \title{32 sets of randomly created alters belonging to ego-centered networks}
 \format{A data frame with 32 sets of up to 32 alters per egoID and 7 variables:
 \describe{
-\item{egoID}{ego identifier}
-\item{ego.sex}{ego's gender}
-\item{age}{ego's age}
-\item{netsize}{size of ego's network}
-\item{alterID}{alter identifier}
-\item{alter.sex}{alter's gender}
-\item{alter.age}{alter's age}
+\item{.ALTID}{alter identifier}
+\item{.EGOID}{ego identifier}
+\item{age}{age in categories}
+\item{age.years}{age in years}
+\item{country}{country}
+\item{income}{income}
+\item{sex}{gender}
 }}
 \usage{
 alters32

@@ -24,13 +24,6 @@ number of alters whose relations were collected is limited.}
 
 \item{directed}{logical indicating if the alter-alter relation data/ edges
 are directed or undirected.}
-
-\item{aaties}{\code{data.frame/ list} containg alter-alter relations as a
-'global edge list' or as a list of 'edge lists'.
-(not needed if \code{object} is an \code{egor} object).}
-
-\item{egoID}{Name of ego ID variable. Only needs to be specified if alter
-and alter-alter data is provided in global data.frames.}
 }
 \value{
 returns a \code{vector} of network density values.

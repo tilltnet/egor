@@ -2,13 +2,13 @@
 #'
 #' @format A data frame with 32 sets of up to 32 alters per egoID and 7 variables:
 #' \describe{
-#'   \item{egoID}{ego identifier}
-#'   \item{ego.sex}{ego's gender}
-#'   \item{age}{ego's age}
-#'   \item{netsize}{size of ego's network}
-#'   \item{alterID}{alter identifier}
-#'   \item{alter.sex}{alter's gender}
-#'   \item{alter.age}{alter's age}
+#'   \item{.ALTID}{alter identifier}
+#'   \item{.EGOID}{ego identifier}
+#'   \item{age}{age in categories}
+#'   \item{age.years}{age in years}
+#'   \item{country}{country}
+#'   \item{income}{income}
+#'   \item{sex}{gender}
 #' }
 "alters32"
 
@@ -16,21 +16,23 @@
 #'
 #' @format A data frame with 32 sets of alter-alter relations and 4 variables:
 #' \describe{
-#'   \item{egoID}{ego identifier}
-#'   \item{Source}{source alter ID}
-#'   \item{Target}{target alter ID}
+#'   \item{.EGOID}{ego identifier}
+#'   \item{.SRCID}{source alter ID}
+#'   \item{.TGTID}{target alter ID}
 #'   \item{weight}{weight of relation}
 #' }
-"edges32"
+"aaties32"
 
 #' 32 randomly created egos belonging to ego-centered networks
 #'
 #' @format A data frame with 32 sets of alter-alter relations and 4 variables:
 #' \describe{
-#'   \item{egoID}{ego identifier}
-#'   \item{sex}{ego's gender}
-#'   \item{age}{ego's age}
-#'   \item{netsize}{size of ego's network}
+#'   \item{.EGOID}{ego identifier}
+#'   \item{age}{age in categories}
+#'   \item{age.years}{age in years}
+#'   \item{country}{country}
+#'   \item{income}{income}
+#'   \item{sex}{gender}
 #' }
 "egos32"
 
@@ -45,3 +47,14 @@
 #'   \item{.aaties}{nested column/list containing alter-alter relations}
 #' }
 "egor32"
+
+if (FALSE) {
+  egor32 <- make_egor(32,32)
+  egos32 <- egor32$ego %>% 
+    rename_at(vars(starts_with(".")), toupper)
+  alters32 <- egor32$alter %>% 
+    rename_at(vars(starts_with(".")), toupper)
+  aaties32 <- egor32$aatie %>% 
+    rename_at(vars(starts_with(".")), toupper)
+  usethis::use_data(egor32, egos32, alters32, aaties32, overwrite = TRUE)
+}

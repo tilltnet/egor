@@ -1,3 +1,5 @@
+if(getRversion() >= "2.15.1") utils::globalVariables(c(".egoID"))
+
 #' General helper functions
 #'
 #' Helper functions for ego centered network analysis
@@ -13,7 +15,7 @@ NULL
 #' nested .alts and .aaties columns.
 #' @export
 as_nested_egor <- function(x) {
-  x$aatie <- select(x$aatie, .srcID, .tgtID, .egoID)
+  x$aatie <- select(x$aatie, .srcID, .tgtID, .egoID, everything())
   alters_l <- split(x$alter, factor(x$alter$.egoID, levels = x$ego$.egoID))
   aaties_l <- split(x$aatie, factor(x$aatie$.egoID, levels = x$ego$.egoID))
   x <- x$ego

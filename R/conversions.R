@@ -101,6 +101,11 @@ as.igraph.egor <- as_igraph
 
 #' Creates a list of statnet's network objects, from an
 #' `egor` object.
+#' @param x An egor Object.
+#' @param directed Logical.
+#' @param include.ego Logical.
+#' @param ego.attrs Names of ego variables.
+#' @param ego.alter.weights Name of ego alter weight variable.
 #' @export
 #' @importFrom network network 
 #' @importFrom network network.initialize
@@ -206,11 +211,9 @@ as.network.egor <- as_network
 #' are useful for advanced analysis procedures, e.g. multi-level regressions.
 #' 
 #' @param object An `egor` object.
-#' @param egoID Character, naming the variable used to identify egos. If this variable does not exist,
 #' a new variable with the specified name is created.
 #' @param include.ego.vars Logical, specifying if ego variables should be included in the result.
 #' @param include.alt.vars Logical, specifying if alter variables should be included in the result.
-#' @param aatie_vars Character vector, specifying the names of the source and target columns.
 #' @examples 
 #' # Load example data
 #' data(egor32)

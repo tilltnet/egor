@@ -162,10 +162,10 @@ wide.dyads.to.edgelist <- function(e.wide, first.var, max.alters,
   dp <- dyad.poss(max.alters)
   
   ### Create a helper matrix vor naming alters.
-  if(is.null(selection)) {
+  if (is.null(selection)) {
     name.matrix <- 1:max.alters
-    for(i in 1:(max.alters-1)) {
-      start.val <- i+1
+    for (i in 1:(max.alters - 1)) {
+      start.val <- i + 1
       # c(x:y,rep()) is used to avoid cbind throwing warning because of unequal 
       # vector lengths.
       name.matrix <- cbind(name.matrix, c(start.val:max.alters, rep(9,i)))
@@ -181,18 +181,18 @@ wide.dyads.to.edgelist <- function(e.wide, first.var, max.alters,
   alter.alter.list <- list()
   count.var <- 1
   
-  for(case in 1:NROW(e.wide)) {
+  for (case in 1:NROW(e.wide)) {
     alter.alter.df <- data.frame()
     count.var <- 1
-    if(!is.null(selection)) {
+    if (!is.null(selection)) {
       names_ <- as.character(subset(alters.list[[case]], alters.list[[case]][selection] == 1)$alterID) #!# ['alterID'] ??
       #if(length(names) < max.alters) {
       #  diff_ <- max.alters - length(names_)
       #  names_ <- c(names_, rep("99", diff_))
       #}
       name.matrix <- names_
-      for(i in 1:(max.alters-1)) {
-        start.val <- i+1
+      for (i in 1:(max.alters - 1)) {
+        start.val <- i + 1
         # c(x:y,rep()) is used to avoid cbind throwing warning because of unequal 
         # vector lengths.
           name.matrix <- suppressWarnings(cbind(name.matrix, c(names_[start.val:max.alters], rep(99,i))))
@@ -200,9 +200,9 @@ wide.dyads.to.edgelist <- function(e.wide, first.var, max.alters,
       }
     }
     i <- 1
-    for(i in 1:(max.alters - 1)) {
-      for(j in 1:(max.alters - i)) {
-        this.alter.alter <- data.frame(.tmp.srcID = name.matrix[i, 1], .tmp.tgtID = name.matrix[i+1, j], 
+    for (i in 1:(max.alters - 1)) {
+      for (j in 1:(max.alters - i)) {
+        this.alter.alter <- data.frame(.tmp.srcID = name.matrix[i, 1], .tmp.tgtID = name.matrix[i + 1, j], 
                                        weight = alter.alter[case, count.var])
         alter.alter.df <- rbind(alter.alter.df, this.alter.alter)
         count.var <- count.var + 1
@@ -332,23 +332,27 @@ onefile_to_egor <- function(egos, netsize,  ID.vars = list(ego = "egoID"),
                         start.col = attr.start.col, end.col = attr.end.col, 
                         ego.vars = ego.vars, var.wise = var.wise)
   
-  message("Deleting NA rows in long alters data.")
-  message("Splitting long alters data into list entries for each network: $alters.list")
-  alters.list <- long.df.to.list(long = alters.df, netsize = netsize, 
-                                 egoID = IDv$ego, back.to.df = FALSE)
-  
   message("Transforming wide dyad data to edgelist: $edges")
-  e.lists <- if(is.null(aa.regex)) wide.dyads.to.edgelist(e.wide = egos, first.var = aa.first.var, 
-                                                          max.alters)
-             else wide.dyads.to.edgelist.regex(e.wide = egos[aa.first.var:ncol(egos)],
-                                               aa.regex=aa.regex,netsize=netsize)
+  e.lists <- if (is.null(aa.regex))
+    wide.dyads.to.edgelist(e.wide = egos, first.var = aa.first.var,
+                           max.alters)
+  else
+    wide.dyads.to.edgelist.regex(e.wide = egos[aa.first.var:ncol(egos)],
+                                 aa.regex = aa.regex,
+                                 netsize = netsize)
+  
+  elist <- purrr::map2_dfr(egos$egoID, e.lists, function(ego_id, edges) 
+    {edges[IDv$ego] <- ego_id
+    edges})
   
   # Return:
-  egor(alters.df = alters.list,
-       egos.df = egos[-c(attr.start.col:attr.end.col,aa.first.var:ncol(egos))], 
-       aaties.df = e.lists,
-       ID.vars=list(ego=IDv$ego,source=".tmp.srcID",target=".tmp.tgtID"),
-       alter_design = list(max=max.alters),...)
+  egor(alters.df,
+       egos[-c(attr.start.col:attr.end.col,aa.first.var:ncol(egos))], 
+       elist,
+       ID.vars = list(ego = IDv$ego,
+                      source = ".tmp.srcID",
+                      target = ".tmp.tgtID"),
+       alter_design = list(max = max.alters),...)
 }
 
 #' Import ego-centered network data from two file format
@@ -404,7 +408,7 @@ twofiles_to_egor <- function(egos, alters, netsize = NULL,
   alters.list <- lapply(alters.list, FUN = function(x) 
     data.frame(alterID = as.character(c(1:NROW(x))), x)) #!# This generates two alterIDs in the transnat impor
   
-  if(!is.null(ego.vars)) {
+  if (!is.null(ego.vars)) {
     message("ego.vars defined, adding them to $alters.df")
     alters <- add_ego_vars_to_long_df(alters.list = alters.list, egos.df = egos, 
                             ego.vars = ego.vars, netsize = netsize)
@@ -413,19 +417,19 @@ twofiles_to_egor <- function(egos, alters, netsize = NULL,
     alters <- do.call("rbind", alters.list)
   }
 
-  message("Splitting alters data into list entries for each network: $alters.list")
-  alters <- long.df.to.list(long = alters, netsize = netsize, egoID = IDv$ego,
-                                back.to.df = FALSE)
-  
   message("Transforming wide edge data to edgelist: $edges")
   elist <- wide.dyads.to.edgelist(e.wide = egos, first.var = e.first.var,
                                    max.alters = e.max.alters, 
                                    alters.list = alters.list, selection = selection)
   
+  elist <- purrr::map2_dfr(egos$egoID, elist, function(ego_id, edges) 
+  {edges[IDv$ego] <- ego_id
+  edges})
+  
   # Return:
-  egor(alters.df = alters,
-       egos.df = egos,
-       aaties.df = elist,
+  egor(alters,
+       egos,
+       elist,
        ID.vars = list(ego = IDv$ego,
                       alter = IDv$alter,
                       source = ".tmp.srcID",

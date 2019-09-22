@@ -18,7 +18,7 @@ test_that("as_tibble and other conversions work",
               activate(e, "alter") %>%
                 as_tibble(include.ego.vars = TRUE)
               
-              activate(obj = e, "aatie") %>%
+              activate(e, "aatie") %>%
                 as_tibble(include.alter.vars = TRUE)
               x <- activate(e, "aatie")
               as_alters_df(e, include.ego.vars = TRUE)

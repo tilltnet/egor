@@ -4,7 +4,7 @@
 \alias{egor_vis_app}
 \title{\code{egor} Network Visualization App}
 \usage{
-egor_vis_app(object, shiny_opts = list(launch.browser = TRUE))
+egor_vis_app(object = NULL, shiny_opts = list(launch.browser = TRUE))
 }
 \arguments{
 \item{object}{An \code{egor} object.}

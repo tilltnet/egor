@@ -7,9 +7,6 @@
 #' \code{egor} object, alter and alter-alter data can be provided as \code{lists}
 #' or \code{data.frames}. 
 #' @template object
-#' @template aaties
-#' @param egoID Name of ego ID variable. Only needs to be specified if alter
-#' and alter-alter data is provided in global data.frames.
 #' @param max.netsize Optional parameter. Constant value used if the
 #' number of alters whose relations were collected is limited.
 #' @param directed logical indicating if the alter-alter relation data/ edges 
