@@ -78,7 +78,7 @@ test_that("comp_ei handles extreme values (only one group in alts) correctly",
               var
             }
             
-            egor32$ego$sex <- make_nas(egor32$ego$sex)
+            #egor32$ego$sex <- make_nas(egor32$ego$sex)
             egor32$alter$sex <- make_nas(egor32$alter$sex)
             
             egor32 <- 
