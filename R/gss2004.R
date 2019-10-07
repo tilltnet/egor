@@ -8,7 +8,7 @@
 #' @name gss2004
 #' 
 #' @format A tibble with 499 rows and the variables listed below. Data was
-#'   imported from SPSS file (with [haven::read_sav()]) and are labelled.
+#'   imported from SPSS file and are labelled.
 #'   Functions in the \pkg{labelled} package can be used to handle them.
 #'   
 #'   Variables:
