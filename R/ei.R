@@ -84,7 +84,10 @@ EI <- function(object, alt.attr) {
   
   alt.attr_enquo <- enquo(alt.attr)
   
-  obj <- object %>%
+  object2 <- as_nested_egor(object)
+    
+  obj <- 
+    object2 %>%
     as_tibble() %>%
     select(.alts, .aaties) %>%
     get_ei_tab() %>%

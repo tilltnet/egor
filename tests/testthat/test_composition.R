@@ -24,3 +24,4 @@ test_that(
     expect_error(alts_diversity_count(e, "age"), NA, label = "diversiy_count")
   }
 )
+

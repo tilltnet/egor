@@ -5,22 +5,22 @@
 \alias{as.egor}
 \title{egor - a data class for ego-centered network data.}
 \usage{
-egor(alters.df, egos.df = NULL, aaties.df = NULL, ID.vars = list(ego
-  = "egoID", alter = "alterID", source = "Source", target = "Target"),
+egor(alters, egos = NULL, aaties = NULL, ID.vars = list(ego =
+  "egoID", alter = "alterID", source = "Source", target = "Target"),
   ego_design = list(~1), alter_design = list(max = Inf))
 
 as.egor(x, ...)
 }
 \arguments{
-\item{alters.df}{either a \code{data.frame} containing the alters
+\item{alters}{either a \code{data.frame} containing the alters
 (whose nominator is identified by the column specified by \code{egoID}
 or a list of data frames with the same columns, one for each ego,
 with empty data frames or \code{NULL}s corresponding to egos with no
 nominees.}
 
-\item{egos.df}{\code{data.frame} containing the egos.}
+\item{egos}{\code{data.frame} containing the egos.}
 
-\item{aaties.df}{\code{data.frame} containing the alter-alter
+\item{aaties}{\code{data.frame} containing the alter-alter
 relations in the style of an edge list, or a list of data frames
 similar to \code{alters.df}.}
 
@@ -96,13 +96,17 @@ persistent data. Other \code{.}-led column names may be reserved in
 the future.
 }
 \examples{
-data("edges32") 
 data("egos32")
 data("alters32")
+data("aaties32") 
 
-egor(alters.df = alters32, 
-     egos.df = egos32, 
-     aaties = edges32)
+egor(alters32, 
+     egos32, 
+     aaties32,
+     ID.vars = list(ego = ".EGOID", 
+                    alter = ".ALTID", 
+                    source = ".SRCID",
+                    target =  ".TGTID"))
 }
 \keyword{analysis}
 \keyword{ego-centered}

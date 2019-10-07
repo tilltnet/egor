@@ -29,30 +29,17 @@ rowlist <- function(x){
 #' @param x an [egor()] object.
 #' @param unit a selector of the unit of analysis being affected: the
 #'   egos, the alters or the (alter-alter) ties. Note that only one
-#'   type of unit can be affected at a time.
+#'   type of unit can be affected at a time. Defaults to the current
+#'   active unit selected by [activate.egor()].
 #'
 #' @param subset either an expression evaluated on each of the rows of
-#'   [egor()] (as in the eponymous argument of [subset()]) or a
-#'   function whose first argument is a row, specifying which egos,
-#'   alters, or alter-alter ties to keep; output format depends on
-#'   `unit`: \describe{
-#'
-#' \item{`"ego"`}{a single logical value specifying whether the ego
-#' should be kept.}
-#'
-#' \item{`"alter"`}{either an integer vector of indices specifying
-#' which alters to select or a logical vector of length `nrow(x)`
-#' specifying which alters should be kept.}
-#'
-#' \item{`"aatie"`}{either an integer vector of indices specifying
-#' which alter-alter ties to select or a logical vector of length
-#' `nrow(x)` specifying which alter-alter ties should be kept.}
-#' 
-#' }
-#' the expressions can access variables in the calling environment;
-#' columns of [egor()] as variables (which mask the variables in the
-#' calling environment), as well as the following "virtual" columns to simplify indexing:
-#' \describe{
+#'   the selected unit (as in the eponymous argument of [subset()]) or
+#'   a function whose first argument is a row, specifying which egos,
+#'   alters, or alter-alter ties to keep. The expressions can access
+#'   variables in the calling environment; columns of the active unit,
+#'   columns of other units with which the active unit shares an ego
+#'   via `egos$`, `alters$`, and `aaties$` as well as the following
+#'   "virtual" columns to simplify indexing: \describe{
 #' 
 #' \item{Ego index `.egoRow`}{ contains the index (counting from 1) of the row being
 #' evaluated. (This can be used to access vector variables in the
@@ -84,138 +71,93 @@ rowlist <- function(x){
 #' # First three egos in the dataset
 #' e[1:3,]
 #'
-#' # Similarly with subset()
-#' subset(e, .egoRow <= 3)
-#'
 #' # Using an external vector
 #' # (though normally, we would use e[.keep,] here)
-#' .keep <- rep(c(TRUE, FALSE), length.out=nrow(e))
-#' subset(e, .keep[.egoRow])
-#' # a more robust version of the above: pass a function of row and
-#' # keep (which is passed as an additional argument to the function):
-#' subset(e, function(r, keep) keep[r$.egoRow], .keep)
-#'
-#' # Only keep egos with exactly three alters
-#' subset(e, nrow(.alts)==3)
-#'
-#' # Only keep egos with exactly two female alters
-#' subset(e, sum(.alts$sex=="w")==2)
-#'
-#' # Only keep female alters
-#' subset(e, .alts$sex=="w", unit="alter")
-#'
-#' # Only keep alters of a different sex form ego
-#' subset(e, sex != .alts$sex, unit="alter")
-#'
-#' # Only keep homophilous alter-alter ties
-#' subset(e, .alts$sex[.aaties$.srcRow] ==
-#'           .alts$sex[.aaties$.tgtRow],
-#'        unit="aatie")
-#'
+#' .keep <- rep(c(TRUE, FALSE), length.out=nrow(e$ego))
+#' subset(e, .keep)
 #' @importFrom methods is
+#' @importFrom dplyr nest_join
 #' @export
-subset.egor <- function(x, subset, ..., unit = c("ego","alter","aatie")){
-  unit <- match.arg(unit)
+subset.egor <- function(x, subset, ..., unit = attr(x, "active")){
+  unit <- match.arg(unit, UNITS)
   f <- try(is.function(subset), silent=TRUE)
   if(is(f, "try-error") || !f){
     se <- substitute(subset)
     pf <- parent.frame()
     f <- function(r) eval(se, r, pf)
   }else f <- subset
-  
-  ## egor object augmented with extra columns
-  # Copy and add an .egoRow column
-  xa <- cbind(x,.egoRow=seq_len(nrow(x)))
-  # Add an .altRow column to each alter
-  xa$.alts <- lapply(xa$.alts, function(a) cbind(a, .altRow=seq_len(nrow(a))))
-  # Add an .srcRow and .tgtRow column to each alter-alter table
-  if(".aaties"%in%names(xa))
-    xa$.aaties <- mapply(function(a,aa)
-      cbind(aa,
-            .srcRow = match(aa$.srcID, a$.altID),
-            .tgtRow = match(aa$.tgtID, a$.altID)),
-      a=xa$.alts, aa=xa$.aaties, SIMPLIFY=FALSE)
 
+  # The following works because we end up joining the same set of
+  # tables to any of these, except that for unit=="aatie", we also
+  # need to add row indices.
+
+  xa <- switch(unit,
+               ego = bind_cols(x$ego, .egoRow=seq_len(nrow(x$ego))),
+               alter = 
+                 # Within each ego, assign increasing alter
+                 # indices. Note that the first argument of ave() is a
+                 # dummy variable.
+                 x$alter,
+               aatie = x$aatie)
+
+  xa <- nest_join(xa, bind_cols(x$ego, .egoRow=seq_len(nrow(x$ego))), ".egoID", keep = TRUE, name="ego")
+  xa <- nest_join(xa, x$alter, ".egoID", keep = TRUE, name="alter")
+  xa$alter <- lapply(xa$alter, function(a) bind_cols(a, .altRow=seq_len(nrow(a))))
+  xa <- nest_join(xa, x$aatie, ".egoID", keep=TRUE, name="aatie")
+  xa$aatie <- mapply(function(a,aa)
+    bind_cols(aa,
+              .srcRow = match(aa$.srcID, a$.altID),
+              .tgtRow = match(aa$.tgtID, a$.altID)),
+    a = xa$alter, aa = xa$aatie, SIMPLIFY=FALSE)
+
+  if (unit == "aatie"){
+    xa$.srcRow <- mapply(function(a,aa) match(aa$.srcID, a$.altID),
+                         a=xa$alter, aa=xa$aatie, SIMPLIFY=TRUE)
+    xa$.tgtRow <- mapply(function(a,aa) match(aa$.tgtID, a$.altID),
+                         a=xa$alter, aa=xa$aatie, SIMPLIFY=TRUE)
+  }
+  
   # Call the function to perform indexing
   i <- lapply(rowlist(xa), f, ...)
 
-  x[i,,unit=unit]
+  x[i[[1]],,unit=unit]
 }
 
 #' @rdname subset.egor
 #'
-#' @param i depends on `unit`: \describe{
+#' @param i numeric or logical vector indexing the appropriate unit.
 #'
-#' \item{`"ego"`}{either an integer vector of indices specifying
-#' which egos to select or a logical vector of length `nrow(x)`
-#' specifying which rows should be kept; a logical list of length
-#' `nrow(x)` is acceptable as well.}
-#'
-#' \item{`"alter"`}{a ragged array (a [list()]) of length `nrow(x)`,
-#' either of integer vectors of indices specifying which alters to
-#' select for the corresponding ego or of logical vectors of length
-#' `nrow(x$.alts[k,,drop=FALSE])` specifying which alters should be kept.}
-#'
-#' \item{`"aatie"`}{a ragged array (a [list()]) of length `nrow(x)`,
-#' either of integer vectors of indices specifying which alter-alter
-#' ties to select for the corresponding ego or of logical vectors of
-#' length `nrow(x$.aaties[k,,drop=FALSE])` specifying which ties
-#' should be kept}
-#'
-#' }
-#'
-#' In general, constructing selection arrays for alters and ties is
-#' complicated and error-prone, so the use of [subset()] is
-#' recommended.
-#' 
 #' @param j either an integer vector specifying which columns of the
-#'   filtered structure (ego, alters, or ties) to select, or a
-#'   logical vector specifying which columns to keep.
+#'   filtered structure (ego, alters, or ties) to select, or a logical
+#'   vector specifying which columns to keep. Note that the special
+#'   columns .egoID, .altID, .srcID, .tgtID are not indexed by `j`.
+#   columns \Sexpr{sQuote(unlist(IDVARS))} are not indexed by `j`.
 #'
 #' @import tibble
-#' @importFrom utils getS3method
 #' @export
-`[.egor` <- function(x, i, j, unit = c("ego","alter","aatie"), ...){
-  unit <- match.arg(unit)
+`[.egor` <- function(x, i, j, unit = attr(x, "active"), ...){
+  unit <- match.arg(unit, UNITS)
   if(missing(i)) i <- TRUE
   if(missing(j)) j <- TRUE
 
   switch(unit,
          ego = {
-           # Subset using the tibble's method, then copy over all
-           # attributes except for the ones that could have changed.
-           if(is.list(i)) i <- unlist(i)
-           bracket <- getS3method("[", "tbl_df")
-           xt <- bracket(x,i,j,drop=FALSE)
-           if(".alts"%in%names(x) && ! ".alts"%in%names(xt)) xt <- cbind(xt, .alts=bracket(x,i,".alts"))
-           if(".aaties"%in%names(x) && ! ".aaties"%in%names(xt)) xt <- cbind(xt, .aaties=bracket(x,i,".aaties"))
-           for(a in setdiff(names(attributes(x)), c("ego_design", "names", "row.names")))
-             attr(xt, a) <- attr(x, a)
-           attr(xt, "ego_design") <- attr(x, "ego_design")[i,]
-           xt
-         },
-         alter = {
-           x$.alts <- mapply(function(a, ai){
-             at <- a[ai,j,drop=FALSE]
-             if(".altID"%in%names(a) && ! ".altID"%in%names(at)) at <- cbind(at, .altID=a$.altID[ai])
-             at
-           }, a=x$.alts, ai=i, SIMPLIFY=FALSE)
-           if(".aaties"%in%names(x))
-             x$.aaties <- mapply(function(a, aa){
-               aa[aa$.srcID %in% a$.altID & aa$.tgtID %in% a$.altID,
-                  j,drop=FALSE]
-             }, a=x$.alts, aa=x$.aaties, SIMPLIFY=FALSE)
+           # This guarantees that the ego ID column is always preserved.
+           x$ego <- bind_cols(x$ego[,seq_len(ncol(x$ego)-1),drop=FALSE][i,j,drop=FALSE, ...], x$ego[i,ncol(x$ego),drop=FALSE])
+           x$alter <- filter(x$alter, .egoID %in% x$ego$.egoID)
+           x$aatie <- filter(x$aatie, .egoID %in% x$ego$.egoID)
+           attr(x, "ego_design") <- attr(x, "ego_design")[i,]
            x
          },
+         alter = {
+           x$alter <- bind_cols(x$alter[,seq_len(ncol(x$alter)-2),drop=FALSE][i,j,drop=FALSE, ...], x$alter[i,ncol(x$alter)-2L+1:2,drop=FALSE])
+           # Explanation: keep a row in aaties iff its (egoID,altID) tuple can (still) be found in the alters as well.
+           trim_aaties(x)
+         },
          aatie = {
-           if(! ".aaties"%in%names(x))
+           if(!utils::hasName(x,"aatie"))
              stop("Attempted indexing of alter-alter ties on an object with no alter-alter ties observed.")
-           x$.aaties <- mapply(function(aa, aai){
-             aat <- aa[aai,j,drop=FALSE]
-             if(! ".srcID"%in%names(aat)) aat <- cbind(aat, .srcID=aa$.srcID[aai])
-             if(! ".tgtID"%in%names(aat)) aat <- cbind(aat, .tgtID=aa$.tgtID[aai])
-             aat
-           }, aa=x$.aaties, aai=i, SIMPLIFY=FALSE)
+           x$aatie <- bind_cols(x$aatie[,seq_len(ncol(x$aatie)-3),drop=FALSE][i,j,drop=FALSE, ...], x$aatie[i,ncol(x$aatie)-3L+1:3,drop=FALSE])
            x
          })
 }

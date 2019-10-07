@@ -1,8 +1,8 @@
 Package: egor
 Type: Package
 Title: Import and Analyse Ego-Centered Network Data
-Version: 0.19.1
-Date: 2019-01-31
+Version: 0.19.10
+Date: 2019-09-22
 Authors@R: c(
     person("Till", "Krenz", email = "egor@tillt.net",
     role = c("aut", "cre")),
@@ -32,6 +32,7 @@ Depends:
     dplyr,
     tibble
 Imports:
+    tidygraph,
     igraph,
     network,
     shiny,

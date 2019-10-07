@@ -8,12 +8,14 @@
 \usage{
 \method{summary}{egor}(object, ...)
 
-\method{print}{egor}(x, ...)
+\method{print}{egor}(x, ..., n = 3)
 }
 \arguments{
 \item{object, x}{an \code{\link{egor}} object.}
 
 \item{...}{additional arguments, either unused or passed to lower-level functions.}
+
+\item{n}{Number of rows to print.}
 }
 \description{
 Methods to print and summarize \code{\link{egor}} objects

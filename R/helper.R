@@ -1,3 +1,5 @@
+if(getRversion() >= "2.15.1") utils::globalVariables(c(".egoID"))
+
 #' General helper functions
 #'
 #' Helper functions for ego centered network analysis
@@ -8,6 +10,20 @@
 #' @param y \code{Numeric}.
 #' @name helper
 NULL
+
+#' @describeIn helper Converts an egor object to a "legacy" egor object with 
+#' nested .alts and .aaties columns.
+#' @export
+as_nested_egor <- function(x) {
+  x$aatie <- select(x$aatie, .srcID, .tgtID, .egoID, everything())
+  alters_l <- split(x$alter, factor(x$alter$.egoID, levels = x$ego$.egoID))
+  aaties_l <- split(x$aatie, factor(x$aatie$.egoID, levels = x$ego$.egoID))
+  x <- x$ego
+  x$.aaties <- aaties_l
+  x$.alts <- alters_l
+  class(x) <- c("nested_egor", class(x))
+  x
+}
 
 #' @describeIn helper Returns the count of possible edges in an
 #' undirected or directed, ego-centered network, based on the number of alters.

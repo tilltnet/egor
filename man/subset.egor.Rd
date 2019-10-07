@@ -5,35 +5,21 @@
 \alias{[.egor}
 \title{Filter and Subset Ego-centered Datasets}
 \usage{
-\method{subset}{egor}(x, subset, ..., unit = c("ego", "alter", "aatie"))
+\method{subset}{egor}(x, subset, ..., unit = attr(x, "active"))
 
-\method{[}{egor}(x, i, j, unit = c("ego", "alter", "aatie"), ...)
+\method{[}{egor}(x, i, j, unit = attr(x, "active"), ...)
 }
 \arguments{
 \item{x}{an \code{\link[=egor]{egor()}} object.}
 
 \item{subset}{either an expression evaluated on each of the rows of
-\code{\link[=egor]{egor()}} (as in the eponymous argument of \code{\link[=subset]{subset()}}) or a
-function whose first argument is a row, specifying which egos,
-alters, or alter-alter ties to keep; output format depends on
-\code{unit}: \describe{
-
-\item{\code{"ego"}}{a single logical value specifying whether the ego
-should be kept.}
-
-\item{\code{"alter"}}{either an integer vector of indices specifying
-which alters to select or a logical vector of length \code{nrow(x)}
-specifying which alters should be kept.}
-
-\item{\code{"aatie"}}{either an integer vector of indices specifying
-which alter-alter ties to select or a logical vector of length
-\code{nrow(x)} specifying which alter-alter ties should be kept.}
-
-}
-the expressions can access variables in the calling environment;
-columns of \code{\link[=egor]{egor()}} as variables (which mask the variables in the
-calling environment), as well as the following "virtual" columns to simplify indexing:
-\describe{
+the selected unit (as in the eponymous argument of \code{\link[=subset]{subset()}}) or
+a function whose first argument is a row, specifying which egos,
+alters, or alter-alter ties to keep. The expressions can access
+variables in the calling environment; columns of the active unit,
+columns of other units with which the active unit shares an ego
+via \code{egos$}, \code{alters$}, and \code{aaties$} as well as the following
+"virtual" columns to simplify indexing: \describe{
 
 \item{Ego index \code{.egoRow}}{ contains the index (counting from 1) of the row being
 evaluated. (This can be used to access vector variables in the
@@ -52,35 +38,15 @@ attributes of the alters in question.)}
 
 \item{unit}{a selector of the unit of analysis being affected: the
 egos, the alters or the (alter-alter) ties. Note that only one
-type of unit can be affected at a time.}
+type of unit can be affected at a time. Defaults to the current
+active unit selected by \code{\link[=activate.egor]{activate.egor()}}.}
 
-\item{i}{depends on \code{unit}: \describe{
-
-\item{\code{"ego"}}{either an integer vector of indices specifying
-which egos to select or a logical vector of length \code{nrow(x)}
-specifying which rows should be kept; a logical list of length
-\code{nrow(x)} is acceptable as well.}
-
-\item{\code{"alter"}}{a ragged array (a \code{\link[=list]{list()}}) of length \code{nrow(x)},
-either of integer vectors of indices specifying which alters to
-select for the corresponding ego or of logical vectors of length
-\code{nrow(x$.alts[k,,drop=FALSE])} specifying which alters should be kept.}
-
-\item{\code{"aatie"}}{a ragged array (a \code{\link[=list]{list()}}) of length \code{nrow(x)},
-either of integer vectors of indices specifying which alter-alter
-ties to select for the corresponding ego or of logical vectors of
-length \code{nrow(x$.aaties[k,,drop=FALSE])} specifying which ties
-should be kept}
-
-}
-
-In general, constructing selection arrays for alters and ties is
-complicated and error-prone, so the use of \code{\link[=subset]{subset()}} is
-recommended.}
+\item{i}{numeric or logical vector indexing the appropriate unit.}
 
 \item{j}{either an integer vector specifying which columns of the
-filtered structure (ego, alters, or ties) to select, or a
-logical vector specifying which columns to keep.}
+filtered structure (ego, alters, or ties) to select, or a logical
+vector specifying which columns to keep. Note that the special
+columns .egoID, .altID, .srcID, .tgtID are not indexed by \code{j}.}
 }
 \value{
 An \code{\link[=egor]{egor()}} object.
@@ -101,32 +67,8 @@ alters and ties.
 # First three egos in the dataset
 e[1:3,]
 
-# Similarly with subset()
-subset(e, .egoRow <= 3)
-
 # Using an external vector
 # (though normally, we would use e[.keep,] here)
-.keep <- rep(c(TRUE, FALSE), length.out=nrow(e))
-subset(e, .keep[.egoRow])
-# a more robust version of the above: pass a function of row and
-# keep (which is passed as an additional argument to the function):
-subset(e, function(r, keep) keep[r$.egoRow], .keep)
-
-# Only keep egos with exactly three alters
-subset(e, nrow(.alts)==3)
-
-# Only keep egos with exactly two female alters
-subset(e, sum(.alts$sex=="w")==2)
-
-# Only keep female alters
-subset(e, .alts$sex=="w", unit="alter")
-
-# Only keep alters of a different sex form ego
-subset(e, sex != .alts$sex, unit="alter")
-
-# Only keep homophilous alter-alter ties
-subset(e, .alts$sex[.aaties$.srcRow] ==
-          .alts$sex[.aaties$.tgtRow],
-       unit="aatie")
-
+.keep <- rep(c(TRUE, FALSE), length.out=nrow(e$ego))
+subset(e, .keep)
 }

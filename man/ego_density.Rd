@@ -2,31 +2,19 @@
 % Please edit documentation in R/density.R
 \name{ego_density}
 \alias{ego_density}
-\alias{ego_density.list}
 \alias{ego_density.egor}
-\alias{ego_density.data.frame}
 \title{Calculate the relationship density in ego-centered networks}
 \usage{
 ego_density(object, ...)
 
-\method{ego_density}{list}(object, aaties, weight = NULL,
-  max.netsize = NULL, directed = FALSE, ...)
-
 \method{ego_density}{egor}(object, weight = NULL, max.netsize = NULL,
   directed = FALSE, ...)
-
-\method{ego_density}{data.frame}(object, aaties, egoID = "egoID",
-  weight = NULL, max.netsize = NULL, directed = FALSE, ...)
 }
 \arguments{
 \item{object}{Either an \code{egor} object or a \code{data.frame/ list}
 containg alter attributes.}
 
 \item{...}{arguments to be passed to methods}
-
-\item{aaties}{\code{data.frame/ list} containg alter-alter relations as a
-'global edge list' or as a list of 'edge lists'.
-(not needed if \code{object} is an \code{egor} object).}
 
 \item{weight}{\code{Character} naming a variable containing the weight values
 of relations. Weights should range from 0 to 1.}
@@ -36,9 +24,6 @@ number of alters whose relations were collected is limited.}
 
 \item{directed}{logical indicating if the alter-alter relation data/ edges
 are directed or undirected.}
-
-\item{egoID}{Name of ego ID variable. Only needs to be specified if alter
-and alter-alter data is provided in global data.frames.}
 }
 \value{
 returns a \code{vector} of network density values.

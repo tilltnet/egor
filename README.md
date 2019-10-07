@@ -3,12 +3,15 @@
 
 egor
 =======
-R Package for importing and analysing ego-centered-network data.
+R Package for importing and analyzing ego-centered-network data.
 
 Install with:
+
+    install.packages("egor")
+
+Or the development version:
 
     devtools::install_github(repo="tilltnet/egor")
 
 
- Please find all further information here: http://tilltnet.github.io/egor/
-
+Please see the [package vignette](https://cran.r-project.org/web/packages/egor/vignettes/using_egor.html) for an overview of the capabilities of egor.

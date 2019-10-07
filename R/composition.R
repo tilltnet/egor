@@ -28,18 +28,18 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 composition <- function(object, alt.attr, absolute = FALSE) {
   alt.attr_enquo <- enquo(alt.attr)
   
-  if(absolute) {
-    comp <- function(x) select(x, tmp = !!alt.attr_enquo) %>%
-      count(tmp) %>%
-      spread(tmp, n) 
+  if (absolute) {
+    comp <- function(x) select(x, .egoID, tmp = !!alt.attr_enquo) %>%
+      count(.egoID, tmp) %>%
+      tidyr::spread(tmp, n) 
   } else {
-    comp <- function(x) select(x, tmp = !!alt.attr_enquo) %>%
-      count(tmp) %>%
+    comp <- function(x) select(x, .egoID, tmp = !!alt.attr_enquo) %>%
+      count(.egoID, tmp) %>%
       mutate(prop = n / sum(n)) %>%
-      select(tmp, prop) %>%
-      spread(tmp, prop)
+      select(.egoID, tmp, prop) %>%
+      tidyr::spread(tmp, prop)
   }
-  map_dfr(object$.alts, comp)
+  comp(object$alter)
 }
 
 
@@ -67,13 +67,22 @@ composition <- function(object, alt.attr, absolute = FALSE) {
 #' @export
 comp_ply <- function(object, alt.attr, .f, ..., ego.attr = NULL) {
   alt.attr_enquo <- enquo(alt.attr)
+  alter_l <- split(object$alter,
+                   factor(object$alter$.egoID,
+                          levels = unique(object$ego$.egoID)))
+  
   if (!is.null(ego.attr)) {
-    map2_dbl(object$.alts, object[[ego.attr]], function(x, y)
+    res <- map2_dbl(alter_l, object$ego[[ego.attr]], function(x, y)
       pull(x, !!alt.attr_enquo) %>% .f(y, ...))
   } else {
-    map_dbl(object$.alts, function(x)
+    res <- map_dbl(alter_l, function(x)
       pull(x, !!alt.attr_enquo) %>% .f(...))
   }
+    res %>%
+    {
+      tibble(.egoID = names(.),
+             result = .)
+    }
 }
 
 #' Calculate diversity measures on an `egor` object.
@@ -102,7 +111,7 @@ fun_alts_diversity <- function(x, var_name) {
 
 #' @rdname alts_diversity_count
 #' @export
-alts_diversity_entropy <- function(object, alt.attr, base) 
+alts_diversity_entropy <- function(object, alt.attr, base = 2) 
   comp_ply(object, alt.attr, .f = fun_entropy, base = base)
 
 fun_entropy <- function(x, base = 2) {
@@ -131,14 +140,16 @@ fun_comp_ei <- function (x, ego_var)
   ego_var <- as.character(ego_var)
   
   homogen <- x == ego_var
-
-  tibble(homogen) %>% 
-    mutate(homogen = factor(homogen, c("TRUE", "FALSE"), c("I", "E"))) %>% 
-    count(homogen) %>% 
-    tidyr::complete(homogen, fill = list(n =0)) %>%
-    tidyr::spread(homogen, n) %>% {
-      (.$E - .$I) / (.$E + .$I)
-    }
+  
+  suppressWarnings({
+    tibble(homogen) %>%
+      mutate(homogen = factor(homogen, c("TRUE", "FALSE"), c("I", "E"))) %>%
+      count(homogen) %>%
+      tidyr::complete(homogen, fill = list(n = 0)) %>%
+      tidyr::spread(homogen, n) %>% {
+        (.$E - .$I) / (.$E + .$I)
+      }
+  })
 }
 
 
