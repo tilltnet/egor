@@ -4,3 +4,4 @@
 ^appveyor\.yml$
 .RSession
 man-roxygen
+readme.md
