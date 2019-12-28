@@ -134,6 +134,7 @@ plot_egograms <- function(x,
         res_disp_vars = res_disp_vars,
         vertex_zoom = vertex_zoom,
         edge_zoom = edge_zoom,
+        venn_colors = venn_colors,
         font_size = font_size,
         ...
       )
@@ -164,6 +165,7 @@ plot_egogram <- function(x, nnumber, venn_var, pie_var,
   ego_object <-
     slice(x, nnumber)
   
+  pie_var_name <- pie_var
   venn_var <- ego_object$alter[[venn_var]]
   pie_var <- ego_object$alter[[pie_var]]
   
@@ -179,8 +181,9 @@ plot_egogram <- function(x, nnumber, venn_var, pie_var,
     venn_var <- factor(venn_var, levels =unique(x$alter[[venn_var]]))
   }
   
+  #!# This line fails when pie var is a character, which it is meant for. pie_var_name needs to captured before!!!
   if (is.character(pie_var)) {
-    pie_var <- factor(pie_var, levels = unique(x$alter[[pie_var]]))
+    pie_var <- factor(pie_var, levels = unique(x$alter[[pie_var_name]]))
   }
   
   venn_n <- length(levels(venn_var))
