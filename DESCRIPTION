@@ -45,10 +45,10 @@ Imports:
     rlang
 Suggests:
     knitr,
-    testthat,
+    testthat (>= 2.1.0),
     rmarkdown
 VignetteBuilder: knitr
-RoxygenNote: 6.1.1.9000
+RoxygenNote: 7.0.2
 Roxygen: list(markdown = TRUE)
 LazyData: true
 Encoding: UTF-8
