@@ -6,14 +6,29 @@
 \alias{as.igraph.egor}
 \title{Convert \code{egor} object to \code{network} or \code{igraph} objects}
 \usage{
-as_igraph(x, directed = FALSE, include.ego = FALSE, ego.attrs = NULL,
-  ego.alter.weights = NULL)
+as_igraph(
+  x,
+  directed = FALSE,
+  include.ego = FALSE,
+  ego.attrs = NULL,
+  ego.alter.weights = NULL
+)
 
-\method{as_igraph}{nested_egor}(x, directed = FALSE,
-  include.ego = FALSE, ego.attrs = NULL, ego.alter.weights = NULL)
+\method{as_igraph}{nested_egor}(
+  x,
+  directed = FALSE,
+  include.ego = FALSE,
+  ego.attrs = NULL,
+  ego.alter.weights = NULL
+)
 
-as.igraph.egor(x, directed = FALSE, include.ego = FALSE,
-  ego.attrs = NULL, ego.alter.weights = NULL)
+as.igraph.egor(
+  x,
+  directed = FALSE,
+  include.ego = FALSE,
+  ego.attrs = NULL,
+  ego.alter.weights = NULL
+)
 }
 \arguments{
 \item{x}{An \code{egor} object.}

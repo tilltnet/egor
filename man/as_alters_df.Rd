@@ -7,8 +7,7 @@
 \usage{
 as_alters_df(object, include.ego.vars = FALSE)
 
-as_aaties_df(object, include.ego.vars = FALSE,
-  include.alt.vars = FALSE)
+as_aaties_df(object, include.ego.vars = FALSE, include.alt.vars = FALSE)
 }
 \arguments{
 \item{object}{An \code{egor} object.

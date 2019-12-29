@@ -4,33 +4,30 @@
 \alias{onefile_to_egor}
 \title{Import ego-centered network data from 'one file format'}
 \usage{
-onefile_to_egor(egos, netsize, ID.vars = list(ego = "egoID"),
-  attr.start.col, attr.end.col, max.alters, aa.first.var,
-  aa.regex = NULL, ego.vars = NULL, var.wise = FALSE, ...)
+onefile_to_egor(
+  egos,
+  netsize = NULL,
+  ID.vars = list(ego = "egoID"),
+  attr.start.col,
+  attr.end.col,
+  max.alters,
+  aa.first.var,
+  aa.regex = NULL,
+  ego.vars = NULL,
+  var.wise = FALSE,
+  ...
+)
 }
 \arguments{
 \item{egos}{\code{Data frame} containg ego data (egos as cases)}
 
-\item{netsize}{\code{Vector} containing values of network size per ego.}
+\item{netsize}{Numeric, network size values are used to filter out empty
+alter entries. If the alter data is not structured in a way, where valid alters
+are stored before the invalid alters, pass NULL here and filter out inbalid
+alters afterwards.}
 
-\item{ID.vars}{A named list containing column names of the relevant
-input columns: \describe{
-
-\item{\code{ego}}{unique identifier associated with each ego, defaulting
-to \code{"egoID"}; has no effect if \code{alters.df} and \code{aaties.df} are
-both lists of data frames.}
-
-\item{\code{alter}}{unique-within-ego identifier associated with each
-alter, defaulting to \code{"alterID"}; optional \code{aaties.df} are not
-provided.}
-
-\item{\code{source}}{if \code{aaties.df} is provided, the column given the
-alter identifier of the origin of a relation.}
-
-\item{\code{target}}{if \code{aaties.df} is provided, the column given the
-alter identifier of the destination of a relation.}
-
-}}
+\item{ID.vars}{Character. For onefile_to_egor only the name of the ego ID needs
+to be provided.}
 
 \item{attr.start.col}{Index or name of the first colum containing alter attributes.}
 
@@ -48,19 +45,16 @@ source (or the first alter identified), and the target (or the
 second alter identified) of the edge, respectively. See \code{\link{regex}}
 for more information.}
 
-\item{ego.vars}{A \code{data.frame} of alter attributes in the wide format.}
-
-\item{var.wise}{Logical value indicatin if the alter attributes are sorted variable wise (defaults to FALSE).}
+\item{var.wise}{Logical value indicating if the alter attributes are sorted variable wise (defaults to FALSE).}
 
 \item{...}{additional arguments to \code{\link[=egor]{egor()}}.}
 }
 \value{
-A \code{list} of six objects - the \strong{egoR} object: (1) egos.df: \code{dataframe} of all
-egos and their attributes; (2) alters.df: \code{dataframe} of all alters;
-(3) alters.list: \code{list} of \code{dataframes} of all alters per ego;
-(4) edges: \code{list} of \code{dataframes} with edge lists per network; (5)
-graphs: \code{list} of igraph objects; (6) results: a result \code{dataframe},
-pre-populated with the network size of each network
+An \strong{egor} object is returned. It is a \code{list} of three data frames:
+(1) ego: \code{dataframe} of all
+egos and their attributes;
+(2) alter: \code{dataframe} of all alters;
+(3) aatie: \code{dataframe} of alter alter ties/ edges
 }
 \description{
 This function imports ego-centered network data, stored in a single file, providing

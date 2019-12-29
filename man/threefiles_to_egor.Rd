@@ -7,17 +7,33 @@
 \title{Read/ import ego-centered network data from the three files format, EgoWeb2.0 or
 openeddi.}
 \usage{
-threefiles_to_egor(egos, alters.df, edges, ID.vars = list(ego = "egoID",
-  alter = "alterID", source = "Source", target = "Target"),
-  ego.vars = NULL, ...)
+threefiles_to_egor(
+  egos,
+  alters.df,
+  edges,
+  ID.vars = list(ego = "egoID", alter = "alterID", source = "Source", target = "Target"),
+  ego.vars = NULL,
+  ...
+)
 
-read_egoweb(alter.file, edges.file, egos.file = NULL,
-  ID.vars = list(ego = "EgoID", alter = "Alter.Number", source =
-  "Alter.1.Number", target = "Alter.2.Number"), ego.vars = NULL, ...)
+read_egoweb(
+  alter.file,
+  edges.file,
+  egos.file = NULL,
+  ID.vars = list(ego = "EgoID", alter = "Alter.Number", source = "Alter.1.Number",
+    target = "Alter.2.Number"),
+  ego.vars = NULL,
+  ...
+)
 
-read_openeddi(egos.file = NULL, alters.file = NULL,
-  edges.file = NULL, ID.vars = list(ego = "puid", alter = "nameid",
-  source = "nameid", target = "targetid"), ego.vars = NULL, ...)
+read_openeddi(
+  egos.file = NULL,
+  alters.file = NULL,
+  edges.file = NULL,
+  ID.vars = list(ego = "puid", alter = "nameid", source = "nameid", target = "targetid"),
+  ego.vars = NULL,
+  ...
+)
 }
 \arguments{
 \item{egos}{\code{Data frame} containg ego data (egos as cases)}
@@ -61,12 +77,11 @@ alter identifier of the destination of a relation.}
 \item{alters.file}{\code{Character} name of the alters data file.}
 }
 \value{
-A \code{list} of six objects - the \strong{egoR} object: (1) egos.df: \code{dataframe} of all
-egos and their attributes; (2) alters.df: \code{dataframe} of all alters;
-(3) alters.list: \code{list} of \code{dataframes} of all alters per ego;
-(4) edges: \code{list} of \code{dataframes} with edge lists per network; (5)
-graphs: \code{list} of igraph objects; (6) results: a result \code{dataframe},
-pre-populated with the network size of each network
+An \strong{egor} object is returned. It is a \code{list} of three data frames:
+(1) ego: \code{dataframe} of all
+egos and their attributes;
+(2) alter: \code{dataframe} of all alters;
+(3) aatie: \code{dataframe} of alter alter ties/ edges
 }
 \description{
 These functions read ego-centered network data from the three files

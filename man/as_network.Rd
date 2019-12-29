@@ -6,11 +6,21 @@
 \title{Creates a list of statnet's network objects, from an
 \code{egor} object.}
 \usage{
-as_network(x, directed = FALSE, include.ego = FALSE,
-  ego.attrs = NULL, ego.alter.weights = NULL)
+as_network(
+  x,
+  directed = FALSE,
+  include.ego = FALSE,
+  ego.attrs = NULL,
+  ego.alter.weights = NULL
+)
 
-\method{as.network}{egor}(x, directed = FALSE, include.ego = FALSE,
-  ego.attrs = NULL, ego.alter.weights = NULL)
+\method{as.network}{egor}(
+  x,
+  directed = FALSE,
+  include.ego = FALSE,
+  ego.attrs = NULL,
+  ego.alter.weights = NULL
+)
 }
 \arguments{
 \item{x}{An egor Object.}

@@ -7,8 +7,13 @@ When alter-alter for numerous networks is stored in one file/object it is
 common use the 'wide' data format. This function transforms such data to an
 edge lists.}
 \usage{
-wide.dyads.to.edgelist(e.wide, first.var, max.alters, alters.list = NULL,
-  selection = NULL)
+wide.dyads.to.edgelist(
+  e.wide,
+  first.var,
+  max.alters,
+  alters.list = NULL,
+  selection = NULL
+)
 }
 \arguments{
 \item{e.wide}{A dataframe containing the alter-alter relation data in the

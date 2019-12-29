@@ -18,7 +18,7 @@ a function whose first argument is a row, specifying which egos,
 alters, or alter-alter ties to keep. The expressions can access
 variables in the calling environment; columns of the active unit,
 columns of other units with which the active unit shares an ego
-via \code{egos$}, \code{alters$}, and \code{aaties$} as well as the following
+via \verb{egos$}, \verb{alters$}, and \verb{aaties$} as well as the following
 "virtual" columns to simplify indexing: \describe{
 
 \item{Ego index \code{.egoRow}}{ contains the index (counting from 1) of the row being

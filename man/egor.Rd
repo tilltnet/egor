@@ -5,9 +5,14 @@
 \alias{as.egor}
 \title{egor - a data class for ego-centered network data.}
 \usage{
-egor(alters, egos = NULL, aaties = NULL, ID.vars = list(ego =
-  "egoID", alter = "alterID", source = "Source", target = "Target"),
-  ego_design = list(~1), alter_design = list(max = Inf))
+egor(
+  alters,
+  egos = NULL,
+  aaties = NULL,
+  ID.vars = list(ego = "egoID", alter = "alterID", source = "Source", target = "Target"),
+  ego_design = list(~1),
+  alter_design = list(max = Inf)
+)
 
 as.egor(x, ...)
 }

@@ -23,7 +23,7 @@ A \code{numeric} vector.
 \description{
 \code{comp_ply()} applies a function, that uses an alter attribute to calculate
 a compositional measurement, on all networks in an \code{egor} object and returns a
-\code{numeric vector}.
+\verb{numeric vector}.
 }
 \details{
 When an ego attribute is used the \code{.f} is called like this:

@@ -4,8 +4,15 @@
 \alias{vert.attr}
 \title{Vertex attribute to data frame into graph.}
 \usage{
-vert.attr(data, attribute, graph, dataID, graphID = "name", FUN = NA,
-  unfactor = TRUE)
+vert.attr(
+  data,
+  attribute,
+  graph,
+  dataID,
+  graphID = "name",
+  FUN = NA,
+  unfactor = TRUE
+)
 }
 \arguments{
 \item{data}{Data frame. The data.frame containing the author attribute

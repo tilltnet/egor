@@ -4,9 +4,15 @@
 \alias{read_egonet}
 \title{Read ego-centered network data exported with EgoNet software as an \code{egor} object}
 \usage{
-read_egonet(egos.file, alter.folder, edge.folder, csv.sep = ",",
-  ID.vars = list(ego = "egoID", alter = "alterID", source = "Source",
-  target = "Target"), first.col.row.names = FALSE, ...)
+read_egonet(
+  egos.file,
+  alter.folder,
+  edge.folder,
+  csv.sep = ",",
+  ID.vars = list(ego = "egoID", alter = "alterID", source = "Source", target = "Target"),
+  first.col.row.names = FALSE,
+  ...
+)
 }
 \arguments{
 \item{egos.file}{File name of the .csv file containing the ego data.}
@@ -44,12 +50,11 @@ row names, that are to be skipped, default is \code{FALSE}.}
 \item{...}{additional arguments to \code{\link[=egor]{egor()}}.}
 }
 \value{
-A \code{list} of six objects - the \strong{egoR} object: (1) egos.df: \code{dataframe} of all
-egos and their attributes; (2) alters.df: \code{dataframe} of all alters;
-(3) alters.list: \code{list} of \code{dataframes} of all alters per ego;
-(4) edges: \code{list} of \code{dataframes} with edge lists per network; (5)
-graphs: \code{list} of igraph objects; (6) results: a result \code{dataframe},
-pre-populated with the network size of each network
+An \strong{egor} object is returned. It is a \code{list} of three data frames:
+(1) ego: \code{dataframe} of all
+egos and their attributes;
+(2) alter: \code{dataframe} of all alters;
+(3) aatie: \code{dataframe} of alter alter ties/ edges
 }
 \description{
 This function imports ego-centered network data from folders with separate
