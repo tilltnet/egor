@@ -345,7 +345,6 @@ onefile_to_egor <-
            max.alters,
            aa.first.var,
            aa.regex = NULL,
-           ego.vars = NULL,
            var.wise = FALSE,
            ...) {
     IDv <- modifyList(eval(formals()$ID.vars), ID.vars)
@@ -370,7 +369,7 @@ onefile_to_egor <-
         max.alters = max.alters,
         start.col = attr.start.col,
         end.col = attr.end.col,
-        ego.vars = ego.vars,
+        ego.vars = NULL,
         var.wise = var.wise
       )
     
