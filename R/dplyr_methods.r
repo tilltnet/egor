@@ -573,7 +573,7 @@ group_split.egor <- function(.tbl, ...) {
 #' @export
 #' @noRd
 #' @method group_modify egor
-group_modify.egor <- function(.data, .f, ..., keep = FALSE) {
+group_modify.egor <- function(.tbl, .f, ..., keep = FALSE) {
   result <- group_modify(.data[[attr(.data, "active")]], .f, ..., keep = keep)
   return_egor_with_result(.data, result)
 }
