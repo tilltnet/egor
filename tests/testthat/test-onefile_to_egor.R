@@ -19,8 +19,8 @@ test_that("onefile_to_egor works with var wise data", {
   )
   
   # with netsize
-  onefile_to_egor(egos = raw_data_vv,
-                  netsize = raw_data$netsize,
+  e <- onefile_to_egor(egos = raw_data_vv,
+                  netsize = raw_data_vv$netsize,
                   ID.vars = list(ego = "V2"),
                   attr.start.col = "sex_a",
                   attr.end.col = "age_c", 
