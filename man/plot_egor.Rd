@@ -8,28 +8,63 @@
 \alias{plot.egor}
 \title{Plotting \emph{egor} objects}
 \usage{
-plot_egograms(x, nnumber = 1, x_dim = 1, y_dim = 1, venn_var,
-  pie_var, vertex_size_var = NULL, vertex_color_var = NULL,
+plot_egograms(
+  x,
+  nnumber = 1,
+  x_dim = 1,
+  y_dim = 1,
+  venn_var,
+  pie_var,
+  vertex_size_var = NULL,
+  vertex_color_var = NULL,
   vertex_color_palette = "Heat Colors",
-  vertex_color_legend_label = NULL, vertex_label_var = NULL,
-  edge_width_var = NULL, edge_color_var = NULL,
-  edge_color_palette = "Heat Colors", highlight_box_col_var = NULL,
-  highlight_box_col_palette = "Heat Colors", res_disp_vars = NULL,
-  vertex_zoom = 1, edge_zoom = 3, font_size = 1,
-  venn_colors = NULL, show_venn_labels = TRUE, ...)
+  vertex_color_legend_label = NULL,
+  vertex_label_var = NULL,
+  edge_width_var = NULL,
+  edge_color_var = NULL,
+  edge_color_palette = "Heat Colors",
+  highlight_box_col_var = NULL,
+  highlight_box_col_palette = "Heat Colors",
+  res_disp_vars = NULL,
+  vertex_zoom = 1,
+  edge_zoom = 3,
+  font_size = 1,
+  venn_colors = NULL,
+  show_venn_labels = TRUE,
+  ...
+)
 
-plot_ego_graphs(x, nnumber, x_dim = 1, y_dim = 1,
-  vertex_size_var = NULL, vertex_color_var = NULL,
+plot_ego_graphs(
+  x,
+  nnumber,
+  x_dim = 1,
+  y_dim = 1,
+  vertex_size_var = NULL,
+  vertex_color_var = NULL,
   vertex_color_palette = "Heat Colors",
-  vertex_color_legend_label = NULL, vertex_label_var = NULL,
-  edge_width_var = NULL, edge_color_var = NULL,
-  edge_color_palette = "Heat Colors", highlight_box_col_var = NULL,
-  highlight_box_col_palette = "Heat Colors", res_disp_vars = NULL,
-  vertex_zoom = 1, edge_zoom = 3, font_size = 1,
-  include_ego = FALSE, ...)
+  vertex_color_legend_label = NULL,
+  vertex_label_var = NULL,
+  edge_width_var = NULL,
+  edge_color_var = NULL,
+  edge_color_palette = "Heat Colors",
+  highlight_box_col_var = NULL,
+  highlight_box_col_palette = "Heat Colors",
+  res_disp_vars = NULL,
+  vertex_zoom = 1,
+  edge_zoom = 3,
+  font_size = 1,
+  include_ego = FALSE,
+  ...
+)
 
-plot_egor(x, nnumber = 1, x_dim = 2, y_dim = 2, ...,
-  type = c("egograph", "egogram"))
+plot_egor(
+  x,
+  nnumber = 1,
+  x_dim = 2,
+  y_dim = 2,
+  ...,
+  type = c("egograph", "egogram")
+)
 
 \method{plot}{egor}(x, ...)
 }
