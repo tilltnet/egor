@@ -1,4 +1,4 @@
-library(egor)
+context("test-onefile_to_egor.R")
 
 test_that("onefile_to_egor works with var wise data", {
   # create test data
