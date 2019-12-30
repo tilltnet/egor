@@ -87,6 +87,14 @@ test_that(
 )
 
 test_that(
+  "summary.egor works",
+  {
+    e <- make_egor(6,12)
+    expect_error(summary(e), NA)
+  }
+)
+
+test_that(
   "egor() works with missing alters/ aaties / egos.",
   {
     alters <- tibble(egoID = gl(3,4), 

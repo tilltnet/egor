@@ -175,24 +175,31 @@ egor <- function(alters,
 #' @method summary egor
 #' @export
 summary.egor <- function(object, ...) {
+  
+  # TODO: return tibble instead of using cat for output?!? 
   # Network count
   nc <- nrow(object$ego)
   
-  # Average netsize
-  nts <- object$alter %>% 
-    pull(.altID) %>% unique() %>% length()
+  # Min, Max  & Average netsize
+  min_nts <- min(table(object$alter$.egoID))
+  max_nts <- max(table(object$alter$.egoID))
+  avg_nts <- mean(table(object$alter$.egoID))
   
   # Total number of alters
-  alts_count <- nrow(object$alters)
+  alts_count <- nrow(object$alter)
   
   # Average density
-  #if ("aaties" %in% names(object)) 
-  #  dens <- mean(ego_density(object = object), na.rm = TRUE)
-  dens <- NULL
-  cat(paste(nc, "Egos/ Ego Networks", 
-            paste("\n", alts_count, "Alters"),
-            "\nAverage Netsize", nts, "\n"))
-  if (!is.null(dens)) cat(paste("Average Density", dens))
+  if ("aatie" %in% names(object)) 
+    dens <- mean(ego_density(object = object), na.rm = TRUE)
+  else
+    dens <- NULL
+  
+  cat(paste(nc, "Egos/ Ego Networks",
+            paste0( "\n", alts_count, " Alters"),
+            "\nMin. Netsize", min_nts,
+            "\nAverage Netsize", avg_nts,
+            "\nMax. Netsize", max_nts, "\n"))
+  if (!is.null(dens)) cat(paste("Average Density", dens, "\n"))
 
   # Meta Data
   cat("\nEgo sampling design:\n")
