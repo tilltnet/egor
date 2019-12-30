@@ -11,7 +11,8 @@ make_egor(net.count, max.alters, netsize = NULL, plot = FALSE)
 
 \item{max.alters}{Maximum size of networks.}
 
-\item{netsize}{\code{Numeric} for fixed network sizes.}
+\item{netsize}{\code{Character}, use 'fixed' for fixed network sizes. All networks
+will have the max.alters as network size.}
 
 \item{plot}{whether to plot the network size distribution.}
 }

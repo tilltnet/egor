@@ -29,13 +29,14 @@ make_edge_list <- function(netsize) {
 #' This function generates random ego-centered-network data for a specified number of networks with a maximum network size. The network size of the generated networks is a normal distribution with sd=5.
 #' @param net.count Number of networks/ egos to generate.
 #' @param max.alters Maximum size of networks.
-#' @param netsize \code{Numeric} for fixed network sizes.
+#' @param netsize_fixed \code{Logical}, if TRUE  all networks
+#' will have max.alters as network size.
 #' @param plot whether to plot the network size distribution.
 #' @keywords ego-centered network
 #' @keywords random
 #'
 #' @export
-make_egor <- function(net.count, max.alters, netsize = NULL, plot=FALSE) {
+make_egor <- function(net.count, max.alters, netsize_fixed = FALSE, plot = FALSE) {
   
   country_names <- c("Poland", "Australia", "USA", "Germany")
   
@@ -50,7 +51,7 @@ make_egor <- function(net.count, max.alters, netsize = NULL, plot=FALSE) {
   income <- sample(1:200*365, net.count, replace = TRUE)
   
   # Generating netsize
-  if (is.null(netsize)) {
+  if (!netsize_fixed) {
 #' @importFrom stats dnorm
     probs <- dnorm(seq(-max.alters/2, max.alters/2, length = max.alters), sd = 5)  
     netsize <- sample(2:max.alters, net.count, prob = probs[-1], replace = TRUE)
@@ -59,8 +60,8 @@ make_egor <- function(net.count, max.alters, netsize = NULL, plot=FALSE) {
       plot(table(netsize), type="l",ylab = "frequency")
       plot(sort(netsize, decreasing = TRUE), type="l",ylab = "netsize")
     }
-  } else if (netsize == 'fixed') {
-    netsize <- max.alters
+  } else {
+    netsize <- rep(max.alters, net.count)
   }
   
   # Creating egos return object
