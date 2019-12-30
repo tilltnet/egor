@@ -13,7 +13,6 @@ onefile_to_egor(
   max.alters,
   aa.first.var,
   aa.regex = NULL,
-  ego.vars = NULL,
   var.wise = FALSE,
   ...
 )
