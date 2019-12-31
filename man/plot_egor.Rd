@@ -10,7 +10,7 @@
 \usage{
 plot_egograms(
   x,
-  nnumber = 1,
+  ego_no = 1,
   x_dim = 1,
   y_dim = 1,
   venn_var,
@@ -36,7 +36,7 @@ plot_egograms(
 
 plot_ego_graphs(
   x,
-  nnumber,
+  ego_no = 1,
   x_dim = 1,
   y_dim = 1,
   vertex_size_var = NULL,
@@ -59,7 +59,7 @@ plot_ego_graphs(
 
 plot_egor(
   x,
-  nnumber = 1,
+  ego_no = 1,
   x_dim = 2,
   y_dim = 2,
   ...,
@@ -71,7 +71,7 @@ plot_egor(
 \arguments{
 \item{x}{An \emph{egor} object.}
 
-\item{nnumber}{Ego row number.}
+\item{ego_no}{Ego row number.}
 
 \item{x_dim}{Number of ego networks to plot horizontally.}
 

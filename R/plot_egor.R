@@ -3,7 +3,7 @@
 #' *egor* Objects can be plotted as *egographs* or *egograms*. By
 #' default networks of the four first egos are plotted.
 #' @param x An _egor_ object.
-#' @param nnumber Ego row number.
+#' @param ego_no Ego row number.
 #' @param x_dim Number of ego networks to plot horizontally.
 #' @param y_dim Number of ego networks to plot vertically
 #' @param venn_var Name (character) of alter column.
@@ -30,11 +30,11 @@
 #' @details For type eqals "egograph" ego networks are plotted using 
 
 #' @export
-plot_egor <- function(x, nnumber = 1, x_dim = 2, y_dim = 2, ..., type = c("egograph", "egogram")) {
+plot_egor <- function(x, ego_no = 1, x_dim = 2, y_dim = 2, ..., type = c("egograph", "egogram")) {
   if (type[1] == "egograph") {
-    plot_ego_graphs(x, nnumber = nnumber, x_dim = x_dim, y_dim = y_dim, ...)
+    plot_ego_graphs(x, ego_no = ego_no, x_dim = x_dim, y_dim = y_dim, ...)
   } else if (type[1] == "egogram") {
-    plot_egograms(x, nnumber = nnumber, x_dim = x_dim, y_dim = y_dim, ...)
+    plot_egograms(x, ego_no = ego_no, x_dim = x_dim, y_dim = y_dim, ...)
   }
 }
 

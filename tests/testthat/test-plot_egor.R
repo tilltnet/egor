@@ -7,7 +7,7 @@ test_that("plot plots egor objects", {
     x = e,
     x_dim = 2,
     y_dim = 2,
-    nnumber = 1,
+    ego_no = 1,
     vertex_size_var = "age.years",
     vertex_color_var = "age.years",
     vertex_color_palette = "Greys",
@@ -23,7 +23,7 @@ test_that("plot plots egor objects", {
     x = e,
     x_dim = 2,
     y_dim = 2,
-    nnumber = 1,
+    ego_no = 1,
     vertex_size_var = "age.years",
     vertex_color_var = "age.years",
     vertex_color_palette = "Greys",
@@ -36,18 +36,16 @@ test_that("plot plots egor objects", {
   
   plot(
     x = e,
-    nnumber = 1,
+    ego_no = 1,
     venn_var = "age",
     pie_var = "country",
-    venn_colors = c("white", "lightblue", "mistyrose",
+    venn_colors = c("blue", "lightblue", "mistyrose",
                     "lightcyan"),
     show_venn_labels = TRUE,
     type = "egogram"
   )
 
 })
-
-
 
 test_that("plot_egograms works with minmal arguments", {
   e <- make_egor(5, 5)
@@ -66,6 +64,10 @@ test_that("plot_egograms plots with and without venn labels", {
   plot_egograms(e,
                 venn_var = "sex",
                 pie_var = "country", show_venn_labels = FALSE)
+  
+  plot_egograms(e,
+                venn_var = "sex",
+                pie_var = "country", show_venn_labels = TRUE)
 })
 
 test_that("plotting works when active data level is not ego",

@@ -79,7 +79,7 @@ layout_egogram <- function(altID, venn_var, pie_var) {
 #' @export
 #' @describeIn plot_egor Plots an ego-socio-gram.
 plot_egograms <- function(x,
-                          nnumber = 1,
+                          ego_no = 1,
                           x_dim = 1,
                           y_dim = 1,
                           venn_var,
@@ -105,7 +105,7 @@ plot_egograms <- function(x,
   on.exit(par(opar))
   par(mfrow = c(y_dim, x_dim))
   
-  for (i in nnumber:(nnumber + (x_dim * y_dim - 1))) {
+  for (i in ego_no:(ego_no + (x_dim * y_dim - 1))) {
     if (i <= nrow(x$ego)) {
       boxi_color <- "white"
       if (!is.null(highlight_box_col_var)) {
@@ -140,7 +140,7 @@ plot_egograms <- function(x,
   }
 }
 
-plot_egogram <- function(x, nnumber, venn_var, pie_var,
+plot_egogram <- function(x, ego_no, venn_var, pie_var,
                          vertex_size_var = NULL,
                          vertex_color_var = NULL,
                          vertex_color_palette = "Heat Colors",
@@ -162,7 +162,7 @@ plot_egogram <- function(x, nnumber, venn_var, pie_var,
   
   ego_object <- 
     activate(x, "ego") %>% 
-    slice(nnumber)
+    slice(ego_no)
   
   pie_var_name <- pie_var
   venn_var <- ego_object$alter[[venn_var]]
@@ -208,7 +208,7 @@ plot_egogram <- function(x, nnumber, venn_var, pie_var,
     # Venn Labels
     if (i > 0 & show_venn_labels) {
       graphics::lines(c(0,1.8), c(radius,radius), col = "grey80", lty = "dashed")
-      text(1.3,radius - 0.05, levels(venn_var)[i], cex = 0.8)
+      text(1.3, radius - 0.05, levels(venn_var)[i], cex = 0.8)
     }
     i <- i + 1
   }

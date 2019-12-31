@@ -1,7 +1,7 @@
 #' @export
 #' @describeIn plot_egor Plots an ego graph.
 plot_ego_graphs <- function(x,
-                            nnumber = 1,
+                            ego_no = 1,
                             x_dim = 1,
                             y_dim = 1,
                             vertex_size_var = NULL,
@@ -23,7 +23,7 @@ plot_ego_graphs <- function(x,
   opar <- par(no.readonly = TRUE)
   on.exit(par(opar))
   par(mfrow = c(y_dim, x_dim))
-  for (i in nnumber:(nnumber + (x_dim * y_dim - 1))) {
+  for (i in ego_no:(ego_no + (x_dim * y_dim - 1))) {
     if (i <= nrow(x$ego)) {
       boxi_color <- "white"
       if (!is.null(highlight_box_col_var)) {
@@ -55,7 +55,7 @@ plot_ego_graphs <- function(x,
 
 
 plot_one_ego_graph <- function(x,
-                               nnumber,
+                               ego_no,
                                vertex_size_var = NULL,
                                vertex_color_var = NULL,
                                vertex_color_palette = "Heat Colors",
@@ -73,7 +73,7 @@ plot_one_ego_graph <- function(x,
                                ...) {
   x <- 
     activate(x, "ego") %>% 
-    slice(nnumber)
+    slice(ego_no)
   gr <- as_igraph(x, include.ego = include_ego)[[1]]
   if (!sum(igraph::V(gr)) > 0) {
     # Plot Error message.
