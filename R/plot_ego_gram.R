@@ -6,8 +6,6 @@ calc_angle_coordinates <- function(radius, angle) {
   c(X, Y)
 }
 
-calc_angle_coordinates(0.2, 1)
-
 plot_n_dots_on_arc <- function(radius, start_deg, end_deg, n) {
   #plot(c(-1, 1), c(-1, 1), type = "n", asp = 1)
   n <- n + 2
@@ -47,7 +45,6 @@ layout_egogram <- function(altID, venn_var, pie_var) {
   venn_var <- as.numeric(venn_var)
   pie_var <- as.numeric(pie_var)
   
-  
   venn_grid_df <- tibble()
   sign = -1
   for (venn in 1:(venn_n + 1)) {
@@ -75,7 +72,7 @@ layout_egogram <- function(altID, venn_var, pie_var) {
               ))
     }
   }
-  venn_grid_df %>% arrange(.altID)
+  arrange(venn_grid_df, .altID)
 }
 
 
@@ -136,6 +133,7 @@ plot_egograms <- function(x,
         edge_zoom = edge_zoom,
         venn_colors = venn_colors,
         font_size = font_size,
+        show_venn_labels = show_venn_labels,
         ...
       )
     }
@@ -162,8 +160,9 @@ plot_egogram <- function(x, nnumber, venn_var, pie_var,
                          ...)  {
   par(mar = c(1,0.5,0.5,0.5))
   
-  ego_object <-
-    slice(x, nnumber)
+  ego_object <- 
+    activate(x, "ego") %>% 
+    slice(nnumber)
   
   pie_var_name <- pie_var
   venn_var <- ego_object$alter[[venn_var]]

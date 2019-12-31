@@ -1,7 +1,7 @@
 #' @export
 #' @describeIn plot_egor Plots an ego graph.
 plot_ego_graphs <- function(x,
-                            nnumber,
+                            nnumber = 1,
                             x_dim = 1,
                             y_dim = 1,
                             vertex_size_var = NULL,
@@ -71,8 +71,9 @@ plot_one_ego_graph <- function(x,
                                font_size = 1,
                                include_ego = FALSE,
                                ...) {
-  x <-
-    slice(x, nnumber)
+  x <- 
+    activate(x, "ego") %>% 
+    slice(nnumber)
   gr <- as_igraph(x, include.ego = include_ego)[[1]]
   if (!sum(igraph::V(gr)) > 0) {
     # Plot Error message.
