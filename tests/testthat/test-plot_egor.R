@@ -59,6 +59,12 @@ test_that("plot_ego_graphs works with minmal arguments", {
   plot_ego_graphs(e)
 })
 
+test_that("plot_ego_graphs works with vertex_color_var", {
+  e <- make_egor(15, 15)
+  plot_ego_graphs(e, vertex_color_var = "sex")
+  plot_ego_graphs(e, vertex_color_var = "sex", vertex_color_legend_label = "Sex")
+})
+
 test_that("plot_egograms plots with and without venn labels", {
   e <- make_egor(5, 5)
   plot_egograms(e,
