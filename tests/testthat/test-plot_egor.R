@@ -1,7 +1,8 @@
 context("test-plot_egor.R")
 
 test_that("plot plots egor objects", {
-  e <- make_egor(5, 5)
+  expect_error(
+    {e <- make_egor(5, 5)
   
   plot(
     x = e,
@@ -43,30 +44,37 @@ test_that("plot plots egor objects", {
                     "lightcyan"),
     show_venn_labels = TRUE,
     type = "egogram"
-  )
+  )}, NA)
 
 })
 
 test_that("plot_egograms works with minmal arguments", {
-  e <- make_egor(5, 5)
-  plot_egograms(e,
+  expect_error(
+    {e <- make_egor(net.count = 5, max.alters = 5)
+  plot_egograms(x = e,
                 venn_var = "sex",
                 pie_var = "country")
+  }, NA)
 })
 
 test_that("plot_ego_graphs works with minmal arguments", {
-  e <- make_egor(5, 15)
+  expect_error(
+    {e <- make_egor(5, 15)
   plot_ego_graphs(e)
+    }, NA)
 })
 
 test_that("plot_ego_graphs works with vertex_color_var", {
-  e <- make_egor(15, 15)
+  expect_error(
+    {e <- make_egor(15, 15)
   plot_ego_graphs(e, vertex_color_var = "sex")
   plot_ego_graphs(e, vertex_color_var = "sex", vertex_color_legend_label = "Sex")
+    }, NA)
 })
 
 test_that("plot_egograms plots with and without venn labels", {
-  e <- make_egor(5, 5)
+  expect_error(
+    {e <- make_egor(5, 5)
   plot_egograms(e,
                 venn_var = "sex",
                 pie_var = "country", show_venn_labels = FALSE)
@@ -74,11 +82,12 @@ test_that("plot_egograms plots with and without venn labels", {
   plot_egograms(e,
                 venn_var = "sex",
                 pie_var = "country", show_venn_labels = TRUE)
+    }, NA)
 })
 
 test_that("plotting works when active data level is not ego",
           {
-            e <- make_egor(5, 15) %>% 
+           expect_error({ e <- make_egor(5, 15) %>% 
               activate(alter)
             
             plot_egograms(e,
@@ -103,5 +112,13 @@ test_that("plotting works when active data level is not ego",
                           show_venn_labels = FALSE)
             
             plot_ego_graphs(e, 1)
-            
+           }, NA)
           })
+
+test_that("plot_ego_graphs is fast", {
+  # This is meant more as a manual test. Plots should appear immediately.
+  expect_error({
+    plot_ego_graphs(make_egor(12, 16))
+    plot_ego_graphs(make_egor(120, 16))
+  }, NA)
+})

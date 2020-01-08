@@ -16,13 +16,13 @@ test_that("trimming works correctly", {
     additional_ego_attr = 1:3
   )
   
-  e <- onefile_to_egor(egos = raw_data_vv,
+  expect_warning(e <- onefile_to_egor(egos = raw_data_vv,
                        ID.vars = list(ego = "V2"),
                        attr.start.col = "sex_a",
                        attr.end.col = "age_c", 
                        aa.first.var = "a_b",
                        max.alters = 3,
-                       var.wise = TRUE)
+                       var.wise = TRUE))
   
   ego1_alters <- 
     e %>% 

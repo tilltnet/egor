@@ -62,8 +62,7 @@ test_that(
       arrange(e, age.years)
       arrange(e, desc(age.years))
       
-      expect_warning(
-        full_join(e, tibble(.egoID = factor(1), new_data = "asdwd")))
+      full_join(e, tibble(.egoID = 1, new_data = "asdwd"))
       
       
       select_all(e, toupper)
