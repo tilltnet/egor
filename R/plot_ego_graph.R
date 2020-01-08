@@ -72,8 +72,8 @@ plot_one_ego_graph <- function(x,
                                include_ego = FALSE,
                                ...) {
   x <- 
-    activate(x, "ego") %>% 
-    slice(ego_no)
+    slice(activate(x, "ego"), ego_no)
+  
   gr <- as_igraph(x, include.ego = include_ego)[[1]]
   if (!sum(igraph::V(gr)) > 0) {
     # Plot Error message.
