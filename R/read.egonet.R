@@ -219,8 +219,9 @@ wide.dyads.to.edgelist <- function(e.wide, first.var, max.alters,
     i <- 1
     for (i in 1:(max.alters - 1)) {
       for (j in 1:(max.alters - i)) {
-        this.alter.alter <- data.frame(.tmp.srcID = name.matrix[i, 1], .tmp.tgtID = name.matrix[i + 1, j], 
-                                       weight = alter.alter[case, count.var])
+        this.alter.alter <- data.frame(.tmp.srcID = name.matrix[i, 1],
+                                       .tmp.tgtID = name.matrix[i + 1, j], 
+                                       weight = alter.alter[case, count.var][[1]])
         alter.alter.df <- rbind(alter.alter.df, this.alter.alter)
         count.var <- count.var + 1
 #' @importFrom stats na.omit
@@ -358,10 +359,11 @@ onefile_to_egor <-
 
     
     #Sort egos by egoID.
-    message("Sorting data by egoID.")
+    cat("Sorting data by egoID: ")
     egos <- egos[order(as.numeric(egos[[IDv$ego]])),]
+    message("Done.")
     
-    message("Transforming alters data to long format.")
+    cat("Transforming alters data to long format: ")
     alters.df <-
       wide.to.long(
         wide = egos,
@@ -372,9 +374,9 @@ onefile_to_egor <-
         ego.vars = NULL,
         var.wise = var.wise
       )
+    message("Done.")
     
-    message("Transforming wide dyad data to edgelist.")
-    message("Note: Make sure to filter out edges with invalid weight values.")
+    cat("Transforming wide dyad data to edgelist: ")
     e.lists <- if (is.null(aa.regex)) {
       wide.dyads.to.edgelist(e.wide = egos, first.var = aa.first.var,
                              max.alters)
@@ -383,6 +385,8 @@ onefile_to_egor <-
                                    aa.regex = aa.regex,
                                    netsize = netsize)
     }
+    message("Done.")
+    message("Note: Make sure to filter out edges with invalid weight values.")
     
     elist <-
       purrr::map2_dfr(egos[[IDv$ego]], e.lists, function(ego_id, edges)
@@ -396,6 +400,7 @@ onefile_to_egor <-
     # Filter out alters by network size
     
     if (!is.null(netsize)) {
+      cat("Filtering out empty alter entries using provided network size values: ")
       a <- c(1, cumsum(rep(max.alters, nrow(egos))) + 1)
       a <- a[-length(a)]
       c <- purrr::map2(a,
@@ -403,7 +408,7 @@ onefile_to_egor <-
                                       .y != 0)
                          seq(.x, .y + .x - 1)) %>% unlist()
       alters.df <- alters.df[c,]
-      message("Filtering out empty alter entries using provided network size values.")
+      message("Done.")
     } else {
       warning("No netsize values provided, make sure to filter out invalid alter entries.")
     }
@@ -443,64 +448,110 @@ onefile_to_egor <-
 #' @template return_egoR
 #' @keywords import
 #' @export
-twofiles_to_egor <- function(egos, alters, netsize = NULL,
-                                  ID.vars=list(ego="egoID", alter="alterID", source="Source", target="Target"),
-                                  e.max.alters, e.first.var,
-                                  ego.vars = NULL, selection = NULL, ...) {
+twofiles_to_egor <- function(egos,
+                             alters,
+                             netsize = NULL,
+                             ID.vars = list(
+                               ego = "egoID",
+                               alter = "alterID",
+                               source = "Source",
+                               target = "Target"
+                             ),
+                             e.max.alters,
+                             e.first.var,
+                             ego.vars = NULL,
+                             selection = NULL,
+                             ...) {
   IDv <- modifyList(eval(formals()$ID.vars), ID.vars)
-  if(!is.null(IDv$alter)) {
+  
+  egos <- as.data.frame(egos)
+  alters <- as.data.frame(alters)
+  
+  if (!is.null(IDv$alter)) {
     message("alterID specified; moving to first column of $alters.df.")
     alterID.col <- match(IDv$alter , names(alters))
     #alterID.col
     # Return:
     #!# What happens if alterID is already in column 1?
-    alters <- data.frame(alterID = alters[[IDv$alter]], alters[1:(alterID.col - 1)], 
-                       alters[(alterID.col + 1) : ncol(alters)])
-  } 
+    alters <-
+      data.frame(alterID = alters[[IDv$alter]], alters[1:(alterID.col - 1)],
+                 alters[(alterID.col + 1):ncol(alters)])
+  }
   
   # Sort egos by egoID and alters by egoID and alterID.
   message("Sorting data by egoID and alterID.")
-  egos <- egos[order(as.numeric(egos[[IDv$ego]])), ]
-  alters <- alters[order(as.numeric(alters[[IDv$ego]]), as.numeric(alters[[IDv$alter]])), ]
+  egos <- egos[order(as.numeric(egos[[IDv$ego]])),]
+  alters <-
+    alters[order(as.numeric(alters[[IDv$ego]]), as.numeric(alters[[IDv$alter]])),]
   
-  if(is.null(netsize)) {
+  if (is.null(netsize)) {
     message("No netsize variable specified, calculating netsize by egoID in alters data.")
-#' @importFrom stats aggregate
-    netsize <- aggregate(alters[[IDv$ego]], by = list(alters[[IDv$ego]]), NROW)    
-    netsize <- netsize[[2]]    
+    #' @importFrom stats aggregate
+    netsize <-
+      aggregate(alters[[IDv$ego]], by = list(alters[[IDv$ego]]), NROW)
+    netsize <- netsize[[2]]
   }
-
-
+  
+  
   message("Preparing alters data.")
-  alters.list <- long.df.to.list(long = alters, netsize = netsize, egoID = IDv$ego)
-  alters.list <- lapply(alters.list, FUN = function(x) 
-    data.frame(alterID = as.character(c(1:NROW(x))), x)) #!# This generates two alterIDs in the transnat impor
+  alters.list <-
+    long.df.to.list(long = alters,
+                    netsize = netsize,
+                    egoID = IDv$ego)
+  alters.list <- lapply(
+    alters.list,
+    FUN = function(x)
+      data.frame(alterID = as.character(c(1:NROW(
+        x
+      ))), x)
+  ) #!# This generates two alterIDs in the transnat import
   
   if (!is.null(ego.vars)) {
     message("ego.vars defined, adding them to $alters.df")
-    alters <- add_ego_vars_to_long_df(alters.list = alters.list, egos.df = egos, 
-                            ego.vars = ego.vars, netsize = netsize)
+    alters <-
+      add_ego_vars_to_long_df(
+        alters.list = alters.list,
+        egos.df = egos,
+        ego.vars = ego.vars,
+        netsize = netsize
+      )
   } else {
     message("Restructuring alters data: $alters.df")
     alters <- do.call("rbind", alters.list)
   }
-
-  message("Transforming wide edge data to edgelist: $edges")
-  elist <- wide.dyads.to.edgelist(e.wide = egos, first.var = e.first.var,
-                                   max.alters = e.max.alters, 
-                                   alters.list = alters.list, selection = selection)
   
-  elist <- purrr::map2_dfr(egos$egoID, elist, function(ego_id, edges) 
-  {edges[IDv$ego] <- ego_id
-  edges})
+  message("Transforming wide edge data to edgelist: $edges")
+  elist <-
+    wide.dyads.to.edgelist(
+      e.wide = egos,
+      first.var = e.first.var,
+      max.alters = e.max.alters,
+      alters.list = alters.list,
+      selection = selection
+    )
+  
+  elist <-
+    purrr::map2_dfr(egos[[IDv$ego]], elist, function(ego_id, edges)
+    {
+      if (nrow(edges) > 0) {
+        edges[[IDv$ego]] <- ego_id
+        edges$weight <- as.vector(edges$weight)
+        edges
+      }
+    })
   
   # Return:
-  egor(alters,
-       egos,
-       elist,
-       ID.vars = list(ego = IDv$ego,
-                      alter = IDv$alter,
-                      source = ".tmp.srcID",
-                      target = ".tmp.tgtID"), ...)
+  egor(
+    alters,
+    egos,
+    elist,
+    ID.vars = list(
+      ego = IDv$ego,
+      alter = IDv$alter,
+      source = ".tmp.srcID",
+      target = ".tmp.tgtID"
+    ),
+    ...
+  )
 }
 
