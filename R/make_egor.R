@@ -20,9 +20,9 @@ make_edge_list <- function(netsize) {
     Target <- c(Target, tmp)
   }
   
-  weight <- sample((1:3)/3, dp, replace = TRUE)
-  data.frame(Source, Target, weight)
-} 
+  weight <- sample((1:3) / 3, dp, replace = TRUE)
+  data.frame(Source, Target, weight, stringsAsFactors = FALSE)
+}
 
 #' Generate random ego-centered-network data.
 #'
@@ -36,78 +36,123 @@ make_edge_list <- function(netsize) {
 #' @keywords random
 #'
 #' @export
-make_egor <- function(net.count, max.alters, netsize_fixed = FALSE, plot = FALSE) {
-  
-  country_names <- c("Poland", "Australia", "USA", "Germany")
-  
-  # Generating ego data
-  egoID <- as.factor(1:net.count)
-  sex <- chartr("12", "wm", sample(1:2, net.count, replace = TRUE))
-  age_years <- sample(1:100, net.count, replace = TRUE)
-  age <- findInterval(age_years, c(0,17,26,36,46,56,66))
-  age <- factor(age, levels = c(1, 2, 3, 4, 5, 6, 7), labels = c("0 - 17", 
-      "18 - 25", "26 - 35", "36 - 45", "46 - 55", "56 - 65", "66 - 100"))
-  country <- sample(country_names, net.count, replace = TRUE)
-  income <- sample(1:200*365, net.count, replace = TRUE)
-  
-  # Generating netsize
-  if (!netsize_fixed) {
-#' @importFrom stats dnorm
-    probs <- dnorm(seq(-max.alters/2, max.alters/2, length = max.alters), sd = 5)  
-    netsize <- sample(2:max.alters, net.count, prob = probs[-1], replace = TRUE)
-#' @importFrom graphics plot
-    if(plot){
-      plot(table(netsize), type="l",ylab = "frequency")
-      plot(sort(netsize, decreasing = TRUE), type="l",ylab = "netsize")
+make_egor <-
+  function(net.count,
+           max.alters,
+           netsize_fixed = FALSE,
+           plot = FALSE) {
+    country_names <- c("Poland", "Australia", "USA", "Germany")
+    
+    # Generating ego data
+    egoID <- as.factor(1:net.count)
+    sex <- chartr("12", "wm", sample(1:2, net.count, replace = TRUE))
+    age_years <- sample(1:100, net.count, replace = TRUE)
+    age <- findInterval(age_years, c(0, 17, 26, 36, 46, 56, 66))
+    age <-
+      factor(
+        age,
+        levels = c(1, 2, 3, 4, 5, 6, 7),
+        labels = c("0 - 17",
+                   "18 - 25", "26 - 35", "36 - 45", "46 - 55", "56 - 65", "66 - 100")
+      )
+    country <- sample(country_names, net.count, replace = TRUE)
+    income <- sample(1:200 * 365, net.count, replace = TRUE)
+    
+    # Generating netsize
+    if (!netsize_fixed) {
+      #' @importFrom stats dnorm
+      probs <-
+        dnorm(seq(-max.alters / 2, max.alters / 2, length = max.alters), sd = 5)
+      netsize <-
+        sample(2:max.alters,
+               net.count,
+               prob = probs[-1],
+               replace = TRUE)
+      #' @importFrom graphics plot
+      if (plot) {
+        plot(table(netsize), type = "l", ylab = "frequency")
+        plot(sort(netsize, decreasing = TRUE),
+             type = "l",
+             ylab = "netsize")
+      }
+    } else {
+      netsize <- rep(max.alters, net.count)
     }
-  } else {
-    netsize <- rep(max.alters, net.count)
+    
+    # Creating egos return object
+    egos <-
+      data.frame(
+        egoID = as.numeric(egoID),
+        sex,
+        age,
+        age.years = age_years,
+        country,
+        income,
+        stringsAsFactors = FALSE
+      )
+    
+    # Generating alters data
+    alterID <- rep(1:max.alters, net.count)
+    egoID <- gl(net.count, max.alters)
+    
+    alter.sex <-
+      rep(chartr("12", "wm", sample(1:2, net.count, replace = TRUE)),
+          max.alters)
+    alter.age.years <-
+      rep(sample(1:100, net.count, replace = TRUE), max.alters)
+    alter.age <- findInterval(alter.age.years, c(0, 17, 26, 36, 46, 56, 66))
+    alter.age <-
+      factor(
+        alter.age,
+        levels = c(1, 2, 3, 4, 5, 6, 7),
+        labels = c("0 - 17",
+                   "18 - 25", "26 - 35", "36 - 45", "46 - 55", "56 - 65", "66 - 100")
+      )
+    
+    alter.country <-
+      rep(sample(country_names, net.count, replace = TRUE), max.alters)
+    alter.income <-
+      rep(sample(1:200 * 365, net.count, replace = TRUE), max.alters)
+    
+    alters <- data.frame(
+      egoID = as.numeric(egoID),
+      alterID,
+      sex = alter.sex,
+      age = alter.age,
+      age.years = alter.age.years,
+      country = alter.country,
+      income = alter.income,
+      stringsAsFactors = FALSE
+    )
+    
+    # Trimming down alters per network using netsize
+    alters <-
+      long.df.to.list(alters, netsize, egoID = "egoID", back.to.df = TRUE)
+    
+    # Generating edges
+    edge.list <- list()
+    for (i in 1:net.count) {
+      edge.list[[i]] <- make_edge_list(netsize[i])
+    }
+    
+    aaties <-
+      mapply(
+        FUN = function(x, y)
+          data.frame(egoID = y, x, stringsAsFactors = FALSE),
+        edge.list,
+        1:length(edge.list),
+        SIMPLIFY = FALSE
+      )
+    aaties.df <- do.call(rbind, aaties)
+    aaties.df <-
+      aaties.df[sample(1:NROW(aaties.df), NROW(aaties.df) / 2),]
+    # Return
+    egor(alters,
+         egos,
+         aaties.df)
   }
-  
-  # Creating egos return object
-  egos <- data.frame(egoID, sex, age, age.years = age_years, country, income)
-  
-  # Generating alters data
-  alterID <- rep(1:max.alters, net.count)
-  egoID <- gl(net.count, max.alters)
 
-  alter.sex <- rep(chartr("12", "wm", sample(1:2, net.count, replace = TRUE)), 
-                   max.alters)
-  alter.age.years <- rep(sample(1:100, net.count, replace = TRUE), max.alters)
-  alter.age <- findInterval(alter.age.years, c(0,17,26,36,46,56,66))
-  alter.age <- factor(alter.age, levels = c(1, 2, 3, 4, 5, 6, 7), labels = c("0 - 17", 
-      "18 - 25", "26 - 35", "36 - 45", "46 - 55", "56 - 65", "66 - 100"))
-  
-  alter.country <- rep(sample(country_names, net.count, replace = TRUE), max.alters)
-  alter.income <- rep(sample(1:200*365, net.count, replace = TRUE), max.alters)
-  
-  alters <- data.frame(egoID, 
-                       alterID, 
-                       sex = alter.sex, 
-                       age = alter.age,
-                       age.years = alter.age.years,
-                       country = alter.country,
-                       income = alter.income)
-  
-  # Trimming down alters per network using netsize
-  alters <- long.df.to.list(alters, netsize, egoID = "egoID", back.to.df = TRUE)
-
-  # Generating edges
-  edge.list <- list()
-  for (i in 1:net.count) {
-    edge.list[[i]] <- make_edge_list(netsize[i])
-  }
-  
-  aaties <- mapply(FUN = function(x, y) data.frame(egoID = y, x), edge.list, as.factor(1:length(edge.list)), SIMPLIFY = FALSE)
-  aaties.df <- do.call(rbind, aaties)
-  aaties.df <- aaties.df[sample(1:NROW(aaties.df), NROW(aaties.df)/2), ]
-  # Return
-  egor(alters, 
-       egos, 
-       aaties.df)
-} 
-
-# Used for generating wide edge format data. 
+# Used for generating wide edge format data.
 #' Transforms edge lists to alter-alter wide format data.
 #'
 #' Only works properly, if the netsize of all networks is constant.
@@ -115,7 +160,12 @@ make_egor <- function(net.count, max.alters, netsize_fixed = FALSE, plot = FALSE
 #' @keywords ego-centered network
 #' @keywords internal
 edgelist_to_wide <- function(edges) {
-  wide_edges <- plyr::ldply(edges, .fun= function(x) t(x$weight))
-  names(wide_edges) <- paste(edges[[1]]$Source, "to", edges[[1]]$Target)
+  wide_edges <- plyr::ldply(
+    edges,
+    .fun = function(x)
+      t(x$weight)
+  )
+  names(wide_edges) <-
+    paste(edges[[1]]$Source, "to", edges[[1]]$Target)
   wide_edges
 }
