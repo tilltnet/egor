@@ -169,6 +169,8 @@ plot_egogram <-
       
     
     pie_var_name <- pie_var
+    venn_var_name <- venn_var
+    
     venn_var <- ego_object$alter[[venn_var]]
     pie_var <- ego_object$alter[[pie_var]]
     
@@ -181,7 +183,7 @@ plot_egogram <-
     }
     
     if (is.character(venn_var)) {
-      venn_var <- factor(venn_var, levels = unique(x$alter[[venn_var]]))
+      venn_var <- factor(venn_var, levels = unique(x$alter[[venn_var_name]]))
     }
     
     #!# This line fails when pie var is a character, which it is meant for. pie_var_name needs to captured before!!!
