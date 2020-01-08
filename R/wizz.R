@@ -42,7 +42,10 @@ if(getRversion() >= "2.15.1")
 egor_vis_app <- function(object = NULL,
                          shiny_opts = list(launch.browser = TRUE)) {
   # App Globals -------------------------------------------------------------
-  IDVARS <- source("R/zzz.R")
+  IDVARS <- list(ego = ".egoID", 
+                 alter = ".altID", 
+                 source = ".srcID", 
+                 target = ".tgtID")
   egors <-
     ls(envir = .GlobalEnv)[sapply(mget(ls(envir = .GlobalEnv), envir = .GlobalEnv), function(x)
       class(x)[1] == "egor")]
