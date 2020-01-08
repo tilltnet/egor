@@ -459,7 +459,6 @@ twofiles_to_egor <- function(egos,
                              ),
                              e.max.alters,
                              e.first.var,
-                             ego.vars = NULL,
                              selection = NULL,
                              ...) {
   IDv <- modifyList(eval(formals()$ID.vars), ID.vars)
@@ -467,15 +466,27 @@ twofiles_to_egor <- function(egos,
   egos <- as.data.frame(egos)
   alters <- as.data.frame(alters)
   
-  if (!is.null(IDv$alter)) {
-    message("alterID specified; moving to first column of $alters.df.")
-    alterID.col <- match(IDv$alter , names(alters))
-    #alterID.col
-    # Return:
-    #!# What happens if alterID is already in column 1?
-    alters <-
-      data.frame(alterID = alters[[IDv$alter]], alters[1:(alterID.col - 1)],
-                 alters[(alterID.col + 1):ncol(alters)])
+
+  #' @importFrom stats aggregate
+  netsize <-
+    aggregate(alters[[IDv$ego]], by = list(alters[[IDv$ego]]), NROW)
+  netsize <- netsize[[2]]
+
+  
+  if (!IDv$alter %in% names(alters)) {
+    message(paste0("Alter data has no variable called ", IDv$alter, ". Generating alter ID."))
+    alters.list <-
+      long.df.to.list(long = alters,
+                      netsize = netsize,
+                      egoID = IDv$ego)
+    alters.list <- lapply(
+      alters.list,
+      FUN = function(x)
+        data.frame(alterID = as.character(c(1:NROW(
+          x
+        ))), x)
+    )
+    alters <- do.call("rbind", alters.list)
   }
   
   # Sort egos by egoID and alters by egoID and alterID.
@@ -484,43 +495,7 @@ twofiles_to_egor <- function(egos,
   alters <-
     alters[order(as.numeric(alters[[IDv$ego]]), as.numeric(alters[[IDv$alter]])),]
   
-  if (is.null(netsize)) {
-    message("No netsize variable specified, calculating netsize by egoID in alters data.")
-    #' @importFrom stats aggregate
-    netsize <-
-      aggregate(alters[[IDv$ego]], by = list(alters[[IDv$ego]]), NROW)
-    netsize <- netsize[[2]]
-  }
-  
-  
-  message("Preparing alters data.")
-  alters.list <-
-    long.df.to.list(long = alters,
-                    netsize = netsize,
-                    egoID = IDv$ego)
-  alters.list <- lapply(
-    alters.list,
-    FUN = function(x)
-      data.frame(alterID = as.character(c(1:NROW(
-        x
-      ))), x)
-  ) #!# This generates two alterIDs in the transnat import
-  
-  if (!is.null(ego.vars)) {
-    message("ego.vars defined, adding them to $alters.df")
-    alters <-
-      add_ego_vars_to_long_df(
-        alters.list = alters.list,
-        egos.df = egos,
-        ego.vars = ego.vars,
-        netsize = netsize
-      )
-  } else {
-    message("Restructuring alters data: $alters.df")
-    alters <- do.call("rbind", alters.list)
-  }
-  
-  message("Transforming wide edge data to edgelist: $edges")
+    message("Transforming wide edge data to edgelist.")
   elist <-
     wide.dyads.to.edgelist(
       e.wide = egos,
