@@ -58,3 +58,19 @@ if (FALSE) {
     rename_at(vars(starts_with(".")), toupper)
   usethis::use_data(egor32, egos32, alters32, aaties32, overwrite = TRUE)
 }
+
+#' Simulated Allbus 2010 Data
+#' 
+#' A dataset simulated based on the the original Allbus
+#' 2010 SPSS data. The dataset simulates 100 respondents and does not resemble
+#' any actual Allbus respondents. Each variable is randomly generated based on
+#' the range of the original variables, co-varianaces between variables are
+#' disregarded. The data’s purpose is purely to demonstrate how to technically
+#' work with the Allbus data using egor and R - no analytical assumptions should
+#' be made based on this data! 
+#' 
+#' The dataset contains two ego-centered name generators.
+#' 
+#' @format A tibble/ data.frame of 100 simulated respondents/ rows and 981 
+#' variables/ columns. Each variable is a *labelled dbl*.
+"allbus_2010_simulated"
