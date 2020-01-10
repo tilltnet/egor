@@ -10,8 +10,7 @@ ego_density(object, ...)
 \method{ego_density}{egor}(object, weight = NULL, max.netsize = NULL, directed = FALSE, ...)
 }
 \arguments{
-\item{object}{Either an \code{egor} object or a \code{data.frame/ list}
-containg alter attributes.}
+\item{object}{An \code{egor} object.}
 
 \item{...}{arguments to be passed to methods}
 
