@@ -72,5 +72,5 @@ if (FALSE) {
 #' The dataset contains two ego-centered name generators.
 #' 
 #' @format A tibble/ data.frame of 100 simulated respondents/ rows and 981 
-#' variables/ columns. Each variable is a *labelled dbl*.
+#' variables/ columns. Each variable is a `labelled dbl`.
 "allbus_2010_simulated"

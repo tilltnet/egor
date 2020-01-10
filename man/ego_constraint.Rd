@@ -29,7 +29,7 @@ the alter-alter tie weights are complemented by a alter level variable
 specifying the same weight for the ego-alter ties.
 }
 \examples{
-data(ego32)
+data(egos32)
 ego_constraint(ego32)
 }
 \references{
