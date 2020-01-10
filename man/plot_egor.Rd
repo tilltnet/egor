@@ -42,7 +42,7 @@ plot_ego_graphs(
   vertex_size_var = NULL,
   vertex_color_var = NULL,
   vertex_color_palette = "Heat Colors",
-  vertex_color_legend_label = NULL,
+  vertex_color_legend_label = vertex_color_var,
   vertex_label_var = NULL,
   edge_width_var = NULL,
   edge_color_var = NULL,

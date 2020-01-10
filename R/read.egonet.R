@@ -99,7 +99,6 @@ wide.to.long <-
            max.alters,
            start.col,
            end.col,
-           ego.vars = NULL,
            var.wise = FALSE) {
     start.col <- col_idx(start.col, wide)
     end.col <- col_idx(end.col, wide)
@@ -129,7 +128,7 @@ wide.to.long <-
     times <- seq_along(vary[[1]])
     
     ### Create a long format data.frame of the alters items.
-    coll_df <- cbind(wide[start.col:end.col], wide[ego.vars])
+    coll_df <- wide[start.col:end.col]
     
     #' @importFrom stats reshape
     long <-
@@ -289,29 +288,6 @@ wide.dyads.to.edgelist.regex <- function(e.wide, aa.regex, netsize) {
   }, col.df.list, netsize, SIMPLIFY=FALSE)
 }
 
-
-#' add_ego_vars_to_long_df
-#'
-#' This function adds ego attributes to a 'alters.list' object of ego-centered
-#' networks. This is helpful if (multi-level) regressions are to be executed.
-#' @template alters_list
-#' @template egos 
-#' @template ego_vars 
-#' @template netsize
-#' @keywords internal
-add_ego_vars_to_long_df <- function(alters.list, egos.df, ego.vars, netsize) {
-  new_alters.list <- alters.list
-  for (var in ego.vars) {
-    for(i in 1:length(alters.list)) {
-      new_alters.list[[i]] <- cbind(new_alters.list[[i]], rep(egos.df[i,][[var]], netsize[i]))
-      new_var_pos <- length(colnames(new_alters.list[[i]]))
-      colnames(new_alters.list[[i]])[new_var_pos] <- paste("ego", var, sep = "_")
-    }
-  }
-  # Return as long.df
-  do.call("rbind", new_alters.list)
-}
-
 #' Import ego-centered network data from 'one file format'
 #'
 #' This function imports ego-centered network data, stored in a single file, providing
@@ -371,7 +347,6 @@ onefile_to_egor <-
         max.alters = max.alters,
         start.col = attr.start.col,
         end.col = attr.end.col,
-        ego.vars = NULL,
         var.wise = var.wise
       )
     message("Done.")
@@ -440,8 +415,6 @@ onefile_to_egor <-
 #' @template ID.vars
 #' @param e.max.alters Maximum number of alters that are included in edge data.
 #' @param e.first.var Index or name of the first column in \code{egos} containing edge data.
-#' @param ego.vars \code{Character vector} naming variables in the egos data,
-#' in order to copy them in to the long alters \code{dataframe}.
 #' @param selection \code{Character} naming \code{numeric} variable indicating 
 #' alters selection with zeros and ones. 
 #' @param ... additional arguments to [egor()].

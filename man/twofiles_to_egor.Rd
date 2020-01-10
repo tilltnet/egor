@@ -11,7 +11,6 @@ twofiles_to_egor(
   ID.vars = list(ego = "egoID", alter = "alterID", source = "Source", target = "Target"),
   e.max.alters,
   e.first.var,
-  ego.vars = NULL,
   selection = NULL,
   ...
 )
@@ -46,9 +45,6 @@ alter identifier of the destination of a relation.}
 \item{e.max.alters}{Maximum number of alters that are included in edge data.}
 
 \item{e.first.var}{Index or name of the first column in \code{egos} containing edge data.}
-
-\item{ego.vars}{\code{Character vector} naming variables in the egos data,
-in order to copy them in to the long alters \code{dataframe}.}
 
 \item{selection}{\code{Character} naming \code{numeric} variable indicating
 alters selection with zeros and ones.}

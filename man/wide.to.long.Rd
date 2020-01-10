@@ -10,7 +10,6 @@ wide.to.long(
   max.alters,
   start.col,
   end.col,
-  ego.vars = NULL,
   var.wise = FALSE
 )
 }
@@ -24,13 +23,13 @@ wide.to.long(
 \item{start.col}{Index or name of the first colum containg alter-alter relation data.
 #!# Should: Defaults to first column of \code{wide}.}
 
-\item{ego.vars}{A \code{data.frame} of alter attributes in the wide format.}
-
 \item{var.wise}{a logical value indicating wheter the alter attributes are
 stored variable-wise, if FALSE alter-wise storage is assumed.}
 
 \item{last.col}{Index or name of the first colum containg alter-alter relation data.
 #!# Should: Defaults to last column of \code{wide}.}
+
+\item{ego.vars}{A \code{data.frame} of alter attributes in the wide format.}
 }
 \description{
 A function to transform a wide-format dataframe of ego-centered network data
