@@ -1,4 +1,15 @@
-if (getRversion() >= "2.15.1") utils::globalVariables(c("tmp_ix__", ".srcID", ".tgtID", ".egoID"))
+if (getRversion() >= "2.15.1")
+  utils::globalVariables(
+    c(
+      "tmp_ix__",
+      ".srcID",
+      ".tgtID",
+      ".egoID",
+      "..tmp_unique_altID",
+      "..tmp_unique_srcID",
+      "..tmp_unique_tgtID"
+    )
+  )
 
 # dplyr helper functions
 restore_egor_attributes <- function(result, egor_obj) {
@@ -59,6 +70,7 @@ trim_aaties <- function(object) {
            -..tmp_unique_altID)
   
   if (!all(c(".egoID", ".srcID", ".tgtID") %in% names(object$aatie)))
+    #' @importFrom stats setNames
     object$aatie <-
     setNames(data.frame(matrix(ncol = 3, nrow = 0)), 
              c(".egoID", ".srcID", ".tgtID"))
