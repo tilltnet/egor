@@ -2,7 +2,7 @@ Package: egor
 Type: Package
 Title: Import and Analyse Ego-Centered Network Data
 Version: 0.19.11.9999
-Date: 2019-12-27
+Date: 2020-01-09
 Authors@R: c(
     person("Till", "Krenz", email = "egor@tillt.net",
     role = c("aut", "cre")),
@@ -46,7 +46,8 @@ Imports:
 Suggests:
     knitr,
     testthat (>= 2.1.0),
-    rmarkdown
+    rmarkdown,
+    haven
 VignetteBuilder: knitr
 RoxygenNote: 7.0.2
 Roxygen: list(markdown = TRUE)
