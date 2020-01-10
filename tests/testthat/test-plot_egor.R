@@ -1,6 +1,12 @@
 context("test-plot_egor.R")
 
+pdf(NULL) # This ensures that no PDF file is gernerated when running tests automatically.
+
+# These tests are mostly here to notify when, other parts of the package break
+# the plotting facilities. They are not about the correctness of the plots.
+
 test_that("plot plots egor objects", {
+
   expect_error(
     {e <- make_egor(5, 5)
   
@@ -122,3 +128,5 @@ test_that("plot_ego_graphs is fast", {
     plot_ego_graphs(make_egor(120, 16))
   }, NA)
 })
+
+dev.off() # Closing the NULL pdf device.
