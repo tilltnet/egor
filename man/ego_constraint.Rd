@@ -29,8 +29,8 @@ the alter-alter tie weights are complemented by a alter level variable
 specifying the same weight for the ego-alter ties.
 }
 \examples{
-data(egos32)
-ego_constraint(ego32)
+data(egor32)
+ego_constraint(egor32)
 }
 \references{
 Burt, R. (2004). Structural holes and good ideas. \emph{American Journal of Sociology}, (110), 349–399.

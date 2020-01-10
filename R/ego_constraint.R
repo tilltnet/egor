@@ -16,8 +16,8 @@
 #' @references
 #' Burt, R. (2004). Structural holes and good ideas. *American Journal of Sociology*, (110), 349–399.
 #' @examples 
-#' data(egos32)
-#' ego_constraint(ego32)
+#' data(egor32)
+#' ego_constraint(egor32)
 #' @export
 ego_constraint <-
   function(object,
