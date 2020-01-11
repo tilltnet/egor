@@ -88,7 +88,7 @@ plot_egograms <- function(x,
                           vertex_size_var = NULL,
                           vertex_color_var = NULL,
                           vertex_color_palette = "Heat Colors",
-                          vertex_color_legend_label = NULL,
+                          vertex_color_legend_label = vertex_color_var,
                           vertex_label_var = NULL,
                           edge_width_var = NULL,
                           edge_color_var = NULL,
@@ -97,7 +97,7 @@ plot_egograms <- function(x,
                           highlight_box_col_palette = "Heat Colors",
                           res_disp_vars = NULL,
                           vertex_zoom = 1,
-                          edge_zoom = 3,
+                          edge_zoom = 2,
                           font_size = 1,
                           venn_colors = NULL,
                           show_venn_labels = TRUE,
@@ -148,7 +148,7 @@ plot_egogram <-
            vertex_size_var = NULL,
            vertex_color_var = NULL,
            vertex_color_palette = "Heat Colors",
-           vertex_color_legend_label = NULL,
+           vertex_color_legend_label = vertex_color_var,
            vertex_label_var = NULL,
            edge_width_var = NULL,
            edge_color_var = NULL,
@@ -157,7 +157,7 @@ plot_egogram <-
            highlight_box_col_palette = "Heat Colors",
            res_disp_vars = NULL,
            vertex_zoom = 1,
-           edge_zoom = 3,
+           edge_zoom = 2,
            font_size = 1,
            venn_colors = NULL,
            show_venn_labels = TRUE,
@@ -166,13 +166,12 @@ plot_egogram <-
     
     ego_object <-
       slice(activate(x, "ego"), ego_no)
-      
     
     pie_var_name <- pie_var
     venn_var_name <- venn_var
     
-    venn_var <- ego_object$alter[[venn_var]]
-    pie_var <- ego_object$alter[[pie_var]]
+    venn_var <- ego_object$alter[[venn_var_name]]
+    pie_var <- ego_object$alter[[pie_var_name]]
     
     if (is.numeric(venn_var)) {
       venn_var <- factor(venn_var, levels = min(venn_var):max(venn_var))
@@ -186,7 +185,6 @@ plot_egogram <-
       venn_var <- factor(venn_var, levels = unique(x$alter[[venn_var_name]]))
     }
     
-    #!# This line fails when pie var is a character, which it is meant for. pie_var_name needs to captured before!!!
     if (is.character(pie_var)) {
       pie_var <- factor(pie_var, levels = unique(x$alter[[pie_var_name]]))
     }
@@ -199,7 +197,7 @@ plot_egogram <-
     plot.new()
     pie(
       rep(1, piece_n),
-      labels =   pie_labels <- levels(pie_var),
+      labels = levels(pie_var),
       radius = 1,
       clockwise = TRUE,
       border = FALSE,
@@ -248,6 +246,13 @@ plot_egogram <-
         nrow() > 0) {
       lay$.altID <- as.character(lay$.altID)
       
+      # get additional edge variable names
+      additional_edge_vars <- names(ego_object$aatie)
+      additional_edge_vars <-
+        additional_edge_vars[!additional_edge_vars %in% c(".egoID",
+                                                          ".srcID",
+                                                          ".tgtID")]
+      
       a <-
         activate(x, "aatie") %>%
         as_tibble() %>%
@@ -259,35 +264,50 @@ plot_egogram <-
       b <- a %>%
         group_by(.egoID, .srcID, .tgtID) %>%
         do({
-          data.frame(x = c(.$x.x, .$x.y), y = c(.$y.x, .$y.y)) %>%
-            stats::dist() %>%  .[[1]] %>% tibble(distance = .) %>%
+          dist_curved_df <- data.frame(x = c(.$x.x, .$x.y), y = c(.$y.x, .$y.y)) %>%
+            stats::dist() %>% .[[1]] %>% tibble(distance = .) %>%
             mutate(curved = case_when(distance <= min_dist ~ 1,
                                       TRUE ~ 0.1))
+          cbind(dist_curved_df, .[additional_edge_vars])
         })
       ego_object$aatie <- b
     }
+    
+    vertex_zoom <- -2 * venn_n + vertex_zoom 
     
     # Create igraph
     g <- as_igraph(ego_object)
     
     # Plot
-    plot(
-      g[[1]],
+    plot_one_ego_graph(
+      ego_object,
+      ego_no = 1,
       layout = lay[1:2] %>% as.matrix(),
       add = TRUE,
       rescale = FALSE,
-      vertex.size = min_dist * 50,
+      vertex_size_var = vertex_size_var,
+      vertex_color_var = vertex_color_var,
+      vertex_color_palette = vertex_color_palette,
+      vertex_color_legend_label = vertex_color_legend_label,
+      vertex_label_var = vertex_label_var,
+      edge_width_var = edge_width_var,
+      edge_color_var = edge_color_var,
+      edge_color_palette = edge_color_palette,
+      highlight_box_col = highlight_box_col,
+      res_disp_vars = res_disp_vars,
+      vertex_zoom = vertex_zoom,
+      edge_zoom = edge_zoom,
       vertex.frame.color = NA,
       edge.curved = E(g[[1]])$curved,
-      edge.width = 2,
-      edge.color = "gray69",
-      #rgb(0,0,0,0.2)
+      #edge.width = 2,
+      #edge.color = "gray69",
+      #rgb(0,0,0,0.2),
       ...
     )
   }
 
-# This is the graphics::pie function modified to allow adding adding its
-# output to the existing plot
+# This is the graphics::pie function modified to allow adding its
+# output to an existing plot
 pie <- function(x,
                 labels = names(x),
                 edges = 200,

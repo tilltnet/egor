@@ -47,7 +47,8 @@ plot_ego_graphs <- function(x,
         vertex_zoom = vertex_zoom,
         edge_zoom = edge_zoom,
         font_size = font_size,
-        include_ego = include_ego
+        include_ego = include_ego,
+        ...
       )
     }
   }
@@ -70,6 +71,7 @@ plot_one_ego_graph <- function(x,
                                edge_zoom = 3,
                                font_size = 1,
                                include_ego = FALSE,
+                               layout = NULL,
                                ...) {
   x <- 
     slice(activate(x, "ego"), ego_no)
@@ -94,7 +96,7 @@ plot_one_ego_graph <- function(x,
   
   # Default Colors
   colors_ <- blues9
-  e_colors <- grey(0.6)
+  e_colors <- "grey69"
   
   # Vertex Size
   if (!is.null(vertex_size_var)) {
@@ -122,7 +124,7 @@ plot_one_ego_graph <- function(x,
     clrs[is.na(clrs)] <- "#ffffff"
   } else {
     vertex.color <- 1
-    clrs <- "#eeeeff"
+    clrs <- "coral"
   }
   
   # Edge Width
@@ -162,9 +164,14 @@ plot_one_ego_graph <- function(x,
   if (!is.null(vertex_color_var))
     par(mar = c(0.5, 5, 0.5, 0.5))
   
-  #' @importFrom igraph layout.fruchterman.reingold
-  layout_ <-
-    igraph::layout.fruchterman.reingold(gr, weights = edge.width)
+  if (is.null(layout)) {
+    #' @importFrom igraph layout.fruchterman.reingold
+    layout_ <-
+      igraph::layout.fruchterman.reingold(gr, weights = edge.width)
+  } else {
+    layout_ <- layout
+  }
+  
   
   set.seed(1337)
   #' @importFrom igraph plot.igraph

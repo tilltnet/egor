@@ -26,6 +26,8 @@
 #' @param show_venn_labels Logical.
 #' @param include_ego Logical.
 #' @param type Character. Either "egograph" or "egogram".
+# @param layout `Matrix` of x and y coordinates for nodes. Defaults to 
+# Fruchterman Rheingold layout algorithm.
 #' @param ... Additional arguments forwared to plot.igraph.
 #' @details For type eqals "egograph" ego networks are plotted using 
 
