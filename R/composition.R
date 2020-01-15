@@ -69,10 +69,10 @@ comp_ply <- function(object, alt.attr, .f, ..., ego.attr = NULL) {
   alt.attr_enquo <- enquo(alt.attr)
   alter_l <- split(object$alter,
                    factor(object$alter$.egoID,
-                          levels = unique(object$ego$.egoID)))
+                          levels = unique(object$ego$variables$.egoID)))
   
   if (!is.null(ego.attr)) {
-    res <- map2_dbl(alter_l, object$ego[[ego.attr]], function(x, y)
+    res <- map2_dbl(alter_l, object$ego$variables[[ego.attr]], function(x, y)
       pull(x, !!alt.attr_enquo) %>% .f(y, ...))
   } else {
     res <- map_dbl(alter_l, function(x)

@@ -91,16 +91,28 @@ subset.egor <- function(x, subset, ..., unit = attr(x, "active")){
   # tables to any of these, except that for unit=="aatie", we also
   # need to add row indices.
 
+  add_egoRow <- function(x){
+    tmp <- as_tibble(x$ego)
+    tmp$.egoRow <- seq_len(nrow(x$ego))
+    tmp
+  }
+
+  add_altRow <- function(x){
+    tmp <- x$alter
+    tmp$.altRow <- stats::ave(logical(nrow(tmp)), tmp$.egoID, seq_along)
+    tmp
+  }
+
   xa <- switch(unit,
-               ego = bind_cols(x$ego, .egoRow=seq_len(nrow(x$ego))),
+               ego = add_egoRow(x),
                alter = 
                  # Within each ego, assign increasing alter
                  # indices. Note that the first argument of ave() is a
                  # dummy variable.
-                 x$alter,
+                 add_altRow(x),
                aatie = x$aatie)
 
-  xa <- nest_join(xa, bind_cols(x$ego, .egoRow=seq_len(nrow(x$ego))), ".egoID", keep = TRUE, name="ego")
+  xa <- nest_join(xa, add_egoRow(x), ".egoID", keep = TRUE, name="ego")
   xa <- nest_join(xa, x$alter, ".egoID", keep = TRUE, name="alter")
   xa$alter <- lapply(xa$alter, function(a) bind_cols(a, .altRow=seq_len(nrow(a))))
   xa <- nest_join(xa, x$aatie, ".egoID", keep=TRUE, name="aatie")
@@ -143,21 +155,35 @@ subset.egor <- function(x, subset, ..., unit = attr(x, "active")){
   switch(unit,
          ego = {
            # This guarantees that the ego ID column is always preserved.
-           x$ego <- bind_cols(x$ego[,seq_len(ncol(x$ego)-1),drop=FALSE][i,j,drop=FALSE, ...], x$ego[i,ncol(x$ego),drop=FALSE])
-           x$alter <- filter(x$alter, .egoID %in% x$ego$.egoID)
-           x$aatie <- filter(x$aatie, .egoID %in% x$ego$.egoID)
-           attr(x, "ego_design") <- attr(x, "ego_design")[i,]
+           eid <- x$ego$variables$.egoID[i]
+           x$ego <- x$ego[i,j, ...]
+           if(!".egoID" %in% names(x$ego)) x$ego$variables$.egoID <- eid
+
+           x$alter <- filter(x$alter, .egoID %in% x$ego$variables$.egoID)
+           x$aatie <- filter(x$aatie, .egoID %in% x$ego$variables$.egoID)
            x
          },
          alter = {
-           x$alter <- bind_cols(x$alter[,seq_len(ncol(x$alter)-2),drop=FALSE][i,j,drop=FALSE, ...], x$alter[i,ncol(x$alter)-2L+1:2,drop=FALSE])
+           eid <- x$alter$.egoID[i]
+           aid <- x$alter$.altID[i]
+           x$alter <- x$alter[i,j, ...]
+           if(!".egoID" %in% names(x$alter)) x$alter$.egoID <- eid
+           if(!".altID" %in% names(x$alter)) x$alter$.altID <- aid
+
            # Explanation: keep a row in aaties iff its (egoID,altID) tuple can (still) be found in the alters as well.
            trim_aaties(x)
          },
          aatie = {
            if(!utils::hasName(x,"aatie"))
              stop("Attempted indexing of alter-alter ties on an object with no alter-alter ties observed.")
-           x$aatie <- bind_cols(x$aatie[,seq_len(ncol(x$aatie)-3),drop=FALSE][i,j,drop=FALSE, ...], x$aatie[i,ncol(x$aatie)-3L+1:3,drop=FALSE])
+           eid <- x$aatie$.egoID[i]
+           sid <- x$aatie$.srcID[i]
+           tid <- x$aatie$.srcID[i]
+           x$aatie <- x$aatie[i,j, ...]
+           if(!".egoID" %in% names(x$aatie)) x$aatie$.egoID <- eid
+           if(!".srcID" %in% names(x$aatie)) x$aatie$.srcID <- sid
+           if(!".tgtID" %in% names(x$aatie)) x$aatie$.tgtID <- tid
+
            x
          })
 }

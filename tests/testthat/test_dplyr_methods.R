@@ -27,8 +27,8 @@ test_that(
       select(e, .egoID, sex)
       group_by(e, country)
       
-      count(e, age)
-      tally(e, income)
+      count(as_tibble(e), age)
+      tally(as_tibble(e), income)
       # add_count(e, income)
       # add_tally(e, income)
       
@@ -115,9 +115,10 @@ test_that(
     # Group By 
     res <- group_by(e, sex)
     expect_is(res, "egor")
-    expect_is(res$ego, "grouped_df")
-    
-    res <- summarise(res, sum(as.numeric(age)))
+    expect_is(res$ego$variables, "grouped_df")
+
+    library(srvyr) # For unweighted.
+    res <- summarise(res, s = unweighted(sum(as.numeric(age))))
     expect_true(NCOL(res) == 2)
   }
 )
@@ -145,5 +146,3 @@ test_that("quasi quotation works with activate",
             expect_error(activate(e, alter), NA)
             expect_error(activate(e, "aatie"), NA)
           })
-
-       

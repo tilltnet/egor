@@ -9,42 +9,29 @@
 #' @export
 #' @importFrom stats weights
 weights.egor <- function(object, ...) {
-  weights(attr(object,"ego_design"), ...)
+  weights(object$ego)
 }
 
 #' A helper function that takes an egor object and a list with arguments
-#' to ego_design and runs svydesign()
+#' to ego_design and runs survey::svydesign().
 #'
 #' @param egor an [`egor`] object (possibly missing design
 #'   information).
-#' @param ego_design either `survey.design` object (like one
-#'   constructed by [svydesign()]) or a [`list`] of arguments to
-#'   [svydesign()] specifying the sampling design for the egos. If the
-#'   arguments are formulas, they can refer to columns (ego
-#'   attributes) of `egor`. If `survey.design`, returned unchanged.
-#' @param how many parents up from the calling function should the
-#'   function look for variables not in egor. If the calling function
-#'   is meant to be called directly by the user, this number should be
-#'   1; if it's called from a function called by the user, 2; etc..
+#' @param ego_design a [`list`] of arguments to [a_survey_design()]
+#'   specifying the sampling design for the egos. The arguments can
+#'   refer to columns (ego attributes) of `egor`.
+#' @param pos where the call to `as_survey_design`.
 #'
 #' @noRd
-.gen.ego_design <- function(egor, ego_design, depth){
-#' @importFrom methods is
-  if(is(ego_design, "survey.design")) return(ego_design)
-
-  # TODO: Save space by only including the columns with the design
-  # information.
-  pf <- parent.frame(depth+1)
-  svyenv <- new.env(parent=pf)
-  assign("egor", egor, envir=svyenv)
-#' @importFrom survey svydesign
-  svycall <- as.call(c(call("::",as.name("survey"),as.name("svydesign")), ego_design, list(data = as.name("egor"))))
-  suppressWarnings(eval(svycall, svyenv))
+.gen.ego_design <- function(egor, ego_design, pos=-1L){
+  envir <- as.environment(pos)
+#' @importFrom srvyr as_survey_design
+  suppressWarnings(do.call(as_survey_design, c(list(egor$ego), ego_design), envir=envir))
 }
 
 #' Set and query the ego sampling design
 #'
-#' Extract, set, or update the [`svydesign`] associated with an
+#' Extract, set, or update the survey design associated with an
 #' ego-centered dataset.
 #'
 #' @param x an [`egor`] object.
@@ -63,7 +50,7 @@ ego_design.egor <- function(x, ...) attr(x, "ego_design")
 
 #' @rdname ego_design
 #' @param value either `survey.design` object (like one constructed by
-#'   [svydesign()]) or a [`list`] of arguments to [svydesign()]
+#'   [srvyr::as_survey_design()]) or a [`list`] of arguments to [srvyr::as_survey_design()]
 #'   specifying the sampling design for the egos. If the arguments are
 #'   formulas, they can refer to columns (ego attributes) of `x`.
 #'
@@ -72,6 +59,6 @@ ego_design.egor <- function(x, ...) attr(x, "ego_design")
 #'   modified.
 #' @export
 `ego_design<-.egor` <- function(x, ..., value){
-  attr(x, "ego_design") <- .gen.ego_design(x, value, 1)
+  x$ego <- .gen.ego_design(x, value, parent.frame())
   x
 }

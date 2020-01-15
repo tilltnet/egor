@@ -10,7 +10,7 @@ egor(
   egos = NULL,
   aaties = NULL,
   ID.vars = list(ego = "egoID", alter = "alterID", source = "Source", target = "Target"),
-  ego_design = list(~1),
+  ego_design = NULL,
   alter_design = list(max = Inf)
 )
 
@@ -48,7 +48,7 @@ alter identifier of the destination of a relation.}
 
 }}
 
-\item{ego_design}{A \code{\link{list}} of arguments to \code{\link[survey:svydesign]{survey::svydesign()}}
+\item{ego_design}{A \code{\link{list}} of arguments to \code{\link[srvyr:as_survey_design]{srvyr::as_survey_design()}}
 specifying the sampling design for the egos. If formulas, they
 can refer to columns of \code{egos.df}.}
 
@@ -75,7 +75,7 @@ ego. \code{.aaties}, in turn, has columns \code{.srcID} and \code{.tgtID} that
 contain the source and the target of the alter-alter relation.
 
 In addition, \code{egor} has two attributes: \code{ego_design}, containing an
-object returned by \code{\link[survey:svydesign]{survey::svydesign()}} specifying the sampling
+object returned by \code{\link[srvyr:as_survey_design]{srvyr::as_survey_design()}} specifying the sampling
 design by which the egos were selected and \code{alter_design}, a
 \code{\link{list}} containing specification of how the alters were
 nominated. See the argument above for currently implemented

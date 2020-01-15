@@ -14,7 +14,7 @@ if (getRversion() >= "2.15.1") utils::globalVariables(c(":="))
 #'   relations in the style of an edge list, or a list of data frames
 #'   similar to `alters.df`.
 #' @template ID.vars
-#' @param ego_design A [`list`] of arguments to [survey::svydesign()]
+#' @param ego_design A [`list`] of arguments to [srvyr::as_survey_design()]
 #'   specifying the sampling design for the egos. If formulas, they
 #'   can refer to columns of `egos.df`.
 #' @param alter_design A [`list`] of arguments specifying nomination
@@ -47,7 +47,7 @@ if (getRversion() >= "2.15.1") utils::globalVariables(c(":="))
 #'   contain the source and the target of the alter-alter relation.
 #'
 #'   In addition, `egor` has two attributes: `ego_design`, containing an
-#'   object returned by [survey::svydesign()] specifying the sampling
+#'   object returned by [srvyr::as_survey_design()] specifying the sampling
 #'   design by which the egos were selected and `alter_design`, a
 #'   [`list`] containing specification of how the alters were
 #'   nominated. See the argument above for currently implemented
@@ -75,7 +75,7 @@ egor <- function(alters,
                       source = "Source",
                       target = "Target"
                     ),
-                    ego_design = list( ~ 1),
+                    ego_design = NULL,
                     alter_design = list(max = Inf)) {
   
   # Check for reserved column names
@@ -163,6 +163,7 @@ egor <- function(alters,
                aatie = aaties
   )
   class(egor) <- c("egor", class(egor))
+  egor$ego <- .gen.ego_design(egor, ego_design, parent.frame())
   activate(egor, "ego")
 }
 
@@ -204,7 +205,7 @@ summary.egor <- function(object, ...) {
   # Meta Data
   cat("\nEgo sampling design:\n")
 #' @importFrom utils capture.output
-  writeLines(paste("  ", capture.output(print(attr(object, "ego_design"))), sep = ""))
+  writeLines(paste("  ", capture.output(print(object$egos))), sep = "")
 
   cat("Alter survey design:\n")
   cat("  Maximum nominations:", attr(object, "alter_design")$max,"\n")
@@ -226,7 +227,7 @@ print.egor <- function(x, ..., n = 3) {
       cat(paste0("# ", toupper(y), " data (active)", "\n"))
     else
       cat(paste0("# ", toupper(y), " data \n"))
-    print(tibble::trunc_mat(x, n = n))
+    print(tibble::trunc_mat(x, n = min(n,nrow(x))))
   })
   invisible(x)
 }
@@ -240,22 +241,21 @@ as.egor <- function(x, ...) UseMethod("as.egor")
 #' @noRd
 as.egor.egor <- function(x, ...) x
 
-
 #' @method as_tibble egor
 #' @export
 as_tibble.egor <- function(x, 
                            ..., 
                            include.ego.vars = FALSE, 
                            include.alter.vars = FALSE){
-  res <- x[[attr(x, "active")]]
+  res <- as_tibble(x[[attr(x, "active")]])
   
   if (include.ego.vars & attr(x, "active") != "ego") {
     
-    names(x$ego)[names(x$ego) != ".egoID"] <- 
-      paste0(names(x$ego)[names(x$ego) != ".egoID"] , "_ego")
+    names(x$ego$variables)[names(x$ego$variables) != ".egoID"] <-
+      paste0(names(x$ego$variables)[names(x$ego$variables) != ".egoID"] , "_ego")
     
     
-    res <- full_join(res, x$ego,
+    res <- full_join(res, x$ego$variables,
                      by = ".egoID")
   }
   

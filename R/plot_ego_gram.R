@@ -110,7 +110,7 @@ plot_egograms <- function(x,
     if (i <= nrow(x$ego)) {
       boxi_color <- "white"
       if (!is.null(highlight_box_col_var)) {
-        var_ <- factor(x$ego[[highlight_box_col_var]])
+        var_ <- factor(x$ego$variables[[highlight_box_col_var]])
         boxi_color <- egor_col_pal(highlight_box_col_palette,
                                    length(levels(var_)))[var_][i]
       }

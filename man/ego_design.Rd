@@ -22,12 +22,12 @@ ego_design(x, ...) <- value
 \item{...}{arguments to be passed to methods}
 
 \item{value}{either \code{survey.design} object (like one constructed by
-\code{\link[=svydesign]{svydesign()}}) or a \code{\link{list}} of arguments to \code{\link[=svydesign]{svydesign()}}
+\code{\link[srvyr:as_survey_design]{srvyr::as_survey_design()}}) or a \code{\link{list}} of arguments to \code{\link[srvyr:as_survey_design]{srvyr::as_survey_design()}}
 specifying the sampling design for the egos. If the arguments are
 formulas, they can refer to columns (ego attributes) of \code{x}.}
 }
 \description{
-Extract, set, or update the \code{\link{svydesign}} associated with an
+Extract, set, or update the survey design associated with an
 ego-centered dataset.
 }
 \note{

@@ -101,7 +101,7 @@ test_that("comp_ei handles character vectors correctly",
           {
             e1 <- make_egor(32,32)
             egor32 <- e1
-            e1$ego$sex <- as.character(e1$ego$sex)
+            e1$ego$variables$sex <- as.character(e1$ego$variables$sex)
             e1 <- e1 %>% 
               activate("alter") %>%
               mutate(sex = as.character(sex))

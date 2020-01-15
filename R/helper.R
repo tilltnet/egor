@@ -16,9 +16,9 @@ NULL
 #' @export
 as_nested_egor <- function(x) {
   x$aatie <- select(x$aatie, .srcID, .tgtID, .egoID, everything())
-  alters_l <- split(x$alter, factor(x$alter$.egoID, levels = x$ego$.egoID))
-  aaties_l <- split(x$aatie, factor(x$aatie$.egoID, levels = x$ego$.egoID))
-  x <- x$ego
+  alters_l <- split(x$alter, factor(x$alter$.egoID, levels = x$ego$variables$.egoID))
+  aaties_l <- split(x$aatie, factor(x$aatie$.egoID, levels = x$ego$variables$.egoID))
+  x <- as_tibble(x$ego)
   x$.aaties <- aaties_l
   x$.alts <- alters_l
   class(x) <- c("nested_egor", class(x))

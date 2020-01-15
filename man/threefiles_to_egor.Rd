@@ -122,10 +122,10 @@ tf <- threefiles_to_egor(egos = egos, alters.df = alters, edges = edges)
 
 # read_egoweb() and read_openeddi() read the files directly from the disk.
 \donttest{
-#' # Fetch current working directory
+# Fetch current working directory
 wd <- getwd()
 
-#' setwd(system.file("extdata", "openeddi", package = "egor"))
+setwd(system.file("extdata", "openeddi", package = "egor"))
 oe <- read_openeddi()
 
 setwd(system.file("extdata", "egoweb", package = "egor"))

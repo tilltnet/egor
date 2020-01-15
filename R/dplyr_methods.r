@@ -12,23 +12,6 @@ if (getRversion() >= "2.15.1")
   )
 
 # dplyr helper functions
-restore_egor_attributes <- function(result, egor_obj) {
-  attrs_old <- attributes(egor_obj)
-  attrs_old <- attrs_old[!names(attrs_old) %in% c("names", "row.names")]
-  attrs_new <- attributes(result)
-  attrs_new <- attrs_new[!names(attrs_new) %in% names(attrs_old)]
-  attributes(result) <-  c(attrs_old, attrs_new)
-  update_ego_design(result)
-}
-
-update_ego_design <- function(result) {
-  new_variables <- as_tibble(result)
-  attr_keep <- attributes(new_variables)
-  attr_keep <- attr_keep[names(attr_keep) %in% c("names", "row.names", "class")]
-  attributes(new_variables) <- attr_keep
-  attributes(result)$ego_design$variables <- new_variables
-  result
-}
 
 #' Trims alter-alter ties of alters that are missing/ deleted from alters data
 #' 
@@ -38,7 +21,7 @@ update_ego_design <- function(result) {
 trim_aaties <- function(object) {
   # keep only aaties that have .egoID in ego
   object$aatie <-
-    filter(object$aatie, .egoID %in% object$ego$.egoID)
+    filter(object$aatie, .egoID %in% object$ego$variables$.egoID)
   
   # keep only aaties that have .egoID in alters
   object$aatie <-
@@ -84,7 +67,7 @@ trim_aaties <- function(object) {
 #' @export
 trim_alters <- function(object) {
   object$alter <-
-    filter(object$alter, .egoID %in% object$ego$.egoID)
+    filter(object$alter, .egoID %in% object$ego$variables$.egoID)
   object
 }
   
@@ -97,14 +80,40 @@ bind_IDs_if_missing <- function(.data, result) {
   select(result, a, everything())
 }
 
-return_egor_with_result <- 
-  function(.data, result, trim = TRUE) {
-    .data[[attr(.data, "active")]] <- result
-    if (trim) {
-      .data <- trim_alters(.data)
-      trim_aaties(.data)
-    } else .data
+# This is a very ugly workaround, necessary because srvyr does not
+# have some dplyr methods for tbl_svy objects as of this writing. This
+# temporarily converts ego table into a tibble with an extra column
+# containing the row ID so that we could later figure out what subset
+# of rows to pass to [.svy_tbl() in return_egor_with_result().
+tibble_egos <- function(.data){
+  if(attr(.data, "active")=="ego"){
+    .data[["ego"]] <- cbind(as_tibble(.data[["ego"]]), .rowID_for_design=seq_len(nrow(.data[["ego"]])))
   }
+  .data
+}
+
+return_egor_with_result <- function(.data, result, trim = TRUE) {
+  # The following takes the subsetting done by whatever method did it,
+  # and applies it to the svy_design object, before replacing its
+  # variables with the result tibble.
+  if(attr(.data, "active")=="ego"){
+    i <- result[[".rowID_for_design"]]
+    if(!is.null(i)){
+      result[[".rowID_for_design"]] <- NULL
+      res_ego <- .data[["ego"]][i,]
+      # res_ego should now be a svy_tbl object that has the same number of
+      # rows as result, so the following shouldn't break things:
+      res_ego$variables <- result
+      result <- res_ego
+    }
+  }
+
+  .data[[attr(.data, "active")]] <- result
+  if (trim) {
+    .data <- trim_alters(.data)
+    trim_aaties(.data)
+  } else .data
+}
 
 # mutate ------------------------------------------------------------------
 
@@ -120,7 +129,7 @@ mutate.egor <- function(.data, ...) {
 #' @noRd
 #' @method transmute egor
 transmute.egor <- function(.data, ...) {
-  result <- transmute(.data[[attr(.data, "active")]], ...)
+  result <- transmute(tibble_egos(.data)[[attr(.data, "active")]], ...)
   result <- 
     bind_IDs_if_missing(.data, result)
 
@@ -134,7 +143,7 @@ transmute.egor <- function(.data, ...) {
 #' @noRd
 #' @method select egor
 select.egor <- function(.data, ...) {
-  result <- select(.data[[attr(.data, "active")]], ...)
+  result <- select(tibble_egos(.data)[[attr(.data, "active")]], ...)
   result <- 
     bind_IDs_if_missing(.data, result)
   return_egor_with_result(.data, result)
@@ -165,7 +174,7 @@ filter.egor <- function(.data, ...) {
 #' @noRd
 #' @method slice egor
 slice.egor <- function(.data, ...) {
-  result <- slice(.data[[attr(.data, "active")]], ...)
+  result <- slice(tibble_egos(.data)[[attr(.data, "active")]], ...)
   return_egor_with_result(.data, result)
 }
 
@@ -238,7 +247,7 @@ summarize.egor <- function(.data, ...) {
 #' @noRd
 #' @method arrange egor
 arrange.egor <- function(.data, ...) {
-  result <- arrange(.data[[attr(.data, "active")]], ...)
+  result <- arrange(tibble_egos(.data)[[attr(.data, "active")]], ...)
   return_egor_with_result(.data, result)
 }
 # should arrange commands to ego level ripple through to the other two levels?
@@ -249,7 +258,7 @@ arrange.egor <- function(.data, ...) {
 #' @noRd
 #' @method inner_join egor
 inner_join.egor <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...) {
-  result <- inner_join(x[[attr(x, "active")]], y, by = by, copy = copy, suffix = suffix, ...)
+  result <- inner_join(tibble_egos(x)[[attr(x, "active")]], y, by = by, copy = copy, suffix = suffix, ...)
   return_egor_with_result(x, result)
   
 }
@@ -258,7 +267,7 @@ inner_join.egor <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"
 #' @noRd
 #' @method left_join egor
 left_join.egor <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...) {
-  result <- left_join(x[[attr(x, "active")]], y, by = by, copy = copy, suffix = suffix,...)
+  result <- left_join(tibble_egos(x)[[attr(x, "active")]], y, by = by, copy = copy, suffix = suffix,...)
   return_egor_with_result(x, result)
   
 }
@@ -267,7 +276,7 @@ left_join.egor <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y")
 #' @noRd
 #' @method right_join egor
 right_join.egor <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...) {
-  result <- right_join(x[[attr(x, "active")]], y, by = by, copy = copy, suffix = suffix,...)
+  result <- right_join(tibble_egos(x)[[attr(x, "active")]], y, by = by, copy = copy, suffix = suffix,...)
   return_egor_with_result(x, result)
 }
 
@@ -275,7 +284,7 @@ right_join.egor <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"
 #' @noRd
 #' @method full_join egor
 full_join.egor <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...) {
-  result <- full_join(x[[attr(x, "active")]], y, by = by, copy = copy, suffix = suffix,...)
+  result <- full_join(tibble_egos(x)[[attr(x, "active")]], y, by = by, copy = copy, suffix = suffix,...)
   return_egor_with_result(x, result)
 }
 
@@ -283,7 +292,7 @@ full_join.egor <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y")
 #' @noRd
 #' @method semi_join egor
 semi_join.egor <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...) {
-  result <- semi_join(x[[attr(x, "active")]], y, by = by, copy = copy, suffix = suffix,...)
+  result <- semi_join(tibble_egos(x)[[attr(x, "active")]], y, by = by, copy = copy, suffix = suffix,...)
   return_egor_with_result(x, result)
 }
 
@@ -291,7 +300,7 @@ semi_join.egor <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y")
 #' @noRd
 #' @method nest_join egor
 nest_join.egor <- function(x, y, by = NULL, copy = FALSE, keep = FALSE, name = NULL, ...) {
-  result <- nest_join(x[[attr(x, "active")]], y, by = by, copy = copy, keep = keep, name = name,...)
+  result <- nest_join(tibble_egos(x)[[attr(x, "active")]], y, by = by, copy = copy, keep = keep, name = name,...)
   return_egor_with_result(x, result)
 }
 
@@ -299,7 +308,7 @@ nest_join.egor <- function(x, y, by = NULL, copy = FALSE, keep = FALSE, name = N
 #' @noRd
 #' @method anti_join egor
 anti_join.egor <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...) {
-  result <- anti_join(x[[attr(x, "active")]], y, by = by, copy = copy, suffix = suffix,...)
+  result <- anti_join(tibble_egos(x)[[attr(x, "active")]], y, by = by, copy = copy, suffix = suffix,...)
   return_egor_with_result(x, result)
 }
 
@@ -857,4 +866,17 @@ setequal.egor <- function(x, y, ...) {
   result <- setequal(x[[attr(x, "active")]], y, ...)
   result <- bind_IDs_if_missing(x, result)
   return_egor_with_result(x, result) 
+}
+
+#' @noRd
+#' @importFrom srvyr as_survey
+#' @export
+as_survey.egor <- function(.data, ...){
+  .data$ego
+}
+
+#' @noRd
+#' @export
+as_survey_design.egor <- function(.data, ...){
+  .data$ego
 }

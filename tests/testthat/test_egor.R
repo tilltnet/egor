@@ -65,7 +65,7 @@ test_that(
     test_that("e is egor object", 
               expect_true((class(e) == "egor")[1]))
     
-    egos <- e$ego
+    egos <- e$ego$variables
     alters <- e$alter
     aaties <- e$aatie
     

@@ -27,7 +27,7 @@ test_that("onefile_to_egor works with var wise data", {
                   aa.first.var = "a_b",
                   max.alters = 3,
                   var.wise = TRUE)
-  expect_true("additional_ego_attr" %in% names(e$ego))
+  expect_true("additional_ego_attr" %in% names(e$ego$variables))
 })
 
 test_that("onefile_to_egor works with alter wise data", {
@@ -58,7 +58,7 @@ test_that("onefile_to_egor works with alter wise data", {
                   max.alters = 3,
                   var.wise = FALSE)
   
-  expect_true("additional_ego_attr" %in% names(e$ego))
+  expect_true("additional_ego_attr" %in% names(e$ego$variables))
 })
 
 
@@ -99,7 +99,7 @@ test_that("onefile_to_egor filters out alters by network size", {
                        max.alters = 3,
                        var.wise = FALSE)
   
-  expect_true("additional_ego_attr" %in% names(e$ego))
+  expect_true("additional_ego_attr" %in% names(e$ego$variables))
   expect_equal(group_by(e$alter, .egoID) %>% group_map(~nrow(.)) %>% unlist(),
                raw_data$netsize)
 })
