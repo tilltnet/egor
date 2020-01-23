@@ -177,6 +177,7 @@ egor <- function(alters,
 summary.egor <- function(object, ...) {
   
   # TODO: return tibble instead of using cat for output?!? 
+  
   # Network count
   nc <- nrow(object$ego)
   

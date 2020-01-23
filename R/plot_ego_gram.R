@@ -164,8 +164,10 @@ plot_egogram <-
            ...)  {
     par(mar = c(1, 0.5, 0.5, 0.5))
     
+    # TODO: stop(/warn?) when pie or venn var have more than 10 levels
+    
     ego_object <-
-      slice(activate(x, "ego"), ego_no)
+      slice.egor(.data = activate(x, "ego"), ego_no)
     
     pie_var_name <- pie_var
     venn_var_name <- venn_var
@@ -241,9 +243,7 @@ plot_egogram <-
     )
     
     # Join Layout and Calculate Distances
-    if (activate(x, "aatie") %>%
-        as_tibble() %>%
-        nrow() > 0) {
+    if (nrow(as_tibble(activate(x, "aatie"))) > 0) {
       lay$.altID <- as.character(lay$.altID)
       
       # get additional edge variable names
@@ -254,19 +254,23 @@ plot_egogram <-
                                                           ".tgtID")]
       
       a <-
-        activate(x, "aatie") %>%
-        as_tibble() %>%
-        mutate(.srcID = as.character(.srcID),
-               .tgtID = as.character(.tgtID)) %>%
+        as_tibble(activate(ego_object, "aatie"))
+      
+      a <- mutate(a, .srcID = as.character(.srcID),
+               .tgtID = as.character(.tgtID))
         
-        left_join(lay, by = c(".srcID" = ".altID")) %>%
-        left_join(lay, by = c(".tgtID" = ".altID"))
-      b <- a %>%
-        group_by(.egoID, .srcID, .tgtID) %>%
-        do({
-          dist_curved_df <- data.frame(x = c(.$x.x, .$x.y), y = c(.$y.x, .$y.y)) %>%
-            stats::dist() %>% .[[1]] %>% tibble(distance = .) %>%
-            mutate(curved = case_when(distance <= min_dist ~ 1,
+      a <- left_join(a, lay, by = c(".srcID" = ".altID"))
+      a <- left_join(a, lay, by = c(".tgtID" = ".altID"))
+      b <- 
+        
+        do(group_by(a, .egoID, .srcID, .tgtID), {
+          dist_curved_df <- 
+            data.frame(x = c(.$x.x, .$x.y), y = c(.$y.x, .$y.y))
+          dist_curved_df <- 
+            tibble(distance = stats::dist(dist_curved_df)[[1]])
+          dist_curved_df <- 
+            mutate(dist_curved_df, 
+                   curved = case_when(distance <= min_dist ~ 1,
                                       TRUE ~ 0.1))
           cbind(dist_curved_df, .[additional_edge_vars])
         })
@@ -282,7 +286,7 @@ plot_egogram <-
     plot_one_ego_graph(
       ego_object,
       ego_no = 1,
-      layout = lay[1:2] %>% as.matrix(),
+      layout = as.matrix(lay[1:2]),
       add = TRUE,
       rescale = FALSE,
       vertex_size_var = vertex_size_var,
