@@ -66,7 +66,7 @@ egor_vis_app <- function(object = NULL,
       "Topo Colors"
     )
   
-  shiny_opts <- c(shiny_opts, width = "20", test.mode = TRUE)
+  shiny_opts <- c(shiny_opts, width = "20")
   object_enex <- as.character(enexpr(object))
   
   shinyApp(
