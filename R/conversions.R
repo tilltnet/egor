@@ -245,7 +245,7 @@ as.network.egor <- as_network
 #' @param object An `egor` object.
 #' a new variable with the specified name is created.
 #' @param include.ego.vars Logical, specifying if ego variables should be included in the result.
-#' @param include.alt.vars Logical, specifying if alter variables should be included in the result.
+#' @param include.alter.vars Logical, specifying if alter variables should be included in the result.
 #' @examples
 #' # Load example data
 #' data(egor32)
@@ -257,7 +257,7 @@ as.network.egor <- as_network
 #' as_aaties_df(egor32)
 #'
 #' # ... adding alter variables
-#' as_aaties_df(egor32, include.alt.vars = TRUE)
+#' as_aaties_df(egor32, include.alter.vars = TRUE)
 #' @export
 as_alters_df <- function(object, include.ego.vars = FALSE) {
   object <- activate(object, "alter")
