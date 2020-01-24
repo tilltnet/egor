@@ -197,7 +197,7 @@ plot_egogram <-
     
     # Pieces of the pie
     plot.new()
-    pie(
+    pie_add(
       rep(1, piece_n),
       labels = levels(pie_var),
       radius = 1,
@@ -227,7 +227,7 @@ plot_egogram <-
     }
     
     # Block inner cicle
-    pie(
+    pie_add(
       1,
       labels = NA,
       border = FALSE,
@@ -243,7 +243,7 @@ plot_egogram <-
     )
     
     # Join Layout and Calculate Distances
-    if (nrow(as_tibble(activate(x, "aatie"))) > 0) {
+    if (nrow(as_tibble(activate(ego_object, "aatie"))) > 0) {
       lay$.altID <- as.character(lay$.altID)
       
       # get additional edge variable names
@@ -312,7 +312,7 @@ plot_egogram <-
 
 # This is the graphics::pie function modified to allow adding its
 # output to an existing plot
-pie <- function(x,
+pie_add <- function(x,
                 labels = names(x),
                 edges = 200,
                 radius = 0.8,
