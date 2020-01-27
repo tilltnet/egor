@@ -7,7 +7,6 @@
 twofiles_to_egor(
   egos,
   alters,
-  netsize = NULL,
   ID.vars = list(ego = "egoID", alter = "alterID", source = "Source", target = "Target"),
   e.max.alters,
   e.first.var,
@@ -20,8 +19,6 @@ twofiles_to_egor(
 
 \item{alters}{\code{Data frame} containing alters data (alters as cases),
 alters are separated by a variable containg an egoID.}
-
-\item{netsize}{\code{Vector} containing values of network size per ego.}
 
 \item{ID.vars}{A named list containing column names of the relevant
 input columns: \describe{

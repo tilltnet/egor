@@ -126,8 +126,9 @@ make_egor <-
     )
     
     # Trimming down alters per network using netsize
-    alters <-
-      long.df.to.list(alters, netsize, egoID = "egoID", back.to.df = TRUE)
+    a <- cumsum(rep(max.alters, net.count)) - max.alters + 1
+    b <- a + netsize - 1
+    alters <- alters[unlist(map2(a, b, seq)),]
     
     # Generating edges
     edge.list <- list()
