@@ -28,8 +28,8 @@ test_that(
     egos_8 <- read.csv2(path_to_one_file_8, row.names = 1)
     alters_8 <- read.csv2(path_to_alters_8.csv, row.names = 1)
     
-    attr.start.col <- which(names(egos_8) == "alter.sex.1")
-    attr.end.col <- which(names(egos_8) == "alter.age.8")
+    #attr.start.col <- which(names(egos_8) == "alter.sex.1")
+    #attr.end.col <- which(names(egos_8) == "alter.age.8")
     dy.first.var <- which(names(egos_8) == "X1.to.2")
     
     expect_error(
@@ -39,8 +39,107 @@ test_that(
         e.max.alters = 8,
         e.first.var = dy.first.var),
       NA)
+    
+    alters_8_r500 <- sample_n(alters_8, 500)
+    alters_8_r500$egoID <- as.character(alters_8_r500$egoID)
+    
+    # No alterID
+    expect_error(
+      a <- twofiles_to_egor(
+        egos = egos_8,
+        alters = alters_8_r500,
+        ID.vars = list(
+          ego = "egoID",
+          alter = "alterID_",
+          source = "Source",
+          target = "Target"
+        ),
+        e.max.alters = 8,
+        e.first.var = dy.first.var),
+      NA)
+    
+    alters_8_r500$selection1 <-
+      sample(c(TRUE, FALSE), nrow(alters_8_r500), replace = TRUE)
+    alters_8_r500$selection2 <-
+      sample(c(1, 0), nrow(alters_8_r500), replace = TRUE)
+    alters_8_r500$selection3 <-
+      sample(c(1, NA), nrow(alters_8_r500), replace = TRUE)
+
+    expect_error(
+      a <- twofiles_to_egor(
+        egos = egos_8,
+        alters = alters_8_r500,
+        ID.vars = list(
+          ego = "egoID",
+          alter = "alterID_",
+          source = "Source",
+          target = "Target"
+        ),
+        e.max.alters = 8,
+        e.first.var = dy.first.var,
+        selection = "selection1"),
+        
+      NA)
+    
+    expect_error(
+      a <- twofiles_to_egor(
+        egos = egos_8,
+        alters = alters_8_r500,
+        ID.vars = list(
+          ego = "egoID",
+          alter = "alterID_",
+          source = "Source",
+          target = "Target"
+        ),
+        e.max.alters = 8,
+        e.first.var = dy.first.var,
+        selection = "selection2"),
+      
+      NA)
+    
+    expect_error(
+      a <- twofiles_to_egor(
+        egos = egos_8,
+        alters = alters_8_r500,
+        ID.vars = list(
+          ego = "egoID",
+          alter = "alterID_",
+          source = "Source",
+          target = "Target"
+        ),
+        e.max.alters = 8,
+        e.first.var = dy.first.var,
+        selection = "selection3"),
+      
+      NA)
   }
 )
+
+test_that("twofiles_to_egor works with transnat data", {
+  skip_if_not(Sys.info()["nodename"] == "Tills-MacBook-Pro.local")
+  #alteri_raw <- foreign::read.spss("/Users/tillkrenz/Dropbox/Nextcloud/clientsync/Lehre/egor Workshop/egor_sunbelt_18/02_tie.sav", to.data.frame = TRUE, use.value.labels = FALSE)
+  #egos_raw <- foreign::read.spss("/Users/tillkrenz/Dropbox/Nextcloud/clientsync/Lehre/egor Workshop/egor_sunbelt_18/02_net.sav", to.data.frame = T, use.value.labels = F)
+  #save(alteri_raw, egos_raw, file = "/Users/tillkrenz/Dropbox/egor_kram/transnat_raw_data.rda")
+  load("~/Dropbox/egor_kram/transnat_raw_data.rda")
+  alter.alter <- egos_raw[12:39]
+  sorted_alter_alter <- sort(names(alter.alter))
+  egos_raw <- data.frame(egos_raw[1:11], egos_raw[sorted_alter_alter])
+  
+  which(names(egos_raw) == "b10_1_2") # Insert variable name of first alter-alter variable.
+  transnat <- twofiles_to_egor(egos = egos_raw, 
+                               alters = alteri_raw, 
+                               e.max.alters = 8,
+                               e.first.var = 12, 
+                               selection = "selected")
+  a <- transnat$aatie %>% 
+    filter(.egoID == 12) %>% 
+    {c(.$.srcID, .$.tgtID)} %>% 
+    sort() %>% 
+    unique() %>% 
+    as.numeric()
+  b <- alteri_raw %>% filter(egoID == 12, selected == 1) %>% pull(alterID)
+  expect_true(all(a %in% b))
+})
 
 test_that(
   "read_egonet() works.",
