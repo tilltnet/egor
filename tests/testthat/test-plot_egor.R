@@ -211,7 +211,7 @@ test_that("plot_ego_gram works with edge arguments", {
                   edge_width_var = "weight", 
                   edge_zoom = 3)
     plot_ego_graphs(
-      x=e,
+      x = e,
       ego_no = 1,
       edge_color_var = "weight",
       edge_width_var = "weight", 
