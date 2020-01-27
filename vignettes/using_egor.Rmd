@@ -38,6 +38,10 @@ levels, we construct an egor object. Here is an example of what the `data.frames
 could look like. Pay attention to the ID variables connecting the levels with 
 each other. 
 
+```
+library(egor)
+```
+
 ```{r}
 data("alters32")
 data("egos32")
@@ -62,10 +66,6 @@ All three `data.frames` contain an egoID identifying a unique ego and connecting
 their personal data to the alter and alter-alter tie data. The alterID is in the
 alter data is reused in the alter-alter tie data in the Source and Target 
 columns.
-
-```
-library(egor)
-```
 
 Let's create an egor object from the data we just loaded.
 ```{r}
@@ -189,6 +189,24 @@ EI(e1, "age") %>%
   head() %>%
   kable()
 ```
+
+### Count attribute combinations in alter-alter ties/ dyads
+
+```{r}
+# return results as "wide" tibble
+  count_dyads(
+    object = e1,
+    alter_var_name = "country"
+  )
+
+# return results as "long" tibble
+  count_dyads(
+    object = e1,
+    alter_var_name = "country",
+    return_as = "long"
+  )
+```
+
 
 ### `comp_ply()`
 `comp_ply()` applies a user-defined function on an alter attribute and returns 
