@@ -4,13 +4,13 @@
 \alias{edgelist_to_wide}
 \title{Transforms edge lists to alter-alter wide format data.}
 \usage{
-edgelist_to_wide(edges)
+edgelist_to_wide(edges, src_tgt_id = c(".SRCID", ".TGTID"), weight = "weight")
 }
 \arguments{
 \item{edges}{List of \code{data.frames} containing edge lists.}
 }
 \description{
-Only works properly, if the netsize of all networks is constant.
+Transforms edge lists to alter-alter wide format data.
 }
 \keyword{ego-centered}
 \keyword{internal}
