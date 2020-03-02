@@ -1,3 +1,7 @@
+# egor 0.20.03
+
+- fix: updated clutered_graphs() to work with tibble 3.0.0
+
 # egor 0.20.01
 
 - feat: added count_dyads() function

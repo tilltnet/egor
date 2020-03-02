@@ -6,7 +6,8 @@ test_that(
   # Create test data
   mpf <- make_egor(5, 50)
 
-  expect_error(clustered_graphs(mpf, "country"), NA)
+  expect_error(egor:::clustered_graphs.egor(object = mpf,
+                                clust.groups = "country"), NA)
   #expect_error(clustered_graphs(mpf$alter, mpf$aatie, "country"), NA, egoID = ".egoID")
   }
 )
@@ -50,14 +51,29 @@ test_that(
     mpf$alter$country <- NA
     
     expect_error(clustered_graphs(object = mpf, clust.groups = "country"), NA)
-    
-    
+
     expect_null(igraph::V(clustered_graphs(mpf, "country")[[1]])$grp.size)
   }
 )
 
-# vis_clustered_graphs(graphs, node.min.size = 45, node.max.size = 200,
-#                    labels = T, to.pdf = F)
-# 
-# vis_clustered_graphs(graphs, node.min.size = 45, node.max.size = 200,
-#                    labels = F, to.pdf = T)
+if (FALSE) {
+  mpf <- make_egor(5, 50)
+  
+  graphs <- clustered_graphs(object = mpf, clust.groups = "country")
+  
+  vis_clustered_graphs(
+    graphs,
+    node.size.multiplier = 5,
+    labels = T,
+    to.pdf = F
+  )
+  
+  vis_clustered_graphs(
+    graphs,
+    node.size.multiplier = 5,
+    edge.width.multiplier = 30,
+    labels = F,
+    to.pdf = F
+  )
+}
+
