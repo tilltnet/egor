@@ -60,18 +60,29 @@ if (FALSE) {
   mpf <- make_egor(5, 50)
   
   graphs <- clustered_graphs(object = mpf, clust.groups = "country")
-  
+
   vis_clustered_graphs(
     graphs,
-    node.size.multiplier = 5,
+    node.size.multiplier = 3,
+    edge.width.multiplier = 3,
     labels = T,
     to.pdf = F
   )
-  
+
   vis_clustered_graphs(
     graphs,
-    node.size.multiplier = 5,
-    edge.width.multiplier = 30,
+    node.size.multiplier = 2,
+    edge.width.multiplier = 1,
+    labels = F,
+    to.pdf = F
+  )
+  
+  par(mfrow = c(2,3))
+  vis_clustered_graphs(
+    graphs,
+    node.size.multiplier = 10,
+    normalise.node.sizes = FALSE,
+    edge.width.multiplier = 1,
     labels = F,
     to.pdf = F
   )

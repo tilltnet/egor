@@ -18,7 +18,7 @@ sanitize.wide.edges(max.alters)
 
 create_edge_names_wide(x)
 
-dyads_possible_between_groups(x, y)
+dyads_possible_between_groups(x, y, geometric = TRUE)
 
 din_page_dist(x)
 }
@@ -31,6 +31,8 @@ din_page_dist(x)
 data.}
 
 \item{y}{\code{Numeric}.}
+
+\item{geometric}{\code{Logical.} Calculate possible dyads for geometric mean?}
 }
 \description{
 Helper functions for ego centered network analysis

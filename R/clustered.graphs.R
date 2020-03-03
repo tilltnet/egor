@@ -34,6 +34,7 @@ clustered_graphs.list <-
       names(y) <- c("groups", "size")
       y
     }
+    
     alters.grped.list <- lapply(object, FUN = GetGroupSizes)
     
     # Exclude NAs in clust.groups
@@ -120,12 +121,10 @@ clustered_graphs.list <-
               groups.size.j <-
                 alters.group.n$size[alters.group.n$groups == j.name]
               
-              
               grp.size <-
                 ifelse(i.name == j.name,
                        groups.size.i,
                        groups.size.i + groups.size.j)
-              
               
               if (j.name != i.name) {
                 grp.possible.dyads <-
@@ -133,6 +132,7 @@ clustered_graphs.list <-
               } else {
                 grp.possible.dyads <- dyad.poss(groups.size.i)
               }
+              
               grp.density <- real.dyads / grp.possible.dyads
               grps.df <-
                 rbind(
@@ -145,8 +145,6 @@ clustered_graphs.list <-
                     grp.density
                   )
                 )
-              
-              
             }
           }
           # Check for empty categories and add dummy vertex.
@@ -160,8 +158,8 @@ clustered_graphs.list <-
             }
           }
         }
-        
-        list(grp.densities = grps.df, aatiess = groups.list)
+        list(grp.densities = grps.df, 
+             aatiess = groups.list)
       }
     
     grp.densities <-
@@ -173,17 +171,19 @@ clustered_graphs.list <-
     
     # Create 'clustered graphs' igraph object  --------------------------------
     
-    
     clustered_graphs <- lapply(
       grp.densities,
       FUN = function(x)
         igraph::graph.data.frame(
-          x$grp.densities[x$grp.densities$i.name != x$grp.densities$j.name,],
-          vertices = x$grp.densities[x$grp.densities$i.name == x$grp.densities$j.name,],
+          x$grp.densities[x$grp.densities$i.name != x$grp.densities$j.name, ],
+          vertices = x$grp.densities[x$grp.densities$i.name == x$grp.densities$j.name, ],
           directed = FALSE
         )
     )
-    clustered_graphs
+    map(clustered_graphs, function(x) {
+      a <- vertex_attr(x, "grp.size")
+      set_vertex_attr(x, "grp.prop", value = a/sum(a) * 100)
+    })
   }
 
 #' @rdname clustered_graphs
@@ -231,6 +231,8 @@ clustered_graphs.data.frame <-
 #' nodes
 #' @param node.max.size \code{Numeric} indicating maximum size of plotted
 #' nodes
+#' @param normalise.node.sizes \code{Logical.} If TRUE (default) node sizes
+#' are plotted using per network proportions rather than counts.
 #' @param edge.width.multiplier \code{Numeric} used to multiply the edge width.
 #' @param center \code{Numeric} indicating the vertex to be plotted in center.
 #' @param label.size \code{Numeric}.
@@ -255,7 +257,8 @@ vis_clustered_graphs <- function(graphs,
                                  node.size.multiplier = 1,
                                  node.min.size = 0,
                                  node.max.size = 200,
-                                 edge.width.multiplier = 30,
+                                 normalise.node.sizes = TRUE,
+                                 edge.width.multiplier = 1,
                                  center = 1,
                                  label.size = 0.8,
                                  labels = FALSE,
@@ -294,7 +297,7 @@ vis_clustered_graphs <- function(graphs,
       vertex.label.cex = label.size,
       vertex.label.family = "sans",
       
-      layout = layout_,
+      layout = rotate_to_equilibrium(layout_),
       ...
     )
   }
@@ -334,22 +337,22 @@ vis_clustered_graphs <- function(graphs,
       label.shades <- NA
     }
     
-    vertex.size <-
-      igraph::V(graph)$grp.size * node.size.multiplier + node.min.size
+    if (!normalise.node.sizes) {
+      vertex.size <-
+        igraph::V(graph)$grp.size * node.size.multiplier + node.min.size
+    } else {
+      vertex.size <-
+        igraph::V(graph)$grp.prop * node.size.multiplier + node.min.size
+    }
     vertex.size[vertex.size > node.max.size] <- node.max.size
-    
-    
+
+    betw_grp_dens <- E(graph)$grp.density
     
     igraph::plot.igraph(
       graph,
       vertex.color = gray(seq(1, 0, -0.008))[igraph::V(graph)$grp.density *
                                                100 + 1],
-      vertex.frame.color = ifelse(
-        igraph::V(graph)$grp.density == 0 |
-          is.na(igraph::V(graph)$grp.density),
-        "black",
-        NA
-      ),
+      vertex.frame.color = "darkslategrey",
       vertex.size = vertex.size,
       vertex.label.color = label.shades,
       vertex.label.cex = label.size,
@@ -362,8 +365,8 @@ vis_clustered_graphs <- function(graphs,
       edge.label.color = "black",
       edge.label.cex = edge.label.cex,
       edge.label.family = "sans",
-      edge.color = ifelse(igraph::E(graph)$grp.density == 0, NA, "grey"),
-      layout = layout_,
+      edge.color = gray(1 - betw_grp_dens/max(betw_grp_dens), alpha = 0.7), 
+      layout = rotate_to_equilibrium(layout_),
       ...
     )
     
@@ -382,7 +385,7 @@ vis_clustered_graphs <- function(graphs,
       edge.width = 0,
       edge.color = NA,
       edge.arrow.size = 0,
-      layout = layout_,
+      layout = rotate_to_equilibrium(layout_),
       ...
     )
     
@@ -404,7 +407,7 @@ vis_clustered_graphs <- function(graphs,
   
   if (!labels) {
     if (length(igraph::V(example.graph)) < 4) {
-      layout_ <- igraph::layout.circle
+      layout_ <- igraph::layout.circle(example.graph)
     } else {
       layout_ <- igraph::layout_as_star(example.graph, center = center)
     }
@@ -420,7 +423,7 @@ vis_clustered_graphs <- function(graphs,
       plot.new()
     } else {
       if (length(igraph::V(graph)) < 4) {
-        layout_ <- igraph::layout.circle
+        layout_ <- igraph::layout.circle(graph)
       } else {
         layout_ <- igraph::layout_as_star(graph, center = center)
       }
