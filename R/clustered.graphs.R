@@ -181,8 +181,8 @@ clustered_graphs.list <-
         )
     )
     map(clustered_graphs, function(x) {
-      a <- vertex_attr(x, "grp.size")
-      set_vertex_attr(x, "grp.prop", value = a/sum(a) * 100)
+      a <- igraph::vertex_attr(x, "grp.size")
+      igraph::set_vertex_attr(x, "grp.prop", value = a/sum(a) * 100)
     })
   }
 
