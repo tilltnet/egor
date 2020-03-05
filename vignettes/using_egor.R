@@ -106,22 +106,22 @@ data("egor32")
 graphs <- clustered_graphs(egor32, "age") 
 
 # Visualize
-par(mar=c(0,0,0,0))
+par(mfrow = c(2,2), mar = c(0,0,0,0))
 vis_clustered_graphs(graphs[1:3], 
-                     node.size.multiplier = 10, 
-                     edge.width.multiplier = 5,
+                     node.size.multiplier = 1, 
+                     edge.width.multiplier = 1,
                      label.size = 0.6)
 
-graphs2 <- clustered_graphs(make_egor(400, 200)[1:4], "country") 
+graphs2 <- clustered_graphs(make_egor(50, 50)[1:4], "country") 
 
-vis_clustered_graphs(graphs2[1:4], 
-                     node.size.multiplier = 2, 
-                     edge.width.multiplier = 15,
+vis_clustered_graphs(graphs2[1:3], 
+                     node.size.multiplier = 1, 
+                     edge.width.multiplier = 3,
                      label.size = 0.6,
-                     labels = TRUE)
+                     labels = FALSE)
 
 ## -----------------------------------------------------------------------------
-par(mar=c(0,0,0,0))
+par(mar = c(0, 0, 0, 0), mfrow = c(2, 2))
 purrr::walk(as_igraph(egor32)[1:4], plot)
 purrr::walk(as_network(egor32)[1:4], plot)
 

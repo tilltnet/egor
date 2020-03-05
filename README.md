@@ -1,17 +1,61 @@
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/tilltnet/egor?branch=master&svg=true)](https://ci.appveyor.com/project/tilltnet/egor)
 [![Travis CI Build Status](https://travis-ci.org/tilltnet/egor.svg?branch=master)](https://travis-ci.org/tilltnet/egor)
 
-egor
-=======
-R Package for importing and analyzing ego-centered-network data.
+# egor
 
-Install with:
+Tools for importing, analyzing and visualizing ego-centered or personal network
+data. egor integrates nicely with the [tidyverse](http://www.tidyverse.org), by
+providing methods for most `dplyr` commands. An `egor` object contains the three
+data levels, `ego`, `alter` and alter-alter ties (`aatie`). In order to switch
+between the three data levels the `activate()` concept is lent from the
+[tidygraph](https://github.com/thomasp85/tidygraph) package.
 
+## Installation
+
+    # Install release version from CRAN
     install.packages("egor")
 
-Or the development version:
+    # Install development version from GitHub
+    remotes::install_github(repo="tilltnet/egor")
+    
+## Visualize
 
-    devtools::install_github(repo="tilltnet/egor")
+`egor` offers a few visualization techniques for ego-centered network data:
 
+- regular network plots ![](reference/figures/network_plot.png)
+- clustered graphs ![](reference/figures/clustered_graphs.png)
+- ego-grams ![](reference/figures/ego_gram.png)
 
-Please see the [package vignette](https://cran.r-project.org/web/packages/egor/vignettes/using_egor.html) for an overview of the capabilities of egor.
+And there is a Network Visualization App providing a graphical interface that
+let's the user compose their visualizations interactively. 
+
+![](reference/figures/vis_wizzard.png)
+
+## Import data
+
+An egor object can be created with the `egor()` command. In addition there are
+some functions that import specific data formats for ego-centered network data.
+
+There are currently three importing functions that read the data exported from
+data collection tools from the hard drive and load them as an `egor` object.
+
+```
+read_openeddi()
+read_egoweb()
+read_egonet()
+```
+
+In addition there are three functions that help with the transformation of common data 
+formats of ego-centered network data into egor objects:
+
+```
+onefile_to_egor()
+twofiles_to_egor()
+threefiles_to_egor()
+```
+
+## Analyse
+
+There are a few commands facilitating the anlysis of ego-centered networks. To
+learn more, please take a look at the package 
+[vignette](articles/using_egor.html).
