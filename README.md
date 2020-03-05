@@ -22,14 +22,14 @@ between the three data levels the `activate()` concept is lent from the
 
 `egor` offers a few visualization techniques for ego-centered network data:
 
-- regular network plots ![](reference/figures/network_plot.png)
-- clustered graphs ![](reference/figures/clustered_graphs.png)
-- ego-grams ![](reference/figures/ego_gram.png)
+- regular network plots ![](https://www.tillt.net/egor/reference/figures/network_plot.png)
+- clustered graphs ![](https://www.tillt.net/egor/reference/figures/clustered_graphs.png)
+- ego-grams ![](https://www.tillt.net/egor/reference/figures/ego_gram.png)
 
 And there is a Network Visualization App providing a graphical interface that
 let's the user compose their visualizations interactively. 
 
-![](reference/figures/vis_wizzard.png)
+![](https://www.tillt.net/egor/reference/figures/vis_wizzard.png)
 
 ## Import data
 
