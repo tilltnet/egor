@@ -189,7 +189,7 @@ clustered_graphs.list <-
 #' @rdname clustered_graphs
 #' @export
 clustered_graphs.egor <- function(object, clust.groups, ...) {
-  object <- as_nested_egor(object)
+  object <- as_tibble(as_nested_egor(object))
   clustered_graphs(
     object = object$.alts,
     aaties = object$.aaties,

@@ -71,8 +71,19 @@ ego_design.egor <- function(x, ...) if(has_ego_design(x)) x$ego # otherwise NULL
 }
 
 #' @rdname ego_design
-#'
 #' @export
 has_ego_design <- function(x){
+  UseMethod("has_ego_design")
+}
+
+#' @rdname ego_design
+#' @export
+has_ego_design.egor <- function(x){
   is(x$ego,"tbl_svy")
+}
+
+#' @rdname ego_design
+#' @export
+has_ego_design.nested_egor <- function(x){
+  is(x,"tbl_svy")
 }

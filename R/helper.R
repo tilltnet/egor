@@ -19,9 +19,16 @@ as_nested_egor <- function(x) {
   x$aatie <- select(x$aatie, .srcID, .tgtID, .egoID, everything())
   alters_l <- split(x$alter, factor(x$alter$.egoID, levels = as_tibble(x$ego)$.egoID))
   aaties_l <- split(x$aatie, factor(x$aatie$.egoID, levels = as_tibble(x$ego)$.egoID))
-  x <- as_tibble(x$ego)
-  x$.aaties <- aaties_l
-  x$.alts <- alters_l
+
+  if(has_ego_design(x)){
+    x$ego$variables$.aaties <- aaties_l
+    x$ego$variables$.alts <- alters_l
+  }else{
+    x <- x$ego
+    x$.aaties <- aaties_l
+    x$.alts <- alters_l
+  }
+
   class(x) <- c("nested_egor", class(x))
   x
 }
