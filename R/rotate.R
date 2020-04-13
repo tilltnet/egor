@@ -26,7 +26,7 @@ rotate_to_equilibrium <-
       return(xy_mat)
     }
     
-    two_lowest_y <- head(sort(xy_mat[,2]), 2)
+    two_lowest_y <- utils::head(sort(xy_mat[,2]), 2)
     
     if (two_lowest_y[1] == two_lowest_y[2]) return(xy_mat)
 
