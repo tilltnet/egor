@@ -131,13 +131,8 @@ as_network <- function(x,
                        include.ego = FALSE,
                        ego.attrs = NULL,
                        ego.alter.weights = NULL) {
-  alters_l <-
-    split(x$alter, factor(x$alter$.egoID, levels = x$ego$.egoID))
-  aaties_l <-
-    split(x$aatie, factor(x$aatie$.egoID, levels = x$ego$.egoID))
-  x <- x$ego
-  x$.aaties <- aaties_l
-  x$.alts <- alters_l
+  x <- as_nested_egor(x)
+
   # Incldude Ego
   if (include.ego) {
     if (is.null(ego.attrs))
@@ -222,8 +217,8 @@ as_network <- function(x,
       n
   }
   networks <- mapply(FUN = network.data.frame,
-                     aaties_l,
-                     alters_l,
+                     x$.aaties,
+                     x$.alts,
                      SIMPLIFY = FALSE)
   
   
