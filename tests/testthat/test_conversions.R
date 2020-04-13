@@ -29,12 +29,12 @@ test_that("as_tibble and other conversions work",
 test_that("as_igraph.nested_egor works",
           {
             expect_error({
-            e <- make_egor(3, 22)
-            
-            en <- as_nested_egor(e)
-            as_igraph(en,
-                      include.ego = T,
-                      ego.attrs = c("sex", "age"))
+              e <- make_egor(3, 22)
+              
+              en <- as_nested_egor(e)
+              as_igraph(en,
+                        include.ego = T,
+                        ego.attrs = c("sex", "age"))
             }, NA)
           })
 
@@ -88,5 +88,12 @@ test_that("as_aaties_df works.",
           {
             e <- make_egor(3, 22)
             expect_error(as_aaties_df(e), NA)
-            expect_error(as_aaties_df(object = e, include.alt.vars = T), NA)
+            expect_error(as_aaties_df(object = e, include.alter.vars = T), NA)
+            expect_error(as_aaties_df(object = e, include.ego.vars = T), NA)
+            expect_error(as_aaties_df(
+              object = e,
+              include.ego.vars = T,
+              include.alter.vars = TRUE
+            ),
+            NA)
           })

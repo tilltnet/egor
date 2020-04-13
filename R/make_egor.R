@@ -126,8 +126,9 @@ make_egor <-
     )
     
     # Trimming down alters per network using netsize
-    alters <-
-      long.df.to.list(alters, netsize, egoID = "egoID", back.to.df = TRUE)
+    a <- cumsum(rep(max.alters, net.count)) - max.alters + 1
+    b <- a + netsize - 1
+    alters <- alters[unlist(map2(a, b, seq)),]
     
     # Generating edges
     edge.list <- list()
@@ -152,20 +153,21 @@ make_egor <-
          aaties.df)
   }
 
-# Used for generating wide edge format data.
 #' Transforms edge lists to alter-alter wide format data.
 #'
-#' Only works properly, if the netsize of all networks is constant.
 #' @param edges List of \code{data.frames} containing edge lists.
 #' @keywords ego-centered network
 #' @keywords internal
-edgelist_to_wide <- function(edges) {
-  wide_edges <- plyr::ldply(
+edgelist_to_wide <- function(edges, 
+                             src_tgt_id = c(".SRCID", ".TGTID"),
+                             weight = "weight") {
+  map_dfr(
     edges,
-    .fun = function(x)
-      t(x$weight)
+    .f = function(x)
+      tidyr::pivot_wider(
+        x,
+        names_from = src_tgt_id,
+        values_from = weight
+      )
   )
-  names(wide_edges) <-
-    paste(edges[[1]]$Source, "to", edges[[1]]$Target)
-  wide_edges
 }

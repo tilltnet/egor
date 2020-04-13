@@ -6,3 +6,8 @@
 man-roxygen
 readme.md
 .DS_Store
+^doc$
+^Meta$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

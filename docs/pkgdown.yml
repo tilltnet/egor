@@ -1,0 +1,7 @@
+pandoc: 2.9.2
+pkgdown: 1.4.1
+pkgdown_sha: ~
+articles:
+  egor_allbus: egor_allbus.html
+  using_egor: using_egor.html
+

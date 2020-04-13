@@ -1,22 +1,41 @@
-if(getRversion() >= "2.15.1") utils::globalVariables(c(".alts", ".altID", "fact", "fact.x", "fact.y", "homogen", "netsize", "grp_sizes", "poss_ext", "poss_int", "grp_ei_tab", "ei_sc", ".aaties", "ei_tab", "poss"))
+if(getRversion() >= "2.15.1")
+  utils::globalVariables(
+    c(
+      ".alts",
+      ".altID",
+      "fact",
+      "fact.x",
+      "fact.y",
+      "homogen",
+      "netsize",
+      "grp_sizes",
+      "poss_ext",
+      "poss_int",
+      "grp_ei_tab",
+      "ei_sc",
+      ".aaties",
+      "ei_tab",
+      "poss"
+    )
+  )
 
 #' Calculate the EI-Index for the alter-alter ties of an ego object
 #'
-#' The EI-Index is the division of the intra-group edge density and the outer-group edge 
+#' The EI-Index is the division of the intra-group edge density and the outer-group edge
 #' density. It is calculated for the whole network and for subgroups. The
-#' whole network EI is a metric indicating the tendency of a network to be 
-#' clustered by the categories of a given factor variable. The EI value of a 
-#' groups describes the tendency of a group to be connected or not connected 
+#' whole network EI is a metric indicating the tendency of a network to be
+#' clustered by the categories of a given factor variable. The EI value of a
+#' groups describes the tendency of a group to be connected or not connected
 #' to other groups. Additionally, the EI index can be employed as a measurement
 #' for egos tendency to homo-/heteorphily - use the \code{comp_ei()} command
 #' for that version of EI-Index.
 #' @param object An \code{egor} object.
 #' @param alt.attr \code{Character} naming grouping variable.
-#' @references Krackhardt, D., Stern, R.N., 1988. Informal networks and 
-#' organizational crises: an experimental simulation. Social Psychology 
+#' @references Krackhardt, D., Stern, R.N., 1988. Informal networks and
+#' organizational crises: an experimental simulation. Social Psychology
 #' Quarterly 51 (2), 123-140.
-#' @references Everett, M. G., & Borgatti, S. P. (2012). Categorical attribute 
-#' based centrality: E-I and G-F centrality. Social Networks, 34(4), 562-569. 
+#' @references Everett, M. G., & Borgatti, S. P. (2012). Categorical attribute
+#' based centrality: E-I and G-F centrality. Social Networks, 34(4), 562-569.
 #' @keywords ego-centered network
 #' @keywords sna
 #' @examples
@@ -85,17 +104,31 @@ EI <- function(object, alt.attr) {
   alt.attr_enquo <- enquo(alt.attr)
   
   object2 <- as_nested_egor(object)
-    
-  obj <- 
+  
+  obj <-
     object2 %>%
     as_tibble() %>%
     select(.alts, .aaties) %>%
     get_ei_tab() %>%
     calc_grp_sizes() %>%
     mutate(grp_ei_tab = map2(ei_tab, grp_sizes, function(x, y) {
-      
-      if(nrow(y) < 1) return(
-        mutate_all(tibble(fact = NA, E = NA, I = NA), as.numeric))
+      if (nrow(y) < 1 | nrow(x) < 1) {
+        if (is.factor(y$fact))
+          res <-
+            tibble(fact = factor(NA, levels = levels(y$fact)),
+                   E = NA_integer_,
+                   I = NA_integer_)
+        else if (is.numeric(y$fact))
+          res <-
+            tibble(fact = NA_integer_, E = NA_integer_, I = NA_integer_)
+        else if (is.character(y$fact))
+          res <-
+            tibble(fact = NA_character_, E = NA_integer_, I = NA_integer_)
+        else if (is.logical(y$fact))
+          res <-
+            tibble(fact = NA, E = NA_integer_, I = NA_integer_)
+        return(res)
+      }
       
       map(y$fact, function(z) {
         calc_grp_ei_tab(x, z)
@@ -125,8 +158,3 @@ EI <- function(object, alt.attr) {
   cat(paste0("EI-Index: " , substitute(alt.attr), "\n"))
   bind_cols(a, b)
 }
-
-
-
-
-

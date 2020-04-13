@@ -4,14 +4,16 @@
 \name{egor32}
 \alias{egor32}
 \title{32 randomly created ego-centered networks stored as an egor object}
-\format{An egor object with 32 ego-centered networks (5 variables):
+\format{
+An egor object with 32 ego-centered networks (5 variables):
 \describe{
 \item{egoID}{ego identifier}
 \item{sex}{ego's gender}
 \item{age}{ego's age}
 \item{.alts}{nested column/list containing alters}
 \item{.aaties}{nested column/list containing alter-alter relations}
-}}
+}
+}
 \usage{
 egor32
 }

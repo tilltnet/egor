@@ -9,7 +9,8 @@ egor(
   alters,
   egos = NULL,
   aaties = NULL,
-  ID.vars = list(ego = "egoID", alter = "alterID", source = "Source", target = "Target"),
+  ID.vars = list(ego = "egoID", alter = "alterID", source = "Source", target =
+    "Target"),
   ego_design = NULL,
   alter_design = list(max = Inf)
 )

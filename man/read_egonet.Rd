@@ -9,7 +9,8 @@ read_egonet(
   alter.folder,
   edge.folder,
   csv.sep = ",",
-  ID.vars = list(ego = "egoID", alter = "alterID", source = "Source", target = "Target"),
+  ID.vars = list(ego = "egoID", alter = "alterID", source = "Source", target =
+    "Target"),
   first.col.row.names = FALSE,
   ...
 )

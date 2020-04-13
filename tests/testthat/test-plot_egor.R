@@ -87,6 +87,29 @@ test_that("plot_ego_graphs works with vertex_color_var", {
   }, NA)
 })
 
+test_that("plot_egograms doesn't fail on empty alters or aaties", {
+  e <- make_egor(5, 5)
+  e$aatie <- 
+    e$aatie %>% 
+    filter(.egoID != 1)
+  expect_error(plot_egograms(
+    x = e,
+    venn_var = "sex",
+    pie_var = "country",
+    show_venn_labels = TRUE
+  ),NA)
+  e <- make_egor(5, 5)
+  e$alter <- 
+    e$alter %>% 
+    filter(.egoID != 1)
+  expect_error(plot_egograms(
+    x = e,
+    venn_var = "sex",
+    pie_var = "country",
+    show_venn_labels = TRUE
+  ),NA)
+})
+
 test_that("plot_egograms plots with and without venn labels", {
   expect_error({
     e <- make_egor(5, 5)
@@ -96,7 +119,6 @@ test_that("plot_egograms plots with and without venn labels", {
       pie_var = "country",
       show_venn_labels = FALSE
     )
-    
     plot_egograms(
       e,
       venn_var = "sex",
@@ -189,7 +211,7 @@ test_that("plot_ego_gram works with edge arguments", {
                   edge_width_var = "weight", 
                   edge_zoom = 3)
     plot_ego_graphs(
-      x=e,
+      x = e,
       ego_no = 1,
       edge_color_var = "weight",
       edge_width_var = "weight", 

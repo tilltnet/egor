@@ -20,7 +20,7 @@ name of the ego.alter.weights is different from \code{weights}.}
 }
 \description{
 This calculates Burt's \emph{network constraint} for all egos in an egor object.
-It iterates over all networks and applies \link[igraph:constraint]{igraph::constraint} to each. A
+It iterates over each network and applies \link[igraph:constraint]{igraph::constraint}. A
 weight variable can be specified.
 }
 \details{

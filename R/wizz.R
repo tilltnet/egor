@@ -1,4 +1,4 @@
-if(getRversion() >= "2.15.1")
+if (getRversion() >= "2.15.1")
   utils::globalVariables(
     c(
       "clrs",
@@ -41,11 +41,16 @@ if(getRversion() >= "2.15.1")
 #' @importFrom igraph E<-
 egor_vis_app <- function(object = NULL,
                          shiny_opts = list(launch.browser = TRUE)) {
+  # TODO:
+  # make ego grams work for allbus data/ find issue
+  
   # App Globals -------------------------------------------------------------
-  IDVARS <- list(ego = ".egoID", 
-                 alter = ".altID", 
-                 source = ".srcID", 
-                 target = ".tgtID")
+  IDVARS <- list(
+    ego = ".egoID",
+    alter = ".altID",
+    source = ".srcID",
+    target = ".tgtID"
+  )
   egors <-
     ls(envir = .GlobalEnv)[sapply(mget(ls(envir = .GlobalEnv), envir = .GlobalEnv), function(x)
       class(x)[1] == "egor")]
@@ -60,9 +65,10 @@ egor_vis_app <- function(object = NULL,
       "Rainbow",
       "Topo Colors"
     )
+  
   shiny_opts <- c(shiny_opts, width = "20")
   object_enex <- as.character(enexpr(object))
-                    
+  
   shinyApp(
     # UI ----------------------------------------------------------------------
     
@@ -128,22 +134,22 @@ egor_vis_app <- function(object = NULL,
         column(
           6,
           tabsetPanel(
-            tabPanel("Vertices",
-                     fluidRow(
-                       column(
-                         6,
-                         uiOutput("choose_v.size"),
-                         uiOutput("choose_v.color"),
-                         selectInput("v.color_pal",
-                                     "Color Palette:",
-                                     choices = col_pal_names)
-                       ),
-                       column(
-                         6,
-                         uiOutput("choose_v.label"),
-                         textInput("l.label", "Legend Label:")
-                       )
-                     )),
+            tabPanel(
+              "Vertices",
+              column(
+                6,
+                uiOutput("choose_v.size"),
+                uiOutput("choose_v.color"),
+                selectInput("v.color_pal",
+                            "Color Palette:",
+                            choices = col_pal_names)
+              ),
+              column(
+                6,
+                uiOutput("choose_v.label"),
+                textInput("l.label", "Legend Label:")
+              )
+            ),
             tabPanel(
               "Edges",
               column(6,
@@ -153,6 +159,24 @@ egor_vis_app <- function(object = NULL,
                 6,
                 selectInput("e.color_pal", "Color Palette:", choices = col_pal_names)
               )
+            ),
+            tabPanel(
+              "Plot Options",
+              column(
+                6,
+                helpText("Select ego attributes and results do display on plot."),
+                uiOutput("choose_disp.results")
+              ),
+              column(
+                6,
+                helpText(
+                  "Select a venn and pie variable, to switch plot type to",
+                  br(),
+                  "'ego-socio-gram'."
+                ),
+                uiOutput("choose_venn_var"),
+                uiOutput("choose_pie_var")
+              ),
             ),
             tabPanel(
               "Sort & Filter",
@@ -171,14 +195,14 @@ egor_vis_app <- function(object = NULL,
                             choices = col_pal_names)
               )
             ),
-            tabPanel("Results",
-                     uiOutput("choose_disp.results")),
-            tabPanel(
-              "Export",
-              downloadButton("save_plot", label = "Save this Plot"),
-              downloadButton("save_all_plots", label = "Save all Plots")
-              
-            )
+            tabPanel("Export",
+                     column(
+                       3,
+                       br(
+                       downloadButton("save_plot", label = "Save this Plot")),
+                       br(
+                       downloadButton("save_all_plots", label = "Save all Plots"))
+                     ))
           )
         )
         
@@ -192,25 +216,32 @@ egor_vis_app <- function(object = NULL,
     # SERVER ------------------------------------------------------------------
     
     server = function(input, output) {
-      library(egor)
+      values <- reactiveValues(default = 0)
+      values$v.size <- "-Select Entry-"
+      values$v.color <- "-Select Entry-"
+      values$v.label <- "-Select Entry-"
+      values$e.width <- "-Select Entry-"
+      values$e.color <- "-Select Entry-"
+      values$box_color <- "-Select Entry-"
+      values$sort_by <- "-Select Entry-"
+      values$filter_var <- "-Select Entry-"
+      values$filter <- ""
+      values$venn_var <- "-Select Entry-"
+      values$pie_var <- "-Select Entry-"
+      
+      values$nnumber <- 1
+      values$disp.results <- c()
+      
       obj <- reactive({
-        
-        x <- get(input$egor, envir = .GlobalEnv)
-        #x <- as_nested_egor(x)
-        if (!is.null(input$sort_by))
-          if(input$sort_by != "-Select Entry-") x <- arrange(x, !!sym(input$sort_by))
-        if (input$filter != "") {
-
-          x <- filter.egor(x, !!sym(input$filter_var) %in% !!input$filter)
-        
-        print(x) }
-        x
+        get(input$egor, envir = .GlobalEnv)
       })
       
       result_names <- reactive({
         rn <- names(obj()$ego)
-        rn[!rn %in% c("alter", "aatie")]
       })
+      
+      r.atts <-
+        reactive(make_select_vector(result_names(), e = TRUE))
       
       v.atts <-
         reactive(make_select_vector(names(obj()$alter)))
@@ -223,73 +254,88 @@ egor_vis_app <- function(object = NULL,
           "Network No.:",
           step = input$x_dim * input$y_dim,
           min = 1,
-          max = nrow(obj()$ego),
+          max = nrow(
+            apply_sort_filter_to_obj(obj(), values$sort_by, values$filter_var, values$filter)$ego
+          ),
           value = 1
         )
       })
       
       output$choose_filter_var <- renderUI({
-        selectInput("filter_var", "Filter by:", isolate(obj()), choices = isolate(v.atts()))
+        selectInput("filter_var",
+                    "Filter by:",
+                    choices = (r.atts()))
       })
+      outputOptions(output, "choose_filter_var", suspendWhenHidden = FALSE)
       
       output$choose_sort_by <- renderUI({
-        selectInput("sort_by", "Sort by:", isolate(obj()), choices = isolate(v.atts()))
+        selectInput("sort_by", "Sort by:", choices = (r.atts()))
       })
+      outputOptions(output, "choose_sort_by", suspendWhenHidden = FALSE)
       
       output$choose_box_color <- renderUI({
-        selectInput("box_color", "Highlight:", choices = v.atts())
+        selectInput("box_color", "Highlight:", choices = r.atts())
       })
+      outputOptions(output, "choose_box_color", suspendWhenHidden = FALSE)
       
       output$choose_v.size <- renderUI({
         selectInput("v.size", "Vertex Size:", choices = v.atts())
       })
+      outputOptions(output, "choose_v.size", suspendWhenHidden = FALSE)
       
       output$choose_v.color <- renderUI({
         selectInput("v.color", "Vertex Color:", choices = v.atts())
       })
+      outputOptions(output, "choose_v.color", suspendWhenHidden = FALSE)
       
       output$choose_v.label <- renderUI({
         selectInput("v.label", "Vertex Labels:", choices = v.atts())
       })
+      outputOptions(output, "choose_v.label", suspendWhenHidden = FALSE)
       
       output$choose_e.width <- renderUI({
         selectInput("e.width", "Edge Width:", choices = e.atts())
       })
+      outputOptions(output, "choose_e.width", suspendWhenHidden = FALSE)
       
       output$choose_e.color <- renderUI({
         selectInput("e.color", "Edge Color:", choices = e.atts())
       })
+      outputOptions(output, "choose_e.color", suspendWhenHidden = FALSE)
+      
+      output$choose_venn_var <- renderUI({
+        selectInput("venn_var", "Venn Variable:", choices = v.atts())
+      })
+      outputOptions(output, "choose_venn_var", suspendWhenHidden = FALSE)
+      
+      output$choose_pie_var <- renderUI({
+        selectInput("pie_var", "Pie Variable:", choices = v.atts())
+      })
+      outputOptions(output, "choose_pie_var", suspendWhenHidden = FALSE)
       
       output$choose_disp.results <- renderUI({
         selectInput("disp.results",
-                    "Results 3:",
+                    "Results:",
                     choices = result_names(),
                     multiple = TRUE)
       })
-      
-      values <- reactiveValues(default = 0)
-      values$v.size <- "-Select Entry-"
-      values$v.color <- "-Select Entry-"
-      values$v.label <- "-Select Entry-"
-      values$e.width <- "-Select Entry-"
-      values$e.color <- "-Select Entry-"
-      values$box_color <- "-Select Entry-"
-      values$nnumber <- 1
-      values$disp.results <- c()
-      
+      outputOptions(output, "choose_disp.results", suspendWhenHidden = FALSE)
       
       observeEvent(input$box_color, {
         values$box_color <- input$box_color
       })
-      
       observeEvent(input$v.size, {
         values$v.size <- input$v.size
       })
-      
+      observeEvent(input$filter, {
+        values$filter <- input$filter
+      })
+      observeEvent(input$filter_var, {
+        values$filter_var <- input$filter_var
+      })
       observeEvent(input$sort_by, {
         values$sort_by <- input$sort_by
       })
-      
       observeEvent(input$v.color, {
         values$v.color <- input$v.color
       })
@@ -307,18 +353,27 @@ egor_vis_app <- function(object = NULL,
       })
       observeEvent(input$disp.results, {
         values$disp.results <- input$disp.results
+      }, ignoreNULL = FALSE)
+      
+      observeEvent(input$venn_var, {
+        values$venn_var <- input$venn_var
       })
       
+      observeEvent(input$pie_var, {
+        values$pie_var <- input$pie_var
+      })
       
       # plot Output -------------------------------------------------------------
       
       output$Plot <-
         renderPlot({
-          plot_ego_graphs(
-            obj(),
+          plot(
+            apply_sort_filter_to_obj(obj(), values$sort_by, values$filter_var, values$filter),
             values$nnumber,
             input$x_dim,
             input$y_dim,
+            venn_var = values$venn_var,
+            pie_var = values$pie_var,
             vertex_size_var = if (values$v.size != "-Select Entry-")
               values$v.size
             else
@@ -329,7 +384,7 @@ egor_vis_app <- function(object = NULL,
               NULL,
             vertex_color_palette = input$v.color_pal,
             vertex_color_legend_label = input$l.label,
-            vertex_label_var =  if (input$v.label != "-Select Entry-")
+            vertex_label_var =  if (values$v.label != "-Select Entry-")
               input$v.label
             else
               NULL,
@@ -351,9 +406,12 @@ egor_vis_app <- function(object = NULL,
             vertex_zoom = input$zoom_factor_v,
             edge_zoom = input$zoom_factor_e,
             font_size = input$font_size,
-            include_ego = input$include_ego
-            
-            
+            include_ego = input$include_ego,
+            type = if (values$venn_var != "-Select Entry-" &
+                       values$pie_var != "-Select Entry-")
+              "egogram"
+            else
+              "egograph"
           )
         })
       
@@ -363,12 +421,23 @@ egor_vis_app <- function(object = NULL,
         },
         content = function(file) {
           pdf(file, width = 16, onefile = TRUE)
-          for (i in seq(1, nrow(obj()), by = input$x_dim * input$y_dim)) {
-            plot_ego_graphs(
-              obj(),
-              values$nnumber,
+          for (i in seq(1,
+                        nrow(
+                          apply_sort_filter_to_obj(obj(), values$sort_by, values$filter_var, values$filter)$ego
+                        ),
+                        by = input$x_dim * input$y_dim)) {
+            plot(
+              apply_sort_filter_to_obj(
+                obj(),
+                values$sort_by,
+                values$filter_var,
+                values$filter
+              ),
+              i,
               input$x_dim,
               input$y_dim,
+              venn_var = values$venn_var,
+              pie_var = values$pie_var,
               vertex_size_var = if (values$v.size != "-Select Entry-")
                 values$v.size
               else
@@ -379,7 +448,7 @@ egor_vis_app <- function(object = NULL,
                 NULL,
               vertex_color_palette = input$v.color_pal,
               vertex_color_legend_label = input$l.label,
-              vertex_label_var =  if (input$v.label != "-Select Entry-")
+              vertex_label_var =  if (values$v.label != "-Select Entry-")
                 input$v.label
               else
                 NULL,
@@ -401,8 +470,12 @@ egor_vis_app <- function(object = NULL,
               vertex_zoom = input$zoom_factor_v,
               edge_zoom = input$zoom_factor_e,
               font_size = input$font_size,
-              include_ego = input$include_ego
-              
+              include_ego = input$include_ego,
+              type = if (values$venn_var != "-Select Entry-" &
+                         values$pie_var != "-Select Entry-")
+                "egogram"
+              else
+                "egograph"
               
             )
           }
@@ -416,11 +489,13 @@ egor_vis_app <- function(object = NULL,
         },
         content = function(file) {
           pdf(file, width = 16)
-          plot_ego_graphs(
-            obj(),
+          plot(
+            apply_sort_filter_to_obj(obj(), values$sort_by, values$filter_var, values$filter),
             values$nnumber,
             input$x_dim,
             input$y_dim,
+            venn_var = values$venn_var,
+            pie_var = values$pie_var,
             vertex_size_var = if (values$v.size != "-Select Entry-")
               values$v.size
             else
@@ -431,12 +506,18 @@ egor_vis_app <- function(object = NULL,
               NULL,
             vertex_color_palette = input$v.color_pal,
             vertex_color_legend_label = input$l.label,
-            vertex_label_var =  if (input$v.label != "-Select Entry-")
+            vertex_label_var =  if (values$v.label != "-Select Entry-")
               input$v.label
             else
               NULL,
-            edge_width_var = values$e.width,
-            edge_color_var = values$e.color,
+            edge_width_var = if (values$e.width != "-Select Entry-")
+              values$e.width
+            else
+              NULL,
+            edge_color_var = if (values$e.color != "-Select Entry-")
+              values$e.color
+            else
+              NULL,
             edge_color_palette = input$e.color_pal,
             highlight_box_col_var = if (values$box_color != "-Select Entry-")
               values$box_color
@@ -446,8 +527,12 @@ egor_vis_app <- function(object = NULL,
             res_disp_vars  = values$disp.results,
             vertex_zoom = input$zoom_factor_v,
             edge_zoom = input$zoom_factor_e,
-            font_size = input$font_size
-            
+            font_size = input$font_size,
+            type = if (values$venn_var != "-Select Entry-" &
+                       values$pie_var != "-Select Entry-")
+              "egogram"
+            else
+              "egograph"
           )
           dev.off()
         }
@@ -461,11 +546,19 @@ egor_vis_app <- function(object = NULL,
 
 # Server Functions --------------------------------------------------------
 
+apply_sort_filter_to_obj <- function(x, sort_by, filter_var, filter_) {
+  if (sort_by != "-Select Entry-")
+    x <- arrange(x, !!sym(sort_by))
+  if (filter_var != "-Select Entry-" & filter_ != "")
+    x <- filter.egor(x, !!sym(filter_var) %in% !!filter_)
+  x
+}
+
 make_select_vector <- function(x, e = FALSE) {
   if (e)
     c("-Select Entry-", x[!x %in% IDVARS])
   else
-    c("-Select Entry-", "name", x[x != ".altID"])
+    c("-Select Entry-", "name", x[!x %in% IDVARS])
 }
 
 filter_by <- function(df, ...) {
@@ -500,4 +593,3 @@ egor_col_pal <- function(pal_name = "Heat Colors", n) {
     pal <- topo.colors(n)
   rev(pal)
 }
-

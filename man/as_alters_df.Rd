@@ -7,7 +7,7 @@
 \usage{
 as_alters_df(object, include.ego.vars = FALSE)
 
-as_aaties_df(object, include.ego.vars = FALSE, include.alt.vars = FALSE)
+as_aaties_df(object, include.ego.vars = FALSE, include.alter.vars = FALSE)
 }
 \arguments{
 \item{object}{An \code{egor} object.
@@ -15,7 +15,7 @@ a new variable with the specified name is created.}
 
 \item{include.ego.vars}{Logical, specifying if ego variables should be included in the result.}
 
-\item{include.alt.vars}{Logical, specifying if alter variables should be included in the result.}
+\item{include.alter.vars}{Logical, specifying if alter variables should be included in the result.}
 }
 \description{
 Provided an egor-object, these functions create a 'global' \code{data.frame},
@@ -33,5 +33,5 @@ as_alters_df(egor32)
 as_aaties_df(egor32)
 
 # ... adding alter variables
-as_aaties_df(egor32, include.alt.vars = TRUE)
+as_aaties_df(egor32, include.alter.vars = TRUE)
 }

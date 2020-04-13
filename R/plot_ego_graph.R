@@ -74,23 +74,22 @@ plot_one_ego_graph <- function(x,
                                layout = NULL,
                                ...) {
   x <- 
-    slice(activate(x, "ego"), ego_no)
+    slice.egor(activate(x, "ego"), ego_no)
   
   gr <- as_igraph(x, include.ego = include_ego)[[1]]
   if (!sum(igraph::V(gr)) > 0) {
     # Plot Error message.
     plot(
-      NA,
-      xlim = c(1, 10),
-      ylim = c(0.75, 10),
-      type = "n",
-      yaxt = "n",
-      xaxt = "n",
-      ylab = "",
-      xlab = "",
-      bty = "L"
+      NULL ,
+      xaxt = 'n',
+      yaxt = 'n',
+      bty = 'n',
+      ylab = '',
+      xlab = '',
+      xlim = 0:1,
+      ylim = 0:1
     )
-    text(5, 1, 'No network data available for this entry.')
+    text(0.5, 0.5, 'No alter data\n available for \nthis ego.')
     return()
   }
   

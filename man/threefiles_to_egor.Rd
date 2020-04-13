@@ -11,7 +11,8 @@ threefiles_to_egor(
   egos,
   alters.df,
   edges,
-  ID.vars = list(ego = "egoID", alter = "alterID", source = "Source", target = "Target"),
+  ID.vars = list(ego = "egoID", alter = "alterID", source = "Source", target =
+    "Target"),
   ego.vars = NULL,
   ...
 )
@@ -30,7 +31,8 @@ read_openeddi(
   egos.file = NULL,
   alters.file = NULL,
   edges.file = NULL,
-  ID.vars = list(ego = "puid", alter = "nameid", source = "nameid", target = "targetid"),
+  ID.vars = list(ego = "puid", alter = "nameid", source = "nameid", target =
+    "targetid"),
   ego.vars = NULL,
   ...
 )

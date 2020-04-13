@@ -11,16 +11,18 @@ R Package for importing and analyzing ego-centered-network data.
 \href{https://tilltnet.github.io/egor/}{Further Information}
 or \href{https://github.com/tilltnet/egor}{GitHub}
 
-Thanks to: Martina Morris, Michał Bojanowski
+Thanks to: Martina Morris
 }
 \author{
 Till Krenz, \email{egor@tillt.net}
 
 Pavel Krivitsky, \email{pavel@uow.edu.au}
 
-Raffaele Vacca, \email{r.vacca@ufl.edu}
+Michał Bojanowski \email{m.bojanowski at icm.edu.pl}
 
 Andreas Herz, \email{herzand@uni-hildesheim.de}
+
+Raffaele Vacca, \email{r.vacca@ufl.edu}
 
 Christopher McCarty, \email{ufchris@ufl.edu}
 
