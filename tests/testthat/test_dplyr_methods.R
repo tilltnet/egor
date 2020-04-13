@@ -113,12 +113,20 @@ test_that(
     #expect_is(res, "egor")
     
     # Group By 
-    res <- group_by(e, sex)
-    expect_is(res, "egor")
-    expect_is(res$ego$variables, "grouped_df")
+    eg <- group_by(e, sex)
+    expect_is(eg, "egor")
+    expect_is(eg$ego, "grouped_df")
+
+    res <- summarise(eg, s = sum(as.numeric(age)))
+    expect_true(NCOL(res) == 2)
 
     library(srvyr) # For unweighted.
-    res <- summarise(res, s = unweighted(sum(as.numeric(age))))
+    ego_design(e) <- list(~1)
+    eg <- group_by(e, sex)
+    expect_is(eg, "egor")
+    expect_is(eg$ego, "grouped_svy")
+
+    res <- summarise(eg, s = unweighted(sum(as.numeric(age))))
     expect_true(NCOL(res) == 2)
   }
 )

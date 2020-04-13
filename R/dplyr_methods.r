@@ -21,7 +21,7 @@ if (getRversion() >= "2.15.1")
 trim_aaties <- function(object) {
   # keep only aaties that have .egoID in ego
   object$aatie <-
-    filter(object$aatie, .egoID %in% object$ego$variables$.egoID)
+    filter(object$aatie, .egoID %in% as_tibble(object$ego)$.egoID)
   
   # keep only aaties that have .egoID in alters
   object$aatie <-
@@ -67,7 +67,7 @@ trim_aaties <- function(object) {
 #' @export
 trim_alters <- function(object) {
   object$alter <-
-    filter(object$alter, .egoID %in% object$ego$variables$.egoID)
+    filter(object$alter, .egoID %in% as_tibble(object$ego)$.egoID)
   object
 }
   
