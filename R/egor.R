@@ -14,9 +14,10 @@ if (getRversion() >= "2.15.1") utils::globalVariables(c(":="))
 #'   relations in the style of an edge list, or a list of data frames
 #'   similar to `alters.df`.
 #' @template ID.vars
-#' @param ego_design A [`list`] of arguments to [srvyr::as_survey_design()]
-#'   specifying the sampling design for the egos. If formulas, they
-#'   can refer to columns of `egos.df`.
+#' @param ego_design A [`list`] of arguments to
+#'   [srvyr::as_survey_design()] specifying the sampling design for
+#'   the egos. If formulas, they can refer to columns of
+#'   `egos.df`. `NULL` means that no design is set.
 #' @param alter_design A [`list`] of arguments specifying nomination
 #'   information. Currently, the following elements are supported:
 #'   \describe{\item{\code{"max"}}{Maximum number of alters that an

@@ -157,7 +157,10 @@ subset.egor <- function(x, subset, ..., unit = attr(x, "active")){
            # This guarantees that the ego ID column is always preserved.
            eid <- as_tibble(x$ego)$.egoID[i]
            x$ego <- x$ego[i,j, ...]
-           if(!".egoID" %in% names(x$ego)) as_tibble(x$ego)$.egoID <- eid
+           if(!".egoID" %in% names(as_tibble(x$ego))){
+             if(is(x$ego,"tbl_svy")) x$ego$variables$.egoID <- eid
+             else x$ego$.egoID <- eid
+           }
 
            x$alter <- filter(x$alter, .egoID %in% as_tibble(x$ego)$.egoID)
            x$aatie <- filter(x$aatie, .egoID %in% as_tibble(x$ego)$.egoID)

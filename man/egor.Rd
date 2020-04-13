@@ -49,9 +49,10 @@ alter identifier of the destination of a relation.}
 
 }}
 
-\item{ego_design}{A \code{\link{list}} of arguments to \code{\link[srvyr:as_survey_design]{srvyr::as_survey_design()}}
-specifying the sampling design for the egos. If formulas, they
-can refer to columns of \code{egos.df}.}
+\item{ego_design}{A \code{\link{list}} of arguments to
+\code{\link[srvyr:as_survey_design]{srvyr::as_survey_design()}} specifying the sampling design for
+the egos. If formulas, they can refer to columns of
+\code{egos.df}. \code{NULL} means that no design is set.}
 
 \item{alter_design}{A \code{\link{list}} of arguments specifying nomination
 information. Currently, the following elements are supported:

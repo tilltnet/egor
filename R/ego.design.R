@@ -9,7 +9,8 @@
 #' @export
 #' @importFrom stats weights
 weights.egor <- function(object, ...) {
-  weights(object$ego)
+  if(is(object$ego,"tbl_svy")) weights(object$ego)
+  else rep(1, nrow(object$ego))
 }
 
 #' A helper function that takes an egor object and a list with arguments
@@ -22,8 +23,14 @@ weights.egor <- function(object, ...) {
 #'   refer to columns (ego attributes) of `egor`.
 #' @param pos where the call to `as_survey_design`.
 #'
+#' @return If `ego_design` is a `list`, [`ego`] as a [`tbl_svy`]. If
+#'   `NULL`, design information is not set or is cleared if present,
+#'   returning a `tbl_df`.
+#'
 #' @noRd
 .gen.ego_design <- function(egor, ego_design, pos=-1L){
+  if(is.null(ego_design)) return(as_tibble(egor$ego))
+
   envir <- as.environment(pos)
 #' @importFrom srvyr as_survey_design
   suppressWarnings(do.call(as_survey_design, c(list(egor$ego), ego_design), envir=envir))
@@ -31,8 +38,8 @@ weights.egor <- function(object, ...) {
 
 #' Set and query the ego sampling design
 #'
-#' Extract, set, or update the survey design associated with an
-#' ego-centered dataset.
+#' Extract, set, remove, or update the survey design associated with
+#' an ego-centered dataset.
 #'
 #' @param x an [`egor`] object.
 #' @template meth_dots
@@ -42,17 +49,17 @@ ego_design <- function(x, ...) UseMethod("ego_design")
 
 #' @rdname ego_design
 #' @export
-ego_design.egor <- function(x, ...) attr(x, "ego_design")
+ego_design.egor <- function(x, ...) if(is(x$ego,"tbl_svy")) x$ego # otherwise NULL
 
 #' @rdname ego_design
 #' @export
 `ego_design<-` <- function(x, ..., value) UseMethod("ego_design<-")
 
 #' @rdname ego_design
-#' @param value either `survey.design` object (like one constructed by
-#'   [srvyr::as_survey_design()]) or a [`list`] of arguments to [srvyr::as_survey_design()]
+#' @param value a [`list`] of arguments to [srvyr::as_survey_design()]
 #'   specifying the sampling design for the egos. If the arguments are
-#'   formulas, they can refer to columns (ego attributes) of `x`.
+#'   formulas, they can refer to columns (ego attributes) of
+#'   `x`. `NULL` clears design information.
 #'
 #' @note This can be useful for adjusting or reinitializing the ego
 #'   design information after the underlying ego attributes had been
