@@ -252,14 +252,17 @@ as_tibble.egor <- function(x,
   
   if (include.ego.vars & attr(x, "active") != "ego") {
     
-    names(x$ego$variables)[names(x$ego$variables) != ".egoID"] <-
-      paste0(names(x$ego$variables)[names(x$ego$variables) != ".egoID"] , "_ego")
-    
-    
-    res <- full_join(res, x$ego$variables,
-                     by = ".egoID")
+    if(is(x$ego,"tbl_svy")){
+      names(x$ego$variables)[names(x$ego$variables) != ".egoID"] <-
+        paste0(names(x$ego$variables)[names(x$ego$variables) != ".egoID"] , "_ego")
+      res <- full_join(res, x$ego$variables, by = ".egoID")
+    }else{
+      names(x$ego)[names(x$ego) != ".egoID"] <-
+        paste0(names(x$ego)[names(x$ego) != ".egoID"] , "_ego")
+      res <- full_join(res, x$ego, by = ".egoID")
+    }
   }
-  
+
   if (include.alter.vars & attr(x, "active") == "aatie") {
     res <- left_join(res, 
                      x$alter, 

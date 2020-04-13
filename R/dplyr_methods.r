@@ -86,8 +86,8 @@ bind_IDs_if_missing <- function(.data, result) {
 # containing the row ID so that we could later figure out what subset
 # of rows to pass to [.svy_tbl() in return_egor_with_result().
 tibble_egos <- function(.data){
-  if(attr(.data, "active")=="ego"){
-    .data[["ego"]] <- cbind(as_tibble(.data[["ego"]]), .rowID_for_design=seq_len(nrow(.data[["ego"]])))
+  if(attr(.data, "active")=="ego" && is(.data[["ego"]],"tbl_svy")){
+    .data[["ego"]] <- cbind(.data[["ego"]][["variables"]], .rowID_for_design=seq_len(nrow(.data[["ego"]])))
   }
   .data
 }
@@ -96,7 +96,7 @@ return_egor_with_result <- function(.data, result, trim = TRUE) {
   # The following takes the subsetting done by whatever method did it,
   # and applies it to the svy_design object, before replacing its
   # variables with the result tibble.
-  if(attr(.data, "active")=="ego"){
+  if(attr(.data, "active")=="ego" && is(.data[["ego"]],"tbl_svy")){
     i <- result[[".rowID_for_design"]]
     if(!is.null(i)){
       result[[".rowID_for_design"]] <- NULL

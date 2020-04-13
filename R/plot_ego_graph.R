@@ -27,7 +27,7 @@ plot_ego_graphs <- function(x,
     if (i <= nrow(x$ego)) {
       boxi_color <- "white"
       if (!is.null(highlight_box_col_var)) {
-        var_ <- factor(x$ego$variables[[highlight_box_col_var]])
+        var_ <- factor(as_tibble(x$ego)[[highlight_box_col_var]])
         boxi_color <- egor_col_pal(highlight_box_col_palette,
                                    length(levels(var_)))[var_][i]
       }
@@ -199,7 +199,7 @@ plot_one_ego_graph <- function(x,
       -1.8 ,
       y_pos_res,
       paste(sane_disp_results[which(colnames(x$ego) == result_name)],
-            ": ", x$ego$variables[[result_name]][[1]], sep = ""),
+            ": ", as_tibble(x$ego)[[result_name]][[1]], sep = ""),
       adj = c(0, 0),
       cex = font_size
     )
