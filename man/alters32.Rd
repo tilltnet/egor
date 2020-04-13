@@ -4,7 +4,8 @@
 \name{alters32}
 \alias{alters32}
 \title{32 sets of randomly created alters belonging to ego-centered networks}
-\format{A data frame with 32 sets of up to 32 alters per egoID and 7 variables:
+\format{
+A data frame with 32 sets of up to 32 alters per egoID and 7 variables:
 \describe{
 \item{.ALTID}{alter identifier}
 \item{.EGOID}{ego identifier}
@@ -13,7 +14,8 @@
 \item{country}{country}
 \item{income}{income}
 \item{sex}{gender}
-}}
+}
+}
 \usage{
 alters32
 }
