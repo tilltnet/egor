@@ -158,7 +158,7 @@ subset.egor <- function(x, subset, ..., unit = attr(x, "active")){
            eid <- as_tibble(x$ego)$.egoID[i]
            x$ego <- x$ego[i,j, ...]
            if(!".egoID" %in% names(as_tibble(x$ego))){
-             if(is(x$ego,"tbl_svy")) x$ego$variables$.egoID <- eid
+             if(has_ego_design(x)) x$ego$variables$.egoID <- eid
              else x$ego$.egoID <- eid
            }
 

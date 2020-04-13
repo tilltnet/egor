@@ -81,12 +81,12 @@ bind_IDs_if_missing <- function(.data, result) {
 }
 
 # This is a very ugly workaround, necessary because srvyr does not
-# have some dplyr methods for tbl_svy objects as of this writing. This
+# have some dplyr methods for [`tbl_svy`] objects as of this writing. This
 # temporarily converts ego table into a tibble with an extra column
 # containing the row ID so that we could later figure out what subset
 # of rows to pass to [.svy_tbl() in return_egor_with_result().
 tibble_egos <- function(.data){
-  if(attr(.data, "active")=="ego" && is(.data[["ego"]],"tbl_svy")){
+  if(attr(.data, "active")=="ego" && has_ego_design(.data)){
     .data[["ego"]] <- cbind(.data[["ego"]][["variables"]], .rowID_for_design=seq_len(nrow(.data[["ego"]])))
   }
   .data
@@ -96,7 +96,7 @@ return_egor_with_result <- function(.data, result, trim = TRUE) {
   # The following takes the subsetting done by whatever method did it,
   # and applies it to the svy_design object, before replacing its
   # variables with the result tibble.
-  if(attr(.data, "active")=="ego" && is(.data[["ego"]],"tbl_svy")){
+  if(attr(.data, "active")=="ego" && has_ego_design(.data)){
     i <- result[[".rowID_for_design"]]
     if(!is.null(i)){
       result[[".rowID_for_design"]] <- NULL

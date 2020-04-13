@@ -253,7 +253,7 @@ as_tibble.egor <- function(x,
   
   if (include.ego.vars & attr(x, "active") != "ego") {
     
-    if(is(x$ego,"tbl_svy")){
+    if(has_ego_design(x)){
       names(x$ego$variables)[names(x$ego$variables) != ".egoID"] <-
         paste0(names(x$ego$variables)[names(x$ego$variables) != ".egoID"] , "_ego")
       res <- full_join(res, x$ego$variables, by = ".egoID")

@@ -9,7 +9,7 @@
 #' @export
 #' @importFrom stats weights
 weights.egor <- function(object, ...) {
-  if(is(object$ego,"tbl_svy")) weights(object$ego)
+  if(has_ego_design(object)) weights(object$ego)
   else rep(1, nrow(object$ego))
 }
 
@@ -49,7 +49,7 @@ ego_design <- function(x, ...) UseMethod("ego_design")
 
 #' @rdname ego_design
 #' @export
-ego_design.egor <- function(x, ...) if(is(x$ego,"tbl_svy")) x$ego # otherwise NULL
+ego_design.egor <- function(x, ...) if(has_ego_design(x)) x$ego # otherwise NULL
 
 #' @rdname ego_design
 #' @export
@@ -68,4 +68,11 @@ ego_design.egor <- function(x, ...) if(is(x$ego,"tbl_svy")) x$ego # otherwise NU
 `ego_design<-.egor` <- function(x, ..., value){
   x$ego <- .gen.ego_design(x, value, parent.frame())
   x
+}
+
+#' @rdname ego_design
+#'
+#' @export
+has_ego_design <- function(x){
+  is(x$ego,"tbl_svy")
 }

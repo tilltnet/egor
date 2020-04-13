@@ -6,6 +6,7 @@
 \alias{ego_design.egor}
 \alias{ego_design<-}
 \alias{ego_design<-.egor}
+\alias{has_ego_design}
 \title{Set and query the ego sampling design}
 \usage{
 ego_design(x, ...)
@@ -15,6 +16,8 @@ ego_design(x, ...)
 ego_design(x, ...) <- value
 
 \method{ego_design}{egor}(x, ...) <- value
+
+has_ego_design(x)
 }
 \arguments{
 \item{x}{an \code{\link{egor}} object.}
