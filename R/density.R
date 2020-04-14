@@ -27,9 +27,7 @@ ego_density <- function(object, ...) {
 #' @rdname ego_density
 #' @export
 ego_density.egor <- function(object, weight = NULL, max.netsize = NULL, directed = FALSE, ...) {
-  aatie_l <- split(object$aatie, 
-                   factor(object$aatie$.egoID, 
-                          levels = unique(object$ego$.egoID)))
+  aatie_l <- aaties_by_ego(object)
   if (!is.null(weight)) {
     
     dyaden_real <- map_dbl(aatie_l, function(x) sum(x[[weight]]))
@@ -39,9 +37,7 @@ ego_density.egor <- function(object, weight = NULL, max.netsize = NULL, directed
   }
   
   
-  alter_l <- split(object$alter, 
-                   factor(object$alter$.egoID, 
-                          levels = unique(object$ego$.egoID)))
+  alter_l <- alters_by_ego(object)
   netsize <- map_dbl(alter_l, nrow)
   
   if (!is.null(max.netsize)) {

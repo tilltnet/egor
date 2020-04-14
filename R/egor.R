@@ -276,7 +276,3 @@ as_tibble.egor <- function(x,
   
   res
 }
-
-#' @method as.tibble egor
-#' @export
-as.tibble.egor <- as_tibble.egor
