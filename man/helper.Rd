@@ -4,7 +4,11 @@
 \alias{helper}
 \alias{as_nested_egor}
 \alias{alters_by_ego}
+\alias{alters_by_ego.egor}
+\alias{alters_by_ego.nested_egor}
 \alias{aaties_by_ego}
+\alias{aaties_by_ego.egor}
+\alias{aaties_by_ego.nested_egor}
 \alias{dyad.poss}
 \alias{sanitize.wide.edges}
 \alias{create_edge_names_wide}
@@ -16,7 +20,15 @@ as_nested_egor(x)
 
 alters_by_ego(x)
 
+\method{alters_by_ego}{egor}(x)
+
+\method{alters_by_ego}{nested_egor}(x)
+
 aaties_by_ego(x)
+
+\method{aaties_by_ego}{egor}(x)
+
+\method{aaties_by_ego}{nested_egor}(x)
 
 dyad.poss(max.alters, directed = FALSE)
 

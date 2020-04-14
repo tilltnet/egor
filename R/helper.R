@@ -30,14 +30,25 @@ as_nested_egor <- function(x) {
 #'   (possibly 0-row) of alters associated with each ego, in the same
 #'   order as the ego table.
 #' @export
-alters_by_ego <- function(x) split(x$alter, factor(x$alter$.egoID, levels = as_tibble(x$ego)$.egoID))
+alters_by_ego <- function(x) UseMethod("alters_by_ego")
+#' @rdname helper
+#' @export
+alters_by_ego.egor <- function(x) split(x$alter, factor(x$alter$.egoID, levels = as_tibble(x$ego)$.egoID))
+#' @rdname helper
+#' @export
+alters_by_ego.nested_egor <- function(x) as_tibble(x)$.alts
 
 #' @describeIn helper Splits the alter--alter ties table into a list of
 #'   tables (possibly 0-row) of alter--alter associated with each ego, in
 #'   the same order as the ego table.
 #' @export
-aaties_by_ego <- function(x) split(x$aatie, factor(x$aatie$.egoID, levels = as_tibble(x$ego)$.egoID))
-
+aaties_by_ego <- function(x) UseMethod("aaties_by_ego")
+#' @rdname helper
+#' @export
+aaties_by_ego.egor <- function(x) split(x$aatie, factor(x$aatie$.egoID, levels = as_tibble(x$ego)$.egoID))
+#' @rdname helper
+#' @export
+aaties_by_ego.nested_egor <- function(x) as_tibble(x)$.aaties
 
 #' @describeIn helper Returns the count of possible edges in an
 #' undirected or directed, ego-centered network, based on the number of alters.
