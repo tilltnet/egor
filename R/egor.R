@@ -161,10 +161,10 @@ egor <- function(alters,
   
   egor <- list(ego = egos,
                alter = alters,
-               aatie = aaties
-  )
+               aatie = aaties)
   class(egor) <- c("egor", class(egor))
   egor$ego <- .gen.ego_design(egor, ego_design, parent.frame())
+  alter_design(egor) <- alter_design
   activate(egor, "ego")
 }
 

@@ -30,7 +30,7 @@ alter_design.egor <- function(x, which, ...){
   if(missing(which)){
     if(!is.list(value)) stop("Specify which settings to change.")
 #' @importFrom utils modifyList
-    attr(x, "alter_design") <- modifyList(attr(x, "alter_design"), value)
+    attr(x, "alter_design") <- modifyList(if(is.null(alter_design(x))) list() else alter_design(x), value)
   }else{
     attr(x, "alter_design")[[which]] <- value
   }
