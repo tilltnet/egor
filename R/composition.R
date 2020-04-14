@@ -67,9 +67,7 @@ composition <- function(object, alt.attr, absolute = FALSE) {
 #' @export
 comp_ply <- function(object, alt.attr, .f, ..., ego.attr = NULL) {
   alt.attr_enquo <- enquo(alt.attr)
-  alter_l <- split(object$alter,
-                   factor(object$alter$.egoID,
-                          levels = unique(object$ego$.egoID)))
+  alter_l <- alters_by_ego(object)
   
   if (!is.null(ego.attr)) {
     res <- map2_dbl(alter_l, object$ego[[ego.attr]], function(x, y)
