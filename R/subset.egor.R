@@ -154,19 +154,40 @@ subset.egor <- function(x, subset, ..., unit = attr(x, "active")){
 
   switch(unit,
          ego = {
-           # This guarantees that the ego ID column is always preserved.
-           eid <- as_tibble(x$ego)$.egoID[i]
-           x$ego <- x$ego[i,j, ...]
-           if(!".egoID" %in% names(as_tibble(x$ego))){
-             if(has_ego_design(x)) x$ego$variables$.egoID <- eid
-             else x$ego$.egoID <- eid
-           }
+           eid <- as_tibble(x$ego)$.egoID
+           if(is.numeric(i) && any(duplicated(i))){
+             warning("Some ego indices have been selected multiple times. They will be duplicated, and ",sQuote(".egoID"),"s renumbered to preserve uniqueness.")
+             ipos <- match(i, eid)
+             if(any(is.na(ipos))) stop("Ego index out of bound.")
 
-           x$alter <- filter(x$alter, .egoID %in% as_tibble(x$ego)$.egoID)
-           x$aatie <- filter(x$aatie, .egoID %in% as_tibble(x$ego)$.egoID)
+             x$alter <- map2(seq_along(i), alters_by_ego(x)[i], function(i,a){a[,".egoID"] <- i; a}) %>% bind_rows
+
+             if(!is.null(x$aatie)) x$aatie <- map2(seq_along(i), aaties_by_ego(x)[i], function(i,aa){aa[,".egoID"] <- i; aa}) %>% bind_rows
+
+             # This guarantees that the ego ID column is always preserved.
+             x$ego <- x$ego[i,j, ...]
+             if(!".egoID" %in% names(as_tibble(x$ego))){
+               if(has_ego_design(x)) x$ego$variables$.egoID <- eid[i]
+               else x$ego$.egoID <- eid[i]
+             }
+             x$ego[,".egoID"] <- seq_along(i)
+
+           }else{
+             # This guarantees that the ego ID column is always preserved.
+             x$ego <- x$ego[i,j, ...]
+             if(!".egoID" %in% names(as_tibble(x$ego))){
+               if(has_ego_design(x)) x$ego$variables$.egoID <- eid[i]
+               else x$ego$.egoID <- eid[i]
+             }
+
+             x$alter <- filter(x$alter, .egoID %in% as_tibble(x$ego)$.egoID)
+             x$aatie <- filter(x$aatie, .egoID %in% as_tibble(x$ego)$.egoID)
+           }
            x
          },
          alter = {
+           if(any(duplicated(i))) stop("Indexing duplicated alters is not implemented at this time.")
+
            eid <- x$alter$.egoID[i]
            aid <- x$alter$.altID[i]
            x$alter <- x$alter[i,j, ...]
