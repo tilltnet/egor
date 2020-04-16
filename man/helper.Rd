@@ -3,6 +3,7 @@
 \name{helper}
 \alias{helper}
 \alias{as_nested_egor}
+\alias{as_tibble.nested_egor}
 \alias{alters_by_ego}
 \alias{alters_by_ego.egor}
 \alias{alters_by_ego.nested_egor}
@@ -17,6 +18,8 @@
 \title{General helper functions}
 \usage{
 as_nested_egor(x)
+
+\method{as_tibble}{nested_egor}(x, ...)
 
 alters_by_ego(x)
 
@@ -59,6 +62,9 @@ Helper functions for ego centered network analysis
 \itemize{
 \item \code{as_nested_egor}: Converts an egor object to a "legacy" egor object with
 nested .alts and .aaties columns.
+
+\item \code{as_tibble.nested_egor}: Ensures that a \code{nested_egor} is just a tibble
+without design information.
 
 \item \code{alters_by_ego}: Splits the alter table into a list of tables
 (possibly 0-row) of alters associated with each ego, in the same

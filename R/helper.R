@@ -33,6 +33,17 @@ as_nested_egor <- function(x) {
   x
 }
 
+#' @describeIn helper Ensures that a `nested_egor` is just a tibble
+#'   without design information.
+#' @export
+as_tibble.nested_egor <- function(x, ...) {
+  if(has_ego_design(x)){
+    x <- as_tibble(x, ...)
+    class(x) <- c("nested_egor", class(x))
+  }
+  x
+}
+
 #' @describeIn helper Splits the alter table into a list of tables
 #'   (possibly 0-row) of alters associated with each ego, in the same
 #'   order as the ego table.
