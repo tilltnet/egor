@@ -78,6 +78,10 @@ egor <- function(alters,
                     ego_design = list( ~ 1),
                     alter_design = list(max = Inf)) {
   
+  # Modify ID name list
+
+  IDv <- modifyList(eval(formals()$ID.vars), ID.vars)
+
   # Check for reserved column names
   
   check_reserved_colnames <-
@@ -85,8 +89,8 @@ egor <- function(alters,
       if (!is.null(x)){
 
         for (idvar in UNIT_IDVARS[[unit_]]) # For each type of IDVAR that the unit has,
-          if (ID.vars[[idvar]]==IDVARS[[idvar]]) # if the user-specified name for that variable is the same as the canonical one,
-            RESERVED_COLNAMES <- setdiff(RESERVED_COLNAMES, ID.vars[[idvar]]) # then it's not a problem if it's in the table.
+          if (IDv[[idvar]]==IDVARS[[idvar]]) # if the user-specified name for that variable is the same as the canonical one,
+            RESERVED_COLNAMES <- setdiff(RESERVED_COLNAMES, IDv[[idvar]]) # then it's not a problem if it's in the table.
 
         if (any(names(x) %in% RESERVED_COLNAMES))
           stop(paste0(
@@ -102,11 +106,7 @@ egor <- function(alters,
   mapply(check_reserved_colnames,
          list(egos, alters, aaties),
          UNITS)
-  
-  # Modify ID name list
-  
-  IDv <- modifyList(eval(formals()$ID.vars), ID.vars)
-  
+
   # Alters
   
   if (!is_tibble(alters)) {
