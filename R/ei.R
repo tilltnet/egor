@@ -103,7 +103,7 @@ EI <- function(object, alt.attr) {
   
   alt.attr_enquo <- enquo(alt.attr)
   
-  object2 <- as_tibble(as_nested_egor(object))
+  object2 <- strip_ego_design(as_nested_egor(object))
   
   obj <-
     object2 %>%

@@ -119,7 +119,7 @@ test_that(
 
 
 test_that(
-  "egor(): Non-Unique egoID in ego data should raise a warning)",
+  "egor(): Non-Unique egoID in ego data should raise an error.",
   {
     alters <- tibble(egoID = gl(3,4), 
                      alterID = rep(1:3, 4),
@@ -127,20 +127,18 @@ test_that(
     aaties <- tibble(egoID = sample(1:3, 32, replace = TRUE),
                      Source = sample(1:4, 32, replace = TRUE),
                      Target = sample(1:4, 32, replace = TRUE))
-    egos <- tibble(egoID = c(1, 1:4))
+    egos <- tibble(egoID = c(1L, 1:4))
     
     
-    expect_warning(egor(alters,
+    expect_error(egor(alters,
                       egos, 
                       aaties))
-    
-    expect_warning(summary(egor(alters, egos, aaties)))
   }
 )
 
 
 test_that(
-  "egor(): Alters without egos should raise a warning)",
+  "egor(): Alters without egos should raise an error.",
   {
     alters <- tibble(egoID = gl(3,4), 
                      alterID = rep(1:3, 4),
@@ -151,11 +149,10 @@ test_that(
     egos <- tibble(egoID = 2:4)
     
     
-    expect_warning(egor(alters,
+    expect_error(egor(alters,
                       egos, 
-                      aaties))
-    
-    expect_warning(summary(egor(alters, egos, aaties)))
+                      aaties),
+                 "There is at least one ego ID in the alter data with no corresponding entry in the ego data.")
   }
 )
 
@@ -163,7 +160,7 @@ test_that(
 
 
 test_that(
-  "egor(): can process dataframes that are not tibbles.)",
+  "egor(): can process dataframes that are not tibbles.",
   {
     alters <- tibble(egoID = gl(4,4), 
                      alterID = rep(1:4, 4),

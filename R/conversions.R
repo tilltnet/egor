@@ -38,7 +38,7 @@ as_igraph.egor <- function(x,
                            include.ego = FALSE,
                            ego.attrs = NULL,
                            ego.alter.weights = NULL) {
-  x <- as_tibble(as_nested_egor(x))
+  x <- strip_ego_design(as_nested_egor(x))
   as_igraph(x, directed, include.ego, ego.attrs, ego.alter.weights)
 }
 
@@ -131,7 +131,7 @@ as_network <- function(x,
                        include.ego = FALSE,
                        ego.attrs = NULL,
                        ego.alter.weights = NULL) {
-  x <- as_tibble(as_nested_egor(x))
+  x <- strip_ego_design(as_nested_egor(x))
 
   # Incldude Ego
   if (include.ego) {

@@ -29,11 +29,12 @@ weights.egor <- function(object, ...) {
 #'
 #' @noRd
 .gen.ego_design <- function(egor, ego_design, pos=-1L){
-  if(is.null(ego_design)) return(as_tibble(egor$ego))
+  egos <- if(is(egor, "nested_egor")) egor else egor$ego
+  if(is.null(ego_design)) return(as_tibble(egos))
 
   envir <- as.environment(pos)
 #' @importFrom srvyr as_survey_design
-  suppressWarnings(do.call(as_survey_design, c(list(egor$ego), ego_design), envir=envir))
+  suppressWarnings(do.call(as_survey_design, c(list(egos), ego_design), envir=envir))
 }
 
 #' Set and query the ego sampling design
@@ -72,6 +73,14 @@ ego_design.egor <- function(x, ...) if(has_ego_design(x)) x$ego # otherwise NULL
 
 #' @rdname ego_design
 #' @export
+`ego_design<-.nested_egor` <- function(x, ..., value){
+  x <- .gen.ego_design(x, value, parent.frame())
+  class(x) <- c("nested_egor", class(x))
+  x
+}
+
+#' @rdname ego_design
+#' @export
 has_ego_design <- function(x){
   UseMethod("has_ego_design")
 }
@@ -86,4 +95,11 @@ has_ego_design.egor <- function(x){
 #' @export
 has_ego_design.nested_egor <- function(x){
   is(x,"tbl_svy")
+}
+
+#' @rdname ego_design
+#' @export
+strip_ego_design <- function(x){
+  ego_design(x) <- NULL
+  x
 }

@@ -150,18 +150,16 @@ egor <- function(alters,
   # Check ID consistency
   
   if (any(duplicated(egos[[IDVARS$ego]])))
-    warning("Duplicated ego IDs in ego data.", 
-            call. = FALSE)
+    stop("Duplicated ego IDs in ego data.",
+         call. = FALSE)
   
   if (!all(alters[[IDVARS$ego]] %in% egos[[IDVARS$ego]]))
-    warning("There is at least one ego ID in the alter data with no
-            corresponding entry in the ego data.", 
-            call. = FALSE)
+    stop("There is at least one ego ID in the alter data with no corresponding entry in the ego data.",
+         call. = FALSE)
   
   if (!all(c(aaties[[IDVARS$ego]] %in% egos[[IDVARS$ego]])))
-    warning("There is at least one ego ID in the alter-alter data with no
-            corresponding entry in the alter data.", 
-            call. = FALSE)
+    stop("There is at least one ego ID in the alter-alter data with no corresponding entry in the alter data.",
+         call. = FALSE)
   
   # Return
   
