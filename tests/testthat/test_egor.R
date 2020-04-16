@@ -226,3 +226,23 @@ test_that(
     expect_error(e1 <- egor(alters, egos, aaties), "ego dataset uses reserved column name\\(s\\): .egoID")
   }
 )
+
+
+test_that(
+  "egor() only requires alterID if aaties present.",
+  {
+    e <- make_egor(32, 20)
+
+    egos <- e$ego
+    alters <- e$alter
+    aaties <- e$aatie
+
+    names(egos)[1] <- "egoID"
+    alters[[1]] <- NULL
+    names(alters)[1] <- "egoID"
+    names(aaties)[1:3] <- c("egoID", "Source", "Target")
+
+    expect_error(egor(alters, egos, aaties), class = "vctrs_error_subscript_oob")
+    expect_warning(egor(alters, egos), NA)
+  }
+)

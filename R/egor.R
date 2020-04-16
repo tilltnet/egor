@@ -112,12 +112,12 @@ egor <- function(alters,
   if (!is_tibble(alters)) {
     alters <- as_tibble(alters)
   }
-  
+
   alters <- select(alters,
-                   !!IDVARS$alter := !!IDv$alter,
+                   !!IDVARS$alter := if (!is.null(aaties) || IDv$alter%in%colnames(alters)) !!IDv$alter,
                    !!IDVARS$ego := !!IDv$ego,
                    everything())
-  
+
   # Egos
   
   if (is.null(egos)) {
