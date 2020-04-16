@@ -157,9 +157,6 @@ subset.egor <- function(x, subset, ..., unit = attr(x, "active")){
            eid <- as_tibble(x$ego)$.egoID
            if(is.numeric(i) && any(duplicated(i))){
              warning("Some ego indices have been selected multiple times. They will be duplicated, and ",sQuote(".egoID"),"s renumbered to preserve uniqueness.")
-             ipos <- match(i, eid)
-             if(any(is.na(ipos))) stop("Ego index out of bound.")
-
              x$alter <- map2(seq_along(i), alters_by_ego(x)[i], function(i,a){a[,".egoID"] <- i; a}) %>% bind_rows
 
              if(!is.null(x$aatie)) x$aatie <- map2(seq_along(i), aaties_by_ego(x)[i], function(i,aa){aa[,".egoID"] <- i; aa}) %>% bind_rows
