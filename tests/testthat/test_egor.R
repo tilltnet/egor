@@ -75,7 +75,7 @@ test_that(
     names(aaties)[1:3] <- c("egoID", "Source", "Target")
     
     expect_error(e1 <- egor(alters, egos, aaties), NA)
-    expect_true((class(e1)[1] == "egor"))
+    expect_identical(e, e1)
   }
 )
 
@@ -202,3 +202,47 @@ test_that(
   }
 )
 
+
+
+test_that(
+  "egor() can handle ID columns that match the canonical without errors but stops otherwise.",
+  {
+    e <- make_egor(32, 20)
+
+    egos <- e$ego
+    alters <- e$alter
+    aaties <- e$aatie
+
+    expect_warning(e1 <- egor(alters, egos, aaties, ID.vars=list(ego=".egoID",alter=".altID",source=".srcID",target=".tgtID")), NA)
+    expect_identical(e, e1)
+
+    names(egos)[1] <- "egoID"
+    names(alters)[1] <- "alterID"
+    names(alters)[2] <- "egoID"
+    names(aaties)[1:3] <- c("egoID", "Source", "Target")
+
+    egos$.egoID <- 1
+
+    expect_error(e1 <- egor(alters, egos, aaties), "ego dataset uses reserved column name\\(s\\): .egoID")
+  }
+)
+
+
+test_that(
+  "egor() only requires alterID if aaties present.",
+  {
+    e <- make_egor(32, 20)
+
+    egos <- e$ego
+    alters <- e$alter
+    aaties <- e$aatie
+
+    names(egos)[1] <- "egoID"
+    alters[[1]] <- NULL
+    names(alters)[1] <- "egoID"
+    names(aaties)[1:3] <- c("egoID", "Source", "Target")
+
+    expect_error(egor(alters, egos, aaties), class = "vctrs_error_subscript_oob")
+    expect_warning(egor(alters, egos), NA)
+  }
+)

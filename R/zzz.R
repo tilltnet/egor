@@ -5,6 +5,11 @@ IDVARS <- list(ego = ".egoID",
                source = ".srcID", 
                target = ".tgtID")
 
+UNIT_IDVARS <- list(ego = c("ego"),
+                    alter = c("ego", "alter"),
+                    aatie = c("ego", "source", "target"))
+
+
 RESERVED_COLNAMES <- c(".egoRow", 
                        ".altRow", 
                        ".srcRow", 

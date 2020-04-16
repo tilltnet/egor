@@ -79,40 +79,46 @@ egor <- function(alters,
                     ego_design = NULL,
                     alter_design = list(max = Inf)) {
   
+  # Modify ID name list
+
+  IDv <- modifyList(eval(formals()$ID.vars), ID.vars)
+
   # Check for reserved column names
   
   check_reserved_colnames <-
     function(x, unit_) {
-      if (!is.null(x))
+      if (!is.null(x)){
+
+        for (idvar in UNIT_IDVARS[[unit_]]) # For each type of IDVAR that the unit has,
+          if (IDv[[idvar]]==IDVARS[[idvar]]) # if the user-specified name for that variable is the same as the canonical one,
+            RESERVED_COLNAMES <- setdiff(RESERVED_COLNAMES, IDv[[idvar]]) # then it's not a problem if it's in the table.
+
         if (any(names(x) %in% RESERVED_COLNAMES))
-          warning(paste0(
+          stop(paste0(
             unit_,
             " dataset uses reserved column name(s): ",
             paste(RESERVED_COLNAMES[RESERVED_COLNAMES %in% names(x)], 
                   collapse = " ")
           ),
           call. = FALSE)
+      }
     }
   
   mapply(check_reserved_colnames,
          list(egos, alters, aaties),
          UNITS)
-  
-  # Modify ID name list
-  
-  IDv <- modifyList(eval(formals()$ID.vars), ID.vars)
-  
+
   # Alters
   
   if (!is_tibble(alters)) {
     alters <- as_tibble(alters)
   }
-  
+
   alters <- select(alters,
-                   !!IDVARS$alter := !!IDv$alter,
+                   !!IDVARS$alter := if (!is.null(aaties) || IDv$alter%in%colnames(alters)) !!IDv$alter,
                    !!IDVARS$ego := !!IDv$ego,
                    everything())
-  
+
   # Egos
   
   if (is.null(egos)) {
