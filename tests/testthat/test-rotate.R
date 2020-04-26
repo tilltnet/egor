@@ -71,15 +71,15 @@ test_that("rotate_to_equilibrium() works with a 3x2 matrix", {
   )
 })
 
-test_that("rotate_to_equilibrium() 2 coords with same y", {
-  lay_ <- matrix(c(-1,0,1,0,0,-1,0,1), 4, 2)
-  grph <- make_egor(1, 4, netsize_fixed = TRUE) %>%
-    as_igraph() %>% 
-    .[[1]]
-  
-  #plot(grph, layout = lay_)
-  #plot(grph, layout = rotate_to_equilibrium(xy_mat = lay_))
-})
+# test_that("rotate_to_equilibrium() 2 coords with same y", {
+#   lay_ <- matrix(c(-1,0,1,0,0,-1,0,1), 4, 2)
+#   grph <- make_egor(1, 4, netsize_fixed = TRUE) %>%
+#     as_igraph() %>% 
+#     .[[1]]
+#   
+#   #plot(grph, layout = lay_)
+#   #plot(grph, layout = rotate_to_equilibrium(xy_mat = lay_))
+# })
 
 if (FALSE) {
   graph_2 <-

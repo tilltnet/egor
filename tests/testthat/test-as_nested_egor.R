@@ -1,5 +1,5 @@
 test_that("as_nested_egor works", {
-  as_nested_egor(make_egor(5,5))
+  expect_error(as_nested_egor(make_egor(5,5)), NA)
 })
 
 test_that("as_nested_egor can be reversed to egor", {
@@ -18,7 +18,7 @@ test_that("as_nested_egor can be reversed to egor", {
   egos <- old_egor_obj %>%
     select(-.alts, -.aaties)
   
-  egor(
+  expect_error(egor(
     alts,
     egos,
     aaties,
@@ -28,5 +28,5 @@ test_that("as_nested_egor can be reversed to egor", {
       source = ".srcID",
       target = ".tgtID"
     )
-  )
+  ), NA)
 })
