@@ -191,7 +191,7 @@ as_network <- function(x,
   
   network.data.frame <- function(aaties, alts) {
     if (nrow(aaties) == 0) {
-      n <- network.initialize(0)
+      n <- network::network.initialize(0)
     } else {
       all_alt_IDs <- alts$.altID
       mt <- matrix(0,
@@ -205,7 +205,7 @@ as_network <- function(x,
           mt[colnames(mt) %in% aaties[aaties$.srcID == i , ]$.tgtID, colnames(mt) == i] <-
             1
       }
-      n <- network(mt, directed = FALSE)
+      n <- network::network(mt, directed = FALSE)
     }
     for (i in 1:NCOL(alts))
       n <-
@@ -213,7 +213,7 @@ as_network <- function(x,
     if (NCOL(aaties) > 2)
       for (i in 3:(NCOL(aaties)))
         n <-
-          network::set.edge.attribute(n, names(aaties)[i], aaties[[i]])
+          network::set.edge.attribute(n, names(aaties)[i], as.character(aaties[[i]]))
       n
   }
   networks <- mapply(FUN = network.data.frame,

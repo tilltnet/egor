@@ -58,6 +58,17 @@ test_that("as_network works.",
             )
           })
 
+test_that("as_network works with ego as tbl_svy",
+          {
+            data("egor32")
+            
+            expect_error(as_network(x = egor32), NA)
+            # alts = x$.alts[[1]]
+            # aaties = x$.aaties[[1]]
+
+            
+          })
+
 test_that("as_igraph works.",
           {
             e <- make_egor(3, 22)
