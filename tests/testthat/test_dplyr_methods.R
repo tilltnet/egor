@@ -87,7 +87,7 @@ test_that(
 test_that(
   "methods for dplyr verbs keep egor class/attributes",
   {
-    e <- make_egor(3, 5)
+    e <- make_egor(3, 15)
     # Mutate
     trim_aaties(e)
     res <- mutate(e, b = sex)
@@ -120,13 +120,15 @@ test_that(
     res <- summarise(eg, s = sum(as.numeric(age)))
     expect_true(NCOL(res) == 2)
 
-    library(srvyr) # For unweighted.
+    #library(srvyr) # For unweighted.
     ego_design(e) <- list(~1)
     eg <- group_by(e, sex)
     expect_is(eg, "egor")
     expect_is(eg$ego, "grouped_svy")
-
-    res <- summarise(eg, s = unweighted(sum(as.numeric(age))))
+    #expect_warning(summarise(eg, s = unweighted(sum(as.numeric(age)))), NA)
+    trace(tbl_df)
+    res <- summarise(eg, s = srvyr::unweighted(sum(as.numeric(age))))
+    untrace(tbl_df)
     expect_true(NCOL(res) == 2)
   }
 )
@@ -141,7 +143,7 @@ test_that(
               "Check that deletion of alters leads to deletions in aaties.")
   
     e3 <- activate(e, "alter") %>% 
-              filter(sex=="w")
+              filter(sex == "w")
     expect_lt(nrow(e3$aatie), 
               nrow(e$aatie),
               "Check that mutating alters leads to deletions in aaties.")

@@ -184,8 +184,12 @@ slice.egor <- function(.data, ...) {
 #' @export
 #' @noRd
 #' @method group_by egor
-group_by.egor <- function(.data, ..., add = FALSE, .drop = group_by_drop_default(.data)) {
-  result <- group_by(.data[[attr(.data, "active")]], ..., add = FALSE, .drop = group_by_drop_default(.data))
+group_by.egor <- function(.data, ..., .add = FALSE, .drop = group_by_drop_default(.data)) {
+  dplyr_version <- utils::packageDescription("dplyr")$Version
+  if (utils::compareVersion(dplyr_version, "1.0.0") < 0)
+    result <- group_by(.data[[attr(.data, "active")]], ..., add = .add, .drop = group_by_drop_default(.data))
+  else
+    result <- group_by(.data[[attr(.data, "active")]], ..., .add = .add, .drop = group_by_drop_default(.data))
   return_egor_with_result(.data, result, trim = FALSE)
 }
 
