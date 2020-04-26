@@ -16,7 +16,7 @@
 #' rowlist(df)
 #'
 #' @export
-rowlist <- function(x){
+rowlist <- function(x) {
   apply(x, 1, identity)
 }
 
@@ -40,23 +40,23 @@ rowlist <- function(x){
 #'   columns of other units with which the active unit shares an ego
 #'   via `egos$`, `alters$`, and `aaties$` as well as the following
 #'   "virtual" columns to simplify indexing: \describe{
-#' 
+#'
 #' \item{Ego index `.egoRow`}{ contains the index (counting from 1) of the row being
 #' evaluated. (This can be used to access vector variables in the
 #' calling environment.)}
-#' 
+#'
 #' \item{Alter index `.altRow`}{ contains the index (counting from 1) of the row number in the alter table.}
-#' 
+#'
 #' \item{Alter--alter indices `.srcRow` and `.tgtRow`}{ contain the
 #' index (counting from 1) of the row of the alter being refereced by
 #' `.srcID` and `.tgtID`. (This can be used to quickly access the
 #' attributes of the alters in question.)}
-#' 
+#'
 #' }
-#' 
+#'
 #' @param ... extra arguments to `subset` if `subset` is a function; otherwise unused.
 #'
-#' @details 
+#' @details
 #'
 #' Removing or duplicating an ego will also remove or duplicate their
 #' alters and ties.
@@ -78,61 +78,89 @@ rowlist <- function(x){
 #' @importFrom methods is
 #' @importFrom dplyr nest_join
 #' @export
-subset.egor <- function(x, subset, ..., unit = attr(x, "active")){
+subset.egor <- function(x, subset, ..., unit = attr(x, "active")) {
   unit <- match.arg(unit, UNITS)
-  f <- try(is.function(subset), silent=TRUE)
-  if(is(f, "try-error") || !f){
+  f <- try(is.function(subset), silent = TRUE)
+  if (is(f, "try-error") || !f) {
     se <- substitute(subset)
     pf <- parent.frame()
-    f <- function(r) eval(se, r, pf)
-  }else f <- subset
-
+    f <- function(r)
+      eval(se, r, pf)
+  } else
+    f <- subset
+  
   # The following works because we end up joining the same set of
   # tables to any of these, except that for unit=="aatie", we also
   # need to add row indices.
-
-  add_egoRow <- function(x){
+  
+  add_egoRow <- function(x) {
     tmp <- as_tibble(x$ego)
     tmp$.egoRow <- seq_len(nrow(x$ego))
     tmp
   }
-
-  add_altRow <- function(x){
+  
+  add_altRow <- function(x) {
     tmp <- x$alter
-    tmp$.altRow <- stats::ave(logical(nrow(tmp)), tmp$.egoID, seq_along)
+    tmp$.altRow <-
+      stats::ave(logical(nrow(tmp)), tmp$.egoID, FUN = seq_along)
     tmp
   }
-
-  xa <- switch(unit,
-               ego = add_egoRow(x),
-               alter = 
-                 # Within each ego, assign increasing alter
-                 # indices. Note that the first argument of ave() is a
-                 # dummy variable.
-                 add_altRow(x),
-               aatie = x$aatie)
-
-  xa <- nest_join(xa, add_egoRow(x), ".egoID", keep = TRUE, name="ego")
-  xa <- nest_join(xa, x$alter, ".egoID", keep = TRUE, name="alter")
-  xa$alter <- lapply(xa$alter, function(a) bind_cols(a, .altRow=seq_len(nrow(a))))
-  xa <- nest_join(xa, x$aatie, ".egoID", keep=TRUE, name="aatie")
-  xa$aatie <- mapply(function(a,aa)
-    bind_cols(aa,
-              .srcRow = match(aa$.srcID, a$.altID),
-              .tgtRow = match(aa$.tgtID, a$.altID)),
-    a = xa$alter, aa = xa$aatie, SIMPLIFY=FALSE)
-
-  if (unit == "aatie"){
-    xa$.srcRow <- mapply(function(a,aa) match(aa$.srcID, a$.altID),
-                         a=xa$alter, aa=xa$aatie, SIMPLIFY=TRUE)
-    xa$.tgtRow <- mapply(function(a,aa) match(aa$.tgtID, a$.altID),
-                         a=xa$alter, aa=xa$aatie, SIMPLIFY=TRUE)
+  
+  xa <- switch(
+    unit,
+    ego = add_egoRow(x),
+    alter =
+      # Within each ego, assign increasing alter
+      # indices. Note that the first argument of ave() is a
+      # dummy variable.
+      add_altRow(x),
+    aatie = x$aatie
+  )
+  
+  xa <-
+    nest_join(xa,
+              add_egoRow(x),
+              ".egoID",
+              keep = TRUE,
+              name = "ego")
+  xa <- nest_join(xa, x$alter, ".egoID", keep = TRUE, name = "alter")
+  xa$alter <-
+    lapply(xa$alter, function(a)
+      bind_cols(a, .altRow = seq_len(nrow(a))))
+  xa <- nest_join(xa, x$aatie, ".egoID", keep = TRUE, name = "aatie")
+  xa$aatie <- mapply(
+    function(a, aa)
+      bind_cols(
+        aa,
+        .srcRow = match(aa$.srcID, a$.altID),
+        .tgtRow = match(aa$.tgtID, a$.altID)
+      ),
+    a = xa$alter,
+    aa = xa$aatie,
+    SIMPLIFY = FALSE
+  )
+  
+  if (unit == "aatie") {
+    xa$.srcRow <- mapply(
+      function(a, aa)
+        match(aa$.srcID, a$.altID),
+      a = xa$alter,
+      aa = xa$aatie,
+      SIMPLIFY = TRUE
+    )
+    xa$.tgtRow <- mapply(
+      function(a, aa)
+        match(aa$.tgtID, a$.altID),
+      a = xa$alter,
+      aa = xa$aatie,
+      SIMPLIFY = TRUE
+    )
   }
   
   # Call the function to perform indexing
   i <- lapply(rowlist(xa), f, ...)
-
-  x[i[[1]],,unit=unit]
+  
+  x[i[[1]], , unit = unit]
 }
 
 #' @rdname subset.egor
@@ -147,64 +175,93 @@ subset.egor <- function(x, subset, ..., unit = attr(x, "active")){
 #'
 #' @import tibble
 #' @export
-`[.egor` <- function(x, i, j, unit = attr(x, "active"), ...){
+`[.egor` <- function(x, i, j, unit = attr(x, "active"), ...) {
   unit <- match.arg(unit, UNITS)
-  if(missing(i)) i <- TRUE
-  if(missing(j)) j <- TRUE
-
+  if (missing(i))
+    i <- TRUE
+  if (missing(j))
+    j <- TRUE
+  
   switch(unit,
          ego = {
            eid <- as_tibble(x$ego)$.egoID
-           if(is.numeric(i) && any(duplicated(i))){
-             warning("Some ego indices have been selected multiple times. They will be duplicated, and ",sQuote(".egoID"),"s renumbered to preserve uniqueness.")
-             x$alter <- map2(seq_along(i), alters_by_ego(x)[i], function(i,a){a[,".egoID"] <- i; a}) %>% bind_rows
-
-             if(!is.null(x$aatie)) x$aatie <- map2(seq_along(i), aaties_by_ego(x)[i], function(i,aa){aa[,".egoID"] <- i; aa}) %>% bind_rows
-
+           if (is.numeric(i) && any(duplicated(i))) {
+             warning(
+               "Some ego indices have been selected multiple times. They will be duplicated, and ",
+               sQuote(".egoID"),
+               "s renumbered to preserve uniqueness."
+             )
+             x$alter <-
+               map2(seq_along(i), alters_by_ego(x)[i], function(i, a) {
+                 a[, ".egoID"] <- i
+                 a
+               }) %>% bind_rows
+             
+             if (!is.null(x$aatie))
+               x$aatie <-
+               map2(seq_along(i), aaties_by_ego(x)[i], function(i, aa) {
+                 aa[, ".egoID"] <- i
+                 aa
+               }) %>% bind_rows
+             
              # This guarantees that the ego ID column is always preserved.
-             x$ego <- x$ego[i,j, ...]
-             if(!".egoID" %in% names(as_tibble(x$ego))){
-               if(has_ego_design(x)) x$ego$variables$.egoID <- eid[i]
-               else x$ego$.egoID <- eid[i]
+             x$ego <- x$ego[i, j, ...]
+             if (!".egoID" %in% names(as_tibble(x$ego))) {
+               if (has_ego_design(x))
+                 x$ego$variables$.egoID <- eid[i]
+               else
+                 x$ego$.egoID <- eid[i]
              }
-             x$ego[,".egoID"] <- seq_along(i)
-
-           }else{
+             x$ego[, ".egoID"] <- seq_along(i)
+             
+           } else{
              # This guarantees that the ego ID column is always preserved.
-             x$ego <- x$ego[i,j, ...]
-             if(!".egoID" %in% names(as_tibble(x$ego))){
-               if(has_ego_design(x)) x$ego$variables$.egoID <- eid[i]
-               else x$ego$.egoID <- eid[i]
+             x$ego <- x$ego[i, j, ...]
+             if (!".egoID" %in% names(as_tibble(x$ego))) {
+               if (has_ego_design(x))
+                 x$ego$variables$.egoID <- eid[i]
+               else
+                 x$ego$.egoID <- eid[i]
              }
-
-             x$alter <- filter(x$alter, .egoID %in% as_tibble(x$ego)$.egoID)
-             x$aatie <- filter(x$aatie, .egoID %in% as_tibble(x$ego)$.egoID)
+             
+             x$alter <-
+               filter(x$alter, .egoID %in% as_tibble(x$ego)$.egoID)
+             x$aatie <-
+               filter(x$aatie, .egoID %in% as_tibble(x$ego)$.egoID)
            }
            x
          },
          alter = {
-           if(any(duplicated(i))) stop("Indexing duplicated alters is not implemented at this time.")
-
+           if (!is.logical(i) && any(duplicated(i)))
+             stop("Indexing duplicated alters is not implemented at this time.")
+           
            eid <- x$alter$.egoID[i]
            aid <- x$alter$.altID[i]
-           x$alter <- x$alter[i,j, ...]
-           if(!".egoID" %in% names(x$alter)) x$alter$.egoID <- eid
-           if(!".altID" %in% names(x$alter)) x$alter$.altID <- aid
-
+           x$alter <- x$alter[i, j, ...]
+           if (!".egoID" %in% names(x$alter))
+             x$alter$.egoID <- eid
+           if (!".altID" %in% names(x$alter))
+             x$alter$.altID <- aid
+           
            # Explanation: keep a row in aaties iff its (egoID,altID) tuple can (still) be found in the alters as well.
            trim_aaties(x)
          },
          aatie = {
-           if(!utils::hasName(x,"aatie"))
-             stop("Attempted indexing of alter-alter ties on an object with no alter-alter ties observed.")
+           if (!utils::hasName(x, "aatie"))
+             stop(
+               "Attempted indexing of alter-alter ties on an object with no alter-alter ties observed."
+             )
            eid <- x$aatie$.egoID[i]
            sid <- x$aatie$.srcID[i]
            tid <- x$aatie$.srcID[i]
-           x$aatie <- x$aatie[i,j, ...]
-           if(!".egoID" %in% names(x$aatie)) x$aatie$.egoID <- eid
-           if(!".srcID" %in% names(x$aatie)) x$aatie$.srcID <- sid
-           if(!".tgtID" %in% names(x$aatie)) x$aatie$.tgtID <- tid
-
+           x$aatie <- x$aatie[i, j, ...]
+           if (!".egoID" %in% names(x$aatie))
+             x$aatie$.egoID <- eid
+           if (!".srcID" %in% names(x$aatie))
+             x$aatie$.srcID <- sid
+           if (!".tgtID" %in% names(x$aatie))
+             x$aatie$.tgtID <- tid
+           
            x
          })
 }
