@@ -14,7 +14,7 @@ if (getRversion() >= "2.15.1")
 # dplyr helper functions
 
 #' Trims alter-alter ties of alters that are missing/ deleted from alters data
-#' 
+#'
 #' @param object An `egor` object.
 #' @return An `egor` object with trimmed alter-alter ties (.aaties).
 #' @export
@@ -28,40 +28,40 @@ trim_aaties <- function(object) {
     filter(object$aatie, .egoID %in% unique(object$alter$.egoID))
   
   # keep only aaties that have .srcID AND .tgtID in alters
-  object$alter$..tmp_unique_altID <- 
+  object$alter$..tmp_unique_altID <-
     paste0(object$alter$.egoID, object$alter$.altID)
   
-  object$aatie$..tmp_unique_srcID <- 
+  object$aatie$..tmp_unique_srcID <-
     paste0(object$aatie$.egoID, object$aatie$.srcID)
   
-  object$aatie$..tmp_unique_tgtID <- 
+  object$aatie$..tmp_unique_tgtID <-
     paste0(object$aatie$.egoID, object$aatie$.tgtID)
   
-  object$aatie <- 
-  filter(
-    object$aatie,
-    ..tmp_unique_srcID %in% object$alter$..tmp_unique_altID,
-    ..tmp_unique_tgtID %in% object$alter$..tmp_unique_altID
-  )
+  object$aatie <-
+    filter(
+      object$aatie,
+      ..tmp_unique_srcID %in% object$alter$..tmp_unique_altID,
+      ..tmp_unique_tgtID %in% object$alter$..tmp_unique_altID
+    )
   
-  object$aatie <- 
+  object$aatie <-
     select(object$aatie,
            -..tmp_unique_srcID, -..tmp_unique_tgtID)
   
-  object$alter <- 
+  object$alter <-
     select(object$alter,
            -..tmp_unique_altID)
   
   if (!all(c(".egoID", ".srcID", ".tgtID") %in% names(object$aatie)))
     #' @importFrom stats setNames
     object$aatie <-
-    setNames(data.frame(matrix(ncol = 3, nrow = 0)), 
+    setNames(data.frame(matrix(ncol = 3, nrow = 0)),
              c(".egoID", ".srcID", ".tgtID"))
   object
 }
 
 #' Trims alters that are missing/ deleted from ego data
-#' 
+#'
 #' @param object An `egor` object.
 #' @return An `egor` object with trimmed alter-alter ties (.aaties).
 #' @export
@@ -70,9 +70,10 @@ trim_alters <- function(object) {
     filter(object$alter, .egoID %in% as_tibble(object$ego)$.egoID)
   object
 }
-  
+
 bind_IDs_if_missing <- function(.data, result) {
-  a <- unlist(IDVARS[IDVARS %in% names(.data[[attr(.data, "active")]])], use.names = FALSE)
+  a <-
+    unlist(IDVARS[IDVARS %in% names(.data[[attr(.data, "active")]])], use.names = FALSE)
   b <- a[!a %in% names(result)]
   if (length(b) >= 1)
     result <- bind_cols(select(.data[[attr(.data, "active")]], b),
@@ -85,9 +86,10 @@ bind_IDs_if_missing <- function(.data, result) {
 # temporarily converts ego table into a tibble with an extra column
 # containing the row ID so that we could later figure out what subset
 # of rows to pass to [.svy_tbl() in return_egor_with_result().
-tibble_egos <- function(.data){
-  if(attr(.data, "active")=="ego" && has_ego_design(.data)){
-    .data[["ego"]] <- cbind(.data[["ego"]][["variables"]], .rowID_for_design=seq_len(nrow(.data[["ego"]])))
+tibble_egos <- function(.data) {
+  if (attr(.data, "active") == "ego" && has_ego_design(.data)) {
+    .data[["ego"]] <-
+      cbind(.data[["ego"]][["variables"]], .rowID_for_design = seq_len(nrow(.data[["ego"]])))
   }
   .data
 }
@@ -96,23 +98,24 @@ return_egor_with_result <- function(.data, result, trim = TRUE) {
   # The following takes the subsetting done by whatever method did it,
   # and applies it to the svy_design object, before replacing its
   # variables with the result tibble.
-  if(attr(.data, "active")=="ego" && has_ego_design(.data)){
+  if (attr(.data, "active") == "ego" && has_ego_design(.data)) {
     i <- result[[".rowID_for_design"]]
-    if(!is.null(i)){
+    if (!is.null(i)) {
       result[[".rowID_for_design"]] <- NULL
-      res_ego <- .data[["ego"]][i,]
+      res_ego <- .data[["ego"]][i, ]
       # res_ego should now be a svy_tbl object that has the same number of
       # rows as result, so the following shouldn't break things:
       res_ego$variables <- result
       result <- res_ego
     }
   }
-
+  
   .data[[attr(.data, "active")]] <- result
   if (trim) {
     .data <- trim_alters(.data)
     trim_aaties(.data)
-  } else .data
+  } else
+    .data
 }
 
 # mutate ------------------------------------------------------------------
@@ -129,10 +132,11 @@ mutate.egor <- function(.data, ...) {
 #' @noRd
 #' @method transmute egor
 transmute.egor <- function(.data, ...) {
-  result <- transmute(tibble_egos(.data)[[attr(.data, "active")]], ...)
-  result <- 
+  result <-
+    transmute(tibble_egos(.data)[[attr(.data, "active")]], ...)
+  result <-
     bind_IDs_if_missing(.data, result)
-
+  
   return_egor_with_result(.data, result)
 }
 
@@ -144,7 +148,7 @@ transmute.egor <- function(.data, ...) {
 #' @method select egor
 select.egor <- function(.data, ...) {
   result <- select(tibble_egos(.data)[[attr(.data, "active")]], ...)
-  result <- 
+  result <-
     bind_IDs_if_missing(.data, result)
   return_egor_with_result(.data, result)
 }
@@ -154,10 +158,31 @@ select.egor <- function(.data, ...) {
 #' @method rename egor
 rename.egor <- function(.data, ...) {
   result <- rename(.data[[attr(.data, "active")]], ...)
-  result <- 
+  result <-
     bind_IDs_if_missing(.data, result)
   return_egor_with_result(.data, result)
 }
+
+#' #' @export
+#' #' @noRd
+#' #' @method rename_with egor
+#' rename_with.egor <- function(.data, .fn, .cols = everything(), ...) {
+#'   result <- rename_with(.data[[attr(.data, "active")]], .fn, .cols = everything(), ...)
+#'   result <-
+#'     bind_IDs_if_missing(.data, result)
+#'   return_egor_with_result(.data, result)
+#' }
+#' 
+#' 
+#' #' @export
+#' #' @noRd
+#' #' @method relocate egor
+#' relocate.egor <- function(.data, ...) {
+#'   result <- relocate(.data[[attr(.data, "active")]], ...)
+#'   result <-
+#'     bind_IDs_if_missing(.data, result)
+#'   return_egor_with_result(.data, result)
+#' }
 
 
 # filter ------------------------------------------------------------------
@@ -184,12 +209,17 @@ slice.egor <- function(.data, ...) {
 #' @export
 #' @noRd
 #' @method group_by egor
-group_by.egor <- function(.data, ..., .add = FALSE, .drop = group_by_drop_default(.data)) {
+group_by.egor <- function(.data,
+                          ...,
+                          .add = FALSE,
+                          .drop = group_by_drop_default(.data)) {
   dplyr_version <- utils::packageDescription("dplyr")$Version
   if (utils::compareVersion(dplyr_version, "1.0.0") < 0)
-    result <- group_by(.data[[attr(.data, "active")]], ..., add = .add, .drop = group_by_drop_default(.data))
+    result <-
+      group_by(.data[[attr(.data, "active")]], ..., add = .add, .drop = group_by_drop_default(.data))
   else
-    result <- group_by(.data[[attr(.data, "active")]], ..., .add = .add, .drop = group_by_drop_default(.data))
+    result <-
+      group_by(.data[[attr(.data, "active")]], ..., .add = .add, .drop = group_by_drop_default(.data))
   return_egor_with_result(.data, result, trim = FALSE)
 }
 
@@ -261,8 +291,21 @@ arrange.egor <- function(.data, ...) {
 #' @export
 #' @noRd
 #' @method inner_join egor
-inner_join.egor <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...) {
-  result <- inner_join(tibble_egos(x)[[attr(x, "active")]], y, by = by, copy = copy, suffix = suffix, ...)
+inner_join.egor <- function(x,
+                            y,
+                            by = NULL,
+                            copy = FALSE,
+                            suffix = c(".x", ".y"),
+                            ...) {
+  result <-
+    inner_join(
+      tibble_egos(x)[[attr(x, "active")]],
+      y,
+      by = by,
+      copy = copy,
+      suffix = suffix,
+      ...
+    )
   return_egor_with_result(x, result)
   
 }
@@ -270,8 +313,21 @@ inner_join.egor <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"
 #' @export
 #' @noRd
 #' @method left_join egor
-left_join.egor <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...) {
-  result <- left_join(tibble_egos(x)[[attr(x, "active")]], y, by = by, copy = copy, suffix = suffix,...)
+left_join.egor <- function(x,
+                           y,
+                           by = NULL,
+                           copy = FALSE,
+                           suffix = c(".x", ".y"),
+                           ...) {
+  result <-
+    left_join(
+      tibble_egos(x)[[attr(x, "active")]],
+      y,
+      by = by,
+      copy = copy,
+      suffix = suffix,
+      ...
+    )
   return_egor_with_result(x, result)
   
 }
@@ -279,40 +335,107 @@ left_join.egor <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y")
 #' @export
 #' @noRd
 #' @method right_join egor
-right_join.egor <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...) {
-  result <- right_join(tibble_egos(x)[[attr(x, "active")]], y, by = by, copy = copy, suffix = suffix,...)
+right_join.egor <- function(x,
+                            y,
+                            by = NULL,
+                            copy = FALSE,
+                            suffix = c(".x", ".y"),
+                            ...) {
+  result <-
+    right_join(
+      tibble_egos(x)[[attr(x, "active")]],
+      y,
+      by = by,
+      copy = copy,
+      suffix = suffix,
+      ...
+    )
   return_egor_with_result(x, result)
 }
 
 #' @export
 #' @noRd
 #' @method full_join egor
-full_join.egor <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...) {
-  result <- full_join(tibble_egos(x)[[attr(x, "active")]], y, by = by, copy = copy, suffix = suffix,...)
+full_join.egor <- function(x,
+                           y,
+                           by = NULL,
+                           copy = FALSE,
+                           suffix = c(".x", ".y"),
+                           ...) {
+  result <-
+    full_join(
+      tibble_egos(x)[[attr(x, "active")]],
+      y,
+      by = by,
+      copy = copy,
+      suffix = suffix,
+      ...
+    )
   return_egor_with_result(x, result)
 }
 
 #' @export
 #' @noRd
 #' @method semi_join egor
-semi_join.egor <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...) {
-  result <- semi_join(tibble_egos(x)[[attr(x, "active")]], y, by = by, copy = copy, suffix = suffix,...)
+semi_join.egor <- function(x,
+                           y,
+                           by = NULL,
+                           copy = FALSE,
+                           suffix = c(".x", ".y"),
+                           ...) {
+  result <-
+    semi_join(
+      tibble_egos(x)[[attr(x, "active")]],
+      y,
+      by = by,
+      copy = copy,
+      suffix = suffix,
+      ...
+    )
   return_egor_with_result(x, result)
 }
 
 #' @export
 #' @noRd
 #' @method nest_join egor
-nest_join.egor <- function(x, y, by = NULL, copy = FALSE, keep = FALSE, name = NULL, ...) {
-  result <- nest_join(tibble_egos(x)[[attr(x, "active")]], y, by = by, copy = copy, keep = keep, name = name,...)
+nest_join.egor <- function(x,
+                           y,
+                           by = NULL,
+                           copy = FALSE,
+                           keep = FALSE,
+                           name = NULL,
+                           ...) {
+  result <-
+    nest_join(
+      tibble_egos(x)[[attr(x, "active")]],
+      y,
+      by = by,
+      copy = copy,
+      keep = keep,
+      name = name,
+      ...
+    )
   return_egor_with_result(x, result)
 }
 
 #' @export
 #' @noRd
 #' @method anti_join egor
-anti_join.egor <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...) {
-  result <- anti_join(tibble_egos(x)[[attr(x, "active")]], y, by = by, copy = copy, suffix = suffix,...)
+anti_join.egor <- function(x,
+                           y,
+                           by = NULL,
+                           copy = FALSE,
+                           suffix = c(".x", ".y"),
+                           ...) {
+  result <-
+    anti_join(
+      tibble_egos(x)[[attr(x, "active")]],
+      y,
+      by = by,
+      copy = copy,
+      suffix = suffix,
+      ...
+    )
   return_egor_with_result(x, result)
 }
 
@@ -322,7 +445,7 @@ anti_join.egor <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y")
 #' @export
 #' @noRd
 #' @method tbl_vars egor
-tbl_vars.egor <- 
+tbl_vars.egor <-
   function(x) {
     tbl_vars(x[[attr(x, "active")]])
   }
@@ -337,7 +460,7 @@ rename_.egor <- rename.egor
 #' #' @method select_all egor
 #' select_all.egor <- function(.tbl, .funs = list(), ...) {
 #'   result <- select_all(.tbl[[attr(.tbl, "active")]], .funs = .funs, ...)
-#'   result <- 
+#'   result <-
 #'     bind_IDs_if_missing(.tbl, result)
 #'   return_egor_with_result(.tbl, result)
 #' }
@@ -357,7 +480,7 @@ rename_.egor <- rename.egor
 #' #' @method select_if egor
 #' select_if.egor <- function(.tbl, .predicate, .funs = list(), ...) {
 #'   result <- select_if(.tbl[[attr(.tbl, "active")]], .predicate, .funs = .funs, ...)
-#'   result <- 
+#'   result <-
 #'     bind_IDs_if_missing(.tbl, result)
 #'   return_egor_with_result(.tbl, result)
 #' }
@@ -367,7 +490,7 @@ rename_.egor <- rename.egor
 #' #' @method rename_if egor
 #' rename_if.egor <- function(.tbl, .predicate, .funs = list(), ...) {
 #'   result <- rename_if(.tbl[[attr(.tbl, "active")]], .predicate, .funs = .funs, ...)
-#'   result <- 
+#'   result <-
 #'     bind_IDs_if_missing(.tbl, result)
 #'   return_egor_with_result(.tbl, result)
 #' }
@@ -378,7 +501,7 @@ rename_.egor <- rename.egor
 #' #' @method select_at egor
 #' select_at.egor <- function(.tbl, .vars, .funs = list(), ...) {
 #'   result <- select_at(.tbl[[attr(.tbl, "active")]], .vars, .funs = .funs, ...)
-#'   result <- 
+#'   result <-
 #'     bind_IDs_if_missing(.tbl, result)
 #'   return_egor_with_result(.tbl, result)
 #' }
@@ -388,14 +511,14 @@ rename_.egor <- rename.egor
 #' #' @method rename_at egor
 #' rename_at.egor <- function(.tbl, .vars, .funs = list(), ...) {
 #'   result <- rename_at(.tbl[[attr(.tbl, "active")]], .vars = .vars, .funs = .funs, ...)
-#'   result <- 
+#'   result <-
 #'     bind_IDs_if_missing(.tbl, result)
 #'   return_egor_with_result(.tbl, result)
 #' }
 
 
 # filter_ -----------------------------------------------------------------
-#' 
+#'
 #' #' @export
 #' #' @noRd
 #' #' @method filter_all egor
@@ -403,7 +526,7 @@ rename_.egor <- rename.egor
 #'   result <- filter_all(.tbl[[attr(.tbl, "active")]], .vars_predicate, .preserve)
 #'   return_egor_with_result(.tbl, result)
 #' }
-#' 
+#'
 #' #' @export
 #' #' @noRd
 #' #' @method filter_at egor
@@ -411,7 +534,7 @@ rename_.egor <- rename.egor
 #'   result <- filter_at(.tbl[[attr(.tbl, "active")]], .vars, .vars_predicate, .preserve = FALSE)
 #'   return_egor_with_result(.tbl, result)
 #' }
-#' 
+#'
 #' #' @export
 #' #' @noRd
 #' #' @method filter_if egor
@@ -430,7 +553,7 @@ rename_.egor <- rename.egor
 #'   result <- mutate_all(.tbl[[attr(.tbl, "active")]], .funs, ...)
 #'   return_egor_with_result(.tbl, result)
 #' }
-#' 
+#'
 #' #' @export
 #' #' @noRd
 #' #' @method mutate_at egor
@@ -438,7 +561,7 @@ rename_.egor <- rename.egor
 #'   result <- mutate_at(.tbl[[attr(.tbl, "active")]], .vars, .funs, ..., .cols = NULL)
 #'   return_egor_with_result(.tbl, result)
 #' }
-#' 
+#'
 #' #' @export
 #' #' @noRd
 #' #' @method mutate_if egor
@@ -446,7 +569,7 @@ rename_.egor <- rename.egor
 #'   result <- mutate_if(.tbl[[attr(.tbl, "active")]], .predicate, .funs, ...)
 #'   return_egor_with_result(.tbl, result)
 #' }
-#' 
+#'
 #' #' @export
 #' #' @noRd
 #' #' @method transmute_all egor
@@ -455,7 +578,7 @@ rename_.egor <- rename.egor
 #'   result <- bind_IDs_if_missing(.data, result)
 #'   return_egor_with_result(.tbl, result)
 #' }
-#' 
+#'
 #' #' @export
 #' #' @noRd
 #' #' @method transmute_at egor
@@ -464,7 +587,7 @@ rename_.egor <- rename.egor
 #'   result <- bind_IDs_if_missing(.data, result)
 #'   return_egor_with_result(.tbl, result)
 #' }
-#' 
+#'
 #' #' @export
 #' #' @noRd
 #' #' @method transmute_if egor
@@ -484,7 +607,7 @@ rename_.egor <- rename.egor
 #'   result <- arrange_all(.tbl[[attr(.tbl, "active")]], .funs = list(), ..., .by_group = FALSE)
 #'   return_egor_with_result(.tbl, result)
 #' }
-#' 
+#'
 #' #' @export
 #' #' @noRd
 #' #' @method arrange_at egor
@@ -492,7 +615,7 @@ rename_.egor <- rename.egor
 #'   result <- arrange_at(.tbl[[attr(.tbl, "active")]], .vars, .funs = list(), ..., .by_group = FALSE)
 #'   return_egor_with_result(.tbl, result)
 #' }
-#' 
+#'
 #' #' @export
 #' #' @noRd
 #' #' @method arrange_if egor
@@ -511,7 +634,7 @@ rename_.egor <- rename.egor
 #'   result <- summarise_all(.tbl[[attr(.tbl, "active")]], .funs, ...)
 #'   return_egor_with_result(.tbl, result)
 #' }
-#' 
+#'
 #' #' @export
 #' #' @noRd
 #' #' @method summarise_at egor
@@ -519,7 +642,7 @@ rename_.egor <- rename.egor
 #'   result <- summarise_at(.tbl[[attr(.tbl, "active")]], .vars, .funs, ..., .cols = NULL)
 #'   return_egor_with_result(.tbl, result)
 #' }
-#' 
+#'
 #' #' @export
 #' #' @noRd
 #' #' @method summarise_if egor
@@ -527,7 +650,7 @@ rename_.egor <- rename.egor
 #'   result <- summarise_if(.tbl[[attr(.tbl, "active")]], .predicate, .funs, ...)
 #'   return_egor_with_result(.tbl, result)
 #' }
-#' 
+#'
 #' #' @export
 #' #' @noRd
 #' #' @method summarize_all egor
@@ -535,7 +658,7 @@ rename_.egor <- rename.egor
 #'   result <- summarize_all(.tbl[[attr(.tbl, "active")]], .funs, ...)
 #'   return_egor_with_result(.tbl, result)
 #' }
-#' 
+#'
 #' #' @export
 #' #' @noRd
 #' #' @method summarize_at egor
@@ -543,7 +666,7 @@ rename_.egor <- rename.egor
 #'   result <- summarize_at(.tbl[[attr(.tbl, "active")]], .vars, .funs, ..., .cols = NULL)
 #'   return_egor_with_result(.tbl, result)
 #' }
-#' 
+#'
 #' #' @export
 #' #' @noRd
 #' #' @method summarize_if egor
@@ -621,7 +744,8 @@ group_split.egor <- function(.tbl, ...) {
 #' @noRd
 #' @method group_modify egor
 group_modify.egor <- function(.tbl, .f, ..., keep = FALSE) {
-  result <- group_modify(.data[[attr(.data, "active")]], .f, ..., keep = keep)
+  result <-
+    group_modify(.data[[attr(.data, "active")]], .f, ..., keep = keep)
   return_egor_with_result(.data, result)
 }
 
@@ -677,7 +801,8 @@ n_groups.egor <- function(x) {
 #' @noRd
 #' @method group_trim egor
 group_trim.egor <- function(.tbl, .drop = group_by_drop_default(.tbl)) {
-  result <- group_trim(.tbl[[attr(.tbl, "active")]], .drop = group_by_drop_default(.tbl))
+  result <-
+    group_trim(.tbl[[attr(.tbl, "active")]], .drop = group_by_drop_default(.tbl))
   return_egor_with_result(.tbl, result)
 }
 
@@ -708,7 +833,7 @@ group_vars.egor <- function(x) {
 #' These work like dplyr's bind_cols() and bind_rows(). The first
 #' argument has to be an egor object. Additional rows/columns are added bottom/RHS
 #' of the active data level (ego, alter, aatie).
-#' 
+#'
 #' @template egor_param
 #' @param ... Data frames to combine.
 #' @param .id Data frame identifier.
@@ -734,24 +859,42 @@ append_cols <- function(.egor, ...) {
 #' @export
 #' @noRd
 #' @method distinct_all egor
-distinct_all.egor <- function(.tbl, .funs = list(), ..., .keep_all = FALSE) {
-  result <- distinct_all(.tbl[[attr(.tbl, "active")]], .funs = list(), ..., .keep_all = FALSE)
+distinct_all.egor <- function(.tbl,
+                              .funs = list(),
+                              ...,
+                              .keep_all = FALSE) {
+  result <-
+    distinct_all(.tbl[[attr(.tbl, "active")]], .funs = list(), ..., .keep_all = FALSE)
   return_egor_with_result(.tbl, result)
 }
 
 #' @export
 #' @noRd
 #' @method distinct_at egor
-distinct_at.egor <- function(.tbl, .vars, .funs = list(), ..., .keep_all = FALSE) {
-  result <- distinct_at(.tbl[[attr(.tbl, "active")]], .vars, .funs = list(), ..., .keep_all = FALSE)
+distinct_at.egor <- function(.tbl,
+                             .vars,
+                             .funs = list(),
+                             ...,
+                             .keep_all = FALSE) {
+  result <-
+    distinct_at(.tbl[[attr(.tbl, "active")]], .vars, .funs = list(), ..., .keep_all = FALSE)
   return_egor_with_result(.tbl, result)
 }
 
 #' @export
 #' @noRd
 #' @method distinct_if egor
-distinct_if.egor <- function(.tbl, .predicate, .funs = list(), ..., .keep_all = FALSE) {
-  result <- distinct_if(.tbl[[attr(.tbl, "active")]], .predicate, .funs = list(), ..., .keep_all = FALSE)
+distinct_if.egor <- function(.tbl,
+                             .predicate,
+                             .funs = list(),
+                             ...,
+                             .keep_all = FALSE) {
+  result <-
+    distinct_if(.tbl[[attr(.tbl, "active")]],
+                .predicate,
+                .funs = list(),
+                ...,
+                .keep_all = FALSE)
   return_egor_with_result(.tbl, result)
 }
 
@@ -787,21 +930,58 @@ pull.egor <- function(.data, var = -1) {
 
 # Not a generic :(
 
+#' Group input by rows (egor)
+#'
+#' This is a egor wrapper for `dplyr::rowwise()` as it is currently not possible
+#' to define methods for it, as it is not a generic. Please refer to the
+#' documentation of [dplyr::rowwise()] for further explanations.
+#' @param data An `egor` object.
+#' @param ... Please refer to the
+#' documentation of [dplyr::rowwise()] for further explanations.
+#' @export
+rowwise_egor <- function(data, ...) {
+  result <- rowwise(data[[attr(data, "active")]], ...)
+  return_egor_with_result(data, result)
+}
+
 # sample_n sample_frac ----------------------------------------------------
 
 #' @export
 #' @noRd
 #' @method sample_n egor
-sample_n.egor <- function(tbl, size, replace = FALSE, weight = NULL, .env = NULL, ...) {
-  result <- sample_n(tbl[[attr(tbl, "active")]], size, replace = FALSE, weight = NULL, .env = NULL, ...)
-  return_egor_with_result(tbl, result) 
+sample_n.egor <- function(tbl,
+                          size,
+                          replace = FALSE,
+                          weight = NULL,
+                          .env = NULL,
+                          ...) {
+  result <-
+    sample_n(tbl[[attr(tbl, "active")]],
+             size,
+             replace = FALSE,
+             weight = NULL,
+             .env = NULL,
+             ...)
+  return_egor_with_result(tbl, result)
 }
+
 #' @export
 #' @noRd
 #' @method sample_frac egor
-sample_frac.egor <- function(tbl, size, replace = FALSE, weight = NULL, .env = NULL, ...) {
-  result <- sample_frac(tbl[[attr(tbl, "active")]], size, replace = FALSE, weight = NULL, .env = NULL, ...)
-  return_egor_with_result(tbl, result) 
+sample_frac.egor <- function(tbl,
+                             size,
+                             replace = FALSE,
+                             weight = NULL,
+                             .env = NULL,
+                             ...) {
+  result <-
+    sample_frac(tbl[[attr(tbl, "active")]],
+                size,
+                replace = FALSE,
+                weight = NULL,
+                .env = NULL,
+                ...)
+  return_egor_with_result(tbl, result)
 }
 
 # top_frac top_n ----------------------------------------------------------
@@ -811,7 +991,7 @@ sample_frac.egor <- function(tbl, size, replace = FALSE, weight = NULL, .env = N
 #' #' @method top_n egor
 #' top_n.egor <- function(x, n, wt) {
 #'   result <- top_n(x[[attr(x, "active")]], n, wt)
-#'   return_egor_with_result(x, result) 
+#'   return_egor_with_result(x, result)
 #' }
 
 #' #' @export
@@ -819,7 +999,7 @@ sample_frac.egor <- function(tbl, size, replace = FALSE, weight = NULL, .env = N
 #' #' @method top_frac egor
 #' top_frac.egor <- function(x, n, wt) {
 #'   result <- top_frac(x[[attr(x, "active")]], n, wt)
-#'   return_egor_with_result(x, result) 
+#'   return_egor_with_result(x, result)
 #' }
 
 # Set operations intersect x---------------------------------------------
@@ -833,7 +1013,7 @@ sample_frac.egor <- function(tbl, size, replace = FALSE, weight = NULL, .env = N
 intersect.egor <- function(x, y, ...) {
   result <- intersect(x[[attr(x, "active")]], y, ...)
   result <- bind_IDs_if_missing(x, result)
-  return_egor_with_result(x, result) 
+  return_egor_with_result(x, result)
 }
 
 #' @export
@@ -842,7 +1022,7 @@ intersect.egor <- function(x, y, ...) {
 union.egor <- function(x, y, ...) {
   result <- union(x[[attr(x, "active")]], y, ...)
   result <- bind_IDs_if_missing(x, result)
-  return_egor_with_result(x, result) 
+  return_egor_with_result(x, result)
 }
 
 #' @export
@@ -851,7 +1031,7 @@ union.egor <- function(x, y, ...) {
 union_all.egor <- function(x, y, ...) {
   result <- union_all(x[[attr(x, "active")]], y, ...)
   result <- bind_IDs_if_missing(x, result)
-  return_egor_with_result(x, result) 
+  return_egor_with_result(x, result)
 }
 
 #' @export
@@ -860,7 +1040,7 @@ union_all.egor <- function(x, y, ...) {
 setdiff.egor <- function(x, y, ...) {
   result <- setdiff(x[[attr(x, "active")]], y, ...)
   result <- bind_IDs_if_missing(x, result)
-  return_egor_with_result(x, result) 
+  return_egor_with_result(x, result)
 }
 
 #' @export
@@ -869,18 +1049,18 @@ setdiff.egor <- function(x, y, ...) {
 setequal.egor <- function(x, y, ...) {
   result <- setequal(x[[attr(x, "active")]], y, ...)
   result <- bind_IDs_if_missing(x, result)
-  return_egor_with_result(x, result) 
+  return_egor_with_result(x, result)
 }
 
 #' @noRd
 #' @importFrom srvyr as_survey
 #' @export
-as_survey.egor <- function(.data, ...){
+as_survey.egor <- function(.data, ...) {
   .data$ego
 }
 
 #' @noRd
 #' @export
-as_survey_design.egor <- function(.data, ...){
+as_survey_design.egor <- function(.data, ...) {
   .data$ego
 }

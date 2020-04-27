@@ -74,15 +74,52 @@ test_that(
       mutate_at(e, vars(sex, country), toupper)
       
       
-      # select_if(e, is.factor, toupper)               
-      # rename_if(e, function(x) is.factor(x), toupper)
-      # mutate_if(e, is.double, function(x) x^2)
+      select_if(e, is.factor, toupper)               
+      rename_if(e, function(x) is.factor(x), toupper)
+      mutate_if(e, is.double, function(x) x^2)
       
       tbl_vars(e)
     }, NA)
   }
 )
 
+# test_that(
+#   "dplyr::across() works with egor object",{
+#   e <- make_egor(10, 10)
+#   
+#   e %>%
+#     summarise(across(is.double, mean))
+#   
+#   e %>%
+#     mutate(across(is.character, toupper))
+#   
+#   e %>%
+#     mutate(across(starts_with("age"), as.character))
+#   
+#   e %>%
+#     activate(alter) %>% 
+#     group_by(.egoID) %>%
+#     summarise(across(is.numeric, mean, .names = "chr_{col}"))
+# })
+
+test_that("rowwise_egor() works", {
+  e <- make_egor(10, 10)
+  res <- rowwise_egor(data = e) %>% 
+    mutate(a = list(c(age.years, country)))
+  expect_equal(length(res$ego$a[[1]]), 2)
+})
+
+# test_that("relocate.egor() works", {
+#   e <- make_egor(10, 10)
+#   e %>% 
+#     relocate(age, income)
+# })
+# 
+# test_that("rename_with() works", {
+#   e <- make_egor(10, 10)
+#   e %>% 
+#     rename_with(toupper)
+# })
 
 test_that(
   "methods for dplyr verbs keep egor class/attributes",
