@@ -245,7 +245,62 @@ as.egor <- function(x, ...) UseMethod("as.egor")
 
 #' @export
 #' @noRd
+#' @method as.egor egor
 as.egor.egor <- function(x, ...) x
+
+#' @export
+#' @describeIn egor Can convert (legacy) `nested_egor` object to `egor` object.
+#' @method as.egor nested_egor
+as.egor.nested_egor <- function(x, ID.vars = list(
+  ego = ".egoID",
+  alter = ".alterID",
+  source = ".Source",
+  target = ".Target"
+), ...) {
+  
+  IDv <- modifyList(eval(formals()$ID.vars), ID.vars)
+  
+  if (IDv$ego %in% names(x$.alts[[1]]))
+    alts <- bind_rows(x$.alts, .id = "egoID")
+  else {
+    alts <- select(x, IDv$ego, .alts)
+    alts <- tidyr::unnest(alts, .alts)
+  }
+  
+  if (".aaties" %in% names(x)) {
+    if (IDv$ego %in% names(x$.aaties[[1]]))
+      aaties <- bind_rows(x$.aaties)
+    else {
+      aaties <- select(x, IDv$ego, .aaties)
+      aaties <- tidyr::unnest(aaties, .aaties)
+    }
+    egos <- select(x, -.alts, -.aaties)
+    egor(
+      alts,
+      egos,
+      aaties,
+      ID.vars = list(
+        ego = ".egoID",
+        alter = ".altID",
+        source = ".srcID",
+        target = ".tgtID"
+      )
+    )
+  } else {
+
+    egos <- select(x, -.alts)
+    egor(
+      alts,
+      egos,
+      ID.vars = list(
+        ego = ".egoID",
+        alter = ".altID",
+        source = ".srcID",
+        target = ".tgtID"
+      )
+    )
+  }
+}
 
 #' @method as_tibble egor
 #' @export

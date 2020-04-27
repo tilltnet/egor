@@ -3,6 +3,7 @@
 \name{egor}
 \alias{egor}
 \alias{as.egor}
+\alias{as.egor.nested_egor}
 \title{egor - a data class for ego-centered network data.}
 \usage{
 egor(
@@ -16,6 +17,13 @@ egor(
 )
 
 as.egor(x, ...)
+
+\method{as.egor}{nested_egor}(
+  x,
+  ID.vars = list(ego = ".egoID", alter = ".alterID", source = ".Source", target =
+    ".Target"),
+  ...
+)
 }
 \arguments{
 \item{alters}{either a \code{data.frame} containing the alters
@@ -96,6 +104,11 @@ with the rows of \code{egos.df}. Of the three parameters only
 \code{alters.df} is necessary to create an \code{egor} object, and
 \code{egos.df} and \code{aaties.df} are optional.
 }
+\section{Methods (by generic)}{
+\itemize{
+\item \code{as.egor}: Converts (legacy) \code{nested_egor} object to \code{egor} object.
+}}
+
 \note{
 Column names \code{.alts}, \code{.aaties}, and \code{.egoRow} are reserved
 for internal use of \code{egor} and should not be used to store
