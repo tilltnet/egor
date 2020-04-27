@@ -1,7 +1,6 @@
 # egor 0.20.04
 
-- using `srvyr` package to allow for survey designs being reflected in the `egor`
-object (weighted ego object)
+- we are now using the `srvyr` package to allow for survey designs being reflected in the `egor` object
 - adjustments to work with dplyr 1.0.0
 - feat: Added as.egor.nested_egor()
 - feat: added rowwise_egor()
