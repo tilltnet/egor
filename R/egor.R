@@ -229,11 +229,19 @@ print.egor <- function(x, ..., n = 3) {
          x[!active_lgl])
   
   purrr::pwalk(list(y, names(y), c(TRUE, FALSE, FALSE)), function(x, y, z) {
+    design <- NULL
+    if ("tbl_svy" %in% class(x)) {
+      x <- x$variables
+      design <- " with survey design"
+    }
+      
+    tcm <- tibble::trunc_mat(x, n = min(n,nrow(x)))
     if (z)
-      cat(paste0("# ", toupper(y), " data (active)", "\n"))
+      cat(paste0("# ", toupper(y), " data", design ," (active): ", tcm$summary, "\n"))
     else
-      cat(paste0("# ", toupper(y), " data \n"))
-    print(tibble::trunc_mat(x, n = min(n,nrow(x))))
+      cat(paste0("# ", toupper(y), " data", design ,": ", tcm$summary, "\n"))
+
+    print(tcm$mcf)
   })
   invisible(x)
 }
