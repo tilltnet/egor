@@ -4,6 +4,7 @@
 \name{ego_design}
 \alias{ego_design}
 \alias{ego_design.egor}
+\alias{ego_design.nested_egor}
 \alias{ego_design<-}
 \alias{ego_design<-.egor}
 \alias{ego_design<-.nested_egor}
@@ -16,6 +17,8 @@
 ego_design(x, ...)
 
 \method{ego_design}{egor}(x, ...)
+
+\method{ego_design}{nested_egor}(x, ...)
 
 ego_design(x, ...) <- value
 

@@ -16,3 +16,17 @@ test_that("as_nested_egor can be reversed to egor", {
   expect_error(as.egor(x = old_egor_obj_no_aaties), NA)
 
 })
+
+test_that("as.egor converts nested_egor object to egor object", {
+  data(egor32)
+  
+  # ego_design is lost, shouldn't be too much of an issue though
+  expect_error(as.egor(x = as_nested_egor(egor32)), NA)
+})
+
+test_that("as_nested_egor works with egor that has survey design", {
+  data(egor32)
+  res <- as_nested_egor(egor32)
+  expect_true(".aaties" %in% names(res$variables))
+  expect_true(".alts" %in% names(res$variables))
+})

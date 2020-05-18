@@ -50,7 +50,12 @@ ego_design <- function(x, ...) UseMethod("ego_design")
 
 #' @rdname ego_design
 #' @export
-ego_design.egor <- function(x, ...) if(has_ego_design(x)) x$ego # otherwise NULL
+ego_design.egor <- function(x, ...) if (has_ego_design(x)) x$ego # otherwise NULL
+
+#' @rdname ego_design
+#' @export
+ego_design.nested_egor <- function(x, ...) if (has_ego_design(x)) x # otherwise NULL
+
 
 #' @rdname ego_design
 #' @export

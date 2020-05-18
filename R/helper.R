@@ -19,18 +19,34 @@ as_nested_egor <- function(x) {
   x$aatie <- select(x$aatie, .srcID, .tgtID, .egoID, everything())
   alters_l <- alters_by_ego(x)
   aaties_l <- aaties_by_ego(x)
-
-  if(has_ego_design(x)){
-    x$ego$variables$.aaties <- aaties_l
-    x$ego$variables$.alts <- alters_l
-  }else{
-    x <- x$ego
-    x$.aaties <- aaties_l
-    x$.alts <- alters_l
+  
+  res <- x$ego
+  
+  if (has_ego_design(x)) {
+    res$variables$.aaties <- aaties_l
+    res$variables$.alts <- alters_l
+    }
+  else {
+    res <- x$ego
+    res$.aaties <- aaties_l
+    res$.alts <- alters_l
   }
 
-  class(x) <- c("nested_egor", class(x))
-  x
+  class(res) <- c("nested_egor", class(res))
+  res
+}
+
+#' Print method for nested_egor, making sure, that nested_egor objects with
+#' ego_design get printed in a readable way
+#' @noRd
+#' @export
+print.nested_egor <- function(x) {
+  if ("tbl_svy" %in% class(x)) {
+    print(x$variables)
+    NextMethod()
+  }
+  else
+    NextMethod()
 }
 
 #' @describeIn helper Splits the alter table into a list of tables

@@ -210,7 +210,7 @@ test_that(
     alters <- e$alter
     aaties <- e$aatie
 
-    expect_warning(e1 <- egor(alters, egos, aaties, ID.vars=list(ego=".egoID",alter=".altID",source=".srcID",target=".tgtID")), NA)
+    expect_warning(e1 <- egor(alters, egos, aaties, ID.vars=list(ego=".egoID",alter=".altID",source=".srcID",target = ".tgtID")), NA)
     expect_identical(e, e1)
 
     names(egos)[1] <- "egoID"
@@ -243,3 +243,76 @@ test_that(
     expect_warning(egor(alters, egos), NA)
   }
 )
+
+test_that(
+  "ego_design works works with probs",
+  {
+    data("alters32")
+    data("aaties32")
+    data("egos32")
+    egos32$prbs <- rep(c(0.3, 0.5), 16)
+    res <- egor(alters32,
+         egos32,
+         aaties32,
+         ID.vars = list(ego = ".EGOID",
+                        alter = ".ALTID",
+                        source = ".SRCID",
+                        target = ".TGTID"),
+         ego_design = list(probs = "prbs"))
+    
+    expect_is(res$ego, "tbl_svy")
+    
+    }
+)
+
+test_that("egor() works works with probs design",
+          {
+            data("alters32")
+            data("aaties32")
+            data("egos32")
+            egos32$prbs <- rep(c(0.3, 0.5), 16)
+            expect_error({
+              res <- egor(
+                alters32,
+                egos32,
+                aaties32,
+                ID.vars = list(
+                  ego = ".EGOID",
+                  alter = ".ALTID",
+                  source = ".SRCID",
+                  target = ".TGTID"
+                ),
+                ego_design = list(probs = "prbs")
+              )
+            }, NA)
+            expect_is(res$ego, "tbl_svy")
+            expect_true(has_ego_design(res))
+          })
+
+
+test_that("egor() works works with 2-level cluster design",
+          {
+            data("alters32")
+            data("aaties32")
+            data("egos32")
+            egos32$clstr1 <- gl(4, 8)
+            egos32$clstr2 <- gl(16, 2)
+            expect_error({
+              res <- egor(
+                alters32,
+                egos32,
+                aaties32,
+                ID.vars = list(
+                  ego = ".EGOID",
+                  alter = ".ALTID",
+                  source = ".SRCID",
+                  target = ".TGTID"
+                ),
+                ego_design = list(id = c("clstr1", "clstr2"))
+              )
+            }, NA)
+            expect_is(res$ego, "tbl_svy")
+            expect_true(has_ego_design(res))
+          })
+
+

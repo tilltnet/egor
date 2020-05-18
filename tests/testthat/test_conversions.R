@@ -87,6 +87,14 @@ test_that("as_igraph works.",
             label = "include.ego/ego.attrs/ego.alter.weights")
           })
 
+test_that("as_igraph works with egor32.",
+          {
+            data("egor32")
+            res <- as_igraph(x = egor32)
+            expect_equal(length(res), 32)
+            expect_true(all(map_lgl(res, igraph::is.igraph)))
+          })
+
 test_that("as_alters_df works.",
           {
             e <- make_egor(3, 22)
