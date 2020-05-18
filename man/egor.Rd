@@ -106,7 +106,7 @@ with the rows of \code{egos.df}. Of the three parameters only
 }
 \section{Methods (by generic)}{
 \itemize{
-\item \code{as.egor}: Converts (legacy) \code{nested_egor} object to \code{egor} object.
+\item \code{as.egor}: Can convert (legacy) \code{nested_egor} object to \code{egor} object.
 }}
 
 \note{

@@ -87,10 +87,10 @@ egor <- function(alters,
   
   check_reserved_colnames <-
     function(x, unit_) {
-      if (!is.null(x)){
+      if (!is.null(x)) {
 
         for (idvar in UNIT_IDVARS[[unit_]]) # For each type of IDVAR that the unit has,
-          if (IDv[[idvar]]==IDVARS[[idvar]]) # if the user-specified name for that variable is the same as the canonical one,
+          if (IDv[[idvar]] == IDVARS[[idvar]]) # if the user-specified name for that variable is the same as the canonical one,
             RESERVED_COLNAMES <- setdiff(RESERVED_COLNAMES, IDv[[idvar]]) # then it's not a problem if it's in the table.
 
         if (any(names(x) %in% RESERVED_COLNAMES))
@@ -115,7 +115,7 @@ egor <- function(alters,
   }
 
   alters <- select(alters,
-                   !!IDVARS$alter := if (!is.null(aaties) || IDv$alter%in%colnames(alters)) !!IDv$alter,
+                   !!IDVARS$alter := if (!is.null(aaties) || IDv$alter %in% colnames(alters)) !!IDv$alter,
                    !!IDVARS$ego := !!IDv$ego,
                    everything())
 
@@ -266,6 +266,8 @@ as.egor.nested_egor <- function(x, ID.vars = list(
   target = ".Target"
 ), ...) {
   
+  if (has_ego_design(x)) x <- x$variables
+  
   IDv <- modifyList(eval(formals()$ID.vars), ID.vars)
   
   if (IDv$ego %in% names(x$.alts[[1]]))
@@ -320,7 +322,7 @@ as_tibble.egor <- function(x,
   
   if (include.ego.vars & attr(x, "active") != "ego") {
     
-    if(has_ego_design(x)){
+    if (has_ego_design(x)) {
       names(x$ego$variables)[names(x$ego$variables) != ".egoID"] <-
         paste0(names(x$ego$variables)[names(x$ego$variables) != ".egoID"] , "_ego")
       res <- full_join(res, x$ego$variables, by = ".egoID")
