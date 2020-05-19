@@ -40,7 +40,7 @@ as_nested_egor <- function(x) {
 #' ego_design get printed in a readable way
 #' @noRd
 #' @export
-print.nested_egor <- function(x) {
+print.nested_egor <- function(x, ...) {
   if ("tbl_svy" %in% class(x)) {
     print(x$variables)
     NextMethod()
