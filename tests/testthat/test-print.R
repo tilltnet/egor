@@ -1,0 +1,10 @@
+test_that("print.egor works with grouped_by()", {
+  e <- make_egor(12, 15)
+  
+  e %>% 
+    group_by(country)
+  x = a
+  x = a$ego
+  n = 3
+  print.egor
+})

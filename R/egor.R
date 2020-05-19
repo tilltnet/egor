@@ -236,10 +236,13 @@ print.egor <- function(x, ..., n = 3) {
     }
       
     tcm <- tibble::trunc_mat(x, n = min(n,nrow(x)))
+    
+    if (is_grouped_df(x)) tcm$summary <- paste(tcm$summary, collapse = " ")
+    
     if (z)
-      cat(paste0("# ", toupper(y), " data", design ," (active): ", tcm$summary, "\n"))
+      cat(paste0("# ", toupper(y), " data", design ," (active): ", tcm$summary[1], "\n"))
     else
-      cat(paste0("# ", toupper(y), " data", design ,": ", tcm$summary, "\n"))
+      cat(paste0("# ", toupper(y), " data", design ,": ", tcm$summary[1], "\n"))
 
     print(tcm$mcf)
   })
