@@ -158,7 +158,7 @@ test_that(
     expect_true(NCOL(res) == 2)
 
     #library(srvyr) # For unweighted.
-    ego_design(e) <- list(~1)
+    ego_design(e) <- list(weights = 1)
     eg <- group_by(e, sex)
     expect_is(eg, "egor")
     expect_is(eg$ego, "grouped_svy")
