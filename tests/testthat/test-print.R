@@ -3,8 +3,4 @@ test_that("print.egor works with grouped_by()", {
   
   e %>% 
     group_by(country)
-  x = a
-  x = a$ego
-  n = 3
-  print.egor
 })
