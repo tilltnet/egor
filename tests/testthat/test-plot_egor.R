@@ -221,4 +221,40 @@ test_that("plot_ego_gram works with edge arguments", {
   }, NA)
 })
 
+test_that("plot_ego_gram works without pie_var/venn_var", {
+  # This is meant more as a manual test. Plots should appear immediately.
+  expect_error({
+    e <- make_egor(5, 32)
+    
+    plot_egograms(e,
+                  ego_no = 1,
+                  venn_var = "sex",
+                  pie_var = NULL, 
+                  vertex_color_var = "sex",
+                  edge_color_var = "weight",
+                  edge_width_var = "weight", 
+                  edge_zoom = 3)
+    
+    plot_egograms(e,
+                  ego_no = 1,
+                  venn_var = NULL,
+                  pie_var = "sex", 
+                  vertex_color_var = "sex",
+                  edge_color_var = "weight",
+                  edge_width_var = "weight", 
+                  edge_zoom = 3)
+    
+    plot_egograms(e,
+                  ego_no = 1,
+                  venn_var = NULL,
+                  pie_var = NULL, 
+                  vertex_color_var = "sex",
+                  edge_color_var = "weight",
+                  edge_width_var = "weight", 
+                  edge_zoom = 3)
+    
+    
+  }, NA)
+})
+
 dev.off() # Closing the NULL pdf device.

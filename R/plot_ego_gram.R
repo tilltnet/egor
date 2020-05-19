@@ -38,6 +38,17 @@ layout_n_dots_on_arc <- function(radius, start_deg, end_deg, n) {
   arc_grid_df
 }
 
+#' Create layout for an egogram
+#' 
+#' This creates pairs of x and y coordinates for a egogram, accompanied by 
+#' alter IDs for each coordinate pair.
+#' @param altID Vector of alter IDs.
+#' @param venn_var Vector of values representing alter groups corresponding with
+#' venns in an egogram.
+#' @param pie_var Vector of values representing alter groups corresponding with
+#' pieces of pie in an egogram.
+#' @return A dataframe with three columns: x, y and altID.
+#' @export
 layout_egogram <- function(altID, venn_var, pie_var) {
   altID <- factor(altID)
   venn_n <- length(levels(venn_var))
@@ -83,8 +94,8 @@ plot_egograms <- function(x,
                           ego_no = 1,
                           x_dim = 1,
                           y_dim = 1,
-                          venn_var,
-                          pie_var,
+                          venn_var = NULL,
+                          pie_var = NULL,
                           vertex_size_var = NULL,
                           vertex_color_var = NULL,
                           vertex_color_palette = "Heat Colors",
@@ -143,8 +154,8 @@ plot_egograms <- function(x,
 plot_egogram <-
   function(x,
            ego_no,
-           venn_var,
-           pie_var,
+           venn_var = NULL,
+           pie_var = NULL,
            vertex_size_var = NULL,
            vertex_color_var = NULL,
            vertex_color_palette = "Heat Colors",
@@ -162,12 +173,26 @@ plot_egogram <-
            venn_colors = NULL,
            show_venn_labels = TRUE,
            ...)  {
+    
+    if (!any(c(!is.null(pie_var), !is.null(venn_var))))
+      warning("pie_var and venn_var are both NULL. In order to better utilize the plot_egogram() function define at least one of each.")
+  
     par(mar = c(1, 0.5, 0.5, 0.5))
     
     # TODO: stop(/warn?) when pie or venn var have more than 10 levels
     
     ego_object <-
       slice.egor(.data = activate(x, "ego"), ego_no)
+    
+    if (is.null(pie_var)) {
+      ego_object$alter$.pie_dummy <- factor(" ")
+      pie_var <- ".pie_dummy"
+    }
+    
+    if (is.null(venn_var)) {
+      ego_object$alter$.venn_dummy <- factor(" ")
+      venn_var <- ".venn_dummy"
+    }
     
     pie_var_name <- pie_var
     venn_var_name <- venn_var
