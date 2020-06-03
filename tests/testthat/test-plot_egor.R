@@ -244,6 +244,9 @@ test_that("plot_ego_gram works without pie_var/venn_var", {
                   edge_width_var = "weight", 
                   edge_zoom = 3)
     
+  }, NA)
+  
+  expect_warning({
     plot_egograms(e,
                   ego_no = 1,
                   venn_var = NULL,
@@ -252,9 +255,7 @@ test_that("plot_ego_gram works without pie_var/venn_var", {
                   edge_color_var = "weight",
                   edge_width_var = "weight", 
                   edge_zoom = 3)
-    
-    
-  }, NA)
+  })
 })
 
 dev.off() # Closing the NULL pdf device.
