@@ -6,7 +6,7 @@ test_that(
   {
     expect_error({
       e <- make_egor(5,50)
-      e
+      #e
       trim_aaties(e)
       trim_alters(e)
       
@@ -74,11 +74,12 @@ test_that(
       mutate_at(e, vars(sex, country), toupper)
       
       
-      select_if(e, is.factor, toupper)               
-      rename_if(e, function(x) is.factor(x), toupper)
-      mutate_if(e, is.double, function(x) x^2)
+      #select_if(e, is.factor, toupper)               
+      #rename_if(e, function(x) is.factor(x), toupper)
+      #mutate_if(e, is.double, function(x) x^2)
       
       tbl_vars(e)
+      group_vars(e)
     }, NA)
   }
 )
@@ -192,4 +193,24 @@ test_that("quasi quotation works with activate",
             e <- make_egor(12, 15)
             expect_error(activate(e, alter), NA)
             expect_error(activate(e, "aatie"), NA)
+          })
+
+test_that("group_modify.egor and work",
+          {
+            e <- make_egor(12, 15)
+            
+            a <- e %>% 
+              group_by(country)
+            class(a)
+            a$ego
+            
+            expect_error(
+            e %>%
+              group_by(country) %>%
+              group_modify(function(x, ...)
+                x %>%
+                  mutate(income2 = income - mean(income))),
+            NA)
+            
+            
           })

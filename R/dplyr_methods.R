@@ -11,6 +11,8 @@ if (getRversion() >= "2.15.1")
     )
   )
 
+dplyr_version <- utils::packageDescription("dplyr")$Version
+
 # dplyr helper functions
 
 #' Trims alter-alter ties of alters that are missing/ deleted from alters data
@@ -214,7 +216,7 @@ group_by.egor <- function(.data,
                           .add = FALSE,
                           .drop = group_by_drop_default(.data)) {
   dplyr_version <- utils::packageDescription("dplyr")$Version
-  if (utils::compareVersion(dplyr_version, "1.0.0") < 0)
+  if (utils::compareVersion(dplyr_version, "0.8.5") < 0)
     result <-
       group_by(.data[[attr(.data, "active")]], ..., add = .add, .drop = group_by_drop_default(.data))
   else
@@ -448,6 +450,14 @@ anti_join.egor <- function(x,
 tbl_vars.egor <-
   function(x) {
     tbl_vars(x[[attr(x, "active")]])
+  }
+
+#' @export
+#' @noRd
+#' @method group_vars egor
+group_vars.egor <-
+  function(x) {
+    group_vars(x[[attr(x, "active")]])
   }
 
 #' @export
@@ -736,18 +746,18 @@ group_split.egor <- function(.tbl, ...) {
 #' #' @noRd
 #' #' @method group_map egor
 #' group_map.egor <- function(.tbl, .f, ...) {
-#'   result <- group_map(.tbl[[attr(.tbl, "active")]], .f, ...)
+#'   result <- group_map(.tbl[[attr(.tbl, "active")]], .f)
 #'   return_egor_with_result(.tbl, result)
 #' }
 
 #' @export
 #' @noRd
 #' @method group_modify egor
-group_modify.egor <- function(.tbl, .f, ..., keep = FALSE) {
+group_modify.egor <- function(.data, .f, ..., .keep = FALSE) {
   result <-
-    group_modify(.data[[attr(.data, "active")]], .f, ..., keep = keep)
+    group_modify(.data[[attr(.data, "active")]], .f = .f, ..., .keep = .keep)
   return_egor_with_result(.data, result)
-}
+} 
 
 #' #' @export
 #' #' @noRd
@@ -922,24 +932,18 @@ explain.egor <- function(x, ...) {
 #' @export
 #' @noRd
 #' @method pull egor
-pull.egor <- function(.data, var = -1) {
-  pull(.data[[attr(.data, "active")]], var)
+pull.egor <- function(.data, var = -1, name = NULL, ...) {
+  pull(.data[[attr(.data, "active")]], var = var, name = name, ...)
 }
 
 # rowwise -----------------------------------------------------------------
 
 # Not a generic :(
 
-#' Group input by rows (egor)
-#'
-#' This is a egor wrapper for `dplyr::rowwise()` as it is currently not possible
-#' to define methods for it, as it is not a generic. Please refer to the
-#' documentation of [dplyr::rowwise()] for further explanations.
-#' @param data An `egor` object.
-#' @param ... Please refer to the
-#' documentation of [dplyr::rowwise()] for further explanations.
 #' @export
-rowwise_egor <- function(data, ...) {
+#' @noRd
+#' @method rowwise egor
+rowwise.egor <- function(data, ...) {
   result <- rowwise(data[[attr(data, "active")]], ...)
   return_egor_with_result(data, result)
 }
