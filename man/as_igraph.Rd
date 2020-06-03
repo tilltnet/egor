@@ -4,6 +4,8 @@
 \alias{as_igraph}
 \alias{as_igraph.nested_egor}
 \alias{as.igraph.egor}
+\alias{as_network}
+\alias{as.network.egor}
 \title{Convert \code{egor} object to \code{network} or \code{igraph} objects}
 \usage{
 as_igraph(
@@ -11,7 +13,8 @@ as_igraph(
   directed = FALSE,
   include.ego = FALSE,
   ego.attrs = NULL,
-  ego.alter.weights = NULL
+  ego.alter.weights = NULL,
+  graph.attrs = ".egoID"
 )
 
 \method{as_igraph}{nested_egor}(
@@ -19,7 +22,8 @@ as_igraph(
   directed = FALSE,
   include.ego = FALSE,
   ego.attrs = NULL,
-  ego.alter.weights = NULL
+  ego.alter.weights = NULL,
+  graph.attrs = ".egoID"
 )
 
 as.igraph.egor(
@@ -27,7 +31,26 @@ as.igraph.egor(
   directed = FALSE,
   include.ego = FALSE,
   ego.attrs = NULL,
-  ego.alter.weights = NULL
+  ego.alter.weights = NULL,
+  graph.attrs = ".egoID"
+)
+
+as_network(
+  x,
+  directed = FALSE,
+  include.ego = FALSE,
+  ego.attrs = NULL,
+  ego.alter.weights = NULL,
+  graph.attrs = ".egoID"
+)
+
+\method{as.network}{egor}(
+  x,
+  directed = FALSE,
+  include.ego = FALSE,
+  ego.attrs = NULL,
+  ego.alter.weights = NULL,
+  graph.attrs = ".egoID"
 )
 }
 \arguments{
@@ -39,11 +62,17 @@ as.igraph.egor(
 
 \item{ego.attrs}{Vector of names (character) or indices (numeric) of ego
 variables that should be carried over to  the network/
-igraph objects.}
+igraph objects. This is ignored, when \code{include.ego = FALSE} (default).}
 
 \item{ego.alter.weights}{Vector of names (character) or indices (numeric) of
 alter variables that should be carried over to the the
-network/ igraph objects, as edge attributes of the ego-alter relations.}
+network/ igraph objects, as edge attributes of the ego-alter relations.
+This is ignored, when `include.ego = FALSE`` (default).}
+
+\item{graph.attrs}{Vector of names (character) or indices (numeric) of
+ego variables that are supposed to be carried over to the igraph object
+as graph attributes or the network object as network attributes. By
+default \code{.egoID} is carried over.}
 }
 \description{
 These functions convert an \code{egor} object into a list of \code{network} or \code{igraph} objects.
@@ -53,6 +82,6 @@ a parameter (\strong{include.egor}) that allows for including ego.
 \details{
 The names of the variables specified in ego.attr and ego.alter.attr
 need to be the same as the names of corresponding alter attributes,
-in order for those variables to be complete in the resulting network/ igraph
-object (see example).
+in order for those variables to be merged successfully in the resulting
+network/ igraph object (see example).
 }
