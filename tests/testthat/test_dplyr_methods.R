@@ -1,6 +1,5 @@
 context("test_dplyr_methods.R")
 
-
 test_that(
   "methods for dplyr are working",
   {
@@ -103,9 +102,9 @@ test_that(
 #     summarise(across(is.numeric, mean, .names = "chr_{col}"))
 # })
 
-test_that("rowwise_egor() works", {
+test_that("rowwise.egor() works", {
   e <- make_egor(10, 10)
-  res <- rowwise_egor(data = e) %>% 
+  res <- rowwise(data = e) %>% 
     mutate(a = list(c(age.years, country)))
   expect_equal(length(res$ego$a[[1]]), 2)
 })
@@ -213,4 +212,36 @@ test_that("group_modify.egor and work",
             NA)
             
             
+          })
+
+test_that("append_rows, append_cols work",
+          {
+            e <- make_egor(12, 15)
+            
+            # Adding a column to the ego level
+            
+            additional_ego_columns <- 
+              tibble(x = sample(1:3, 12, replace = TRUE))
+            
+            append_cols(e, additional_ego_columns)
+            
+            # Adding rows to the ego and alter level
+            
+            additional_ego_rows <- 
+              list(.egoID = 13,
+                sex = "w",
+                age = factor("56 - 65"),
+                age.years = 60,
+                country = "Australia") %>% 
+              as_tibble()
+            
+            additional_alter_rows <- 
+              list(.altID = 1:5,
+                   .egoID = rep(13, 5),
+                   sex = sample(c("f", "m"), 5, replace = TRUE)) %>% 
+              as_tibble()
+            
+            append_rows(e, additional_ego_rows) %>% 
+              activate(alter) %>% 
+              append_rows(additional_alter_rows)
           })
