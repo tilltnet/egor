@@ -1,6 +1,6 @@
 #' Plotting *egor* objects
 #' 
-#' *egor* Objects can be plotted as *egographs* or *egograms*. By
+#' *egor* objects can be plotted as *egographs* or *egograms*. By
 #' default networks of the four first egos are plotted.
 #' @param x An _egor_ object.
 #' @param ego_no Ego row number.
@@ -30,6 +30,14 @@
 # Fruchterman Rheingold layout algorithm.
 #' @param ... Additional arguments forwared to plot.igraph.
 #' @details For type eqals "egograph" ego networks are plotted using 
+#' @examples 
+#' e <- make_egor(net.count = 5, max.alters = 12)
+#' plot_egograms(x = e,
+#'               ego_no = 2,
+#'               venn_var = "sex",
+#'               pie_var = "country",
+#'               vertex_size_var = "age")
+#' plot(e)
 
 #' @export
 plot_egor <- function(x, ego_no = 1, x_dim = 2, y_dim = 2, ..., type = c("egograph", "egogram")) {

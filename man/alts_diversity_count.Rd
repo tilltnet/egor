@@ -17,7 +17,7 @@ alts_diversity_entropy(object, alt.attr, base = 2)
 \item{base}{\code{Numeric}, base value of logarithm for entropy calculation.}
 }
 \value{
-A \code{numeric} vector.
+A \code{tibble} with the ego ID and a \code{numeric} result vector.
 }
 \description{
 \code{alts_diversity_count()} counts the categories of a variable present in the

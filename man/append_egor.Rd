@@ -17,6 +17,9 @@ append_cols(.egor, ...)
 
 \item{.id}{Data frame identifier.}
 }
+\value{
+\code{egor} object containing the additional rows/ columns on the active level.
+}
 \description{
 These work like dplyr's bind_cols() and bind_rows(). The first
 argument has to be an egor object. Additional rows/columns are added bottom/RHS

@@ -4,7 +4,8 @@ data("egor32")
 graphs <- clustered_graphs(egor32, "country") 
 
 # Visualise
-vis_clustered_graphs(graphs, 
-                     node.size.multiplier = 5, 
-                     edge.width.multiplier = 25,
-                     labels = TRUE)
+par(mfrow = c(2,3))
+vis_clustered_graphs(
+  graphs[1:5]
+)
+par(mfrow = c(1,1))

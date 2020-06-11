@@ -27,6 +27,9 @@ if (getRversion() >= "2.15.1")
 #' need to be the same as the names of corresponding alter attributes,
 #' in order for those variables to be merged successfully in the resulting 
 #' network/ igraph object (see example). 
+#' @examples  
+#' e <- make_egor(3, 22)
+#' as_igraph(e)
 #' @export
 as_igraph <- function(x,
                       directed = FALSE,
@@ -283,6 +286,8 @@ as.network.egor <- as_network
 #' # ... adding alter variables
 #' as_aaties_df(egor32, include.alter.vars = TRUE)
 #' @export
+#' @return A `tibble`.
+#' @details These functions are convenience functions for egor's `as_tibble` method.
 as_alters_df <- function(object, include.ego.vars = FALSE) {
   object <- activate(object, "alter")
   as_tibble.egor(object, include.ego.vars = include.ego.vars)

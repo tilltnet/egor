@@ -4,7 +4,7 @@ author: "Till Krenz"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{egor Allbus}
+  %\VignetteIndexEntry{Working with Allbus 2010 ego-centered network data using egor}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

@@ -17,10 +17,16 @@ a new variable with the specified name is created.}
 
 \item{include.alter.vars}{Logical, specifying if alter variables should be included in the result.}
 }
+\value{
+A \code{tibble}.
+}
 \description{
 Provided an egor-object, these functions create a 'global' \code{data.frame},
 containing alter attributes, or alter-alter relations. The resulting dataframes
 are useful for advanced analysis procedures, e.g. multi-level regressions.
+}
+\details{
+These functions are convenience functions for egor's \code{as_tibble} method.
 }
 \examples{
 # Load example data

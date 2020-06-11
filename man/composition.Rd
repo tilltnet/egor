@@ -14,7 +14,7 @@ composition(object, alt.attr, absolute = FALSE)
 \item{absolute}{\code{Logical} indicating if the results should be absolute.}
 }
 \value{
-A \code{tibble} with the values per category in the columns.
+A \code{tibble} with the ego ID and values per category of \code{alt.attr} as \code{numeric} columns.
 }
 \description{
 \code{composition()} calculates the proportional or absolute composition of

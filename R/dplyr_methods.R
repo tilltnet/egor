@@ -15,7 +15,9 @@ dplyr_version <- utils::packageDescription("dplyr")$Version
 
 # dplyr helper functions
 
-#' Trims alter-alter ties of alters that are missing/ deleted from alters data
+#' Trims alter-alter ties of alters that are missing/ deleted from alters data.
+#' This is used in the background by `dplyr` methods, to maintain the alter-alter
+#' ties according to changes made to the ego and alter data levels.
 #'
 #' @param object An `egor` object.
 #' @return An `egor` object with trimmed alter-alter ties (.aaties).
@@ -62,7 +64,9 @@ trim_aaties <- function(object) {
   object
 }
 
-#' Trims alters that are missing/ deleted from ego data
+#' Trims alters that are missing/ deleted from ego data.
+#' This is used in the background by `dplyr` methods, to maintain the alter
+#' ties according to changes made to the ego data level.
 #'
 #' @param object An `egor` object.
 #' @return An `egor` object with trimmed alter-alter ties (.aaties).
@@ -848,12 +852,13 @@ group_vars.egor <- function(x) {
 #' @param ... Data frames to combine.
 #' @param .id Data frame identifier.
 #' @name append_egor
+#' @return `egor` object containing the additional rows/ columns on the active level.
 NULL
 
 #' @rdname append_egor
 #' @export
 append_rows <- function(.egor, ..., .id = NULL) {
-  result <- bind_rows(.egor[[attr(.egor, "active")]], .id)
+  result <- bind_rows(.egor[[attr(.egor, "active")]], ..., .id)
   return_egor_with_result(.egor, result)
 }
 

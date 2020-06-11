@@ -2,7 +2,7 @@
 % Please edit documentation in R/ei.R
 \name{EI}
 \alias{EI}
-\title{Calculate the EI-Index for the alter-alter ties of an ego object}
+\title{Calculate the EI-Index for the alter-alter ties of an egor object}
 \usage{
 EI(object, alt.attr)
 }
@@ -16,10 +16,13 @@ The EI-Index is the division of the intra-group edge density and the outer-group
 density. It is calculated for the whole network and for subgroups. The
 whole network EI is a metric indicating the tendency of a network to be
 clustered by the categories of a given factor variable. The EI value of a
-groups describes the tendency of a group to be connected or not connected
+group describes the tendency of that group within a network to be connected
+[0,1) or not connected (-1,0]
 to other groups. Additionally, the EI index can be employed as a measurement
-for egos tendency to homo-/heteorphily - use the \code{comp_ei()} command
-for that version of EI-Index.
+for egos tendency to homo-/heteorphily - use the \code{egor::comp_ei()} command
+for that version of the EI-Index.
+
+[0,1) or not connected (-1,0]: R:0,1)\%20or\%20not\%20connected\%20(-1,0
 }
 \examples{
 data("egor32")

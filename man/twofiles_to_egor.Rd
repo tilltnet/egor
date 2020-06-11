@@ -62,4 +62,21 @@ one file contains the ego attributes and the edge information and the other file
 contains the alters data. This form of data storage for ego-centered network data
 is proposed by Muller, Wellman and Marin (1999).
 }
+\examples{
+path_to_alters_8.csv <- system.file("extdata", "alters_8.csv", package = "egor")
+path_to_one_file_8 <- system.file("extdata", "one_file_8.csv", package = "egor")
+
+# read data from disk
+egos_8 <- read.csv2(path_to_one_file_8, row.names = 1)
+alters_8 <- read.csv2(path_to_alters_8.csv, row.names = 1)
+
+dy.first.var <- which(names(egos_8) == "X1.to.2")
+
+# convert to egor object
+  twofiles_to_egor(
+    egos = egos_8,
+    alters = alters_8,
+    e.max.alters = 8,
+    e.first.var = dy.first.var)
+}
 \keyword{import}

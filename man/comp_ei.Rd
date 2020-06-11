@@ -14,10 +14,10 @@ comp_ei(object, alt.attr, ego.attr)
 \item{ego.attr}{A \code{character} naming an ego attribute.}
 }
 \value{
-A \code{numeric} vector.
+A \code{tibble} with the ego ID and a \code{numeric} result vector.
 }
 \description{
-\code{comp_ei()} calculates the EI-Index values as a measurement for ego-alter homophily.
+\code{comp_ei()} calculates the EI-Index values as a measurement for ego-alter homo-/heterophily.
 }
 \examples{
 data("egor32")

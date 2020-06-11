@@ -120,7 +120,7 @@ plot_egor(
 \item{type}{Character. Either "egograph" or "egogram".}
 }
 \description{
-\emph{egor} Objects can be plotted as \emph{egographs} or \emph{egograms}. By
+\emph{egor} objects can be plotted as \emph{egographs} or \emph{egograms}. By
 default networks of the four first egos are plotted.
 }
 \details{
@@ -133,3 +133,12 @@ For type eqals "egograph" ego networks are plotted using
 \item \code{plot_ego_graphs}: Plots an ego graph.
 }}
 
+\examples{
+e <- make_egor(net.count = 5, max.alters = 12)
+plot_egograms(x = e,
+              ego_no = 2,
+              venn_var = "sex",
+              pie_var = "country",
+              vertex_size_var = "age")
+plot(e)
+}

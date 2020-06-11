@@ -60,6 +60,21 @@ This function imports ego-centered network data, stored in a single file, provid
 ego, alter and edge data. This data format is used by the Allbus 2010 (GESIS)
 and similar social surveys.
 }
+\examples{
+path_to_one_file_8 <- system.file("extdata", "one_file_8.csv", package = "egor")
+egos_8 <- read.csv2(path_to_one_file_8, row.names = 1)
+
+attr.start.col <- which(names(egos_8) == "alter.sex.1")
+attr.end.col <- which(names(egos_8) == "alter.age.8")
+dy.first.var <- which(names(egos_8) == "X1.to.2")
+
+onefile_to_egor(
+  egos = egos_8, netsize = egos_8$netsize, 
+  attr.start.col = attr.start.col, 
+  attr.end.col = attr.end.col, 
+  aa.first.var = dy.first.var,
+  max.alters = 8)
+}
 \references{
 Muller, C., Wellman, B., & Marin, A. (1999). How to Use SPSS to
 Study Ego-Centered Networks. Bulletin de Methodologie Sociologique,

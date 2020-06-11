@@ -2,7 +2,9 @@
 % Please edit documentation in R/dplyr_methods.R
 \name{trim_alters}
 \alias{trim_alters}
-\title{Trims alters that are missing/ deleted from ego data}
+\title{Trims alters that are missing/ deleted from ego data.
+This is used in the background by \code{dplyr} methods, to maintain the alter
+ties according to changes made to the ego data level.}
 \usage{
 trim_alters(object)
 }
@@ -13,5 +15,7 @@ trim_alters(object)
 An \code{egor} object with trimmed alter-alter ties (.aaties).
 }
 \description{
-Trims alters that are missing/ deleted from ego data
+Trims alters that are missing/ deleted from ego data.
+This is used in the background by \code{dplyr} methods, to maintain the alter
+ties according to changes made to the ego data level.
 }

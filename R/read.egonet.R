@@ -310,6 +310,20 @@ wide.dyads.to.edgelist.regex <-
 #' Study Ego-Centered Networks. Bulletin de Methodologie Sociologique,
 #' 64(1), 83-100.
 #' @keywords import
+#' @examples 
+#' path_to_one_file_8 <- system.file("extdata", "one_file_8.csv", package = "egor")
+#' egos_8 <- read.csv2(path_to_one_file_8, row.names = 1)
+#' 
+#' attr.start.col <- which(names(egos_8) == "alter.sex.1")
+#' attr.end.col <- which(names(egos_8) == "alter.age.8")
+#' dy.first.var <- which(names(egos_8) == "X1.to.2")
+#' 
+#' onefile_to_egor(
+#'   egos = egos_8, netsize = egos_8$netsize, 
+#'   attr.start.col = attr.start.col, 
+#'   attr.end.col = attr.end.col, 
+#'   aa.first.var = dy.first.var,
+#'   max.alters = 8)
 #' @export
 onefile_to_egor <-
   function(egos,
@@ -417,6 +431,22 @@ onefile_to_egor <-
 #' @param ... additional arguments to [egor()].
 #' @template return_egoR
 #' @keywords import
+#' @examples 
+#' path_to_alters_8.csv <- system.file("extdata", "alters_8.csv", package = "egor")
+#' path_to_one_file_8 <- system.file("extdata", "one_file_8.csv", package = "egor")
+#' 
+#' # read data from disk
+#' egos_8 <- read.csv2(path_to_one_file_8, row.names = 1)
+#' alters_8 <- read.csv2(path_to_alters_8.csv, row.names = 1)
+#' 
+#' dy.first.var <- which(names(egos_8) == "X1.to.2")
+#' 
+#' # convert to egor object
+#'   twofiles_to_egor(
+#'     egos = egos_8,
+#'     alters = alters_8,
+#'     e.max.alters = 8,
+#'     e.first.var = dy.first.var)
 #' @export
 twofiles_to_egor <- function(egos,
                              alters,

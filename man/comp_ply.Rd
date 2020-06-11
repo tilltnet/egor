@@ -2,7 +2,7 @@
 % Please edit documentation in R/composition.R
 \name{comp_ply}
 \alias{comp_ply}
-\title{Calculate third-party compositional measures on an \code{egor} object}
+\title{Calculate custom compositional measures on an \code{egor} object}
 \usage{
 comp_ply(object, alt.attr, .f, ..., ego.attr = NULL)
 }
@@ -18,7 +18,7 @@ comp_ply(object, alt.attr, .f, ..., ego.attr = NULL)
 \item{ego.attr}{Optional  \code{character} naming an ego attribute.}
 }
 \value{
-A \code{numeric} vector.
+A \code{tibble} with the ego ID and a \code{numeric} result vector.
 }
 \description{
 \code{comp_ply()} applies a function, that uses an alter attribute to calculate

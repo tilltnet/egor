@@ -19,7 +19,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @param object An `egor` object.
 #' @param alt.attr A `character` naming the variable containing the alter-attribute.
 #' @param absolute `Logical` indicating if the results should be absolute. 
-#' @return A `tibble` with the values per category in the columns.
+#' @return A `tibble` with the ego ID and values per category of `alt.attr` as `numeric` columns.
 #' @keywords ego-centered network analysis
 #' @examples
 #' data("egor32")
@@ -44,7 +44,7 @@ composition <- function(object, alt.attr, absolute = FALSE) {
 
 
 
-#' Calculate third-party compositional measures on an `egor` object
+#' Calculate custom compositional measures on an `egor` object
 #'
 #' `comp_ply()` applies a function, that uses an alter attribute to calculate
 #' a compositional measurement, on all networks in an `egor` object and returns a
@@ -54,7 +54,7 @@ composition <- function(object, alt.attr, absolute = FALSE) {
 #' @param .f A `function` that returns a numeric.
 #' @param ... Optional arguments to `.f`.
 #' @param ego.attr Optional  `character` naming an ego attribute.
-#' @return A `numeric` vector.
+#' @return A `tibble` with the ego ID and a `numeric` result vector.
 #' @details When an ego attribute is used the `.f` is called like this: 
 #' `.f(alt.attr, ego.attr, ...)`. `.f` must return a single numeric value.
 #' @keywords ego-centered network analysis
@@ -91,7 +91,7 @@ comp_ply <- function(object, alt.attr, .f, ..., ego.attr = NULL) {
 #' @param object An `egor` object.
 #' @param alt.attr A `character` naming the variable containing the alter-attribute.
 #' @param base `Numeric`, base value of logarithm for entropy calculation.
-#' @return A `numeric` vector.
+#' @return A `tibble` with the ego ID and a `numeric` result vector.
 #' @keywords ego-centered network analysis
 #' @examples
 #' data("egor32")
@@ -119,11 +119,11 @@ fun_entropy <- function(x, base = 2) {
 
 #' Calculate the EI-Indices of an `egor` object as a measurement of ego-alter homophily
 #'
-#' `comp_ei()` calculates the EI-Index values as a measurement for ego-alter homophily.
+#' `comp_ei()` calculates the EI-Index values as a measurement for ego-alter homo-/heterophily.
 #' @param object An `egor` object.
 #' @param alt.attr A `character` naming the variable containing the alter-attribute.
 #' @param ego.attr A `character` naming an ego attribute.
-#' @return A `numeric` vector.
+#' @return A `tibble` with the ego ID and a `numeric` result vector.
 #' @keywords ego-centered network analysis
 #' @examples
 #' data("egor32")
