@@ -9,7 +9,6 @@
 #' @method activate egor
 #' @examples 
 #' e <- make_egor(5,50)
-#' trim_aaties(e)
 #' e %>% 
 #'    activate("aatie") %>% 
 #'    mutate(weight2 = 2 + weight) %>% 

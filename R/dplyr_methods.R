@@ -16,6 +16,7 @@ dplyr_version <- utils::packageDescription("dplyr")$Version
 # dplyr helper functions
 
 #' Trims alter-alter ties of alters that are missing/ deleted from alters data.
+#' 
 #' This is used in the background by `dplyr` methods, to maintain the alter-alter
 #' ties according to changes made to the ego and alter data levels.
 #'
@@ -65,6 +66,7 @@ trim_aaties <- function(object) {
 }
 
 #' Trims alters that are missing/ deleted from ego data.
+#' 
 #' This is used in the background by `dplyr` methods, to maintain the alter
 #' ties according to changes made to the ego data level.
 #'
@@ -853,6 +855,37 @@ group_vars.egor <- function(x) {
 #' @param .id Data frame identifier.
 #' @name append_egor
 #' @return `egor` object containing the additional rows/ columns on the active level.
+#' @examples 
+#' e <- make_egor(12, 15)
+#' 
+#' # Adding a column to the ego level
+#' additional_ego_columns <-
+#'   tibble(x = sample(1:3, 12, replace = TRUE))
+#'   
+#' append_cols(e, additional_ego_columns)
+#' 
+#' # Adding rows to the ego and alter level
+#' additional_ego_rows <-
+#'   list(
+#'     .egoID = 13,
+#'     sex = "w",
+#'     age = factor("56 - 65"),
+#'     age.years = 60,
+#'     country = "Australia"
+#'   ) %>%
+#'   as_tibble()
+#'   
+#' additional_alter_rows <-
+#'   list(
+#'     .altID = 1:5,
+#'     .egoID = rep(13, 5),
+#'     sex = sample(c("f", "m"), 5, replace = TRUE)
+#'   ) %>%
+#'   as_tibble()
+#'   
+#' append_rows(e, additional_ego_rows) %>%
+#'   activate(alter) %>%
+#'   append_rows(additional_alter_rows)
 NULL
 
 #' @rdname append_egor

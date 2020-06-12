@@ -16,7 +16,6 @@ This function activates one of the data levels of an egor dataset, so that the d
 }
 \examples{
 e <- make_egor(5,50)
-trim_aaties(e)
 e \%>\% 
    activate("aatie") \%>\% 
    mutate(weight2 = 2 + weight) \%>\% 
