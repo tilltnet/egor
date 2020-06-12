@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -39,7 +43,6 @@
 <meta property="og:description" content="These functions convert an egor object into a list of network or igraph objects.
 By default ego itself is not included in the created objects, there is
 a parameter (include.egor) that allows for including ego." />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -57,7 +60,7 @@ a parameter (include.egor) that allows for including ego." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -71,7 +74,7 @@ a parameter (include.egor) that allows for including ego." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">egor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.20.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.20.06</span>
       </span>
     </div>
 
@@ -107,7 +110,7 @@ a parameter (include.egor) that allows for including ego." />
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/tilltnet/egor">
+  <a href="https://github.com/tilltnet/egor/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -141,7 +144,8 @@ a parameter (<strong>include.egor</strong>) that allows for including ego.</p>
   <span class='kw'>directed</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>include.ego</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>ego.attrs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ego.alter.weights</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+  <span class='kw'>ego.alter.weights</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>graph.attrs</span> <span class='kw'>=</span> <span class='st'>".egoID"</span>
 )
 
 <span class='co'># S3 method for nested_egor</span>
@@ -150,7 +154,8 @@ a parameter (<strong>include.egor</strong>) that allows for including ego.</p>
   <span class='kw'>directed</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>include.ego</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>ego.attrs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ego.alter.weights</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+  <span class='kw'>ego.alter.weights</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>graph.attrs</span> <span class='kw'>=</span> <span class='st'>".egoID"</span>
 )
 
 <span class='fu'>as.igraph.egor</span>(
@@ -158,7 +163,27 @@ a parameter (<strong>include.egor</strong>) that allows for including ego.</p>
   <span class='kw'>directed</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>include.ego</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>ego.attrs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ego.alter.weights</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+  <span class='kw'>ego.alter.weights</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>graph.attrs</span> <span class='kw'>=</span> <span class='st'>".egoID"</span>
+)
+
+<span class='fu'>as_network</span>(
+  <span class='no'>x</span>,
+  <span class='kw'>directed</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>include.ego</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>ego.attrs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>ego.alter.weights</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>graph.attrs</span> <span class='kw'>=</span> <span class='st'>".egoID"</span>
+)
+
+<span class='co'># S3 method for egor</span>
+<span class='fu'>as.network</span>(
+  <span class='no'>x</span>,
+  <span class='kw'>directed</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>include.ego</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>ego.attrs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>ego.alter.weights</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>graph.attrs</span> <span class='kw'>=</span> <span class='st'>".egoID"</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -180,13 +205,21 @@ a parameter (<strong>include.egor</strong>) that allows for including ego.</p>
       <th>ego.attrs</th>
       <td><p>Vector of names (character) or indices (numeric) of ego
 variables that should be carried over to  the network/
-igraph objects.</p></td>
+igraph objects. This is ignored, when <code>include.ego = FALSE</code> (default).</p></td>
     </tr>
     <tr>
       <th>ego.alter.weights</th>
       <td><p>Vector of names (character) or indices (numeric) of
 alter variables that should be carried over to the the
-network/ igraph objects, as edge attributes of the ego-alter relations.</p></td>
+network/ igraph objects, as edge attributes of the ego-alter relations.
+This is ignored, when `include.ego = FALSE`` (default).</p></td>
+    </tr>
+    <tr>
+      <th>graph.attrs</th>
+      <td><p>Vector of names (character) or indices (numeric) of
+ego variables that are supposed to be carried over to the igraph object
+as graph attributes or the network object as network attributes. By
+default <code>.egoID</code> is carried over.</p></td>
     </tr>
     </table>
 
@@ -194,17 +227,43 @@ network/ igraph objects, as edge attributes of the ego-alter relations.</p></td>
 
     <p>The names of the variables specified in ego.attr and ego.alter.attr
 need to be the same as the names of corresponding alter attributes,
-in order for those variables to be complete in the resulting network/ igraph
-object (see example).</p>
+in order for those variables to be merged successfully in the resulting
+network/ igraph object (see example).</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='no'>e</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='make_egor.html'>make_egor</a></span>(<span class='fl'>3</span>, <span class='fl'>22</span>)
+<span class='fu'>as_igraph</span>(<span class='no'>e</span>)</div><div class='output co'>#&gt; $`1`
+#&gt; IGRAPH 581eca8 UNW- 7 7 -- 
+#&gt; + attr: .egoID (g/x), name (v/c), sex (v/c), age (v/c), age.years
+#&gt; | (v/n), country (v/c), income (v/n), weight (e/n)
+#&gt; + edges from 581eca8 (vertex names):
+#&gt; [1] 6--7 3--7 4--5 2--6 1--7 1--6 3--4
+#&gt; 
+#&gt; $`2`
+#&gt; IGRAPH 3f2f9c0 UNW- 10 22 -- 
+#&gt; + attr: .egoID (g/x), name (v/c), sex (v/c), age (v/c), age.years
+#&gt; | (v/n), country (v/c), income (v/n), weight (e/n)
+#&gt; + edges from 3f2f9c0 (vertex names):
+#&gt;  [1] 3--8  6--8  1--6  4--8  9--10 5--7  1--10 3--7  8--10 4--5  7--9  3--4 
+#&gt; [13] 6--9  4--10 2--4  7--10 2--3  1--7  1--2  3--10 1--9  2--5 
+#&gt; 
+#&gt; $`3`
+#&gt; IGRAPH 982350a UNW- 14 49 -- 
+#&gt; + attr: .egoID (g/x), name (v/c), sex (v/c), age (v/c), age.years
+#&gt; | (v/n), country (v/c), income (v/n), weight (e/n)
+#&gt; + edges from 982350a (vertex names):
+#&gt;  [1] 2 --3  5 --10 1 --12 4 --5  6 --12 4 --9  7 --12 2 --10 1 --5  3 --11
+#&gt; [11] 1 --2  6 --11 2 --8  2 --13 2 --11 4 --10 2 --9  12--13 7 --8  2 --7 
+#&gt; [21] 1 --6  8 --11 11--12 10--12 3 --13 3 --10 4 --7  10--11 9 --12 13--14
+#&gt; [31] 3 --7  4 --12 1 --9  2 --6  1 --14 9 --13 1 --11 6 --9  11--13 5 --14
+#&gt; [41] 2 --14 8 --10 3 --6  3 --12 5 --13 10--13 12--14 4 --8  3 --4 
+#&gt; </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#details">Details</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -215,7 +274,7 @@ object (see example).</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

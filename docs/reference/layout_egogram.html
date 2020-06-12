@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Longest common prefix of a set of strings. — common_prefix • egor</title>
+<title>Create layout for an egogram — layout_egogram • egor</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,9 @@
 
 
 
-<meta property="og:title" content="Longest common prefix of a set of strings. — common_prefix" />
-<meta property="og:description" content="Longest common prefix of a set of strings." />
+<meta property="og:title" content="Create layout for an egogram — layout_egogram" />
+<meta property="og:description" content="This creates pairs of x and y coordinates for a egogram, accompanied by
+alter IDs for each coordinate pair." />
 
 
 
@@ -126,30 +127,40 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Longest common prefix of a set of strings.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tilltnet/egor/blob/master/R/read.egonet.R'><code>R/read.egonet.R</code></a></small>
-    <div class="hidden name"><code>common_prefix.Rd</code></div>
+    <h1>Create layout for an egogram</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tilltnet/egor/blob/master/R/plot_ego_gram.R'><code>R/plot_ego_gram.R</code></a></small>
+    <div class="hidden name"><code>layout_egogram.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Longest common prefix of a set of strings.</p>
+    <p>This creates pairs of x and y coordinates for a egogram, accompanied by
+alter IDs for each coordinate pair.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>common_prefix</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>layout_egogram</span>(<span class='no'>altID</span>, <span class='no'>venn_var</span>, <span class='no'>pie_var</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>a character vector.</p></td>
+      <th>altID</th>
+      <td><p>Vector of alter IDs.</p></td>
+    </tr>
+    <tr>
+      <th>venn_var</th>
+      <td><p>Vector of values representing alter groups corresponding with
+venns in an egogram.</p></td>
+    </tr>
+    <tr>
+      <th>pie_var</th>
+      <td><p>Vector of values representing alter groups corresponding with
+pieces of pie in an egogram.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A character vector that is the longest common substring at
-the start of each of the input vectors.</p>
+    <p>A dataframe with three columns: x, y and altID.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

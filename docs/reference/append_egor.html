@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -39,7 +43,6 @@
 <meta property="og:description" content="These work like dplyr's bind_cols() and bind_rows(). The first
 argument has to be an egor object. Additional rows/columns are added bottom/RHS
 of the active data level (ego, alter, aatie)." />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -57,7 +60,7 @@ of the active data level (ego, alter, aatie)." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -71,7 +74,7 @@ of the active data level (ego, alter, aatie)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">egor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.20.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.20.06</span>
       </span>
     </div>
 
@@ -107,7 +110,7 @@ of the active data level (ego, alter, aatie)." />
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/tilltnet/egor">
+  <a href="https://github.com/tilltnet/egor/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -126,7 +129,7 @@ of the active data level (ego, alter, aatie)." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Append rows/columns to ego, alter or aatie data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tilltnet/egor/blob/master/R/dplyr_methods.r'><code>R/dplyr_methods.r</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/tilltnet/egor/blob/master/R/dplyr_methods.R'><code>R/dplyr_methods.R</code></a></small>
     <div class="hidden name"><code>append_egor.Rd</code></div>
     </div>
 
@@ -157,14 +160,79 @@ of the active data level (ego, alter, aatie).</p>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
+    <p><code>egor</code> object containing the additional rows/ columns on the active level.</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>e</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='make_egor.html'>make_egor</a></span>(<span class='fl'>12</span>, <span class='fl'>15</span>)
+
+<span class='co'># Adding a column to the ego level</span>
+<span class='no'>additional_ego_columns</span> <span class='kw'>&lt;-</span>
+  <span class='fu'>tibble</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fl'>1</span>:<span class='fl'>3</span>, <span class='fl'>12</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
+
+<span class='fu'>append_cols</span>(<span class='no'>e</span>, <span class='no'>additional_ego_columns</span>)</div><div class='output co'>#&gt; # EGO data (active): 12 x 7
+#&gt;   .egoID sex   age     age.years country   income     x
+#&gt;    <span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>      1 m     46 - 55        48 Australia    365     2
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>      2 w     36 - 45        38 Australia  </span><span style='text-decoration: underline;'>36</span><span>865     2
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span>      3 m     0 - 17         10 Australia  </span><span style='text-decoration: underline;'>33</span><span>580     1
+#&gt; # ALTER data: 97 x 7
+#&gt;   .altID .egoID sex   age      age.years country   income
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>      1      1 m     46 - 55         49 Australia  </span><span style='text-decoration: underline;'>50</span><span>735
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>      2      1 m     46 - 55         47 USA        </span><span style='text-decoration: underline;'>42</span><span>340
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span>      3      1 m     66 - 100        67 Poland     </span><span style='text-decoration: underline;'>56</span><span>210
+#&gt; # AATIE data: 193 x 4
+#&gt;   .egoID .srcID .tgtID weight
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>      4      1      7      1
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>      1      2      7      1
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span>      4      4      5      1</div><div class='input'>
+<span class='co'># Adding rows to the ego and alter level</span>
+<span class='no'>additional_ego_rows</span> <span class='kw'>&lt;-</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
+    <span class='kw'>.egoID</span> <span class='kw'>=</span> <span class='fl'>13</span>,
+    <span class='kw'>sex</span> <span class='kw'>=</span> <span class='st'>"w"</span>,
+    <span class='kw'>age</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='st'>"56 - 65"</span>),
+    <span class='kw'>age.years</span> <span class='kw'>=</span> <span class='fl'>60</span>,
+    <span class='kw'>country</span> <span class='kw'>=</span> <span class='st'>"Australia"</span>
+  ) <span class='kw'>%&gt;%</span>
+  <span class='fu'>as_tibble</span>()
+
+<span class='no'>additional_alter_rows</span> <span class='kw'>&lt;-</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
+    <span class='kw'>.altID</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>5</span>,
+    <span class='kw'>.egoID</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>13</span>, <span class='fl'>5</span>),
+    <span class='kw'>sex</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"f"</span>, <span class='st'>"m"</span>), <span class='fl'>5</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+  ) <span class='kw'>%&gt;%</span>
+  <span class='fu'>as_tibble</span>()
+
+<span class='fu'>append_rows</span>(<span class='no'>e</span>, <span class='no'>additional_ego_rows</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://tidygraph.data-imaginist.com/reference/activate.html'>activate</a></span>(<span class='no'>alter</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>append_rows</span>(<span class='no'>additional_alter_rows</span>)</div><div class='output co'>#&gt; # ALTER data (active): 102 x 7
+#&gt;   .altID .egoID sex   age      age.years country   income
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>      1      1 m     46 - 55         49 Australia  </span><span style='text-decoration: underline;'>50</span><span>735
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>      2      1 m     46 - 55         47 USA        </span><span style='text-decoration: underline;'>42</span><span>340
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span>      3      1 m     66 - 100        67 Poland     </span><span style='text-decoration: underline;'>56</span><span>210
+#&gt; # EGO data: 13 x 6
+#&gt;   .egoID sex   age     age.years country   income
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>      1 m     46 - 55        48 Australia    365
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>      2 w     36 - 45        38 Australia  </span><span style='text-decoration: underline;'>36</span><span>865
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span>      3 m     0 - 17         10 Australia  </span><span style='text-decoration: underline;'>33</span><span>580
+#&gt; # AATIE data: 193 x 4
+#&gt;   .egoID .srcID .tgtID weight
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>      4      1      7      1
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>      1      2      7      1
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span>      4      4      5      1</div></span></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -175,7 +243,7 @@ of the active data level (ego, alter, aatie).</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

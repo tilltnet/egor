@@ -1,4 +1,4 @@
-# egor 0.20.04
+# egor 0.20.06
 
 - we are now using the `srvyr` package to allow for survey designs being reflected in the `egor` object
 - adjustments to work with dplyr 1.0.0

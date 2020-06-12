@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -38,7 +42,6 @@
 <meta property="og:title" content="Filter and Subset Ego-centered Datasets — subset.egor" />
 <meta property="og:description" content="Functions to index and take subsets of egor() objects: manipulate
 egos, alters, or alter-alter ties." />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -56,7 +59,7 @@ egos, alters, or alter-alter ties." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -70,7 +73,7 @@ egos, alters, or alter-alter ties." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">egor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.20.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.20.06</span>
       </span>
     </div>
 
@@ -106,7 +109,7 @@ egos, alters, or alter-alter ties." />
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/tilltnet/egor">
+  <a href="https://github.com/tilltnet/egor/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -156,7 +159,7 @@ alters, or alter-alter ties to keep. The expressions can access
 variables in the calling environment; columns of the active unit,
 columns of other units with which the active unit shares an ego
 via <code>egos$</code>, <code>alters$</code>, and <code>aaties$</code> as well as the following
-"virtual" columns to simplify indexing:</p><dl class='dl-horizontal'>
+"virtual" columns to simplify indexing:</p><dl'>
 
 <dt>Ego index <code>.egoRow</code></dt><dd><p>contains the index (counting from 1) of the row being
 evaluated. (This can be used to access vector variables in the
@@ -207,90 +210,68 @@ alters and ties.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'># Generate a small sample dataset</span>
-(<span class='no'>e</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='make_egor.html'>make_egor</a></span>(<span class='fl'>5</span>,<span class='fl'>4</span>))</div><div class='output co'>#&gt; # EGO data (active)
-#&gt; <span style='color: #555555;'># A tibble: 5 x 6</span><span>
+(<span class='no'>e</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='make_egor.html'>make_egor</a></span>(<span class='fl'>5</span>,<span class='fl'>4</span>))</div><div class='output co'>#&gt; # EGO data (active): 5 x 6
 #&gt;   .egoID sex   age      age.years country   income
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>      1 w     0 - 17           1 Australia  </span><span style='text-decoration: underline;'>35</span><span>770
-#&gt; </span><span style='color: #555555;'>2</span><span>      2 m     66 - 100        73 Germany    </span><span style='text-decoration: underline;'>31</span><span>755
-#&gt; </span><span style='color: #555555;'>3</span><span>      3 m     66 - 100        92 Poland     </span><span style='text-decoration: underline;'>58</span><span>765
-#&gt; </span><span style='color: #555555;'># … with 2 more rows</span><span>
-#&gt; # ALTER data 
-#&gt; </span><span style='color: #555555;'># A tibble: 15 x 7</span><span>
-#&gt;   .altID .egoID sex   age     age.years country   income
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>      1      1 w     46 - 55        50 Germany    </span><span style='text-decoration: underline;'>17</span><span>885
-#&gt; </span><span style='color: #555555;'>2</span><span>      2      1 m     0 - 17         10 Australia  </span><span style='text-decoration: underline;'>17</span><span>155
-#&gt; </span><span style='color: #555555;'>3</span><span>      3      1 w     0 - 17         15 Germany    </span><span style='text-decoration: underline;'>24</span><span>455
-#&gt; </span><span style='color: #555555;'># … with 12 more rows</span><span>
-#&gt; # AATIE data 
-#&gt; </span><span style='color: #555555;'># A tibble: 8 x 4</span><span>
+#&gt;    <span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>      1 m     66 - 100        82 Poland     </span><span style='text-decoration: underline;'>45</span><span>990
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>      2 w     18 - 25         24 Australia  </span><span style='text-decoration: underline;'>11</span><span>680
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span>      3 m     66 - 100        83 Poland     </span><span style='text-decoration: underline;'>36</span><span>135
+#&gt; # ALTER data: 16 x 7
+#&gt;   .altID .egoID sex   age      age.years country   income
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>      1      1 w     66 - 100        83 USA        </span><span style='text-decoration: underline;'>59</span><span>495
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>      2      1 m     66 - 100        73 USA         </span><span style='text-decoration: underline;'>5</span><span>475
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span>      1      2 m     36 - 45         44 Australia  </span><span style='text-decoration: underline;'>12</span><span>775
+#&gt; # AATIE data: 10 x 4
 #&gt;   .egoID .srcID .tgtID weight
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>      4      1      2  0.667
-#&gt; </span><span style='color: #555555;'>2</span><span>      2      1      2  0.667
-#&gt; </span><span style='color: #555555;'>3</span><span>      3      3      4  0.333
-#&gt; </span><span style='color: #555555;'># … with 5 more rows</span><span></div><div class='input'>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>      2      1      4  0.333
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>      3      1      2  0.667
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span>      2      3      4  0.333</div><div class='input'>
 <span class='co'># First three egos in the dataset</span>
-<span class='no'>e</span>[<span class='fl'>1</span>:<span class='fl'>3</span>,]</div><div class='output co'>#&gt; # EGO data (active)
-#&gt; </span><span style='color: #555555;'># A tibble: 3 x 6</span><span>
+<span class='no'>e</span>[<span class='fl'>1</span>:<span class='fl'>3</span>,]</div><div class='output co'>#&gt; # EGO data (active): 3 x 6
 #&gt;   .egoID sex   age      age.years country   income
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>      1 w     0 - 17           1 Australia  </span><span style='text-decoration: underline;'>35</span><span>770
-#&gt; </span><span style='color: #555555;'>2</span><span>      2 m     66 - 100        73 Germany    </span><span style='text-decoration: underline;'>31</span><span>755
-#&gt; </span><span style='color: #555555;'>3</span><span>      3 m     66 - 100        92 Poland     </span><span style='text-decoration: underline;'>58</span><span>765
-#&gt; # ALTER data 
-#&gt; </span><span style='color: #555555;'># A tibble: 9 x 7</span><span>
-#&gt;   .altID .egoID sex   age     age.years country   income
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>      1      1 w     46 - 55        50 Germany    </span><span style='text-decoration: underline;'>17</span><span>885
-#&gt; </span><span style='color: #555555;'>2</span><span>      2      1 m     0 - 17         10 Australia  </span><span style='text-decoration: underline;'>17</span><span>155
-#&gt; </span><span style='color: #555555;'>3</span><span>      3      1 w     0 - 17         15 Germany    </span><span style='text-decoration: underline;'>24</span><span>455
-#&gt; </span><span style='color: #555555;'># … with 6 more rows</span><span>
-#&gt; # AATIE data 
-#&gt; </span><span style='color: #555555;'># A tibble: 4 x 4</span><span>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>      1 m     66 - 100        82 Poland     </span><span style='text-decoration: underline;'>45</span><span>990
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>      2 w     18 - 25         24 Australia  </span><span style='text-decoration: underline;'>11</span><span>680
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span>      3 m     66 - 100        83 Poland     </span><span style='text-decoration: underline;'>36</span><span>135
+#&gt; # ALTER data: 10 x 7
+#&gt;   .altID .egoID sex   age      age.years country   income
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>      1      1 w     66 - 100        83 USA        </span><span style='text-decoration: underline;'>59</span><span>495
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>      2      1 m     66 - 100        73 USA         </span><span style='text-decoration: underline;'>5</span><span>475
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span>      1      2 m     36 - 45         44 Australia  </span><span style='text-decoration: underline;'>12</span><span>775
+#&gt; # AATIE data: 6 x 4
 #&gt;   .egoID .srcID .tgtID weight
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>      2      1      2  0.667
-#&gt; </span><span style='color: #555555;'>2</span><span>      3      3      4  0.333
-#&gt; </span><span style='color: #555555;'>3</span><span>      3      2      3  0.667
-#&gt; </span><span style='color: #555555;'># … with 1 more row</span><span></div><div class='input'>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>      2      1      4  0.333
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>      3      1      2  0.667
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span>      2      3      4  0.333</div><div class='input'>
 <span class='co'># Using an external vector</span>
 <span class='co'># (though normally, we would use e[.keep,] here)</span>
 <span class='no'>.keep</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>TRUE</span>, <span class='fl'>FALSE</span>), <span class='kw'>length.out</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>e</span>$<span class='no'>ego</span>))
-<span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>e</span>, <span class='no'>.keep</span>)</div><div class='output co'>#&gt; # EGO data (active)
-#&gt; </span><span style='color: #555555;'># A tibble: 3 x 6</span><span>
+<span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>e</span>, <span class='no'>.keep</span>)</div><div class='output co'>#&gt; # EGO data (active): 3 x 6
 #&gt;   .egoID sex   age      age.years country   income
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>      1 w     0 - 17           1 Australia  </span><span style='text-decoration: underline;'>35</span><span>770
-#&gt; </span><span style='color: #555555;'>2</span><span>      3 m     66 - 100        92 Poland     </span><span style='text-decoration: underline;'>58</span><span>765
-#&gt; </span><span style='color: #555555;'>3</span><span>      5 w     66 - 100        68 Poland      </span><span style='text-decoration: underline;'>1</span><span>825
-#&gt; # ALTER data 
-#&gt; </span><span style='color: #555555;'># A tibble: 10 x 7</span><span>
-#&gt;   .altID .egoID sex   age     age.years country   income
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>      1      1 w     46 - 55        50 Germany    </span><span style='text-decoration: underline;'>17</span><span>885
-#&gt; </span><span style='color: #555555;'>2</span><span>      2      1 m     0 - 17         10 Australia  </span><span style='text-decoration: underline;'>17</span><span>155
-#&gt; </span><span style='color: #555555;'>3</span><span>      3      1 w     0 - 17         15 Germany    </span><span style='text-decoration: underline;'>24</span><span>455
-#&gt; </span><span style='color: #555555;'># … with 7 more rows</span><span>
-#&gt; # AATIE data 
-#&gt; </span><span style='color: #555555;'># A tibble: 5 x 4</span><span>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>      1 m     66 - 100        82 Poland     </span><span style='text-decoration: underline;'>45</span><span>990
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>      3 m     66 - 100        83 Poland     </span><span style='text-decoration: underline;'>36</span><span>135
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span>      5 m     56 - 65         60 Australia  </span><span style='text-decoration: underline;'>32</span><span>120
+#&gt; # ALTER data: 8 x 7
+#&gt;   .altID .egoID sex   age      age.years country   income
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>      1      1 w     66 - 100        83 USA        </span><span style='text-decoration: underline;'>59</span><span>495
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>      2      1 m     66 - 100        73 USA         </span><span style='text-decoration: underline;'>5</span><span>475
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span>      1      3 m     0 - 17          16 Australia  </span><span style='text-decoration: underline;'>45</span><span>625
+#&gt; # AATIE data: 2 x 4
 #&gt;   .egoID .srcID .tgtID weight
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>      3      3      4  0.333
-#&gt; </span><span style='color: #555555;'>2</span><span>      5      1      2  0.667
-#&gt; </span><span style='color: #555555;'>3</span><span>      3      2      3  0.667
-#&gt; </span><span style='color: #555555;'># … with 2 more rows</span><span></div></span></pre>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>      3      1      2  0.667
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>      3      2      4  0.333</div></span></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -301,7 +282,7 @@ alters and ties.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

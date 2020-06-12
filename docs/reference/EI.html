@@ -6,27 +6,31 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Calculate the EI-Index for the alter-alter ties of an ego object — EI • egor</title>
+<title>Calculate the EI-Index for the alter-alter ties of an egor object — EI • egor</title>
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -35,16 +39,17 @@
 
 
 
-<meta property="og:title" content="Calculate the EI-Index for the alter-alter ties of an ego object — EI" />
+<meta property="og:title" content="Calculate the EI-Index for the alter-alter ties of an egor object — EI" />
 <meta property="og:description" content="The EI-Index is the division of the intra-group edge density and the outer-group edge
 density. It is calculated for the whole network and for subgroups. The
 whole network EI is a metric indicating the tendency of a network to be
 clustered by the categories of a given factor variable. The EI value of a
-groups describes the tendency of a group to be connected or not connected
+group describes the tendency of that group within a network to be connected
+[0,1) or not connected (-1,0]
 to other groups. Additionally, the EI index can be employed as a measurement
-for egos tendency to homo-/heteorphily - use the comp_ei() command
-for that version of EI-Index." />
-<meta name="twitter:card" content="summary" />
+for egos tendency to homo-/heteorphily - use the egor::comp_ei() command
+for that version of the EI-Index.
+[0,1) or not connected (-1,0]: R:0,1)%20or%20not%20connected%20(-1,0" />
 
 
 
@@ -62,7 +67,7 @@ for that version of EI-Index." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -76,7 +81,7 @@ for that version of EI-Index." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">egor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.20.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.20.06</span>
       </span>
     </div>
 
@@ -112,7 +117,7 @@ for that version of EI-Index." />
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/tilltnet/egor">
+  <a href="https://github.com/tilltnet/egor/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -130,7 +135,7 @@ for that version of EI-Index." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Calculate the EI-Index for the alter-alter ties of an ego object</h1>
+    <h1>Calculate the EI-Index for the alter-alter ties of an egor object</h1>
     <small class="dont-index">Source: <a href='https://github.com/tilltnet/egor/blob/master/R/ei.R'><code>R/ei.R</code></a></small>
     <div class="hidden name"><code>EI.Rd</code></div>
     </div>
@@ -140,10 +145,12 @@ for that version of EI-Index." />
 density. It is calculated for the whole network and for subgroups. The
 whole network EI is a metric indicating the tendency of a network to be
 clustered by the categories of a given factor variable. The EI value of a
-groups describes the tendency of a group to be connected or not connected
+group describes the tendency of that group within a network to be connected
+[0,1) or not connected (-1,0]
 to other groups. Additionally, the EI index can be employed as a measurement
-for egos tendency to homo-/heteorphily - use the <code><a href='comp_ei.html'>comp_ei()</a></code> command
-for that version of EI-Index.</p>
+for egos tendency to homo-/heteorphily - use the <code><a href='comp_ei.html'>egor::comp_ei()</a></code> command
+for that version of the EI-Index.</p>
+<p>[0,1) or not connected (-1,0]: R:0,1)%20or%20not%20connected%20(-1,0</p>
     </div>
 
     <pre class="usage"><span class='fu'>EI</span>(<span class='no'>object</span>, <span class='no'>alt.attr</span>)</pre>
@@ -171,29 +178,25 @@ based centrality: E-I and G-F centrality. Social Networks, 34(4), 562-569.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"egor32"</span>)
-<span class='fu'>EI</span>(<span class='no'>egor32</span>, <span class='st'>"sex"</span>)</div><div class='output co'>#&gt; EI-Index: sex</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 32 x 3</span><span>
+<span class='fu'>EI</span>(<span class='no'>egor32</span>, <span class='st'>"sex"</span>)</div><div class='output co'>#&gt; EI-Index: sex</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 32 x 3</span><span>
 #&gt;      ei_sc       m       w
-#&gt;      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span>  0.28    0.250   1     
-#&gt; </span><span style='color: #555555;'> 2</span><span>  0.053</span><span style='text-decoration: underline;'>7</span><span>  0.043</span><span style='text-decoration: underline;'>0</span><span>  0.088</span><span style='text-decoration: underline;'>6</span><span>
-#&gt; </span><span style='color: #555555;'> 3</span><span> -</span><span style='color: #BB0000;'>0.110</span><span>  -</span><span style='color: #BB0000;'>0.084</span><span style='color: #BB0000;text-decoration: underline;'>9</span><span> -</span><span style='color: #BB0000;'>0.151</span><span> 
-#&gt; </span><span style='color: #555555;'> 4</span><span>  0.019</span><span style='text-decoration: underline;'>8</span><span>  0.125  -</span><span style='color: #BB0000;'>0.150</span><span> 
-#&gt; </span><span style='color: #555555;'> 5</span><span>  0.019</span><span style='text-decoration: underline;'>1</span><span>  0       0.176 
-#&gt; </span><span style='color: #555555;'> 6</span><span> -</span><span style='color: #BB0000;'>0.160</span><span>  -</span><span style='color: #BB0000;'>0.101</span><span>  -</span><span style='color: #BB0000;'>0.245</span><span> 
-#&gt; </span><span style='color: #555555;'> 7</span><span>  0.093</span><span style='text-decoration: underline;'>1</span><span>  0.058</span><span style='text-decoration: underline;'>8</span><span>  0.233 
-#&gt; </span><span style='color: #555555;'> 8</span><span>  0.082</span><span style='text-decoration: underline;'>0</span><span>  0.111   0.024</span><span style='text-decoration: underline;'>4</span><span>
-#&gt; </span><span style='color: #555555;'> 9</span><span>  0.158   0.2    -</span><span style='color: #BB0000;'>0.333</span><span> 
-#&gt; </span><span style='color: #555555;'>10</span><span> -</span><span style='color: #BB0000;'>0.058</span><span style='color: #BB0000;text-decoration: underline;'>1</span><span>  0.058</span><span style='text-decoration: underline;'>8</span><span> -</span><span style='color: #BB0000;'>0.321</span><span> 
-#&gt; </span><span style='color: #555555;'># … with 22 more rows</span><span></div></span></pre>
+#&gt;      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span>  0.28    0.250   1     
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span>  0.053</span><span style='text-decoration: underline;'>7</span><span>  0.043</span><span style='text-decoration: underline;'>0</span><span>  0.088</span><span style='text-decoration: underline;'>6</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> -</span><span style='color: #BB0000;'>0.110</span><span>  -</span><span style='color: #BB0000;'>0.084</span><span style='color: #BB0000;text-decoration: underline;'>9</span><span> -</span><span style='color: #BB0000;'>0.151</span><span> 
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span>  0.019</span><span style='text-decoration: underline;'>8</span><span>  0.125  -</span><span style='color: #BB0000;'>0.150</span><span> 
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span>  0.019</span><span style='text-decoration: underline;'>1</span><span>  0       0.176 
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> -</span><span style='color: #BB0000;'>0.160</span><span>  -</span><span style='color: #BB0000;'>0.101</span><span>  -</span><span style='color: #BB0000;'>0.245</span><span> 
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span>  0.093</span><span style='text-decoration: underline;'>1</span><span>  0.058</span><span style='text-decoration: underline;'>8</span><span>  0.233 
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span>  0.082</span><span style='text-decoration: underline;'>0</span><span>  0.111   0.024</span><span style='text-decoration: underline;'>4</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span>  0.158   0.2    -</span><span style='color: #BB0000;'>0.333</span><span> 
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> -</span><span style='color: #BB0000;'>0.058</span><span style='color: #BB0000;text-decoration: underline;'>1</span><span>  0.058</span><span style='text-decoration: underline;'>8</span><span> -</span><span style='color: #BB0000;'>0.321</span><span> 
+#&gt; </span><span style='color: #949494;'># … with 22 more rows</span><span></div></span></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#references">References</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -204,7 +207,7 @@ based centrality: E-I and G-F centrality. Social Networks, 34(4), 562-569.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
