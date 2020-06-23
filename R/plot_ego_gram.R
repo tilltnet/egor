@@ -443,8 +443,6 @@ pie_add <- function(x,
   invisible(NULL)
 }
 
-plotrix::draw.circle
-
 # https://stackoverflow.com/a/26795448
 ring <- function(x,y,outer,inner, border=NULL, col=NA, lty=par("lty"), N=100, ...) {
   part_pi <- pi
