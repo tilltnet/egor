@@ -21,7 +21,7 @@ test_that("plot plots egor objects", {
       edge_width_var = "weight",
       edge_color_var = "weight",
       edge_color_palette = "Greys",
-      highlight_box_col_var = "blue",
+      highlight_box_col_var = "sex",
       res_disp_vars  = c("sex", "age")
     )
     
