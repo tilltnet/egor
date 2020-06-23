@@ -81,6 +81,14 @@ test_that("methods for dplyr are working",
             }, NA)
           })
 
+test_that(
+  "pull works",
+  {
+    e <- make_egor(10, 10)
+    expect_error(pull(e, sex), NA)
+  }
+)
+
 # test_that(
 #   "dplyr::across() works with egor object",{
 #   e <- make_egor(10, 10)

@@ -971,7 +971,7 @@ explain.egor <- function(x, ...) {
 #' @noRd
 #' @method pull egor
 pull.egor <- function(.data, var = -1, name = NULL, ...) {
-  pull(.data[[attr(.data, "active")]], var = var, name = name, ...)
+  pull(.data[[attr(.data, "active")]], var = !!enquo(var), ...) 
 }
 
 # rowwise -----------------------------------------------------------------
