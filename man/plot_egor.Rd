@@ -30,6 +30,7 @@ plot_egograms(
   edge_zoom = 2,
   font_size = 1,
   venn_colors = NULL,
+  venn_gradient_reverse = FALSE,
   show_venn_labels = TRUE,
   ...
 )
@@ -110,6 +111,9 @@ plot_egor(
 \item{font_size}{Numeric.}
 
 \item{venn_colors}{Vector of colors.}
+
+\item{venn_gradient_reverse}{\code{Logical}, set to TRUE in order to have the color intensity
+of venns increase going from the inner circles to the outer circles.}
 
 \item{show_venn_labels}{Logical.}
 

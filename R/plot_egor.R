@@ -23,6 +23,8 @@
 #' @param edge_zoom Numeric.
 #' @param font_size Numeric.
 #' @param venn_colors Vector of colors.
+#' @param venn_gradient_reverse `Logical`, set to TRUE in order to have the color intensity
+#' of venns increase going from the inner circles to the outer circles.
 #' @param show_venn_labels Logical.
 #' @param include_ego Logical.
 #' @param type Character. Either "egograph" or "egogram".
@@ -38,7 +40,6 @@
 #'               pie_var = "country",
 #'               vertex_size_var = "age")
 #' plot(e)
-
 #' @export
 plot_egor <- function(x, ego_no = 1, x_dim = 2, y_dim = 2, ..., type = c("egograph", "egogram")) {
   if (type[1] == "egograph") {

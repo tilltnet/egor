@@ -111,6 +111,7 @@ plot_egograms <- function(x,
                           edge_zoom = 2,
                           font_size = 1,
                           venn_colors = NULL,
+                          venn_gradient_reverse = FALSE,
                           show_venn_labels = TRUE,
                           ...) {
   opar <- par(no.readonly = TRUE)
@@ -143,6 +144,7 @@ plot_egograms <- function(x,
         vertex_zoom = vertex_zoom,
         edge_zoom = edge_zoom,
         venn_colors = venn_colors,
+        venn_gradient_reverse = venn_gradient_reverse,
         font_size = font_size,
         show_venn_labels = show_venn_labels,
         ...
@@ -171,6 +173,7 @@ plot_egogram <-
            edge_zoom = 2,
            font_size = 1,
            venn_colors = NULL,
+           venn_gradient_reverse = FALSE,
            show_venn_labels = TRUE,
            ...)  {
     
@@ -182,7 +185,7 @@ plot_egogram <-
     # TODO: stop(/warn?) when pie or venn var have more than 10 levels
     
     ego_object <-
-      slice.egor(.data = activate(x, "ego"), ego_no)
+      slice(.data = activate(x, "ego"), ego_no)
     
     if (is.null(pie_var)) {
       ego_object$alter$.pie_dummy <- factor(" ")
@@ -201,11 +204,11 @@ plot_egogram <-
     pie_var <- ego_object$alter[[pie_var_name]]
     
     if (is.numeric(venn_var)) {
-      venn_var <- factor(venn_var, levels = min(venn_var):max(venn_var))
+      venn_var <- factor(venn_var, levels = min(x$alter[[venn_var_name]]):max(x$alter[[venn_var_name]]))
     }
     
     if (is.numeric(pie_var)) {
-      pie_var <- factor(pie_var, levels = min(pie_var):max(pie_var))
+      pie_var <- factor(pie_var, levels = min(x$alter[[pie_var_name]]):max(x$alter[[pie_var_name]]))
     }
     
     if (is.character(venn_var)) {
@@ -232,24 +235,34 @@ plot_egogram <-
       col = venn_colors
     )
     
-    
     # Venns
-    theta <- seq(0, 2 * pi, length = 200)
-    i <- 0
-    for (radius in c(1:(venn_n + 1) / (venn_n + 1))) {
-      graphics::lines(x = radius * cos(theta),
-                      y = radius * sin(theta),
-                      col = "grey")
-      # Venn Labels
-      if (i > 0 & show_venn_labels) {
-        graphics::lines(c(0, 1.8),
-                        c(radius, radius),
-                        col = "grey80",
-                        lty = "dashed")
-        text(1.3, radius - 0.05, levels(venn_var)[i], cex = 0.8)
-      }
-      i <- i + 1
+    radi <- c(1:(venn_n + 1) / (venn_n + 1))
+    cols <- paste0("#ffffff", as.hexmode(seq(0, 220,  220 / venn_n)))
+    if(venn_gradient_reverse) cols <- rev(cols)
+    for(i in 1:venn_n) {
+      ring(0, 0, radi[i+1], radi[i], col = cols[i], border = "grey70")
     }
+
+    # plotrix::draw.circle(0, 0, c(1:(venn_n + 1) / (venn_n + 1)),
+    #                      border = "grey70",
+    #                      col = paste0("#ffffff", as.hexmode(seq(0, 140,  140 / venn_n))))
+    
+    # theta <- seq(0, 2 * pi, length = 200)
+    # i <- 0
+    # for (radius in c(1:(venn_n + 1) / (venn_n + 1))) {
+    #   graphics::lines(x = radius * cos(theta),
+    #                   y = radius * sin(theta),
+    #                   col = "grey")
+    #   # Venn Labels
+    #   if (i > 0 & show_venn_labels) {
+    #     graphics::lines(c(0, 1.8),
+    #                     c(radius, radius),
+    #                     col = "grey80",
+    #                     lty = "dashed")
+    #     text(1.3, radius - 0.05, levels(venn_var)[i], cex = 0.8)
+    #   }
+    #   i <- i + 1
+    # }
     
     # Block inner cicle
     pie_add(
@@ -428,4 +441,28 @@ pie_add <- function(x,
   }
   graphics::title(main = main, ...)
   invisible(NULL)
+}
+
+plotrix::draw.circle
+
+# https://stackoverflow.com/a/26795448
+ring <- function(x,y,outer,inner, border=NULL, col=NA, lty=par("lty"), N=100, ...) {
+  part_pi <- pi
+  t <- seq(0, part_pi, length.out=N)
+  #tx <- seq(0-part_pi/10, part_pi+part_pi/10, length.out=N)
+  top <- cbind(c(x+cos(t)*outer, x-cos(t)*inner), c(y+sin(t)*outer, y+sin(t)*inner))
+  bot <- cbind(c(x-cos(t)*outer, x+cos(t)*inner), c(y-sin(t)*outer, y-sin(t)*inner))
+  out <- cbind(c(x+cos(t)*outer,x-cos(t)*outer),  c(y+sin(t)*outer, y-sin(t)*outer))
+  inn <- cbind(c(x-cos(t)*inner, x+cos(t)*inner), c(y+sin(t)*inner,  y-sin(t)*inner))
+  if (!is.na(col)) {
+    polygon(top, border=NA, col = col, ...)
+    polygon(bot, border=NA, col = col, ...)
+  }
+  if(!is.null(border)) {
+    lines(out, col=border, lty=lty)
+    lines(inn, col=border, lty=lty)
+  } else {
+    lines(out, lty=lty)
+    lines(inn, lty=lty)     
+  }
 }
