@@ -247,23 +247,23 @@ plot_egogram <-
     #                      border = "grey70",
     #                      col = paste0("#ffffff", as.hexmode(seq(0, 140,  140 / venn_n))))
     
-    # theta <- seq(0, 2 * pi, length = 200)
-    # i <- 0
-    # for (radius in c(1:(venn_n + 1) / (venn_n + 1))) {
-    #   graphics::lines(x = radius * cos(theta),
-    #                   y = radius * sin(theta),
-    #                   col = "grey")
-    #   # Venn Labels
-    #   if (i > 0 & show_venn_labels) {
-    #     graphics::lines(c(0, 1.8),
-    #                     c(radius, radius),
-    #                     col = "grey80",
-    #                     lty = "dashed")
-    #     text(1.3, radius - 0.05, levels(venn_var)[i], cex = 0.8)
-    #   }
-    #   i <- i + 1
-    # }
-    
+    theta <- seq(0, 2 * pi, length = 200)
+    i <- 0
+    for (radius in c(1:(venn_n + 1) / (venn_n + 1))) {
+      # graphics::lines(x = radius * cos(theta),
+      #                 y = radius * sin(theta),
+      #                 col = "grey")
+      # Venn Labels
+      if (i > 0 & show_venn_labels) {
+        graphics::lines(c(0, 1.8),
+                        c(radius, radius),
+                        col = "grey80",
+                        lty = "dashed")
+        text(1.3, radius - 0.05, levels(venn_var)[i], cex = 0.8)
+      }
+      i <- i + 1
+    }
+
     # Block inner cicle
     pie_add(
       1,
