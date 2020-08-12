@@ -67,7 +67,7 @@ ego_design.nested_egor <- function(x, ...) if (has_ego_design(x)) x # otherwise 
 #'   formulas, they can refer to columns (ego attributes) of
 #'   `x`. `NULL` clears design information.
 #'
-#' @note This can be useful for adjusting or reinitializing the ego
+#' @note This can be useful for adjusting or re-initializing the ego
 #'   design information after the underlying ego attributes had been
 #'   modified.
 #' @export

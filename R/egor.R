@@ -35,17 +35,11 @@ if (getRversion() >= "2.15.1") utils::globalVariables(c(":="))
 #'   for internal use of `egor` and should not be used to store
 #'   persistent data. Other `.`-led column names may be reserved in
 #'   the future.
-#' @return Returns an [`egor`] object. An [`egor`] object is a [`tibble`] whose
-#'   top-level columns store the ego attributes, and which has two
-#'   special nested columns: `.alts`, containing, for each row (ego) a
-#'   table of that ego's alter attributes and `.aaties`, a table
-#'   containing that ego's alter--alter ties, if observed.
-#'
-#'   If alter-alter ties are observed, `.alts` also has a column
-#'   `.altID` giving a unique (within each ego) ID of the alter, by
-#'   which the alter can be identified in the `.aaties` table for that
-#'   ego. `.aaties`, in turn, has columns `.srcID` and `.tgtID` that
-#'   contain the source and the target of the alter-alter relation.
+#' @return Returns an [`egor`] object, which is a `named list` with three 
+#'    `tibble data.frames`: ego, alter and aatie (alter-alter ties).
+#'    Each data set has an `.egoID` column, that groups the data belonging to one
+#'    ego. Additionally the alter data has an `.alterID` column, that links to 
+#'    the columns `.srcID` and `.tgtID` in the alter-alter tie data.
 #'
 #'   In addition, `egor` has two attributes: `ego_design`, containing an
 #'   object returned by [srvyr::as_survey_design()] specifying the sampling

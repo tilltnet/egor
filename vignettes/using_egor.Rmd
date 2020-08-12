@@ -22,7 +22,7 @@ library(egor)
 
 ## The `egor` Package
 
-egor provides
+`egor` provides
 
 - import functions
 - egor object organizes ego-centered network, allowing for a smooth workflow
