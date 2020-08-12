@@ -191,7 +191,7 @@ summary.egor <- function(object, ...) {
   
   # Average density
   if ("aatie" %in% names(object)) 
-    dens <- mean(ego_density(object = object), na.rm = TRUE)
+    dens <- mean(ego_density(object = object)$density, na.rm = TRUE)
   else
     dens <- NULL
   
