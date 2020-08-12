@@ -25,3 +25,8 @@ test_that(
   }
 )
 
+test_that("proportional results sum up to 1", {
+  e <- make_egor(3, 3)
+  res <- composition(e, "age")
+  expect_equal(rowSums(res[-1], na.rm = TRUE), c(1,1,1))
+})
