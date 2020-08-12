@@ -8,7 +8,7 @@ test_that(
     expect_error(composition(e, "age", T), NA, label = "composition absolute")
     expect_error(composition(e, "age"), NA, label = "composition proportional")
 
-    expect_error(comp_ei(e, "sex", "sex"), NA, label = "comp_ei")
+    expect_error(comp_ei(object = e, alt.attr = "sex", ego.attr = "sex"), NA)
     
     expect_error(comp_ply(e, "age", .f = egor:::fun_alts_diversity), 
                  NA, label = "comp_ply fun_alts_diversity")
@@ -30,3 +30,40 @@ test_that("proportional results sum up to 1", {
   res <- composition(e, "age")
   expect_equal(rowSums(res[-1], na.rm = TRUE), c(1,1,1))
 })
+
+
+comp_ei(object = e, alt.attr = "sex", ego.attr = "sex")
+
+test_that("comp_ply works with missing alters",
+          {
+            e <- make_egor(3, 3)
+            res <- e %>% 
+              activate(alter) %>% 
+              filter(.egoID != 3) %>% 
+              comp_ei(alt.attr = "sex", ego.attr = "sex")
+            expect_equal(res$.egoID, c(1, 2, 3))
+            expect_equal(nrow(res), 3)
+          })
+
+
+test_that(".egoID class is conserved", {
+  e <- make_egor(3, 3)
+  expect_equal(
+    class(comp_ei(e, alt.attr = "sex", ego.attr = "sex")$.egoID),
+    class(e$ego$.egoID)
+  )
+  e2 <- 
+    e %>% 
+    mutate(.egoID = as.character(.egoID)) %>% 
+    activate(alter) %>% 
+    mutate(.egoID = as.character(.egoID)) %>% 
+    activate(aatie) %>% 
+    mutate(.egoID = as.character(.egoID))
+  
+  expect_equal(
+    class(comp_ei(e2, alt.attr = "sex", ego.attr = "sex")$.egoID),
+    class(e2$ego$.egoID)
+  )
+})
+
+

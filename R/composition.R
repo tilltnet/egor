@@ -54,6 +54,7 @@ composition <- function(object, alt.attr, absolute = FALSE) {
 #' @param .f A `function` that returns a numeric.
 #' @param ... Optional arguments to `.f`.
 #' @param ego.attr Optional  `character` naming an ego attribute.
+#' @param result.name Optional `character` naming the result column.
 #' @return A `tibble` with the ego ID and a `numeric` result vector.
 #' @details When an ego attribute is used the `.f` is called like this: 
 #' `.f(alt.attr, ego.attr, ...)`. `.f` must return a single numeric value.
@@ -65,23 +66,29 @@ composition <- function(object, alt.attr, absolute = FALSE) {
 #' @author Till Krenz, \email{public@tillt.net}
 #' @importFrom purrr map2_dbl
 #' @export
-comp_ply <- function(object, alt.attr, .f, ..., ego.attr = NULL) {
-  alt.attr_enquo <- enquo(alt.attr)
-  alter_l <- alters_by_ego(object)
-  
-  if (!is.null(ego.attr)) {
-    res <- map2_dbl(alter_l, as_tibble(object$ego)[[ego.attr]], function(x, y)
-      pull(x, !!alt.attr_enquo) %>% .f(y, ...))
-  } else {
-    res <- map_dbl(alter_l, function(x)
-      pull(x, !!alt.attr_enquo) %>% .f(...))
-  }
-    res %>%
-    {
-      tibble(.egoID = names(.),
-             result = .)
+comp_ply <-
+  function(object,
+           alt.attr,
+           .f,
+           ...,
+           ego.attr = NULL,
+           result.name = "result") {
+    alt.attr_enquo <- enquo(alt.attr)
+    alter_l <- alters_by_ego(object)
+    
+    if (!is.null(ego.attr)) {
+      res <-
+        map2_dbl(alter_l, as_tibble(object$ego)[[ego.attr]], function(x, y)
+          pull(x,!!alt.attr_enquo) %>% .f(y, ...))
+    } else {
+      res <- map_dbl(alter_l, function(x)
+        pull(x,!!alt.attr_enquo) %>% .f(...))
     }
-}
+    res <- tibble(.egoID = object$ego$.egoID,
+                  result.name := res)
+    names(res) <- c(".egoID", result.name)
+    res
+  }
 
 #' Calculate diversity measures on an `egor` object.
 #'
@@ -101,7 +108,7 @@ comp_ply <- function(object, alt.attr, .f, ..., ego.attr = NULL) {
 #' @author Till Krenz, \email{public@tillt.net}
 #' @export
 alts_diversity_count <- function(object, alt.attr) 
-  comp_ply(object, alt.attr, .f = fun_alts_diversity)
+  comp_ply(object, alt.attr, .f = fun_alts_diversity, result.name = "diversity")
 
 fun_alts_diversity <- function(x, var_name) {
   na.omit(x) %>% factor() %>% unique() %>% length()
@@ -110,7 +117,7 @@ fun_alts_diversity <- function(x, var_name) {
 #' @rdname alts_diversity_count
 #' @export
 alts_diversity_entropy <- function(object, alt.attr, base = 2) 
-  comp_ply(object, alt.attr, .f = fun_entropy, base = base)
+  comp_ply(object, alt.attr, .f = fun_entropy, base = base, result.name = "entropy")
 
 fun_entropy <- function(x, base = 2) {
   ptab <- prop.table(table(factor(x)))
@@ -130,7 +137,7 @@ fun_entropy <- function(x, base = 2) {
 #' comp_ei(egor32, "age", "age")
 #' @export
 comp_ei <- function(object, alt.attr, ego.attr) 
-  comp_ply(object, alt.attr, .f = fun_comp_ei, ego.attr = ego.attr)
+  comp_ply(object, alt.attr, .f = fun_comp_ei, ego.attr = ego.attr, result.name = "ei")
 
 fun_comp_ei <- function (x, ego_var) 
 {
@@ -149,15 +156,3 @@ fun_comp_ei <- function (x, ego_var)
       }
   })
 }
-
-
-
-
-
-
-
-
-
-
-
-
