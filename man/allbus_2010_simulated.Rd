@@ -21,6 +21,6 @@ work with the Allbus data using egor and R - no analytical assumptions should
 be made based on this data!
 }
 \details{
-The dataset contains (simulated!) answers two ego-centered name generators.
+The dataset contains (simulated!) answers to two ego-centered name generators.
 }
 \keyword{datasets}
