@@ -51,6 +51,7 @@ ego_density.egor <- function(object, weight = NULL, max.netsize = NULL, directed
   }
   
   density <- as.vector(dyaden_real / dyad_poss)
+  names(density) <- names(alter_l)
   density[is.infinite(density)] <- NA
-  density
+  tibble::enframe(density, name = ".egoID", value = "density")
 }
