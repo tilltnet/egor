@@ -39,7 +39,7 @@ composition <- function(object, alt.attr, absolute = FALSE) {
       select(.egoID, tmp, prop) %>%
       tidyr::spread(tmp, prop)
   }
-  comp(group_by(object$alter, .egoID))
+  ungroup(comp(group_by(object$alter, .egoID)))
 }
 
 
