@@ -9,6 +9,7 @@ test_that(
                      alterID = rep(1:4, 4),
                      fav_color = sample(c("red", "green", "blue"), 16, replace = TRUE))
     expect_error(egor(alters), NA)
+    expect_equal(ncol(egor(alters)$aatie), 3)
   }
 )
 
@@ -24,8 +25,6 @@ test_that(
     expect_error(egor(alters, egos), NA)
   }
 )
-
-
 
 # alters+aaties
 
@@ -156,9 +155,6 @@ test_that(
   }
 )
 
-# What of Input is dataframes? (NOT tibbles)
-
-
 test_that(
   "egor(): can process dataframes that are not tibbles.",
   {
@@ -196,6 +192,7 @@ test_that(
                       aaties_df), NA)
     
     expect_warning(summary(egor(alters_df, egos_df, aaties_df)), NA)
+  
   }
 )
 
