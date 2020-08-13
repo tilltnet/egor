@@ -92,7 +92,7 @@ test_that("comp_ei handles extreme values (only one group in alts) correctly",
             
             expect_true(all(abs(comp_ei(object = egor32,
                                         alt.attr = "sex", 
-                                        ego.attr = "sex")$result[1:3]) == 1))
+                                        ego.attr = "sex")$ei[1:3]) == 1))
           })
 
 test_that("comp_ei handles character vectors correctly",
@@ -111,3 +111,10 @@ test_that("comp_ei handles character vectors correctly",
             
           })
 
+test_that("EI() ungroups data first", {
+  eigor <- make_egor(net.count = 6, max.alters = 20)
+  expect_error(eigor %>% 
+    activate(aatie) %>% 
+    group_by(.egoID) %>% 
+    EI(alt.attr = "age"), NA)
+  })

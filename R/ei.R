@@ -104,11 +104,17 @@ EI <- function(object, alt.attr) {
   
   alt.attr_enquo <- enquo(alt.attr)
   
+  object <- 
+    map(object, ungroup)
+  
+  class(object) <- c("egor", class(object))
+  
   object2 <- strip_ego_design(as_nested_egor(object))
   
   obj <-
     object2 %>%
     as_tibble() %>%
+    ungroup() %>% 
     select(.alts, .aaties) %>%
     get_ei_tab() %>%
     calc_grp_sizes() %>%
