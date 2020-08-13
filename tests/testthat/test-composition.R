@@ -31,9 +31,6 @@ test_that("proportional results sum up to 1", {
   expect_equal(rowSums(res[-1], na.rm = TRUE), c(1,1,1))
 })
 
-
-comp_ei(object = e, alt.attr = "sex", ego.attr = "sex")
-
 test_that("comp_ply works with missing alters",
           {
             e <- make_egor(3, 3)
