@@ -78,14 +78,21 @@ comp_ply <-
     
     if (!is.null(ego.attr)) {
       res <-
-        map2_dbl(alter_l, as_tibble(object$ego)[[ego.attr]], function(x, y)
+        purrr::map2_dbl(alter_l, as_tibble(object$ego)[[ego.attr]], function(x, y)
           pull(x,!!alt.attr_enquo) %>% .f(y, ...))
     } else {
-      res <- map_dbl(alter_l, function(x)
+      res <- purrr::map_dbl(alter_l, function(x)
         pull(x,!!alt.attr_enquo) %>% .f(...))
     }
-    res <- tibble(.egoID = object$ego$.egoID,
-                  result.name := res)
+    
+    ego_id <- if(any(class(object$ego) == "tbl_svy")) {
+      object$ego$variables$.egoID
+    } else {
+      object$ego$.egoID
+    }
+    
+    res <- tibble(.egoID = ego_id,
+                  result.name = res)
     names(res) <- c(".egoID", result.name)
     res
   }
