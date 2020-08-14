@@ -29,7 +29,6 @@ test_that("density2 values are between 0 an 1", {
 # Non-numeric ego ID
 test_that("non-numeric egoIDs work with ego_density",{
   of <- make_egor(5, 20)
-  
   of$ego$.egoID[5] <- "otto"
   of$alter$.egoID[of$alter$.egoID == 5] <- "otto"
   of$aatie$.egoID[of$aatie$.egoID == 5] <- "otto"

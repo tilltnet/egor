@@ -49,7 +49,7 @@ Extract, set, remove, or update the survey design associated with
 an ego-centered dataset.
 }
 \note{
-This can be useful for adjusting or reinitializing the ego
+This can be useful for adjusting or re-initializing the ego
 design information after the underlying ego attributes had been
 modified.
 }

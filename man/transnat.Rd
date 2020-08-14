@@ -40,7 +40,9 @@ The questionnaire used seven name generators:
 }
 }
 \references{
-Herz, A. (2015). Relational constitution of social support in migrants' transnational personal communities. Social Networks, 40 (1), S. 64-74.
-Herz, A. (2012). Strukturen transnationaler sozialer Unterstützung. Springer Fachmedien Wiesbaden.
+\itemize{
+\item Herz, A. (2015). Relational constitution of social support in migrants' transnational personal communities. Social Networks, 40 (1), S. 64-74.
+\item Herz, A. (2012). Strukturen transnationaler sozialer Unterstützung. Springer Fachmedien Wiesbaden.
+}
 }
 \keyword{datasets}

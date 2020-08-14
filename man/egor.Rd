@@ -72,17 +72,11 @@ ego can nominate.}}}
 \item{...}{arguments to be passed to methods}
 }
 \value{
-Returns an \code{\link{egor}} object. An \code{\link{egor}} object is a \code{\link{tibble}} whose
-top-level columns store the ego attributes, and which has two
-special nested columns: \code{.alts}, containing, for each row (ego) a
-table of that ego's alter attributes and \code{.aaties}, a table
-containing that ego's alter--alter ties, if observed.
-
-If alter-alter ties are observed, \code{.alts} also has a column
-\code{.altID} giving a unique (within each ego) ID of the alter, by
-which the alter can be identified in the \code{.aaties} table for that
-ego. \code{.aaties}, in turn, has columns \code{.srcID} and \code{.tgtID} that
-contain the source and the target of the alter-alter relation.
+Returns an \code{\link{egor}} object, which is a \verb{named list} with three
+\verb{tibble data.frames}: ego, alter and aatie (alter-alter ties).
+Each data set has an \code{.egoID} column, that groups the data belonging to one
+ego. Additionally the alter data has an \code{.alterID} column, that links to
+the columns \code{.srcID} and \code{.tgtID} in the alter-alter tie data.
 
 In addition, \code{egor} has two attributes: \code{ego_design}, containing an
 object returned by \code{\link[srvyr:as_survey_design]{srvyr::as_survey_design()}} specifying the sampling

@@ -69,9 +69,9 @@ attr.end.col <- which(names(egos_8) == "alter.age.8")
 dy.first.var <- which(names(egos_8) == "X1.to.2")
 
 onefile_to_egor(
-  egos = egos_8, netsize = egos_8$netsize, 
-  attr.start.col = attr.start.col, 
-  attr.end.col = attr.end.col, 
+  egos = egos_8, netsize = egos_8$netsize,
+  attr.start.col = attr.start.col,
+  attr.end.col = attr.end.col,
   aa.first.var = dy.first.var,
   max.alters = 8)
 }

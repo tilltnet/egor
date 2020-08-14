@@ -4,7 +4,7 @@
 \alias{comp_ply}
 \title{Calculate custom compositional measures on an \code{egor} object}
 \usage{
-comp_ply(object, alt.attr, .f, ..., ego.attr = NULL)
+comp_ply(object, alt.attr, .f, ..., ego.attr = NULL, result.name = "result")
 }
 \arguments{
 \item{object}{An \code{egor} object.}
@@ -16,6 +16,8 @@ comp_ply(object, alt.attr, .f, ..., ego.attr = NULL)
 \item{...}{Optional arguments to \code{.f}.}
 
 \item{ego.attr}{Optional  \code{character} naming an ego attribute.}
+
+\item{result.name}{Optional \code{character} naming the result column.}
 }
 \value{
 A \code{tibble} with the ego ID and a \code{numeric} result vector.

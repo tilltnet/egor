@@ -453,14 +453,14 @@ ring <- function(x,y,outer,inner, border=NULL, col=NA, lty=par("lty"), N=100, ..
   out <- cbind(c(x+cos(t)*outer,x-cos(t)*outer),  c(y+sin(t)*outer, y-sin(t)*outer))
   inn <- cbind(c(x-cos(t)*inner, x+cos(t)*inner), c(y+sin(t)*inner,  y-sin(t)*inner))
   if (!is.na(col)) {
-    polygon(top, border=NA, col = col, ...)
-    polygon(bot, border=NA, col = col, ...)
+    graphics::polygon(top, border=NA, col = col, ...)
+    graphics::polygon(bot, border=NA, col = col, ...)
   }
   if(!is.null(border)) {
-    lines(out, col=border, lty=lty)
-    lines(inn, col=border, lty=lty)
+    graphics::lines(out, col=border, lty=lty)
+    graphics::lines(inn, col=border, lty=lty)
   } else {
-    lines(out, lty=lty)
-    lines(inn, lty=lty)     
+    graphics::lines(out, lty=lty)
+    graphics::lines(inn, lty=lty)     
   }
 }
