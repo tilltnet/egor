@@ -28,7 +28,7 @@ ego_constraint <-
                 include.ego = TRUE,
                 ego.alter.weights = ego.alter.weights)
     
-    map_dbl(graphs,
+    res <- map_dbl(graphs,
             ~ igraph::constraint(
               .,
               weights = if (is.null(weights))
@@ -37,4 +37,5 @@ ego_constraint <-
                 get.edge.attribute(., weights),
               nodes = V(.)[V(.)$name == "ego"]
             ))
+    enframe(res, ".egoID", "constraint")
   }
