@@ -8,7 +8,7 @@ plot_ego_graphs <- function(x,
                             vertex_color_var = NULL,
                             vertex_color_palette = "Heat Colors",
                             vertex_color_legend_label = vertex_color_var,
-                            vertex_label_var = NULL,
+                            vertex_label_var = "name",
                             edge_width_var = NULL,
                             edge_color_var = NULL,
                             edge_color_palette = "Heat Colors",
@@ -61,7 +61,7 @@ plot_one_ego_graph <- function(x,
                                vertex_color_var = NULL,
                                vertex_color_palette = "Heat Colors",
                                vertex_color_legend_label = vertex_color_var,
-                               vertex_label_var = NULL,
+                               vertex_label_var = "name",
                                edge_width_var = NULL,
                                edge_color_var = NULL,
                                edge_color_palette = "Heat Colors",
@@ -149,14 +149,14 @@ plot_one_ego_graph <- function(x,
   } else {
     edge.color <- 1
   }
-  
-  # Label
+
+    # Label
   if (!is.null(vertex_label_var)) {
     vertex.label <-
       igraph::get.vertex.attribute(gr, vertex_label_var)
     vertex.label[is.na(vertex.label)] <- 0
   } else {
-    vertex.label <- igraph::V(gr)
+    vertex.label <- ""
   }
   
   par(mar = c(0.5, 0.5, 0.5, 0.5))
@@ -170,7 +170,6 @@ plot_one_ego_graph <- function(x,
   } else {
     layout_ <- layout
   }
-  
   
   set.seed(1337)
   #' @importFrom igraph plot.igraph

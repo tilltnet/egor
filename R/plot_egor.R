@@ -8,21 +8,22 @@
 #' @param y_dim Number of ego networks to plot vertically
 #' @param venn_var Name (character) of alter column.
 #' @param pie_var Name (character) of alter column.
-#' @param vertex_size_var Name (__character__) of alter column.
-#' @param vertex_color_var Name (__character__) of alter column.
-#' @param vertex_color_palette Name (__character__) of color palette.
+#' @param vertex_size_var Name (`character`) of alter column.
+#' @param vertex_color_var Name (`character`) of alter column.
+#' @param vertex_color_palette Name (`character`) of color palette, see details for available color palettes.
 #' @param vertex_color_legend_label Character.
-#' @param vertex_label_var Name (__character__) of alter column.
-#' @param edge_width_var Name (__character__) of aatie column.
-#' @param edge_color_var Name (__character__) of aatie column.
-#' @param edge_color_palette Name (__character__) of color palette.
-#' @param highlight_box_col_var Name (__character__) of ego column.
-#' @param highlight_box_col_palette Name (__character__) of color palette.
-#' @param res_disp_vars Name (__character__) of ego column.
+#' @param vertex_label_var Name (`character`) of alter column. Set this to `NULL` to suppress labels.
+#' @param edge_width_var Name (`character`) of aatie column.
+#' @param edge_color_var Name (`character`) of aatie column.
+#' @param edge_color_palette Name (`character`) of color palette, see details for available color palettes.
+#' @param highlight_box_col_var Name (`character`) of ego column.
+#' @param highlight_box_col_palette Name (`character`) of color palette, see details for available color palettes.
+#' @param res_disp_vars Name (`character`) of ego column.
 #' @param vertex_zoom Numeric.
 #' @param edge_zoom Numeric.
 #' @param font_size Numeric.
-#' @param venn_colors Vector of colors.
+#' @param venn_colors `Character` vector of colors to be used for coloring the 
+#' subsections of the circle.
 #' @param venn_gradient_reverse `Logical`, set to TRUE in order to have the color intensity
 #' of venns increase going from the inner circles to the outer circles.
 #' @param show_venn_labels Logical.
@@ -31,7 +32,22 @@
 # @param layout `Matrix` of x and y coordinates for nodes. Defaults to 
 # Fruchterman Rheingold layout algorithm.
 #' @param ... Additional arguments forwared to plot.igraph.
-#' @details For type eqals "egograph" ego networks are plotted using 
+#' @details For type eqals "egograph" ego networks are plotted with `igraph`'s
+#' plotting engine. "egogram" uses a special layout that places the nodes
+#' on a map of (1) concentric circles with (2) subsections, that can be mapped to 
+#' alter variables.
+#' 
+#' Available color palettes are:
+#' 
+#' - Heat Colors
+#' - Yellow-Green
+#' - Red-Yellow
+#' - Blue-Red
+#' - Black-White
+#' - Greys
+#' - Rainbow
+#' - Topo Colors
+#' 
 #' @examples 
 #' e <- make_egor(net.count = 5, max.alters = 12)
 #' plot_egograms(x = e,

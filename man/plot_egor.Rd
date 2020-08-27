@@ -86,7 +86,7 @@ plot_egor(
 
 \item{vertex_color_var}{Name (\strong{character}) of alter column.}
 
-\item{vertex_color_palette}{Name (\strong{character}) of color palette.}
+\item{vertex_color_palette}{Name (\strong{character}) of color palette, see details for available color palettes.}
 
 \item{vertex_color_legend_label}{Character.}
 
@@ -96,11 +96,11 @@ plot_egor(
 
 \item{edge_color_var}{Name (\strong{character}) of aatie column.}
 
-\item{edge_color_palette}{Name (\strong{character}) of color palette.}
+\item{edge_color_palette}{Name (\strong{character}) of color palette, see details for available color palettes.}
 
 \item{highlight_box_col_var}{Name (\strong{character}) of ego column.}
 
-\item{highlight_box_col_palette}{Name (\strong{character}) of color palette.}
+\item{highlight_box_col_palette}{Name (\strong{character}) of color palette, see details for available color palettes.}
 
 \item{res_disp_vars}{Name (\strong{character}) of ego column.}
 
@@ -110,7 +110,8 @@ plot_egor(
 
 \item{font_size}{Numeric.}
 
-\item{venn_colors}{Vector of colors.}
+\item{venn_colors}{\code{Character} vector of colors to be used for coloring the
+subsections of the circle.}
 
 \item{venn_gradient_reverse}{\code{Logical}, set to TRUE in order to have the color intensity
 of venns increase going from the inner circles to the outer circles.}
@@ -128,7 +129,22 @@ of venns increase going from the inner circles to the outer circles.}
 default networks of the four first egos are plotted.
 }
 \details{
-For type eqals "egograph" ego networks are plotted using
+For type eqals "egograph" ego networks are plotted with \code{igraph}'s
+plotting engine. "egogram" uses a special layout that places the nodes
+on a map of (1) concentric circles with (2) subsections, that can be mapped to
+alter variables.
+
+Available color palettes are:
+\itemize{
+\item Heat Colors
+\item Yellow-Green
+\item Red-Yellow
+\item Blue-Red
+\item Black-White
+\item Greys
+\item Rainbow
+\item Topo Colors
+}
 }
 \section{Functions}{
 \itemize{

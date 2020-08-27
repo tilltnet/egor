@@ -100,7 +100,7 @@ plot_egograms <- function(x,
                           vertex_color_var = NULL,
                           vertex_color_palette = "Heat Colors",
                           vertex_color_legend_label = vertex_color_var,
-                          vertex_label_var = NULL,
+                          vertex_label_var = "name",
                           edge_width_var = NULL,
                           edge_color_var = NULL,
                           edge_color_palette = "Heat Colors",
@@ -162,7 +162,7 @@ plot_egogram <-
            vertex_color_var = NULL,
            vertex_color_palette = "Heat Colors",
            vertex_color_legend_label = vertex_color_var,
-           vertex_label_var = NULL,
+           vertex_label_var = "name",
            edge_width_var = NULL,
            edge_color_var = NULL,
            edge_color_palette = "Heat Colors",
@@ -270,7 +270,8 @@ plot_egogram <-
       labels = NA,
       border = FALSE,
       add = TRUE,
-      radius = 1 / (venn_n + 1) + 0.01
+      radius = 1 / (venn_n + 1) + 0.01,
+      col = "white"
     )
     
     # Layout
@@ -390,7 +391,7 @@ pie_add <- function(x,
   graphics::plot.window(xlim, ylim, "", asp = 1)
   if (is.null(col))
     col <- if (is.null(density))
-      c("white",
+      c("beige",
         "lightblue",
         "mistyrose",
         "lightcyan",

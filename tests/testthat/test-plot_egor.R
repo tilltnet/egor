@@ -290,6 +290,18 @@ test_that("plot_ego_gram plots empty levels of a factor variables for pies and v
                   #highlight_box_col_var = "country"
                   )
     
+    plot_egograms(e,
+                  ego_no = 1,
+                  venn_var = "rating",
+                  pie_var = "sex", 
+                  vertex_color_var = "sex",
+                  edge_color_var = "weight",
+                  edge_width_var = "weight", 
+                  edge_zoom = 3, 
+                  vertex_label_var = NULL
+                  #highlight_box_col_var = "country"
+    )
+    
   }, NA)
   layout_egogram(e$alter$.altID, e$alter$age, e$alter$rating.f)
   expect_warning({
