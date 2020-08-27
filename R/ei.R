@@ -162,6 +162,6 @@ EI <- function(object, alt.attr) {
       spread(fact, ei_sc)
   })
   
-  cat(paste0("EI-Index: " , substitute(alt.attr), "\n"))
-  bind_cols(a, b)
+  #cat(paste0("EI-Index: " , substitute(alt.attr), "\n"))
+  bind_cols(.egoID = object$ego$.egoID, ei = a, b)
 }
