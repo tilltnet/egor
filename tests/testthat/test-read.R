@@ -115,31 +115,31 @@ test_that(
   }
 )
 
-test_that("twofiles_to_egor works with transnat data", {
-  skip_if_not(Sys.info()["nodename"] == "Tills-MacBook-Pro.local")
-  #alteri_raw <- foreign::read.spss("/Users/tillkrenz/Dropbox/Nextcloud/clientsync/Lehre/egor Workshop/egor_sunbelt_18/02_tie.sav", to.data.frame = TRUE, use.value.labels = FALSE)
-  #egos_raw <- foreign::read.spss("/Users/tillkrenz/Dropbox/Nextcloud/clientsync/Lehre/egor Workshop/egor_sunbelt_18/02_net.sav", to.data.frame = T, use.value.labels = F)
-  #save(alteri_raw, egos_raw, file = "/Users/tillkrenz/Dropbox/egor_kram/transnat_raw_data.rda")
-  load("~/Dropbox/egor_kram/transnat_raw_data.rda")
-  alter.alter <- egos_raw[12:39]
-  sorted_alter_alter <- sort(names(alter.alter))
-  egos_raw <- data.frame(egos_raw[1:11], egos_raw[sorted_alter_alter])
-  
-  which(names(egos_raw) == "b10_1_2") # Insert variable name of first alter-alter variable.
-  transnat <- twofiles_to_egor(egos = egos_raw, 
-                               alters = alteri_raw, 
-                               e.max.alters = 8,
-                               e.first.var = 12, 
-                               selection = "selected")
-  a <- transnat$aatie %>% 
-    filter(.egoID == 12) %>% 
-    {c(.$.srcID, .$.tgtID)} %>% 
-    sort() %>% 
-    unique() %>% 
-    as.numeric()
-  b <- alteri_raw %>% filter(egoID == 12, selected == 1) %>% pull(alterID)
-  expect_true(all(a %in% b))
-})
+# test_that("twofiles_to_egor works with transnat data", {
+#   skip_if_not(Sys.info()["nodename"] == "Tills-MacBook-Pro.local")
+#   #alteri_raw <- foreign::read.spss("/Users/tillkrenz/Dropbox/Nextcloud/clientsync/Lehre/egor Workshop/egor_sunbelt_18/02_tie.sav", to.data.frame = TRUE, use.value.labels = FALSE)
+#   #egos_raw <- foreign::read.spss("/Users/tillkrenz/Dropbox/Nextcloud/clientsync/Lehre/egor Workshop/egor_sunbelt_18/02_net.sav", to.data.frame = T, use.value.labels = F)
+#   #save(alteri_raw, egos_raw, file = "/Users/tillkrenz/Dropbox/egor_kram/transnat_raw_data.rda")
+#   load("~/Dropbox/egor_kram/transnat_raw_data.rda")
+#   alter.alter <- egos_raw[12:39]
+#   sorted_alter_alter <- sort(names(alter.alter))
+#   egos_raw <- data.frame(egos_raw[1:11], egos_raw[sorted_alter_alter])
+#   
+#   which(names(egos_raw) == "b10_1_2") # Insert variable name of first alter-alter variable.
+#   transnat <- twofiles_to_egor(egos = egos_raw, 
+#                                alters = alteri_raw, 
+#                                e.max.alters = 8,
+#                                e.first.var = 12, 
+#                                selection = "selected")
+#   a <- transnat$aatie %>% 
+#     filter(.egoID == 12) %>% 
+#     {c(.$.srcID, .$.tgtID)} %>% 
+#     sort() %>% 
+#     unique() %>% 
+#     as.numeric()
+#   b <- alteri_raw %>% filter(egoID == 12, selected == 1) %>% pull(alterID)
+#   expect_true(all(a %in% b))
+# })
 
 test_that(
   "read_egonet() works.",
