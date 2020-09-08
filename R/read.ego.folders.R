@@ -42,61 +42,40 @@ read_egonet <- function(egos.file, alter.folder, edge.folder, csv.sep = ",",
   
   # Import ego data
   message("Reading ego data.")
-  egos <- read.csv(egos.file, sep = csv.sep, row.names = row.names)
+  egos <- read.csv(egos.file, 
+                   sep = csv.sep, 
+                   row.names = row.names)
   
   message("Checking if alter.files and edge.files correspond")
   # Check if alter.files and edge files correspond
-  alter.files <- list.files(alter.folder)
-  edge.files <- list.files(edge.folder)
-  check.alter.files <- gsub("[^0-9]", "", alter.files)
-  check.edge.files <- gsub("[^0-9]", "", edge.files)
-  check <- check.alter.files == check.edge.files
-  
-  if (!all.equal(check.alter.files, check.edge.files)) {
-    print(data.frame(check, alter.files, edge.files))
-    stop("Edge and alters data do not match up!")    
-  }
-  
-  message("Looking for egos without edges/alters.")
-  # Exclude egos from egos dataframe that are missing alter and edge files.
-  egos.to.exclude <- setdiff(egos[[IDv$ego]], check.alter.files)
-  if(is.double(egos.to.exclude)) egos <- subset(egos, !is.element(egos[[IDv$ego]], egos.to.exclude))
+  alter.files <- list.files(alter.folder, full.names = TRUE)
+  alter_ego_ids <- map(alter.files, basename)
+  alter_ego_ids <- gsub("[^0-9]", "", alter_ego_ids)
     
-  if (length(egos.to.exclude) > 0 ) {
-    print("The following egos are excluded from the egos dataframe,")
-    print("since no network data is avaiable for them:")
-    print(egos.to.exclude)
-  }
-
+  edge.files <- list.files(edge.folder, full.names = TRUE)
+  edge_ego_ids <- map(edge.files, basename)
+  edge_ego_ids <- gsub("[^0-9]", "", edge_ego_ids)
   
   # ...create alters df,...
   message("Creating $alters.df and $alters.list")
-  alter.attr.df <- data.frame()
-  alter.attr.list <- list()
-  for (i in 1:length(alter.files)) {
-    #print(i)
-    file <- alter.files[i]
-    data <- read.csv(paste(alter.folder, file, sep = "//"), sep = csv.sep, row.names = row.names)
-    alter.attr.df <- rbind(alter.attr.df, data)
-    alter.attr.list[[i]] <- data
-  }
   
-  message("Creating edge lists: $edges")
-  elist.list <- list()
-  j <- 1
-  for (i in 1:length(edge.files)) {
-    file <- edge.files[i]
-    cur_egoID <- gsub("[^0-9]", "", file)
-      elist.list[[i]] <- read.csv(paste(edge.folder, file, sep = "//"), sep = csv.sep, row.names = row.names)
-      j <- j + 1
-      names(elist.list[i]) <- cur_egoID
-  }
+  names(alter.files) <- alter_ego_ids
+  
+  alter.attr.df <- 
+    purrr::map_dfr(alter.files,
+                 read.csv, sep = csv.sep,
+                 .id = "egoID") %>%
+    select(!!sym(IDv$alter), !!sym(IDv$ego), everything())
+  
 
-  # Create Global edge list
-  aaties <- mapply(FUN = function(x, y) data.frame(egoID = y, x), elist.list, egos[[IDv$ego]], SIMPLIFY = F)
+  message("Creating edge lists: $edges")
+  names(edge.files) <- edge_ego_ids
   
-  aaties.df <- do.call(rbind, aaties)
-  
+  aaties.df <- 
+    purrr::map_dfr(edge.files,
+                   read.csv, sep = csv.sep,
+                   .id = "egoID")
+
   # Return:
   egor(alter.attr.df, egos, aaties.df, ID.vars=IDv, ...)
   } 

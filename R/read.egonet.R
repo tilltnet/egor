@@ -1,3 +1,5 @@
+if (getRversion() >= "2.15.1") utils::globalVariables(c("alterID", "egoID", ".tmp.srcID", ".tmp.tgtID"))
+
 # Read ego-centered-network data from single file format or two-file format.
 
 #' Obtain the index of a column in a data frame (or a list), producing
@@ -374,7 +376,7 @@ onefile_to_egor <-
                                    netsize = netsize)
     }
     message("Done.")
-    message("Note: Make sure to filter out edges with invalid weight values.")
+    message("Note: Make sure to filter out alter-alter ties with invalid weight values.")
     
     elist <-
       purrr::map2_dfr(egos[[IDv$ego]], e.lists, function(ego_id, edges)
@@ -385,8 +387,8 @@ onefile_to_egor <-
           edges
         }
       })
+
     # Filter out alters by network size
-    
     if (!is.null(netsize)) {
       cat("Filtering out empty alter entries using provided network size values: ")
       a <- c(1, cumsum(rep(max.alters, nrow(egos))) + 1)
@@ -401,13 +403,34 @@ onefile_to_egor <-
       warning("No netsize values provided, make sure to filter out invalid alter entries.")
     }
     
+    # Filter out aaties for egos with no alters
+    
+    elist <- 
+      filter(elist, !!rlang::sym(IDv$ego) %in% unique(alters.df[[IDv$ego]]))
+    
+    # Filter out aaties that reference non-existing alters
+    
+    alters.df[[IDv$ego]] <- factor(alters.df[[IDv$ego]])
+    elist[[IDv$ego]] <- factor(elist[[IDv$ego]], levels = levels(alters.df[[IDv$ego]]))
+
+    if (!is.null(netsize)) {
+      elist <- 
+        purrr::map2_dfr(split(alters.df, alters.df[IDv$ego]),
+                    split(elist, elist[IDv$ego]),
+                    function(alt, aa) {
+                      aa <- filter(aa, .tmp.srcID %in% alt$alterID)
+                      filter(aa, .tmp.tgtID %in% alt$alterID)
+                    })
+    }
+    
     # Return:
     egor(
-      alters.df,
-      egos[-c(attr.start.col:attr.end.col, aa.first.var:aa.last.var)],
-      elist,
+      alters = alters.df,
+      egos = egos[-c(attr.start.col:attr.end.col, aa.first.var:aa.last.var)],
+      aaties = elist,
       ID.vars = list(
         ego = IDv$ego,
+        alterID = "alterID",
         source = ".tmp.srcID",
         target = ".tmp.tgtID"
       ),

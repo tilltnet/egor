@@ -40,35 +40,17 @@ test_that(
         e.first.var = dy.first.var),
       NA)
     
-    alters_8_r500 <- sample_n(alters_8, 500)
-    alters_8_r500$egoID <- as.character(alters_8_r500$egoID)
-    
-    # No alterID
-    expect_error(
-      a <- twofiles_to_egor(
-        egos = egos_8,
-        alters = alters_8_r500,
-        ID.vars = list(
-          ego = "egoID",
-          alter = "alterID_",
-          source = "Source",
-          target = "Target"
-        ),
-        e.max.alters = 8,
-        e.first.var = dy.first.var),
-      NA)
-    
-    alters_8_r500$selection1 <-
-      sample(c(TRUE, FALSE), nrow(alters_8_r500), replace = TRUE)
-    alters_8_r500$selection2 <-
-      sample(c(1, 0), nrow(alters_8_r500), replace = TRUE)
-    alters_8_r500$selection3 <-
-      sample(c(1, NA), nrow(alters_8_r500), replace = TRUE)
+    alters_8$selection1 <-
+      sample(c(TRUE, FALSE), nrow(alters_8), replace = TRUE)
+    alters_8$selection2 <-
+      sample(c(1, 0), nrow(alters_8), replace = TRUE)
+    alters_8$selection3 <-
+      sample(c(1, NA), nrow(alters_8), replace = TRUE)
 
     expect_error(
       a <- twofiles_to_egor(
         egos = egos_8,
-        alters = alters_8_r500,
+        alters = alters_8,
         ID.vars = list(
           ego = "egoID",
           alter = "alterID_",
@@ -84,7 +66,7 @@ test_that(
     expect_error(
       a <- twofiles_to_egor(
         egos = egos_8,
-        alters = alters_8_r500,
+        alters = alters_8,
         ID.vars = list(
           ego = "egoID",
           alter = "alterID_",
@@ -100,7 +82,7 @@ test_that(
     expect_error(
       a <- twofiles_to_egor(
         egos = egos_8,
-        alters = alters_8_r500,
+        alters = alters_8,
         ID.vars = list(
           ego = "egoID",
           alter = "alterID_",
@@ -154,7 +136,7 @@ test_that(
         edge.folder = paste(path_to_edges_folder, "/", sep = ""),
         alter.folder = paste(path_to_alters_folder, "/", sep = ""),
         first.col.row.names = FALSE, csv.sep = ";")
-      ,NA)
+      , NA)
   }
 )
 
