@@ -19,7 +19,7 @@ plot_egograms(
   vertex_color_var = NULL,
   vertex_color_palette = "Heat Colors",
   vertex_color_legend_label = vertex_color_var,
-  vertex_label_var = NULL,
+  vertex_label_var = "name",
   edge_width_var = NULL,
   edge_color_var = NULL,
   edge_color_palette = "Heat Colors",
@@ -44,7 +44,7 @@ plot_ego_graphs(
   vertex_color_var = NULL,
   vertex_color_palette = "Heat Colors",
   vertex_color_legend_label = vertex_color_var,
-  vertex_label_var = NULL,
+  vertex_label_var = "name",
   edge_width_var = NULL,
   edge_color_var = NULL,
   edge_color_palette = "Heat Colors",
@@ -82,27 +82,27 @@ plot_egor(
 
 \item{pie_var}{Name (character) of alter column.}
 
-\item{vertex_size_var}{Name (\strong{character}) of alter column.}
+\item{vertex_size_var}{Name (\code{character}) of alter column.}
 
-\item{vertex_color_var}{Name (\strong{character}) of alter column.}
+\item{vertex_color_var}{Name (\code{character}) of alter column.}
 
-\item{vertex_color_palette}{Name (\strong{character}) of color palette, see details for available color palettes.}
+\item{vertex_color_palette}{Name (\code{character}) of color palette, see details for available color palettes.}
 
 \item{vertex_color_legend_label}{Character.}
 
-\item{vertex_label_var}{Name (\strong{character}) of alter column.}
+\item{vertex_label_var}{Name (\code{character}) of alter column. Set this to \code{NULL} to suppress labels.}
 
-\item{edge_width_var}{Name (\strong{character}) of aatie column.}
+\item{edge_width_var}{Name (\code{character}) of aatie column.}
 
-\item{edge_color_var}{Name (\strong{character}) of aatie column.}
+\item{edge_color_var}{Name (\code{character}) of aatie column.}
 
-\item{edge_color_palette}{Name (\strong{character}) of color palette, see details for available color palettes.}
+\item{edge_color_palette}{Name (\code{character}) of color palette, see details for available color palettes.}
 
-\item{highlight_box_col_var}{Name (\strong{character}) of ego column.}
+\item{highlight_box_col_var}{Name (\code{character}) of ego column.}
 
-\item{highlight_box_col_palette}{Name (\strong{character}) of color palette, see details for available color palettes.}
+\item{highlight_box_col_palette}{Name (\code{character}) of color palette, see details for available color palettes.}
 
-\item{res_disp_vars}{Name (\strong{character}) of ego column.}
+\item{res_disp_vars}{Name (\code{character}) of ego column.}
 
 \item{vertex_zoom}{Numeric.}
 
