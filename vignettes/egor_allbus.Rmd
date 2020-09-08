@@ -62,13 +62,12 @@ data("allbus_2010_simulated")
 raw_data <- allbus_2010_simulated
 ```
 
-The Allbus variable names are quite technical ranging from V1 to V981, thusly not 
-carrying any meaning related to the variable stimulus. Fortunately
+The Allbus variable names are quite technical ranging from V1 to V981. Fortunately
 the *haven* data import preserves the SPSS variable labels, that describe each
 variable in more detail. We are going to convert these labels into a format, 
 that allows us to use them as variable names.
 
-The code below extracts all variable labels and elimates all non-characters from
+The code below extracts all variable labels and eliminates all non-characters from
 the labels and substitutes spaces with underscores. 
 
 ```{r}
