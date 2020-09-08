@@ -86,7 +86,7 @@ test_that("as_network works with graph.attrs",
 test_that("as_igraph works.",
           {
             e <- make_egor(3, 22)
-            expect_error(as_igraph(e), NA, label = "default arguments")
+            expect_error(as_igraph(x = e), NA, label = "default arguments")
             
             e$alter <- e$alter %>%
               mutate(weight = sample((1:3) / 3, nrow(.), replace = TRUE))
@@ -97,8 +97,7 @@ test_that("as_igraph works.",
               ego.attrs = c("sex", "age"),
               ego.alter.weights = "weight"
             ),
-            NA,
-            label = "include.ego/ego.attrs/ego.alter.weights")
+            NA)
             
             expect_true("ego" %in% igraph::V(igraph_list[[1]])$name)
             expect_false(any(is.na(igraph::V(igraph_list[[1]])$sex)))
@@ -113,15 +112,14 @@ test_that("as_igraph works with several graph attributes",
                                      graph.attrs = c(".egoID", 
                                                      "income", 
                                                      "age")),
-                         NA,
-                         label = "include.ego/ego.attrs/ego.alter.weights")
+                         NA)
             
             expect_true(all(
               igraph::list.graph.attributes(igraph_list[[1]]) == c(".egoID",
                                                                    "income",
                                                                    "age")
             ))
-            
+            expect_true(is.atomic(igraph::graph.attributes(igraph_list[[1]])$.egoID))
           })
 
 test_that("as_igraph works with egor32.",

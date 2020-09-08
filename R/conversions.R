@@ -74,18 +74,18 @@ as_igraph.nested_egor <- function(x,
       SIMPLIFY = FALSE
     )
   
+  
   # Set graph attributes
   igraphs <-
-    lapply(
-      igraphs,
-      FUN = function(graph) {
-        for (i in 1:length(graph.attrs)) {
-          graph <- igraph::set_graph_attr(graph, graph.attrs[i], x[graph.attrs[i]])
-        }
-        graph
-      }
-    )
-  
+    purrr::map2(igraphs,
+                split(x[graph.attrs], 1:nrow(x)),
+                function(graph, attrs) {
+                  for (i in 1:ncol(attrs)) {
+                    graph <- igraph::set_graph_attr(graph, names(attrs)[i], attrs[[i]])
+                  }
+                  graph
+                })
+
   # Include Ego
   if (include.ego) {
     if (is.null(ego.attrs))
