@@ -28,11 +28,13 @@ as_alters_survey(object, include.ego.vars = FALSE)
 as_aaties_survey(object, include.ego.vars = FALSE, include.alter.vars = FALSE)
 }
 \arguments{
+\item{x, object, .data}{An \code{egor} object.}
+
+\item{...}{Additional arguments, currently unused.}
+
 \item{include.ego.vars}{Logical, specifying if ego variables should be included in the result.}
 
 \item{include.alter.vars}{Logical, specifying if alter variables should be included in the result.}
-
-\item{object, .data}{An \code{egor} object.}
 }
 \value{
 A \code{tibble} for the \code{as_tibble} and \verb{*_df} functions and a \code{tbl_svy} for \code{as_survey} and the \verb{*_survey} functions.

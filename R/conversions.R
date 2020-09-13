@@ -271,9 +271,10 @@ as.network.egor <- as_network
 #'
 #' @description [as_tibble()] method for `egor` extracts the currently active component (`ego`, `alter`, or `aaties`) table, optionally joining it with the others, dropping any survey design information.
 #'
-#' @param object,.data An `egor` object.
+#' @param x,object,.data An `egor` object.
 #' @param include.ego.vars Logical, specifying if ego variables should be included in the result.
 #' @param include.alter.vars Logical, specifying if alter variables should be included in the result.
+#' @param ... Additional arguments, currently unused.
 #' @examples
 #' # Load example data
 #' data(egor32)
