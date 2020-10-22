@@ -39,86 +39,78 @@
 #' 
 #' 
 #' @source General Social Survey data at NORC: \url{http://gss.norc.org/get-the-data}
-
+"gss2004"
 
 
 
 if(FALSE) {
   ### Code used to make the dataset
 
-  # library(tidyverse)
-  # 
-  # # Load data from a SPSS file (this was itself a column subset from original SAV from NORC)
-  # d <- haven::read_sav("~/Documents/Projects/statnet/ergm.ego-papers/data/GSS/GSS2004net.sav")
-  # 
-  # 
-  # # Select variables
-  # 
-  # sel <- d %>%
-  #   structure(names=tolower(names(.))) %>%
-  #   # Variable selection
-  #   select(
-  #     id, vpsu, vstrat, wtssall, # Design variables
-  #     age, race, sex, # Ego attributes  available for alters
-  #     marital, # Ego attributes not available for alters
-  #     numgiven,
-  #     matches("age[1-5]"), matches("race[1-5]"), matches("sex[1-5]"), # Alter attributes available for egos
-  #     matches("spouse[1-5]"), # Alter attributes, but dyadic covariates
-  #     matches("close[1-4][2-5]") # Alter-alter ties
-  #   ) %>%
-  #   # Additional vars for case selection
-  #   mutate(
-  #     .age = cut(age, 3) %>% as.numeric() # groups of age
-  #   )
-  # 
-  # 
-  # 
-  # # Stratified sample of cases ----------------------------------------------
-  # 
-  # # Strata correspond to interesting response patterns
-  # 
-  # svars <- rlang::exprs(.age, race, sex, marital, numgiven)
-  # 
-  # stratas <- 
-  #   sel %>%
-  #   group_by(!!!svars) %>%
-  #   summarise(n=n()) %>%
-  #   ungroup() %>%
-  #   mutate(
-  #     size = ifelse(n < 2, n, 2)
-  #   )
-  # 
-  # summary(stratas)
-  # 
-  # 
-  # set.seed(666)
-  # 
-  # samp <- sel %>%
-  #   arrange(!!!svars) %>%
-  #   as.data.frame(stringsAsFactors=FALSE) %>%
-  #   sampling::strata(
-  #     stratanames = as.character(svars),
-  #     size = stratas$size,
-  #     method = "srswor"
-  #   ) %>%
-  #   as_tibble()
-  # 
-  # 
-  # gss2004 <- sel %>% 
-  #   select(-.age) %>%
-  #   filter(row_number() %in% samp$ID_unit)
-  # 
-  # 
-  # save(gss2004, file=here::here("data/gss2004.rda"))
-  # 
-  # 
-  # # Some checks
-  # gss2004 %>%
-  #   select(matches("spouse[1-5]")) %>%
-  #   gather(var, val) %>%
-  #   distinct(val)
-  
-  
-  
-  
+   # library(tidyverse)
+   # 
+   # # Load data from a SPSS file (this was itself a column subset from original SAV from NORC)
+   # d <- haven::read_sav("~/Downloads/GSS2004.sav")
+   # 
+   # 
+   # # Select variables
+   # 
+   # sel <- d %>%
+   #   structure(names=tolower(names(.))) %>%
+   #   # Variable selection
+   #   select(
+   #     id, vpsu, vstrat, wtssall, # Design variables
+   #     age, race, sex, # Ego attributes  available for alters
+   #     marital, # Ego attributes not available for alters
+   #     numgiven,
+   #     matches("age[1-5]"), matches("race[1-5]"), matches("sex[1-5]"), # Alter attributes available for egos
+   #     matches("spouse[1-5]"), # Alter attributes, but dyadic covariates
+   #     matches("close[1-4][2-5]") # Alter-alter ties
+   #   ) %>%
+   #   # Additional vars for case selection
+   #   mutate(
+   #     .age = cut(age, 3) %>% as.numeric() # groups of age
+   #   )
+   # 
+   # 
+   # 
+   # # Stratified sample of cases ----------------------------------------------
+   # 
+   # # Strata correspond to interesting response patterns
+   # 
+   # svars <- rlang::exprs(.age, race, sex, marital, numgiven)
+   # 
+   # stratas <-
+   #   sel %>%
+   #   group_by(!!!svars) %>%
+   #   summarise(n=n()) %>%
+   #   ungroup() %>%
+   #   mutate(
+   #     size = ifelse(n < 2, n, 2)
+   #   )
+   # 
+   # summary(stratas)
+   # 
+   # set.seed(666)
+   # 
+   # samp <- sel %>%
+   #   arrange(!!!svars) %>%
+   #   as.data.frame(stringsAsFactors=FALSE) %>%
+   #   sampling::strata(
+   #     stratanames = as.character(svars),
+   #     size = stratas$size,
+   #     method = "srswor"
+   #   ) %>%
+   #   as_tibble()
+   # 
+   # gss2004 <- sel %>%
+   #   select(-.age) %>%
+   #   filter(row_number() %in% samp$ID_unit)
+   # 
+   # save(gss2004, file=("data/gss2004.rda"))
+   # 
+   # # Some checks
+   # gss2004 %>%
+   #   select(matches("spouse[1-5]")) %>%
+   #   gather(var, val) %>%
+   #   distinct(val)
 }

@@ -80,7 +80,6 @@ if (FALSE) {
 #' @references 
 #' - Herz, A. (2015). Relational constitution of social support in migrants' transnational personal communities. Social Networks, 40 (1), S. 64-74. 
 #' - Herz, A. (2012). Strukturen transnationaler sozialer Unterstützung. Springer Fachmedien Wiesbaden.
-
 "transnat"
 
 #' @rdname transnat 
