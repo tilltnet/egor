@@ -48,6 +48,7 @@ if (getRversion() >= "2.15.1") utils::globalVariables(c(":="))
 #'   nominated. See the argument above for currently implemented
 #'   settings.
 #' @keywords ego-centered network analysis
+#' @seealso [as_tibble()] for extracting ego, alter, and alter--alter tables, as [`tibble`]s or as `srvyr`'s [`tbl_svy`] surveys.
 #' @examples 
 #' data("egos32")
 #' data("alters32")
@@ -323,38 +324,4 @@ as.egor.nested_egor <- function(x, ID.vars = list(
       )
     )
   }
-}
-
-#' @method as_tibble egor
-#' @export
-as_tibble.egor <- function(x, 
-                           ..., 
-                           include.ego.vars = FALSE, 
-                           include.alter.vars = FALSE){
-  res <- as_tibble(x[[attr(x, "active")]])
-  
-  if (include.ego.vars & attr(x, "active") != "ego") {
-    
-    if (has_ego_design(x)) {
-      names(x$ego$variables)[names(x$ego$variables) != ".egoID"] <-
-        paste0(names(x$ego$variables)[names(x$ego$variables) != ".egoID"] , "_ego")
-      res <- full_join(res, x$ego$variables, by = ".egoID")
-    }else{
-      names(x$ego)[names(x$ego) != ".egoID"] <-
-        paste0(names(x$ego)[names(x$ego) != ".egoID"] , "_ego")
-      res <- full_join(res, x$ego, by = ".egoID")
-    }
-  }
-
-  if (include.alter.vars & attr(x, "active") == "aatie") {
-    res <- left_join(res, 
-                     x$alter, 
-                     by = c(".egoID", ".srcID" = ".altID"))
-    res <- left_join(res, 
-                     x$alter, 
-                     by = c(".egoID", ".tgtID" = ".altID"),
-                     suffix = c("_src","_tgt"))
-  }
-  
-  res
 }

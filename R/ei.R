@@ -26,7 +26,7 @@ if(getRversion() >= "2.15.1")
 #' whole network EI is a metric indicating the tendency of a network to be
 #' clustered by the categories of a given factor variable. The EI value of a
 #' group describes the tendency of that group within a network to be connected 
-#' [0,1) or not connected (-1,0]
+#' (if between 0 and 1) or not connected (if between -1 and 0)
 #' to other groups. Additionally, the EI index can be employed as a measurement
 #' for egos tendency to homo-/heteorphily - use the \code{egor::comp_ei()} command
 #' for that version of the EI-Index.

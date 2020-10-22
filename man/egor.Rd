@@ -122,6 +122,9 @@ egor(alters32,
                     source = ".SRCID",
                     target =  ".TGTID"))
 }
+\seealso{
+\code{\link[=as_tibble]{as_tibble()}} for extracting ego, alter, and alter--alter tables, as \code{\link{tibble}}s or as \code{srvyr}'s \code{\link{tbl_svy}} surveys.
+}
 \keyword{analysis}
 \keyword{ego-centered}
 \keyword{network}
