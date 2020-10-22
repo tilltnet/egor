@@ -25,6 +25,18 @@ test_that(
   }
 )
 
+test_that("composition() returns tbl_svy object, when ego_design present", {
+  x <- make_egor(5, 32)
+  
+  x$ego$sampling_weight <-
+    sample(1:10 / 10, 5, replace = TRUE)
+  ego_design(x) <- list(weight = "sampling_weight")
+  
+  res <- composition(object = x, "age")
+  
+  expect_is(res, "tbl_svy")
+})
+
 test_that("proportional results sum up to 1", {
   e <- make_egor(3, 3)
   res <- composition(e, "age")
@@ -40,6 +52,22 @@ test_that("comp_ply works with missing alters",
               comp_ei(alt.attr = "sex", ego.attr = "sex")
             expect_equal(res$.egoID, c(1, 2, 3))
             expect_equal(nrow(res), 3)
+          })
+
+test_that("comp_ply returns results as `tbl_svy` object",
+          {
+            x <- make_egor(5, 32)
+            
+            x$ego$sampling_weight <-
+              sample(1:10 / 10, 5, replace = TRUE)
+            ego_design(x) <- list(weight = "sampling_weight")
+            
+            res <- comp_ply(object = x,
+                            alt.attr = "age.years",
+                            .f = sd,
+                            result.name = "age_sd")
+            
+            expect_is(res, "tbl_svy")
           })
 
 

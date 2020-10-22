@@ -96,9 +96,9 @@ test_that(
 test_that(
   "egor() works with missing alters/ aaties / egos.",
   {
-    alters <- tibble(egoID = gl(4,4), 
+    alters <- tibble(egoID = as.numeric(gl(4,4)), 
                      alterID = rep(1:4, 4),
-                     fav_color = sample(c("red", "green", "blue"), 16, replace = TRUE))
+                     fav_color = as.character(sample(c("red", "green", "blue"), 16, replace = TRUE)))
     aaties <- tibble(egoID = sample(1:3, 32, replace = TRUE),
                      Source = sample(1:4, 32, replace = TRUE),
                      Target = sample(1:4, 32, replace = TRUE))
@@ -172,7 +172,7 @@ test_that(
 test_that(
   "egor(): can process dataframes that are not tibbles.",
   {
-    alters <- tibble(egoID = gl(4,4), 
+    alters <- tibble(egoID = as.numeric(gl(4,4)), 
                      alterID = rep(1:4, 4),
                      fav_color = sample(c("red", "green", "blue"), 16, replace = TRUE))
     aaties <- tibble(egoID = sample(1:3, 32, replace = TRUE),

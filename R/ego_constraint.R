@@ -37,5 +37,7 @@ ego_constraint <-
                 get.edge.attribute(., weights),
               nodes = V(.)[V(.)$name == "ego"]
             ))
-    enframe(res, ".egoID", "constraint")
+    res <- enframe(res, ".egoID", "constraint")
+    res$.egoID <- as(res$.egoID, Class = class(object$alter$.egoID))
+    return_results(object, res)
   }

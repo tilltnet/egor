@@ -118,3 +118,15 @@ test_that("EI() ungroups data first", {
     group_by(.egoID) %>% 
     EI(alt.attr = "age"), NA)
   })
+
+test_that("EI() returns tbl_svy object, when ego_design present", {
+  x <- make_egor(5, 32)
+  
+  x$ego$sampling_weight <-
+    sample(1:10 / 10, 5, replace = TRUE)
+  ego_design(x) <- list(weight = "sampling_weight")
+  
+  res <- EI(object = x, alt.attr =  "sex")
+  
+  expect_is(res, "tbl_svy")
+})

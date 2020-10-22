@@ -1,9 +1,5 @@
 if (getRversion() >= "2.15.1")
-  utils::globalVariables(
-    c(
-      "dyads"
-    )
-  )
+  utils::globalVariables(c("dyads"))
 
 #' Count attribute combinations of dyads in ego-centered networks
 #'
@@ -22,7 +18,7 @@ if (getRversion() >= "2.15.1")
 #' count_dyads(object = egor32,
 #'             alter_var_name = "country")
 #'
-#' # Return result as long tibble. 
+#' # Return result as long tibble.
 #' count_dyads(object = egor32,
 #'             alter_var_name = "country",
 #'             return_as = "long")
@@ -46,15 +42,16 @@ count_dyads <-
     
     aaties_df$dyads <-
       purrr::map2_chr(aaties_df[[paste0(alter_var_name, "_src")]],
-               aaties_df[[paste0(alter_var_name, "_tgt")]],
-               ~ paste(sort(c(.x, .y)), collapse = "_"))
+                      aaties_df[[paste0(alter_var_name, "_tgt")]],
+                      ~ paste(sort(c(.x, .y)), collapse = "_"))
     
     res <- count(aaties_df, .egoID, dyads)
     
     if (return_as[1] == "wide") {
       if (is.null(prefix))
-        prefix <- paste0("dy_", substring(alter_var_name, 1, 3), "_")
-      tidyr::pivot_wider(
+        prefix <-
+          paste0("dy_", substring(alter_var_name, 1, 3), "_")
+      res <- tidyr::pivot_wider(
         res,
         .egoID,
         names_from = "dyads",
@@ -62,6 +59,8 @@ count_dyads <-
         names_prefix = prefix,
         values_fill = list(n = 0)
       )
+      
+      return_results(object, res)
     }
     else
       res

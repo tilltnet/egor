@@ -35,3 +35,14 @@ test_that("non-numeric egoIDs work with ego_density",{
   expect_error(ego_density(object = of), NA)
 })
 
+test_that("ego_density() returns tbl_svy object, when ego_design present", {
+  x <- make_egor(5, 32)
+  
+  x$ego$sampling_weight <-
+    sample(1:10 / 10, 5, replace = TRUE)
+  ego_design(x) <- list(weight = "sampling_weight")
+  
+  res <- ego_density(object = x)
+
+  expect_is(res, "tbl_svy")
+})

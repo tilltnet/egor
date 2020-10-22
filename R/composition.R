@@ -39,7 +39,9 @@ composition <- function(object, alt.attr, absolute = FALSE) {
       select(.egoID, tmp, prop) %>%
       tidyr::spread(tmp, prop)
   }
-  ungroup(comp(group_by(object$alter, .egoID)))
+  res <- ungroup(comp(group_by(object$alter, .egoID)))
+  
+  return_results(object, res)
 }
 
 
@@ -94,7 +96,9 @@ comp_ply <-
     res <- tibble(.egoID = ego_id,
                   result.name = res)
     names(res) <- c(".egoID", result.name)
-    res
+    
+    egor:::return_results(x = object, results = res)
+    
   }
 
 #' Calculate diversity measures on an `egor` object.

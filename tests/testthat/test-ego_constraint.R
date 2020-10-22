@@ -13,3 +13,15 @@ test_that("ego_constraint works with weight", {
   
   expect_error(ego_constraint(object = e1, weight = "weight"), NA)
 })
+
+test_that("ego_constraint() returns tbl_svy object, when ego_design present", {
+  x <- make_egor(5, 32)
+  
+  x$ego$sampling_weight <-
+    sample(1:10 / 10, 5, replace = TRUE)
+  ego_design(x) <- list(weight = "sampling_weight")
+  
+  res <- ego_constraint(object = x)
+  
+  expect_is(res, "tbl_svy")
+})

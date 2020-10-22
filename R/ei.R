@@ -53,6 +53,8 @@ if(getRversion() >= "2.15.1")
 #' @importFrom tidyr complete
 #' @importFrom tibble as_tibble
 EI <- function(object, alt.attr) {
+  object_original <- object
+  
   ei <- function(e, i)
     (e - i) / (e + i)
   
@@ -98,14 +100,14 @@ EI <- function(object, alt.attr) {
       filter(fact.x == fact | fact.y == fact) %>%
       count(homogen) %>%
       complete(homogen) %>%
-      replace_na(list(n = 0)) %>%
-      spread(homogen, n)
+      tidyr::replace_na(list(n = 0)) %>%
+      tidyr::spread(homogen, n)
   }
   
   alt.attr_enquo <- enquo(alt.attr)
   
   object <- 
-    map(object, ungroup)
+    purrr::map(object, ungroup)
   
   class(object) <- c("egor", class(object))
   
@@ -137,7 +139,7 @@ EI <- function(object, alt.attr) {
         return(res)
       }
       
-      map(y$fact, function(z) {
+      purrr::map(y$fact, function(z) {
         calc_grp_ei_tab(x, z)
       }) %>%
         bind_rows() %>%
@@ -159,9 +161,14 @@ EI <- function(object, alt.attr) {
     x %>%
       mutate(ei_sc = ei(E / poss_ext, I / poss_int)) %>%
       select(fact, ei_sc) %>%
-      spread(fact, ei_sc)
+      tidyr::spread(fact, ei_sc)
   })
   
-  #cat(paste0("EI-Index: " , substitute(alt.attr), "\n"))
-  bind_cols(.egoID = object$ego$.egoID, ei = a, b)
+  if(has_ego_design(object_original)) {
+    res <- bind_cols(.egoID = object$ego$variables$.egoID, ei = a, b)
+  } else {
+    res <- bind_cols(.egoID = object$ego$.egoID, ei = a, b)
+  }
+  
+  return_results(object_original, res)
 }
