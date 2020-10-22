@@ -77,6 +77,42 @@ egor <- function(alters,
   # Modify ID name list
 
   IDv <- modifyList(eval(formals()$ID.vars), ID.vars)
+  
+  # Make sure that all ID variables are of the same type
+  
+  ## all numeric?
+  
+  id_vars <- list(
+    alters[[IDv$ego]],
+    alters[[IDv$alter]],
+    egos[[IDv$ego]],
+    aaties[[IDv$ego]],
+    aaties[[IDv$source]],
+    aaties[[IDv$target]]
+  )
+  
+  id_vars <- id_vars[!is.null(id_vars)]
+  
+  all_numeric <- 
+    all(purrr::map_lgl(id_vars, is.numeric))
+  
+  ## not all numeric: change all to character
+  
+  if (!all_numeric & !all(purrr::map_lgl(id_vars, is.character))) {
+    alters[[IDv$ego]] <- as.character(alters[[IDv$ego]])
+    
+    if (!is.null(alters[[IDv$alter]]))
+      alters[[IDv$alter]] <- as.character(alters[[IDv$alter]])
+    
+    if (!is.null(egos)) egos[[IDv$ego]] <- as.character(egos[[IDv$ego]])
+    
+    if (!is.null(aaties)) {
+      aaties[[IDv$ego]] <- as.character(aaties[[IDv$ego]])
+      aaties[[IDv$source]] <- as.character(aaties[[IDv$source]])
+      aaties[[IDv$target]] <- as.character(aaties[[IDv$target]])
+    }
+
+  }
 
   # Check for reserved column names
   

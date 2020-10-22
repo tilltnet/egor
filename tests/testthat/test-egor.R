@@ -237,7 +237,7 @@ test_that(
 
 
 test_that(
-  "egor() only requires alterID if aaties present.",
+  "egor() requires alterID if aaties present.",
   {
     e <- make_egor(32, 20)
 
@@ -250,7 +250,7 @@ test_that(
     names(alters)[1] <- "egoID"
     names(aaties)[1:3] <- c("egoID", "Source", "Target")
 
-    expect_error(egor(alters, egos, aaties), class = "vctrs_error_subscript_oob")
+    expect_error(egor(alters = alters, egos = egos, aaties = aaties), class = "vctrs_error_subscript_oob")
     expect_warning(egor(alters, egos), NA)
   }
 )
