@@ -35,7 +35,7 @@ data(egor32)
 count_dyads(object = egor32,
             alter_var_name = "country")
 
-# Return result as long tibble. 
+# Return result as long tibble.
 count_dyads(object = egor32,
             alter_var_name = "country",
             return_as = "long")

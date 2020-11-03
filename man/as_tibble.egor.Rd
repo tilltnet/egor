@@ -56,7 +56,9 @@ data(egor32)
 
 as_tibble(egor32) # Ego table.
 
-egor32 \%>\% activate("alter") \%>\% as_tibble(include.ego.vars=TRUE) # Alter table, but also with ego variables.
+egor32 \%>\% 
+ activate("alter") \%>\% 
+ as_tibble(include.ego.vars=TRUE) # Alter table, but also with ego variables.
 
 library(srvyr)
 as_survey(egor32) # Ego table with survey design.
