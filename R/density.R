@@ -58,7 +58,8 @@ ego_density.egor <-
     density <- as.vector(dyaden_real / dyad_poss)
     names(density) <- names(alter_l)
     density[is.infinite(density)] <- NA
-    res <- tibble::enframe(density, name = ".egoID", value = "density")
-    res$.egoID <- as(res$.egoID, Class = class(object$alter$.egoID))
+    if(has_ego_design(object)) 
+      res <- tibble(.egoID = object$ego$variables$.egoID, density = density)
+    else res <- tibble(.egoID = object$ego$.egoID, density = density)
     return_results(object, res)
   }
