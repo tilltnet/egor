@@ -161,6 +161,9 @@ din_page_dist <- function(x) {
 #' Returns results inheriting `srvyr` design if the input egor object has a an
 #' `ego_design` and global option "egor.return.results.with.design" is `TRUE` or
 #' 'NULL'.
+#' @param x Original `egor` object, as submitted in call to parent function.
+#' @param results `data.frame` with `.egoID` column and a column that hold the
+#' ego-level results.
 return_results <-
   function(x, results) {
     

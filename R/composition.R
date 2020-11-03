@@ -97,7 +97,7 @@ comp_ply <-
                   result.name = res)
     names(res) <- c(".egoID", result.name)
     
-    egor:::return_results(x = object, results = res)
+    return_results(x = object, results = res)
     
   }
 

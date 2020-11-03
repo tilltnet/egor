@@ -281,7 +281,9 @@ as.network.egor <- as_network
 #'
 #' as_tibble(egor32) # Ego table.
 #'
-#' egor32 %>% activate("alter") %>% as_tibble(include.ego.vars=TRUE) # Alter table, but also with ego variables.
+#' egor32 %>% 
+#'  activate("alter") %>% 
+#'  as_tibble(include.ego.vars=TRUE) # Alter table, but also with ego variables.
 #'
 #' @return A `tibble` for the `as_tibble` and `*_df` functions and a `tbl_svy` for `as_survey` and the `*_survey` functions.
 #' @export
