@@ -8,12 +8,21 @@
 \usage{
 \method{summary}{egor}(object, ...)
 
-\method{print}{egor}(x, ..., n = 3)
+\method{print}{egor}(
+  x,
+  ...,
+  n.active = getOption("egor.print.rows.active.level"),
+  n.inactive = getOption("egor.print.rows.inactive.level")
+)
 }
 \arguments{
 \item{object, x}{an \code{\link{egor}} object.}
 
 \item{...}{additional arguments, either unused or passed to lower-level functions.}
+
+\item{n.active}{\code{Numeric}. Number of rows to print for active data level.}
+
+\item{n.inactive}{\code{Numeric}. Number of rows to print for inactive data levels.}
 
 \item{n}{Number of rows to print.}
 }

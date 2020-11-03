@@ -229,8 +229,6 @@ egor <- function(alters,
 #' @export
 summary.egor <- function(object, ...) {
   
-  # TODO: return tibble instead of using cat for output?!? 
-  
   # Network count
   nc <- nrow(object$ego)
   
@@ -239,14 +237,32 @@ summary.egor <- function(object, ...) {
   max_nts <- max(table(object$alter$.egoID))
   avg_nts <- mean(table(object$alter$.egoID))
   
+  if(has_ego_design(object)) {
+    object$ego$variables$avg_nts <- avg_nts
+    avg_nts <- survey::svymean(~avg_nts, object$ego)
+  }
+  
   # Total number of alters
   alts_count <- nrow(object$alter)
   
   # Average density
   if ("aatie" %in% names(object)) 
-    dens <- mean(ego_density(object = object)$density, na.rm = TRUE)
-  else
-    dens <- NULL
+    if(has_ego_design(object)) {
+      
+      errwd_value <- 
+        getOption("egor.return.results.with.design")
+      options(egor.return.results.with.design = TRUE)
+      
+      dens <- ego_density(object)
+      dens <- survey::svymean(~density, dens)
+      
+      options(egor.return.results.with.design = errwd_value)
+      
+    } else {
+      
+      dens <- mean(ego_density(object = object)$density, na.rm = TRUE)
+      
+      } else dens <- NULL
   
   cat(paste(nc, "Egos/ Ego Networks",
             paste0( "\n", alts_count, " Alters"),
@@ -256,43 +272,69 @@ summary.egor <- function(object, ...) {
   if (!is.null(dens)) cat(paste("Average Density", dens, "\n"))
 
   # Meta Data
-  cat("\nEgo sampling design:\n")
-#' @importFrom utils capture.output
-  writeLines(paste("  ", capture.output(print(object$egos))), sep = "")
-
+  if(has_ego_design(object)) {
+    cat("\nEgo sampling design:\n")
+    #' @importFrom utils capture.output
+    print(ego_design(object))
+  }
+  
   cat("Alter survey design:\n")
   cat("  Maximum nominations:", attr(object, "alter_design")$max,"\n")
 }
 
 #' @rdname summary.egor
+#' @param n.active `Numeric`. Number of rows to print for active data level.
+#' @param n.inactive `Numeric`. Number of rows to print for inactive data levels.
 #' @export
 #' @method print egor
 #' @import tibble
 #' @importFrom dplyr group_vars
-print.egor <- function(x, ..., n = 3) {
+print.egor <- function(x,
+                       ...,
+                       n.active = getOption("egor.print.rows.active.level"),
+                       n.inactive = getOption("egor.print.rows.inactive.level")) {
   class(x) <- "list"
   active_lgl <- attr(x, "active") == names(x)
-  y <- c(x[active_lgl],
-         x[!active_lgl])
   
-  purrr::pwalk(list(y, names(y), c(TRUE, FALSE, FALSE)), function(x, y, z) {
-    design <- NULL
-    if ("tbl_svy" %in% class(x)) {
-      x <- x$variables
-      design <- " with survey design"
-    }
-      
-    tcm <- tibble::trunc_mat(x, n = min(n,nrow(x)))
-    
-    if (is_grouped_df(x)) tcm$summary <- paste(tcm$summary, collapse = " ")
-    
-    if (z)
-      cat(paste0("# ", toupper(y), " data", design ," (active): ", tcm$summary[1], "\n"))
-    else
-      cat(paste0("# ", toupper(y), " data", design ,": ", tcm$summary[1], "\n"))
-
-    print(tcm$mcf)
-  })
+  if (getOption("egor.print.switch.active.level.to.top")) {
+    data_levels <- c(x[active_lgl],
+                     x[!active_lgl])
+    active_lgl <- c(TRUE, FALSE, FALSE)
+  } else {
+    data_levels <- x
+  }
+  
+  purrr::pwalk(list(data_levels,
+                    names(data_levels),
+                    active_lgl),
+               function(data_level, level_name, active) {
+                 design <- NULL
+                 if ("tbl_svy" %in% class(x)) {
+                   data_level <- data_level$variables
+                   design <- " with survey design"
+                 }
+                 
+                 if (active) tcm <- tibble::trunc_mat(data_level, n = min(n.active, nrow(x)))
+                 else tcm <- tibble::trunc_mat(data_level, n = min(n.inactive, nrow(x)))
+                 
+                 if (is_grouped_df(data_level))
+                   tcm$summary <- paste(tcm$summary, collapse = " ")
+                 
+                 if (active)
+                   cat(paste0(
+                     "# ",
+                     toupper(level_name),
+                     " data",
+                     design ,
+                     " (\033[32mactive\033[39m): ",
+                     tcm$summary[1],
+                     "\n"
+                   ))
+                 else
+                   cat(paste0("# ", toupper(level_name), " data", design , ": ", tcm$summary[1], "\n"))
+                 
+                 print(tcm$mcf)
+               })
   invisible(x)
 }
 
