@@ -2,8 +2,7 @@
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  dev.args = list(type = "cairo")
-)
+  dev.args = list(type = if(capabilities('cairo')) "cairo" else "png"))
 
 library(knitr)
 library(egor)
