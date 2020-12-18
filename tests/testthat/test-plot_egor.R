@@ -316,4 +316,15 @@ test_that("plot_ego_gram plots empty levels of a factor variables for pies and v
   })
 })
 
+test_that("ego-alter weights are plotteed",
+          {
+            e <- make_egor(5, 12)
+            e$alter$weight <- rep(5, nrow(e$alter))
+            expect_error({
+              plot_ego_graphs(e, include_ego = TRUE)
+              plot_ego_graphs(e, edge_width_var = "weight", include_ego = TRUE)
+               }, NA)
+            
+            })
+
 dev.off() # Closing the NULL pdf device.

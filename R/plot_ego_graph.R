@@ -10,7 +10,11 @@ plot_ego_graphs <- function(x,
                             vertex_color_legend_label = vertex_color_var,
                             vertex_label_var = "name",
                             edge_width_var = NULL,
+                            ego_alter_edge_width_var = 
+                              if(!is.null(edge_width_var) & include_ego) edge_width_var,
                             edge_color_var = NULL,
+                            ego_alter_edge_color_var = 
+                              if(!is.null(edge_color_var) & include_ego) edge_color_var,
                             edge_color_palette = "Heat Colors",
                             highlight_box_col_var = NULL,
                             highlight_box_col_palette = "Heat Colors",
@@ -40,7 +44,9 @@ plot_ego_graphs <- function(x,
         vertex_color_legend_label = vertex_color_legend_label,
         vertex_label_var = vertex_label_var,
         edge_width_var = edge_width_var,
+        ego_alter_edge_width_var = ego_alter_edge_width_var,
         edge_color_var = edge_color_var,
+        ego_alter_edge_color_var = ego_alter_edge_color_var,
         edge_color_palette = edge_color_palette,
         highlight_box_col = boxi_color,
         res_disp_vars = res_disp_vars,
@@ -63,7 +69,9 @@ plot_one_ego_graph <- function(x,
                                vertex_color_legend_label = vertex_color_var,
                                vertex_label_var = "name",
                                edge_width_var = NULL,
+                               ego_alter_edge_width_var = edge_width_var,
                                edge_color_var = NULL,
+                               ego_alter_edge_color_var = edge_color_var,
                                edge_color_palette = "Heat Colors",
                                highlight_box_col = "white",
                                res_disp_vars = NULL,
@@ -76,7 +84,11 @@ plot_one_ego_graph <- function(x,
   x <- 
     slice.egor(activate(x, "ego"), ego_no)
   
-  gr <- as_igraph(x, include.ego = include_ego)[[1]]
+  gr <- as_igraph(x, 
+                  include.ego = include_ego, 
+                  ego.alter.weights = c(ego_alter_edge_width_var,
+                                        ego_alter_edge_color_var)
+                  )[[1]]
   if (!sum(igraph::V(gr)) > 0) {
     # Plot Error message.
     plot(

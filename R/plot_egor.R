@@ -14,7 +14,9 @@
 #' @param vertex_color_legend_label Character.
 #' @param vertex_label_var Name (`character`) of alter column. Set this to `NULL` to suppress labels.
 #' @param edge_width_var Name (`character`) of aatie column.
+#' @param ego_alter_edge_width_var Name (`character`) of alter column.
 #' @param edge_color_var Name (`character`) of aatie column.
+#' @param ego_alter_edge_color_var Name (`character`) of alter column.
 #' @param edge_color_palette Name (`character`) of color palette, see details for available color palettes.
 #' @param highlight_box_col_var Name (`character`) of ego column.
 #' @param highlight_box_col_palette Name (`character`) of color palette, see details for available color palettes.
