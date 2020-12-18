@@ -2,25 +2,53 @@
 % Please edit documentation in R/ei.R
 \name{EI}
 \alias{EI}
-\title{Calculate the EI-Index for the alter-alter ties of an egor object}
+\title{Calculate EI-Index of ego networks}
 \usage{
-EI(object, alt.attr)
+EI(object, alt.attr, include.ego = FALSE, ego.attr = alt.attr, rescale = TRUE)
 }
 \arguments{
 \item{object}{An \code{egor} object.}
 
 \item{alt.attr}{\code{Character} naming grouping variable.}
+
+\item{include.ego}{\code{Logical}. Include or exclude ego from EI calculation.}
+
+\item{ego.attr}{\code{Character}, naming the ego variable corresponding to \code{ego.attr}. Defaults to \code{ego.attr}.}
+
+\item{rescale}{\code{Logical}. If \code{TRUE}, the EI index calculation is rescaled,
+so that the EI is not distorted by differing group sizes.}
+}
+\value{
+Returns \code{tibble} with the following columns:
+\itemize{
+\item ego ID (".egoID")
+\item network EI-Index ("ei")
+\item subgroup EI-Index values (named by value levels of \code{alt.attr}/\code{ego.attr})
+}
 }
 \description{
-The EI-Index is the division of the intra-group edge density and the outer-group edge
-density. It is calculated for the whole network and for subgroups. The
+The EI-Index is the division of the surplus count intra-group edges over inter-group edges,
+divided by total count of all edges.
+This implementation uses the intra-group and inter-group density instead
+of edge counts, when \code{rescale} is set to \code{TRUE} (default). It is calculated for
+the whole network and for subgroups. The
 whole network EI is a metric indicating the tendency of a network to be
-clustered by the categories of a given factor variable. The EI value of a
+clustered by the categories of a given factor variable (\code{alt.attr}). Additionally, the EI index can be employed as a measurement
+for egos tendency to homo-/heteorphily - use \code{\link[=comp_ei]{comp_ei()}}.
+for that variant of the EI-Index.
+}
+\details{
+The EI value of a
 group describes the tendency of that group within a network to be connected
 (if between 0 and 1) or not connected (if between -1 and 0)
-to other groups. Additionally, the EI index can be employed as a measurement
-for egos tendency to homo-/heteorphily - use the \code{egor::comp_ei()} command
-for that version of the EI-Index.
+to other groups. Differing group sizes can lead to a distortion of EI values
+i.e. the ability of a big group A to form relationships to much smaller group B
+is limited by the size of B. Even when all possible edges between A and B exist,
+the EI value for group A might still be negative, classifying it as \emph{homophile}.
+The \code{rescaled} EI-Index values provided by this implementation substitutes absolute
+edge counts by inter- and intra-group edge densities in order to avoid the
+distortion of the EI-Index values. These values express the extend of homo- or heterophily
+of the network and its subgroups, \emph{as made possible by to subgoup sizes}.
 }
 \examples{
 data("egor32")
@@ -33,6 +61,9 @@ Quarterly 51 (2), 123-140.
 
 Everett, M. G., & Borgatti, S. P. (2012). Categorical attribute
 based centrality: E-I and G-F centrality. Social Networks, 34(4), 562-569.
+}
+\seealso{
+\code{\link[=comp_ei]{comp_ei()}}
 }
 \keyword{ego-centered}
 \keyword{network}

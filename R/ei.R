@@ -19,19 +19,39 @@ if(getRversion() >= "2.15.1")
     )
   )
 
-#' Calculate the EI-Index for the alter-alter ties of an egor object
+#' Calculate EI-Index of ego networks
 #'
-#' The EI-Index is the division of the intra-group edge density and the outer-group edge
-#' density. It is calculated for the whole network and for subgroups. The
+#' The EI-Index is the division of the surplus count intra-group edges over inter-group edges,
+#' divided by total count of all edges.
+#' This implementation uses the intra-group and inter-group density instead
+#' of edge counts, when `rescale` is set to `TRUE` (default). It is calculated for 
+#' the whole network and for subgroups. The
 #' whole network EI is a metric indicating the tendency of a network to be
-#' clustered by the categories of a given factor variable. The EI value of a
-#' group describes the tendency of that group within a network to be connected 
-#' (if between 0 and 1) or not connected (if between -1 and 0)
-#' to other groups. Additionally, the EI index can be employed as a measurement
-#' for egos tendency to homo-/heteorphily - use the \code{egor::comp_ei()} command
-#' for that version of the EI-Index.
+#' clustered by the categories of a given factor variable (`alt.attr`). Additionally, the EI index can be employed as a measurement
+#' for egos tendency to homo-/heteorphily - use [egor::comp_ei()]. 
+#' for that variant of the EI-Index.
 #' @param object An \code{egor} object.
 #' @param alt.attr \code{Character} naming grouping variable.
+#' @param include.ego `Logical`. Include or exclude ego from EI calculation.
+#' @param ego.attr `Character`, naming the ego variable corresponding to `ego.attr`. Defaults to `ego.attr`.
+#' @param rescale `Logical`. If `TRUE`, the EI index calculation is rescaled, 
+#' so that the EI is not distorted by differing group sizes.
+#' @return Returns `tibble` with the following columns:
+#'  - ego ID (".egoID")
+#'  - network EI-Index ("ei")
+#'  - subgroup EI-Index values (named by value levels of `alt.attr`/`ego.attr`)
+#' @details The EI value of a
+#' group describes the tendency of that group within a network to be connected 
+#' (if between 0 and 1) or not connected (if between -1 and 0)
+#' to other groups. Differing group sizes can lead to a distortion of EI values
+#' i.e. the ability of a big group A to form relationships to much smaller group B
+#' is limited by the size of B. Even when all possible edges between A and B exist,
+#' the EI value for group A might still be negative, classifying it as _homophile_.
+#' The `rescaled` EI-Index values provided by this implementation substitutes absolute
+#' edge counts by inter- and intra-group edge densities in order to avoid the
+#' distortion of the EI-Index values. These values express the extend of homo- or heterophily 
+#' of the network and its subgroups, _as made possible by to subgoup sizes_.
+#' @seealso [comp_ei()]
 #' @references Krackhardt, D., Stern, R.N., 1988. Informal networks and
 #' organizational crises: an experimental simulation. Social Psychology
 #' Quarterly 51 (2), 123-140.
@@ -52,7 +72,11 @@ if(getRversion() >= "2.15.1")
 #' @importFrom tidyr replace_na
 #' @importFrom tidyr complete
 #' @importFrom tibble as_tibble
-EI <- function(object, alt.attr) {
+EI <- function(object, 
+               alt.attr,
+               include.ego = FALSE,
+               ego.attr = alt.attr,
+               rescale = TRUE) {
   object_original <- object
   
   ei <- function(e, i)
@@ -109,10 +133,23 @@ EI <- function(object, alt.attr) {
   object <- 
     purrr::map(object, ungroup)
   
+  if (include.ego) {
+    object$aatie <-
+      object$alter %>%
+      select(.srcID = .altID) %>%
+      mutate(.tgtID = NA) %>%
+      bind_rows(object$aatie)
+    
+    object$alter <-
+      object$ego[c(".egoID", ego.attr)] %>%
+      mutate(.altID = NA) %>%
+      bind_rows(object$alter)
+  }
+  
   class(object) <- c("egor", class(object))
   
   object2 <- strip_ego_design(as_nested_egor(object))
-  
+
   obj <-
     object2 %>%
     as_tibble() %>%
@@ -152,16 +189,14 @@ EI <- function(object, alt.attr) {
     x %>%
       summarise_if(is.numeric, sum) %>%
       mutate(
-        ei = ei(E, I),
-        ei_sc = ei(E / poss_ext, I / poss_int)
-      ) %>%
-      select(ei_sc))
+        ei = if(rescale) ei(E / poss_ext, I / poss_int) else ei(E, I)) %>% 
+      select(ei))
   
   b <- map_dfr(obj$grp_ei_tab, function(x) {
     x %>%
-      mutate(ei_sc = ei(E / poss_ext, I / poss_int)) %>%
-      select(fact, ei_sc) %>%
-      tidyr::spread(fact, ei_sc)
+      mutate(ei = if(rescale) ei(E / poss_ext, I / poss_int) else ei(E, I)) %>%
+      select(fact, ei) %>%
+      tidyr::spread(fact, ei)
   })
   
   if(has_ego_design(object_original)) {
