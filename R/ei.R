@@ -24,10 +24,8 @@ if(getRversion() >= "2.15.1")
 #' The EI-Index is the division of the surplus count intra-group edges over inter-group edges,
 #' divided by total count of all edges.
 #' This implementation uses the intra-group and inter-group density instead
-#' of edge counts, when `rescale` is set to `TRUE` (default). It is calculated for 
-#' the whole network and for subgroups. The
-#' whole network EI is a metric indicating the tendency of a network to be
-#' clustered by the categories of a given factor variable (`alt.attr`). Additionally, the EI index can be employed as a measurement
+#' of edge counts, when `rescale` is set to `TRUE` (default). The EI-Index is calculated for 
+#' the whole network and for subgroups. Alternatively, the EI index can be employed as a measurement
 #' for egos tendency to homo-/heteorphily - use [egor::comp_ei()]. 
 #' for that variant of the EI-Index.
 #' @param object An \code{egor} object.
@@ -40,7 +38,9 @@ if(getRversion() >= "2.15.1")
 #'  - ego ID (".egoID")
 #'  - network EI-Index ("ei")
 #'  - subgroup EI-Index values (named by value levels of `alt.attr`/`ego.attr`)
-#' @details The EI value of a
+#' @details The
+#' whole network EI is a metric indicating the tendency of a network to be
+#' clustered by the categories of a given factor variable (`alt.attr`). The EI value of a
 #' group describes the tendency of that group within a network to be connected 
 #' (if between 0 and 1) or not connected (if between -1 and 0)
 #' to other groups. Differing group sizes can lead to a distortion of EI values
@@ -50,8 +50,8 @@ if(getRversion() >= "2.15.1")
 #' The `rescaled` EI-Index values provided by this implementation substitutes absolute
 #' edge counts by inter- and intra-group edge densities in order to avoid the
 #' distortion of the EI-Index values. These values express the extend of homo- or heterophily 
-#' of the network and its subgroups, _as made possible by to subgoup sizes_.
-#' @seealso [comp_ei()]
+#' of the network and its subgroups, _as made possible by subgroup sizes_.
+#' @seealso [comp_ei()], for an ego level homophily measure.
 #' @references Krackhardt, D., Stern, R.N., 1988. Informal networks and
 #' organizational crises: an experimental simulation. Social Psychology
 #' Quarterly 51 (2), 123-140.

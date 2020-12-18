@@ -151,3 +151,12 @@ test_that("EI() returns tbl_svy object, when ego_design present", {
   res <- EI(object = x, alt.attr =  "sex")
   expect_is(res, "tbl_svy")
 })
+
+
+test_that("EI() ungroups data first", {
+  data("egor32")
+  expect_error(egor32 %>% 
+                 activate(aatie) %>% 
+                 group_by(.egoID) %>% 
+                 EI(alt.attr = "age"), NA)
+})
