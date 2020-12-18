@@ -38,7 +38,7 @@ test_that("count_dyads() returns tbl_svy object, when ego_design present", {
     sample(1:10 / 10, 5, replace = TRUE)
   ego_design(x) <- list(weight = "sampling_weight")
   
+  options(egor.results_with_design = TRUE)
   res <- count_dyads(object = x, "sex")
-  
   expect_is(res, "tbl_svy")
 })

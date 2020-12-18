@@ -18,10 +18,10 @@ RESERVED_COLNAMES <- c(".egoRow",
 
 egor_default_options <- 
   list(
-    egor.return.results.with.design = TRUE,
-    egor.print.rows.active.level = 3,
-    egor.print.rows.inactive.level = 3,
-    egor.print.switch.active.level.to.top = TRUE
+    egor.results_with_design = FALSE,
+    egor.rows_active_level = 3,
+    egor.rows_inactive_level = 3,
+    egor.active_level_to_top = TRUE
   )
 
 .onLoad <- function(libname, pkgname) {

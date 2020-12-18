@@ -262,7 +262,10 @@ test_that(
     data("aaties32")
     data("egos32")
     egos32$prbs <- rep(c(0.3, 0.5), 16)
-    res <- egor(alters32,
+    
+    options(egor.results_with_design = TRUE)
+    res <- 
+      egor(alters32,
          egos32,
          aaties32,
          ID.vars = list(ego = ".EGOID",
@@ -282,6 +285,7 @@ test_that("egor() works works with probabilities design",
             data("aaties32")
             data("egos32")
             egos32$prbs <- rep(c(0.3, 0.5), 16)
+            options(egor.results_with_design = TRUE)
             expect_error({
               res <- egor(
                 alters32,
@@ -296,6 +300,7 @@ test_that("egor() works works with probabilities design",
                 ego_design = list(probs = "prbs")
               )
             }, NA)
+            
             expect_is(res$ego, "tbl_svy")
             expect_true(has_ego_design(res))
           })
@@ -308,6 +313,7 @@ test_that("egor() works works with 2-level cluster design",
             data("egos32")
             egos32$clstr1 <- gl(4, 8)
             egos32$clstr2 <- gl(16, 2)
+            options(egor.results_with_design = TRUE)
             expect_error({
               res <- egor(
                 alters32,

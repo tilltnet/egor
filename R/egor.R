@@ -291,12 +291,12 @@ summary.egor <- function(object, ...) {
 #' @importFrom dplyr group_vars
 print.egor <- function(x,
                        ...,
-                       n.active = getOption("egor.print.rows.active.level"),
-                       n.inactive = getOption("egor.print.rows.inactive.level")) {
+                       n.active = getOption("egor.rows_active_level"),
+                       n.inactive = getOption("egor.rows_inactive_level")) {
   class(x) <- "list"
   active_lgl <- attr(x, "active") == names(x)
   
-  if (getOption("egor.print.switch.active.level.to.top")) {
+  if (getOption("egor.active_level_to_top")) {
     data_levels <- c(x[active_lgl],
                      x[!active_lgl])
     active_lgl <- c(TRUE, FALSE, FALSE)
@@ -309,13 +309,14 @@ print.egor <- function(x,
                     active_lgl),
                function(data_level, level_name, active) {
                  design <- NULL
-                 if ("tbl_svy" %in% class(x)) {
+                 if ("tbl_svy" %in% class(data_level)) {
+                   print("mufmfaawe")
                    data_level <- data_level$variables
                    design <- " with survey design"
                  }
                  
-                 if (active) tcm <- tibble::trunc_mat(data_level, n = min(n.active, nrow(x)))
-                 else tcm <- tibble::trunc_mat(data_level, n = min(n.inactive, nrow(x)))
+                 if (active) tcm <- tibble::trunc_mat(data_level, n = min(n.active, nrow(data_level)))
+                 else tcm <- tibble::trunc_mat(data_level, n = min(n.inactive, nrow(data_level)))
                  
                  if (is_grouped_df(data_level))
                    tcm$summary <- paste(tcm$summary, collapse = " ")

@@ -11,8 +11,8 @@
 \method{print}{egor}(
   x,
   ...,
-  n.active = getOption("egor.print.rows.active.level"),
-  n.inactive = getOption("egor.print.rows.inactive.level")
+  n.active = getOption("egor.rows_active_level"),
+  n.inactive = getOption("egor.rows_inactive_level")
 )
 }
 \arguments{

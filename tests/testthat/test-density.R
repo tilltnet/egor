@@ -42,7 +42,7 @@ test_that("ego_density() returns tbl_svy object, when ego_design present", {
     sample(1:10 / 10, 5, replace = TRUE)
   ego_design(x) <- list(weight = "sampling_weight")
   
+  options(egor.results_with_design = TRUE)
   res <- ego_density(object = x)
-
   expect_is(res, "tbl_svy")
 })

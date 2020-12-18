@@ -32,8 +32,8 @@ test_that("composition() returns tbl_svy object, when ego_design present", {
     sample(1:10 / 10, 5, replace = TRUE)
   ego_design(x) <- list(weight = "sampling_weight")
   
+  options(egor.results_with_design = TRUE)
   res <- composition(object = x, "age")
-  
   expect_is(res, "tbl_svy")
 })
 
@@ -62,11 +62,11 @@ test_that("comp_ply returns results as `tbl_svy` object",
               sample(1:10 / 10, 5, replace = TRUE)
             ego_design(x) <- list(weight = "sampling_weight")
             
+            options(egor.results_with_design = TRUE)
             res <- comp_ply(object = x,
                             alt.attr = "age.years",
                             .f = sd,
                             result.name = "age_sd")
-            
             expect_is(res, "tbl_svy")
           })
 

@@ -178,7 +178,7 @@ return_results <-
           results
       }
     
-    errwd <- getOption("egor.return.results.with.design")
+    errwd <- getOption("egor.results_with_design")
     
     if (is.null(errwd) | isTRUE(errwd)) {
       join_results_with_design(x, results)

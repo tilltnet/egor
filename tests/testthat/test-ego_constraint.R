@@ -20,7 +20,7 @@ test_that("ego_constraint() returns tbl_svy object, when ego_design present", {
   x$ego$sampling_weight <-
     sample(1:10 / 10, 5, replace = TRUE)
   ego_design(x) <- list(weight = "sampling_weight")
-  
+  options(egor.results_with_design = TRUE)
   res <- ego_constraint(object = x)
   
   expect_is(res, "tbl_svy")
