@@ -310,7 +310,6 @@ print.egor <- function(x,
                function(data_level, level_name, active) {
                  design <- NULL
                  if ("tbl_svy" %in% class(data_level)) {
-                   print("mufmfaawe")
                    data_level <- data_level$variables
                    design <- " with survey design"
                  }

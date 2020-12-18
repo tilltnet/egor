@@ -19,9 +19,9 @@ RESERVED_COLNAMES <- c(".egoRow",
 egor_default_options <- 
   list(
     egor.results_with_design = FALSE,
-    egor.rows_active_level = 3,
+    egor.rows_active_level = 5,
     egor.rows_inactive_level = 3,
-    egor.active_level_to_top = TRUE
+    egor.active_level_to_top = FALSE
   )
 
 .onLoad <- function(libname, pkgname) {
