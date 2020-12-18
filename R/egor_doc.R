@@ -5,15 +5,20 @@
 #' \href{https://tilltnet.github.io/egor/}{Further Information}
 #' or \href{https://github.com/tilltnet/egor}{GitHub}
 #' 
-#' Thanks to: Martina Morris
-#'
+#' @details When analyzing ego-centered network data it is common to either
+#' include or exclude data on ego. By default `egor` excludes ego for most
+#' analytic and visual functions and offers to include ego with the argument
+#' `include.ego`. In order for egor to automatically detect which ego-level variables
+#' correspond to the alter-variables, the variables on the different levels need
+#' to be named exactly the same. Alternatively the functions that have an
+#' `include.ego` argument have additional arguments that allow to specify the 
+#' name of the ego-level variable in question.
+#' 
 #' @author Till Krenz, \email{egor@tillt.net}
 #' @author Pavel Krivitsky, \email{pavel@uow.edu.au}
 #' @author Michał Bojanowski \email{m.bojanowski at icm.edu.pl}
 #' @author Andreas Herz, \email{herzand@uni-hildesheim.de}
 #' @author Raffaele Vacca, \email{r.vacca@ufl.edu}
-#' @author Christopher McCarty, \email{ufchris@ufl.edu}
-#' @author Markus Gamper, \email{m.gamper@uni-koeln.de}
 #' @docType package
 #' @name egor-package-doc
 NULL
