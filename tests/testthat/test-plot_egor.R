@@ -316,7 +316,7 @@ test_that("plot_ego_gram plots empty levels of a factor variables for pies and v
   })
 })
 
-test_that("ego-alter weights are plotteed",
+test_that("ego-alter weights are plotted",
           {
             e <- make_egor(5, 12)
             e$alter$weight <- sample(1:5/5, nrow(e$alter), replace = TRUE)
@@ -329,5 +329,15 @@ test_that("ego-alter weights are plotteed",
               plot_ego_graphs(e, edge_color_var = "weight", include_ego = TRUE)
             }, NA)
             })
+
+test_that("egograms with many venns produce adequatly sized nodes",
+          {
+            e <- make_egor(5, 12)
+            data("transnat")
+            asd <- transnat %>% 
+              activate(alter) %>% 
+              mutate(test_var = sample(1:12, nrow(.$alter), replace = TRUE))
+            plot_egograms(asd, venn_var = "test_var", pie_var = "sex", vertex_zoom = 1, vertex_label_var = "")
+          })
 
 dev.off() # Closing the NULL pdf device.
