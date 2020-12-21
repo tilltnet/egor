@@ -332,12 +332,14 @@ test_that("ego-alter weights are plotted",
 
 test_that("egograms with many venns produce adequatly sized nodes",
           {
-            e <- make_egor(5, 12)
             data("transnat")
-            asd <- transnat %>% 
+            transnat <- 
+              transnat %>% 
               activate(alter) %>% 
               mutate(test_var = sample(1:12, nrow(.$alter), replace = TRUE))
-            plot_egograms(asd, venn_var = "test_var", pie_var = "sex", vertex_zoom = 1, vertex_label_var = "")
+            expect_error(
+              plot_egograms(transnat, venn_var = "test_var", pie_var = "sex", vertex_zoom = 1, vertex_label_var = NULL),
+              NA)
           })
 
 dev.off() # Closing the NULL pdf device.
