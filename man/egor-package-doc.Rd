@@ -11,7 +11,14 @@ R Package for importing and analyzing ego-centered-network data.
 \href{https://tilltnet.github.io/egor/}{Further Information}
 or \href{https://github.com/tilltnet/egor}{GitHub}
 
-Thanks to: Martina Morris
+When analyzing ego-centered network data it is common to either
+include or exclude data on ego. By default \code{egor} excludes ego for most
+analytic and visual functions and offers to include ego with the argument
+\code{include.ego}. In order for egor to automatically detect which ego-level variables
+correspond to the alter-variables, the variables on the different levels need
+to be named exactly the same. Alternatively the functions that have an
+\code{include.ego} argument have additional arguments that allow to specify the
+name of the ego-level variable in question.
 }
 \author{
 Till Krenz, \email{egor@tillt.net}
@@ -23,8 +30,4 @@ Michał Bojanowski \email{m.bojanowski at icm.edu.pl}
 Andreas Herz, \email{herzand@uni-hildesheim.de}
 
 Raffaele Vacca, \email{r.vacca@ufl.edu}
-
-Christopher McCarty, \email{ufchris@ufl.edu}
-
-Markus Gamper, \email{m.gamper@uni-koeln.de}
 }
