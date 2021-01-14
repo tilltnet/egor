@@ -27,7 +27,7 @@ Description: Tools for importing, analyzing and visualizing ego-centered
     intuitive visualization of ego-centered networks is provided. Also included
     are procedures for creating and visualizing Clustered Graphs 
     (Lerner 2008 <DOI:10.1109/PACIFICVIS.2008.4475458>).
-URL: https://github.com/tilltnet/egor, https://tilltnet.github.io/egor/
+URL: https://github.com/tilltnet/egor, https://egor.tillt.net/
 BugReports: https://github.com/tilltnet/egor/issues
 License: AGPL-3
 Depends:
