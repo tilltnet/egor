@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Calculate the EI-Index for the alter-alter ties of an egor object — EI • egor</title>
+<title>Calculate EI-Index of ego networks — EI • egor</title>
 
 
 <!-- jquery -->
@@ -39,17 +39,14 @@
 
 
 
-<meta property="og:title" content="Calculate the EI-Index for the alter-alter ties of an egor object — EI" />
-<meta property="og:description" content="The EI-Index is the division of the intra-group edge density and the outer-group edge
-density. It is calculated for the whole network and for subgroups. The
-whole network EI is a metric indicating the tendency of a network to be
-clustered by the categories of a given factor variable. The EI value of a
-group describes the tendency of that group within a network to be connected
-[0,1) or not connected (-1,0]
-to other groups. Additionally, the EI index can be employed as a measurement
-for egos tendency to homo-/heteorphily - use the egor::comp_ei() command
-for that version of the EI-Index.
-[0,1) or not connected (-1,0]: R:0,1)%20or%20not%20connected%20(-1,0" />
+<meta property="og:title" content="Calculate EI-Index of ego networks — EI" />
+<meta property="og:description" content="The EI-Index is the division of the surplus count intra-group edges over inter-group edges,
+divided by total count of all edges.
+This implementation uses the intra-group and inter-group density instead
+of edge counts, when rescale is set to TRUE (default). The EI-Index is calculated for
+the whole network and for subgroups. Alternatively, the EI index can be employed as a measurement
+for egos tendency to homo-/heteorphily - use comp_ei().
+for that variant of the EI-Index." />
 
 
 
@@ -81,7 +78,7 @@ for that version of the EI-Index.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">egor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.20.06</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.21.01</span>
       </span>
     </div>
 
@@ -89,7 +86,7 @@ for that version of the EI-Index.
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -118,7 +115,7 @@ for that version of the EI-Index.
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/tilltnet/egor/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -135,25 +132,22 @@ for that version of the EI-Index.
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Calculate the EI-Index for the alter-alter ties of an egor object</h1>
+    <h1>Calculate EI-Index of ego networks</h1>
     <small class="dont-index">Source: <a href='https://github.com/tilltnet/egor/blob/master/R/ei.R'><code>R/ei.R</code></a></small>
     <div class="hidden name"><code>EI.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The EI-Index is the division of the intra-group edge density and the outer-group edge
-density. It is calculated for the whole network and for subgroups. The
-whole network EI is a metric indicating the tendency of a network to be
-clustered by the categories of a given factor variable. The EI value of a
-group describes the tendency of that group within a network to be connected
-[0,1) or not connected (-1,0]
-to other groups. Additionally, the EI index can be employed as a measurement
-for egos tendency to homo-/heteorphily - use the <code><a href='comp_ei.html'>egor::comp_ei()</a></code> command
-for that version of the EI-Index.</p>
-<p>[0,1) or not connected (-1,0]: R:0,1)%20or%20not%20connected%20(-1,0</p>
+    <p>The EI-Index is the division of the surplus count intra-group edges over inter-group edges,
+divided by total count of all edges.
+This implementation uses the intra-group and inter-group density instead
+of edge counts, when <code>rescale</code> is set to <code>TRUE</code> (default). The EI-Index is calculated for
+the whole network and for subgroups. Alternatively, the EI index can be employed as a measurement
+for egos tendency to homo-/heteorphily - use <code><a href='comp_ei.html'>comp_ei()</a></code>.
+for that variant of the EI-Index.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>EI</span>(<span class='no'>object</span>, <span class='no'>alt.attr</span>)</pre>
+    <pre class="usage"><span class='fu'>EI</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>alt.attr</span>, include.ego <span class='op'>=</span> <span class='cn'>FALSE</span>, ego.attr <span class='op'>=</span> <span class='va'>alt.attr</span>, rescale <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -166,8 +160,44 @@ for that version of the EI-Index.</p>
       <th>alt.attr</th>
       <td><p><code>Character</code> naming grouping variable.</p></td>
     </tr>
+    <tr>
+      <th>include.ego</th>
+      <td><p><code>Logical</code>. Include or exclude ego from EI calculation.</p></td>
+    </tr>
+    <tr>
+      <th>ego.attr</th>
+      <td><p><code>Character</code>, naming the ego variable corresponding to <code>ego.attr</code>. Defaults to <code>ego.attr</code>.</p></td>
+    </tr>
+    <tr>
+      <th>rescale</th>
+      <td><p><code>Logical</code>. If <code>TRUE</code>, the EI index calculation is rescaled,
+so that the EI is not distorted by differing group sizes.</p></td>
+    </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Returns <code>tibble</code> with the following columns:</p><ul>
+<li><p>ego ID (".egoID")</p></li>
+<li><p>network EI-Index ("ei")</p></li>
+<li><p>subgroup EI-Index values (named by value levels of <code>alt.attr</code>/<code>ego.attr</code>)</p></li>
+</ul>
+
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The
+whole network EI is a metric indicating the tendency of a network to be
+clustered by the categories of a given factor variable (<code>alt.attr</code>). The EI value of a
+group describes the tendency of that group within a network to be connected
+(if between 0 and 1) or not connected (if between -1 and 0)
+to other groups. Differing group sizes can lead to a distortion of EI values
+i.e. the ability of a big group A to form relationships to much smaller group B
+is limited by the size of B. Even when all possible edges between A and B exist,
+the EI value for group A might still be negative, classifying it as <em>homophile</em>.
+The <code>rescaled</code> EI-Index values provided by this implementation substitutes absolute
+edge counts by inter- and intra-group edge densities in order to avoid the
+distortion of the EI-Index values. These values express the extend of homo- or heterophily
+of the network and its subgroups, <em>as made possible by subgroup sizes</em>.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Krackhardt, D., Stern, R.N., 1988. Informal networks and
@@ -175,22 +205,26 @@ organizational crises: an experimental simulation. Social Psychology
 Quarterly 51 (2), 123-140.</p>
 <p>Everett, M. G., &amp; Borgatti, S. P. (2012). Categorical attribute
 based centrality: E-I and G-F centrality. Social Networks, 34(4), 562-569.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='comp_ei.html'>comp_ei()</a></code>, for an ego level homophily measure.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"egor32"</span>)
-<span class='fu'>EI</span>(<span class='no'>egor32</span>, <span class='st'>"sex"</span>)</div><div class='output co'>#&gt; EI-Index: sex</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 32 x 3</span><span>
-#&gt;      ei_sc       m       w
-#&gt;      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span>  0.28    0.250   1     
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span>  0.053</span><span style='text-decoration: underline;'>7</span><span>  0.043</span><span style='text-decoration: underline;'>0</span><span>  0.088</span><span style='text-decoration: underline;'>6</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> -</span><span style='color: #BB0000;'>0.110</span><span>  -</span><span style='color: #BB0000;'>0.084</span><span style='color: #BB0000;text-decoration: underline;'>9</span><span> -</span><span style='color: #BB0000;'>0.151</span><span> 
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span>  0.019</span><span style='text-decoration: underline;'>8</span><span>  0.125  -</span><span style='color: #BB0000;'>0.150</span><span> 
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span>  0.019</span><span style='text-decoration: underline;'>1</span><span>  0       0.176 
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> -</span><span style='color: #BB0000;'>0.160</span><span>  -</span><span style='color: #BB0000;'>0.101</span><span>  -</span><span style='color: #BB0000;'>0.245</span><span> 
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span>  0.093</span><span style='text-decoration: underline;'>1</span><span>  0.058</span><span style='text-decoration: underline;'>8</span><span>  0.233 
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span>  0.082</span><span style='text-decoration: underline;'>0</span><span>  0.111   0.024</span><span style='text-decoration: underline;'>4</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span>  0.158   0.2    -</span><span style='color: #BB0000;'>0.333</span><span> 
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> -</span><span style='color: #BB0000;'>0.058</span><span style='color: #BB0000;text-decoration: underline;'>1</span><span>  0.058</span><span style='text-decoration: underline;'>8</span><span> -</span><span style='color: #BB0000;'>0.321</span><span> 
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"egor32"</span><span class='op'>)</span>
+<span class='fu'>EI</span><span class='op'>(</span><span class='va'>egor32</span>, <span class='st'>"sex"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 32 x 4</span><span>
+#&gt;    .egoID      ei       m       w
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 1       0.28    0.250   1     
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 2       0.053</span><span style='text-decoration: underline;'>7</span><span>  0.043</span><span style='text-decoration: underline;'>0</span><span>  0.088</span><span style='text-decoration: underline;'>6</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 3      -</span><span style='color: #BB0000;'>0.110</span><span>  -</span><span style='color: #BB0000;'>0.084</span><span style='color: #BB0000;text-decoration: underline;'>9</span><span> -</span><span style='color: #BB0000;'>0.151</span><span> 
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 4       0.019</span><span style='text-decoration: underline;'>8</span><span>  0.125  -</span><span style='color: #BB0000;'>0.150</span><span> 
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 5       0.019</span><span style='text-decoration: underline;'>1</span><span>  0       0.176 
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 6      -</span><span style='color: #BB0000;'>0.160</span><span>  -</span><span style='color: #BB0000;'>0.101</span><span>  -</span><span style='color: #BB0000;'>0.245</span><span> 
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 7       0.093</span><span style='text-decoration: underline;'>1</span><span>  0.058</span><span style='text-decoration: underline;'>8</span><span>  0.233 
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 8       0.082</span><span style='text-decoration: underline;'>0</span><span>  0.111   0.024</span><span style='text-decoration: underline;'>4</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 9       0.158   0.2    -</span><span style='color: #BB0000;'>0.333</span><span> 
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 10     -</span><span style='color: #BB0000;'>0.058</span><span style='color: #BB0000;text-decoration: underline;'>1</span><span>  0.058</span><span style='text-decoration: underline;'>8</span><span> -</span><span style='color: #BB0000;'>0.321</span><span> 
 #&gt; </span><span style='color: #949494;'># … with 22 more rows</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -207,7 +241,7 @@ based centrality: E-I and G-F centrality. Social Networks, 34(4), 562-569.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

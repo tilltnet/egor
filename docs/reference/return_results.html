@@ -6,8 +6,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Transform wide alter-alter data to an edge list.
-A regex based implementation to convert a wide list to an edgelist. — wide.dyads.to.edgelist.regex • egor</title>
+<title>Returns results inheriting srvyr design if the input egor object has a an
+ego_design and global option "egor.return.results.with.design" is TRUE or
+'NULL'. — return_results • egor</title>
 
 
 <!-- jquery -->
@@ -40,10 +41,12 @@ A regex based implementation to convert a wide list to an edgelist. — wide.dya
 
 
 
-<meta property="og:title" content="Transform wide alter-alter data to an edge list.
-A regex based implementation to convert a wide list to an edgelist. — wide.dyads.to.edgelist.regex" />
-<meta property="og:description" content="Transform wide alter-alter data to an edge list.
-A regex based implementation to convert a wide list to an edgelist." />
+<meta property="og:title" content="Returns results inheriting srvyr design if the input egor object has a an
+ego_design and global option "egor.return.results.with.design" is TRUE or
+'NULL'. — return_results" />
+<meta property="og:description" content="Returns results inheriting srvyr design if the input egor object has a an
+ego_design and global option &quot;egor.return.results.with.design&quot; is TRUE or
+'NULL'." />
 
 
 
@@ -129,40 +132,32 @@ A regex based implementation to convert a wide list to an edgelist." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Transform wide alter-alter data to an edge list.
-A regex based implementation to convert a wide list to an edgelist.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tilltnet/egor/blob/master/R/read.egonet.R'><code>R/read.egonet.R</code></a></small>
-    <div class="hidden name"><code>wide.dyads.to.edgelist.regex.Rd</code></div>
+    <h1>Returns results inheriting <code>srvyr</code> design if the input egor object has a an
+<code>ego_design</code> and global option "egor.return.results.with.design" is <code>TRUE</code> or
+'NULL'.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tilltnet/egor/blob/master/R/helper.R'><code>R/helper.R</code></a></small>
+    <div class="hidden name"><code>return_results.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Transform wide alter-alter data to an edge list.
-A regex based implementation to convert a wide list to an edgelist.</p>
+    <p>Returns results inheriting <code>srvyr</code> design if the input egor object has a an
+<code>ego_design</code> and global option "egor.return.results.with.design" is <code>TRUE</code> or
+'NULL'.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>wide.dyads.to.edgelist.regex</span><span class='op'>(</span><span class='va'>e.wide</span>, <span class='va'>aa.regex</span>, <span class='va'>netsize</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>return_results</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>results</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>e.wide</th>
-      <td><p>A dataframe containing the alter-alter relation data
-in the 'wide' format.</p></td>
+      <th>x</th>
+      <td><p>Original <code>egor</code> object, as submitted in call to parent function.</p></td>
     </tr>
     <tr>
-      <th>aa.regex</th>
-      <td><p>A Perl regular expression with name capture,
-intended to be run on column names and capturing via named
-capture the following regex groups: <code>"attr"</code>, <code>"src"</code>, and
-<code>"tgt"</code>, representing the edge attribute being captured, the
-source (or the first alter identified), and the target (or the
-second alter identified) of the edge, respectively. See <code><a href='https://rdrr.io/r/base/regex.html'>regex</a></code>
-for more information.</p></td>
-    </tr>
-    <tr>
-      <th>netsize</th>
-      <td><p><code>Vector</code> containing values of network size per ego.</p></td>
+      <th>results</th>
+      <td><p><code>data.frame</code> with <code>.egoID</code> column and a column that hold the
+ego-level results.</p></td>
     </tr>
     </table>
 

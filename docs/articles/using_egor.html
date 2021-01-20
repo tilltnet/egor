@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">egor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.20.06</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.21.01</span>
       </span>
     </div>
 
@@ -39,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -68,7 +68,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/tilltnet/egor/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -82,13 +82,13 @@
 
       
 
-      </header><div class="row">
+      </header><script src="using_egor_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Using <code>egor</code> to analyse ego-centered network data</h1>
                         <h4 class="author">Till Krenz</h4>
             
-            <h4 class="date">2020-06-12</h4>
+            <h4 class="date">2021-01-20</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/tilltnet/egor/blob/master/vignettes/using_egor.Rmd"><code>vignettes/using_egor.Rmd</code></a></small>
       <div class="hidden name"><code>using_egor.Rmd</code></div>
@@ -100,7 +100,7 @@
 <div id="the-egor-package" class="section level2">
 <h2 class="hasAnchor">
 <a href="#the-egor-package" class="anchor"></a>The <code>egor</code> Package</h2>
-<p>egor provides</p>
+<p><code>egor</code> provides</p>
 <ul>
 <li>import functions</li>
 <li>egor object organizes ego-centered network, allowing for a smooth workflow</li>
@@ -110,10 +110,11 @@
 <li>interacitve visualisation app</li>
 </ul>
 <p>An <code>egor</code> object contains all data levels associated with ego-centered network analysis, those levels are: ego, alter, alter-alter ties. By providing the <code><a href="../reference/egor.html">egor()</a></code>-function with <code>data.frames</code> containing data corresponding to these data levels, we construct an egor object. Here is an example of what the <code>data.frames</code> could look like. Pay attention to the ID variables connecting the levels with each other.</p>
-<pre><code><a href="https://rdrr.io/pkg/egor/man">library(egor)</a></code></pre>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"alters32"</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"egos32"</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"aaties32"</span>)</pre></body></html></div>
+<pre><code><a href="https://github.com/tilltnet/egor">library(egor)</a></code></pre>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"alters32"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"egos32"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"aaties32"</span><span class="op">)</span> </code></pre></div>
 <table class="table">
 <caption>First rows of alter data.</caption>
 <thead><tr class="header">
@@ -292,33 +293,36 @@
 </table>
 <p>All three <code>data.frames</code> contain an egoID identifying a unique ego and connecting their personal data to the alter and alter-alter tie data. The alterID is in the alter data is reused in the alter-alter tie data in the Source and Target columns.</p>
 <p>Let’s create an egor object from the data we just loaded.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">e1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/egor.html">egor</a></span>(<span class="kw">alters</span> <span class="kw">=</span> <span class="no">alters32</span>,
-           <span class="kw">egos</span> <span class="kw">=</span> <span class="no">egos32</span>,
-           <span class="kw">aaties</span> <span class="kw">=</span> <span class="no">aaties32</span>,
-           <span class="kw">ID.vars</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(
-             <span class="kw">ego</span> <span class="kw">=</span> <span class="st">".EGOID"</span>,
-             <span class="kw">alter</span> <span class="kw">=</span> <span class="st">".ALTID"</span>,
-             <span class="kw">source</span> <span class="kw">=</span> <span class="st">".SRCID"</span>,
-             <span class="kw">target</span> <span class="kw">=</span> <span class="st">".TGTID"</span>))
-<span class="no">e1</span>
-<span class="co">#&gt; # EGO data (active): 32 x 6</span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">e1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/egor.html">egor</a></span><span class="op">(</span>alters <span class="op">=</span> <span class="va">alters32</span>,
+           egos <span class="op">=</span> <span class="va">egos32</span>,
+           aaties <span class="op">=</span> <span class="va">aaties32</span>,
+           ID.vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+             ego <span class="op">=</span> <span class="st">".EGOID"</span>,
+             alter <span class="op">=</span> <span class="st">".ALTID"</span>,
+             source <span class="op">=</span> <span class="st">".SRCID"</span>,
+             target <span class="op">=</span> <span class="st">".TGTID"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">e1</span>
+<span class="co">#&gt; # EGO data ([32mactive[39m): 32 x 6</span>
 <span class="co">#&gt;   .egoID sex   age     age.years country   income</span>
-<span class="co">#&gt;   &lt;fct&gt;  &lt;fct&gt; &lt;fct&gt;       &lt;int&gt; &lt;fct&gt;      &lt;dbl&gt;</span>
+<span class="co">#&gt;   &lt;chr&gt;  &lt;fct&gt; &lt;fct&gt;       &lt;int&gt; &lt;fct&gt;      &lt;dbl&gt;</span>
 <span class="co">#&gt; 1 1      w     36 - 45        45 USA        36135</span>
 <span class="co">#&gt; 2 2      m     36 - 45        37 Germany    35040</span>
 <span class="co">#&gt; 3 3      m     26 - 35        28 Australia  63875</span>
+<span class="co">#&gt; 4 4      w     0 - 17          2 USA        31755</span>
+<span class="co">#&gt; 5 5      m     56 - 65        56 Germany    14600</span>
 <span class="co">#&gt; # ALTER data: 478 x 7</span>
 <span class="co">#&gt;   .altID .egoID sex   age      age.years country   income</span>
-<span class="co">#&gt;    &lt;int&gt; &lt;fct&gt;  &lt;fct&gt; &lt;fct&gt;        &lt;int&gt; &lt;fct&gt;      &lt;dbl&gt;</span>
-<span class="co">#&gt; 1      1 1      w     66 - 100        75 Australia  42340</span>
-<span class="co">#&gt; 2      2 1      m     18 - 25         17 Germany      730</span>
-<span class="co">#&gt; 3      3 1      w     66 - 100        91 Australia  23360</span>
+<span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;fct&gt; &lt;fct&gt;        &lt;int&gt; &lt;fct&gt;      &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 1      1      w     66 - 100        75 Australia  42340</span>
+<span class="co">#&gt; 2 2      1      m     18 - 25         17 Germany      730</span>
+<span class="co">#&gt; 3 3      1      w     66 - 100        91 Australia  23360</span>
 <span class="co">#&gt; # AATIE data: 1,858 x 4</span>
 <span class="co">#&gt;   .egoID .srcID .tgtID weight</span>
-<span class="co">#&gt;   &lt;fct&gt;   &lt;int&gt;  &lt;int&gt;  &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 32         13     18  0.333</span>
-<span class="co">#&gt; 2 18         11     22  0.667</span>
-<span class="co">#&gt; 3 28          5     19  0.667</span></pre></body></html></div>
+<span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 32     13     18      0.333</span>
+<span class="co">#&gt; 2 18     11     22      0.667</span>
+<span class="co">#&gt; 3 28     5      19      0.667</span></code></pre></div>
 <p>An [<code>egor</code>] object is a [<code>list</code>] of three [<code>tibbles</code>], named “ego”, “alter” and “aatie”, containg ego, alter and alter-alter tie data.</p>
 </div>
 <div id="import" class="section level2">
@@ -342,135 +346,151 @@ threefiles_to_egor()</a></code></pre>
 <a href="#base-r" class="anchor"></a>Base R</h3>
 <p>The different data levels of an egor object can be manipulated using square bracket subsetting or the <code><a href="https://rdrr.io/r/base/subset.html">subset()</a></code> function.</p>
 <p>Ego level:</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">e1</span>[<span class="no">e1</span>$<span class="no">ego</span>$<span class="no">age.years</span> <span class="kw">&gt;</span> <span class="fl">35</span>, ]
-<span class="co">#&gt; # EGO data (active): 23 x 6</span>
-<span class="co">#&gt;   .egoID sex   age     age.years country income</span>
-<span class="co">#&gt;   &lt;fct&gt;  &lt;fct&gt; &lt;fct&gt;       &lt;int&gt; &lt;fct&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 1      w     36 - 45        45 USA      36135</span>
-<span class="co">#&gt; 2 2      m     36 - 45        37 Germany  35040</span>
-<span class="co">#&gt; 3 5      m     56 - 65        56 Germany  14600</span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">e1</span><span class="op">[</span><span class="va">e1</span><span class="op">$</span><span class="va">ego</span><span class="op">$</span><span class="va">age.years</span> <span class="op">&gt;</span> <span class="fl">35</span>, <span class="op">]</span>
+<span class="co">#&gt; # EGO data ([32mactive[39m): 23 x 6</span>
+<span class="co">#&gt;   .egoID sex   age      age.years country income</span>
+<span class="co">#&gt;   &lt;chr&gt;  &lt;fct&gt; &lt;fct&gt;        &lt;int&gt; &lt;fct&gt;    &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 1      w     36 - 45         45 USA      36135</span>
+<span class="co">#&gt; 2 2      m     36 - 45         37 Germany  35040</span>
+<span class="co">#&gt; 3 5      m     56 - 65         56 Germany  14600</span>
+<span class="co">#&gt; 4 7      w     36 - 45         43 Poland   15695</span>
+<span class="co">#&gt; 5 9      w     66 - 100        73 Poland   31390</span>
 <span class="co">#&gt; # ALTER data: 334 x 7</span>
 <span class="co">#&gt;   .altID .egoID sex   age      age.years country   income</span>
-<span class="co">#&gt;    &lt;int&gt; &lt;fct&gt;  &lt;fct&gt; &lt;fct&gt;        &lt;int&gt; &lt;fct&gt;      &lt;dbl&gt;</span>
-<span class="co">#&gt; 1      1 1      w     66 - 100        75 Australia  42340</span>
-<span class="co">#&gt; 2      2 1      m     18 - 25         17 Germany      730</span>
-<span class="co">#&gt; 3      3 1      w     66 - 100        91 Australia  23360</span>
+<span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;fct&gt; &lt;fct&gt;        &lt;int&gt; &lt;fct&gt;      &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 1      1      w     66 - 100        75 Australia  42340</span>
+<span class="co">#&gt; 2 2      1      m     18 - 25         17 Germany      730</span>
+<span class="co">#&gt; 3 3      1      w     66 - 100        91 Australia  23360</span>
 <span class="co">#&gt; # AATIE data: 1,296 x 4</span>
 <span class="co">#&gt;   .egoID .srcID .tgtID weight</span>
-<span class="co">#&gt;   &lt;fct&gt;   &lt;int&gt;  &lt;int&gt;  &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 18         11     22  0.667</span>
-<span class="co">#&gt; 2 28          5     19  0.667</span>
-<span class="co">#&gt; 3 22          3     15  0.667</span></pre></body></html></div>
+<span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 18     11     22      0.667</span>
+<span class="co">#&gt; 2 28     5      19      0.667</span>
+<span class="co">#&gt; 3 22     3      15      0.667</span></code></pre></div>
 <p>Alter level:</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span>(<span class="no">e1</span>, <span class="no">e1</span>$<span class="no">alter</span>$<span class="no">sex</span> <span class="kw">==</span> <span class="st">"w"</span>, <span class="kw">unit</span> <span class="kw">=</span> <span class="st">"alter"</span>)
-<span class="co">#&gt; # EGO data (active): 32 x 6</span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">e1</span>, <span class="va">e1</span><span class="op">$</span><span class="va">alter</span><span class="op">$</span><span class="va">sex</span> <span class="op">==</span> <span class="st">"w"</span>, unit <span class="op">=</span> <span class="st">"alter"</span><span class="op">)</span>
+<span class="co">#&gt; # EGO data ([32mactive[39m): 32 x 6</span>
 <span class="co">#&gt;   .egoID sex   age     age.years country   income</span>
-<span class="co">#&gt;   &lt;fct&gt;  &lt;fct&gt; &lt;fct&gt;       &lt;int&gt; &lt;fct&gt;      &lt;dbl&gt;</span>
+<span class="co">#&gt;   &lt;chr&gt;  &lt;fct&gt; &lt;fct&gt;       &lt;int&gt; &lt;fct&gt;      &lt;dbl&gt;</span>
 <span class="co">#&gt; 1 1      w     36 - 45        45 USA        36135</span>
 <span class="co">#&gt; 2 2      m     36 - 45        37 Germany    35040</span>
 <span class="co">#&gt; 3 3      m     26 - 35        28 Australia  63875</span>
+<span class="co">#&gt; 4 4      w     0 - 17          2 USA        31755</span>
+<span class="co">#&gt; 5 5      m     56 - 65        56 Germany    14600</span>
 <span class="co">#&gt; # ALTER data: 181 x 7</span>
 <span class="co">#&gt;   .altID .egoID sex   age      age.years country   income</span>
-<span class="co">#&gt;    &lt;int&gt; &lt;fct&gt;  &lt;fct&gt; &lt;fct&gt;        &lt;int&gt; &lt;fct&gt;      &lt;dbl&gt;</span>
-<span class="co">#&gt; 1      1 1      w     66 - 100        75 Australia  42340</span>
-<span class="co">#&gt; 2      3 1      w     66 - 100        91 Australia  23360</span>
-<span class="co">#&gt; 3      1 2      w     66 - 100        75 Australia  42340</span>
+<span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;fct&gt; &lt;fct&gt;        &lt;int&gt; &lt;fct&gt;      &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 1      1      w     66 - 100        75 Australia  42340</span>
+<span class="co">#&gt; 2 3      1      w     66 - 100        91 Australia  23360</span>
+<span class="co">#&gt; 3 1      2      w     66 - 100        75 Australia  42340</span>
 <span class="co">#&gt; # AATIE data: 281 x 4</span>
 <span class="co">#&gt;   .egoID .srcID .tgtID weight</span>
-<span class="co">#&gt;   &lt;fct&gt;   &lt;int&gt;  &lt;int&gt;  &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 18         11     22  0.667</span>
-<span class="co">#&gt; 2 11         10     12  0.333</span>
-<span class="co">#&gt; 3 24         10     11  0.333</span></pre></body></html></div>
+<span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 18     11     22      0.667</span>
+<span class="co">#&gt; 2 11     10     12      0.333</span>
+<span class="co">#&gt; 3 24     10     11      0.333</span></code></pre></div>
 <p>Alter-alter tie level:</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span>(<span class="no">e1</span>, <span class="no">e1</span>$<span class="no">aatie</span>$<span class="no">weight</span> <span class="kw">&gt;</span> <span class="fl">0.5</span>, <span class="kw">unit</span> <span class="kw">=</span> <span class="st">"aatie"</span>)
-<span class="co">#&gt; # EGO data (active): 32 x 6</span>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">e1</span>, <span class="va">e1</span><span class="op">$</span><span class="va">aatie</span><span class="op">$</span><span class="va">weight</span> <span class="op">&gt;</span> <span class="fl">0.5</span>, unit <span class="op">=</span> <span class="st">"aatie"</span><span class="op">)</span>
+<span class="co">#&gt; # EGO data ([32mactive[39m): 32 x 6</span>
 <span class="co">#&gt;   .egoID sex   age     age.years country   income</span>
-<span class="co">#&gt;   &lt;fct&gt;  &lt;fct&gt; &lt;fct&gt;       &lt;int&gt; &lt;fct&gt;      &lt;dbl&gt;</span>
+<span class="co">#&gt;   &lt;chr&gt;  &lt;fct&gt; &lt;fct&gt;       &lt;int&gt; &lt;fct&gt;      &lt;dbl&gt;</span>
 <span class="co">#&gt; 1 1      w     36 - 45        45 USA        36135</span>
 <span class="co">#&gt; 2 2      m     36 - 45        37 Germany    35040</span>
 <span class="co">#&gt; 3 3      m     26 - 35        28 Australia  63875</span>
+<span class="co">#&gt; 4 4      w     0 - 17          2 USA        31755</span>
+<span class="co">#&gt; 5 5      m     56 - 65        56 Germany    14600</span>
 <span class="co">#&gt; # ALTER data: 478 x 7</span>
 <span class="co">#&gt;   .altID .egoID sex   age      age.years country   income</span>
-<span class="co">#&gt;    &lt;int&gt; &lt;fct&gt;  &lt;fct&gt; &lt;fct&gt;        &lt;int&gt; &lt;fct&gt;      &lt;dbl&gt;</span>
-<span class="co">#&gt; 1      1 1      w     66 - 100        75 Australia  42340</span>
-<span class="co">#&gt; 2      2 1      m     18 - 25         17 Germany      730</span>
-<span class="co">#&gt; 3      3 1      w     66 - 100        91 Australia  23360</span>
+<span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;fct&gt; &lt;fct&gt;        &lt;int&gt; &lt;fct&gt;      &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 1      1      w     66 - 100        75 Australia  42340</span>
+<span class="co">#&gt; 2 2      1      m     18 - 25         17 Germany      730</span>
+<span class="co">#&gt; 3 3      1      w     66 - 100        91 Australia  23360</span>
 <span class="co">#&gt; # AATIE data: 1,241 x 4</span>
 <span class="co">#&gt;   .egoID .srcID .tgtID weight</span>
-<span class="co">#&gt;   &lt;fct&gt;   &lt;int&gt;  &lt;int&gt;  &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 18         11     22  0.667</span>
-<span class="co">#&gt; 2 28          5     19  0.667</span>
-<span class="co">#&gt; 3 19          5      6  1</span></pre></body></html></div>
+<span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 18     11     22      0.667</span>
+<span class="co">#&gt; 2 28     5      19      0.667</span>
+<span class="co">#&gt; 3 19     5      6       1</span></code></pre></div>
 </div>
 <div id="activate-and-dplyr-verbs" class="section level3">
 <h3 class="hasAnchor">
 <a href="#activate-and-dplyr-verbs" class="anchor"></a>activate() and dplyr verbs</h3>
 <p>An <code>egor</code> object can be manipulated with dplyr verbs. Using the activate() command, the data level to execute manipulations on, can be changed. This concept is borrwed from the tidygraph package.</p>
 <p>If the manipulation leads to the deletion of egos, the respective alters and alter-alter ties are deleted as well. Similarly deletions of alters lead to the exclusion of the alter-alter ties of the deleted alters.</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">e1</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">income</span> <span class="kw">&gt;</span> <span class="fl">36000</span>)
-<span class="co">#&gt; # EGO data (active): 13 x 6</span>
-<span class="co">#&gt;   .egoID sex   age     age.years country   income</span>
-<span class="co">#&gt;   &lt;fct&gt;  &lt;fct&gt; &lt;fct&gt;       &lt;int&gt; &lt;fct&gt;      &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 1      w     36 - 45        45 USA        36135</span>
-<span class="co">#&gt; 2 3      m     26 - 35        28 Australia  63875</span>
-<span class="co">#&gt; 3 8      m     0 - 17          1 Australia  37960</span>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">e1</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="http://gdfe.co/srvyr/reference/dplyr_single.html">filter</a></span><span class="op">(</span><span class="va">income</span> <span class="op">&gt;</span> <span class="fl">36000</span><span class="op">)</span>
+<span class="co">#&gt; # EGO data ([32mactive[39m): 13 x 6</span>
+<span class="co">#&gt;   .egoID sex   age      age.years country   income</span>
+<span class="co">#&gt;   &lt;chr&gt;  &lt;fct&gt; &lt;fct&gt;        &lt;int&gt; &lt;fct&gt;      &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 1      w     36 - 45         45 USA        36135</span>
+<span class="co">#&gt; 2 3      m     26 - 35         28 Australia  63875</span>
+<span class="co">#&gt; 3 8      m     0 - 17           1 Australia  37960</span>
+<span class="co">#&gt; 4 10     w     66 - 100        74 Germany    43435</span>
+<span class="co">#&gt; 5 11     m     66 - 100        81 Germany    71905</span>
 <span class="co">#&gt; # ALTER data: 192 x 7</span>
 <span class="co">#&gt;   .altID .egoID sex   age      age.years country   income</span>
-<span class="co">#&gt;    &lt;int&gt; &lt;fct&gt;  &lt;fct&gt; &lt;fct&gt;        &lt;int&gt; &lt;fct&gt;      &lt;dbl&gt;</span>
-<span class="co">#&gt; 1      1 1      w     66 - 100        75 Australia  42340</span>
-<span class="co">#&gt; 2      2 1      m     18 - 25         17 Germany      730</span>
-<span class="co">#&gt; 3      3 1      w     66 - 100        91 Australia  23360</span>
+<span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;fct&gt; &lt;fct&gt;        &lt;int&gt; &lt;fct&gt;      &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 1      1      w     66 - 100        75 Australia  42340</span>
+<span class="co">#&gt; 2 2      1      m     18 - 25         17 Germany      730</span>
+<span class="co">#&gt; 3 3      1      w     66 - 100        91 Australia  23360</span>
 <span class="co">#&gt; # AATIE data: 703 x 4</span>
 <span class="co">#&gt;   .egoID .srcID .tgtID weight</span>
-<span class="co">#&gt;   &lt;fct&gt;   &lt;int&gt;  &lt;int&gt;  &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 22          3     15  0.667</span>
-<span class="co">#&gt; 2 14          3      7  0.333</span>
-<span class="co">#&gt; 3 15          5      8  0.333</span>
+<span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 22     3      15      0.667</span>
+<span class="co">#&gt; 2 14     3      7       0.333</span>
+<span class="co">#&gt; 3 15     5      8       0.333</span>
 
-<span class="no">e1</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/activate.html">activate</a></span>(<span class="no">alter</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">country</span> <span class="kw">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"USA"</span>, <span class="st">"Poland"</span>))
-<span class="co">#&gt; # ALTER data (active): 239 x 7</span>
-<span class="co">#&gt;   .altID .egoID sex   age      age.years country income</span>
-<span class="co">#&gt;    &lt;int&gt; &lt;fct&gt;  &lt;fct&gt; &lt;fct&gt;        &lt;int&gt; &lt;fct&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt; 1      4 1      m     0 - 17          10 USA      27010</span>
-<span class="co">#&gt; 2      5 1      m     66 - 100        67 Poland   33215</span>
-<span class="co">#&gt; 3      6 1      m     0 - 17          10 USA      31755</span>
+<span class="va">e1</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/activate.html">activate</a></span><span class="op">(</span><span class="va">alter</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="http://gdfe.co/srvyr/reference/dplyr_single.html">filter</a></span><span class="op">(</span><span class="va">country</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"USA"</span>, <span class="st">"Poland"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; # EGO data: 32 x 6</span>
 <span class="co">#&gt;   .egoID sex   age     age.years country   income</span>
-<span class="co">#&gt;   &lt;fct&gt;  &lt;fct&gt; &lt;fct&gt;       &lt;int&gt; &lt;fct&gt;      &lt;dbl&gt;</span>
+<span class="co">#&gt;   &lt;chr&gt;  &lt;fct&gt; &lt;fct&gt;       &lt;int&gt; &lt;fct&gt;      &lt;dbl&gt;</span>
 <span class="co">#&gt; 1 1      w     36 - 45        45 USA        36135</span>
 <span class="co">#&gt; 2 2      m     36 - 45        37 Germany    35040</span>
 <span class="co">#&gt; 3 3      m     26 - 35        28 Australia  63875</span>
+<span class="co">#&gt; # ALTER data ([32mactive[39m): 239 x 7</span>
+<span class="co">#&gt;   .altID .egoID sex   age      age.years country income</span>
+<span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;fct&gt; &lt;fct&gt;        &lt;int&gt; &lt;fct&gt;    &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 4      1      m     0 - 17          10 USA      27010</span>
+<span class="co">#&gt; 2 5      1      m     66 - 100        67 Poland   33215</span>
+<span class="co">#&gt; 3 6      1      m     0 - 17          10 USA      31755</span>
+<span class="co">#&gt; 4 8      1      m     66 - 100        97 USA      67890</span>
+<span class="co">#&gt; 5 4      2      m     0 - 17          10 USA      27010</span>
 <span class="co">#&gt; # AATIE data: 454 x 4</span>
 <span class="co">#&gt;   .egoID .srcID .tgtID weight</span>
-<span class="co">#&gt;   &lt;fct&gt;   &lt;int&gt;  &lt;int&gt;  &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 32         13     18  0.333</span>
-<span class="co">#&gt; 2 18         11     22  0.667</span>
-<span class="co">#&gt; 3 19          5      6  1</span>
+<span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 32     13     18      0.333</span>
+<span class="co">#&gt; 2 18     11     22      0.667</span>
+<span class="co">#&gt; 3 19     5      6       1</span>
 
-<span class="no">e1</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/activate.html">activate</a></span>(<span class="no">aatie</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">weight</span> <span class="kw">&gt;</span> <span class="fl">0.7</span>)
-<span class="co">#&gt; # AATIE data (active): 598 x 4</span>
-<span class="co">#&gt;   .egoID .srcID .tgtID weight</span>
-<span class="co">#&gt;   &lt;fct&gt;   &lt;int&gt;  &lt;int&gt;  &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 19          5      6      1</span>
-<span class="co">#&gt; 2 13         12     17      1</span>
-<span class="co">#&gt; 3 8           3     13      1</span>
+<span class="va">e1</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/activate.html">activate</a></span><span class="op">(</span><span class="va">aatie</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="http://gdfe.co/srvyr/reference/dplyr_single.html">filter</a></span><span class="op">(</span><span class="va">weight</span> <span class="op">&gt;</span> <span class="fl">0.7</span><span class="op">)</span>
 <span class="co">#&gt; # EGO data: 32 x 6</span>
 <span class="co">#&gt;   .egoID sex   age     age.years country   income</span>
-<span class="co">#&gt;   &lt;fct&gt;  &lt;fct&gt; &lt;fct&gt;       &lt;int&gt; &lt;fct&gt;      &lt;dbl&gt;</span>
+<span class="co">#&gt;   &lt;chr&gt;  &lt;fct&gt; &lt;fct&gt;       &lt;int&gt; &lt;fct&gt;      &lt;dbl&gt;</span>
 <span class="co">#&gt; 1 1      w     36 - 45        45 USA        36135</span>
 <span class="co">#&gt; 2 2      m     36 - 45        37 Germany    35040</span>
 <span class="co">#&gt; 3 3      m     26 - 35        28 Australia  63875</span>
 <span class="co">#&gt; # ALTER data: 478 x 7</span>
 <span class="co">#&gt;   .altID .egoID sex   age      age.years country   income</span>
-<span class="co">#&gt;    &lt;int&gt; &lt;fct&gt;  &lt;fct&gt; &lt;fct&gt;        &lt;int&gt; &lt;fct&gt;      &lt;dbl&gt;</span>
-<span class="co">#&gt; 1      1 1      w     66 - 100        75 Australia  42340</span>
-<span class="co">#&gt; 2      2 1      m     18 - 25         17 Germany      730</span>
-<span class="co">#&gt; 3      3 1      w     66 - 100        91 Australia  23360</span></pre></body></html></div>
+<span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;fct&gt; &lt;fct&gt;        &lt;int&gt; &lt;fct&gt;      &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 1      1      w     66 - 100        75 Australia  42340</span>
+<span class="co">#&gt; 2 2      1      m     18 - 25         17 Germany      730</span>
+<span class="co">#&gt; 3 3      1      w     66 - 100        91 Australia  23360</span>
+<span class="co">#&gt; # AATIE data ([32mactive[39m): 598 x 4</span>
+<span class="co">#&gt;   .egoID .srcID .tgtID weight</span>
+<span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 19     5      6           1</span>
+<span class="co">#&gt; 2 13     12     17          1</span>
+<span class="co">#&gt; 3 8      3      13          1</span>
+<span class="co">#&gt; 4 32     8      14          1</span>
+<span class="co">#&gt; 5 21     3      13          1</span></code></pre></div>
 </div>
 </div>
 <div id="analyse" class="section level2">
@@ -480,34 +500,44 @@ threefiles_to_egor()</a></code></pre>
 <div id="summary" class="section level3">
 <h3 class="hasAnchor">
 <a href="#summary" class="anchor"></a>Summary</h3>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="no">e1</span>)
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">e1</span><span class="op">)</span>
 <span class="co">#&gt; 32 Egos/ Ego Networks </span>
 <span class="co">#&gt; 478 Alters </span>
 <span class="co">#&gt; Min. Netsize 6 </span>
 <span class="co">#&gt; Average Netsize 14.9375 </span>
 <span class="co">#&gt; Max. Netsize 24 </span>
 <span class="co">#&gt; Average Density 0.503451632597652 </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Ego sampling design:</span>
-<span class="co">#&gt;    NULLAlter survey design:</span>
-<span class="co">#&gt;   Maximum nominations: Inf</span></pre></body></html></div>
+<span class="co">#&gt; Alter survey design:</span>
+<span class="co">#&gt;   Maximum nominations: Inf</span></code></pre></div>
 </div>
 <div id="density" class="section level3">
 <h3 class="hasAnchor">
 <a href="#density" class="anchor"></a>Density</h3>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="fu"><a href="../reference/ego_density.html">ego_density</a></span>(<span class="no">e1</span>)
-<span class="co">#&gt;  [1] 0.5000000 0.4853801 0.5500000 0.4485294 0.4666667 0.3750000 0.4909091</span>
-<span class="co">#&gt;  [8] 0.4632353 0.4166667 0.4545455 0.4444444 0.4615385 0.5670996 0.4761905</span>
-<span class="co">#&gt; [15] 0.5166667 0.6000000 0.4822134 0.5543478 0.6666667 0.4888889 0.5294118</span>
-<span class="co">#&gt; [22] 0.5105263 0.4761905 0.5636364 0.4545455 0.5555556 0.5000000 0.4684211</span>
-<span class="co">#&gt; [29] 0.5578947 0.6000000 0.5090909 0.4761905</span></pre></body></html></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/ego_density.html">ego_density</a></span><span class="op">(</span><span class="va">e1</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 32 x 2</span>
+<span class="co">#&gt;    .egoID density</span>
+<span class="co">#&gt;    &lt;chr&gt;    &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 1        0.5  </span>
+<span class="co">#&gt;  2 2        0.485</span>
+<span class="co">#&gt;  3 3        0.55 </span>
+<span class="co">#&gt;  4 4        0.449</span>
+<span class="co">#&gt;  5 5        0.467</span>
+<span class="co">#&gt;  6 6        0.375</span>
+<span class="co">#&gt;  7 7        0.491</span>
+<span class="co">#&gt;  8 8        0.463</span>
+<span class="co">#&gt;  9 9        0.417</span>
+<span class="co">#&gt; 10 10       0.455</span>
+<span class="co">#&gt; # … with 22 more rows</span></code></pre></div>
 </div>
 <div id="composition" class="section level3">
 <h3 class="hasAnchor">
 <a href="#composition" class="anchor"></a>Composition</h3>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu"><a href="../reference/composition.html">composition</a></span>(<span class="no">e1</span>, <span class="st">"age"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>() <span class="kw">%&gt;%</span>
-  <span class="fu">kable</span>()</pre></body></html></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/composition.html">composition</a></span><span class="op">(</span><span class="va">e1</span>, <span class="st">"age"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">kable</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">.egoID</th>
@@ -522,63 +552,63 @@ threefiles_to_egor()</a></code></pre>
 <tbody>
 <tr class="odd">
 <td align="left">1</td>
-<td align="right">0.0062762</td>
-<td align="right">0.0020921</td>
+<td align="right">0.3750000</td>
+<td align="right">0.1250000</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
-<td align="right">0.0083682</td>
+<td align="right">0.5000000</td>
 </tr>
 <tr class="even">
-<td align="left">2</td>
-<td align="right">0.0125523</td>
-<td align="right">0.0020921</td>
-<td align="right">0.0020921</td>
-<td align="right">0.0020921</td>
-<td align="right">0.0041841</td>
-<td align="right">0.0020921</td>
-<td align="right">0.0146444</td>
+<td align="left">10</td>
+<td align="right">0.3636364</td>
+<td align="right">0.0909091</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">0.5454545</td>
 </tr>
 <tr class="odd">
-<td align="left">3</td>
-<td align="right">0.0104603</td>
-<td align="right">0.0020921</td>
-<td align="right">0.0020921</td>
-<td align="right">NA</td>
-<td align="right">0.0020921</td>
-<td align="right">0.0020921</td>
-<td align="right">0.0146444</td>
+<td align="left">11</td>
+<td align="right">0.2777778</td>
+<td align="right">0.0555556</td>
+<td align="right">0.0555556</td>
+<td align="right">0.0555556</td>
+<td align="right">0.1111111</td>
+<td align="right">0.0555556</td>
+<td align="right">0.3888889</td>
 </tr>
 <tr class="even">
-<td align="left">4</td>
-<td align="right">0.0104603</td>
-<td align="right">0.0020921</td>
-<td align="right">0.0020921</td>
-<td align="right">0.0020921</td>
-<td align="right">0.0020921</td>
-<td align="right">0.0020921</td>
-<td align="right">0.0146444</td>
+<td align="left">12</td>
+<td align="right">0.3076923</td>
+<td align="right">0.0769231</td>
+<td align="right">0.0769231</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">0.5384615</td>
 </tr>
 <tr class="odd">
-<td align="left">5</td>
-<td align="right">0.0083682</td>
-<td align="right">0.0020921</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">0.0104603</td>
+<td align="left">13</td>
+<td align="right">0.2727273</td>
+<td align="right">0.0454545</td>
+<td align="right">0.1363636</td>
+<td align="right">0.0909091</td>
+<td align="right">0.0909091</td>
+<td align="right">0.0454545</td>
+<td align="right">0.3181818</td>
 </tr>
 <tr class="even">
-<td align="left">6</td>
-<td align="right">0.0104603</td>
-<td align="right">0.0020921</td>
-<td align="right">0.0020921</td>
-<td align="right">NA</td>
-<td align="right">0.0020921</td>
-<td align="right">0.0020921</td>
-<td align="right">0.0146444</td>
+<td align="left">14</td>
+<td align="right">0.2857143</td>
+<td align="right">0.0476190</td>
+<td align="right">0.1428571</td>
+<td align="right">0.0476190</td>
+<td align="right">0.0952381</td>
+<td align="right">0.0476190</td>
+<td align="right">0.3333333</td>
 </tr>
 </tbody>
 </table>
@@ -586,43 +616,45 @@ threefiles_to_egor()</a></code></pre>
 <div id="diversity" class="section level3">
 <h3 class="hasAnchor">
 <a href="#diversity" class="anchor"></a>Diversity</h3>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="fu"><a href="../reference/alts_diversity_count.html">alts_diversity_count</a></span>(<span class="no">e1</span>, <span class="st">"age"</span>)
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/alts_diversity_count.html">alts_diversity_count</a></span><span class="op">(</span><span class="va">e1</span>, <span class="st">"age"</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 32 x 2</span>
-<span class="co">#&gt;    .egoID result</span>
-<span class="co">#&gt;    &lt;chr&gt;   &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 1           3</span>
-<span class="co">#&gt;  2 2           7</span>
-<span class="co">#&gt;  3 3           6</span>
-<span class="co">#&gt;  4 4           7</span>
-<span class="co">#&gt;  5 5           3</span>
-<span class="co">#&gt;  6 6           6</span>
-<span class="co">#&gt;  7 7           3</span>
-<span class="co">#&gt;  8 8           7</span>
-<span class="co">#&gt;  9 9           3</span>
-<span class="co">#&gt; 10 10          3</span>
+<span class="co">#&gt;    .egoID diversity</span>
+<span class="co">#&gt;    &lt;chr&gt;      &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 1              3</span>
+<span class="co">#&gt;  2 2              7</span>
+<span class="co">#&gt;  3 3              6</span>
+<span class="co">#&gt;  4 4              7</span>
+<span class="co">#&gt;  5 5              3</span>
+<span class="co">#&gt;  6 6              6</span>
+<span class="co">#&gt;  7 7              3</span>
+<span class="co">#&gt;  8 8              7</span>
+<span class="co">#&gt;  9 9              3</span>
+<span class="co">#&gt; 10 10             3</span>
 <span class="co">#&gt; # … with 22 more rows</span>
-<span class="fu"><a href="../reference/alts_diversity_count.html">alts_diversity_entropy</a></span>(<span class="no">e1</span>, <span class="st">"age"</span>)
+<span class="fu"><a href="../reference/alts_diversity_count.html">alts_diversity_entropy</a></span><span class="op">(</span><span class="va">e1</span>, <span class="st">"age"</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 32 x 2</span>
-<span class="co">#&gt;    .egoID result</span>
-<span class="co">#&gt;    &lt;chr&gt;   &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 1        1.41</span>
-<span class="co">#&gt;  2 2        2.29</span>
-<span class="co">#&gt;  3 3        2.05</span>
-<span class="co">#&gt;  4 4        2.25</span>
-<span class="co">#&gt;  5 5        1.36</span>
-<span class="co">#&gt;  6 6        2.05</span>
-<span class="co">#&gt;  7 7        1.32</span>
-<span class="co">#&gt;  8 8        2.25</span>
-<span class="co">#&gt;  9 9        1.39</span>
-<span class="co">#&gt; 10 10       1.32</span>
-<span class="co">#&gt; # … with 22 more rows</span></pre></body></html></div>
+<span class="co">#&gt;    .egoID entropy</span>
+<span class="co">#&gt;    &lt;chr&gt;    &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 1         1.41</span>
+<span class="co">#&gt;  2 2         2.29</span>
+<span class="co">#&gt;  3 3         2.05</span>
+<span class="co">#&gt;  4 4         2.25</span>
+<span class="co">#&gt;  5 5         1.36</span>
+<span class="co">#&gt;  6 6         2.05</span>
+<span class="co">#&gt;  7 7         1.32</span>
+<span class="co">#&gt;  8 8         2.25</span>
+<span class="co">#&gt;  9 9         1.39</span>
+<span class="co">#&gt; 10 10        1.32</span>
+<span class="co">#&gt; # … with 22 more rows</span></code></pre></div>
 </div>
 <div id="ego-alter-homophily-ei-index" class="section level3">
 <h3 class="hasAnchor">
 <a href="#ego-alter-homophily-ei-index" class="anchor"></a>Ego-Alter Homophily (EI-Index)</h3>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="fu"><a href="../reference/comp_ei.html">comp_ei</a></span>(<span class="no">e1</span>, <span class="st">"age"</span>, <span class="st">"age"</span>)
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/comp_ei.html">comp_ei</a></span><span class="op">(</span><span class="va">e1</span>, <span class="st">"age"</span>, <span class="st">"age"</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 32 x 2</span>
-<span class="co">#&gt;    .egoID  result</span>
+<span class="co">#&gt;    .egoID      ei</span>
 <span class="co">#&gt;    &lt;chr&gt;    &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 1       1     </span>
 <span class="co">#&gt;  2 2       0.895 </span>
@@ -634,18 +666,19 @@ threefiles_to_egor()</a></code></pre>
 <span class="co">#&gt;  8 8       0.412 </span>
 <span class="co">#&gt;  9 9       0.111 </span>
 <span class="co">#&gt; 10 10     -0.0909</span>
-<span class="co">#&gt; # … with 22 more rows</span></pre></body></html></div>
+<span class="co">#&gt; # … with 22 more rows</span></code></pre></div>
 </div>
 <div id="ei-index-for-alter-alter-ties" class="section level3">
 <h3 class="hasAnchor">
 <a href="#ei-index-for-alter-alter-ties" class="anchor"></a>EI-Index for Alter-Alter Ties</h3>
-<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="fu"><a href="../reference/EI.html">EI</a></span>(<span class="no">e1</span>, <span class="st">"age"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>() <span class="kw">%&gt;%</span>
-  <span class="fu">kable</span>()
-<span class="co">#&gt; EI-Index: age</span></pre></body></html></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/EI.html">EI</a></span><span class="op">(</span><span class="va">e1</span>, <span class="st">"age"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">kable</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
-<th align="right">ei_sc</th>
+<th align="left">.egoID</th>
+<th align="right">ei</th>
 <th align="right">0 - 17</th>
 <th align="right">18 - 25</th>
 <th align="right">66 - 100</th>
@@ -656,6 +689,7 @@ threefiles_to_egor()</a></code></pre>
 </tr></thead>
 <tbody>
 <tr class="odd">
+<td align="left">1</td>
 <td align="right">0.0843373</td>
 <td align="right">-0.1764706</td>
 <td align="right">NaN</td>
@@ -666,6 +700,7 @@ threefiles_to_egor()</a></code></pre>
 <td align="right">NA</td>
 </tr>
 <tr class="even">
+<td align="left">2</td>
 <td align="right">-0.1018011</td>
 <td align="right">-0.1005291</td>
 <td align="right">NaN</td>
@@ -676,6 +711,7 @@ threefiles_to_egor()</a></code></pre>
 <td align="right">NaN</td>
 </tr>
 <tr class="odd">
+<td align="left">3</td>
 <td align="right">-0.0368932</td>
 <td align="right">0.0909091</td>
 <td align="right">NaN</td>
@@ -686,6 +722,7 @@ threefiles_to_egor()</a></code></pre>
 <td align="right">NaN</td>
 </tr>
 <tr class="even">
+<td align="left">4</td>
 <td align="right">0.1460259</td>
 <td align="right">0.1818182</td>
 <td align="right">NaN</td>
@@ -696,6 +733,7 @@ threefiles_to_egor()</a></code></pre>
 <td align="right">NaN</td>
 </tr>
 <tr class="odd">
+<td align="left">5</td>
 <td align="right">-0.1523179</td>
 <td align="right">-0.1851852</td>
 <td align="right">NaN</td>
@@ -706,6 +744,7 @@ threefiles_to_egor()</a></code></pre>
 <td align="right">NA</td>
 </tr>
 <tr class="even">
+<td align="left">6</td>
 <td align="right">0.0987342</td>
 <td align="right">0.2903226</td>
 <td align="right">NaN</td>
@@ -721,75 +760,77 @@ threefiles_to_egor()</a></code></pre>
 <div id="count-attribute-combinations-in-alter-alter-ties-dyads" class="section level3">
 <h3 class="hasAnchor">
 <a href="#count-attribute-combinations-in-alter-alter-ties-dyads" class="anchor"></a>Count attribute combinations in alter-alter ties/ dyads</h3>
-<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="co"># return results as "wide" tibble</span>
-  <span class="fu"><a href="../reference/count_dyads.html">count_dyads</a></span>(
-    <span class="kw">object</span> <span class="kw">=</span> <span class="no">e1</span>,
-    <span class="kw">alter_var_name</span> <span class="kw">=</span> <span class="st">"country"</span>
-  )
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># return results as "wide" tibble</span>
+  <span class="fu"><a href="../reference/count_dyads.html">count_dyads</a></span><span class="op">(</span>
+    object <span class="op">=</span> <span class="va">e1</span>,
+    alter_var_name <span class="op">=</span> <span class="st">"country"</span>
+  <span class="op">)</span>
 <span class="co">#&gt; # A tibble: 32 x 11</span>
 <span class="co">#&gt;    .egoID dy_cou_Australi… dy_cou_Australi… dy_cou_Australi… dy_cou_Australi…</span>
-<span class="co">#&gt;    &lt;fct&gt;             &lt;int&gt;            &lt;int&gt;            &lt;int&gt;            &lt;int&gt;</span>
+<span class="co">#&gt;    &lt;chr&gt;             &lt;int&gt;            &lt;int&gt;            &lt;int&gt;            &lt;int&gt;</span>
 <span class="co">#&gt;  1 1                     1                2                2                5</span>
-<span class="co">#&gt;  2 2                     3               12                7                9</span>
-<span class="co">#&gt;  3 3                     1               10                4               14</span>
-<span class="co">#&gt;  4 4                     6                9                3                8</span>
-<span class="co">#&gt;  5 5                     1                1                3                3</span>
-<span class="co">#&gt;  6 6                     5                5                5                6</span>
-<span class="co">#&gt;  7 7                     2                4                6                5</span>
-<span class="co">#&gt;  8 8                     2               10                8               11</span>
-<span class="co">#&gt;  9 9                     1                2                4                2</span>
-<span class="co">#&gt; 10 10                    1                4                4                3</span>
+<span class="co">#&gt;  2 10                    1                4                4                3</span>
+<span class="co">#&gt;  3 11                    0                8                7               10</span>
+<span class="co">#&gt;  4 12                    2                2                4                7</span>
+<span class="co">#&gt;  5 13                    3               16               16               11</span>
+<span class="co">#&gt;  6 14                    5               15               10                7</span>
+<span class="co">#&gt;  7 15                    1                9                9               11</span>
+<span class="co">#&gt;  8 16                    2                5                5                6</span>
+<span class="co">#&gt;  9 17                    3               16                9               13</span>
+<span class="co">#&gt; 10 18                    2               16               12               13</span>
 <span class="co">#&gt; # … with 22 more rows, and 6 more variables: dy_cou_Germany_USA &lt;int&gt;,</span>
 <span class="co">#&gt; #   dy_cou_USA_USA &lt;int&gt;, dy_cou_Germany_Germany &lt;int&gt;,</span>
 <span class="co">#&gt; #   dy_cou_Germany_Poland &lt;int&gt;, dy_cou_Poland_Poland &lt;int&gt;,</span>
 <span class="co">#&gt; #   dy_cou_Poland_USA &lt;int&gt;</span>
 
 <span class="co"># return results as "long" tibble</span>
-  <span class="fu"><a href="../reference/count_dyads.html">count_dyads</a></span>(
-    <span class="kw">object</span> <span class="kw">=</span> <span class="no">e1</span>,
-    <span class="kw">alter_var_name</span> <span class="kw">=</span> <span class="st">"country"</span>,
-    <span class="kw">return_as</span> <span class="kw">=</span> <span class="st">"long"</span>
-  )
+  <span class="fu"><a href="../reference/count_dyads.html">count_dyads</a></span><span class="op">(</span>
+    object <span class="op">=</span> <span class="va">e1</span>,
+    alter_var_name <span class="op">=</span> <span class="st">"country"</span>,
+    return_as <span class="op">=</span> <span class="st">"long"</span>
+  <span class="op">)</span>
 <span class="co">#&gt; # A tibble: 292 x 3</span>
 <span class="co">#&gt;    .egoID dyads                   n</span>
-<span class="co">#&gt;    &lt;fct&gt;  &lt;chr&gt;               &lt;int&gt;</span>
+<span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt;               &lt;int&gt;</span>
 <span class="co">#&gt;  1 1      Australia_Australia     1</span>
 <span class="co">#&gt;  2 1      Australia_Germany       2</span>
 <span class="co">#&gt;  3 1      Australia_Poland        2</span>
 <span class="co">#&gt;  4 1      Australia_USA           5</span>
 <span class="co">#&gt;  5 1      Germany_USA             2</span>
 <span class="co">#&gt;  6 1      USA_USA                 2</span>
-<span class="co">#&gt;  7 2      Australia_Australia     3</span>
-<span class="co">#&gt;  8 2      Australia_Germany      12</span>
-<span class="co">#&gt;  9 2      Australia_Poland        7</span>
-<span class="co">#&gt; 10 2      Australia_USA           9</span>
-<span class="co">#&gt; # … with 282 more rows</span></pre></body></html></div>
+<span class="co">#&gt;  7 10     Australia_Australia     1</span>
+<span class="co">#&gt;  8 10     Australia_Germany       4</span>
+<span class="co">#&gt;  9 10     Australia_Poland        4</span>
+<span class="co">#&gt; 10 10     Australia_USA           3</span>
+<span class="co">#&gt; # … with 282 more rows</span></code></pre></div>
 </div>
 <div id="comp_ply" class="section level3">
 <h3 class="hasAnchor">
 <a href="#comp_ply" class="anchor"></a><code>comp_ply()</code>
 </h3>
 <p><code><a href="../reference/comp_ply.html">comp_ply()</a></code> applies a user-defined function on an alter attribute and returns a numeric vector with the results. It can be used to apply base R functions like <code><a href="https://rdrr.io/r/stats/sd.html">sd()</a></code>, <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> or functions from other packages.</p>
-<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="no">e2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/make_egor.html">make_egor</a></span>(<span class="fl">15</span>, <span class="fl">32</span>)
-<span class="fu"><a href="../reference/comp_ply.html">comp_ply</a></span>(<span class="no">e2</span>, <span class="st">"age.years"</span>, <span class="no">sd</span>, <span class="kw">na.rm</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">e2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_egor.html">make_egor</a></span><span class="op">(</span><span class="fl">15</span>, <span class="fl">32</span><span class="op">)</span>
+<span class="fu"><a href="../reference/comp_ply.html">comp_ply</a></span><span class="op">(</span><span class="va">e2</span>, <span class="st">"age.years"</span>, <span class="va">sd</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 15 x 2</span>
 <span class="co">#&gt;    .egoID result</span>
-<span class="co">#&gt;    &lt;chr&gt;   &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 1        34.9</span>
-<span class="co">#&gt;  2 2        34.6</span>
-<span class="co">#&gt;  3 3        33.7</span>
-<span class="co">#&gt;  4 4        34.9</span>
-<span class="co">#&gt;  5 5        34.9</span>
-<span class="co">#&gt;  6 6        35.4</span>
-<span class="co">#&gt;  7 7        36.4</span>
-<span class="co">#&gt;  8 8        32.4</span>
-<span class="co">#&gt;  9 9        35.2</span>
-<span class="co">#&gt; 10 10       33.3</span>
-<span class="co">#&gt; 11 11       34.2</span>
-<span class="co">#&gt; 12 12       33.8</span>
-<span class="co">#&gt; 13 13       34.6</span>
-<span class="co">#&gt; 14 14       34.8</span>
-<span class="co">#&gt; 15 15       34.3</span></pre></body></html></div>
+<span class="co">#&gt;     &lt;dbl&gt;  &lt;dbl&gt;</span>
+<span class="co">#&gt;  1      1   21.8</span>
+<span class="co">#&gt;  2      2   20.4</span>
+<span class="co">#&gt;  3      3   19.2</span>
+<span class="co">#&gt;  4      4   21.1</span>
+<span class="co">#&gt;  5      5   22.0</span>
+<span class="co">#&gt;  6      6   22.8</span>
+<span class="co">#&gt;  7      7   22.4</span>
+<span class="co">#&gt;  8      8   23.9</span>
+<span class="co">#&gt;  9      9   20.3</span>
+<span class="co">#&gt; 10     10   20.8</span>
+<span class="co">#&gt; 11     11   20.9</span>
+<span class="co">#&gt; 12     12   20.9</span>
+<span class="co">#&gt; 13     13   21.8</span>
+<span class="co">#&gt; 14     14   21.9</span>
+<span class="co">#&gt; 15     15   23.8</span></code></pre></div>
 </div>
 </div>
 <div id="visualize" class="section level2">
@@ -798,26 +839,28 @@ threefiles_to_egor()</a></code></pre>
 <div id="clustered-graphs" class="section level3">
 <h3 class="hasAnchor">
 <a href="#clustered-graphs" class="anchor"></a>Clustered Graphs</h3>
-<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"egor32"</span>)
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"egor32"</span><span class="op">)</span>
 
 <span class="co"># Simplify networks to clustered graphs, stored as igraph objects</span>
-<span class="no">graphs</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/clustered_graphs.html">clustered_graphs</a></span>(<span class="no">egor32</span>, <span class="st">"age"</span>)
+<span class="va">graphs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/clustered_graphs.html">clustered_graphs</a></span><span class="op">(</span><span class="va">egor32</span>, <span class="st">"age"</span><span class="op">)</span> 
 
 <span class="co"># Visualize</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="kw">mfrow</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>,<span class="fl">2</span>), <span class="kw">mar</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>))
-<span class="fu"><a href="../reference/vis_clustered_graphs.html">vis_clustered_graphs</a></span>(<span class="no">graphs</span>[<span class="fl">1</span>:<span class="fl">3</span>],
-                     <span class="kw">node.size.multiplier</span> <span class="kw">=</span> <span class="fl">1</span>,
-                     <span class="kw">edge.width.multiplier</span> <span class="kw">=</span> <span class="fl">1</span>,
-                     <span class="kw">label.size</span> <span class="kw">=</span> <span class="fl">0.6</span>)</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>, mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="../reference/vis_clustered_graphs.html">vis_clustered_graphs</a></span><span class="op">(</span><span class="va">graphs</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, 
+                     node.size.multiplier <span class="op">=</span> <span class="fl">1</span>, 
+                     edge.width.multiplier <span class="op">=</span> <span class="fl">1</span>,
+                     label.size <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span></code></pre></div>
 <p><img src="using_egor_files/figure-html/unnamed-chunk-16-1.png" width="700"></p>
-<div class="sourceCode" id="cb19"><html><body><pre class="r">
-<span class="no">graphs2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/clustered_graphs.html">clustered_graphs</a></span>(<span class="fu"><a href="../reference/make_egor.html">make_egor</a></span>(<span class="fl">50</span>, <span class="fl">50</span>)[<span class="fl">1</span>:<span class="fl">4</span>], <span class="st">"country"</span>)
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+<span class="va">graphs2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/clustered_graphs.html">clustered_graphs</a></span><span class="op">(</span><span class="fu"><a href="../reference/make_egor.html">make_egor</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">50</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, <span class="st">"country"</span><span class="op">)</span> 
 
-<span class="fu"><a href="../reference/vis_clustered_graphs.html">vis_clustered_graphs</a></span>(<span class="no">graphs2</span>[<span class="fl">1</span>:<span class="fl">3</span>],
-                     <span class="kw">node.size.multiplier</span> <span class="kw">=</span> <span class="fl">1</span>,
-                     <span class="kw">edge.width.multiplier</span> <span class="kw">=</span> <span class="fl">3</span>,
-                     <span class="kw">label.size</span> <span class="kw">=</span> <span class="fl">0.6</span>,
-                     <span class="kw">labels</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/vis_clustered_graphs.html">vis_clustered_graphs</a></span><span class="op">(</span><span class="va">graphs2</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, 
+                     node.size.multiplier <span class="op">=</span> <span class="fl">1</span>, 
+                     edge.width.multiplier <span class="op">=</span> <span class="fl">3</span>,
+                     label.size <span class="op">=</span> <span class="fl">0.6</span>,
+                     labels <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <p><img src="using_egor_files/figure-html/unnamed-chunk-16-2.png" width="700"></p>
 </div>
 <div id="igraph-network-plotting" class="section level3">
@@ -829,14 +872,18 @@ threefiles_to_egor()</a></code></pre>
 <li>
 <code><a href="../reference/as_igraph.html">as_network()</a></code> converts an <code>egor</code> object to a list of network objects.</li>
 </ul>
-<div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="kw">mar</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>), <span class="kw">mfrow</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>, <span class="fl">2</span>))
-<span class="kw pkg">purrr</span><span class="kw ns">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">walk</a></span>(<span class="fu"><a href="../reference/as_igraph.html">as_igraph</a></span>(<span class="no">egor32</span>)[<span class="fl">1</span>:<span class="fl">4</span>], <span class="no">plot</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>, mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
+<span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">walk</a></span><span class="op">(</span><span class="fu"><a href="../reference/as_igraph.html">as_igraph</a></span><span class="op">(</span><span class="va">egor32</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, <span class="va">plot</span><span class="op">)</span></code></pre></div>
 <p><img src="using_egor_files/figure-html/unnamed-chunk-17-1.png" width="700"></p>
-<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="kw pkg">purrr</span><span class="kw ns">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">walk</a></span>(<span class="fu"><a href="../reference/as_igraph.html">as_network</a></span>(<span class="no">egor32</span>)[<span class="fl">1</span>:<span class="fl">4</span>], <span class="no">plot</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">walk</a></span><span class="op">(</span><span class="fu"><a href="../reference/as_igraph.html">as_network</a></span><span class="op">(</span><span class="va">egor32</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, <span class="va">plot</span><span class="op">)</span></code></pre></div>
 <p><img src="using_egor_files/figure-html/unnamed-chunk-17-2.png" width="700"></p>
-<div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">egor32</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">egor32</span><span class="op">)</span></code></pre></div>
 <p><img src="using_egor_files/figure-html/unnamed-chunk-18-1.png" width="768"></p>
-<div class="sourceCode" id="cb23"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="fu"><a href="../reference/make_egor.html">make_egor</a></span>(<span class="fl">32</span>,<span class="fl">16</span>), <span class="kw">venn_var</span> <span class="kw">=</span> <span class="st">"sex"</span>, <span class="kw">pie_var</span> <span class="kw">=</span> <span class="st">"country"</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"egogram"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/make_egor.html">make_egor</a></span><span class="op">(</span><span class="fl">32</span>,<span class="fl">16</span><span class="op">)</span>, venn_var <span class="op">=</span> <span class="st">"sex"</span>, pie_var <span class="op">=</span> <span class="st">"country"</span>, type <span class="op">=</span> <span class="st">"egogram"</span><span class="op">)</span></code></pre></div>
 <p><img src="using_egor_files/figure-html/unnamed-chunk-19-1.png" width="768"></p>
 </div>
 <div id="shiny-app-for-visualization" class="section level3">
@@ -871,7 +918,7 @@ threefiles_to_egor()</a></code></pre>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

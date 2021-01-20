@@ -6,8 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Transform wide alter-alter data to an edge list.
-A regex based implementation to convert a wide list to an edgelist. — wide.dyads.to.edgelist.regex • egor</title>
+<title>Transnational personal communities of social support of German migrants in Great Britain — transnat • egor</title>
 
 
 <!-- jquery -->
@@ -40,10 +39,12 @@ A regex based implementation to convert a wide list to an edgelist. — wide.dya
 
 
 
-<meta property="og:title" content="Transform wide alter-alter data to an edge list.
-A regex based implementation to convert a wide list to an edgelist. — wide.dyads.to.edgelist.regex" />
-<meta property="og:description" content="Transform wide alter-alter data to an edge list.
-A regex based implementation to convert a wide list to an edgelist." />
+<meta property="og:title" content="Transnational personal communities of social support of German migrants in Great Britain — transnat" />
+<meta property="og:description" content="This is an egor object derived from a subset of the data of a personal network
+study on support relationships German migrants living in the UK maintain. The data was collected in 2010 using respondent driven sampling (snowball sampling).
+While the number of alters the respondents were allowed to enter was not limited, only a random subsample of up to eight alters were selected for the alter name interpreter and alter-alter tie questions.
+This data set contains the data
+for 50 of the originally 234 egos." />
 
 
 
@@ -129,42 +130,50 @@ A regex based implementation to convert a wide list to an edgelist." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Transform wide alter-alter data to an edge list.
-A regex based implementation to convert a wide list to an edgelist.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tilltnet/egor/blob/master/R/read.egonet.R'><code>R/read.egonet.R</code></a></small>
-    <div class="hidden name"><code>wide.dyads.to.edgelist.regex.Rd</code></div>
+    <h1>Transnational personal communities of social support of German migrants in Great Britain</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tilltnet/egor/blob/master/R/data.R'><code>R/data.R</code></a></small>
+    <div class="hidden name"><code>transnat.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Transform wide alter-alter data to an edge list.
-A regex based implementation to convert a wide list to an edgelist.</p>
+    <p>This is an <code>egor</code> object derived from a subset of the data of a personal network
+study on support relationships German migrants living in the UK maintain. The data was collected in 2010 using respondent driven sampling (snowball sampling).
+While the number of alters the respondents were allowed to enter was not limited, only a random subsample of up to eight alters were selected for the alter name interpreter and alter-alter tie questions.
+This data set contains the data
+for 50 of the originally 234 egos.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>wide.dyads.to.edgelist.regex</span><span class='op'>(</span><span class='va'>e.wide</span>, <span class='va'>aa.regex</span>, <span class='va'>netsize</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='va'>transnat</span>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>e.wide</th>
-      <td><p>A dataframe containing the alter-alter relation data
-in the 'wide' format.</p></td>
-    </tr>
-    <tr>
-      <th>aa.regex</th>
-      <td><p>A Perl regular expression with name capture,
-intended to be run on column names and capturing via named
-capture the following regex groups: <code>"attr"</code>, <code>"src"</code>, and
-<code>"tgt"</code>, representing the edge attribute being captured, the
-source (or the first alter identified), and the target (or the
-second alter identified) of the edge, respectively. See <code><a href='https://rdrr.io/r/base/regex.html'>regex</a></code>
-for more information.</p></td>
-    </tr>
-    <tr>
-      <th>netsize</th>
-      <td><p><code>Vector</code> containing values of network size per ego.</p></td>
-    </tr>
-    </table>
+<span class='va'>alter_df</span>
+
+<span class='va'>ego_df</span></pre>
+
+
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>transnat: an <code>egor</code> object of 50 egos.</p>
+<p>alter_df: alter <code>data.frame</code> of the transnat dataset.</p>
+<p>ego_df: ego <code>data.frame</code> of the transnat dataset.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The questionnaire used seven name generators:</p><ol>
+<li><p>From time to time, people rely on other people's advice and opinions to help them find their way in life better. In the last 12 months, who have you sought advice from when it came to important decisions, for example about your family or work? (emotional)</p></li>
+<li><p>In the last 12 months who has done little jobs and favors for you or helped you, for example in filling in forms or moving home? (instrumental)</p></li>
+<li><p>In the past year, who have you turned to when you felt down and wanted someone to talk to? (emotional)</p></li>
+<li><p>In the last 12 months, who have you borrowed money from? (instrumental)</p></li>
+<li><p>In the past year, who have you spent your free time with or shared a hobby? ( social companionship)</p></li>
+<li><p>In the past year who have you had disagreements or arguments with (e.g. about everyday affairs, money or property)? (conflict)</p></li>
+<li><p>Who has let you know that you can rely on them (e.g. that they will always be there for you if you need help)? (emotional).</p></li>
+</ol>
+
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    
+<ul>
+<li><p>Herz, A. (2015). Relational constitution of social support in migrants' transnational personal communities. Social Networks, 40 (1), S. 64-74.</p></li>
+<li><p>Herz, A. (2012). Strukturen transnationaler sozialer Unterstützung. Springer Fachmedien Wiesbaden.</p></li>
+</ul>
 
 
   </div>

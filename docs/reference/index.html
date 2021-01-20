@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">egor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.20.06</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.21.01</span>
       </span>
     </div>
 
@@ -79,7 +79,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -108,7 +108,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/tilltnet/egor/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -153,7 +153,7 @@
         <td>
           <p><code><a href="EI.html">EI()</a></code> </p>
         </td>
-        <td><p>Calculate the EI-Index for the alter-alter ties of an egor object</p></td>
+        <td><p>Calculate EI-Index of ego networks</p></td>
       </tr><tr>
         
         <td>
@@ -199,15 +199,15 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="as_alters_df.html">as_alters_df()</a></code> <code><a href="as_alters_df.html">as_aaties_df()</a></code> </p>
-        </td>
-        <td><p>Create global alters and alter-alter relations dataframes from an <code>egor</code> object</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="as_igraph.html">as_igraph()</a></code> <code><a href="as_igraph.html">as.igraph.egor()</a></code> <code><a href="as_igraph.html">as_network()</a></code> <code><a href="as_igraph.html">as.network(<i>&lt;egor&gt;</i>)</a></code> </p>
         </td>
         <td><p>Convert <code>egor</code> object to <code>network</code> or <code>igraph</code> objects</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="as_tibble.egor.html">as_tibble(<i>&lt;egor&gt;</i>)</a></code> <code><a href="as_tibble.egor.html">as_survey(<i>&lt;egor&gt;</i>)</a></code> <code><a href="as_tibble.egor.html">as_egos_df()</a></code> <code><a href="as_tibble.egor.html">as_alters_df()</a></code> <code><a href="as_tibble.egor.html">as_aaties_df()</a></code> <code><a href="as_tibble.egor.html">as_egos_survey()</a></code> <code><a href="as_tibble.egor.html">as_alters_survey()</a></code> <code><a href="as_tibble.egor.html">as_aaties_survey()</a></code> </p>
+        </td>
+        <td><p>Extract ego, alter, and alter-alter tables from an <code>egor</code> object.</p></td>
       </tr><tr>
         
         <td>
@@ -277,6 +277,12 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="egor_options.html">egor_options()</a></code> </p>
+        </td>
+        <td><p>Display names and values of global egor options.</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="egor_vis_app.html">egor_vis_app()</a></code> </p>
         </td>
         <td><p><code>egor</code> Network Visualization App</p></td>
@@ -331,6 +337,14 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="return_results.html">return_results()</a></code> </p>
+        </td>
+        <td><p>Returns results inheriting <code>srvyr</code> design if the input egor object has a an
+<code>ego_design</code> and global option "egor.return.results.with.design" is <code>TRUE</code> or
+'NULL'.</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="rowlist.html">rowlist()</a></code> </p>
         </td>
         <td><p>Convert a table to a list of rows</p></td>
@@ -353,6 +367,12 @@
         </td>
         <td><p>Read/ import ego-centered network data from the three files format, EgoWeb2.0 or
 openeddi.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="transnat.html">transnat</a></code> <code><a href="transnat.html">alter_df</a></code> <code><a href="transnat.html">ego_df</a></code> </p>
+        </td>
+        <td><p>Transnational personal communities of social support of German migrants in Great Britain</p></td>
       </tr><tr>
         
         <td>
@@ -403,7 +423,7 @@ ego in the dataset.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

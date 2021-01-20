@@ -2,7 +2,7 @@
 #'
 #' R Package for importing and analyzing ego-centered-network data.
 #'
-#' \href{https://tilltnet.github.io/egor/}{Further Information}
+#' \href{https:///egor.tillt.net/}{Further Information}
 #' or \href{https://github.com/tilltnet/egor}{GitHub}
 #' 
 #' @details When analyzing ego-centered network data it is common to either

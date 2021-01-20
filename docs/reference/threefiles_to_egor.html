@@ -77,7 +77,7 @@ the edge data. EgoWeb2.0 and openeddi use variations of this format." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">egor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.20.06</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.21.01</span>
       </span>
     </div>
 
@@ -85,7 +85,7 @@ the edge data. EgoWeb2.0 and openeddi use variations of this format." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -114,7 +114,7 @@ the edge data. EgoWeb2.0 and openeddi use variations of this format." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/tilltnet/egor/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -144,35 +144,35 @@ files format consists of an ego file, on alters file and one file containing
 the edge data. EgoWeb2.0 and openeddi use variations of this format.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>threefiles_to_egor</span>(
-  <span class='no'>egos</span>,
-  <span class='no'>alters.df</span>,
-  <span class='no'>edges</span>,
-  <span class='kw'>ID.vars</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>ego</span> <span class='kw'>=</span> <span class='st'>"egoID"</span>, <span class='kw'>alter</span> <span class='kw'>=</span> <span class='st'>"alterID"</span>, <span class='kw'>source</span> <span class='kw'>=</span> <span class='st'>"Source"</span>, <span class='kw'>target</span> <span class='kw'>=</span>
-    <span class='st'>"Target"</span>),
-  <span class='kw'>ego.vars</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='no'>...</span>
-)
+    <pre class="usage"><span class='fu'>threefiles_to_egor</span><span class='op'>(</span>
+  <span class='va'>egos</span>,
+  <span class='va'>alters.df</span>,
+  <span class='va'>edges</span>,
+  ID.vars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>ego <span class='op'>=</span> <span class='st'>"egoID"</span>, alter <span class='op'>=</span> <span class='st'>"alterID"</span>, source <span class='op'>=</span> <span class='st'>"Source"</span>, target <span class='op'>=</span>
+    <span class='st'>"Target"</span><span class='op'>)</span>,
+  ego.vars <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
-<span class='fu'>read_egoweb</span>(
-  <span class='no'>alter.file</span>,
-  <span class='no'>edges.file</span>,
-  <span class='kw'>egos.file</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ID.vars</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>ego</span> <span class='kw'>=</span> <span class='st'>"EgoID"</span>, <span class='kw'>alter</span> <span class='kw'>=</span> <span class='st'>"Alter.Number"</span>, <span class='kw'>source</span> <span class='kw'>=</span> <span class='st'>"Alter.1.Number"</span>,
-    <span class='kw'>target</span> <span class='kw'>=</span> <span class='st'>"Alter.2.Number"</span>),
-  <span class='kw'>ego.vars</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='no'>...</span>
-)
+<span class='fu'>read_egoweb</span><span class='op'>(</span>
+  <span class='va'>alter.file</span>,
+  <span class='va'>edges.file</span>,
+  egos.file <span class='op'>=</span> <span class='cn'>NULL</span>,
+  ID.vars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>ego <span class='op'>=</span> <span class='st'>"EgoID"</span>, alter <span class='op'>=</span> <span class='st'>"Alter.Number"</span>, source <span class='op'>=</span> <span class='st'>"Alter.1.Number"</span>,
+    target <span class='op'>=</span> <span class='st'>"Alter.2.Number"</span><span class='op'>)</span>,
+  ego.vars <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
-<span class='fu'>read_openeddi</span>(
-  <span class='kw'>egos.file</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>alters.file</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>edges.file</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ID.vars</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>ego</span> <span class='kw'>=</span> <span class='st'>"puid"</span>, <span class='kw'>alter</span> <span class='kw'>=</span> <span class='st'>"nameid"</span>, <span class='kw'>source</span> <span class='kw'>=</span> <span class='st'>"nameid"</span>, <span class='kw'>target</span> <span class='kw'>=</span>
-    <span class='st'>"targetid"</span>),
-  <span class='kw'>ego.vars</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='no'>...</span>
-)</pre>
+<span class='fu'>read_openeddi</span><span class='op'>(</span>
+  egos.file <span class='op'>=</span> <span class='cn'>NULL</span>,
+  alters.file <span class='op'>=</span> <span class='cn'>NULL</span>,
+  edges.file <span class='op'>=</span> <span class='cn'>NULL</span>,
+  ID.vars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>ego <span class='op'>=</span> <span class='st'>"puid"</span>, alter <span class='op'>=</span> <span class='st'>"nameid"</span>, source <span class='op'>=</span> <span class='st'>"nameid"</span>, target <span class='op'>=</span>
+    <span class='st'>"targetid"</span><span class='op'>)</span>,
+  ego.vars <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -195,7 +195,7 @@ egos.</p></td>
     <tr>
       <th>ID.vars</th>
       <td><p>A named list containing column names of the relevant
-input columns:</p><dl'>
+input columns:</p><dl>
 
 <dt><code>ego</code></dt><dd><p>unique identifier associated with each ego, defaulting
 to <code>"egoID"</code>; has no effect if <code>alters.df</code> and <code>aaties.df</code> are
@@ -269,30 +269,32 @@ Further Information: www.openeddi.com</p></li>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># The data for read.egonet.threefiles() needs to be loaded with read.csv(), </span>
 <span class='co'># for it to be converted to an egoR object.</span>
-<span class='no'>egos.file</span> <span class='kw'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"egos_32.csv"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"egor"</span>)
-<span class='no'>alters.file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"alters_32.csv"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"egor"</span>)
-<span class='no'>edges.file</span> <span class='kw'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"edges_32.csv"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"egor"</span>)
+<span class='va'>egos.file</span> <span class='op'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, <span class='st'>"egos_32.csv"</span>, package <span class='op'>=</span> <span class='st'>"egor"</span><span class='op'>)</span>
+<span class='va'>alters.file</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, <span class='st'>"alters_32.csv"</span>, package <span class='op'>=</span> <span class='st'>"egor"</span><span class='op'>)</span>
+<span class='va'>edges.file</span> <span class='op'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, <span class='st'>"edges_32.csv"</span>, package <span class='op'>=</span> <span class='st'>"egor"</span><span class='op'>)</span>
 
-<span class='no'>egos</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv2</a></span>(<span class='no'>egos.file</span>)
-<span class='no'>alters</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv2</a></span>(<span class='no'>alters.file</span>)
-<span class='no'>edges</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv2</a></span>(<span class='no'>edges.file</span>)
+<span class='va'>egos</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv2</a></span><span class='op'>(</span><span class='va'>egos.file</span><span class='op'>)</span>
+<span class='va'>alters</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv2</a></span><span class='op'>(</span><span class='va'>alters.file</span><span class='op'>)</span>
+<span class='va'>edges</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv2</a></span><span class='op'>(</span><span class='va'>edges.file</span><span class='op'>)</span>
 
-<span class='no'>tf</span> <span class='kw'>&lt;-</span> <span class='fu'>threefiles_to_egor</span>(<span class='kw'>egos</span> <span class='kw'>=</span> <span class='no'>egos</span>, <span class='kw'>alters.df</span> <span class='kw'>=</span> <span class='no'>alters</span>, <span class='kw'>edges</span> <span class='kw'>=</span> <span class='no'>edges</span>)
+<span class='va'>tf</span> <span class='op'>&lt;-</span> <span class='fu'>threefiles_to_egor</span><span class='op'>(</span>egos <span class='op'>=</span> <span class='va'>egos</span>, alters.df <span class='op'>=</span> <span class='va'>alters</span>, edges <span class='op'>=</span> <span class='va'>edges</span><span class='op'>)</span>
 
 <span class='co'># read_egoweb() and read_openeddi() read the files directly from the disk.</span>
 <span class='co'># \donttest{</span>
 <span class='co'># Fetch current working directory</span>
-<span class='no'>wd</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span>()
+<span class='va'>wd</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>setwd</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"openeddi"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"egor"</span>))
-<span class='no'>oe</span> <span class='kw'>&lt;-</span> <span class='fu'>read_openeddi</span>()</div><div class='output co'>#&gt; <span class='message'>No filenames specified, looking for ego, alters and edge files in working directory.</span></div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>setwd</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"egoweb"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"egor"</span>))
-<span class='no'>ew</span> <span class='kw'>&lt;-</span> <span class='fu'>read_egoweb</span>(<span class='kw'>alter.file</span> <span class='kw'>=</span> <span class='st'>"alters_32.csv"</span>, <span class='kw'>edges.file</span> <span class='kw'>=</span> <span class='st'>"edges_32.csv"</span>,
-                  <span class='kw'>egos.file</span> <span class='kw'>=</span> <span class='st'>"egos_32.csv"</span>)
-
+<span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>setwd</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, <span class='st'>"openeddi"</span>, package <span class='op'>=</span> <span class='st'>"egor"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>oe</span> <span class='op'>&lt;-</span> <span class='fu'>read_openeddi</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>No filenames specified, looking for ego, alters and edge files in working directory.</span></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>setwd</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, <span class='st'>"egoweb"</span>, package <span class='op'>=</span> <span class='st'>"egor"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>ew</span> <span class='op'>&lt;-</span> <span class='fu'>read_egoweb</span><span class='op'>(</span>alter.file <span class='op'>=</span> <span class='st'>"alters_32.csv"</span>, edges.file <span class='op'>=</span> <span class='st'>"edges_32.csv"</span>, 
+                  egos.file <span class='op'>=</span> <span class='st'>"egos_32.csv"</span><span class='op'>)</span>
+                  
 <span class='co'># Restore working directory                   </span>
-<span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>setwd</a></span>(<span class='no'>wd</span>)
-<span class='co'># }</span></div></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>setwd</a></span><span class='op'>(</span><span class='va'>wd</span><span class='op'>)</span>
+<span class='co'># }</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -308,7 +310,7 @@ Further Information: www.openeddi.com</p></li>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

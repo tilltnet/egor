@@ -73,7 +73,7 @@ egos, alters, or alter-alter ties." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">egor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.20.06</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.21.01</span>
       </span>
     </div>
 
@@ -81,7 +81,7 @@ egos, alters, or alter-alter ties." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -110,7 +110,7 @@ egos, alters, or alter-alter ties." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/tilltnet/egor/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -159,7 +159,7 @@ alters, or alter-alter ties to keep. The expressions can access
 variables in the calling environment; columns of the active unit,
 columns of other units with which the active unit shares an ego
 via <code>egos$</code>, <code>alters$</code>, and <code>aaties$</code> as well as the following
-"virtual" columns to simplify indexing:</p><dl'>
+"virtual" columns to simplify indexing:</p><dl>
 
 <dt>Ego index <code>.egoRow</code></dt><dd><p>contains the index (counting from 1) of the row being
 evaluated. (This can be used to access vector variables in the
@@ -210,12 +210,15 @@ alters and ties.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'># Generate a small sample dataset</span>
-(<span class='no'>e</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='make_egor.html'>make_egor</a></span>(<span class='fl'>5</span>,<span class='fl'>4</span>))</div><div class='output co'>#&gt; # EGO data (active): 5 x 6
+<span class='op'>(</span><span class='va'>e</span> <span class='op'>&lt;-</span> <span class='fu'><a href='make_egor.html'>make_egor</a></span><span class='op'>(</span><span class='fl'>5</span>,<span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; # EGO data (<span style='color: #00BB00;'>active</span><span>): 5 x 6
 #&gt;   .egoID sex   age      age.years country   income
-#&gt;    <span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #BCBCBC;'>1</span><span>      1 m     66 - 100        82 Poland     </span><span style='text-decoration: underline;'>45</span><span>990
 #&gt; </span><span style='color: #BCBCBC;'>2</span><span>      2 w     18 - 25         24 Australia  </span><span style='text-decoration: underline;'>11</span><span>680
 #&gt; </span><span style='color: #BCBCBC;'>3</span><span>      3 m     66 - 100        83 Poland     </span><span style='text-decoration: underline;'>36</span><span>135
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span>      4 w     66 - 100       100 Poland     </span><span style='text-decoration: underline;'>34</span><span>310
+#&gt; </span><span style='color: #BCBCBC;'>5</span><span>      5 m     56 - 65         60 Australia  </span><span style='text-decoration: underline;'>32</span><span>120
 #&gt; # ALTER data: 16 x 7
 #&gt;   .altID .egoID sex   age      age.years country   income
 #&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
@@ -229,7 +232,8 @@ alters and ties.</p>
 #&gt; </span><span style='color: #BCBCBC;'>2</span><span>      3      1      2  0.667
 #&gt; </span><span style='color: #BCBCBC;'>3</span><span>      2      3      4  0.333</div><div class='input'>
 <span class='co'># First three egos in the dataset</span>
-<span class='no'>e</span>[<span class='fl'>1</span>:<span class='fl'>3</span>,]</div><div class='output co'>#&gt; # EGO data (active): 3 x 6
+<span class='va'>e</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>,<span class='op'>]</span>
+</div><div class='output co'>#&gt; # EGO data (</span><span style='color: #00BB00;'>active</span><span>): 3 x 6
 #&gt;   .egoID sex   age      age.years country   income
 #&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #BCBCBC;'>1</span><span>      1 m     66 - 100        82 Poland     </span><span style='text-decoration: underline;'>45</span><span>990
@@ -249,8 +253,9 @@ alters and ties.</p>
 #&gt; </span><span style='color: #BCBCBC;'>3</span><span>      2      3      4  0.333</div><div class='input'>
 <span class='co'># Using an external vector</span>
 <span class='co'># (though normally, we would use e[.keep,] here)</span>
-<span class='no'>.keep</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>TRUE</span>, <span class='fl'>FALSE</span>), <span class='kw'>length.out</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>e</span>$<span class='no'>ego</span>))
-<span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>e</span>, <span class='no'>.keep</span>)</div><div class='output co'>#&gt; # EGO data (active): 3 x 6
+<span class='va'>.keep</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>TRUE</span>, <span class='cn'>FALSE</span><span class='op'>)</span>, length.out<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>e</span><span class='op'>$</span><span class='va'>ego</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>e</span>, <span class='va'>.keep</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; # EGO data (</span><span style='color: #00BB00;'>active</span><span>): 3 x 6
 #&gt;   .egoID sex   age      age.years country   income
 #&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #BCBCBC;'>1</span><span>      1 m     66 - 100        82 Poland     </span><span style='text-decoration: underline;'>45</span><span>990
@@ -282,7 +287,7 @@ alters and ties.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -1,3 +1,13 @@
+# egor 0.21.01
+
+- changed printing behavior of `egor` objects
+- `EI()` re-scaling can be turned off and ego can be included in EI calculation
+- improved `plot_egograms()` (i.e. node size scaling)
+- `dplyr::rowwise()` is now supported
+- new example data `transnat` and `gss2004`
+- ego-alter weights are now plotted correctly by `plot_egographs()`
+- several bugs fixed
+
 # egor 0.20.06
 
 - we are now using the `srvyr` package to allow for survey designs being reflected in the `egor` object

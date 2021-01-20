@@ -74,7 +74,7 @@ of the active data level (ego, alter, aatie)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">egor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.20.06</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.21.01</span>
       </span>
     </div>
 
@@ -82,7 +82,7 @@ of the active data level (ego, alter, aatie)." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -111,7 +111,7 @@ of the active data level (ego, alter, aatie)." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/tilltnet/egor/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -139,9 +139,9 @@ argument has to be an egor object. Additional rows/columns are added bottom/RHS
 of the active data level (ego, alter, aatie).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>append_rows</span>(<span class='no'>.egor</span>, <span class='no'>...</span>, <span class='kw'>.id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>append_rows</span><span class='op'>(</span><span class='va'>.egor</span>, <span class='va'>...</span>, .id <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
-<span class='fu'>append_cols</span>(<span class='no'>.egor</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>append_cols</span><span class='op'>(</span><span class='va'>.egor</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -165,18 +165,21 @@ of the active data level (ego, alter, aatie).</p>
     <p><code>egor</code> object containing the additional rows/ columns on the active level.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>e</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='make_egor.html'>make_egor</a></span>(<span class='fl'>12</span>, <span class='fl'>15</span>)
+    <pre class="examples"><div class='input'><span class='va'>e</span> <span class='op'>&lt;-</span> <span class='fu'><a href='make_egor.html'>make_egor</a></span><span class='op'>(</span><span class='fl'>12</span>, <span class='fl'>15</span><span class='op'>)</span>
 
 <span class='co'># Adding a column to the ego level</span>
-<span class='no'>additional_ego_columns</span> <span class='kw'>&lt;-</span>
-  <span class='fu'>tibble</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fl'>1</span>:<span class='fl'>3</span>, <span class='fl'>12</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
-
-<span class='fu'>append_cols</span>(<span class='no'>e</span>, <span class='no'>additional_ego_columns</span>)</div><div class='output co'>#&gt; # EGO data (active): 12 x 7
+<span class='va'>additional_ego_columns</span> <span class='op'>&lt;-</span>
+  <span class='fu'>tibble</span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, <span class='fl'>12</span>, replace <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
+  
+<span class='fu'>append_cols</span><span class='op'>(</span><span class='va'>e</span>, <span class='va'>additional_ego_columns</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; # EGO data (<span style='color: #00BB00;'>active</span><span>): 12 x 7
 #&gt;   .egoID sex   age     age.years country   income     x
-#&gt;    <span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #BCBCBC;'>1</span><span>      1 m     46 - 55        48 Australia    365     2
 #&gt; </span><span style='color: #BCBCBC;'>2</span><span>      2 w     36 - 45        38 Australia  </span><span style='text-decoration: underline;'>36</span><span>865     2
 #&gt; </span><span style='color: #BCBCBC;'>3</span><span>      3 m     0 - 17         10 Australia  </span><span style='text-decoration: underline;'>33</span><span>580     1
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span>      4 m     18 - 25        22 Poland     </span><span style='text-decoration: underline;'>29</span><span>565     1
+#&gt; </span><span style='color: #BCBCBC;'>5</span><span>      5 w     18 - 25        17 Germany    </span><span style='text-decoration: underline;'>71</span><span>540     2
 #&gt; # ALTER data: 97 x 7
 #&gt;   .altID .egoID sex   age      age.years country   income
 #&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
@@ -190,38 +193,41 @@ of the active data level (ego, alter, aatie).</p>
 #&gt; </span><span style='color: #BCBCBC;'>2</span><span>      1      2      7      1
 #&gt; </span><span style='color: #BCBCBC;'>3</span><span>      4      4      5      1</div><div class='input'>
 <span class='co'># Adding rows to the ego and alter level</span>
-<span class='no'>additional_ego_rows</span> <span class='kw'>&lt;-</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
-    <span class='kw'>.egoID</span> <span class='kw'>=</span> <span class='fl'>13</span>,
-    <span class='kw'>sex</span> <span class='kw'>=</span> <span class='st'>"w"</span>,
-    <span class='kw'>age</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='st'>"56 - 65"</span>),
-    <span class='kw'>age.years</span> <span class='kw'>=</span> <span class='fl'>60</span>,
-    <span class='kw'>country</span> <span class='kw'>=</span> <span class='st'>"Australia"</span>
-  ) <span class='kw'>%&gt;%</span>
-  <span class='fu'>as_tibble</span>()
-
-<span class='no'>additional_alter_rows</span> <span class='kw'>&lt;-</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
-    <span class='kw'>.altID</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>5</span>,
-    <span class='kw'>.egoID</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>13</span>, <span class='fl'>5</span>),
-    <span class='kw'>sex</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"f"</span>, <span class='st'>"m"</span>), <span class='fl'>5</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-  ) <span class='kw'>%&gt;%</span>
-  <span class='fu'>as_tibble</span>()
-
-<span class='fu'>append_rows</span>(<span class='no'>e</span>, <span class='no'>additional_ego_rows</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://tidygraph.data-imaginist.com/reference/activate.html'>activate</a></span>(<span class='no'>alter</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>append_rows</span>(<span class='no'>additional_alter_rows</span>)</div><div class='output co'>#&gt; # ALTER data (active): 102 x 7
-#&gt;   .altID .egoID sex   age      age.years country   income
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span>      1      1 m     46 - 55         49 Australia  </span><span style='text-decoration: underline;'>50</span><span>735
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span>      2      1 m     46 - 55         47 USA        </span><span style='text-decoration: underline;'>42</span><span>340
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span>      3      1 m     66 - 100        67 Poland     </span><span style='text-decoration: underline;'>56</span><span>210
-#&gt; # EGO data: 13 x 6
+<span class='va'>additional_ego_rows</span> <span class='op'>&lt;-</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+    .egoID <span class='op'>=</span> <span class='fl'>13</span>,
+    sex <span class='op'>=</span> <span class='st'>"w"</span>,
+    age <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='st'>"56 - 65"</span><span class='op'>)</span>,
+    age.years <span class='op'>=</span> <span class='fl'>60</span>,
+    country <span class='op'>=</span> <span class='st'>"Australia"</span>
+  <span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>as_tibble</span><span class='op'>(</span><span class='op'>)</span>
+  
+<span class='va'>additional_alter_rows</span> <span class='op'>&lt;-</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+    .altID <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>,
+    .egoID <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>13</span>, <span class='fl'>5</span><span class='op'>)</span>,
+    sex <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"f"</span>, <span class='st'>"m"</span><span class='op'>)</span>, <span class='fl'>5</span>, replace <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+  <span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>as_tibble</span><span class='op'>(</span><span class='op'>)</span>
+  
+<span class='fu'>append_rows</span><span class='op'>(</span><span class='va'>e</span>, <span class='va'>additional_ego_rows</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://tidygraph.data-imaginist.com/reference/activate.html'>activate</a></span><span class='op'>(</span><span class='va'>alter</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>append_rows</span><span class='op'>(</span><span class='va'>additional_alter_rows</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; # EGO data: 13 x 6
 #&gt;   .egoID sex   age     age.years country   income
 #&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #BCBCBC;'>1</span><span>      1 m     46 - 55        48 Australia    365
 #&gt; </span><span style='color: #BCBCBC;'>2</span><span>      2 w     36 - 45        38 Australia  </span><span style='text-decoration: underline;'>36</span><span>865
 #&gt; </span><span style='color: #BCBCBC;'>3</span><span>      3 m     0 - 17         10 Australia  </span><span style='text-decoration: underline;'>33</span><span>580
+#&gt; # ALTER data (</span><span style='color: #00BB00;'>active</span><span>): 102 x 7
+#&gt;   .altID .egoID sex   age      age.years country   income
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>      1      1 m     46 - 55         49 Australia  </span><span style='text-decoration: underline;'>50</span><span>735
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>      2      1 m     46 - 55         47 USA        </span><span style='text-decoration: underline;'>42</span><span>340
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span>      3      1 m     66 - 100        67 Poland     </span><span style='text-decoration: underline;'>56</span><span>210
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span>      4      1 w     46 - 55         54 Australia  </span><span style='text-decoration: underline;'>49</span><span>640
+#&gt; </span><span style='color: #BCBCBC;'>5</span><span>      5      1 m     36 - 45         44 Australia  </span><span style='text-decoration: underline;'>50</span><span>005
 #&gt; # AATIE data: 193 x 4
 #&gt;   .egoID .srcID .tgtID weight
 #&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
@@ -243,7 +249,7 @@ of the active data level (ego, alter, aatie).</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

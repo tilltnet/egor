@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Read ego-centered network data exported with EgoNet software as an <code>egor</code> object — read_egonet • egor</title>
+<title>Read ego-centered network data exported with EgoNet software as an egor object — read_egonet • egor</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Read ego-centered network data exported with EgoNet software as an <code>egor</code> object — read_egonet" />
+<meta property="og:title" content="Read ego-centered network data exported with EgoNet software as an egor object — read_egonet" />
 <meta property="og:description" content="This function imports ego-centered network data from folders with separate
 files for alters-level and edge data. It will run some basic checks upon
 the completeness of the data and inform the user of potential problems. This
@@ -75,7 +75,7 @@ function can be used to import data exported from EgoNet (McCarty 2011)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">egor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.20.06</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.21.01</span>
       </span>
     </div>
 
@@ -83,7 +83,7 @@ function can be used to import data exported from EgoNet (McCarty 2011)." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -112,7 +112,7 @@ function can be used to import data exported from EgoNet (McCarty 2011)." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/tilltnet/egor/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -141,16 +141,16 @@ the completeness of the data and inform the user of potential problems. This
 function can be used to import data exported from EgoNet (McCarty 2011).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>read_egonet</span>(
-  <span class='no'>egos.file</span>,
-  <span class='no'>alter.folder</span>,
-  <span class='no'>edge.folder</span>,
-  <span class='kw'>csv.sep</span> <span class='kw'>=</span> <span class='st'>","</span>,
-  <span class='kw'>ID.vars</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>ego</span> <span class='kw'>=</span> <span class='st'>"egoID"</span>, <span class='kw'>alter</span> <span class='kw'>=</span> <span class='st'>"alterID"</span>, <span class='kw'>source</span> <span class='kw'>=</span> <span class='st'>"Source"</span>, <span class='kw'>target</span> <span class='kw'>=</span>
-    <span class='st'>"Target"</span>),
-  <span class='kw'>first.col.row.names</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>read_egonet</span><span class='op'>(</span>
+  <span class='va'>egos.file</span>,
+  <span class='va'>alter.folder</span>,
+  <span class='va'>edge.folder</span>,
+  csv.sep <span class='op'>=</span> <span class='st'>","</span>,
+  ID.vars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>ego <span class='op'>=</span> <span class='st'>"egoID"</span>, alter <span class='op'>=</span> <span class='st'>"alterID"</span>, source <span class='op'>=</span> <span class='st'>"Source"</span>, target <span class='op'>=</span>
+    <span class='st'>"Target"</span><span class='op'>)</span>,
+  first.col.row.names <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -176,7 +176,7 @@ separate .csv files for each ego/ network.</p></td>
     <tr>
       <th>ID.vars</th>
       <td><p>A named list containing column names of the relevant
-input columns:</p><dl'>
+input columns:</p><dl>
 
 <dt><code>ego</code></dt><dd><p>unique identifier associated with each ego, defaulting
 to <code>"egoID"</code>; has no effect if <code>alters.df</code> and <code>aaties.df</code> are
@@ -215,14 +215,15 @@ egos and their attributes;
 (3) aatie: <code>dataframe</code> of alter alter ties/ edges</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>egos.file</span> <span class='kw'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"egos_32.csv"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"egor"</span>)
-<span class='no'>alters.folder</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"alters_32"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"egor"</span>)
-<span class='no'>edge.folder</span> <span class='kw'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"edges_32"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"egor"</span>)
+    <pre class="examples"><div class='input'><span class='va'>egos.file</span> <span class='op'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, <span class='st'>"egos_32.csv"</span>, package <span class='op'>=</span> <span class='st'>"egor"</span><span class='op'>)</span>
+<span class='va'>alters.folder</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, <span class='st'>"alters_32"</span>, package <span class='op'>=</span> <span class='st'>"egor"</span><span class='op'>)</span>
+<span class='va'>edge.folder</span> <span class='op'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, <span class='st'>"edges_32"</span>, package <span class='op'>=</span> <span class='st'>"egor"</span><span class='op'>)</span>
 
-<span class='no'>ef</span> <span class='kw'>&lt;-</span> <span class='fu'>read_egonet</span>(<span class='kw'>egos.file</span> <span class='kw'>=</span> <span class='no'>egos.file</span>,
-                          <span class='kw'>alter.folder</span> <span class='kw'>=</span> <span class='no'>alters.folder</span>,
-                          <span class='kw'>edge.folder</span> <span class='kw'>=</span> <span class='no'>edge.folder</span>,
-                          <span class='kw'>csv.sep</span> <span class='kw'>=</span> <span class='st'>";"</span>)</div><div class='output co'>#&gt; <span class='message'>Reading ego data.</span></div><div class='output co'>#&gt; <span class='message'>Checking if alter.files and edge.files correspond</span></div><div class='output co'>#&gt; <span class='message'>Looking for egos without edges/alters.</span></div><div class='output co'>#&gt; <span class='message'>Creating $alters.df and $alters.list</span></div><div class='output co'>#&gt; <span class='message'>Creating edge lists: $edges</span></div></pre>
+<span class='va'>ef</span> <span class='op'>&lt;-</span> <span class='fu'>read_egonet</span><span class='op'>(</span>egos.file <span class='op'>=</span> <span class='va'>egos.file</span>, 
+                          alter.folder <span class='op'>=</span> <span class='va'>alters.folder</span>, 
+                          edge.folder <span class='op'>=</span> <span class='va'>edge.folder</span>, 
+                          csv.sep <span class='op'>=</span> <span class='st'>";"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Reading ego data.</span></div><div class='output co'>#&gt; <span class='message'>Checking if alter.files and edge.files correspond</span></div><div class='output co'>#&gt; <span class='message'>Creating $alters.df and $alters.list</span></div><div class='output co'>#&gt; <span class='message'>Creating edge lists: $edges</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -238,7 +239,7 @@ egos and their attributes;
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

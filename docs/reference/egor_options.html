@@ -6,8 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Transform wide alter-alter data to an edge list.
-A regex based implementation to convert a wide list to an edgelist. — wide.dyads.to.edgelist.regex • egor</title>
+<title>Display names and values of global egor options. — egor_options • egor</title>
 
 
 <!-- jquery -->
@@ -40,10 +39,8 @@ A regex based implementation to convert a wide list to an edgelist. — wide.dya
 
 
 
-<meta property="og:title" content="Transform wide alter-alter data to an edge list.
-A regex based implementation to convert a wide list to an edgelist. — wide.dyads.to.edgelist.regex" />
-<meta property="og:description" content="Transform wide alter-alter data to an edge list.
-A regex based implementation to convert a wide list to an edgelist." />
+<meta property="og:title" content="Display names and values of global egor options. — egor_options" />
+<meta property="og:description" content="Display names and values of global egor options." />
 
 
 
@@ -129,42 +126,50 @@ A regex based implementation to convert a wide list to an edgelist." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Transform wide alter-alter data to an edge list.
-A regex based implementation to convert a wide list to an edgelist.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tilltnet/egor/blob/master/R/read.egonet.R'><code>R/read.egonet.R</code></a></small>
-    <div class="hidden name"><code>wide.dyads.to.edgelist.regex.Rd</code></div>
+    <h1>Display names and values of global egor options.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tilltnet/egor/blob/master/R/zzz.R'><code>R/zzz.R</code></a></small>
+    <div class="hidden name"><code>egor_options.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Transform wide alter-alter data to an edge list.
-A regex based implementation to convert a wide list to an edgelist.</p>
+    <p>Display names and values of global egor options.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>wide.dyads.to.edgelist.regex</span><span class='op'>(</span><span class='va'>e.wide</span>, <span class='va'>aa.regex</span>, <span class='va'>netsize</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>egor_options</span><span class='op'>(</span><span class='op'>)</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>e.wide</th>
-      <td><p>A dataframe containing the alter-alter relation data
-in the 'wide' format.</p></td>
-    </tr>
-    <tr>
-      <th>aa.regex</th>
-      <td><p>A Perl regular expression with name capture,
-intended to be run on column names and capturing via named
-capture the following regex groups: <code>"attr"</code>, <code>"src"</code>, and
-<code>"tgt"</code>, representing the edge attribute being captured, the
-source (or the first alter identified), and the target (or the
-second alter identified) of the edge, respectively. See <code><a href='https://rdrr.io/r/base/regex.html'>regex</a></code>
-for more information.</p></td>
-    </tr>
-    <tr>
-      <th>netsize</th>
-      <td><p><code>Vector</code> containing values of network size per ego.</p></td>
-    </tr>
-    </table>
+
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Currently egor makes use of the following global options. Use
+<code><a href='https://rdrr.io/r/base/options.html'>options()</a></code> to change values.</p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>egor.print.rows.active.level</h3>
+
+<ul>
+<li><p><code>Numeric</code>. Amount of rows to display when printing the active level of an <code>egor</code> object.</p></li>
+</ul>
+
+
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>egor.print.rows.inactive.level</h3>
+
+<ul>
+<li><p><code>Numeric</code>. Amount of rows to display when printing the inactive levels of an <code>egor</code> object.</p></li>
+</ul>
+
+
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>egor.print.switch.active.level.to.top</h3>
+
+<ul>
+<li><p><code>Logical</code>. When printing an egor object, should the active data-level always
+be printed first?</p></li>
+</ul>
+
+
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>egor.return.results.with.design</h3>
+
+<ul>
+<li><p><code>Logical</code>. <code>egor</code> functions that return ego-level results (e.g. one value per
+ego) return a <code>svy_tbl</code> object containing the <code><a href='ego_design.html'>ego_design()</a></code>, when this is set to <code>TRUE</code>.</p></li>
+</ul>
+
 
 
   </div>

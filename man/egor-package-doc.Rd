@@ -8,7 +8,7 @@
 R Package for importing and analyzing ego-centered-network data.
 }
 \details{
-\href{https://tilltnet.github.io/egor/}{Further Information}
+\href{https:///egor.tillt.net/}{Further Information}
 or \href{https://github.com/tilltnet/egor}{GitHub}
 
 When analyzing ego-centered network data it is common to either
