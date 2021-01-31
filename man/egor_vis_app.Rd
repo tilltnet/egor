@@ -9,13 +9,16 @@ egor_vis_app(object = NULL, shiny_opts = list(launch.browser = TRUE))
 \arguments{
 \item{object}{An \code{egor} object.}
 
-\item{shiny_opts}{\code{List} of arguments to be passed to \code{shinyApp()}'s options argument.}
+\item{shiny_opts}{A \code{\link{list}} of arguments to be passed to \code{\link[shiny:shinyApp]{shiny::shinyApp()}}'s options argument.}
 }
 \description{
-Launches an interactive Shiny Web App, that creates a list of
+Launches an interactive Shiny Web App that creates a list of
 \code{igraph} objects from an 'egor' object and offers the user several graphical
 means of interacting with the visualization parameters for all networks in
 the \code{egor} object.
+}
+\note{
+This function requires \code{\link[shiny:shiny-package]{shiny}} to be installed.
 }
 \examples{
 if(interactive()){
