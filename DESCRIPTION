@@ -36,7 +36,6 @@ Depends:
     tibble
 Imports:
     tidygraph,
-    network,
     srvyr,
     tidyr,
     methods,
@@ -50,6 +49,7 @@ Suggests:
     survey,
     shiny,
     igraph,
+    network,
     haven
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1

@@ -142,16 +142,13 @@ as.igraph.egor <- as_igraph
 
 #' @rdname as_igraph
 #' @export
-#' @importFrom network network
-#' @importFrom network network.initialize
-#' @importFrom network set.vertex.attribute
-#' @importFrom network set.edge.attribute
 as_network <- function(x,
                        directed = FALSE,
                        include.ego = FALSE,
                        ego.attrs = NULL,
                        ego.alter.weights = NULL,
                        graph.attrs = ".egoID") {
+  require_network()
   x <- strip_ego_design(as_nested_egor(x))
 
   # Incldude Ego
@@ -262,8 +259,8 @@ as_network <- function(x,
 }
 
 #' @rdname as_igraph
-#' @importFrom network as.network
-#' @export
+#' @exportS3Method network::as.network egor
+#' @method as.network egor
 as.network.egor <- as_network
 
 #' Extract ego, alter, and alter-alter tables from an `egor` object.
