@@ -28,20 +28,13 @@ if (getRversion() >= "2.15.1")
 #' }
 #' @keywords ego-centered network analysis
 #' @export
-#' @importFrom igraph get.vertex.attribute
-#' @importFrom igraph get.edge.attribute
-#' @importFrom igraph E
-#' @importFrom igraph V
 #' @importFrom grDevices blues9 grey grey.colors heat.colors rainbow topo.colors
 #' @importFrom graphics legend text
 #' @importFrom tibble as_tibble
-#' @importFrom igraph list.edge.attributes
-#' @importFrom igraph list.vertex.attributes
-#' @importFrom igraph V<-
-#' @importFrom igraph E<-
 egor_vis_app <- function(object = NULL,
                          shiny_opts = list(launch.browser = TRUE)) {
   require_shiny(paste(sQuote("egor"),"network visualization app"))
+  require_igraph(paste(sQuote("egor"),"network visualization app"))
   # TODO:
   # make ego grams work for allbus data/ find issue
   

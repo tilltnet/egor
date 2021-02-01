@@ -23,6 +23,7 @@ ego_constraint <-
   function(object,
            weights = NULL,
            ego.alter.weights = weights) {
+    require_igraph(paste(sQuote("egor"),"ego Burt constraint"))
     graphs <-
       as_igraph(object,
                 include.ego = TRUE,
@@ -34,7 +35,7 @@ ego_constraint <-
               weights = if (is.null(weights))
                 rep(1, length(igraph::E(.)))
               else
-                get.edge.attribute(., weights),
+                igraph::get.edge.attribute(., weights),
               nodes = igraph::V(.)[igraph::V(.)$name == "ego"]
             ))
     if(has_ego_design(object)) 

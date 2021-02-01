@@ -341,7 +341,7 @@ plot_egogram <-
       vertex_zoom = vertex_zoom,
       edge_zoom = edge_zoom,
       vertex.frame.color = NA,
-      edge.curved = E(g[[1]])$curved,
+      edge.curved = igraph::E(g[[1]])$curved,
       #edge.width = 2,
       #edge.color = "gray69",
       #rgb(0,0,0,0.2),
