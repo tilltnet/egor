@@ -276,6 +276,7 @@ as.network.egor <- as_network
 #' @param include.alter.vars Logical, specifying if alter variables should be included in the result.
 #' @param ... Additional arguments, currently unused.
 #' @examples
+#' library(tidygraph) # for activate()
 #' # Load example data
 #' data(egor32)
 #'
@@ -347,7 +348,7 @@ as_survey.egor <- function(.data, ...,
 #'
 #' @export
 as_egos_df <- function(object) {
-  object <- activate(object, "ego")
+  object <- activate.egor(object, "ego")
   as_tibble(object)
 }
 
@@ -358,7 +359,7 @@ as_egos_df <- function(object) {
 #'
 #' @export
 as_alters_df <- function(object, include.ego.vars = FALSE) {
-  object <- activate(object, "alter")
+  object <- activate.egor(object, "alter")
   as_tibble(object, include.ego.vars = include.ego.vars)
 }
 
@@ -375,7 +376,7 @@ as_alters_df <- function(object, include.ego.vars = FALSE) {
 as_aaties_df <- function(object,
                          include.ego.vars = FALSE,
                          include.alter.vars = FALSE) {
-  object <- activate(object, "aatie")
+  object <- activate.egor(object, "aatie")
   as_tibble(object,
             include.ego.vars = include.ego.vars,
             include.alter.vars = include.alter.vars)
@@ -386,7 +387,7 @@ as_aaties_df <- function(object,
 #' as_egos_survey(egor32)
 #' @export
 as_egos_survey <- function(object, include.ego.vars = FALSE) {
-  object <- activate(object, "ego")
+  object <- activate.egor(object, "ego")
   as_survey(object, include.ego.vars = include.ego.vars)
 }
 
@@ -395,7 +396,7 @@ as_egos_survey <- function(object, include.ego.vars = FALSE) {
 #' as_alters_survey(egor32) # Notice the resulting cluster design.
 #' @export
 as_alters_survey <- function(object, include.ego.vars = FALSE) {
-  object <- activate(object, "alter")
+  object <- activate.egor(object, "alter")
   as_survey(object, include.ego.vars = include.ego.vars)
 }
 
@@ -404,7 +405,7 @@ as_alters_survey <- function(object, include.ego.vars = FALSE) {
 as_aaties_survey <- function(object,
                              include.ego.vars = FALSE,
                              include.alter.vars = FALSE) {
-  object <- activate(object, "aatie")
+  object <- activate.egor(object, "aatie")
   as_survey(object,
             include.ego.vars = include.ego.vars,
             include.alter.vars = include.alter.vars)

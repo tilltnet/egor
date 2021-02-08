@@ -26,6 +26,8 @@ argument has to be an egor object. Additional rows/columns are added bottom/RHS
 of the active data level (ego, alter, aatie).
 }
 \examples{
+library(tidygraph) # for activate()
+
 e <- make_egor(12, 15)
 
 # Adding a column to the ego level

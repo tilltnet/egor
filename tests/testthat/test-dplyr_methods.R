@@ -31,7 +31,7 @@ test_that("methods for dplyr are working",
               # add_tally(e, income)
               
               top_n(e, 2, income)
-              egor::activate(e, alter) %>%
+              activate(e, alter) %>%
                 top_n(2, income)
               
               
@@ -41,7 +41,7 @@ test_that("methods for dplyr are working",
               filter(e, sex == "w")$alter
               
               rename(e, p = sex)
-              egor::activate(e, "alter") %>%
+              activate(e, "alter") %>%
                 filter(sex == "w")
               
               slice(e, 1)
@@ -66,7 +66,7 @@ test_that("methods for dplyr are working",
               select_all(e, toupper)
               rename_all(e, toupper)
               
-              egor::activate(e, alter) %>%
+              activate(e, alter) %>%
                 select_at(vars(contains("x")), toupper)
               rename_at(e, .vars = vars(contains("x")), toupper)
               mutate_at(e, vars(sex, country), toupper)

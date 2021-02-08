@@ -855,7 +855,9 @@ group_vars.egor <- function(x) {
 #' @param .id Data frame identifier.
 #' @name append_egor
 #' @return `egor` object containing the additional rows/ columns on the active level.
-#' @examples 
+#' @examples
+#' library(tidygraph) # for activate()
+#'
 #' e <- make_egor(12, 15)
 #' 
 #' # Adding a column to the ego level

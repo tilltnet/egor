@@ -3,11 +3,11 @@
 #' This function activates one of the data levels of an egor dataset, so that the dplyr verbs know which level to execute on.
 #' @param .data The \code{egor} dataset.
 #' @param what \code{Character} naming the level to activate, this can be "ego", "alter" or "aatie".
-#' @importFrom tidygraph activate
 #' @keywords ego-centered network
-#' @export
 #' @method activate egor
+#' @exportS3Method tidygraph::activate egor
 #' @examples 
+#' library(tidygraph) # for activate()
 #' e <- make_egor(5,50)
 #' e %>% 
 #'    activate("aatie") %>% 
@@ -20,6 +20,3 @@ activate.egor <- function(.data, what) {
   attr(.data, "active") <- what
   .data
 }
-
-#' @export
-tidygraph::activate

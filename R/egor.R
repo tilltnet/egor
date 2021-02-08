@@ -216,7 +216,7 @@ egor <- function(alters,
   class(egor) <- c("egor", class(egor))
   egor$ego <- .gen.ego_design(egor, ego_design, parent.frame())
   alter_design(egor) <- alter_design
-  activate(egor, "ego")
+  activate.egor(egor, "ego")
 }
 
 #' Methods to print and summarize [`egor`] objects

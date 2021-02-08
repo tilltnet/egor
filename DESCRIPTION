@@ -35,7 +35,6 @@ Depends:
     dplyr,
     tibble
 Imports:
-    tidygraph,
     srvyr,
     tidyr,
     methods,
@@ -43,6 +42,7 @@ Imports:
     purrr,
     rlang
 Suggests:
+    tidygraph,
     knitr,
     testthat (>= 2.1.0),
     rmarkdown,

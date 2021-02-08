@@ -128,7 +128,7 @@ subset(e1, e1$aatie$weight > 0.5, unit = "aatie")
 
 ### activate() and dplyr verbs
 
-An `egor` object can be manipulated with dplyr verbs. Using the activate()
+An `egor` object can be manipulated with dplyr verbs. Using the `activate()`
 command, the data level to execute manipulations on, can be changed. This concept
 is borrwed from the tidygraph package.
 
@@ -137,6 +137,8 @@ alter-alter ties are deleted as well. Similarly deletions of alters lead to
 the exclusion of the alter-alter ties of the deleted alters.
 
 ```{r}
+library(tidygraph) # for activate()
+
 e1 %>% 
   filter(income > 36000)
 

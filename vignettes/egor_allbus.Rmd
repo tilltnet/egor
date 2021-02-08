@@ -137,6 +137,8 @@ We can filter the alter-alter ties using the *activate()* and *filter()*
 functions.
 
 ```{r}
+library(tidygraph) # for activate()
+
 e_freunde <- 
   e_freunde %>% 
   activate(aatie) %>% 

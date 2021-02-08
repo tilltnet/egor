@@ -83,7 +83,7 @@ plot_one_ego_graph <- function(x,
                                layout = NULL,
                                ...) {
   x <- 
-    slice.egor(activate(x, "ego"), ego_no)
+    slice.egor(activate.egor(x, "ego"), ego_no)
   
   gr <- as_igraph(x, 
                   include.ego = include_ego, 

@@ -15,6 +15,7 @@
 This function activates one of the data levels of an egor dataset, so that the dplyr verbs know which level to execute on.
 }
 \examples{
+library(tidygraph) # for activate()
 e <- make_egor(5,50)
 e \%>\% 
    activate("aatie") \%>\% 

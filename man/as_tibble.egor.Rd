@@ -51,6 +51,7 @@ are useful for advanced analysis procedures, e.g. multi-level regressions.
 \code{as_egos_df()}, \code{as_alters_df()}, \code{as_aaties_df()}, \code{as_egos_survey()}, \code{as_alters_survey()}, and \code{as_aaties_survey()} are convenience functions for the \code{as_tibble()} and \code{as_survey()} methods, activating the corresponding component of the \code{egor} object.
 }
 \examples{
+library(tidygraph) # for activate()
 # Load example data
 data(egor32)
 

@@ -185,7 +185,7 @@ plot_egogram <-
     # TODO: stop(/warn?) when pie or venn var have more than 10 levels
     
     ego_object <-
-      slice(.data = activate(x, "ego"), ego_no)
+      slice(.data = activate.egor(x, "ego"), ego_no)
     
     if (is.null(pie_var)) {
       ego_object$alter$.pie_dummy <- factor(" ")
@@ -282,7 +282,7 @@ plot_egogram <-
     )
     
     # Join Layout and Calculate Distances
-    if (nrow(as_tibble(activate(ego_object, "aatie"))) > 0) {
+    if (nrow(as_tibble(activate.egor(ego_object, "aatie"))) > 0) {
       lay$.altID <- as.character(lay$.altID)
       
       # get additional edge variable names
@@ -293,7 +293,7 @@ plot_egogram <-
                                                           ".tgtID")]
       
       a <-
-        as_tibble(activate(ego_object, "aatie"))
+        as_tibble(activate.egor(ego_object, "aatie"))
       
       a <- mutate(a, .srcID = as.character(.srcID),
                .tgtID = as.character(.tgtID))
