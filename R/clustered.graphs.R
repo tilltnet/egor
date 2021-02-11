@@ -17,7 +17,6 @@
 #' @keywords ego-centered network analysis
 #' @seealso \code{\link{vis_clustered_graphs}} for visualizing clustered graphs
 #' @example /inst/examples/ex_cg.R
-#' @importFrom igraph %--%
 #' @export
 clustered_graphs <-
   function(object, ..., clust.groups)
@@ -27,6 +26,7 @@ clustered_graphs <-
 #' @export
 clustered_graphs.list <-
   function(object, aaties, clust.groups, ...) {
+    require_igraph()
     GetGroupSizes <- function(x) {
       if (all(is.na(x[[clust.groups]])))
         return(data.frame(groups = NA, size = NA))
@@ -79,7 +79,7 @@ clustered_graphs.list <-
               igraph::V(g)[igraph::get.vertex.attribute(g, clust.groups) == group1]
             V.group2 <-
               igraph::V(g)[igraph::get.vertex.attribute(g, clust.groups) == group2]
-            igraph::E(g)[V.group1 %--% V.group2]
+            igraph::E(g)[(igraph::`%--%`)(V.group1, V.group2)]
           }
         
         
@@ -265,6 +265,7 @@ vis_clustered_graphs <- function(graphs,
                                  legend.node.size = 45,
                                  pdf.name = NULL,
                                  ...) {
+  require_igraph()
   plotLegendGraph <- function(grps.graph, center) {
     # set all edges to 1
     vertex_names <- names(igraph::V(grps.graph))
@@ -346,7 +347,7 @@ vis_clustered_graphs <- function(graphs,
     }
     vertex.size[vertex.size > node.max.size] <- node.max.size
 
-    betw_grp_dens <- E(graph)$grp.density
+    betw_grp_dens <- igraph::E(graph)$grp.density
     
     igraph::plot.igraph(
       graph,

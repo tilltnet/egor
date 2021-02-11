@@ -24,6 +24,7 @@ plot_ego_graphs <- function(x,
                             font_size = 1,
                             include_ego = FALSE,
                             ...) {
+  require_igraph(paste(sQuote("egor"),"plotting ego graphs"))
   opar <- par(no.readonly = TRUE)
   on.exit(par(opar))
   par(mfrow = c(y_dim, x_dim))
@@ -176,7 +177,6 @@ plot_one_ego_graph <- function(x,
     par(mar = c(0.5, 5, 0.5, 0.5))
   
   if (is.null(layout)) {
-    #' @importFrom igraph layout.fruchterman.reingold
     layout_ <-
       igraph::layout.fruchterman.reingold(gr, weights = edge.width)
   } else {
@@ -184,7 +184,6 @@ plot_one_ego_graph <- function(x,
   }
   
   set.seed(1337)
-  #' @importFrom igraph plot.igraph
   igraph::plot.igraph(
     gr,
     vertex.size = vertex.size,

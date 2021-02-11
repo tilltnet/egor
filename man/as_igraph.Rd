@@ -26,7 +26,7 @@ as_igraph(
   graph.attrs = ".egoID"
 )
 
-as.igraph.egor(
+\method{as.igraph}{egor}(
   x,
   directed = FALSE,
   include.ego = FALSE,

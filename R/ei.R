@@ -184,7 +184,9 @@ EI <- function(object,
     })) %>%
     mutate(grp_ei_tab = map2(grp_ei_tab, poss, function(x, y)
       full_join(x, y, by = "fact")))
-  
+
+  E <- igraph::E
+
   a <- map_dfr(obj$grp_ei_tab, function(x)
     x %>%
       summarise_if(is.numeric, sum) %>%

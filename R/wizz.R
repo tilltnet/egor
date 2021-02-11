@@ -14,12 +14,13 @@ if (getRversion() >= "2.15.1")
 
 #' `egor` Network Visualization App
 #'
-#' Launches an interactive Shiny Web App, that creates a list of
+#' Launches an interactive Shiny Web App that creates a list of
 #' `igraph` objects from an 'egor' object and offers the user several graphical
 #' means of interacting with the visualization parameters for all networks in
 #' the `egor` object.
 #' @param object An `egor` object.
-#' @param shiny_opts `List` of arguments to be passed to `shinyApp()`'s options argument.
+#' @param shiny_opts A [`list`] of arguments to be passed to [shiny::shinyApp()]'s options argument.
+#' @note This function requires \code{\link[shiny:shiny-package]{shiny}} to be installed.
 #' @examples
 #' if(interactive()){
 #'   data("egor32")
@@ -27,20 +28,13 @@ if (getRversion() >= "2.15.1")
 #' }
 #' @keywords ego-centered network analysis
 #' @export
-#' @import shiny
-#' @importFrom igraph get.vertex.attribute
-#' @importFrom igraph get.edge.attribute
-#' @importFrom igraph E
-#' @importFrom igraph V
 #' @importFrom grDevices blues9 grey grey.colors heat.colors rainbow topo.colors
 #' @importFrom graphics legend text
 #' @importFrom tibble as_tibble
-#' @importFrom igraph list.edge.attributes
-#' @importFrom igraph list.vertex.attributes
-#' @importFrom igraph V<-
-#' @importFrom igraph E<-
 egor_vis_app <- function(object = NULL,
                          shiny_opts = list(launch.browser = TRUE)) {
+  require_shiny(paste(sQuote("egor"),"network visualization app"))
+  require_igraph(paste(sQuote("egor"),"network visualization app"))
   # TODO:
   # make ego grams work for allbus data/ find issue
   
@@ -69,44 +63,44 @@ egor_vis_app <- function(object = NULL,
   shiny_opts <- c(shiny_opts, width = "20")
   object_enex <- as.character(enexpr(object))
   
-  shinyApp(
+  shiny::shinyApp(
     # UI ----------------------------------------------------------------------
     
-    ui = fluidPage(
+    ui = shiny::fluidPage(
       title  = "egor's Network Visualization App",
       
       
-      fluidRow(width = 12,
-               plotOutput(
+      shiny::fluidRow(width = 12,
+               shiny::plotOutput(
                  "Plot", width = "100%", height = 780
                )),
       
       # Sidebar
-      fluidRow(
+      shiny::fluidRow(
         width = 12,
-        column(
+        shiny::column(
           3,
-          selectInput("egor",
+          shiny::selectInput("egor",
                       "Select `egor` object",
                       egors,
                       selected = object_enex),
-          uiOutput("choose_nnumber"),
-          numericInput("x_dim", "Columns", 3, min = 1),
-          numericInput("y_dim", "Rows", 2, min = 1),
-          tags$div(
+          shiny::uiOutput("choose_nnumber"),
+          shiny::numericInput("x_dim", "Columns", 3, min = 1),
+          shiny::numericInput("y_dim", "Rows", 2, min = 1),
+          shiny::tags$div(
             title = "When including ego make sure that corresponding ego and alter variables have equal names in the `egor` object.",
-            tags$div(checkboxInput("include_ego",
+            shiny::tags$div(shiny::checkboxInput("include_ego",
                                    "Include Ego",
                                    FALSE),
                      style = "float: left;"),
-            tags$div(icon("question-circle"),
+            shiny::tags$div(shiny::icon("question-circle"),
                      style = "float: left; margin-top: 12px; margin-left: -200px;")
           )
           
         ),
-        column(
+        shiny::column(
           3,
-          sliderInput(
+          shiny::sliderInput(
             "zoom_factor_v",
             label = "Vertex Size:",
             min = 0,
@@ -114,7 +108,7 @@ egor_vis_app <- function(object = NULL,
             value = 15,
             step = .1
           ),
-          sliderInput(
+          shiny::sliderInput(
             "zoom_factor_e",
             label = "Edge Width:",
             min = 1,
@@ -122,7 +116,7 @@ egor_vis_app <- function(object = NULL,
             value = 3,
             step = .1
           ),
-          sliderInput(
+          shiny::sliderInput(
             "font_size",
             label = "Font Size:",
             min = 0.5,
@@ -131,92 +125,92 @@ egor_vis_app <- function(object = NULL,
             step = .1
           )
         ),
-        column(
+        shiny::column(
           6,
-          tabsetPanel(
-            tabPanel(
+          shiny::tabsetPanel(
+            shiny::tabPanel(
               "Vertices",
-              column(
+              shiny::column(
                 6,
-                uiOutput("choose_v.size"),
-                uiOutput("choose_v.color"),
-                selectInput("v.color_pal",
+                shiny::uiOutput("choose_v.size"),
+                shiny::uiOutput("choose_v.color"),
+                shiny::selectInput("v.color_pal",
                             "Color Palette:",
                             choices = col_pal_names)
               ),
-              column(
+              shiny::column(
                 6,
-                uiOutput("choose_v.label"),
-                textInput("l.label", "Legend Label:")
+                shiny::uiOutput("choose_v.label"),
+                shiny::textInput("l.label", "Legend Label:")
               )
             ),
-            tabPanel(
+            shiny::tabPanel(
               "Edges",
-              column(6,
-                     uiOutput("choose_e.width"),
-                     uiOutput("choose_e.color")),
-              column(
+              shiny::column(6,
+                     shiny::uiOutput("choose_e.width"),
+                     shiny::uiOutput("choose_e.color")),
+              shiny::column(
                 6,
-                selectInput("e.color_pal", "Color Palette:", choices = col_pal_names)
+                shiny::selectInput("e.color_pal", "Color Palette:", choices = col_pal_names)
               )
             ),
-            tabPanel(
+            shiny::tabPanel(
               "Plot Options",
-              column(
+              shiny::column(
                 6,
-                helpText("Select ego attributes and results do display on plot."),
-                uiOutput("choose_disp.results")
+                shiny::helpText("Select ego attributes and results do display on plot."),
+                shiny::uiOutput("choose_disp.results")
               ),
-              column(
+              shiny::column(
                 6,
-                helpText(
+                shiny::helpText(
                   "Select a venn and pie variable, to switch plot type to",
-                  br(),
+                  shiny::br(),
                   "'ego-socio-gram'."
                 ),
-                uiOutput("choose_venn_var"),
-                uiOutput("choose_pie_var")
+                shiny::uiOutput("choose_venn_var"),
+                shiny::uiOutput("choose_pie_var")
               ),
             ),
-            tabPanel(
+            shiny::tabPanel(
               "Sort & Filter",
-              column(
+              shiny::column(
                 6,
-                uiOutput("choose_sort_by"),
-                uiOutput("choose_filter_var"),
-                textInput("filter", "Filter Value:")
+                shiny::uiOutput("choose_sort_by"),
+                shiny::uiOutput("choose_filter_var"),
+                shiny::textInput("filter", "Filter Value:")
               ),
               
-              column(
+              shiny::column(
                 6,
-                uiOutput("choose_box_color"),
-                selectInput("box_col_pal",
+                shiny::uiOutput("choose_box_color"),
+                shiny::selectInput("box_col_pal",
                             "Color Palette:",
                             choices = col_pal_names)
               )
             ),
-            tabPanel("Export",
-                     column(
+            shiny::tabPanel("Export",
+                     shiny::column(
                        3,
-                       br(
-                       downloadButton("save_plot", label = "Save this Plot")),
-                       br(
-                       downloadButton("save_all_plots", label = "Save all Plots"))
+                       shiny::br(
+                       shiny::downloadButton("save_plot", label = "Save this Plot")),
+                       shiny::br(
+                       shiny::downloadButton("save_all_plots", label = "Save all Plots"))
                      ))
           )
         )
         
       ),
-      fluidRow(column(12, inputPanel(
-        tags$div(style = "height: 250px; width: 100%;",
-                 tags$p("egor's Network Visualization App"))
+      shiny::fluidRow(shiny::column(12, shiny::inputPanel(
+        shiny::tags$div(style = "height: 250px; width: 100%;",
+                 shiny::tags$p("egor's Network Visualization App"))
       )))
     ),
     
     # SERVER ------------------------------------------------------------------
     
     server = function(input, output) {
-      values <- reactiveValues(default = 0)
+      values <- shiny::reactiveValues(default = 0)
       values$v.size <- "-Select Entry-"
       values$v.color <- "-Select Entry-"
       values$v.label <- "-Select Entry-"
@@ -232,24 +226,24 @@ egor_vis_app <- function(object = NULL,
       values$nnumber <- 1
       values$disp.results <- c()
       
-      obj <- reactive({
+      obj <- shiny::reactive({
         get(input$egor, envir = .GlobalEnv)
       })
       
-      result_names <- reactive({
+      result_names <- shiny::reactive({
         rn <- names(obj()$ego)
       })
       
       r.atts <-
-        reactive(make_select_vector(result_names(), e = TRUE))
+        shiny::reactive(make_select_vector(result_names(), e = TRUE))
       
       v.atts <-
-        reactive(make_select_vector(names(obj()$alter)))
+        shiny::reactive(make_select_vector(names(obj()$alter)))
       e.atts <-
-        reactive(make_select_vector(names(obj()$aatie), e = TRUE))
+        shiny::reactive(make_select_vector(names(obj()$aatie), e = TRUE))
       
-      output$choose_nnumber <- renderUI({
-        numericInput(
+      output$choose_nnumber <- shiny::renderUI({
+        shiny::numericInput(
           "nnumber",
           "Network No.:",
           step = input$x_dim * input$y_dim,
@@ -261,112 +255,112 @@ egor_vis_app <- function(object = NULL,
         )
       })
       
-      output$choose_filter_var <- renderUI({
-        selectInput("filter_var",
+      output$choose_filter_var <- shiny::renderUI({
+        shiny::selectInput("filter_var",
                     "Filter by:",
                     choices = (r.atts()))
       })
-      outputOptions(output, "choose_filter_var", suspendWhenHidden = FALSE)
+      shiny::outputOptions(output, "choose_filter_var", suspendWhenHidden = FALSE)
       
-      output$choose_sort_by <- renderUI({
-        selectInput("sort_by", "Sort by:", choices = (r.atts()))
+      output$choose_sort_by <- shiny::renderUI({
+        shiny::selectInput("sort_by", "Sort by:", choices = (r.atts()))
       })
-      outputOptions(output, "choose_sort_by", suspendWhenHidden = FALSE)
+      shiny::outputOptions(output, "choose_sort_by", suspendWhenHidden = FALSE)
       
-      output$choose_box_color <- renderUI({
-        selectInput("box_color", "Highlight:", choices = r.atts())
+      output$choose_box_color <- shiny::renderUI({
+        shiny::selectInput("box_color", "Highlight:", choices = r.atts())
       })
-      outputOptions(output, "choose_box_color", suspendWhenHidden = FALSE)
+      shiny::outputOptions(output, "choose_box_color", suspendWhenHidden = FALSE)
       
-      output$choose_v.size <- renderUI({
-        selectInput("v.size", "Vertex Size:", choices = v.atts())
+      output$choose_v.size <- shiny::renderUI({
+        shiny::selectInput("v.size", "Vertex Size:", choices = v.atts())
       })
-      outputOptions(output, "choose_v.size", suspendWhenHidden = FALSE)
+      shiny::outputOptions(output, "choose_v.size", suspendWhenHidden = FALSE)
       
-      output$choose_v.color <- renderUI({
-        selectInput("v.color", "Vertex Color:", choices = v.atts())
+      output$choose_v.color <- shiny::renderUI({
+        shiny::selectInput("v.color", "Vertex Color:", choices = v.atts())
       })
-      outputOptions(output, "choose_v.color", suspendWhenHidden = FALSE)
+      shiny::outputOptions(output, "choose_v.color", suspendWhenHidden = FALSE)
       
-      output$choose_v.label <- renderUI({
-        selectInput("v.label", "Vertex Labels:", choices = v.atts())
+      output$choose_v.label <- shiny::renderUI({
+        shiny::selectInput("v.label", "Vertex Labels:", choices = v.atts())
       })
-      outputOptions(output, "choose_v.label", suspendWhenHidden = FALSE)
+      shiny::outputOptions(output, "choose_v.label", suspendWhenHidden = FALSE)
       
-      output$choose_e.width <- renderUI({
-        selectInput("e.width", "Edge Width:", choices = e.atts())
+      output$choose_e.width <- shiny::renderUI({
+        shiny::selectInput("e.width", "Edge Width:", choices = e.atts())
       })
-      outputOptions(output, "choose_e.width", suspendWhenHidden = FALSE)
+      shiny::outputOptions(output, "choose_e.width", suspendWhenHidden = FALSE)
       
-      output$choose_e.color <- renderUI({
-        selectInput("e.color", "Edge Color:", choices = e.atts())
+      output$choose_e.color <- shiny::renderUI({
+        shiny::selectInput("e.color", "Edge Color:", choices = e.atts())
       })
-      outputOptions(output, "choose_e.color", suspendWhenHidden = FALSE)
+      shiny::outputOptions(output, "choose_e.color", suspendWhenHidden = FALSE)
       
-      output$choose_venn_var <- renderUI({
-        selectInput("venn_var", "Venn Variable:", choices = v.atts())
+      output$choose_venn_var <- shiny::renderUI({
+        shiny::selectInput("venn_var", "Venn Variable:", choices = v.atts())
       })
-      outputOptions(output, "choose_venn_var", suspendWhenHidden = FALSE)
+      shiny::outputOptions(output, "choose_venn_var", suspendWhenHidden = FALSE)
       
-      output$choose_pie_var <- renderUI({
-        selectInput("pie_var", "Pie Variable:", choices = v.atts())
+      output$choose_pie_var <- shiny::renderUI({
+        shiny::selectInput("pie_var", "Pie Variable:", choices = v.atts())
       })
-      outputOptions(output, "choose_pie_var", suspendWhenHidden = FALSE)
+      shiny::outputOptions(output, "choose_pie_var", suspendWhenHidden = FALSE)
       
-      output$choose_disp.results <- renderUI({
-        selectInput("disp.results",
+      output$choose_disp.results <- shiny::renderUI({
+        shiny::selectInput("disp.results",
                     "Results:",
                     choices = result_names(),
                     multiple = TRUE)
       })
-      outputOptions(output, "choose_disp.results", suspendWhenHidden = FALSE)
+      shiny::outputOptions(output, "choose_disp.results", suspendWhenHidden = FALSE)
       
-      observeEvent(input$box_color, {
+      shiny::observeEvent(input$box_color, {
         values$box_color <- input$box_color
       })
-      observeEvent(input$v.size, {
+      shiny::observeEvent(input$v.size, {
         values$v.size <- input$v.size
       })
-      observeEvent(input$filter, {
+      shiny::observeEvent(input$filter, {
         values$filter <- input$filter
       })
-      observeEvent(input$filter_var, {
+      shiny::observeEvent(input$filter_var, {
         values$filter_var <- input$filter_var
       })
-      observeEvent(input$sort_by, {
+      shiny::observeEvent(input$sort_by, {
         values$sort_by <- input$sort_by
       })
-      observeEvent(input$v.color, {
+      shiny::observeEvent(input$v.color, {
         values$v.color <- input$v.color
       })
-      observeEvent(input$v.label, {
+      shiny::observeEvent(input$v.label, {
         values$v.label <- input$v.label
       })
-      observeEvent(input$e.width, {
+      shiny::observeEvent(input$e.width, {
         values$e.width <- input$e.width
       })
-      observeEvent(input$e.color, {
+      shiny::observeEvent(input$e.color, {
         values$e.color <- input$e.color
       })
-      observeEvent(input$nnumber, {
+      shiny::observeEvent(input$nnumber, {
         values$nnumber <- input$nnumber
       })
-      observeEvent(input$disp.results, {
+      shiny::observeEvent(input$disp.results, {
         values$disp.results <- input$disp.results
       }, ignoreNULL = FALSE)
       
-      observeEvent(input$venn_var, {
+      shiny::observeEvent(input$venn_var, {
         values$venn_var <- input$venn_var
       })
       
-      observeEvent(input$pie_var, {
+      shiny::observeEvent(input$pie_var, {
         values$pie_var <- input$pie_var
       })
       
       # plot Output -------------------------------------------------------------
       
       output$Plot <-
-        renderPlot({
+        shiny::renderPlot({
           plot(
             apply_sort_filter_to_obj(obj(), values$sort_by, values$filter_var, values$filter),
             values$nnumber,
@@ -415,7 +409,7 @@ egor_vis_app <- function(object = NULL,
           )
         })
       
-      output$save_all_plots <- downloadHandler(
+      output$save_all_plots <- shiny::downloadHandler(
         filename = function() {
           paste(input$egor, "_plots_export", ".pdf", sep = "")
         },
@@ -483,7 +477,7 @@ egor_vis_app <- function(object = NULL,
         }
       )
       
-      output$save_plot <- downloadHandler(
+      output$save_plot <- shiny::downloadHandler(
         filename = function() {
           paste(input$egor, "_", values$nnumber, ".pdf", sep = "")
         },

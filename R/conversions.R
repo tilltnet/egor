@@ -37,6 +37,7 @@ as_igraph <- function(x,
                       ego.attrs = NULL,
                       ego.alter.weights = NULL,
                       graph.attrs = ".egoID") {
+  require_igraph()
   UseMethod("as_igraph", x)
 }
 
@@ -48,6 +49,7 @@ as_igraph.egor <- function(x,
                            ego.attrs = NULL,
                            ego.alter.weights = NULL,
                            graph.attrs = ".egoID") {
+  require_igraph()
   x <- strip_ego_design(as_nested_egor(x))
   as_igraph(x, directed, include.ego, ego.attrs, ego.alter.weights, graph.attrs)
 }
@@ -60,6 +62,7 @@ as_igraph.nested_egor <- function(x,
                                   ego.attrs = NULL,
                                   ego.alter.weights = NULL,
                                   graph.attrs = ".egoID") {
+  require_igraph()
   # Create igraphs
   igraphs <-
     mapply(
@@ -133,22 +136,19 @@ as_igraph.nested_egor <- function(x,
 }
 
 #' @rdname as_igraph
-#' @importFrom igraph as.igraph
-#' @export
+#' @exportS3Method igraph::as.igraph egor
+#' @method as.igraph egor
 as.igraph.egor <- as_igraph
 
 #' @rdname as_igraph
 #' @export
-#' @importFrom network network
-#' @importFrom network network.initialize
-#' @importFrom network set.vertex.attribute
-#' @importFrom network set.edge.attribute
 as_network <- function(x,
                        directed = FALSE,
                        include.ego = FALSE,
                        ego.attrs = NULL,
                        ego.alter.weights = NULL,
                        graph.attrs = ".egoID") {
+  require_network()
   x <- strip_ego_design(as_nested_egor(x))
 
   # Incldude Ego
@@ -259,8 +259,8 @@ as_network <- function(x,
 }
 
 #' @rdname as_igraph
-#' @importFrom network as.network
-#' @export
+#' @exportS3Method network::as.network egor
+#' @method as.network egor
 as.network.egor <- as_network
 
 #' Extract ego, alter, and alter-alter tables from an `egor` object.
