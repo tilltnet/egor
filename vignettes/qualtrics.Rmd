@@ -1,0 +1,59 @@
+---
+title: "Setting up and analysing an ego-centered network survey with Qualtrics and egor"
+authors: Joy Losee, Till Krenz
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Setting up and analysing an ego-centered network survey with Qualtrics and egor}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+Some intro text should go here. Like: It's not easy doing this, so we thought we
+put together a description. Feedback welcome, please open an issue on github or [send a mail](mailto:jlosee1@udayton.edu).
+
+## Structure of an ego-centered network survey
+
+1. **Ego Attribute Section.** In this section, include questions about the ego (e.g., demographics, personality inventory, etc.).
+2. **Name generator: Alter List.** Thoroughly describe the process and make sure participant is aware ahead of time how long the process could take and that there is no need to provide identifying information (unless you do plan to match alters across egos in your study or there is some other reason identifying information is necessary). If identifying alter information is necessary, make sure to explain up front what you will do with that info. 
+The template has slots for 5 alters, but can expand to any number of alters. 
+3. **Name interpretator: Alter Attributes.** The template pipes the names provided in the alter list to the alter attribute questions. In this template, we ask five questions about each alter. The number of alter attribute questions can easily be decreased or increased. The wording and response style can also easily be changed like a standard survey—all other Qualtrics programming should work here. 
+Each set of alter attribute question is separated into a block labeled for that alter (e.g., Alter 1 Attributes, Alter 2 Attributes). If participants list more than 5 alters, you will need add as many blocks of alter attribute questions as alters listed (e.g., 10 alters listed would need 10 blocks of alter attribute questions). 
+4. **Alter-Alter Tie.** In this section, participants generate information on the alter-alter ties. The template has 10 alter-alter tie questions and this number will change depending on how many alters are listed. These questions pipe in the names from the alter list using the same coding at the piping in the alter attribute section.
+
+## Best practices
+
+When coducting ego-centered network surveys some practices have proven to decrease 
+drop-out rates and increase the quality of the collected data. Some of the items
+listed below apply to any kind of survey, while others are specific to ego-centered
+network data collection.
+
+1. **Informed Consent**
+2. **Quality assurance**: ask participants to commit to providing their best answers.
+3. **Thoroughly describe the data collection process.** On an initial run of this survey, participants were dropping out at a high rate. We suspected it was because they did not have enough information about what was going to happen. We suspected they were also concerned about providing identifying information on their alters (e.g., their alters’ names). 
+4. Make sure that alter-alter questions are in the right order.
+ 
+## Create Ego Survey from template
+
+Please download a minimal example of an ego-centered network survey [here](linklinklink). After importing this into Qualtrics you can build upon it, to create your own survey.
+
+## How does it work
+
+Here would be a description of the logic behind it all.
+
+- Use Variables to collect alter names and reference them in following questions
+- Mention validation logic and explain for
+  - fixed choice (all alters need to be named)
+  - (limited) free choice (participants can give as many names as they want up to a limit of x)
+
+## Downloading the data and importing it with `egor`
+
+1. Download
+2. Import
+3. ...
