@@ -15,17 +15,15 @@ knitr::opts_chunk$set(
 )
 ```
 
-Some intro text should go here. Like: It's not easy doing this, so we thought we
-put together a description. Feedback welcome, please open an issue on github or [send a mail](mailto:jlosee1@udayton.edu).
+As researchers increasingly opt for online data collection for social network projects, they may find programming the survey and downloading the data from that survey challenging. So, we've developed the following tutorial to make that process between data collection and data analysis more seamless. Feedback welcome, please open an issue on github or [send a mail](mailto:jlosee1@udayton.edu).
 
 ## Structure of an ego-centered network survey
 
-1. **Ego Attribute Section.** In this section, include questions about the ego (e.g., demographics, personality inventory, etc.).
-2. **Name generator: Alter List.** Thoroughly describe the process and make sure participant is aware ahead of time how long the process could take and that there is no need to provide identifying information (unless you do plan to match alters across egos in your study or there is some other reason identifying information is necessary). If identifying alter information is necessary, make sure to explain up front what you will do with that info. 
-The template has slots for 5 alters, but can expand to any number of alters. 
-3. **Name interpretator: Alter Attributes.** The template pipes the names provided in the alter list to the alter attribute questions. In this template, we ask five questions about each alter. The number of alter attribute questions can easily be decreased or increased. The wording and response style can also easily be changed like a standard survey—all other Qualtrics programming should work here. 
-Each set of alter attribute question is separated into a block labeled for that alter (e.g., Alter 1 Attributes, Alter 2 Attributes). If participants list more than 5 alters, you will need add as many blocks of alter attribute questions as alters listed (e.g., 10 alters listed would need 10 blocks of alter attribute questions). 
-4. **Alter-Alter Tie.** In this section, participants generate information on the alter-alter ties. The template has 10 alter-alter tie questions and this number will change depending on how many alters are listed. These questions pipe in the names from the alter list using the same coding at the piping in the alter attribute section.
+1. **Ego Attribute Section.** Include questions about the ego (e.g., demographics, personality inventory, etc.).
+2. **Name generator: Alter List.** Participants will list their alters in this section. This section can be customized with slots for as many or as few alters as you would like. The template currently has slots for 5 alters. If you increase the number of alters requested here, you will need to increase the alter attribute and alter-alter tie questions to match. Alter names listed in this section should be piped into the questions in the alter attribute section and the alter-alter tie section.
+3. **Name interpretator: Alter Attributes.** The template pipes the names provided in the alter list to the alter attribute questions. This section can be customized to change the number of questions about each alter and to change the wording and response style of each question. Like a standard survey—all other Qualtrics programming should work for the alter attribute questions. 
+Each set of alter attribute questions is separated into a block labeled for that alter (e.g., Alter 1 Attributes, Alter 2 Attributes). If you require more than 5 alters, you will need add as many blocks of alter attribute questions as alters listed (e.g., 10 alters listed would need 10 blocks of alter attribute questions). 
+4. **Alter-Alter Tie.** In this section, participants generate information on the alter-alter ties. The template has 10 alter-alter tie questions because the template asks for 5 alters. If you request more than 5 alters, you will need to add the corresponding number of questions to this section (e.g., requesting 30 alters means asking 435 alter-alter tie questions). These questions pipe in the names from the alter list using the same coding at the piping in the alter attribute section.
 
 ## Best practices
 
@@ -36,7 +34,8 @@ network data collection.
 
 1. **Informed Consent**
 2. **Quality assurance**: ask participants to commit to providing their best answers.
-3. **Thoroughly describe the data collection process.** On an initial run of this survey, participants were dropping out at a high rate. We suspected it was because they did not have enough information about what was going to happen. We suspected they were also concerned about providing identifying information on their alters (e.g., their alters’ names). 
+3. **Thoroughly describe the data collection process.** Make sure the participant is aware ahead of time how long the process could take and that there is no need to provide identifying information (unless you do plan to match alters across egos in your study or there is some other reason identifying information is necessary). If identifying alter information is necessary, make sure to explain up front what you will do with that information. 
+The template has slots for 5 alters, but can expand to any number of alters. 
 4. Make sure that alter-alter questions are in the right order.
  
 ## Create Ego Survey from template
