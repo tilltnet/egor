@@ -44,6 +44,8 @@ Please download a minimal example of an ego-centered network survey [here](linkl
 
 ## How does it work
 
+![](vis_wizzard.PNG)
+
 Here would be a description of the logic behind it all.
 
 - Use Variables to collect alter names and reference them in following questions
