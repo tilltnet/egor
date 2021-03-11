@@ -15,15 +15,15 @@ knitr::opts_chunk$set(
 )
 ```
 
-As researchers increasingly opt for online data collection for social network projects, they may find programming the survey and downloading the data from that survey challenging. So, we've developed the following tutorial to make that process between data collection and data analysis more seamless. Feedback welcome, please open an issue on github or [send a mail](mailto:jlosee1@udayton.edu).
+As researchers increasingly opt for online data collection for social network projects, they may find programming the survey and downloading the data from that survey challenging. So, we've developed the following tutorial to make the process between data collection and data analysis more seamless. Feedback welcome, please open an issue on github or [send a mail](mailto:jlosee1@udayton.edu).
 
 ## Structure of an ego-centered network survey
 
-1. **Ego Attribute Section.** Include questions about the ego (e.g., demographics, personality inventory, etc.).
-2. **Name generator: Alter List.** Participants will list their alters in this section. This section can be customized with slots for as many or as few alters as you would like. The template currently has slots for 5 alters. If you increase the number of alters requested here, you will need to increase the alter attribute and alter-alter tie questions to match. Alter names listed in this section should be piped into the questions in the alter attribute section and the alter-alter tie section.
-3. **Name interpretator: Alter Attributes.** The template pipes the names provided in the alter list to the alter attribute questions. This section can be customized to change the number of questions about each alter and to change the wording and response style of each question. Like a standard survey—all other Qualtrics programming should work for the alter attribute questions. 
-Each set of alter attribute questions is separated into a block labeled for that alter (e.g., Alter 1 Attributes, Alter 2 Attributes). If you require more than 5 alters, you will need add as many blocks of alter attribute questions as alters listed (e.g., 10 alters listed would need 10 blocks of alter attribute questions). 
-4. **Alter-Alter Tie.** In this section, participants generate information on the alter-alter ties. The template has 10 alter-alter tie questions because the template asks for 5 alters. If you request more than 5 alters, you will need to add the corresponding number of questions to this section (e.g., requesting 30 alters means asking 435 alter-alter tie questions). These questions pipe in the names from the alter list using the same coding at the piping in the alter attribute section.
+1. **Ego Attribute Section.** Includes questions about the ego (e.g., demographics, personality inventory, etc.).
+2. **Name generator: Alter List.** Participants will list their alters in this section. Alter names are then piped into the alter attribute and the alter-alter tie sections. This section can be customized, but there are two things to keep in mind. First, if you increase the number of requested alters (the template currently has slots for 5 alters), you will need to increase the number of alter attribute and alter-alter tie questions to match. Second, this alter list requires that participants enter an alter for each slot to continue. To give participants the option to leave some names in the alter list blank, you will need to also add [Display logic](https://www.qualtrics.com/support/survey-platform/survey-module/question-options/display-logic/#HidingQuestionswithDisplayLogic) to each alter attribute and alter-alter pair question that will hide questions if the alter list slot to which the question refers is left blank. 
+4. **Name interpretator: Alter Attributes.** The template pipes the names provided in the alter list to the alter attribute questions. This section can be customized to change the number of questions about each alter and to change the wording and response style of each question. Like a standard survey—all other Qualtrics programming should work for the alter attribute questions. [Click here for instructions on piping text in Qualtrics]( https://www.qualtrics.com/support/survey-platform/survey-module/editing-questions/piped-text/piped-text-overview/#PipingFromAPreviousQuestion). 
+Each set of alter attribute questions is separated into a block labeled for that alter (e.g., Alter 1 Attributes, Alter 2 Attributes). If you require more than 5 alters, you will need add as many blocks of alter attribute questions as alters listed (e.g., 10 alters listed would need 10 blocks of alter attribute questions). We recommend finalizing question wording and format in Block 1 of alter attribute questions and copying that block for as many alters as requested in the list. Then, in each block, adjust the code for the piped text so that it refers to the appropriate list slot (e.g., Block 2 of alter attribute questions should pipe the response to the second list slot from the alter list).
+4. **Alter-Alter Tie.** In this section, participants generate information on the alter-alter ties. The template has 10 alter-alter tie questions because the template asks for 5 alters. If you request more than 5 alters, you will need to add the corresponding number of questions to this section (e.g., requesting 30 alters means asking 435 alter-alter tie questions). These questions pipe in the names from the alter list using the same piped text code from the alter attribute section. Again, we recommend finalizing the question wording and style in the first alter-alter tie question and then copy-pasting the question as many times as needed adjusting only the piped text so that each question refers to the correct name from alter list.
 
 ## Best practices
 
@@ -44,7 +44,7 @@ Please download a minimal example of an ego-centered network survey [here](linkl
 
 ## How does it work
 
-![](vis_wizzard.PNG)
+![](Qualtrics 1.PNG)
 
 Here would be a description of the logic behind it all.
 
