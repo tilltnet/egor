@@ -55,6 +55,31 @@ Here would be a description of the logic behind it all.
 
 ## Downloading the data and importing it with `egor`
 
-1. Download
-2. Import
-3. ...
+1. Download data from qualtrics in the CSV format. (add screenshots of the download process?)
+2. Import data into R as an `egor` object with the code below.
+
+```
+df <- read.csv(file = "filename.csv") # Replace file name with full data set name!
+df <- as.data.frame(df)
+names(df)
+
+# Create egoID
+df$egoID <- 1:nrow(df)
+
+library(egor)
+
+e1 <- onefile_to_egor(egos = df,
+                attr.start.col = "A1Gender", # Name of Variable with the first alter attribute
+                attr.end.col = "A30_7", # Name of variable with last alter attribute
+                max.alters = 30, # Number of maximum alters that were named by participants
+                aa.first.var = "AP1") # Name of first alter-alter variable
+```
+
+3. Inspect `egor` object.
+
+```
+e1
+summary(e1)
+```
+
+5. Start analysis. Take a look at `using_egor` to learn how to visualize and analyze ego-centered network data with `egor`. 
