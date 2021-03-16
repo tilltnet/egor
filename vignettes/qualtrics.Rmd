@@ -44,7 +44,17 @@ Please download a minimal example of an ego-centered network survey [here](linkl
 
 ## How does it work
 
-![](Qualtrics 1.PNG)
+![Overview of Personal Network Template](Qualtrics 1.PNG)
+
+![Alter List Template](Qualtrics 2.PNG)
+
+![Alter Attribute Blocks](Qualtrics 3.PNG)
+
+![Example of alter list name piped into alter attribute questions](Qualtrics 4.PNG)
+
+![Example of Qualtrics code for piped text from alter list](Qualtrics 5.PNG)
+
+![Example of alter pair questions with piped text from alter list](Qualtrics 6.PNG)
 
 Here would be a description of the logic behind it all.
 
@@ -55,7 +65,7 @@ Here would be a description of the logic behind it all.
 
 ## Downloading the data and importing it with `egor`
 
-1. Download data from qualtrics in the CSV format. (add screenshots of the download process?)
+1. Download data from qualtrics in the CSV format. [Click here for instructions on downloading data from Qualtrics](https://www.qualtrics.com/support/survey-platform/data-and-analysis-module/data/download-data/export-data-overview/)
 2. Import data into R as an `egor` object with the code below.
 
 ```
