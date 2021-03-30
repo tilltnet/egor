@@ -1,9 +1,11 @@
 ---
-title: "Setting up and analysing an ego-centered network survey with Qualtrics and egor"
-authors: Joy Losee, Till Krenz
-output: rmarkdown::html_vignette
+title: "Qualtrics & egor: Setting up and analysing an ego-centered network survey with Qualtrics and egor"
+author: Joy Losee, Till Krenz
+output: 
+  rmarkdown::html_vignette:
+    toc: yes
 vignette: >
-  %\VignetteIndexEntry{Setting up and analysing an ego-centered network survey with Qualtrics and egor}
+  %\VignetteIndexEntry{Qualtrics & egor: Setting up and analysing an ego-centered network survey with Qualtrics and egor}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -15,81 +17,105 @@ knitr::opts_chunk$set(
 )
 ```
 
-As researchers increasingly opt for online data collection for social network projects, they may find programming the survey and downloading the data from that survey challenging. So, we've developed the following tutorial to make the process between data collection and data analysis more seamless. Feedback welcome, please open an issue on github or [send a mail](mailto:jlosee1@udayton.edu).
+As researchers increasingly opt for online data collection for social network projects, they may find programming the survey and downloading the data from that survey challenging. So, we've developed the following tutorial to make the process between data collection with Qualtrics and data analysis with `egor` more seamless. If you have any questions or suggestions please [open an issue on github](https://github.com/tilltnet/egor/issues) or [send an email](mailto:jlosee1@udayton.edu).
+
+While details will differ the same general logic described here can be applied to other survey platforms, as RedCap, ScoSci Survey, etc.
 
 ## Structure of an ego-centered network survey
 
-1. **Ego Attribute Section.** Includes questions about the ego (e.g., demographics, personality inventory, etc.).
-2. **Name generator: Alter List.** Participants will list their alters in this section. Alter names are then piped into the alter attribute and the alter-alter tie sections. This section can be customized, but there are two things to keep in mind. First, if you increase the number of requested alters (the template currently has slots for 5 alters), you will need to increase the number of alter attribute and alter-alter tie questions to match. Second, this alter list requires that participants enter an alter for each slot to continue. To give participants the option to leave some names in the alter list blank, you will need to also add [Display logic](https://www.qualtrics.com/support/survey-platform/survey-module/question-options/display-logic/#HidingQuestionswithDisplayLogic) to each alter attribute and alter-alter pair question that will hide questions if the alter list slot to which the question refers is left blank. 
-4. **Name interpretator: Alter Attributes.** The template pipes the names provided in the alter list to the alter attribute questions. This section can be customized to change the number of questions about each alter and to change the wording and response style of each question. Like a standard survey—all other Qualtrics programming should work for the alter attribute questions. [Click here for instructions on piping text in Qualtrics]( https://www.qualtrics.com/support/survey-platform/survey-module/editing-questions/piped-text/piped-text-overview/#PipingFromAPreviousQuestion). 
-Each set of alter attribute questions is separated into a block labeled for that alter (e.g., Alter 1 Attributes, Alter 2 Attributes). If you require more than 5 alters, you will need add as many blocks of alter attribute questions as alters listed (e.g., 10 alters listed would need 10 blocks of alter attribute questions). We recommend finalizing question wording and format in Block 1 of alter attribute questions and copying that block for as many alters as requested in the list. Then, in each block, adjust the code for the piped text so that it refers to the appropriate list slot (e.g., Block 2 of alter attribute questions should pipe the response to the second list slot from the alter list).
-4. **Alter-Alter Tie.** In this section, participants generate information on the alter-alter ties. The template has 10 alter-alter tie questions because the template asks for 5 alters. If you request more than 5 alters, you will need to add the corresponding number of questions to this section (e.g., requesting 30 alters means asking 435 alter-alter tie questions). These questions pipe in the names from the alter list using the same piped text code from the alter attribute section. Again, we recommend finalizing the question wording and style in the first alter-alter tie question and then copy-pasting the question as many times as needed adjusting only the piped text so that each question refers to the correct name from alter list.
+1.  **Ego Attribute Section.** Includes questions about the ego (e.g., demographics, personality inventory, etc.).
+2.  **Name Generator: Alter List.** Participants will list their alters in this section. Alter names are then piped into the alter attribute and the alter-alter tie sections. The participants can be free in their choice of how many alters they want to name or they can be forced to fill out a specific number of alter names.
+3.  **Name Interpretator: Alter Attributes.** This section of the survey is used to collect alter attributes (e.g. gender, age, etc.) and characteristics of the ego-alter relationship (e.g. contact frequency, emotional closeness, etc.).
+4.  **Alter-Alter Tie.** In this section, participants generate information on the alter-alter ties. Alter-alter ties in ego-centered networks are usually collected with as un-directed relations through a single question about the relationship between alter x and alter y.
+
+![Overview of Personal Network Template](Qualtrics%201.png)
 
 ## Best practices
 
-When coducting ego-centered network surveys some practices have proven to decrease 
-drop-out rates and increase the quality of the collected data. Some of the items
-listed below apply to any kind of survey, while others are specific to ego-centered
-network data collection.
+When conducting ego-centered network surveys some practices have proven to decrease drop-out rates and increase the quality of the collected data. Some of the items listed below apply to any kind of survey, while others are specific to ego-centered network data collection.
 
-1. **Informed Consent**
-2. **Quality assurance**: ask participants to commit to providing their best answers.
-3. **Thoroughly describe the data collection process.** Make sure the participant is aware ahead of time how long the process could take and that there is no need to provide identifying information (unless you do plan to match alters across egos in your study or there is some other reason identifying information is necessary). If identifying alter information is necessary, make sure to explain up front what you will do with that information. 
-The template has slots for 5 alters, but can expand to any number of alters. 
-4. Make sure that alter-alter questions are in the right order.
- 
-## Create Ego Survey from template
+1.  **Informed Consent**
+2.  **Quality assurance**: ask participants to commit to providing their best answers.
+3.  **Thoroughly describe the data collection process.** Make sure the participant is aware ahead of time how long the process could take and that there is no need to provide identifying information (unless you do plan to match alters across egos in your study or there is some other reason identifying information is necessary). If identifying alter information is necessary, make sure to explain up front what you will do with that information. The template has slots for 5 alters, but can expand to any number of alters.
+4.  Make sure that alter-alter questions are in the right order.
 
-Please download a minimal example of an ego-centered network survey [here](linklinklink). After importing this into Qualtrics you can build upon it, to create your own survey.
+## Create an Ego-Centered Network Survey
 
-## How does it work
+`egor` includes three template files for Qualtrics surveys:
 
-![Overview of Personal Network Template](Qualtrics 1.PNG)
+-   [Fixed-Choice with Best practices]()
 
-![Alter List Template](Qualtrics 2.PNG)
+-   [Fixed-Choice]()
 
-![Alter Attribute Blocks](Qualtrics 3.PNG)
+-   [Free-Choice]()
 
-![Example of alter list name piped into alter attribute questions](Qualtrics 4.PNG)
+You can download the template that best fits your needs, import it into Qualtrics and build upon it, to create your own survey.
 
-![Example of Qualtrics code for piped text from alter list](Qualtrics 5.PNG)
+### Fixed-Choice
 
-![Example of alter pair questions with piped text from alter list](Qualtrics 6.PNG)
+*In this section we describe the logic behind the **fixed-choice template**, the following section describes the changes necessary to allow the participants **free-choice** of the number of named alters.*
 
-Here would be a description of the logic behind it all.
+1.  **Ego Attributes**: The ego attributes are usually collected before the name generator. You can do it after as well or both. These survey items are regular questions about the participants themselves, therefore we won't further explain how to set this up.
 
-- Use Variables to collect alter names and reference them in following questions
-- Mention validation logic and explain for
-  - fixed choice (all alters need to be named)
-  - (limited) free choice (participants can give as many names as they want up to a limit of x)
+2.  **Name Generator**: This section can be customized, but there are two things to keep in mind. First, if you increase the number of requested alters (the template currently has slots for 5 alters), you will need to increase the number of alter attribute question blocks and alter-alter tie questions to match. Second, this alter list requires that participants enter an alter for each slot to continue.
+
+![Alter List Template](Qualtrics%202.png)
+
+![Alter Attribute Blocks (Blocks collapsed)](Qualtrics%203.png)
+
+3.  **Alter Interpretator: Alter Attributes.** The template pipes the names provided in the alter list to the alter attribute questions. This section can be customized to change the number of questions about each alter and to change the wording and response style of each question. Like a standard survey---all other Qualtrics programming should work for the alter attribute questions. [Click here for instructions on piping text in Qualtrics](https://www.qualtrics.com/support/survey-platform/survey-module/editing-questions/piped-text/piped-text-overview/#PipingFromAPreviousQuestion). Each set of alter attribute questions is separated into a question block labeled for that alter (e.g., Alter 1 Attributes, Alter 2 Attributes). If you require more than 5 alters, you will need add as many blocks of alter attribute questions as alters listed (e.g., 10 alters listed would need 10 blocks of alter attribute questions). We recommend finalizing question wording and format in Block 1 of alter attribute questions and copying that block for as many alters as requested in the list. Then, in each block, adjust the code for the piped text so that it refers to the appropriate list slot (e.g., Block 2 of alter attribute questions should pipe the response to the second list slot from the alter list).
+
+![Example of alter list name piped into alter attribute questions](Qualtrics%204.png)
+
+![Example of Qualtrics code for piped text from alter list](Qualtrics%205.png)
+
+4.  **Alter-Alter ties**. The template has 10 alter-alter tie questions because the template asks for 5 alters. If you request more than 5 alters, you will need to add the corresponding number of questions to this section (e.g., requesting 30 alters means asking 30\*(30-1)/2=435 alter-alter tie questions). These questions pipe in the names from the alter list using the same piped text code from the alter attribute section. Again, we recommend finalizing the question wording and style in the first alter-alter tie question and then copy-pasting the question as many times as needed adjusting only the piped text so that each question refers to the correct name from alter list. It is important to sort the order of alter-alter tie questions so that first all ties from alter 1 to alter 2, 3, 4, ... appear first, followed by all ties from alter 2 to alter 3, 4, ... . Going through all alters in that fashion. This ensures that the alter attributes and alter-alter ties can be connected correctly when analyzing the data.
+
+![Example of alter pair questions with piped text from alter list](Qualtrics%206.png)
+
+### Free-Choice
+
+*Here we describe survey display logic changes necessary to allow the participants to chose themselves how many alters they name. While there will always be an upper limit of alters that can be named, by selecting a very high number for this, you can make sure that the participants can name all the alters they want. At the same time a high maximum number will also lead to a significant amount of additional preparational work for the survey creation. Also with each additional alter named the partcipant will have to respond to more alter attribute and alter-alter questions.*
+
+1.  **Ego Attributes**: No changes needed here.
+
+2.  **Name Generator**: To give participants the option to leave some names in the alter list blank, you will have to skip/delete the *Custom Validations* which check that the name fields contain names.
+
+3.  **Alter Attributes**: Since the alter-attributes are organized in blocks you can use the *Survey Flow* tab in Qualtrics to define the conditions of when to display each block.\\
+
+![Survey Flow for Alter Attribute blocks (free-choice only)](Qualtrics%207.png)
+
+4.  **Alter-Alter Ties**. Add [Display logic](https://www.qualtrics.com/support/survey-platform/survey-module/question-options/display-logic/#HidingQuestionswithDisplayLogic) to each alter-alter pair question that will hide questions if one of the alters to which the question refers is left blank. We recommend preparing and finalizing one alter-alter tie question including the Display Logic and then copy this question as many times as needed and adjust only the piped text and Display Logic for each alter-alter combination.
+
+    ![Display Logic of an alter-alter question (free-choice only)](Qualtrics%208.png){width="700"}
 
 ## Downloading the data and importing it with `egor`
 
-1. Download data from qualtrics in the CSV format. [Click here for instructions on downloading data from Qualtrics](https://www.qualtrics.com/support/survey-platform/data-and-analysis-module/data/download-data/export-data-overview/)
-2. Import data into R as an `egor` object with the code below.
+1.  Download data from qualtrics in the CSV format. [Click here for instructions on downloading data from Qualtrics](https://www.qualtrics.com/support/survey-platform/data-and-analysis-module/data/download-data/export-data-overview/)
+2.  Import data into R as an `egor` object with the code below.
 
-```
-df <- read.csv(file = "filename.csv") # Replace file name with full data set name!
-df <- as.data.frame(df)
-names(df)
+<!-- -->
 
-# Create egoID
-df$egoID <- 1:nrow(df)
+    df <- read.csv(file = "filename.csv") # Replace file name with full data set name!
+    df <- as.data.frame(df)
+    names(df)
 
-library(egor)
+    # Create egoID
+    df$egoID <- 1:nrow(df)
 
-e1 <- onefile_to_egor(egos = df,
-                attr.start.col = "A1Gender", # Name of Variable with the first alter attribute
-                attr.end.col = "A30_7", # Name of variable with last alter attribute
-                max.alters = 30, # Number of maximum alters that were named by participants
-                aa.first.var = "AP1") # Name of first alter-alter variable
-```
+    library(egor)
 
-3. Inspect `egor` object.
+    e1 <- onefile_to_egor(egos = df,
+                    attr.start.col = "A1Gender", # Name of Variable with the first alter attribute
+                    attr.end.col = "A30_7", # Name of variable with last alter attribute
+                    max.alters = 30, # Number of maximum alters that were named by participants
+                    aa.first.var = "AP1") # Name of first alter-alter variable
 
-```
-e1
-summary(e1)
-```
+3.  Inspect `egor` object.
 
-5. Start analysis. Take a look at `using_egor` to learn how to visualize and analyze ego-centered network data with `egor`. 
+<!-- -->
+
+    e1
+    summary(e1)
+
+5.  Start analysis. Take a look at `using_egor` to learn how to visualize and analyze ego-centered network data with `egor`.
