@@ -94,28 +94,83 @@ You can download the template that best fits your needs, import it into Qualtric
 1.  Download data from qualtrics in the CSV format. [Click here for instructions on downloading data from Qualtrics](https://www.qualtrics.com/support/survey-platform/data-and-analysis-module/data/download-data/export-data-overview/)
 2.  Import data into R as an `egor` object with the code below.
 
+```{r include=FALSE}
+qu_data <- read.csv(system.file("qualtrics", "qualtrics_responses.csv", package = "egor")) 
+```
+
+
+```
+qu_data <- read.csv(file = "filename.csv") # Replace file name with full data set name!
+```
+
 <!-- -->
 
-    df <- read.csv(file = "filename.csv") # Replace file name with full data set name!
-    df <- as.data.frame(df)
-    names(df)
+```{r}
 
-    # Create egoID
-    df$egoID <- 1:nrow(df)
+qu_data <- qu_data[3:nrow(qu_data),]
 
-    library(egor)
+# Create egoID
+qu_data$egoID <- 1:nrow(qu_data)
 
-    e1 <- onefile_to_egor(egos = df,
-                    attr.start.col = "A1Gender", # Name of Variable with the first alter attribute
-                    attr.end.col = "A30_7", # Name of variable with last alter attribute
-                    max.alters = 30, # Number of maximum alters that were named by participants
-                    aa.first.var = "AP1") # Name of first alter-alter variable
+library(egor)
+
+e1 <- onefile_to_egor(egos = qu_data,
+                      ID.vars = list(ego = "egoID"),
+                      attr.start.col = "A1Gender", # Name of Variable with the first alter attribute
+                      attr.end.col = "X5.5", # Name of variable with last alter attribute
+                      max.alters = 5, # Number of maximum alters that were named by participants
+                      aa.first.var = "AP1") # Name of first alter-alter variable
+
+
+
+```
+
+We need to filter out entries for alters, that have not been named by
+the respondents, but are present in the data set since it is structured so that
+each _possible_ alter to be named has an entry. This step is technically not necessary
+if you are certain that all respondents have named the maximum number of alters.
+
+The logic behind this is to first create a `logical vector` that marks each alter
+as `TRUE` (= exists) if the name cell for that alter is not empty and and as `FALSE`
+if it is empty. Next this `logical vector` is applied to the alter dataset in the
+`egor` object to filter out all empty alter entries.
+
+```{r}
+alter_filter <- 
+  e1 %>% 
+  as_tibble() %>% 
+  arrange(.egoID) %>% 
+  select(AlterList_1:AlterList_5) %>% 
+  mutate(across(.fns = ~. != "")) %>% 
+  as.data.frame() %>% 
+  tidyr::pivot_longer(cols = everything()) %>% 
+  pull(value)
+
+e1 <- 
+  e1 %>% 
+  activate(alter) %>% 
+  filter(alter_filter)
+```
+
+Similar to the alter data the alter-alter ties contain rows that represent ties
+between alters that do not exist. These can be filtered out by excluding all rows/ alter-alter ties
+with an empty weight variable.
+
+```{r}
+e1 <- 
+  e1 %>% 
+  activate(aatie) %>% 
+  filter(weight != "")
+```
+
+
 
 3.  Inspect `egor` object.
 
 <!-- -->
-
+```{r}
     e1
     summary(e1)
+```
 
-5.  Start analysis. Take a look at `using_egor` to learn how to visualize and analyze ego-centered network data with `egor`.
+5.  Start analysis. Take a look at the [Using Egor](using_egor.html) vignette to learn how to visualize and analyze ego-centered network data with `egor`.
