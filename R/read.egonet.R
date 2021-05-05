@@ -41,7 +41,9 @@ common_prefix <- function(x) {
   # There is probably a faster way to do this.
   while (length(unique(sapply(x, substr, 1, j + 1))) == 1)
     j <- j + 1
-  substr(x[1], 1, j)
+  res <- substr(x[1], 1, j)
+  if(nchar(res) == 0) return(x[1])
+  res
 }
 
 #' Transform 'wide' alter-level data to the 'long'-format
