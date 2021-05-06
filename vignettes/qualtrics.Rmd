@@ -127,12 +127,11 @@ e1 <- onefile_to_egor(egos = qu_data,
 
 ```
 
-We need to filter out entries for alters, that have not been named by
-the respondents, but are present in the data set since it is structured so that
-each _possible_ alter to be named has an entry. This step is technically not necessary
-if you are certain that all respondents have named the maximum number of alters.
+We need to filter out entries for alters left blank by respondents because the 
+survey is structured so that each possible alter has an entry. This step is 
+technically not necessary if you are certain that all respondents have named the maximum number of alters.
 
-The logic behind this is to first create a `logical vector` that marks each alter
+The logic behind this step is to first create a `logical vector` that marks each alter
 as `TRUE` (= exists) if the name cell for that alter is not empty and and as `FALSE`
 if it is empty. Next this `logical vector` is applied to the alter dataset in the
 `egor` object to filter out all empty alter entries.
@@ -155,7 +154,7 @@ e1 <-
 ```
 
 Similar to the alter data the alter-alter ties contain rows that represent ties
-between alters that do not exist. These can be filtered out by excluding all rows/ alter-alter ties
+between alters that might not exist. These can be filtered out by excluding all rows/ alter-alter ties
 with an empty weight variable.
 
 ```{r}
@@ -165,8 +164,6 @@ e1 <-
   filter(weight != "")
 ```
 
-
-
 3.  Inspect `egor` object.
 
 <!-- -->
@@ -175,4 +172,4 @@ e1 <-
     summary(e1)
 ```
 
-5.  Start analysis. Take a look at the [Using Egor](using_egor.html) vignette to learn how to visualize and analyze ego-centered network data with `egor`.
+4.  Start analysis. Take a look at the [Using Egor](using_egor.html) vignette to learn how to visualize and analyze ego-centered network data with `egor`.
