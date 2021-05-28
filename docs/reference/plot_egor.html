@@ -164,6 +164,7 @@ default networks of the four first egos are plotted.</p>
   venn_colors <span class='op'>=</span> <span class='cn'>NULL</span>,
   venn_gradient_reverse <span class='op'>=</span> <span class='cn'>FALSE</span>,
   show_venn_labels <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  include_ego <span class='op'>=</span> <span class='cn'>FALSE</span>,
   <span class='va'>...</span>
 <span class='op'>)</span>
 
@@ -302,6 +303,10 @@ of venns increase going from the inner circles to the outer circles.</p></td>
       <td><p>Logical.</p></td>
     </tr>
     <tr>
+      <th>include_ego</th>
+      <td><p>Logical.</p></td>
+    </tr>
+    <tr>
       <th>...</th>
       <td><p>Additional arguments forwared to plot.igraph.</p></td>
     </tr>
@@ -312,10 +317,6 @@ of venns increase going from the inner circles to the outer circles.</p></td>
     <tr>
       <th>ego_alter_edge_color_var</th>
       <td><p>Name (<code>character</code>) of alter column.</p></td>
-    </tr>
-    <tr>
-      <th>include_ego</th>
-      <td><p>Logical.</p></td>
     </tr>
     <tr>
       <th>type</th>

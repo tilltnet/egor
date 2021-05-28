@@ -43,13 +43,13 @@ When conducting ego-centered network surveys some practices have proven to decre
 
 `egor` includes three template files for Qualtrics surveys:
 
--   [Fixed-Choice with Best practices]()
+-   [Fixed-Choice with Best practices](https://raw.githubusercontent.com/tilltnet/egor/master/inst/qualtrics/ego_network_template_fixed_choice_best_practices.qsf)
 
--   [Fixed-Choice]()
+-   [Fixed-Choice](https://raw.githubusercontent.com/tilltnet/egor/master/inst/qualtrics/ego_network_template_fixed_choice.qsf)
 
--   [Free-Choice]()
+-   [Free-Choice](https://raw.githubusercontent.com/tilltnet/egor/master/inst/qualtrics/ego_network_template_free_choice_up_to_5_alters.qsf)
 
-You can download the template that best fits your needs, import it into Qualtrics and build upon it, to create your own survey.
+You can download the template that best fits your needs, import it into Qualtrics and build upon it, to create your own survey. To download right-click on the link above and select "Save link as..." (or similar).
 
 ### Fixed-Choice
 

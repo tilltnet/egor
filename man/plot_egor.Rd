@@ -32,6 +32,7 @@ plot_egograms(
   venn_colors = NULL,
   venn_gradient_reverse = FALSE,
   show_venn_labels = TRUE,
+  include_ego = FALSE,
   ...
 )
 
@@ -120,13 +121,13 @@ of venns increase going from the inner circles to the outer circles.}
 
 \item{show_venn_labels}{Logical.}
 
+\item{include_ego}{Logical.}
+
 \item{...}{Additional arguments forwared to plot.igraph.}
 
 \item{ego_alter_edge_width_var}{Name (\code{character}) of alter column.}
 
 \item{ego_alter_edge_color_var}{Name (\code{character}) of alter column.}
-
-\item{include_ego}{Logical.}
 
 \item{type}{Character. Either "egograph" or "egogram".}
 }
