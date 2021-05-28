@@ -3,6 +3,7 @@ pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   egor_allbus: egor_allbus.html
+  qualtrics: qualtrics.html
   using_egor: using_egor.html
-last_built: 2021-01-20T16:25Z
+last_built: 2021-05-28T16:56Z
 

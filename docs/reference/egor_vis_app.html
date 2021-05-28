@@ -40,7 +40,7 @@
 
 
 <meta property="og:title" content="egor Network Visualization App — egor_vis_app" />
-<meta property="og:description" content="Launches an interactive Shiny Web App, that creates a list of
+<meta property="og:description" content="Launches an interactive Shiny Web App that creates a list of
 igraph objects from an 'egor' object and offers the user several graphical
 means of interacting with the visualization parameters for all networks in
 the egor object." />
@@ -75,7 +75,7 @@ the egor object." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">egor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.21.01</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.21.02</span>
       </span>
     </div>
 
@@ -99,6 +99,9 @@ the egor object." />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/egor_allbus.html">Working with Allbus 2010 ego-centered network data using egor</a>
+    </li>
+    <li>
+      <a href="../articles/qualtrics.html">Qualtrics &amp; egor: Setting up and analysing an ego-centered network survey with Qualtrics and egor</a>
     </li>
     <li>
       <a href="../articles/using_egor.html">Using `egor` to analyse ego-centered network data</a>
@@ -135,7 +138,7 @@ the egor object." />
     </div>
 
     <div class="ref-description">
-    <p>Launches an interactive Shiny Web App, that creates a list of
+    <p>Launches an interactive Shiny Web App that creates a list of
 <code>igraph</code> objects from an 'egor' object and offers the user several graphical
 means of interacting with the visualization parameters for all networks in
 the <code>egor</code> object.</p>
@@ -152,10 +155,13 @@ the <code>egor</code> object.</p>
     </tr>
     <tr>
       <th>shiny_opts</th>
-      <td><p><code>List</code> of arguments to be passed to <code>shinyApp()</code>'s options argument.</p></td>
+      <td><p>A <code><a href='https://rdrr.io/r/base/list.html'>list</a></code> of arguments to be passed to <code><a href='https://shiny.rstudio.com/reference/shiny/latest/shinyApp.html'>shiny::shinyApp()</a></code>'s options argument.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>This function requires <code><a href='https://shiny.rstudio.com/reference/shiny/latest/shiny-package.html'>shiny</a></code> to be installed.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>

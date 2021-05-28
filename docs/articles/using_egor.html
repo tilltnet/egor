@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">egor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.21.01</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.21.02</span>
       </span>
     </div>
 
@@ -55,6 +55,9 @@
   <ul class="dropdown-menu" role="menu">
 <li>
       <a href="../articles/egor_allbus.html">Working with Allbus 2010 ego-centered network data using egor</a>
+    </li>
+    <li>
+      <a href="../articles/qualtrics.html">Qualtrics &amp; egor: Setting up and analysing an ego-centered network survey with Qualtrics and egor</a>
     </li>
     <li>
       <a href="../articles/using_egor.html">Using `egor` to analyse ego-centered network data</a>
@@ -88,7 +91,7 @@
       <h1 data-toc-skip>Using <code>egor</code> to analyse ego-centered network data</h1>
                         <h4 class="author">Till Krenz</h4>
             
-            <h4 class="date">2021-01-20</h4>
+            <h4 class="date">2021-05-28</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/tilltnet/egor/blob/master/vignettes/using_egor.Rmd"><code>vignettes/using_egor.Rmd</code></a></small>
       <div class="hidden name"><code>using_egor.Rmd</code></div>
@@ -767,18 +770,18 @@ threefiles_to_egor()</a></code></pre>
     alter_var_name <span class="op">=</span> <span class="st">"country"</span>
   <span class="op">)</span>
 <span class="co">#&gt; # A tibble: 32 x 11</span>
-<span class="co">#&gt;    .egoID dy_cou_Australi… dy_cou_Australi… dy_cou_Australi… dy_cou_Australi…</span>
-<span class="co">#&gt;    &lt;chr&gt;             &lt;int&gt;            &lt;int&gt;            &lt;int&gt;            &lt;int&gt;</span>
-<span class="co">#&gt;  1 1                     1                2                2                5</span>
-<span class="co">#&gt;  2 10                    1                4                4                3</span>
-<span class="co">#&gt;  3 11                    0                8                7               10</span>
-<span class="co">#&gt;  4 12                    2                2                4                7</span>
-<span class="co">#&gt;  5 13                    3               16               16               11</span>
-<span class="co">#&gt;  6 14                    5               15               10                7</span>
-<span class="co">#&gt;  7 15                    1                9                9               11</span>
-<span class="co">#&gt;  8 16                    2                5                5                6</span>
-<span class="co">#&gt;  9 17                    3               16                9               13</span>
-<span class="co">#&gt; 10 18                    2               16               12               13</span>
+<span class="co">#&gt;    .egoID dy_cou_Australia_… dy_cou_Australia… dy_cou_Australi… dy_cou_Australi…</span>
+<span class="co">#&gt;    &lt;chr&gt;               &lt;int&gt;             &lt;int&gt;            &lt;int&gt;            &lt;int&gt;</span>
+<span class="co">#&gt;  1 1                       1                 2                2                5</span>
+<span class="co">#&gt;  2 10                      1                 4                4                3</span>
+<span class="co">#&gt;  3 11                      0                 8                7               10</span>
+<span class="co">#&gt;  4 12                      2                 2                4                7</span>
+<span class="co">#&gt;  5 13                      3                16               16               11</span>
+<span class="co">#&gt;  6 14                      5                15               10                7</span>
+<span class="co">#&gt;  7 15                      1                 9                9               11</span>
+<span class="co">#&gt;  8 16                      2                 5                5                6</span>
+<span class="co">#&gt;  9 17                      3                16                9               13</span>
+<span class="co">#&gt; 10 18                      2                16               12               13</span>
 <span class="co">#&gt; # … with 22 more rows, and 6 more variables: dy_cou_Germany_USA &lt;int&gt;,</span>
 <span class="co">#&gt; #   dy_cou_USA_USA &lt;int&gt;, dy_cou_Germany_Germany &lt;int&gt;,</span>
 <span class="co">#&gt; #   dy_cou_Germany_Poland &lt;int&gt;, dy_cou_Poland_Poland &lt;int&gt;,</span>
@@ -816,21 +819,21 @@ threefiles_to_egor()</a></code></pre>
 <span class="co">#&gt; # A tibble: 15 x 2</span>
 <span class="co">#&gt;    .egoID result</span>
 <span class="co">#&gt;     &lt;dbl&gt;  &lt;dbl&gt;</span>
-<span class="co">#&gt;  1      1   21.8</span>
-<span class="co">#&gt;  2      2   20.4</span>
-<span class="co">#&gt;  3      3   19.2</span>
-<span class="co">#&gt;  4      4   21.1</span>
-<span class="co">#&gt;  5      5   22.0</span>
-<span class="co">#&gt;  6      6   22.8</span>
-<span class="co">#&gt;  7      7   22.4</span>
-<span class="co">#&gt;  8      8   23.9</span>
-<span class="co">#&gt;  9      9   20.3</span>
-<span class="co">#&gt; 10     10   20.8</span>
-<span class="co">#&gt; 11     11   20.9</span>
-<span class="co">#&gt; 12     12   20.9</span>
-<span class="co">#&gt; 13     13   21.8</span>
-<span class="co">#&gt; 14     14   21.9</span>
-<span class="co">#&gt; 15     15   23.8</span></code></pre></div>
+<span class="co">#&gt;  1      1   26.1</span>
+<span class="co">#&gt;  2      2   26.8</span>
+<span class="co">#&gt;  3      3   19.8</span>
+<span class="co">#&gt;  4      4   24.5</span>
+<span class="co">#&gt;  5      5   25.4</span>
+<span class="co">#&gt;  6      6   22.5</span>
+<span class="co">#&gt;  7      7   26.7</span>
+<span class="co">#&gt;  8      8   25.0</span>
+<span class="co">#&gt;  9      9   25.1</span>
+<span class="co">#&gt; 10     10   25.3</span>
+<span class="co">#&gt; 11     11   26.0</span>
+<span class="co">#&gt; 12     12   18.7</span>
+<span class="co">#&gt; 13     13   24.4</span>
+<span class="co">#&gt; 14     14   27.2</span>
+<span class="co">#&gt; 15     15   24.7</span></code></pre></div>
 </div>
 </div>
 <div id="visualize" class="section level2">
