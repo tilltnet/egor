@@ -1,6 +1,5 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-.travis.yml
 ^appveyor\.yml$
 .RSession
 man-roxygen
@@ -13,3 +12,4 @@ readme.md
 ^pkgdown$
 ^LICENSE\.md$
 done_and_todo.md
+^\.github$
