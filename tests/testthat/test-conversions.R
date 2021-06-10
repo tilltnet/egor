@@ -62,7 +62,7 @@ test_that("as_network works with graph.attrs",
           {
             e <- make_egor(3, 20)
             
-            expect_error(res <- as_network(e, graph.attrs = c(".egoID", "income")
+            expect_error(res <- as_network(x = e, graph.attrs = c(".egoID", "income")
                                           ), NA)
             
             expect_true(all(

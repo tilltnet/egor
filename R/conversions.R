@@ -21,13 +21,13 @@ if (getRversion() >= "2.15.1")
 #' This is ignored, when `include.ego = FALSE`` (default).
 #' @param graph.attrs Vector of names (character) or indices (numeric) of
 #' ego variables that are supposed to be carried over to the igraph object
-#' as graph attributes or the network object as network attributes. By 
+#' as graph attributes or the network object as network attributes. By
 #' default `.egoID` is carried over.
 #' @details The names of the variables specified in ego.attr and ego.alter.attr
 #' need to be the same as the names of corresponding alter attributes,
-#' in order for those variables to be merged successfully in the resulting 
-#' network/ igraph object (see example). 
-#' @examples  
+#' in order for those variables to be merged successfully in the resulting
+#' network/ igraph object (see example).
+#' @examples
 #' e <- make_egor(3, 22)
 #' as_igraph(e)
 #' @export
@@ -51,7 +51,12 @@ as_igraph.egor <- function(x,
                            graph.attrs = ".egoID") {
   require_igraph()
   x <- strip_ego_design(as_nested_egor(x))
-  as_igraph(x, directed, include.ego, ego.attrs, ego.alter.weights, graph.attrs)
+  as_igraph(x,
+            directed,
+            include.ego,
+            ego.attrs,
+            ego.alter.weights,
+            graph.attrs)
 }
 
 #' @rdname as_igraph
@@ -88,7 +93,7 @@ as_igraph.nested_egor <- function(x,
                   }
                   graph
                 })
-
+  
   # Include Ego
   if (include.ego) {
     if (is.null(ego.attrs))
@@ -150,8 +155,8 @@ as_network <- function(x,
                        graph.attrs = ".egoID") {
   require_network()
   x <- strip_ego_design(as_nested_egor(x))
-
-  # Incldude Ego
+  
+  # Include Ego
   if (include.ego) {
     if (is.null(ego.attrs))
       ego.attrs <- 0
@@ -178,7 +183,7 @@ as_network <- function(x,
         as.character(obj$.aaties[[1]]$.tgtID)
       
       if (!is.null(ego.alter.weights)) {
-        ea_weights <- obj$.alts[[1]][ego.alter.weights][1:(len - 1), ]
+        ea_weights <- obj$.alts[[1]][ego.alter.weights][1:(len - 1),]
         ea_weights <-
           mutate_all(tibble(ea_weights = ea_weights), as.character)
         suppressWarnings(obj$.aaties[[1]] <- dplyr::mutate_at(
@@ -201,7 +206,6 @@ as_network <- function(x,
       obj
     }
     
-    
     x <-
       do.call(rbind, lapply(split(x, x$.egoID), FUN = add_ego_network))
   }
@@ -210,6 +214,10 @@ as_network <- function(x,
   network.data.frame <- function(aaties, alts) {
     alts <- alts[, names(alts) != ".egoID"]
     aaties <- aaties[, names(aaties) != ".egoID"]
+    
+    aaties <- 
+      mutate(aaties, across(c(.srcID, .tgtID), as.character))
+    
     if (nrow(aaties) == 0) {
       n <- network::network.initialize(0)
     } else {
@@ -219,40 +227,61 @@ as_network <- function(x,
                    la,
                    dimnames = list(all_alt_IDs, all_alt_IDs))
       for (i in all_alt_IDs) {
-        mt[colnames(mt) == i, colnames(mt) %in% aaties[aaties$.srcID == i , ]$.tgtID] <-
+        mt[colnames(mt) == i, colnames(mt) %in% aaties[aaties$.srcID == i ,]$.tgtID] <-
           1
         if (!directed)
-          mt[colnames(mt) %in% aaties[aaties$.srcID == i , ]$.tgtID, colnames(mt) == i] <-
+          mt[colnames(mt) %in% aaties[aaties$.srcID == i ,]$.tgtID, colnames(mt) == i] <-
             1
       }
       n <- network::network(mt, directed = FALSE)
     }
     for (i in 1:NCOL(alts))
       n <-
-        network::set.vertex.attribute(n, names(alts)[i], as.character(alts[[i]]))
+      network::set.vertex.attribute(n, names(alts)[i], as.character(alts[[i]]))
     if (NCOL(aaties) > 2)
-      for (i in 3:(NCOL(aaties)))
-        n <-
-          network::set.edge.attribute(n, names(aaties)[i], as.character(aaties[[i]]))
+      
+      el <- network::as.edgelist(n)
+      
+      aaties_for_extraction <-
+        el %>%
+        as.data.frame() %>%
+        mutate(from = as.character(factor(
+          V1,
+          levels = 1:attr(el, "n"),
+          labels = attr(el, "vnames")
+        )),
+        to = as.character(factor(
+          V2,
+          levels = 1:attr(el, "n"),
+          labels = attr(el, "vnames")
+        ))) %>%
+        left_join(aaties, by = c("from" = ".srcID", "to" = ".tgtID")) %>%
+        select(-V1, -V2)
+    
+    for (i in 3:(NCOL(aaties_for_extraction)))
+      n <-
+        network::set.edge.attribute(n, names(aaties_for_extraction)[i], 
+                                    as.character(aaties_for_extraction[[i]]))
       n
   }
-  
+  #network.data.frame(aaties = x$.aaties[[1]], alts = x$.alts[[1]])
   networks <- mapply(FUN = network.data.frame,
                      x$.aaties,
                      x$.alts,
                      SIMPLIFY = FALSE)
   
   # Set network attributes
-  networks <-
-    lapply(
-      networks,
-      FUN = function(network) {
-        for (i in 1:length(graph.attrs)) {
-          network <- network::set.network.attribute(network, graph.attrs[i], x[graph.attrs[i]])
-        }
-        network
-      }
-    )
+  
+  for (attr_name in graph.attrs) {
+    attr <- unlist(x[attr_name])
+    if (is.factor(attr))
+      attr <- as.character(attr)
+    networks <- purrr::map2(networks,
+                            attr,
+                            function(network, value)
+                              network::set.network.attribute(network, attr_name, value))
+  }
+  
   
   # Return
   networks
@@ -281,8 +310,8 @@ as.network.egor <- as_network
 #'
 #' as_tibble(egor32) # Ego table.
 #'
-#' egor32 %>% 
-#'  activate("alter") %>% 
+#' egor32 %>%
+#'  activate("alter") %>%
 #'  as_tibble(include.ego.vars=TRUE) # Alter table, but also with ego variables.
 #'
 #' @return A `tibble` for the `as_tibble` and `*_df` functions and a `tbl_svy` for `as_survey` and the `*_survey` functions.
@@ -290,27 +319,32 @@ as.network.egor <- as_network
 as_tibble.egor <- function(x,
                            ...,
                            include.ego.vars = FALSE,
-                           include.alter.vars = FALSE){
+                           include.alter.vars = FALSE) {
   res <- as_tibble(x[[attr(x, "active")]])
-
+  
   if (include.ego.vars && attr(x, "active") != "ego") {
-    ego <- if(has_ego_design(x)) x$ego$variables else x$ego
-
+    ego <- if (has_ego_design(x))
+      x$ego$variables
+    else
+      x$ego
+    
     names(ego)[names(ego) != ".egoID"] <-
       paste0(names(ego)[names(ego) != ".egoID"] , "_ego")
     res <- full_join(res, ego, by = ".egoID")
   }
-
+  
   if (include.alter.vars & attr(x, "active") == "aatie") {
     res <- left_join(res,
                      x$alter,
                      by = c(".egoID", ".srcID" = ".altID"))
-    res <- left_join(res,
-                     x$alter,
-                     by = c(".egoID", ".tgtID" = ".altID"),
-                     suffix = c("_src","_tgt"))
+    res <- left_join(
+      res,
+      x$alter,
+      by = c(".egoID", ".tgtID" = ".altID"),
+      suffix = c("_src", "_tgt")
+    )
   }
-
+  
   res
 }
 
@@ -321,18 +355,21 @@ as_tibble.egor <- function(x,
 #' as_survey(egor32) # Ego table with survey design.
 #' @importFrom srvyr as_survey
 #' @export
-as_survey.egor <- function(.data, ...,
+as_survey.egor <- function(.data,
+                           ...,
                            include.ego.vars = FALSE,
-                           include.alter.vars = FALSE){
-  if(!has_ego_design(.data)) .data$ego <- as_survey(.data$ego)
+                           include.alter.vars = FALSE) {
+  if (!has_ego_design(.data))
+    .data$ego <- as_survey(.data$ego)
   # Obtain the results ignoring design.
-  result <- as_tibble(.data, ...,
+  result <- as_tibble(.data,
+                      ...,
                       include.ego.vars = include.ego.vars,
                       include.alter.vars = include.alter.vars)
   # Now, figure out to which original ego row each of the output rows corresponds.
   emap <- match(result$.egoID, .data$ego$variables$.egoID)
   # Augment the initial ego survey design
-  result.design <- .data$ego[emap,]
+  result.design <- .data$ego[emap, ]
   result.design$variables <- result
   result.design
 }
