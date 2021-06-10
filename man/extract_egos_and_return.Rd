@@ -3,11 +3,11 @@
 \name{extract_egos_and_return}
 \alias{extract_egos_and_return}
 \title{This extracts egos from igraph/network data if they are named in \code{ego_name}
-and returns an egor onject}
+and returns an egor object}
 \usage{
 extract_egos_and_return(graph_attrs, alters, edges, ego_name = NULL)
 }
 \description{
 This extracts egos from igraph/network data if they are named in \code{ego_name}
-and returns an egor onject
+and returns an egor object
 }

@@ -92,7 +92,7 @@ settings.
 }
 \description{
 The function \code{egor()} is used to create an egor object from
-ego-centered network data. \code{as.egor()} converts a list of \code{igraph} objects or
+ego-centered network data. \code{as.egor()} converts a list of \code{igraph}/\code{network} objects or
 a \code{nested_egor} objects to an \code{egor} object.
 }
 \details{
