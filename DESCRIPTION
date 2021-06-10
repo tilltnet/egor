@@ -1,8 +1,8 @@
 Package: egor
 Type: Package
 Title: Import and Analyse Ego-Centered Network Data
-Version: 0.21.02
-Date: 2021-02-11
+Version: 1.21.06
+Date: 2021-06-10
 Authors@R: c(
     person("Till", "Krenz", email = "egor@tillt.net",
     role = c("aut", "cre")),
