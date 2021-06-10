@@ -2,8 +2,9 @@ if (getRversion() >= "2.15.1") utils::globalVariables(c(":="))
 
 #' egor - a data class for ego-centered network data.
 #'
-#' The function [egor()] is used to create an egor object from
-#' ego-centered network data.
+#' The function `egor()` is used to create an egor object from
+#' ego-centered network data. `as.egor()` converts a list of `igraph`/`network` objects or 
+#' a `nested_egor` objects to an `egor` object.
 #' @param alters either a \code{data.frame} containing the alters
 #'   (whose nominator is identified by the column specified by `egoID`
 #'   or a list of data frames with the same columns, one for each ego,
@@ -336,70 +337,4 @@ print.egor <- function(x,
                  print(tcm$mcf)
                })
   invisible(x)
-}
-
-#' @rdname egor
-#' @param x an object to be coerced to [`egor`].
-#' @export
-as.egor <- function(x, ...) UseMethod("as.egor")
-
-#' @export
-#' @noRd
-#' @method as.egor egor
-as.egor.egor <- function(x, ...) x
-
-#' @export
-#' @describeIn egor Can convert (legacy) `nested_egor` object to `egor` object.
-#' @method as.egor nested_egor
-as.egor.nested_egor <- function(x, ID.vars = list(
-  ego = ".egoID",
-  alter = ".alterID",
-  source = ".Source",
-  target = ".Target"
-), ...) {
-  
-  if (has_ego_design(x)) x <- x$variables
-  
-  IDv <- modifyList(eval(formals()$ID.vars), ID.vars)
-  
-  if (IDv$ego %in% names(x$.alts[[1]]))
-    alts <- bind_rows(x$.alts, .id = "egoID")
-  else {
-    alts <- select(x, IDv$ego, .alts)
-    alts <- tidyr::unnest(alts, .alts)
-  }
-  
-  if (".aaties" %in% names(x)) {
-    if (IDv$ego %in% names(x$.aaties[[1]]))
-      aaties <- bind_rows(x$.aaties)
-    else {
-      aaties <- select(x, IDv$ego, .aaties)
-      aaties <- tidyr::unnest(aaties, .aaties)
-    }
-    egos <- select(x, -.alts, -.aaties)
-    egor(
-      alts,
-      egos,
-      aaties,
-      ID.vars = list(
-        ego = ".egoID",
-        alter = ".altID",
-        source = ".srcID",
-        target = ".tgtID"
-      )
-    )
-  } else {
-
-    egos <- select(x, -.alts)
-    egor(
-      alts,
-      egos,
-      ID.vars = list(
-        ego = ".egoID",
-        alter = ".altID",
-        source = ".srcID",
-        target = ".tgtID"
-      )
-    )
-  }
 }
