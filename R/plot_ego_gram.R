@@ -110,7 +110,7 @@ plot_egograms <- function(x,
                           vertex_zoom = 1,
                           edge_zoom = 2,
                           font_size = 1,
-                          venn_colors = NULL,
+                          pie_colors = NULL,
                           venn_gradient_reverse = FALSE,
                           show_venn_labels = TRUE,
                           include_ego = FALSE,
@@ -146,7 +146,7 @@ plot_egograms <- function(x,
         res_disp_vars = res_disp_vars,
         vertex_zoom = vertex_zoom,
         edge_zoom = edge_zoom,
-        venn_colors = venn_colors,
+        pie_colors = pie_colors,
         venn_gradient_reverse = venn_gradient_reverse,
         font_size = font_size,
         show_venn_labels = show_venn_labels,
@@ -176,7 +176,7 @@ plot_egogram <-
            vertex_zoom = 1,
            edge_zoom = 2,
            font_size = 1,
-           venn_colors = NULL,
+           pie_colors = NULL,
            venn_gradient_reverse = FALSE,
            show_venn_labels = TRUE,
            include_ego = FALSE,
@@ -237,7 +237,7 @@ plot_egogram <-
       clockwise = TRUE,
       border = FALSE,
       add = TRUE,
-      col = venn_colors
+      col = pie_colors
     )
     
     # Venns

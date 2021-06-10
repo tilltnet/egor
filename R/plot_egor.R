@@ -24,7 +24,7 @@
 #' @param vertex_zoom Numeric.
 #' @param edge_zoom Numeric.
 #' @param font_size Numeric.
-#' @param venn_colors `Character` vector of colors to be used for coloring the 
+#' @param pie_colors `Character` vector of colors to be used for coloring the 
 #' subsections of the circle.
 #' @param venn_gradient_reverse `Logical`, set to TRUE in order to have the color intensity
 #' of venns increase going from the inner circles to the outer circles.
