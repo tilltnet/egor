@@ -1,5 +1,5 @@
 if (getRversion() >= "2.15.1")
-  utils::globalVariables(c(".tmp_row_id"))
+  utils::globalVariables(c(".tmp_row_id", "ego_id", "V1", "V2"))
 
 # egor conversions
 

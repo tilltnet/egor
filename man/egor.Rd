@@ -16,7 +16,7 @@ as.egor(x, ...)
   ...
 )
 
-\method{as.egor}{list}(x, ego_name = NULL)
+\method{as.egor}{list}(x, ego_name = NULL, ...)
 
 egor(
   alters,

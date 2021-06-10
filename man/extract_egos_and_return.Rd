@@ -7,6 +7,15 @@ and returns an egor object}
 \usage{
 extract_egos_and_return(graph_attrs, alters, edges, ego_name = NULL)
 }
+\arguments{
+\item{graph_attrs}{List of graph attributes}
+
+\item{alters}{alters}
+
+\item{edges}{edges}
+
+\item{ego_name}{ego_name}
+}
 \description{
 This extracts egos from igraph/network data if they are named in \code{ego_name}
 and returns an egor object

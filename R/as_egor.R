@@ -1,3 +1,7 @@
+if (getRversion() >= "2.15.1")
+  utils::globalVariables(c("from", "to", "name", "ego_id"))
+
+
 #' @rdname egor
 #' @param x an object to be coerced to [`egor`].
 #' @export
@@ -72,7 +76,7 @@ as.egor.nested_egor <- function(x,
 #' @param ego_name `character` or `numeric` of length one or same length as there are networks. If the igraph networks don't include egos as a node, set to `NULL` (default).
 #' @export
 as.egor.list <-
-  function(x, ego_name = NULL) {
+  function(x, ego_name = NULL, ...) {
     
     if (length(ego_name) != length(x) & length(ego_name) > 1)
       stop("Length of `ego_names` does not match up with number of ego networks.")
@@ -168,7 +172,7 @@ as_egor_network <-
       edge_attr_names <- network::list.edge.attributes(network)
       edge_attr_names <- edge_attr_names[edge_attr_names != "na"]
       edge_attr_vals <-
-        purrr::map(edge_attr_names, network::get.edge.attribute, el = network$mel)
+        purrr::map(edge_attr_names, network::get.edge.value, x = network$mel)
       
       edge_attr_df <-
         bind_cols(
@@ -194,6 +198,10 @@ as_egor_network <-
 
 #' This extracts egos from igraph/network data if they are named in `ego_name`
 #' and returns an egor object
+#' @param graph_attrs List of graph attributes
+#' @param alters alters
+#' @param edges edges
+#' @param ego_name ego_name
 extract_egos_and_return <-
   function(graph_attrs, alters, edges, ego_name = NULL) {
     
