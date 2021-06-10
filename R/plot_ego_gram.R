@@ -1,5 +1,5 @@
 if (getRversion() >= "2.15.1")
-  utils::globalVariables(c(".egoID"))
+  utils::globalVariables(c(".egoID", "alter"))
 
 calc_angle_coordinates <- function(radius, angle) {
   X <- radius * sin(angle)
