@@ -86,7 +86,6 @@ in order for those variables to be merged successfully in the resulting
 network/ igraph object (see example).
 }
 \examples{
- 
 e <- make_egor(3, 22)
 as_igraph(e)
 }

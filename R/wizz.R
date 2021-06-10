@@ -345,6 +345,7 @@ egor_vis_app <- function(object = NULL,
       shiny::observeEvent(input$nnumber, {
         values$nnumber <- input$nnumber
       })
+      
       shiny::observeEvent(input$disp.results, {
         values$disp.results <- input$disp.results
       }, ignoreNULL = FALSE)
