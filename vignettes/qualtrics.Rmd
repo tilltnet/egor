@@ -28,7 +28,7 @@ While details will differ the same general logic described here can be applied t
 3.  **Name Interpretator: Alter Attributes.** This section of the survey is used to collect alter attributes (e.g. gender, age, etc.) and characteristics of the ego-alter relationship (e.g. contact frequency, emotional closeness, etc.).
 4.  **Alter-Alter Tie.** In this section, participants generate information on the alter-alter ties. Alter-alter ties in ego-centered networks are usually collected as un-directed relations through a single question about the relationship between alter x and alter y.
 
-![Overview of Personal Network Template](Qualtrics%201.png)
+![Overview of Personal Network Template](Qualtrics1.png)
 
 ## Best practices
 
@@ -59,21 +59,21 @@ You can download the template that best fits your needs, import it into Qualtric
 
 2.  **Name Generator**: This section can be customized, but there are two things to keep in mind. First, if you increase the number of requested alters (the template currently has slots for 5 alters), you will need to increase the number of alter attribute question blocks and alter-alter tie questions to match. Second, because this is the fixed choice template, this alter list requires that participants enter an alter for each slot to continue.
 
-![Alter List Template](Qualtrics%202.png)
+![Alter List Template](Qualtrics2.png)
 
-![Alter Attribute Blocks (Blocks collapsed)](Qualtrics%203.png)
+![Alter Attribute Blocks (Blocks collapsed)](Qualtrics3.png)
 
 3.  **Alter Interpretator: Alter Attributes.** The template pipes the names provided in the alter list to the alter attribute questions. [Click here for instructions on piping text in Qualtrics](https://www.qualtrics.com/support/survey-platform/survey-module/editing-questions/piped-text/piped-text-overview/#PipingFromAPreviousQuestion). Each set of alter attribute questions is separated into a question block labeled for that alter (e.g., Alter 1 Attributes, Alter 2 Attributes).
 
 This section can be customized to change the number of questions about each alter and to change the wording and response style of each question. Like a standard survey---all other Qualtrics programming should work for the alter attribute questions. If you require more than 5 alters, you will need add as many blocks of alter attribute questions as alters listed (e.g., 10 alters listed would need 10 blocks of alter attribute questions). We recommend finalizing question wording and format in Block 1 of alter attribute questions and copying that block for as many alters as requested in the list. Then, in each block, adjust the code for the piped text so that it refers to the appropriate list slot (e.g., Block 2 of alter attribute questions should pipe the response to the second list slot from the alter list).
 
-![Example of alter list name piped into alter attribute questions](Qualtrics%204.png)
+![Example of alter list name piped into alter attribute questions](Qualtrics4.png)
 
-![Example of Qualtrics code for piped text from alter list](Qualtrics%205.png)
+![Example of Qualtrics code for piped text from alter list](Qualtrics5.png)
 
 4.  **Alter-Alter ties**. The template has 10 alter-alter tie questions because the template asks for 5 alters. If you request more than 5 alters, you will need to add the corresponding number of questions to this section (e.g., requesting 30 alters means asking 30\*(30-1)/2=435 alter-alter tie questions). These questions pipe in the names from the alter list using the same piped text code from the alter attribute section. Again, we recommend finalizing the question wording and style in the first alter-alter tie question and then copy-pasting the question as many times as needed adjusting only the piped text so that each question refers to the correct name from alter list. It is important to sort the order of alter-alter tie questions so that all ties from alter 1 (e.g., to alter 2, 3, 4, ...) appear first, followed by all ties from alter 2 (e.g., to alter 3, 4, ...) and so on. This process ensures that the alter attributes and alter-alter ties can be connected correctly when analyzing the data.
 
-![Example of alter pair questions with piped text from alter list](Qualtrics%206.png)
+![Example of alter pair questions with piped text from alter list](Qualtrics6.png)
 
 ### Free-Choice
 
@@ -85,11 +85,11 @@ This section can be customized to change the number of questions about each alte
 
 3.  **Alter Attributes**: Because this is the free choice format, you will want to display only the same number alter attribute blocks as alters listed in the alter list. Thus, you will need to employ display logic using the *Survey Flow* tab in Qualtrics to define the conditions of when to display each alter attribute block.\\
 
-![Survey Flow for Alter Attribute blocks (free-choice only)](Qualtrics%207.png)
+![Survey Flow for Alter Attribute blocks (free-choice only)](Qualtrics7.png)
 
 4.  **Alter-Alter Ties**. Add [Display logic](https://www.qualtrics.com/support/survey-platform/survey-module/question-options/display-logic/#HidingQuestionswithDisplayLogic) to each alter-alter pair question that will hide questions if one of the alters to which the question refers is left blank. We recommend preparing and finalizing one alter-alter tie question including the Display Logic and then copy this question as many times as needed and adjust only the piped text and Display Logic for each alter-alter combination.
 
-    ![Display Logic of an alter-alter question (free-choice only)](Qualtrics%208.png){width="700"}
+    ![Display Logic of an alter-alter question (free-choice only)](Qualtrics8.png){width="700"}
 
 ## Downloading the data and importing it with `egor`
 
