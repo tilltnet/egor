@@ -113,10 +113,13 @@ plot_egograms <- function(x,
                           venn_colors = NULL,
                           venn_gradient_reverse = FALSE,
                           show_venn_labels = TRUE,
+                          include_ego = FALSE,
                           ...) {
   opar <- par(no.readonly = TRUE)
   on.exit(par(opar))
   par(mfrow = c(y_dim, x_dim))
+  
+  x <- activate(x, alter) %>% arrange(.egoID, .altID)
   
   for (i in ego_no:(ego_no + (x_dim * y_dim - 1))) {
     if (i <= nrow(x$ego)) {
@@ -147,6 +150,7 @@ plot_egograms <- function(x,
         venn_gradient_reverse = venn_gradient_reverse,
         font_size = font_size,
         show_venn_labels = show_venn_labels,
+        include_ego = include_ego,
         ...
       )
     }
@@ -175,6 +179,7 @@ plot_egogram <-
            venn_colors = NULL,
            venn_gradient_reverse = FALSE,
            show_venn_labels = TRUE,
+           include_ego = FALSE,
            ...)  {
     
     if (!any(c(!is.null(pie_var), !is.null(venn_var))))
@@ -319,8 +324,17 @@ plot_egogram <-
     vertex_zoom <- (((venn_n+5)^2-1)/(venn_n+5)^3) * 100 - 20 + vertex_zoom 
 
     # Create igraph
-    g <- as_igraph(ego_object)
+    g <- as_igraph(ego_object, include.ego = include_ego)[[1]]
     
+    if(include_ego) {
+      # Place ego in middle of plot
+      lay <- rbind(lay, c(0, 0))
+      # Set curvature of ego-alter ties to zero
+      igraph::E(g)$curved[is.na(igraph::E(g)$curved)] <- 0
+      # Set ego-alter weights to a dummy value
+      igraph::E(g)$weight[is.na(igraph::E(g)$weight)] <- min(igraph::E(g)$weight, na.rm = TRUE)
+    }
+        
     # Plot
     plot_one_ego_graph(
       ego_object,
@@ -341,10 +355,8 @@ plot_egogram <-
       vertex_zoom = vertex_zoom,
       edge_zoom = edge_zoom,
       vertex.frame.color = NA,
-      edge.curved = igraph::E(g[[1]])$curved,
-      #edge.width = 2,
-      #edge.color = "gray69",
-      #rgb(0,0,0,0.2),
+      edge.curved = igraph::E(g)$curved,
+      include_ego = include_ego,
       ...
     )
   }

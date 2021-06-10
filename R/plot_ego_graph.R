@@ -184,6 +184,14 @@ plot_one_ego_graph <- function(x,
   }
   
   set.seed(1337)
+  
+  if(include_ego) {
+    # Set curvature of ego-alter ties to zero
+    # igraph::E(gr)$curved[is.na(igraph::E(gr)$curved)] <- 0
+    # Set ego-alter weights to a dummy value
+    igraph::E(gr)$weight[is.na(igraph::E(gr)$weight)] <- min(igraph::E(gr)$weight, na.rm = TRUE)
+  }
+  
   igraph::plot.igraph(
     gr,
     vertex.size = vertex.size,
