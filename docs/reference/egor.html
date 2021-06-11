@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>egor - a data class for ego-centered network data. — egor • egor</title>
+<title>egor - a data class for ego-centered network data. — as.egor • egor</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,10 @@
 
 
 
-<meta property="og:title" content="egor - a data class for ego-centered network data. — egor" />
+<meta property="og:title" content="egor - a data class for ego-centered network data. — as.egor" />
 <meta property="og:description" content="The function egor() is used to create an egor object from
-ego-centered network data." />
+ego-centered network data. as.egor() converts a list of igraph/network objects or
+a nested_egor objects to an egor object." />
 
 
 
@@ -73,7 +74,7 @@ ego-centered network data." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">egor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.21.02</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.21.6</span>
       </span>
     </div>
 
@@ -131,26 +132,17 @@ ego-centered network data." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>egor - a data class for ego-centered network data.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tilltnet/egor/blob/master/R/egor.R'><code>R/egor.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/tilltnet/egor/blob/master/R/as_egor.R'><code>R/as_egor.R</code></a>, <a href='https://github.com/tilltnet/egor/blob/master/R/egor.R'><code>R/egor.R</code></a></small>
     <div class="hidden name"><code>egor.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p>The function <code>egor()</code> is used to create an egor object from
-ego-centered network data.</p>
+ego-centered network data. <code>as.egor()</code> converts a list of <code>igraph</code>/<code>network</code> objects or
+a <code>nested_egor</code> objects to an <code>egor</code> object.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>egor</span><span class='op'>(</span>
-  <span class='va'>alters</span>,
-  egos <span class='op'>=</span> <span class='cn'>NULL</span>,
-  aaties <span class='op'>=</span> <span class='cn'>NULL</span>,
-  ID.vars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>ego <span class='op'>=</span> <span class='st'>"egoID"</span>, alter <span class='op'>=</span> <span class='st'>"alterID"</span>, source <span class='op'>=</span> <span class='st'>"Source"</span>, target <span class='op'>=</span>
-    <span class='st'>"Target"</span><span class='op'>)</span>,
-  ego_design <span class='op'>=</span> <span class='cn'>NULL</span>,
-  alter_design <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>max <span class='op'>=</span> <span class='cn'>Inf</span><span class='op'>)</span>
-<span class='op'>)</span>
-
-<span class='fu'>as.egor</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>as.egor</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for nested_egor</span>
 <span class='fu'>as.egor</span><span class='op'>(</span>
@@ -158,28 +150,31 @@ ego-centered network data.</p>
   ID.vars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>ego <span class='op'>=</span> <span class='st'>".egoID"</span>, alter <span class='op'>=</span> <span class='st'>".alterID"</span>, source <span class='op'>=</span> <span class='st'>".Source"</span>, target <span class='op'>=</span>
     <span class='st'>".Target"</span><span class='op'>)</span>,
   <span class='va'>...</span>
+<span class='op'>)</span>
+
+<span class='co'># S3 method for list</span>
+<span class='fu'>as.egor</span><span class='op'>(</span><span class='va'>x</span>, ego_name <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='fu'>egor</span><span class='op'>(</span>
+  <span class='va'>alters</span>,
+  egos <span class='op'>=</span> <span class='cn'>NULL</span>,
+  aaties <span class='op'>=</span> <span class='cn'>NULL</span>,
+  ID.vars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>ego <span class='op'>=</span> <span class='st'>"egoID"</span>, alter <span class='op'>=</span> <span class='st'>"alterID"</span>, source <span class='op'>=</span> <span class='st'>"Source"</span>, target <span class='op'>=</span>
+    <span class='st'>"Target"</span><span class='op'>)</span>,
+  ego_design <span class='op'>=</span> <span class='cn'>NULL</span>,
+  alter_design <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>max <span class='op'>=</span> <span class='cn'>Inf</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>alters</th>
-      <td><p>either a <code>data.frame</code> containing the alters
-(whose nominator is identified by the column specified by <code>egoID</code>
-or a list of data frames with the same columns, one for each ego,
-with empty data frames or <code>NULL</code>s corresponding to egos with no
-nominees.</p></td>
+      <th>x</th>
+      <td><p><code>list</code> of igraph objects representing ego networks.</p></td>
     </tr>
     <tr>
-      <th>egos</th>
-      <td><p><code>data.frame</code> containing the egos.</p></td>
-    </tr>
-    <tr>
-      <th>aaties</th>
-      <td><p><code>data.frame</code> containing the alter-alter
-relations in the style of an edge list, or a list of data frames
-similar to <code>alters.df</code>.</p></td>
+      <th>...</th>
+      <td><p>arguments to be passed to methods</p></td>
     </tr>
     <tr>
       <th>ID.vars</th>
@@ -204,6 +199,28 @@ alter identifier of the destination of a relation.</p></dd>
 </dl></td>
     </tr>
     <tr>
+      <th>ego_name</th>
+      <td><p><code>character</code> or <code>numeric</code> of length one or same length as there are networks. If the igraph networks don't include egos as a node, set to <code>NULL</code> (default).</p></td>
+    </tr>
+    <tr>
+      <th>alters</th>
+      <td><p>either a <code>data.frame</code> containing the alters
+(whose nominator is identified by the column specified by <code>egoID</code>
+or a list of data frames with the same columns, one for each ego,
+with empty data frames or <code>NULL</code>s corresponding to egos with no
+nominees.</p></td>
+    </tr>
+    <tr>
+      <th>egos</th>
+      <td><p><code>data.frame</code> containing the egos.</p></td>
+    </tr>
+    <tr>
+      <th>aaties</th>
+      <td><p><code>data.frame</code> containing the alter-alter
+relations in the style of an edge list, or a list of data frames
+similar to <code>alters.df</code>.</p></td>
+    </tr>
+    <tr>
       <th>ego_design</th>
       <td><p>A <code><a href='https://rdrr.io/r/base/list.html'>list</a></code> of arguments to
 <code><a href='http://gdfe.co/srvyr/reference/as_survey_design.html'>srvyr::as_survey_design()</a></code> specifying the sampling design for
@@ -216,14 +233,6 @@ the egos. If formulas, they can refer to columns of
 information. Currently, the following elements are supported:</p><dl>
 
 </dl></td>
-    </tr>
-    <tr>
-      <th>x</th>
-      <td><p>an object to be coerced to <code>egor</code>.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>arguments to be passed to methods</p></td>
     </tr>
     </table>
 
@@ -277,26 +286,26 @@ the future.</p>
                     alter <span class='op'>=</span> <span class='st'>".ALTID"</span>, 
                     source <span class='op'>=</span> <span class='st'>".SRCID"</span>,
                     target <span class='op'>=</span>  <span class='st'>".TGTID"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; # EGO data (<span style='color: #00BB00;'>active</span><span>): 32 x 6
+</div><div class='output co'>#&gt; # EGO data (<span style='color: #00BB00;'>active</span>): 32 x 6
 #&gt;   .egoID sex   age     age.years country   income
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> 1      w     36 - 45        45 USA        </span><span style='text-decoration: underline;'>36</span><span>135
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> 2      m     36 - 45        37 Germany    </span><span style='text-decoration: underline;'>35</span><span>040
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> 3      m     26 - 35        28 Australia  </span><span style='text-decoration: underline;'>63</span><span>875
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> 4      w     0 - 17          2 USA        </span><span style='text-decoration: underline;'>31</span><span>755
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> 5      m     56 - 65        56 Germany    </span><span style='text-decoration: underline;'>14</span><span>600
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> 1      w     36 - 45        45 USA        <span style='text-decoration: underline;'>36</span>135
+#&gt; <span style='color: #BCBCBC;'>2</span> 2      m     36 - 45        37 Germany    <span style='text-decoration: underline;'>35</span>040
+#&gt; <span style='color: #BCBCBC;'>3</span> 3      m     26 - 35        28 Australia  <span style='text-decoration: underline;'>63</span>875
+#&gt; <span style='color: #BCBCBC;'>4</span> 4      w     0 - 17          2 USA        <span style='text-decoration: underline;'>31</span>755
+#&gt; <span style='color: #BCBCBC;'>5</span> 5      m     56 - 65        56 Germany    <span style='text-decoration: underline;'>14</span>600
 #&gt; # ALTER data: 478 x 7
 #&gt;   .altID .egoID sex   age      age.years country   income
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> 1      1      w     66 - 100        75 Australia  </span><span style='text-decoration: underline;'>42</span><span>340
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> 2      1      m     18 - 25         17 Germany      730
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> 3      1      w     66 - 100        91 Australia  </span><span style='text-decoration: underline;'>23</span><span>360
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> 1      1      w     66 - 100        75 Australia  <span style='text-decoration: underline;'>42</span>340
+#&gt; <span style='color: #BCBCBC;'>2</span> 2      1      m     18 - 25         17 Germany      730
+#&gt; <span style='color: #BCBCBC;'>3</span> 3      1      w     66 - 100        91 Australia  <span style='text-decoration: underline;'>23</span>360
 #&gt; # AATIE data: 1,858 x 4
 #&gt;   .egoID .srcID .tgtID weight
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> 32     13     18      0.333
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> 18     11     22      0.667
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> 28     5      19      0.667</div></span></pre>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> 32     13     18      0.333
+#&gt; <span style='color: #BCBCBC;'>2</span> 18     11     22      0.667
+#&gt; <span style='color: #BCBCBC;'>3</span> 28     5      19      0.667</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

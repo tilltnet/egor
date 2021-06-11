@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">egor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.21.02</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.21.6</span>
       </span>
     </div>
 
@@ -85,13 +85,13 @@
 
       
 
-      </header><script src="egor_allbus_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
+      </header><script src="egor_allbus_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Working with Allbus 2010 ego-centered network data using egor</h1>
                         <h4 class="author">Till Krenz</h4>
             
-            <h4 class="date">2021-05-28</h4>
+            <h4 class="date">2021-06-11</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/tilltnet/egor/blob/master/vignettes/egor_allbus.Rmd"><code>vignettes/egor_allbus.Rmd</code></a></small>
       <div class="hidden name"><code>egor_allbus.Rmd</code></div>
@@ -113,7 +113,7 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tilltnet/egor">egor</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://purrr.tidyverse.org">purrr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://haven.tidyverse.org">haven</a></span><span class="op">)</span></code></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://haven.tidyverse.org">haven</a></span><span class="op">)</span></code></pre></div>
 <p>In addition to <em>egor</em>, this vignette uses the <em>haven</em> package, to import the SPSS file of the Allbus 2010 and the <em><a href="https://purrr.tidyverse.org/">purrr</a></em> package, that provides enhanced functional programming functions. The <em>purrr</em> functions used in this vignette are <em>map*()</em> functions, which are similar in their functionality to base R’s <em>lapply()</em>.</p>
 <p>When using <em>haven</em> to import the original Allbus data, that would look like this.</p>
 <pre><code>raw_data &lt;- read_sav("ZA4610_A10.SAV")</code></pre>

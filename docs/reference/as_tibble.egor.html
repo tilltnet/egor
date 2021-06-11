@@ -77,7 +77,7 @@ as_egos_df(), as_alters_df(), as_aaties_df(), as_egos_survey(), as_alters_survey
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">egor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.21.02</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.21.6</span>
       </span>
     </div>
 
@@ -196,40 +196,40 @@ are useful for advanced analysis procedures, e.g. multi-level regressions.</p>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>egor32</span><span class='op'>)</span>
 
 <span class='fu'>as_tibble</span><span class='op'>(</span><span class='va'>egor32</span><span class='op'>)</span> <span class='co'># Ego table.</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 32 x 6</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 32 x 6</span>
 #&gt;    .egoID sex   age      age.years country   income
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 1      w     36 - 45         45 USA        </span><span style='text-decoration: underline;'>36</span><span>135
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 2      m     36 - 45         37 Germany    </span><span style='text-decoration: underline;'>35</span><span>040
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 3      m     26 - 35         28 Australia  </span><span style='text-decoration: underline;'>63</span><span>875
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 4      w     0 - 17           2 USA        </span><span style='text-decoration: underline;'>31</span><span>755
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 5      m     56 - 65         56 Germany    </span><span style='text-decoration: underline;'>14</span><span>600
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 6      m     26 - 35         31 Poland     </span><span style='text-decoration: underline;'>21</span><span>900
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 7      w     36 - 45         43 Poland     </span><span style='text-decoration: underline;'>15</span><span>695
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 8      m     0 - 17           1 Australia  </span><span style='text-decoration: underline;'>37</span><span>960
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 9      w     66 - 100        73 Poland     </span><span style='text-decoration: underline;'>31</span><span>390
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 10     w     66 - 100        74 Germany    </span><span style='text-decoration: underline;'>43</span><span>435
-#&gt; </span><span style='color: #949494;'># … with 22 more rows</span><span></div><div class='input'>
-<span class='va'>egor32</span> <span class='op'>%&gt;%</span> 
- <span class='fu'><a href='https://tidygraph.data-imaginist.com/reference/activate.html'>activate</a></span><span class='op'>(</span><span class='st'>"alter"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> 1      w     36 - 45         45 USA        <span style='text-decoration: underline;'>36</span>135
+#&gt; <span style='color: #BCBCBC;'> 2</span> 2      m     36 - 45         37 Germany    <span style='text-decoration: underline;'>35</span>040
+#&gt; <span style='color: #BCBCBC;'> 3</span> 3      m     26 - 35         28 Australia  <span style='text-decoration: underline;'>63</span>875
+#&gt; <span style='color: #BCBCBC;'> 4</span> 4      w     0 - 17           2 USA        <span style='text-decoration: underline;'>31</span>755
+#&gt; <span style='color: #BCBCBC;'> 5</span> 5      m     56 - 65         56 Germany    <span style='text-decoration: underline;'>14</span>600
+#&gt; <span style='color: #BCBCBC;'> 6</span> 6      m     26 - 35         31 Poland     <span style='text-decoration: underline;'>21</span>900
+#&gt; <span style='color: #BCBCBC;'> 7</span> 7      w     36 - 45         43 Poland     <span style='text-decoration: underline;'>15</span>695
+#&gt; <span style='color: #BCBCBC;'> 8</span> 8      m     0 - 17           1 Australia  <span style='text-decoration: underline;'>37</span>960
+#&gt; <span style='color: #BCBCBC;'> 9</span> 9      w     66 - 100        73 Poland     <span style='text-decoration: underline;'>31</span>390
+#&gt; <span style='color: #BCBCBC;'>10</span> 10     w     66 - 100        74 Germany    <span style='text-decoration: underline;'>43</span>435
+#&gt; <span style='color: #949494;'># … with 22 more rows</span></div><div class='input'>
+<span class='va'>egor32</span> <span class='op'>%&gt;%</span>
+ <span class='fu'><a href='https://tidygraph.data-imaginist.com/reference/activate.html'>activate</a></span><span class='op'>(</span><span class='st'>"alter"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
  <span class='fu'>as_tibble</span><span class='op'>(</span>include.ego.vars<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span> <span class='co'># Alter table, but also with ego variables.</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 478 x 12</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 478 x 12</span>
 #&gt;    .altID .egoID sex   age      age.years country   income sex_ego age_ego
-#&gt;     </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>  
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span>      1 1      w     66 - 100        75 Australia  </span><span style='text-decoration: underline;'>42</span><span>340 w       36 - 45
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span>      2 1      m     18 - 25         17 Germany      730 w       36 - 45
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span>      3 1      w     66 - 100        91 Australia  </span><span style='text-decoration: underline;'>23</span><span>360 w       36 - 45
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span>      4 1      m     0 - 17          10 USA        </span><span style='text-decoration: underline;'>27</span><span>010 w       36 - 45
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span>      5 1      m     66 - 100        67 Poland     </span><span style='text-decoration: underline;'>33</span><span>215 w       36 - 45
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span>      6 1      m     0 - 17          10 USA        </span><span style='text-decoration: underline;'>31</span><span>755 w       36 - 45
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span>      7 1      m     0 - 17          12 Australia  </span><span style='text-decoration: underline;'>11</span><span>680 w       36 - 45
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span>      8 1      m     66 - 100        97 USA        </span><span style='text-decoration: underline;'>67</span><span>890 w       36 - 45
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span>      1 2      w     66 - 100        75 Australia  </span><span style='text-decoration: underline;'>42</span><span>340 m       36 - 45
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span>      2 2      m     18 - 25         17 Germany      730 m       36 - 45
-#&gt; </span><span style='color: #949494;'># … with 468 more rows, and 3 more variables: age.years_ego &lt;int&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   country_ego &lt;fct&gt;, income_ego &lt;dbl&gt;</span><span></div><div class='input'>
+#&gt;     <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>  
+#&gt; <span style='color: #BCBCBC;'> 1</span>      1 1      w     66 - 100        75 Australia  <span style='text-decoration: underline;'>42</span>340 w       36 - 45
+#&gt; <span style='color: #BCBCBC;'> 2</span>      2 1      m     18 - 25         17 Germany      730 w       36 - 45
+#&gt; <span style='color: #BCBCBC;'> 3</span>      3 1      w     66 - 100        91 Australia  <span style='text-decoration: underline;'>23</span>360 w       36 - 45
+#&gt; <span style='color: #BCBCBC;'> 4</span>      4 1      m     0 - 17          10 USA        <span style='text-decoration: underline;'>27</span>010 w       36 - 45
+#&gt; <span style='color: #BCBCBC;'> 5</span>      5 1      m     66 - 100        67 Poland     <span style='text-decoration: underline;'>33</span>215 w       36 - 45
+#&gt; <span style='color: #BCBCBC;'> 6</span>      6 1      m     0 - 17          10 USA        <span style='text-decoration: underline;'>31</span>755 w       36 - 45
+#&gt; <span style='color: #BCBCBC;'> 7</span>      7 1      m     0 - 17          12 Australia  <span style='text-decoration: underline;'>11</span>680 w       36 - 45
+#&gt; <span style='color: #BCBCBC;'> 8</span>      8 1      m     66 - 100        97 USA        <span style='text-decoration: underline;'>67</span>890 w       36 - 45
+#&gt; <span style='color: #BCBCBC;'> 9</span>      1 2      w     66 - 100        75 Australia  <span style='text-decoration: underline;'>42</span>340 m       36 - 45
+#&gt; <span style='color: #BCBCBC;'>10</span>      2 2      m     18 - 25         17 Germany      730 m       36 - 45
+#&gt; <span style='color: #949494;'># … with 468 more rows, and 3 more variables: age.years_ego &lt;int&gt;,</span>
+#&gt; <span style='color: #949494;'>#   country_ego &lt;fct&gt;, income_ego &lt;dbl&gt;</span></div><div class='input'>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://gdfe.co/srvyr/'>srvyr</a></span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: package ‘srvyr’ was built under R version 4.0.3</span></div><div class='output co'>#&gt; <span class='message'></span>
+</div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Attaching package: ‘srvyr’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:stats’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    filter</span></div><div class='input'><span class='fu'><a href='http://gdfe.co/srvyr/reference/as_survey.html'>as_survey</a></span><span class='op'>(</span><span class='va'>egor32</span><span class='op'>)</span> <span class='co'># Ego table with survey design.</span>
@@ -243,88 +243,88 @@ are useful for advanced analysis procedures, e.g. multi-level regressions.</p>
 <span class='op'>(</span><span class='va'>egor32</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tidygraph.data-imaginist.com/reference/activate.html'>activate</a></span><span class='op'>(</span><span class='va'>egor32</span>, <span class='st'>"alter"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; # EGO data with survey design: 32 x 6
 #&gt;   .egoID sex   age     age.years country   income
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> 1      w     36 - 45        45 USA        </span><span style='text-decoration: underline;'>36</span><span>135
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> 2      m     36 - 45        37 Germany    </span><span style='text-decoration: underline;'>35</span><span>040
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> 3      m     26 - 35        28 Australia  </span><span style='text-decoration: underline;'>63</span><span>875
-#&gt; # ALTER data (</span><span style='color: #00BB00;'>active</span><span>): 478 x 7
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> 1      w     36 - 45        45 USA        <span style='text-decoration: underline;'>36</span>135
+#&gt; <span style='color: #BCBCBC;'>2</span> 2      m     36 - 45        37 Germany    <span style='text-decoration: underline;'>35</span>040
+#&gt; <span style='color: #BCBCBC;'>3</span> 3      m     26 - 35        28 Australia  <span style='text-decoration: underline;'>63</span>875
+#&gt; # ALTER data (<span style='color: #00BB00;'>active</span>): 478 x 7
 #&gt;   .altID .egoID sex   age      age.years country   income
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span>      1 1      w     66 - 100        75 Australia  </span><span style='text-decoration: underline;'>42</span><span>340
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span>      2 1      m     18 - 25         17 Germany      730
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span>      3 1      w     66 - 100        91 Australia  </span><span style='text-decoration: underline;'>23</span><span>360
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span>      4 1      m     0 - 17          10 USA        </span><span style='text-decoration: underline;'>27</span><span>010
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span>      5 1      m     66 - 100        67 Poland     </span><span style='text-decoration: underline;'>33</span><span>215
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span>      1 1      w     66 - 100        75 Australia  <span style='text-decoration: underline;'>42</span>340
+#&gt; <span style='color: #BCBCBC;'>2</span>      2 1      m     18 - 25         17 Germany      730
+#&gt; <span style='color: #BCBCBC;'>3</span>      3 1      w     66 - 100        91 Australia  <span style='text-decoration: underline;'>23</span>360
+#&gt; <span style='color: #BCBCBC;'>4</span>      4 1      m     0 - 17          10 USA        <span style='text-decoration: underline;'>27</span>010
+#&gt; <span style='color: #BCBCBC;'>5</span>      5 1      m     66 - 100        67 Poland     <span style='text-decoration: underline;'>33</span>215
 #&gt; # AATIE data: 1,858 x 4
 #&gt;   .egoID .srcID .tgtID weight
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> 32         13     18  0.333
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> 18         11     22  0.667
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> 28          5     19  0.667</div><div class='input'><span class='fu'>as_egos_df</span><span class='op'>(</span><span class='va'>egor32</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 32 x 6</span><span>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> 32         13     18  0.333
+#&gt; <span style='color: #BCBCBC;'>2</span> 18         11     22  0.667
+#&gt; <span style='color: #BCBCBC;'>3</span> 28          5     19  0.667</div><div class='input'><span class='fu'>as_egos_df</span><span class='op'>(</span><span class='va'>egor32</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 32 x 6</span>
 #&gt;    .egoID sex   age      age.years country   income
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 1      w     36 - 45         45 USA        </span><span style='text-decoration: underline;'>36</span><span>135
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 2      m     36 - 45         37 Germany    </span><span style='text-decoration: underline;'>35</span><span>040
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 3      m     26 - 35         28 Australia  </span><span style='text-decoration: underline;'>63</span><span>875
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 4      w     0 - 17           2 USA        </span><span style='text-decoration: underline;'>31</span><span>755
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 5      m     56 - 65         56 Germany    </span><span style='text-decoration: underline;'>14</span><span>600
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 6      m     26 - 35         31 Poland     </span><span style='text-decoration: underline;'>21</span><span>900
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 7      w     36 - 45         43 Poland     </span><span style='text-decoration: underline;'>15</span><span>695
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 8      m     0 - 17           1 Australia  </span><span style='text-decoration: underline;'>37</span><span>960
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 9      w     66 - 100        73 Poland     </span><span style='text-decoration: underline;'>31</span><span>390
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 10     w     66 - 100        74 Germany    </span><span style='text-decoration: underline;'>43</span><span>435
-#&gt; </span><span style='color: #949494;'># … with 22 more rows</span><span></div><div class='input'>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> 1      w     36 - 45         45 USA        <span style='text-decoration: underline;'>36</span>135
+#&gt; <span style='color: #BCBCBC;'> 2</span> 2      m     36 - 45         37 Germany    <span style='text-decoration: underline;'>35</span>040
+#&gt; <span style='color: #BCBCBC;'> 3</span> 3      m     26 - 35         28 Australia  <span style='text-decoration: underline;'>63</span>875
+#&gt; <span style='color: #BCBCBC;'> 4</span> 4      w     0 - 17           2 USA        <span style='text-decoration: underline;'>31</span>755
+#&gt; <span style='color: #BCBCBC;'> 5</span> 5      m     56 - 65         56 Germany    <span style='text-decoration: underline;'>14</span>600
+#&gt; <span style='color: #BCBCBC;'> 6</span> 6      m     26 - 35         31 Poland     <span style='text-decoration: underline;'>21</span>900
+#&gt; <span style='color: #BCBCBC;'> 7</span> 7      w     36 - 45         43 Poland     <span style='text-decoration: underline;'>15</span>695
+#&gt; <span style='color: #BCBCBC;'> 8</span> 8      m     0 - 17           1 Australia  <span style='text-decoration: underline;'>37</span>960
+#&gt; <span style='color: #BCBCBC;'> 9</span> 9      w     66 - 100        73 Poland     <span style='text-decoration: underline;'>31</span>390
+#&gt; <span style='color: #BCBCBC;'>10</span> 10     w     66 - 100        74 Germany    <span style='text-decoration: underline;'>43</span>435
+#&gt; <span style='color: #949494;'># … with 22 more rows</span></div><div class='input'>
 <span class='co'># Create global alter table</span>
 <span class='fu'>as_alters_df</span><span class='op'>(</span><span class='va'>egor32</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 478 x 7</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 478 x 7</span>
 #&gt;    .altID .egoID sex   age      age.years country   income
-#&gt;     </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span>      1 1      w     66 - 100        75 Australia  </span><span style='text-decoration: underline;'>42</span><span>340
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span>      2 1      m     18 - 25         17 Germany      730
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span>      3 1      w     66 - 100        91 Australia  </span><span style='text-decoration: underline;'>23</span><span>360
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span>      4 1      m     0 - 17          10 USA        </span><span style='text-decoration: underline;'>27</span><span>010
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span>      5 1      m     66 - 100        67 Poland     </span><span style='text-decoration: underline;'>33</span><span>215
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span>      6 1      m     0 - 17          10 USA        </span><span style='text-decoration: underline;'>31</span><span>755
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span>      7 1      m     0 - 17          12 Australia  </span><span style='text-decoration: underline;'>11</span><span>680
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span>      8 1      m     66 - 100        97 USA        </span><span style='text-decoration: underline;'>67</span><span>890
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span>      1 2      w     66 - 100        75 Australia  </span><span style='text-decoration: underline;'>42</span><span>340
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span>      2 2      m     18 - 25         17 Germany      730
-#&gt; </span><span style='color: #949494;'># … with 468 more rows</span><span></div><div class='input'>
+#&gt;     <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span>      1 1      w     66 - 100        75 Australia  <span style='text-decoration: underline;'>42</span>340
+#&gt; <span style='color: #BCBCBC;'> 2</span>      2 1      m     18 - 25         17 Germany      730
+#&gt; <span style='color: #BCBCBC;'> 3</span>      3 1      w     66 - 100        91 Australia  <span style='text-decoration: underline;'>23</span>360
+#&gt; <span style='color: #BCBCBC;'> 4</span>      4 1      m     0 - 17          10 USA        <span style='text-decoration: underline;'>27</span>010
+#&gt; <span style='color: #BCBCBC;'> 5</span>      5 1      m     66 - 100        67 Poland     <span style='text-decoration: underline;'>33</span>215
+#&gt; <span style='color: #BCBCBC;'> 6</span>      6 1      m     0 - 17          10 USA        <span style='text-decoration: underline;'>31</span>755
+#&gt; <span style='color: #BCBCBC;'> 7</span>      7 1      m     0 - 17          12 Australia  <span style='text-decoration: underline;'>11</span>680
+#&gt; <span style='color: #BCBCBC;'> 8</span>      8 1      m     66 - 100        97 USA        <span style='text-decoration: underline;'>67</span>890
+#&gt; <span style='color: #BCBCBC;'> 9</span>      1 2      w     66 - 100        75 Australia  <span style='text-decoration: underline;'>42</span>340
+#&gt; <span style='color: #BCBCBC;'>10</span>      2 2      m     18 - 25         17 Germany      730
+#&gt; <span style='color: #949494;'># … with 468 more rows</span></div><div class='input'>
 <span class='co'># Create global alter-alter relations table</span>
 <span class='fu'>as_aaties_df</span><span class='op'>(</span><span class='va'>egor32</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 1,858 x 4</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1,858 x 4</span>
 #&gt;    .egoID .srcID .tgtID weight
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 32         13     18  0.333
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 18         11     22  0.667
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 28          5     19  0.667
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 19          5      6  1    
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 32          2     19  0.667
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 22          3     15  0.667
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 14          3      7  0.333
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 15          5      8  0.333
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 11         10     12  0.333
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 13         12     17  1    
-#&gt; </span><span style='color: #949494;'># … with 1,848 more rows</span><span></div><div class='input'>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> 32         13     18  0.333
+#&gt; <span style='color: #BCBCBC;'> 2</span> 18         11     22  0.667
+#&gt; <span style='color: #BCBCBC;'> 3</span> 28          5     19  0.667
+#&gt; <span style='color: #BCBCBC;'> 4</span> 19          5      6  1    
+#&gt; <span style='color: #BCBCBC;'> 5</span> 32          2     19  0.667
+#&gt; <span style='color: #BCBCBC;'> 6</span> 22          3     15  0.667
+#&gt; <span style='color: #BCBCBC;'> 7</span> 14          3      7  0.333
+#&gt; <span style='color: #BCBCBC;'> 8</span> 15          5      8  0.333
+#&gt; <span style='color: #BCBCBC;'> 9</span> 11         10     12  0.333
+#&gt; <span style='color: #BCBCBC;'>10</span> 13         12     17  1    
+#&gt; <span style='color: #949494;'># … with 1,848 more rows</span></div><div class='input'>
 <span class='co'># ... adding alter variables</span>
 <span class='fu'>as_aaties_df</span><span class='op'>(</span><span class='va'>egor32</span>, include.alter.vars <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 1,858 x 14</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1,858 x 14</span>
 #&gt;    .egoID .srcID .tgtID weight sex_src age_src  age.years_src country_src
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>            </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>      
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 32         13     18  0.333 m       66 - 100            67 Poland     
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 18         11     22  0.667 w       66 - 100            78 USA        
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 28          5     19  0.667 m       66 - 100            67 Poland     
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 19          5      6  1     m       66 - 100            67 Poland     
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 32          2     19  0.667 m       18 - 25             17 Germany    
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 22          3     15  0.667 w       66 - 100            91 Australia  
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 14          3      7  0.333 w       66 - 100            91 Australia  
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 15          5      8  0.333 m       66 - 100            67 Poland     
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 11         10     12  0.333 w       66 - 100            87 Germany    
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 13         12     17  1     w       26 - 35             31 USA        
-#&gt; </span><span style='color: #949494;'># … with 1,848 more rows, and 6 more variables: income_src &lt;dbl&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   sex_tgt &lt;fct&gt;, age_tgt &lt;fct&gt;, age.years_tgt &lt;int&gt;, country_tgt &lt;fct&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   income_tgt &lt;dbl&gt;</span><span></div><div class='input'><span class='fu'>as_egos_survey</span><span class='op'>(</span><span class='va'>egor32</span><span class='op'>)</span>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>            <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>      
+#&gt; <span style='color: #BCBCBC;'> 1</span> 32         13     18  0.333 m       66 - 100            67 Poland     
+#&gt; <span style='color: #BCBCBC;'> 2</span> 18         11     22  0.667 w       66 - 100            78 USA        
+#&gt; <span style='color: #BCBCBC;'> 3</span> 28          5     19  0.667 m       66 - 100            67 Poland     
+#&gt; <span style='color: #BCBCBC;'> 4</span> 19          5      6  1     m       66 - 100            67 Poland     
+#&gt; <span style='color: #BCBCBC;'> 5</span> 32          2     19  0.667 m       18 - 25             17 Germany    
+#&gt; <span style='color: #BCBCBC;'> 6</span> 22          3     15  0.667 w       66 - 100            91 Australia  
+#&gt; <span style='color: #BCBCBC;'> 7</span> 14          3      7  0.333 w       66 - 100            91 Australia  
+#&gt; <span style='color: #BCBCBC;'> 8</span> 15          5      8  0.333 m       66 - 100            67 Poland     
+#&gt; <span style='color: #BCBCBC;'> 9</span> 11         10     12  0.333 w       66 - 100            87 Germany    
+#&gt; <span style='color: #BCBCBC;'>10</span> 13         12     17  1     w       26 - 35             31 USA        
+#&gt; <span style='color: #949494;'># … with 1,848 more rows, and 6 more variables: income_src &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   sex_tgt &lt;fct&gt;, age_tgt &lt;fct&gt;, age.years_tgt &lt;int&gt;, country_tgt &lt;fct&gt;,</span>
+#&gt; <span style='color: #949494;'>#   income_tgt &lt;dbl&gt;</span></div><div class='input'><span class='fu'>as_egos_survey</span><span class='op'>(</span><span class='va'>egor32</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Independent Sampling design (with replacement)
 #&gt; Called via srvyr
 #&gt; Sampling variables:
@@ -337,7 +337,7 @@ are useful for advanced analysis procedures, e.g. multi-level regressions.</p>
 #&gt; Sampling variables:
 #&gt;  - ids: `1`
 #&gt; Data variables: .altID (int), .egoID (fct), sex (fct), age (fct), age.years
-#&gt;   (int), country (fct), income (dbl)</div></span></pre>
+#&gt;   (int), country (fct), income (dbl)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

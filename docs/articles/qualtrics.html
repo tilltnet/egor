@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">egor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.21.02</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.21.6</span>
       </span>
     </div>
 
@@ -85,7 +85,7 @@
 
       
 
-      </header><script src="qualtrics_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
+      </header><script src="qualtrics_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Qualtrics &amp; egor: Setting up and analysing an ego-centered network survey with Qualtrics and egor</h1>
@@ -115,7 +115,7 @@
 <strong>Alter-Alter Tie.</strong> In this section, participants generate information on the alter-alter ties. Alter-alter ties in ego-centered networks are usually collected as un-directed relations through a single question about the relationship between alter x and alter y.</li>
 </ol>
 <div class="figure">
-<img src="Qualtrics%201.png" alt=""><p class="caption">Overview of Personal Network Template</p>
+<img src="Qualtrics1.png" alt=""><p class="caption">Overview of Personal Network Template</p>
 </div>
 </div>
 <div id="best-practices" class="section level2">
@@ -150,10 +150,10 @@
 <li><p><strong>Name Generator</strong>: This section can be customized, but there are two things to keep in mind. First, if you increase the number of requested alters (the template currently has slots for 5 alters), you will need to increase the number of alter attribute question blocks and alter-alter tie questions to match. Second, because this is the fixed choice template, this alter list requires that participants enter an alter for each slot to continue.</p></li>
 </ol>
 <div class="figure">
-<img src="Qualtrics%202.png" alt=""><p class="caption">Alter List Template</p>
+<img src="Qualtrics2.png" alt=""><p class="caption">Alter List Template</p>
 </div>
 <div class="figure">
-<img src="Qualtrics%203.png" alt=""><p class="caption">Alter Attribute Blocks (Blocks collapsed)</p>
+<img src="Qualtrics3.png" alt=""><p class="caption">Alter Attribute Blocks (Blocks collapsed)</p>
 </div>
 <ol start="3" style="list-style-type: decimal">
 <li>
@@ -161,17 +161,17 @@
 </ol>
 <p>This section can be customized to change the number of questions about each alter and to change the wording and response style of each question. Like a standard survey—all other Qualtrics programming should work for the alter attribute questions. If you require more than 5 alters, you will need add as many blocks of alter attribute questions as alters listed (e.g., 10 alters listed would need 10 blocks of alter attribute questions). We recommend finalizing question wording and format in Block 1 of alter attribute questions and copying that block for as many alters as requested in the list. Then, in each block, adjust the code for the piped text so that it refers to the appropriate list slot (e.g., Block 2 of alter attribute questions should pipe the response to the second list slot from the alter list).</p>
 <div class="figure">
-<img src="Qualtrics%204.png" alt=""><p class="caption">Example of alter list name piped into alter attribute questions</p>
+<img src="Qualtrics4.png" alt=""><p class="caption">Example of alter list name piped into alter attribute questions</p>
 </div>
 <div class="figure">
-<img src="Qualtrics%205.png" alt=""><p class="caption">Example of Qualtrics code for piped text from alter list</p>
+<img src="Qualtrics5.png" alt=""><p class="caption">Example of Qualtrics code for piped text from alter list</p>
 </div>
 <ol start="4" style="list-style-type: decimal">
 <li>
 <strong>Alter-Alter ties</strong>. The template has 10 alter-alter tie questions because the template asks for 5 alters. If you request more than 5 alters, you will need to add the corresponding number of questions to this section (e.g., requesting 30 alters means asking 30*(30-1)/2=435 alter-alter tie questions). These questions pipe in the names from the alter list using the same piped text code from the alter attribute section. Again, we recommend finalizing the question wording and style in the first alter-alter tie question and then copy-pasting the question as many times as needed adjusting only the piped text so that each question refers to the correct name from alter list. It is important to sort the order of alter-alter tie questions so that all ties from alter 1 (e.g., to alter 2, 3, 4, …) appear first, followed by all ties from alter 2 (e.g., to alter 3, 4, …) and so on. This process ensures that the alter attributes and alter-alter ties can be connected correctly when analyzing the data.</li>
 </ol>
 <div class="figure">
-<img src="Qualtrics%206.png" alt=""><p class="caption">Example of alter pair questions with piped text from alter list</p>
+<img src="Qualtrics6.png" alt=""><p class="caption">Example of alter pair questions with piped text from alter list</p>
 </div>
 </div>
 <div id="free-choice" class="section level3">
@@ -184,13 +184,13 @@
 <li><p><strong>Alter Attributes</strong>: Because this is the free choice format, you will want to display only the same number alter attribute blocks as alters listed in the alter list. Thus, you will need to employ display logic using the <em>Survey Flow</em> tab in Qualtrics to define the conditions of when to display each alter attribute block.\</p></li>
 </ol>
 <div class="figure">
-<img src="Qualtrics%207.png" alt=""><p class="caption">Survey Flow for Alter Attribute blocks (free-choice only)</p>
+<img src="Qualtrics7.png" alt=""><p class="caption">Survey Flow for Alter Attribute blocks (free-choice only)</p>
 </div>
 <ol start="4" style="list-style-type: decimal">
 <li>
 <p><strong>Alter-Alter Ties</strong>. Add <a href="https://www.qualtrics.com/support/survey-platform/survey-module/question-options/display-logic/#HidingQuestionswithDisplayLogic">Display logic</a> to each alter-alter pair question that will hide questions if one of the alters to which the question refers is left blank. We recommend preparing and finalizing one alter-alter tie question including the Display Logic and then copy this question as many times as needed and adjust only the piped text and Display Logic for each alter-alter combination.</p>
 <div class="figure">
-<img src="Qualtrics%208.png" width="700" alt=""><p class="caption">Display Logic of an alter-alter question (free-choice only)</p>
+<img src="Qualtrics8.png" width="700" alt=""><p class="caption">Display Logic of an alter-alter question (free-choice only)</p>
 </div>
 </li>
 </ol>

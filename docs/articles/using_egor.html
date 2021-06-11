@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">egor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.21.02</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.21.6</span>
       </span>
     </div>
 
@@ -85,13 +85,13 @@
 
       
 
-      </header><script src="using_egor_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
+      </header><script src="using_egor_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Using <code>egor</code> to analyse ego-centered network data</h1>
                         <h4 class="author">Till Krenz</h4>
             
-            <h4 class="date">2021-05-28</h4>
+            <h4 class="date">2021-06-11</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/tilltnet/egor/blob/master/vignettes/using_egor.Rmd"><code>vignettes/using_egor.Rmd</code></a></small>
       <div class="hidden name"><code>using_egor.Rmd</code></div>
@@ -112,7 +112,7 @@
 <li>visualisation (clustered graphs, egographs, egogram)</li>
 <li>interacitve visualisation app</li>
 </ul>
-<p>An <code>egor</code> object contains all data levels associated with ego-centered network analysis, those levels are: ego, alter, alter-alter ties. By providing the <code><a href="../reference/egor.html">egor()</a></code>-function with <code>data.frames</code> containing data corresponding to these data levels, we construct an egor object. Here is an example of what the <code>data.frames</code> could look like. Pay attention to the ID variables connecting the levels with each other.</p>
+<p>An <code>egor</code> object contains all data levels associated with ego-centered network analysis, those levels are: ego, alter, alter-alter ties. By providing the <code><a href="../reference/as.egor.html">egor()</a></code>-function with <code>data.frames</code> containing data corresponding to these data levels, we construct an egor object. Here is an example of what the <code>data.frames</code> could look like. Pay attention to the ID variables connecting the levels with each other.</p>
 <pre><code><a href="https://github.com/tilltnet/egor">library(egor)</a></code></pre>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"alters32"</span><span class="op">)</span>
@@ -297,7 +297,7 @@
 <p>All three <code>data.frames</code> contain an egoID identifying a unique ego and connecting their personal data to the alter and alter-alter tie data. The alterID is in the alter data is reused in the alter-alter tie data in the Source and Target columns.</p>
 <p>Let’s create an egor object from the data we just loaded.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">e1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/egor.html">egor</a></span><span class="op">(</span>alters <span class="op">=</span> <span class="va">alters32</span>,
+<code class="sourceCode R"><span class="va">e1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as.egor.html">egor</a></span><span class="op">(</span>alters <span class="op">=</span> <span class="va">alters32</span>,
            egos <span class="op">=</span> <span class="va">egos32</span>,
            aaties <span class="op">=</span> <span class="va">aaties32</span>,
            ID.vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
@@ -819,21 +819,21 @@ threefiles_to_egor()</a></code></pre>
 <span class="co">#&gt; # A tibble: 15 x 2</span>
 <span class="co">#&gt;    .egoID result</span>
 <span class="co">#&gt;     &lt;dbl&gt;  &lt;dbl&gt;</span>
-<span class="co">#&gt;  1      1   28.8</span>
-<span class="co">#&gt;  2      2   28.4</span>
-<span class="co">#&gt;  3      3   27.5</span>
-<span class="co">#&gt;  4      4   32.3</span>
-<span class="co">#&gt;  5      5   32.6</span>
-<span class="co">#&gt;  6      6   27.3</span>
-<span class="co">#&gt;  7      7   30.7</span>
-<span class="co">#&gt;  8      8   29.9</span>
-<span class="co">#&gt;  9      9   28.6</span>
-<span class="co">#&gt; 10     10   27.1</span>
-<span class="co">#&gt; 11     11   29.6</span>
-<span class="co">#&gt; 12     12   29.9</span>
-<span class="co">#&gt; 13     13   29.5</span>
-<span class="co">#&gt; 14     14   30.4</span>
-<span class="co">#&gt; 15     15   29.2</span></code></pre></div>
+<span class="co">#&gt;  1      1   26.9</span>
+<span class="co">#&gt;  2      2   23.8</span>
+<span class="co">#&gt;  3      3   24.4</span>
+<span class="co">#&gt;  4      4   26.5</span>
+<span class="co">#&gt;  5      5   29.7</span>
+<span class="co">#&gt;  6      6   25.7</span>
+<span class="co">#&gt;  7      7   25.1</span>
+<span class="co">#&gt;  8      8   31.6</span>
+<span class="co">#&gt;  9      9   28.0</span>
+<span class="co">#&gt; 10     10   23.6</span>
+<span class="co">#&gt; 11     11   25.9</span>
+<span class="co">#&gt; 12     12   25.8</span>
+<span class="co">#&gt; 13     13   25.8</span>
+<span class="co">#&gt; 14     14   25.9</span>
+<span class="co">#&gt; 15     15   26.7</span></code></pre></div>
 </div>
 </div>
 <div id="visualize" class="section level2">

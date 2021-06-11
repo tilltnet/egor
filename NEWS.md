@@ -1,3 +1,10 @@
+# egor 1.21.6
+
+- added vignette for ego-centered network surveys in Qualtrics
+- `as.egor()` now can convert a list of `igraph` or `network` objects to an `egor` object
+- improved `plot_egograms()` consistency
+- `as_network()` handles alter-alter weights more consistently when `indluce.ego = TRUE`
+
 # egor 0.21.01
 
 - changed printing behavior of `egor` objects
