@@ -40,15 +40,14 @@ test_that("as_igraph.nested_egor works",
 
 test_that("as_network works.",
           {
-            e <- make_egor(3, 22)
-            expect_error(network::as.network(e), NA, label = "default arguments")
+            expect_error(network::as.network(egor32), NA, label = "default arguments")
             
-            e$alter <- e$alter %>%
+            egor32$alter <- egor32$alter %>%
               mutate(weight = sample((1:3) / 3, nrow(.), replace = TRUE))
             
             expect_error(
               as_network(
-                x = e,
+                x = egor32,
                 include.ego = TRUE,
                 ego.attrs = c("sex", "age"),
                 ego.alter.weights = "weight"
@@ -60,9 +59,8 @@ test_that("as_network works.",
 
 test_that("as_network works with graph.attrs",
           {
-            e <- make_egor(3, 20)
-            
-            expect_error(res <- as_network(x = e, graph.attrs = c(".egoID", "income")
+
+            expect_error(res <- as_network(x = egor32, graph.attrs = c(".egoID", "income")
                                           ), NA)
             
             expect_true(all(
