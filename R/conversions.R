@@ -183,7 +183,7 @@ as_network <- function(x,
         as.character(obj$.aaties[[1]]$.tgtID)
       
       if (!is.null(ego.alter.weights)) {
-        ea_weights <- obj$.alts[[1]][ego.alter.weights][1:(len - 1),]
+        ea_weights <- obj$.alts[[1]][ego.alter.weights][1:(len - 1), ]
         ea_weights <-
           mutate_all(tibble(ea_weights = ea_weights), as.character)
         suppressWarnings(obj$.aaties[[1]] <- dplyr::mutate_at(
@@ -210,14 +210,15 @@ as_network <- function(x,
       do.call(rbind, lapply(split(x, x$.egoID), FUN = add_ego_network))
   }
   
-  
+  # Create network object from aaties and alts
   network.data.frame <- function(aaties, alts) {
     alts <- alts[, names(alts) != ".egoID"]
     aaties <- aaties[, names(aaties) != ".egoID"]
     
-    aaties <- 
+    aaties <-
       mutate(aaties, across(c(.srcID, .tgtID), as.character))
     
+    # Create network object with only the edges (?)
     if (nrow(aaties) == 0) {
       n <- network::network.initialize(0)
     } else {
@@ -227,21 +228,24 @@ as_network <- function(x,
                    la,
                    dimnames = list(all_alt_IDs, all_alt_IDs))
       for (i in all_alt_IDs) {
-        mt[colnames(mt) == i, colnames(mt) %in% aaties[aaties$.srcID == i ,]$.tgtID] <-
+        mt[colnames(mt) == i, colnames(mt) %in% aaties[aaties$.srcID == i , ]$.tgtID] <-
           1
         if (!directed)
-          mt[colnames(mt) %in% aaties[aaties$.srcID == i ,]$.tgtID, colnames(mt) == i] <-
+          mt[colnames(mt) %in% aaties[aaties$.srcID == i , ]$.tgtID, colnames(mt) == i] <-
             1
       }
       n <- network::network(mt, directed = FALSE)
     }
+    
+    # Add vertex attributes.
     for (i in 1:NCOL(alts))
       n <-
       network::set.vertex.attribute(n, names(alts)[i], as.character(alts[[i]]))
-    if (NCOL(aaties) > 2)
-      
+    
+    # Add edge attributes
+    if (NCOL(aaties) > 2) {
       el <- network::as.edgelist(n)
-      
+    
       aaties_for_extraction <-
         el %>%
         as.data.frame() %>%
@@ -256,13 +260,17 @@ as_network <- function(x,
           labels = attr(el, "vnames")
         ))) %>%
         left_join(aaties, by = c("from" = ".srcID", "to" = ".tgtID")) %>%
-        select(-V1, -V2)
+        select(-V1,-V2)
+    
+      
     
     for (i in 3:(NCOL(aaties_for_extraction)))
       n <-
-        network::set.edge.attribute(n, names(aaties_for_extraction)[i], 
-                                    as.character(aaties_for_extraction[[i]]))
-      n
+      network::set.edge.attribute(n,
+                                  names(aaties_for_extraction)[i],
+                                  as.character(aaties_for_extraction[[i]]))
+      }
+    n
   }
   #network.data.frame(aaties = x$.aaties[[1]], alts = x$.alts[[1]])
   networks <- mapply(FUN = network.data.frame,
@@ -369,7 +377,7 @@ as_survey.egor <- function(.data,
   # Now, figure out to which original ego row each of the output rows corresponds.
   emap <- match(result$.egoID, .data$ego$variables$.egoID)
   # Augment the initial ego survey design
-  result.design <- .data$ego[emap, ]
+  result.design <- .data$ego[emap,]
   result.design$variables <- result
   result.design
 }

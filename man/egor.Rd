@@ -29,7 +29,7 @@ egor(
 )
 }
 \arguments{
-\item{x}{\code{list} of igraph objects representing ego networks.}
+\item{x}{\code{list} of \code{igraph}/\code{network} objects representing ego networks.}
 
 \item{...}{arguments to be passed to methods}
 
@@ -52,7 +52,7 @@ alter identifier of the destination of a relation.}
 
 }}
 
-\item{ego_name}{\code{character} or \code{numeric} of length one or same length as there are networks. If the igraph networks don't include egos as a node, set to \code{NULL} (default).}
+\item{ego_name}{\code{character} or \code{numeric} of length one or same length as there are networks. If the \code{igraph}/\code{network} objects don't include egos as a node, set to \code{NULL} (default).}
 
 \item{alters}{either a \code{data.frame} containing the alters
 (whose nominator is identified by the column specified by \code{egoID}

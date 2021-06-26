@@ -138,3 +138,11 @@ test_that("as_aaties_df works.",
             ),
             NA)
           })
+
+
+# test_that("as.network.egor() works with faux.mesa.high", {
+#   library(ergm.ego)
+#   data(faux.mesa.high)
+#   fmh.ego <- as.egor(faux.mesa.high)
+#   aaa <- as.network(x = fmh.ego)
+# })
