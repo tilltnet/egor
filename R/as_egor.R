@@ -72,8 +72,8 @@ as.egor.nested_egor <- function(x,
 }
 
 #' @rdname egor
-#' @param x `list` of igraph objects representing ego networks.
-#' @param ego_name `character` or `numeric` of length one or same length as there are networks. If the igraph networks don't include egos as a node, set to `NULL` (default).
+#' @param x `list` of `igraph`/`network` objects representing ego networks.
+#' @param ego_name `character` or `numeric` of length one or same length as there are networks. If the `igraph`/`network` objects don't include egos as a node, set to `NULL` (default).
 #' @export
 as.egor.list <-
   function(x, ego_name = NULL, ...) {
