@@ -2,7 +2,7 @@
 % Please edit documentation in R/activation.R
 \name{activate.egor}
 \alias{activate.egor}
-\title{Activate ego, alter or alter-alter tie data llevel of an egor dataset}
+\title{Activate ego, alter or alter-alter tie data level of an egor dataset}
 \usage{
 \method{activate}{egor}(.data, what)
 }

@@ -1,4 +1,4 @@
-#' Activate ego, alter or alter-alter tie data llevel of an egor dataset
+#' Activate ego, alter or alter-alter tie data level of an egor dataset
 #'
 #' This function activates one of the data levels of an egor dataset, so that the dplyr verbs know which level to execute on.
 #' @param .data The \code{egor} dataset.
