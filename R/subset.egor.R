@@ -1,3 +1,6 @@
+if (getRversion() >= "2.15.1")
+  utils::globalVariables(c(".altRow"))
+
 #' Convert a table to a list of rows
 #'
 #' A convenience function converting a [data.frame()] or a [tibble()].
@@ -38,7 +41,7 @@ rowlist <- function(x) {
 #'   alters, or alter-alter ties to keep. The expressions can access
 #'   variables in the calling environment; columns of the active unit,
 #'   columns of other units with which the active unit shares an ego
-#'   via `egos$`, `alters$`, and `aaties$` as well as the following
+#'   via `ego$`, `alter$`, and `aatie$` as well as the following
 #'   "virtual" columns to simplify indexing: \describe{
 #'
 #' \item{Ego index `.egoRow`}{ contains the index (counting from 1) of the row being
@@ -75,13 +78,34 @@ rowlist <- function(x) {
 #' # (though normally, we would use e[.keep,] here)
 #' .keep <- rep(c(TRUE, FALSE), length.out=nrow(e$ego))
 #' subset(e, .keep)
+#' 
+#'     # Filter egos
+#' subset(x = egor32, subset = egor32$ego$variables$sex == "m", unit="ego")
+#' subset(x = egor32, sex == "m")
+#' 
+#' # Filter alters
+#' subset(x = egor32, sex == "m", unit = "alter")
+#' 
+#' # Filter aaties
+#' subset(x = egor32, weight != 0, unit = "aatie")
+#' 
+#' # Filter egos by alter variables (keep only egos that have more than 13 alters)
+#' subset(x = egor32, ego$country == "Poland", unit = "ego")
+#' 
+#' # Filter alters by ego variables (keep only alters that have egos from Poland)
+#' subset(x = egor32, nrow(alter) > 13, unit = "alter")
+#' 
+#' # Filter edges by alter variables (keep only edges between alters where `sex == "m"`)
+#' subset(x = egor32, all(alter$sex == "m"), unit = "aatie")
 #' @importFrom methods is
 #' @importFrom dplyr nest_join
 #' @export
 subset.egor <- function(x, subset, ..., unit = attr(x, "active")) {
   unit <- match.arg(unit, UNITS)
+  
   f <- try(is.function(subset), silent = TRUE)
   if (is(f, "try-error") || !f) {
+    # Does the `if` ever not fire?
     se <- substitute(subset)
     pf <- parent.frame()
     f <- function(r)
@@ -114,53 +138,93 @@ subset.egor <- function(x, subset, ..., unit = attr(x, "active")) {
       # indices. Note that the first argument of ave() is a
       # dummy variable.
       add_altRow(x),
-    aatie = x$aatie
+    aatie = {
+      alters_with_altRow <-
+        add_altRow(x) %>%
+        select(.egoID, .altID, .altRow)
+      xa <-
+        left_join(x$aatie,
+                  alters_with_altRow,
+                  by = c(".egoID", ".srcID" = ".altID")) %>%
+        rename(.srcRow = .altRow)
+      
+      left_join(xa,
+                alters_with_altRow,
+                by = c(".egoID", ".tgtID" = ".altID")) %>%
+        rename(.tgtRow = .altRow)
+    }
   )
   
+  # Join nested ego column
   xa <-
     nest_join(xa,
               add_egoRow(x),
               ".egoID",
               keep = TRUE,
               name = "ego")
-  xa <- nest_join(xa, x$alter, ".egoID", keep = TRUE, name = "alter")
-  xa$alter <-
-    lapply(xa$alter, function(a)
-      bind_cols(a, .altRow = seq_len(nrow(a))))
-  xa <- nest_join(xa, x$aatie, ".egoID", keep = TRUE, name = "aatie")
-  xa$aatie <- mapply(
-    function(a, aa)
-      bind_cols(
-        aa,
-        .srcRow = match(aa$.srcID, a$.altID),
-        .tgtRow = match(aa$.tgtID, a$.altID)
-      ),
-    a = xa$alter,
-    aa = xa$aatie,
-    SIMPLIFY = FALSE
+  
+  # Join nested alter column
+  by_alter <- switch(
+    unit,
+    ego = ".egoID",
+    alter = c(".egoID", ".altID"),
+    aatie = list(
+      c(".egoID", ".srcID" = ".altID"),
+      c(".egoID", ".tgtID" = ".altID")
+    )
   )
   
-  if (unit == "aatie") {
-    xa$.srcRow <- mapply(
-      function(a, aa)
-        match(aa$.srcID, a$.altID),
-      a = xa$alter,
-      aa = xa$aatie,
-      SIMPLIFY = TRUE
-    )
-    xa$.tgtRow <- mapply(
-      function(a, aa)
-        match(aa$.tgtID, a$.altID),
-      a = xa$alter,
-      aa = xa$aatie,
-      SIMPLIFY = TRUE
-    )
+  xa <-
+    nest_join(xa,
+              add_altRow(x),
+              by_alter[[1]],
+              keep = TRUE,
+              name = "alter")
+  
+  if (unit == "aatie")  {
+    xa <-
+      nest_join(xa,
+                add_altRow(x),
+                by_alter[[2]],
+                keep = TRUE,
+                name = "alter2")
+    xa$alter <- purrr::map2(xa$alter, xa$alter2, bind_rows)
+    xa$alter2 <- NULL
   }
   
-  # Call the function to perform indexing
-  i <- lapply(rowlist(xa), f, ...)
+  # Join nested aatie column
+  by_aatie <- switch(
+    unit,
+    ego = list(".egoID", ".egoID"),
+    alter = list(
+      c(".egoID", ".altID" = ".srcID"),
+      c(".egoID", ".altID" = ".tgtID")
+    ),
+    aatie = list(
+      c(".egoID", ".srcID" = ".srcID"),
+      c(".egoID", ".tgtID" = ".tgtID")
+    )
+  )
   
-  x[i[[1]], , unit = unit]
+  xa <-
+    nest_join(xa, x$aatie, by_aatie[[1]], keep = TRUE, name = "aatie")
+  
+  if (unit != "ego") {
+    xa <-
+      nest_join(xa, x$aatie, by_aatie[[2]], keep = TRUE, name = "aatie2")
+    xa$aatie <- purrr::map2(xa$aatie, xa$aatie2, bind_rows)
+    xa$aatie2 <- NULL
+  }
+
+  # Call the function to perform indexing
+  i <- sapply(rowlist(xa), f, ..., simplify = TRUE)
+
+  # If `subset` is evaluated against the calling environment, we only need the lgl vector once:
+  if (is.matrix(i))
+    i <- i[, 1]
+  
+  # Subset x by i
+  x[i, , unit = unit]
 }
 
 #' @rdname subset.egor

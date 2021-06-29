@@ -18,7 +18,7 @@ a function whose first argument is a row, specifying which egos,
 alters, or alter-alter ties to keep. The expressions can access
 variables in the calling environment; columns of the active unit,
 columns of other units with which the active unit shares an ego
-via \verb{egos$}, \verb{alters$}, and \verb{aaties$} as well as the following
+via \verb{ego$}, \verb{alter$}, and \verb{aatie$} as well as the following
 "virtual" columns to simplify indexing: \describe{
 
 \item{Ego index \code{.egoRow}}{ contains the index (counting from 1) of the row being
@@ -71,4 +71,23 @@ e[1:3,]
 # (though normally, we would use e[.keep,] here)
 .keep <- rep(c(TRUE, FALSE), length.out=nrow(e$ego))
 subset(e, .keep)
+
+    # Filter egos
+subset(x = egor32, subset = egor32$ego$variables$sex == "m", unit="ego")
+subset(x = egor32, sex == "m")
+
+# Filter alters
+subset(x = egor32, sex == "m", unit = "alter")
+
+# Filter aaties
+subset(x = egor32, weight != 0, unit = "aatie")
+
+# Filter egos by alter variables (keep only egos that have more than 13 alters)
+subset(x = egor32, ego$country == "Poland", unit = "ego")
+
+# Filter alters by ego variables (keep only alters that have egos from Poland)
+subset(x = egor32, nrow(alter) > 13, unit = "alter")
+
+# Filter edges by alter variables (keep only edges between alters where `sex == "m"`)
+subset(x = egor32, all(alter$sex == "m"), unit = "aatie")
 }
