@@ -340,7 +340,7 @@ plot_egogram <-
       ego_object$aatie <- b
     }
     
-    vertex_zoom <- (((venn_n+5)^2-1)/(venn_n+5)^3) * 100 - 20 + vertex_zoom 
+    vertex_zoom <- (((venn_n+5)^2-1)/(venn_n+5)^3) * 20 + vertex_zoom 
 
     # Create igraph
     g <- as_igraph(ego_object, include.ego = include_ego)[[1]]

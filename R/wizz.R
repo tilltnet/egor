@@ -105,7 +105,7 @@ egor_vis_app <- function(object = NULL,
             label = "Vertex Size:",
             min = 0,
             max = 20,
-            value = 5,
+            value = 1,
             step = .1
           ),
           shiny::sliderInput(
