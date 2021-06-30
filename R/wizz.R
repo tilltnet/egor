@@ -103,9 +103,9 @@ egor_vis_app <- function(object = NULL,
           shiny::sliderInput(
             "zoom_factor_v",
             label = "Vertex Size:",
-            min = -20,
-            max = 80,
-            value = 15,
+            min = 0,
+            max = 20,
+            value = 5,
             step = .1
           ),
           shiny::sliderInput(

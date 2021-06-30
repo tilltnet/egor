@@ -115,10 +115,10 @@ plot_one_ego_graph <- function(x,
     vertex.size <-
       as.numeric(as.factor(igraph::get.vertex.attribute(gr, vertex_size_var)))
     vertex.size[is.na(vertex.size)] <- 0.1
-    vertex.size <- vertex.size * 4 + vertex_zoom / 2
+    vertex.size <- vertex.size * vertex_zoom + .1
   } else {
     vertex.size <-
-      rep(5, length(igraph::V(gr))) * 4 + vertex_zoom
+      rep(5, length(igraph::V(gr))) * vertex_zoom
   }
   
   # Vertex Color
