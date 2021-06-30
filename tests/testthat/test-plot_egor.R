@@ -453,7 +453,8 @@ test_that("plot_egograms removes and warns for alters with missing data in pie/v
 test_that("plot_egograms() argument ascending_inwards works", {
   e1 <- make_egor(15, 15)
   
-  plot_egograms(e1, 1, venn_var = "age", pie_var = "sex", ascending_inwards = FALSE)
+  expect_error(plot_egograms(e1, 1, venn_var = "age", pie_var = "sex", ascending_inwards = FALSE), NA)
+  expect_error(plot_egograms(e1, 1, venn_var = "age", pie_var = "sex", ascending_inwards = TRUE), NA)
 })
 
 dev.off() # Closing the NULL pdf device.

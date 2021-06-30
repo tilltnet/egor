@@ -1,5 +1,3 @@
-context("test_vis_app.R")
-
 if (FALSE) {
   library(purrr)
   library(egor)

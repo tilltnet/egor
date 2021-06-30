@@ -103,8 +103,8 @@ egor_vis_app <- function(object = NULL,
           shiny::sliderInput(
             "zoom_factor_v",
             label = "Vertex Size:",
-            min = 0,
-            max = 75,
+            min = -20,
+            max = 80,
             value = 15,
             step = .1
           ),
@@ -169,7 +169,8 @@ egor_vis_app <- function(object = NULL,
                   "'ego-socio-gram'."
                 ),
                 shiny::uiOutput("choose_venn_var"),
-                shiny::uiOutput("choose_pie_var")
+                shiny::uiOutput("choose_pie_var"),
+                shiny::checkboxInput("ascending_inwards", "Venn Circles Ascending Inwards", value = TRUE)
               ),
             ),
             shiny::tabPanel(
@@ -406,7 +407,8 @@ egor_vis_app <- function(object = NULL,
                        values$pie_var != "-Select Entry-")
               "egogram"
             else
-              "egograph"
+              "egograph",
+            ascending_inwards = input$ascending_inwards
           )
         })
       
