@@ -96,6 +96,7 @@ plot_egograms <- function(x,
                           y_dim = 1,
                           venn_var = NULL,
                           pie_var = NULL,
+                          ascending_inwards = TRUE,
                           vertex_size_var = NULL,
                           vertex_color_var = NULL,
                           vertex_color_palette = "Heat Colors",
@@ -134,6 +135,7 @@ plot_egograms <- function(x,
         i,
         venn_var,
         pie_var,
+        ascending_inwards = ascending_inwards,
         vertex_size_var = vertex_size_var,
         vertex_color_var = vertex_color_var,
         vertex_color_palette = vertex_color_palette,
@@ -162,6 +164,7 @@ plot_egogram <-
            ego_no,
            venn_var = NULL,
            pie_var = NULL,
+           ascending_inwards = TRUE,
            vertex_size_var = NULL,
            vertex_color_var = NULL,
            vertex_color_palette = "Heat Colors",
@@ -186,9 +189,7 @@ plot_egogram <-
       warning("pie_var and venn_var are both NULL. In order to better utilize the plot_egogram() function define at least one of each.")
   
     par(mar = c(1, 0.5, 0.5, 0.5))
-    
-    # TODO: stop(/warn?) when pie or venn var have more than 10 levels
-    
+  
     ego_object <-
       slice(.data = activate(x, "ego"), ego_no)
     
@@ -200,6 +201,19 @@ plot_egogram <-
     if (is.null(venn_var)) {
       ego_object$alter$.venn_dummy <- factor(" ")
       venn_var <- ".venn_dummy"
+    }
+    
+    alter_count_pre <- nrow(ego_object$alter)
+
+    ego_object <- 
+      ego_object %>% 
+      activate(alter) %>% 
+      filter(!is.na(.$alter[venn_var])) %>% 
+      filter(!is.na(.$alter[pie_var])) %>% 
+      activate(ego)
+    
+    if(alter_count_pre != nrow(ego_object$alter)) {
+      warning(alter_count_pre - nrow(ego_object$alter), " alters with missing data in pie_var/venn_var removed.")
     }
     
     pie_var_name <- pie_var
@@ -222,6 +236,11 @@ plot_egogram <-
     
     if (is.character(pie_var)) {
       pie_var <- factor(pie_var, levels = unique(x$alter[[pie_var_name]]))
+    }
+    
+    if (ascending_inwards) {
+      rev_factor <- function(x) factor(x, levels=rev(levels(x)))
+      venn_var <- rev_factor(venn_var)
     }
     
     venn_n <- length(levels(venn_var))

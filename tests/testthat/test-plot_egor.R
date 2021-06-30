@@ -439,4 +439,21 @@ test_that("egograms with reverse ordered alters plot correctly", {
                                  ego_no = 2), NA)
 })
 
+
+test_that("plot_egograms removes and warns for alters with missing data in pie/venn_var", {
+  t1 <- make_egor(5, 5) %>% 
+    activate(alter) %>% 
+    mutate(test = c(NA, sample(c("test", "test2"), nrow(.$alter)-1, replace = TRUE))) 
+  
+  expect_warning(plot_egograms(t1, 1, venn_var = "country", pie_var = "test"))
+  expect_warning(plot_egograms(x = t1, ego_no = 1, venn_var = "test", pie_var = "country"))
+
+})
+
+test_that("plot_egograms() argument ascending_inwards works", {
+  e1 <- make_egor(15, 15)
+  
+  plot_egograms(e1, 1, venn_var = "age", pie_var = "sex", ascending_inwards = FALSE)
+})
+
 dev.off() # Closing the NULL pdf device.

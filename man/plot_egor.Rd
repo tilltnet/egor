@@ -15,6 +15,7 @@ plot_egograms(
   y_dim = 1,
   venn_var = NULL,
   pie_var = NULL,
+  ascending_inwards = TRUE,
   vertex_size_var = NULL,
   vertex_color_var = NULL,
   vertex_color_palette = "Heat Colors",
@@ -84,6 +85,8 @@ plot_egor(
 \item{venn_var}{Name (character) of alter column.}
 
 \item{pie_var}{Name (character) of alter column.}
+
+\item{ascending_inwards}{\code{Logical} determining the venn circle order. If TRUE (default) values ascend from the outside to the inside, if FALSE the reverse.}
 
 \item{vertex_size_var}{Name (\code{character}) of alter column.}
 

@@ -8,6 +8,7 @@
 #' @param y_dim Number of ego networks to plot vertically
 #' @param venn_var Name (character) of alter column.
 #' @param pie_var Name (character) of alter column.
+#' @param ascending_inwards `Logical` determining the venn circle order. If TRUE (default) values ascend from the outside to the inside, if FALSE the reverse.
 #' @param vertex_size_var Name (`character`) of alter column.
 #' @param vertex_color_var Name (`character`) of alter column.
 #' @param vertex_color_palette Name (`character`) of color palette, see details for available color palettes.
