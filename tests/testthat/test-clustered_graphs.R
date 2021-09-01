@@ -88,3 +88,17 @@ if (FALSE) {
   )
 }
 
+test_that("vis_clustered_graphs() works when all btw. group density is 0", {
+  mpf <- make_egor(5, 50)
+  
+  graphs <- clustered_graphs(object = mpf, clust.groups = "country")
+  
+  graphs[[1]] |> 
+    tidygraph::as_tbl_graph() |> 
+    activate(edges) |> 
+    mutate(grp.density = c(0, 0, 0)) |> 
+    tidygraph::as.igraph() |> 
+    list() |> 
+    vis_clustered_graphs(edge.width.multiplier = 5,
+           normalise.node.sizes = TRUE)
+})
