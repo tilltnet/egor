@@ -60,3 +60,32 @@ test_that("subset.egor() works as specified in docs", {
   
 })
 
+test_that("subset() works when no aaties are specified and ID vars are character #74", {
+  e1 <-
+    egor(alters = data.frame(
+      egoID = c(1, 2, 3),
+      alterID = rep(1, 3),
+      something = c(1, 2, 3)
+    ))
+  e2 <-
+    egor(
+      alters = data.frame(
+        egoID = c(1, 2, 3),
+        alterID = rep(1, 3),
+        something = c(1, 2, 3)
+      ),
+      aaties = data.frame(
+        egoID = 1:3,
+        Source = rep(1, 3),
+        Target = rep(1, 3)
+      )
+    )
+  expect_error(subset(x = e1, something == 1, unit = "alter"), NA)
+  expect_error(e1 |> 
+    activate(alter) |> 
+    filter(something == 1), NA)
+  expect_error(subset(e2, something == 1, unit = "alter"), NA)
+  expect_error(e2 |> 
+    activate(alter) |> 
+    filter(something == 1), NA)
+})

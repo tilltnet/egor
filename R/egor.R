@@ -165,7 +165,12 @@ egor <- function(alters,
   # Alter-Alter
   
   if (is.null(aaties)) {
-    aaties <- tibble(.egoID = 0, .srcID = 0, .tgtID = 0)[0,]
+    if(all_numeric) {
+      aaties <- tibble(.egoID = 0, .srcID = 0, .tgtID = 0)[0,]
+    } else {
+      aaties <- tibble(.egoID = "0", .srcID = "0", .tgtID = "0")[0,]
+    }
+    
   } else {
     if (!is_tibble(aaties)) {
       aaties <- as_tibble(aaties)
