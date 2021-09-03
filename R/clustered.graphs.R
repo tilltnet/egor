@@ -348,6 +348,13 @@ vis_clustered_graphs <- function(graphs,
     vertex.size[vertex.size > node.max.size] <- node.max.size
 
     betw_grp_dens <- igraph::E(graph)$grp.density
+    betw_grp_dens_color <- 
+      if(betw_grp_dens == 0 || length(betw_grp_dens) == 0) {
+        gray(1, alpha = 0.7)
+      } else {
+        gray(1 - betw_grp_dens / max(betw_grp_dens), alpha = 0.7)
+        }
+       
     
     igraph::plot.igraph(
       graph,
@@ -366,9 +373,7 @@ vis_clustered_graphs <- function(graphs,
       edge.label.color = "black",
       edge.label.cex = edge.label.cex,
       edge.label.family = "sans",
-      edge.color = gray(1 - ifelse(
-        betw_grp_dens  == 0, 0, betw_grp_dens / max(betw_grp_dens)
-      ), alpha = 0.7),
+      edge.color = betw_grp_dens_color,
       layout = rotate_to_equilibrium(layout_),
       ...
     )
