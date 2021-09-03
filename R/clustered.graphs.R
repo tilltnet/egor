@@ -349,7 +349,7 @@ vis_clustered_graphs <- function(graphs,
 
     betw_grp_dens <- igraph::E(graph)$grp.density
     betw_grp_dens_color <- 
-      if(betw_grp_dens == 0 || length(betw_grp_dens) == 0) {
+      if(all(betw_grp_dens == 0) || length(betw_grp_dens) == 0) {
         gray(1, alpha = 0.7)
       } else {
         gray(1 - betw_grp_dens / max(betw_grp_dens), alpha = 0.7)
