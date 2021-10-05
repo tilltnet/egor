@@ -261,7 +261,7 @@ plot_egogram <-
     
     # Venns
     radi <- c(1:(venn_n + 1) / (venn_n + 1))
-    cols <- paste0("#ffffff", as.hexmode(round(seq(0, 220,  220 / venn_n))))
+    cols <- paste0("#ffffff", format(as.hexmode(round(seq(0, 220,  220 / venn_n)))))
     if(venn_gradient_reverse) cols <- rev(cols)
     for(i in 1:venn_n) {
       ring(0, 0, radi[i+1], radi[i], col = cols[i], border = "grey70")
