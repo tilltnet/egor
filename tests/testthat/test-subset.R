@@ -81,11 +81,11 @@ test_that("subset() works when no aaties are specified and ID vars are character
       )
     )
   expect_error(subset(x = e1, something == 1, unit = "alter"), NA)
-  expect_error(e1 |> 
-    activate(alter) |> 
+  expect_error(e1 %>% 
+    activate(alter) %>% 
     filter(something == 1), NA)
   expect_error(subset(e2, something == 1, unit = "alter"), NA)
-  expect_error(e2 |> 
-    activate(alter) |> 
+  expect_error(e2 %>% 
+    activate(alter) %>% 
     filter(something == 1), NA)
 })
