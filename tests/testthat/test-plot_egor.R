@@ -431,7 +431,7 @@ test_that("egograms with reverse ordered alters plot correctly", {
                 ego_no = 2)
   
 
-  expect_error(  e1 %>%
+  expect_error(e1 %>%
                    activate(alter) %>%
                    arrange(.egoID, desc(.altID)) %>%
                    plot_egograms(venn_var = "var1",
