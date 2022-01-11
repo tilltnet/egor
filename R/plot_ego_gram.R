@@ -208,8 +208,8 @@ plot_egogram <-
     ego_object <- 
       ego_object %>% 
       activate(alter) %>% 
-      filter(!is.na(.$alter[venn_var])) %>% 
-      filter(!is.na(.$alter[pie_var])) %>% 
+      filter(!is.na(.$alter[[venn_var]])) %>% 
+      filter(!is.na(.$alter[[pie_var]])) %>% 
       activate(ego)
     
     if(alter_count_pre != nrow(ego_object$alter)) {
