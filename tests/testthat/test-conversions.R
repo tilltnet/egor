@@ -1,40 +1,55 @@
-context("test_conversions.R")
+test_that("as_network works",
+          {
+            expect_error({
+              
+              as_network(egor32)
+              as_network(x = egor32, include.ego = TRUE)
+              as_network(x = egor32,
+                         ego.attrs = "sex",
+                         include.ego = TRUE)
+            }, NA)
+            
+          })
+
+test_that("as_alters_df works",
+          {
+            expect_error({
+              
+              as_alters_df(egor32, include.ego.vars = TRUE)
+              as_aaties_df(egor32)
+              
+            }, NA)
+          })
 
 test_that("as_tibble and other conversions work",
           {
             expect_error({
-              e <- make_egor(3, 22)
               
-              as_network(e)
-              as_network(x = e, include.ego = TRUE)
-              as_network(x = e,
-                         ego.attrs = "sex",
-                         include.ego = TRUE)
-              
-              as_tibble(e)
-              activate(e, "aatie") %>%
+              as_tibble(egor32)
+              activate(egor32, "aatie") %>%
                 as_tibble(include.ego.vars = TRUE)
               
-              activate(e, "alter") %>%
+              activate(egor32, "alter") %>%
                 as_tibble(include.ego.vars = TRUE)
               
-              activate(e, "aatie") %>%
+              activate(egor32, "aatie") %>%
                 as_tibble(include.alter.vars = TRUE)
-              x <- activate(e, "aatie")
-              as_alters_df(e, include.ego.vars = TRUE)
-              as_aaties_df(e)
+              x <- activate(egor32, "aatie")
+              
             }, NA)
           })
 
 test_that("as_igraph.nested_egor works",
           {
             expect_error({
-              e <- make_egor(3, 22)
               
+              e <- make_egor(5, 5)
+
               en <- as_nested_egor(e)
               as_igraph(en,
                         include.ego = T,
                         ego.attrs = c("sex", "age"))
+              
             }, NA)
           })
 
@@ -72,14 +87,13 @@ test_that("as_network works with graph.attrs",
 
 test_that("as_igraph works.",
           {
-            e <- make_egor(3, 22)
-            expect_error(as_igraph(x = e), NA, label = "default arguments")
+            expect_error(as_igraph(x = egor32), NA, label = "default arguments")
             
-            e$alter <- e$alter %>%
+            egor32$alter <- egor32$alter %>%
               mutate(weight = sample((1:3) / 3, nrow(.), replace = TRUE))
             
             expect_error(igraph_list <- as_igraph(
-              e,
+              egor32,
               include.ego = T,
               ego.attrs = c("sex", "age"),
               ego.alter.weights = "weight"
@@ -93,9 +107,8 @@ test_that("as_igraph works.",
 
 test_that("as_igraph works with several graph attributes",
           {
-            e <- make_egor(3, 22)
             expect_error(igraph_list <-
-                           as_igraph(e,
+                           as_igraph(egor32,
                                      graph.attrs = c(".egoID", 
                                                      "income", 
                                                      "age")),
@@ -111,7 +124,6 @@ test_that("as_igraph works with several graph attributes",
 
 test_that("as_igraph works with egor32.",
           {
-            data("egor32")
             res <- as_igraph(x = egor32)
             expect_equal(length(res), 32)
             expect_true(all(map_lgl(res, igraph::is.igraph)))
@@ -119,20 +131,18 @@ test_that("as_igraph works with egor32.",
 
 test_that("as_alters_df works.",
           {
-            e <- make_egor(3, 22)
-            expect_error(as_alters_df(e), NA)
-            expect_error(as_alters_df(e, include.ego.vars = T), NA)
+            expect_error(as_alters_df(egor32), NA)
+            expect_error(as_alters_df(egor32, include.ego.vars = T), NA)
           })
 
 
 test_that("as_aaties_df works.",
           {
-            e <- make_egor(3, 22)
-            expect_error(as_aaties_df(e), NA)
-            expect_error(as_aaties_df(object = e, include.alter.vars = T), NA)
-            expect_error(as_aaties_df(object = e, include.ego.vars = T), NA)
+            expect_error(as_aaties_df(egor32), NA)
+            expect_error(as_aaties_df(object = egor32, include.alter.vars = T), NA)
+            expect_error(as_aaties_df(object = egor32, include.ego.vars = T), NA)
             expect_error(as_aaties_df(
-              object = e,
+              object = egor32,
               include.ego.vars = T,
               include.alter.vars = TRUE
             ),
