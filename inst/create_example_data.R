@@ -1,6 +1,8 @@
 library(egor)
 library(tidyverse)
 
+# Extdata ----
+
 # edges_32, alters_32, egos_32
 
 e32 <- make_egor(32, 12, netsize_fixed = TRUE)
@@ -45,3 +47,18 @@ e32 %>%
        })
   
 
+# Data ----
+
+## egor32
+
+egor32 <- e32
+ego_design(egor32) <- 1
+egos32 <- egor32$ego$variables
+alters32 <- egor32$alter
+aaties32 <- egor32$aatie
+
+egos32 <- egos32 |> rename_with(toupper, .cols = starts_with("."))
+alters32 <- alters32 |> rename_with(toupper, .cols = starts_with("."))
+aaties32 <- aaties32 |> rename_with(toupper, .cols = starts_with("."))
+
+usethis::use_data(egor32, egos32, alters32, aaties32, overwrite = TRUE)
