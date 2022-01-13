@@ -6,7 +6,7 @@ test_that("left_join works with srvyr ego object", {
   
   res <- composition(x, age)
   
-  left_join(x, res, copy = TRUE)
+  expect_error(left_join(x, res, copy = TRUE), NA)
 })
 
 
@@ -33,6 +33,8 @@ test_that("survey_mean and svymean work with ego_design", {
   
   x$ego$sampling_weight <- sample(1:10/10, 5, replace = TRUE)
   ego_design(x) <- list(weight = "sampling_weight")
+  
+  options(egor.results_with_design = TRUE)
 
   expect_error(ego_density(x) %>% 
     srvyr::summarise(mean_dens = srvyr::survey_mean(density)), NA)

@@ -1,4 +1,8 @@
-test_that("activate works with singular and plurals of level names", {
-  egor32 %>% 
-    activate(ego)
+test_that("activate works with singulars and plurals of level names", {
+
+  expect_error(  egor32 %>% 
+                   activate(ego), NA)
+  
+  # expect_error(  egor32 %>% 
+  #                  activate(egos), NA)
 })

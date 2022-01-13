@@ -86,10 +86,10 @@ test_that(
 )
 
 test_that(
-  "summary.egor works",
+  "summary.egor works with ego_design",
   {
     e <- make_egor(6,12)
-    expect_error(summary(e), NA)
+    expect_error(summary(egor32), NA)
   }
 )
 
@@ -265,9 +265,9 @@ test_that(
     
     options(egor.results_with_design = TRUE)
     res <- 
-      egor(alters32,
-         egos32,
-         aaties32,
+      egor(alters = alters32,
+           egos = egos32,
+           aaties = aaties32,
          ID.vars = list(ego = ".EGOID",
                         alter = ".ALTID",
                         source = ".SRCID",
