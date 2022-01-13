@@ -1,8 +1,8 @@
 Package: egor
 Type: Package
 Title: Import and Analyse Ego-Centered Network Data
-Version: 1.21.10
-Date: 2021-10-07
+Version: 1.22.01
+Date: 2022-01-13
 Authors@R: c(
     person("Till", "Krenz", email = "egor@tillt.net",
     role = c("aut", "cre")),
@@ -52,7 +52,7 @@ Suggests:
     network,
     haven
 VignetteBuilder: knitr
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Roxygen: list(markdown = TRUE)
 LazyData: true
 Encoding: UTF-8
