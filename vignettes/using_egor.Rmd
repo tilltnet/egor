@@ -26,8 +26,8 @@ library(egor)
 - egor object organizes ego-centered network, allowing for a smooth workflow
 - dplyr methods: enable tidy data analysis strategies
 - descriptive analysis (network composition, density, homophily, diversity)
-- visualisation (clustered graphs, egographs, egogram)
-- interacitve visualisation app
+- visualization (clustered graphs, egographs, egogram)
+- interactive visualization app
 
 An `egor` object contains all data levels associated with ego-centered network 
 analysis, those levels are: ego, alter, alter-alter ties. By providing the 
@@ -78,12 +78,11 @@ e1 <- egor(alters = alters32,
 e1
 ```
 
-An [`egor`] object is a [`list`] of three [`tibbles`], named "ego", "alter" and "aatie", containg ego, alter and alter-alter tie data.
+An [`egor`] object is a [`list`] of three [`tibbles`], named "ego", "alter" and "aatie", containing ego, alter and alter-alter tie data.
 
 ## Import
 
-There are currently three importing functions that read the data exported from
-data collection tools from the harddrive and load them as an `egor` object.
+There are currently three importing functions that read the data from disk and load them as an `egor` object.
 
 ```
 read_openeddi()
@@ -130,7 +129,7 @@ subset(e1, e1$aatie$weight > 0.5, unit = "aatie")
 
 An `egor` object can be manipulated with dplyr verbs. Using the activate()
 command, the data level to execute manipulations on, can be changed. This concept
-is borrwed from the tidygraph package.
+is borrowed from the tidygraph package.
 
 If the manipulation leads to the deletion of egos, the respective alters and
 alter-alter ties are deleted as well. Similarly deletions of alters lead to

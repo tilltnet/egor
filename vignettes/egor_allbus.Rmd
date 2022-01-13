@@ -21,11 +21,11 @@ knitr::opts_chunk$set(
 ***Note: The data used in this vignette is simulated based on the the original Allbus
 2010 SPSS data by GESIS. The dataset simulates 100 respondents and does not resemble any
 actual Allbus respondents. Each variable is randomly generated based on the range
-of the original variables, co-varianaces between variables are disregarded. The
+of the original variables, co-variations of variables are disregarded. The
 data's purpose is purely to demonstrate how to technically work with the Allbus data
 using egor and R - no analytical assumptions should be made based on this data!
 The code in this vignette works with the original Allbus 2010 data, that can be
-aquired [here](https://www.gesis.org/en/allbus/allbus-home).***
+acquired [here](https://www.gesis.org/en/allbus/allbus-home).***
 
 ## The Allbus 2010: ego-centered network data
 
@@ -33,7 +33,7 @@ The Allbus 2010 splits the respondents into two groups. Both groups were present
 different name generators.
 
 - Allbus name generator - the generated alters are called "Freunde" (friends in German) in the data (max. 3 persons, "spent time with in private, not living in same household")
-- GSS name gerneator - these alters are called "Kontakte" (contacts in German) in the dataset (max. 5 persons, "discussed important matters")
+- GSS name generator - these alters are called "Kontakte" (contacts in German) in the dataset (max. 5 persons, "discussed important matters")
 
 For more information please consult the Allbus documentation.
 ## Load packages and data

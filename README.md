@@ -56,6 +56,6 @@ threefiles_to_egor()
 
 ## Analyse
 
-There are a few commands facilitating the anlysis of ego-centered networks. To
+There are a few commands facilitating the analysis of ego-centered networks. To
 learn more, please take a look at the package 
 [vignette](articles/using_egor.html).

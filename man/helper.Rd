@@ -69,7 +69,7 @@ tables (possibly 0-row) of alter--alter associated with each ego, in
 the same order as the ego table.
 
 \item \code{dyad.poss}: Returns the count of possible edges in an
-undirected or directed, ego-centered network, based on the number of alters.
+un-directed or directed, ego-centered network, based on the number of alters.
 
 \item \code{sanitize.wide.edges}: Generates a \code{data.frame} marking possible dyads in
 a wide alter-alter relation \code{data.frame}. Row names corresponds to the

@@ -23,7 +23,6 @@ rowlist <- function(x) {
   apply(x, 1, identity)
 }
 
-
 #' Filter and Subset Ego-centered Datasets
 #'
 #' Functions to index and take subsets of [egor()] objects: manipulate
@@ -51,7 +50,7 @@ rowlist <- function(x) {
 #' \item{Alter index `.altRow`}{ contains the index (counting from 1) of the row number in the alter table.}
 #'
 #' \item{Alter--alter indices `.srcRow` and `.tgtRow`}{ contain the
-#' index (counting from 1) of the row of the alter being refereced by
+#' index (counting from 1) of the row of the alter being referenced by
 #' `.srcID` and `.tgtID`. (This can be used to quickly access the
 #' attributes of the alters in question.)}
 #'

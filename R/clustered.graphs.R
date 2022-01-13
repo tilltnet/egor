@@ -236,7 +236,7 @@ clustered_graphs.data.frame <-
 #' @param edge.width.multiplier \code{Numeric} used to multiply the edge width.
 #' @param center \code{Numeric} indicating the vertex to be plotted in center.
 #' @param label.size \code{Numeric}.
-#' @param labels \code{Boolean}. Plots with turned off labels will be preceeded
+#' @param labels \code{Boolean}. Plots with turned off labels will be accompanied
 #' by a 'legend' plot giving the labels of the vertices.
 #' @param legend.node.size \code{Numeric} used as node diameter of legend graph.
 #' @param pdf.name \code{Character} giving the name/path of the pdf file to create.

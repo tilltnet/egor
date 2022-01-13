@@ -26,13 +26,13 @@ if(getRversion() >= "2.15.1")
 #' This implementation uses the intra-group and inter-group density instead
 #' of edge counts, when `rescale` is set to `TRUE` (default). The EI-Index is calculated for 
 #' the whole network and for subgroups. Alternatively, the EI index can be employed as a measurement
-#' for egos tendency to homo-/heteorphily - use [egor::comp_ei()]. 
+#' for egos tendency to homo-/heterophily - use [egor::comp_ei()]. 
 #' for that variant of the EI-Index.
 #' @param object An \code{egor} object.
 #' @param alt.attr \code{Character} naming grouping variable.
 #' @param include.ego `Logical`. Include or exclude ego from EI calculation.
 #' @param ego.attr `Character`, naming the ego variable corresponding to `ego.attr`. Defaults to `ego.attr`.
-#' @param rescale `Logical`. If `TRUE`, the EI index calculation is rescaled, 
+#' @param rescale `Logical`. If `TRUE`, the EI index calculation is re-scaled, 
 #' so that the EI is not distorted by differing group sizes.
 #' @return Returns `tibble` with the following columns:
 #'  - ego ID (".egoID")
@@ -47,7 +47,7 @@ if(getRversion() >= "2.15.1")
 #' i.e. the ability of a big group A to form relationships to much smaller group B
 #' is limited by the size of B. Even when all possible edges between A and B exist,
 #' the EI value for group A might still be negative, classifying it as _homophile_.
-#' The `rescaled` EI-Index values provided by this implementation substitutes absolute
+#' The `re-scaled` EI-Index values provided by this implementation substitutes absolute
 #' edge counts by inter- and intra-group edge densities in order to avoid the
 #' distortion of the EI-Index values. These values express the extend of homo- or heterophily 
 #' of the network and its subgroups, _as made possible by subgroup sizes_.

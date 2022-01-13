@@ -99,7 +99,7 @@ a \code{nested_egor} objects to an \code{egor} object.
 If parameters \code{alters.df}, \code{egos.df}, and \code{aaties.df} are
 data frames, they need to share a common ego ID variable, with
 corresponding values. If \code{alters.df} and \code{aaties.df} are lists of
-data frames, \code{egoID} is ignored and they are matched positionally
+data frames, \code{egoID} is ignored and they are matched by position
 with the rows of \code{egos.df}. Of the three parameters only
 \code{alters.df} is necessary to create an \code{egor} object, and
 \code{egos.df} and \code{aaties.df} are optional.

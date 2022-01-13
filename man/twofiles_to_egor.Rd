@@ -16,10 +16,10 @@ twofiles_to_egor(
 )
 }
 \arguments{
-\item{egos}{\code{Data frame} containg ego data (egos as cases)}
+\item{egos}{\code{Data frame} containing ego data (egos as cases)}
 
-\item{alters}{\code{Data frame} containing alters data (alters as cases),
-alters are separated by a variable containg an egoID.}
+\item{alters}{\code{Data frame} containing alters data (alters in rows),
+alters are connected to their ego by an \code{egoID}.}
 
 \item{ID.vars}{A named list containing column names of the relevant
 input columns: \describe{

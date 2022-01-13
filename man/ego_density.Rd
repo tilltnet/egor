@@ -21,7 +21,7 @@ of relations. Weights should range from 0 to 1.}
 number of alters whose relations were collected is limited.}
 
 \item{directed}{logical indicating if the alter-alter relation data/ edges
-are directed or undirected.}
+are directed or un-directed.}
 }
 \value{
 returns a \code{vector} of network density values.

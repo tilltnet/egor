@@ -22,7 +22,7 @@ wide.dyads.to.edgelist(
 \item{max.alters}{Maximum number of alters for which alter-alter relations
 were collected.}
 
-\item{fist.var}{Number of colum containing the relation between the first and
+\item{fist.var}{Number of column containing the relation between the first and
 the second network contact.}
 }
 \description{

@@ -28,7 +28,7 @@ if (getRversion() >= "2.15.1") utils::globalVariables(c(":="))
 #' @details If parameters `alters.df`, `egos.df`, and `aaties.df` are
 #'   data frames, they need to share a common ego ID variable, with
 #'   corresponding values. If `alters.df` and `aaties.df` are lists of
-#'   data frames, `egoID` is ignored and they are matched positionally
+#'   data frames, `egoID` is ignored and they are matched by position
 #'   with the rows of `egos.df`. Of the three parameters only
 #'   `alters.df` is necessary to create an `egor` object, and
 #'   `egos.df` and `aaties.df` are optional.

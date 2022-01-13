@@ -55,12 +55,12 @@ common_prefix <- function(x) {
 #' @template wide
 #' @template egoID
 #' @template max_alters
-#' @param start.col Index or name of the first colum containg alter-alter relation data.
+#' @param start.col Index or name of the first column containing alter-alter relation data.
 #' #!# Should: Defaults to first column of \code{wide}.
-#' @param last.col Index or name of the first colum containg alter-alter relation data.
+#' @param last.col Index or name of the first column containing alter-alter relation data.
 #' #!# Should: Defaults to last column of \code{wide}.
 #' @template ego_vars
-#' @param var.wise a logical value indicating wheter the alter attributes are
+#' @param var.wise a logical value indicating whether the alter attributes are
 #' stored variable-wise, if FALSE alter-wise storage is assumed.
 #' @keywords internal
 wide.to.long <-
@@ -134,7 +134,7 @@ wide.to.long <-
 #' edge lists.
 #' @param e.wide A dataframe containing the alter-alter relation data in the
 #' 'wide' format.
-#' @param fist.var Number of colum containing the relation between the first and
+#' @param fist.var Number of column containing the relation between the first and
 #' the second network contact.
 #' @param max.alters Maximum number of alters for which alter-alter relations
 #' were collected.
@@ -166,7 +166,7 @@ wide.dyads.to.edgelist <- function(e.wide,
   last.var <- first.var + dp - 1
   alter.alter <- e.wide[first.var:last.var]
   
-  # Create a list of dataframes, each containg the edgelists per network.
+  # Create a list of dataframes, each containing the edgelists per network.
   #!# This could probably be done with reshape!?
   alter.alter.list <- list()
   count.var <- 1
@@ -299,12 +299,12 @@ wide.dyads.to.edgelist.regex <-
 #' @template egos
 #' @param netsize Numeric, network size values are used to filter out empty
 #' alter entries. If the alter data is not structured in a way, where valid alters
-#' are stored before the invalid alters, pass NULL here and filter out inbalid
+#' are stored before the invalid alters, pass NULL here and filter out invalid
 #' alters afterwards.
 #' @param ID.vars Character. For onefile_to_egor only the name of the ego ID needs
 #' to be provided.
-#' @param attr.start.col Index or name of the first colum containing alter attributes.
-#' @param attr.end.col Index or name of the last colum containing alter attributes.
+#' @param attr.start.col Index or name of the first column containing alter attributes.
+#' @param attr.end.col Index or name of the last column containing alter attributes.
 #' @param max.alters Maximum number of alters.
 #' @param aa.first.var First column containing alter-alter relations/ edges.
 #' @template aa.regex

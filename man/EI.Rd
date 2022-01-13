@@ -15,7 +15,7 @@ EI(object, alt.attr, include.ego = FALSE, ego.attr = alt.attr, rescale = TRUE)
 
 \item{ego.attr}{\code{Character}, naming the ego variable corresponding to \code{ego.attr}. Defaults to \code{ego.attr}.}
 
-\item{rescale}{\code{Logical}. If \code{TRUE}, the EI index calculation is rescaled,
+\item{rescale}{\code{Logical}. If \code{TRUE}, the EI index calculation is re-scaled,
 so that the EI is not distorted by differing group sizes.}
 }
 \value{
@@ -32,7 +32,7 @@ divided by total count of all edges.
 This implementation uses the intra-group and inter-group density instead
 of edge counts, when \code{rescale} is set to \code{TRUE} (default). The EI-Index is calculated for
 the whole network and for subgroups. Alternatively, the EI index can be employed as a measurement
-for egos tendency to homo-/heteorphily - use \code{\link[=comp_ei]{comp_ei()}}.
+for egos tendency to homo-/heterophily - use \code{\link[=comp_ei]{comp_ei()}}.
 for that variant of the EI-Index.
 }
 \details{
@@ -45,7 +45,7 @@ to other groups. Differing group sizes can lead to a distortion of EI values
 i.e. the ability of a big group A to form relationships to much smaller group B
 is limited by the size of B. Even when all possible edges between A and B exist,
 the EI value for group A might still be negative, classifying it as \emph{homophile}.
-The \code{rescaled} EI-Index values provided by this implementation substitutes absolute
+The \code{re-scaled} EI-Index values provided by this implementation substitutes absolute
 edge counts by inter- and intra-group edge densities in order to avoid the
 distortion of the EI-Index values. These values express the extend of homo- or heterophily
 of the network and its subgroups, \emph{as made possible by subgroup sizes}.

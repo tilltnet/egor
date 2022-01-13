@@ -18,19 +18,19 @@ onefile_to_egor(
 )
 }
 \arguments{
-\item{egos}{\code{Data frame} containg ego data (egos as cases)}
+\item{egos}{\code{Data frame} containing ego data (egos as cases)}
 
 \item{netsize}{Numeric, network size values are used to filter out empty
 alter entries. If the alter data is not structured in a way, where valid alters
-are stored before the invalid alters, pass NULL here and filter out inbalid
+are stored before the invalid alters, pass NULL here and filter out invalid
 alters afterwards.}
 
 \item{ID.vars}{Character. For onefile_to_egor only the name of the ego ID needs
 to be provided.}
 
-\item{attr.start.col}{Index or name of the first colum containing alter attributes.}
+\item{attr.start.col}{Index or name of the first column containing alter attributes.}
 
-\item{attr.end.col}{Index or name of the last colum containing alter attributes.}
+\item{attr.end.col}{Index or name of the last column containing alter attributes.}
 
 \item{max.alters}{Maximum number of alters.}
 

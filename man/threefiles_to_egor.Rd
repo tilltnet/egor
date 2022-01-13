@@ -38,10 +38,10 @@ read_openeddi(
 )
 }
 \arguments{
-\item{egos}{\code{Data frame} containg ego data (egos as cases)}
+\item{egos}{\code{Data frame} containing ego data (egos as cases)}
 
-\item{alters.df}{\code{dataframe} containing alters data (alters as cases),
-alters are separated by a variable containg an egoID.}
+\item{alters.df}{\code{Data frame} containing alters data (alters in rows),
+alters are connected to their ego by an \code{egoID}.}
 
 \item{edges}{\code{Dataframe}. A global edge list, first column is ego ID
 variable.

@@ -2,11 +2,11 @@
 % Please edit documentation in R/read.egonet.three.files.R
 \name{order.edge.list.columns}
 \alias{order.edge.list.columns}
-\title{Order edge list colums with source and target at the beginning.}
+\title{Order edge list columns with source and target at the beginning.}
 \usage{
 order.edge.list.columns(edges, source_, target)
 }
 \description{
-Order edge list colums with source and target at the beginning.
+Order edge list columns with source and target at the beginning.
 }
 \keyword{internal}

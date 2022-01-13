@@ -22,7 +22,7 @@ clustered_graphs(object, ..., clust.groups)
 
 \item{clust.groups}{A \code{character} naming the \code{factor} variable defining the groups.}
 
-\item{aaties}{\code{data.frame/ list} containg alter-alter relations as a
+\item{aaties}{\code{data.frame/ list} containing alter-alter relations as a
 'global edge list' or as a list of 'edge lists'.
 (not needed if \code{object} is an \code{egor} object).}
 

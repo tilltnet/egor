@@ -20,13 +20,13 @@ wide.to.long(
 
 \item{max.alters}{A \code{numeric} giving the maximum number of alters.}
 
-\item{start.col}{Index or name of the first colum containg alter-alter relation data.
+\item{start.col}{Index or name of the first column containing alter-alter relation data.
 #!# Should: Defaults to first column of \code{wide}.}
 
-\item{var.wise}{a logical value indicating wheter the alter attributes are
+\item{var.wise}{a logical value indicating whether the alter attributes are
 stored variable-wise, if FALSE alter-wise storage is assumed.}
 
-\item{last.col}{Index or name of the first colum containg alter-alter relation data.
+\item{last.col}{Index or name of the first column containing alter-alter relation data.
 #!# Should: Defaults to last column of \code{wide}.}
 
 \item{ego.vars}{A \code{data.frame} of alter attributes in the wide format.}

@@ -81,7 +81,7 @@ aaties_by_ego.nested_egor <- function(x)
   as_tibble(x)$.aaties
 
 #' @describeIn helper Returns the count of possible edges in an
-#' undirected or directed, ego-centered network, based on the number of alters.
+#' un-directed or directed, ego-centered network, based on the number of alters.
 #' @export
 dyad.poss <- function(max.alters, directed = FALSE) {
   dp <- (max.alters ^ 2 - max.alters)

@@ -1,4 +1,4 @@
-#' Order edge list colums with source and target at the beginning.
+#' Order edge list columns with source and target at the beginning.
 #' @keywords internal
 order.edge.list.columns <- function(edges, source_, target) {
   cbind(edges[c(source_, target)], edges[!names(edges) %in% c(source_, target)])

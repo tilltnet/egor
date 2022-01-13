@@ -77,7 +77,7 @@ This section can be customized to change the number of questions about each alte
 
 ### Free-Choice
 
-*Here we describe survey display logic changes necessary to allow the participants to chose themselves how many alters they name. While there will always be an upper limit of alters that can be named, by selecting a very high number for this, you can make sure that the participants can name all the alters they want. At the same time a high maximum number will also lead to a significant amount of additional preparational work for the survey creation. Also with each additional alter named the partcipant will have to respond to more alter attribute and alter-alter questions.*
+*Here we describe survey display logic changes necessary to allow the participants to chose themselves how many alters they name. While there will always be an upper limit of alters that can be named, by selecting a very high number for this, you can make sure that the participants can name all the alters they want. At the same time a high maximum number will also lead to a significant amount of additional work for the survey creation. Also with each additional alter named the participant will have to respond to more alter attribute and alter-alter questions.*
 
 1.  **Ego Attributes**: No changes needed here.
 

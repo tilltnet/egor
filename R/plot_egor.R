@@ -34,8 +34,8 @@
 #' @param type Character. Either "egograph" or "egogram".
 # @param layout `Matrix` of x and y coordinates for nodes. Defaults to 
 # Fruchterman Rheingold layout algorithm.
-#' @param ... Additional arguments forwared to plot.igraph.
-#' @details For type eqals "egograph" ego networks are plotted with `igraph`'s
+#' @param ... Additional arguments forwarded to plot.igraph.
+#' @details For type equals "egograph" ego networks are plotted with `igraph`'s
 #' plotting engine. "egogram" uses a special layout that places the nodes
 #' on a map of (1) concentric circles with (2) subsections, that can be mapped to 
 #' alter variables.

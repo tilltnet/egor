@@ -126,7 +126,7 @@ of venns increase going from the inner circles to the outer circles.}
 
 \item{include_ego}{Logical.}
 
-\item{...}{Additional arguments forwared to plot.igraph.}
+\item{...}{Additional arguments forwarded to plot.igraph.}
 
 \item{ego_alter_edge_width_var}{Name (\code{character}) of alter column.}
 
@@ -139,7 +139,7 @@ of venns increase going from the inner circles to the outer circles.}
 default networks of the four first egos are plotted.
 }
 \details{
-For type eqals "egograph" ego networks are plotted with \code{igraph}'s
+For type equals "egograph" ego networks are plotted with \code{igraph}'s
 plotting engine. "egogram" uses a special layout that places the nodes
 on a map of (1) concentric circles with (2) subsections, that can be mapped to
 alter variables.

@@ -95,7 +95,7 @@ if (FALSE) {
 #' A dataset simulated based on the the original Allbus
 #' 2010 SPSS data. The dataset simulates 100 respondents and does not resemble
 #' any actual Allbus respondents. Each variable is randomly generated based on
-#' the range of the original variables, co-varianaces between variables are
+#' the range of the original variables, co-variations between variables are
 #' disregarded. The data’s purpose is purely to demonstrate how to technically
 #' work with the Allbus data using egor and R - no analytical assumptions should
 #' be made based on this data! 

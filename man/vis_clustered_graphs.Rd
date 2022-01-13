@@ -41,7 +41,7 @@ are plotted using per network proportions rather than counts.}
 
 \item{label.size}{\code{Numeric}.}
 
-\item{labels}{\code{Boolean}. Plots with turned off labels will be preceeded
+\item{labels}{\code{Boolean}. Plots with turned off labels will be accompanied
 by a 'legend' plot giving the labels of the vertices.}
 
 \item{legend.node.size}{\code{Numeric} used as node diameter of legend graph.}

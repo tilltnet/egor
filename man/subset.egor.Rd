@@ -28,7 +28,7 @@ calling environment.)}
 \item{Alter index \code{.altRow}}{ contains the index (counting from 1) of the row number in the alter table.}
 
 \item{Alter--alter indices \code{.srcRow} and \code{.tgtRow}}{ contain the
-index (counting from 1) of the row of the alter being refereced by
+index (counting from 1) of the row of the alter being referenced by
 \code{.srcID} and \code{.tgtID}. (This can be used to quickly access the
 attributes of the alters in question.)}
 
