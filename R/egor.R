@@ -256,13 +256,13 @@ summary.egor <- function(object, ...) {
     if(has_ego_design(object)) {
       
       errwd_value <- 
-        getOption("egor.return.results.with.design")
-      options(egor.return.results.with.design = TRUE)
+        getOption("egor.results_with_design")
+      options(egor.results_with_design = TRUE)
       
       dens <- ego_density(object)
       dens <- survey::svymean(~density, dens)
       
-      options(egor.return.results.with.design = errwd_value)
+      options(egor.results_with_design = errwd_value)
       
     } else {
       
