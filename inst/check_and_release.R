@@ -1,17 +1,14 @@
-library(rhub)
-check_result <- check_for_cran()
-check_result$browse()
-
+devtools::check_rhub(interactive = FALSE)
 
 # For windows if it fails with i.e. "there is no package called 'utf8'"
-rhub::check(
-  platform="windows-x86_64-devel",
-  env_vars=c(R_COMPILE_AND_INSTALL_PACKAGES = "always")
-)
+# rhub::check(
+#   platform="windows-x86_64-devel",
+#   env_vars=c(R_COMPILE_AND_INSTALL_PACKAGES = "always")
+# )
 
 # rhub tests on windows (?) but builds locally, `check_win()` also builds on
 # windows
-devtools::check_win()
+devtools::check_win_release()
 
 # reverse dependency check ----
 

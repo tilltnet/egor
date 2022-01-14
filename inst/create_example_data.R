@@ -57,7 +57,8 @@ egos32 <- egor32$ego$variables
 alters32 <- egor32$alter
 aaties32 <- egor32$aatie
 egor32 <- egor32 |> mutate(sex = factor(sex))
-egor32 <- egor32 |> activate(alter) |>  mutate(sex = factor(sex))
+egor32 <- egor32 |> activate(alter) |>  mutate(sex = factor(sex)) |> activate(ego)
+
 egos32 <- egos32 |> rename_with(toupper, .cols = starts_with("."))
 alters32 <- alters32 |> rename_with(toupper, .cols = starts_with("."))
 aaties32 <- aaties32 |> rename_with(toupper, .cols = starts_with("."))
