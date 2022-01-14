@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">egor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.21.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.22.1</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -70,7 +66,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/tilltnet/egor/">
+  <a href="https://github.com/tilltnet/egor/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -85,25 +81,25 @@
 
       
 
-      </header><script src="qualtrics_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Qualtrics &amp; egor: Setting up and analysing an ego-centered network survey with Qualtrics and egor</h1>
-                        <h4 class="author">Joy Losee, Till Krenz</h4>
+                        <h4 data-toc-skip class="author">Joy Losee, Till Krenz</h4>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/tilltnet/egor/blob/master/vignettes/qualtrics.Rmd"><code>vignettes/qualtrics.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tilltnet/egor/blob/HEAD/vignettes/qualtrics.Rmd" class="external-link"><code>vignettes/qualtrics.Rmd</code></a></small>
       <div class="hidden name"><code>qualtrics.Rmd</code></div>
 
     </div>
 
     
     
-<p>As researchers increasingly opt for online data collection for social network projects, they may find programming the survey and downloading the data from that survey challenging. So, we’ve developed the following tutorial to make the process between data collection with Qualtrics and data analysis with <code>egor</code> more seamless. If you have any questions or suggestions please <a href="https://github.com/tilltnet/egor/issues">open an issue on github</a> or <a href="mailto:jlosee1@udayton.edu">send an email</a>.</p>
+<p>As researchers increasingly opt for online data collection for social network projects, they may find programming the survey and downloading the data from that survey challenging. So, we’ve developed the following tutorial to make the process between data collection with Qualtrics and data analysis with <code>egor</code> more seamless. If you have any questions or suggestions please <a href="https://github.com/tilltnet/egor/issues" class="external-link">open an issue on github</a> or <a href="mailto:jlosee1@udayton.edu">send an email</a>.</p>
 <p>While details will differ the same general logic described here can be applied to other survey platforms, as RedCap, ScoSci Survey, etc.</p>
-<div id="structure-of-an-ego-centered-network-survey" class="section level2">
-<h2 class="hasAnchor">
-<a href="#structure-of-an-ego-centered-network-survey" class="anchor"></a>Structure of an ego-centered network survey</h2>
+<div class="section level2">
+<h2 id="structure-of-an-ego-centered-network-survey">Structure of an ego-centered network survey<a class="anchor" aria-label="anchor" href="#structure-of-an-ego-centered-network-survey"></a>
+</h2>
 <ol style="list-style-type: decimal">
 <li>
 <strong>Ego Attribute Section.</strong> Includes questions about the ego (e.g., demographics, personality inventory, etc.).</li>
@@ -118,9 +114,9 @@
 <img src="Qualtrics1.png" alt=""><p class="caption">Overview of Personal Network Template</p>
 </div>
 </div>
-<div id="best-practices" class="section level2">
-<h2 class="hasAnchor">
-<a href="#best-practices" class="anchor"></a>Best practices</h2>
+<div class="section level2">
+<h2 id="best-practices">Best practices<a class="anchor" aria-label="anchor" href="#best-practices"></a>
+</h2>
 <p>When conducting ego-centered network surveys some practices have proven to decrease drop-out rates and increase the quality of the collected data. Some of the items listed below apply to any kind of survey, while others are specific to ego-centered network data collection.</p>
 <ol style="list-style-type: decimal">
 <li><strong>Informed Consent</strong></li>
@@ -131,19 +127,19 @@
 <li>Make sure that alter-alter questions are in the right order.</li>
 </ol>
 </div>
-<div id="create-an-ego-centered-network-survey" class="section level2">
-<h2 class="hasAnchor">
-<a href="#create-an-ego-centered-network-survey" class="anchor"></a>Create an Ego-Centered Network Survey</h2>
+<div class="section level2">
+<h2 id="create-an-ego-centered-network-survey">Create an Ego-Centered Network Survey<a class="anchor" aria-label="anchor" href="#create-an-ego-centered-network-survey"></a>
+</h2>
 <p><code>egor</code> includes three template files for Qualtrics surveys:</p>
 <ul>
-<li><p><a href="https://raw.githubusercontent.com/tilltnet/egor/master/inst/qualtrics/ego_network_template_fixed_choice_best_practices.qsf">Fixed-Choice with Best practices</a></p></li>
-<li><p><a href="https://raw.githubusercontent.com/tilltnet/egor/master/inst/qualtrics/ego_network_template_fixed_choice.qsf">Fixed-Choice</a></p></li>
-<li><p><a href="https://raw.githubusercontent.com/tilltnet/egor/master/inst/qualtrics/ego_network_template_free_choice_up_to_5_alters.qsf">Free-Choice</a></p></li>
+<li><p><a href="https://raw.githubusercontent.com/tilltnet/egor/master/inst/qualtrics/ego_network_template_fixed_choice_best_practices.qsf" class="external-link">Fixed-Choice with Best practices</a></p></li>
+<li><p><a href="https://raw.githubusercontent.com/tilltnet/egor/master/inst/qualtrics/ego_network_template_fixed_choice.qsf" class="external-link">Fixed-Choice</a></p></li>
+<li><p><a href="https://raw.githubusercontent.com/tilltnet/egor/master/inst/qualtrics/ego_network_template_free_choice_up_to_5_alters.qsf" class="external-link">Free-Choice</a></p></li>
 </ul>
 <p>You can download the template that best fits your needs, import it into Qualtrics and build upon it, to create your own survey. To download right-click on the link above and select “Save link as…” (or similar).</p>
-<div id="fixed-choice" class="section level3">
-<h3 class="hasAnchor">
-<a href="#fixed-choice" class="anchor"></a>Fixed-Choice</h3>
+<div class="section level3">
+<h3 id="fixed-choice">Fixed-Choice<a class="anchor" aria-label="anchor" href="#fixed-choice"></a>
+</h3>
 <p><em>In this section we describe the logic behind the <strong>fixed-choice template</strong>, the following section describes the changes necessary to allow the participants <strong>free-choice</strong> of the number of named alters.</em></p>
 <ol style="list-style-type: decimal">
 <li><p><strong>Ego Attributes</strong>: The ego attributes are usually collected before the name generator. You can do it after as well or both. These survey items are regular questions about the participants themselves, therefore we won’t further explain how to set this up.</p></li>
@@ -157,7 +153,7 @@
 </div>
 <ol start="3" style="list-style-type: decimal">
 <li>
-<strong>Alter Interpretator: Alter Attributes.</strong> The template pipes the names provided in the alter list to the alter attribute questions. <a href="https://www.qualtrics.com/support/survey-platform/survey-module/editing-questions/piped-text/piped-text-overview/#PipingFromAPreviousQuestion">Click here for instructions on piping text in Qualtrics</a>. Each set of alter attribute questions is separated into a question block labeled for that alter (e.g., Alter 1 Attributes, Alter 2 Attributes).</li>
+<strong>Alter Interpretator: Alter Attributes.</strong> The template pipes the names provided in the alter list to the alter attribute questions. <a href="https://www.qualtrics.com/support/survey-platform/survey-module/editing-questions/piped-text/piped-text-overview/#PipingFromAPreviousQuestion" class="external-link">Click here for instructions on piping text in Qualtrics</a>. Each set of alter attribute questions is separated into a question block labeled for that alter (e.g., Alter 1 Attributes, Alter 2 Attributes).</li>
 </ol>
 <p>This section can be customized to change the number of questions about each alter and to change the wording and response style of each question. Like a standard survey—all other Qualtrics programming should work for the alter attribute questions. If you require more than 5 alters, you will need add as many blocks of alter attribute questions as alters listed (e.g., 10 alters listed would need 10 blocks of alter attribute questions). We recommend finalizing question wording and format in Block 1 of alter attribute questions and copying that block for as many alters as requested in the list. Then, in each block, adjust the code for the piped text so that it refers to the appropriate list slot (e.g., Block 2 of alter attribute questions should pipe the response to the second list slot from the alter list).</p>
 <div class="figure">
@@ -174,10 +170,10 @@
 <img src="Qualtrics6.png" alt=""><p class="caption">Example of alter pair questions with piped text from alter list</p>
 </div>
 </div>
-<div id="free-choice" class="section level3">
-<h3 class="hasAnchor">
-<a href="#free-choice" class="anchor"></a>Free-Choice</h3>
-<p><em>Here we describe survey display logic changes necessary to allow the participants to chose themselves how many alters they name. While there will always be an upper limit of alters that can be named, by selecting a very high number for this, you can make sure that the participants can name all the alters they want. At the same time a high maximum number will also lead to a significant amount of additional preparational work for the survey creation. Also with each additional alter named the partcipant will have to respond to more alter attribute and alter-alter questions.</em></p>
+<div class="section level3">
+<h3 id="free-choice">Free-Choice<a class="anchor" aria-label="anchor" href="#free-choice"></a>
+</h3>
+<p><em>Here we describe survey display logic changes necessary to allow the participants to chose themselves how many alters they name. While there will always be an upper limit of alters that can be named, by selecting a very high number for this, you can make sure that the participants can name all the alters they want. At the same time a high maximum number will also lead to a significant amount of additional work for the survey creation. Also with each additional alter named the participant will have to respond to more alter attribute and alter-alter questions.</em></p>
 <ol style="list-style-type: decimal">
 <li><p><strong>Ego Attributes</strong>: No changes needed here.</p></li>
 <li><p><strong>Name Generator</strong>: To give participants the option to leave some names in the alter list blank, you will have to skip/delete the <em>Custom Validations</em> which check that the name fields contain names.</p></li>
@@ -188,7 +184,7 @@
 </div>
 <ol start="4" style="list-style-type: decimal">
 <li>
-<p><strong>Alter-Alter Ties</strong>. Add <a href="https://www.qualtrics.com/support/survey-platform/survey-module/question-options/display-logic/#HidingQuestionswithDisplayLogic">Display logic</a> to each alter-alter pair question that will hide questions if one of the alters to which the question refers is left blank. We recommend preparing and finalizing one alter-alter tie question including the Display Logic and then copy this question as many times as needed and adjust only the piped text and Display Logic for each alter-alter combination.</p>
+<p><strong>Alter-Alter Ties</strong>. Add <a href="https://www.qualtrics.com/support/survey-platform/survey-module/question-options/display-logic/#HidingQuestionswithDisplayLogic" class="external-link">Display logic</a> to each alter-alter pair question that will hide questions if one of the alters to which the question refers is left blank. We recommend preparing and finalizing one alter-alter tie question including the Display Logic and then copy this question as many times as needed and adjust only the piped text and Display Logic for each alter-alter combination.</p>
 <div class="figure">
 <img src="Qualtrics8.png" width="700" alt=""><p class="caption">Display Logic of an alter-alter question (free-choice only)</p>
 </div>
@@ -196,25 +192,24 @@
 </ol>
 </div>
 </div>
-<div id="downloading-the-data-and-importing-it-with-egor" class="section level2">
-<h2 class="hasAnchor">
-<a href="#downloading-the-data-and-importing-it-with-egor" class="anchor"></a>Downloading the data and importing it with <code>egor</code>
+<div class="section level2">
+<h2 id="downloading-the-data-and-importing-it-with-egor">Downloading the data and importing it with <code>egor</code><a class="anchor" aria-label="anchor" href="#downloading-the-data-and-importing-it-with-egor"></a>
 </h2>
 <ol style="list-style-type: decimal">
-<li>Download data from qualtrics in the CSV format. <a href="https://www.qualtrics.com/support/survey-platform/data-and-analysis-module/data/download-data/export-data-overview/">Click here for instructions on downloading data from Qualtrics</a>
+<li>Download data from qualtrics in the CSV format. <a href="https://www.qualtrics.com/support/survey-platform/data-and-analysis-module/data/download-data/export-data-overview/" class="external-link">Click here for instructions on downloading data from Qualtrics</a>
 </li>
 <li>Import data into R as an <code>egor</code> object with the code below.</li>
 </ol>
-<pre><code>qu_data &lt;- read.csv(file = "filename.csv") # Replace file name with full data set name!</code></pre>
+<pre><code><span class="va">qu_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"filename.csv"</span><span class="op">)</span> <span class="co"># Replace file name with full data set name!</span></code></pre>
 <!-- -->
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
-<span class="va">qu_data</span> <span class="op">&lt;-</span> <span class="va">qu_data</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">qu_data</span><span class="op">)</span>,<span class="op">]</span>
+<span class="va">qu_data</span> <span class="op">&lt;-</span> <span class="va">qu_data</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">qu_data</span><span class="op">)</span>,<span class="op">]</span>
 
 <span class="co"># Create egoID</span>
-<span class="va">qu_data</span><span class="op">$</span><span class="va">egoID</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">qu_data</span><span class="op">)</span>
+<span class="va">qu_data</span><span class="op">$</span><span class="va">egoID</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">qu_data</span><span class="op">)</span>
 
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tilltnet/egor">egor</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tilltnet/egor" class="external-link">egor</a></span><span class="op">)</span>
 <span class="co">#&gt; Loading required package: dplyr</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Attaching package: 'dplyr'</span>
@@ -227,7 +222,7 @@
 <span class="co">#&gt; Loading required package: tibble</span>
 
 <span class="va">e1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/onefile_to_egor.html">onefile_to_egor</a></span><span class="op">(</span>egos <span class="op">=</span> <span class="va">qu_data</span>,
-                      ID.vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>ego <span class="op">=</span> <span class="st">"egoID"</span><span class="op">)</span>,
+                      ID.vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>ego <span class="op">=</span> <span class="st">"egoID"</span><span class="op">)</span>,
                       attr.start.col <span class="op">=</span> <span class="st">"A1Gender"</span>, <span class="co"># Name of Variable with the first alter attribute</span>
                       attr.end.col <span class="op">=</span> <span class="st">"X5.5"</span>, <span class="co"># Name of variable with last alter attribute</span>
                       max.alters <span class="op">=</span> <span class="fl">5</span>, <span class="co"># Number of maximum alters that were named by participants</span>
@@ -245,51 +240,51 @@
 <p>The logic behind this step is to first create a <code>logical vector</code> that marks each alter as <code>TRUE</code> (= exists) if the name cell for that alter is not empty and and as <code>FALSE</code> if it is empty. Next this <code>logical vector</code> is applied to the alter dataset in the <code>egor</code> object to filter out all empty alter entries.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">alter_filter</span> <span class="op">&lt;-</span> 
-  <span class="va">e1</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">arrange</span><span class="op">(</span><span class="va">.egoID</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="http://gdfe.co/srvyr/reference/dplyr_single.html">select</a></span><span class="op">(</span><span class="va">AlterList_1</span><span class="op">:</span><span class="va">AlterList_5</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="http://gdfe.co/srvyr/reference/dplyr_single.html">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span>.fns <span class="op">=</span> <span class="op">~</span><span class="va">.</span> <span class="op">!=</span> <span class="st">""</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="fu">everything</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="http://gdfe.co/srvyr/reference/dplyr_single.html">pull</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span>
+  <span class="va">e1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">.egoID</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">AlterList_1</span><span class="op">:</span><span class="va">AlterList_5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span>.fns <span class="op">=</span> <span class="op">~</span><span class="va">.</span> <span class="op">!=</span> <span class="st">""</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span>
 
 <span class="va">e1</span> <span class="op">&lt;-</span> 
-  <span class="va">e1</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/activate.html">activate</a></span><span class="op">(</span><span class="va">alter</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="http://gdfe.co/srvyr/reference/dplyr_single.html">filter</a></span><span class="op">(</span><span class="va">alter_filter</span><span class="op">)</span></code></pre></div>
+  <span class="va">e1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/activate.html" class="external-link">activate</a></span><span class="op">(</span><span class="va">alter</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">alter_filter</span><span class="op">)</span></code></pre></div>
 <p>Similar to the alter data the alter-alter ties contain rows that represent ties between alters that might not exist. These can be filtered out by excluding all rows/ alter-alter ties with an empty weight variable.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">e1</span> <span class="op">&lt;-</span> 
-  <span class="va">e1</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/activate.html">activate</a></span><span class="op">(</span><span class="va">aatie</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="http://gdfe.co/srvyr/reference/dplyr_single.html">filter</a></span><span class="op">(</span><span class="va">weight</span> <span class="op">!=</span> <span class="st">""</span><span class="op">)</span></code></pre></div>
+  <span class="va">e1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/activate.html" class="external-link">activate</a></span><span class="op">(</span><span class="va">aatie</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">weight</span> <span class="op">!=</span> <span class="st">""</span><span class="op">)</span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Inspect <code>egor</code> object.</li>
 </ol>
 <!-- --><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R">    <span class="va">e1</span>
-<span class="co">#&gt; # EGO data: 5 x 28</span>
+<span class="co">#&gt; # EGO data: 5 × 28</span>
 <span class="co">#&gt;   .egoID StartDate EndDate Status IPAddress Progress Duration..in.se… Finished</span>
-<span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;   </span>
-<span class="co">#&gt; 1 1      2021-03-… 2021-0… Surve… ""        100      0                True    </span>
-<span class="co">#&gt; 2 2      2021-03-… 2021-0… Surve… ""        100      0                True    </span>
-<span class="co">#&gt; 3 3      2021-03-… 2021-0… Surve… ""        100      0                True    </span>
-<span class="co">#&gt; # ALTER data: 7 x 8</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 1      2021-03-… 2021-0… Surve… <span style="color: #949494;">""</span>        100      0                True    </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 2      2021-03-… 2021-0… Surve… <span style="color: #949494;">""</span>        100      0                True    </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 3      2021-03-… 2021-0… Surve… <span style="color: #949494;">""</span>        100      0                True    </span>
+<span class="co">#&gt; # ALTER data: 7 × 8</span>
 <span class="co">#&gt;   .altID .egoID A1Gender   A1age   A1relation A1Location_1 A1Location_2 A1Close </span>
-<span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;      &lt;chr&gt;   &lt;chr&gt;      &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;   </span>
-<span class="co">#&gt; 1 1      4      Choose No… Choose… Other      ad           "asd"        Very cl…</span>
-<span class="co">#&gt; 2 2      4      Female     40-49   Spouse     asd          "asd"        Not clo…</span>
-<span class="co">#&gt; 3 1      5      Choose No… 31-39   School     asd          ""           Somewha…</span>
-<span class="co">#&gt; # AATIE data ([32mactive[39m): 11 x 4</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 1      4      Choose No… Choose… Other      ad           <span style="color: #949494;">"</span>asd<span style="color: #949494;">"</span>        Very cl…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 2      4      Female     40-49   Spouse     asd          <span style="color: #949494;">"</span>asd<span style="color: #949494;">"</span>        Not clo…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 1      5      Choose No… 31-39   School     asd          <span style="color: #949494;">""</span>           Somewha…</span>
+<span class="co">#&gt; # AATIE data (<span style="color: #00BB00;">active</span>): 11 × 4</span>
 <span class="co">#&gt;   .egoID .srcID .tgtID weight</span>
-<span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt; </span>
-<span class="co">#&gt; 1 4      1      2      Maybe </span>
-<span class="co">#&gt; 2 5      1      2      Yes   </span>
-<span class="co">#&gt; 3 5      1      3      Maybe </span>
-<span class="co">#&gt; 4 5      1      4      No    </span>
-<span class="co">#&gt; 5 5      1      5      Maybe</span>
-    <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">e1</span><span class="op">)</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 4      1      2      Maybe </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 5      1      2      Yes   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 5      1      3      Maybe </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 5      1      4      No    </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 5      1      5      Maybe</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">e1</span><span class="op">)</span>
 <span class="co">#&gt; 5 Egos/ Ego Networks </span>
 <span class="co">#&gt; 7 Alters </span>
 <span class="co">#&gt; Min. Netsize 2 </span>
@@ -315,11 +310,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Till Krenz, Pavel N. Krivitsky, Raffaele Vacca, Michal Bojanowski, Andreas Herz.</p>
+  <p></p>
+<p>Developed by Till Krenz, Pavel N. Krivitsky, Raffaele Vacca, Michal Bojanowski, Andreas Herz.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -327,6 +324,8 @@
 
   
 
+
+  
 
   </body>
 </html>

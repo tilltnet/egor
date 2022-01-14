@@ -24,6 +24,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -36,18 +38,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">egor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.21.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.22.1</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
@@ -75,7 +71,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/tilltnet/egor/">
+  <a href="https://github.com/tilltnet/egor/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -94,22 +90,22 @@
   <div class="contents col-md-9">
 
 
-<div id="egor" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#egor" class="anchor"></a>egor</h1></div>
-<p>Tools for importing, analyzing and visualizing ego-centered or personal network data. egor integrates nicely with the <a href="http://www.tidyverse.org">tidyverse</a>, by providing methods for most <code>dplyr</code> commands. An <code>egor</code> object contains the three data levels, <code>ego</code>, <code>alter</code> and alter-alter ties (<code>aatie</code>). In order to switch between the three data levels the <code><a href="https://tidygraph.data-imaginist.com/reference/activate.html">activate()</a></code> concept is lent from the <a href="https://github.com/thomasp85/tidygraph">tidygraph</a> package.</p>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<div class="section level1">
+<div class="page-header"><h1 id="egor">egor<a class="anchor" aria-label="anchor" href="#egor"></a>
+</h1></div>
+<p>Tools for importing, analyzing and visualizing ego-centered or personal network data. egor integrates nicely with the <a href="http://www.tidyverse.org" class="external-link">tidyverse</a>, by providing methods for most <code>dplyr</code> commands. An <code>egor</code> object contains the three data levels, <code>ego</code>, <code>alter</code> and alter-alter ties (<code>aatie</code>). In order to switch between the three data levels the <code><a href="https://tidygraph.data-imaginist.com/reference/activate.html" class="external-link">activate()</a></code> concept is lent from the <a href="https://github.com/thomasp85/tidygraph" class="external-link">tidygraph</a> package.</p>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install release version from CRAN</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"egor"</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Install development version from GitHub</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="at">repo=</span><span class="st">"tilltnet/egor"</span>)</span></code></pre></div>
 </div>
-<div id="visualize" class="section level2">
-<h2 class="hasAnchor">
-<a href="#visualize" class="anchor"></a>Visualize</h2>
+<div class="section level2">
+<h2 id="visualize">Visualize<a class="anchor" aria-label="anchor" href="#visualize"></a>
+</h2>
 <p><code>egor</code> offers a few visualization techniques for ego-centered network data:</p>
 <ul>
 <li>regular network plots <img src="https://www.tillt.net/egor/reference/figures/network_plot.png">
@@ -122,23 +118,23 @@
 <p>And there is a Network Visualization App providing a graphical interface that let’s the user compose their visualizations interactively.</p>
 <p><img src="https://www.tillt.net/egor/reference/figures/vis_wizzard.png"></p>
 </div>
-<div id="import-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#import-data" class="anchor"></a>Import data</h2>
-<p>An egor object can be created with the <code><a href="reference/as.egor.html">egor()</a></code> command. In addition there are some functions that import specific data formats for ego-centered network data.</p>
+<div class="section level2">
+<h2 id="import-data">Import data<a class="anchor" aria-label="anchor" href="#import-data"></a>
+</h2>
+<p>An egor object can be created with the <code><a href="reference/egor.html">egor()</a></code> command. In addition there are some functions that import specific data formats for ego-centered network data.</p>
 <p>There are currently three importing functions that read the data exported from data collection tools from the hard drive and load them as an <code>egor</code> object.</p>
-<pre><code><a href="reference/threefiles_to_egor.html">read_openeddi()
-read_egoweb()
-read_egonet()</a></code></pre>
+<pre><code><span class="fu"><a href="reference/threefiles_to_egor.html">read_openeddi</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu"><a href="reference/threefiles_to_egor.html">read_egoweb</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu"><a href="reference/read_egonet.html">read_egonet</a></span><span class="op">(</span><span class="op">)</span></code></pre>
 <p>In addition there are three functions that help with the transformation of common data formats of ego-centered network data into egor objects:</p>
-<pre><code><a href="reference/onefile_to_egor.html">onefile_to_egor()
-twofiles_to_egor()
-threefiles_to_egor()</a></code></pre>
+<pre><code><span class="fu"><a href="reference/onefile_to_egor.html">onefile_to_egor</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu"><a href="reference/twofiles_to_egor.html">twofiles_to_egor</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu"><a href="reference/threefiles_to_egor.html">threefiles_to_egor</a></span><span class="op">(</span><span class="op">)</span></code></pre>
 </div>
-<div id="analyse" class="section level2">
-<h2 class="hasAnchor">
-<a href="#analyse" class="anchor"></a>Analyse</h2>
-<p>There are a few commands facilitating the anlysis of ego-centered networks. To learn more, please take a look at the package <a href="articles/using_egor.html">vignette</a>.</p>
+<div class="section level2">
+<h2 id="analyse">Analyse<a class="anchor" aria-label="anchor" href="#analyse"></a>
+</h2>
+<p>There are a few commands facilitating the analysis of ego-centered networks. To learn more, please take a look at the package <a href="articles/using_egor.html">vignette</a>.</p>
 </div>
 </div>
 
@@ -146,52 +142,62 @@ threefiles_to_egor()</a></code></pre>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=egor">https://​cloud.r-project.org/​package=egor</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/tilltnet/egor/">https://​github.com/​tilltnet/​egor/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/tilltnet/egor/issues">https://​github.com/​tilltnet/​egor/​issues</a>
-</li>
+<li><a href="https://cloud.r-project.org/package=egor" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/tilltnet/egor/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/tilltnet/egor/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://www.r-project.org/Licenses/AGPL-3">AGPL-3</a></small></li>
+<li><small><a href="https://www.r-project.org/Licenses/AGPL-3" class="external-link">AGPL-3</a></small></li>
 </ul>
 </div>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing egor</a></li>
+</ul>
+</div>
+
 <div class="developers">
-<h2>Developers</h2>
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
 <li>Till Krenz <br><small class="roles"> Author, maintainer </small>  </li>
 <li>Pavel N. Krivitsky <br><small class="roles"> Author </small>  </li>
 <li>Raffaele Vacca <br><small class="roles"> Author </small>  </li>
-<li>Michal Bojanowski <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0001-7503-852X" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Michal Bojanowski <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0001-7503-852X" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>Andreas Herz <br><small class="roles"> Author </small>  </li>
-<li><a href="authors.html">All authors...</a></li>
+<li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://ci.appveyor.com/project/tilltnet/egor"><img src="https://ci.appveyor.com/api/projects/status/github/tilltnet/egor?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
-<li><a href="https://github.com/tilltnet/egor/actions"><img src="https://github.com/tilltnet/egor/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://ci.appveyor.com/project/tilltnet/egor" class="external-link"><img src="https://ci.appveyor.com/api/projects/status/github/tilltnet/egor?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
+<li><a href="https://github.com/tilltnet/egor/actions" class="external-link"><img src="https://github.com/tilltnet/egor/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
 </ul>
 </div>
-</div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Till Krenz, Pavel N. Krivitsky, Raffaele Vacca, Michal Bojanowski, Andreas Herz.</p>
+  <p></p>
+<p>Developed by Till Krenz, Pavel N. Krivitsky, Raffaele Vacca, Michal Bojanowski, Andreas Herz.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -199,6 +205,8 @@ threefiles_to_egor()</a></code></pre>
 
   
 
+
+  
 
   </body>
 </html>
