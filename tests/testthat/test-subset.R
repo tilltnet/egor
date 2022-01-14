@@ -54,7 +54,8 @@ test_that("subset.egor() works as specified in docs", {
   expect_equal(test2$ego$variables$country[1], "Australia")
   
   test3 <- subset(egor32, ego$sex == "m", unit = "alter")
-  test3a <- filter(test3, .egoID %in% unique(test3$alter$.egoID)) %>% 
+  test3a <- test3 %>% 
+    filter(.egoID %in% unique(test3$alter$.egoID)) %>% 
     pull(sex) %>% as.character()
   expect_equal(unique(test3a), "m")  
   
