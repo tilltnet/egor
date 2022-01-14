@@ -1,3 +1,7 @@
+# egor 1.22.1
+
+- bug fixes
+
 # egor 1.21.6
 
 - added vignette for ego-centered network surveys in Qualtrics
