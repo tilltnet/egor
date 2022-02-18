@@ -23,3 +23,6 @@
 ## usethis namespace: start
 ## usethis namespace: end
 NULL
+
+## quiets concerns of R CMD check re: the .'s that appears in pipelines
+if(getRversion() >= "2.15.1") utils::globalVariables(c("."))
