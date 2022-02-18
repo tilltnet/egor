@@ -2,10 +2,13 @@
 % Please edit documentation in R/egor-package.R
 \docType{package}
 \name{egor-package}
-\alias{egor}
 \alias{egor-package}
-\title{R Package for importing and analyzing ego-centered-network data.}
+\alias{_PACKAGE}
+\title{R Package for importing and analyzing ego-centered-network data}
 \description{
+Tools for importing, analyzing and visualizing ego-centered network data. Supports several data formats, including the export formats of 'EgoNet', 'EgoWeb 2.0' and 'openeddi'. An interactive (shiny) app for the intuitive visualization of ego-centered networks is provided. Also included are procedures for creating and visualizing Clustered Graphs (Lerner 2008 <DOI:10.1109/PACIFICVIS.2008.4475458>).
+}
+\details{
 When analyzing ego-centered network data it is common to either
 include or exclude data on ego. By default \code{egor} excludes ego for most
 analytic and visual functions and offers to include ego with the argument
