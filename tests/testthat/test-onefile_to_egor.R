@@ -105,7 +105,7 @@ test_that("onefile_to_egor filters out alters by network size", {
 })
 
 
-IDv <- list()
-IDv$ego <- "V2"
-
-# tibble!!
+# IDv <- list()
+# IDv$ego <- "V2"
+# 
+# # tibble!!

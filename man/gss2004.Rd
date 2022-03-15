@@ -26,7 +26,7 @@ Variables:
 }
 }
 \source{
-General Social Survey data at NORC: \url{http://gss.norc.org/get-the-data}
+General Social Survey data at NORC: \url{https://gss.norc.org/get-the-data}
 }
 \usage{
 gss2004
