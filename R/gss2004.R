@@ -38,12 +38,12 @@
 #' via simple random sampling with replacement.
 #' 
 #' 
-#' @source General Social Survey data at NORC: \url{http://gss.norc.org/get-the-data}
+#' @source General Social Survey data at NORC: \url{https://gss.norc.org/get-the-data}
 "gss2004"
 
 
 
-if(FALSE) {
+if (FALSE) {
   ### Code used to make the dataset
 
    # library(tidyverse)
