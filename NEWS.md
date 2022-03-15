@@ -1,3 +1,8 @@
+# egor 1.22.3
+
+- dropped AppVeyor CI
+- some house keeping
+
 # egor 1.22.1
 
 - bug fixes

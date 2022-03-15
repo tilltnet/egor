@@ -1,6 +1,5 @@
 [![CRAN status](https://www.r-pkg.org/badges/version/egor)](https://CRAN.R-project.org/package=egor)
 [![R-CMD-check](https://github.com/tilltnet/egor/workflows/R-CMD-check/badge.svg)](https://github.com/tilltnet/egor/actions)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/tilltnet/egor?branch=master&svg=true)](https://ci.appveyor.com/project/tilltnet/egor)
 
 # egor
 

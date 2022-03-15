@@ -36,9 +36,9 @@ df <- make_egor(10, 32)
 comp_ply(df, "age.years", sd, na.rm = TRUE)
 }
 \author{
-Michał Bojanowski, \email{m.bojanowski@uw.edu.pl}
+Michał Bojanowski, \email{michal2992@gmail.com}
 
-Till Krenz, \email{public@tillt.net}
+Till Krenz, \email{egor@tillt.net}
 }
 \keyword{analysis}
 \keyword{ego-centered}

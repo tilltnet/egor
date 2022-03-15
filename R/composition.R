@@ -64,8 +64,8 @@ composition <- function(object, alt.attr, absolute = FALSE) {
 #' @examples
 #' df <- make_egor(10, 32)
 #' comp_ply(df, "age.years", sd, na.rm = TRUE)
-#' @author Michał Bojanowski, \email{m.bojanowski@uw.edu.pl}
-#' @author Till Krenz, \email{public@tillt.net}
+#' @author Michał Bojanowski, \email{michal2992@gmail.com}
+#' @author Till Krenz, \email{egor@tillt.net}
 #' @importFrom purrr map2_dbl
 #' @export
 comp_ply <-
@@ -115,8 +115,8 @@ comp_ply <-
 #' data("egor32")
 #' alts_diversity_count(egor32, "age")
 #' alts_diversity_entropy(egor32, "age")
-#' @author Michał Bojanowski, \email{m.bojanowski@uw.edu.pl}
-#' @author Till Krenz, \email{public@tillt.net}
+#' @author Michał Bojanowski, \email{michal2992@gmail.com}
+#' @author Till Krenz, \email{egor@tillt.net}
 #' @export
 alts_diversity_count <- function(object, alt.attr) 
   comp_ply(object, alt.attr, .f = fun_alts_diversity, result.name = "diversity")

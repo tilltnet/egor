@@ -30,9 +30,9 @@ alts_diversity_count(egor32, "age")
 alts_diversity_entropy(egor32, "age")
 }
 \author{
-Michał Bojanowski, \email{m.bojanowski@uw.edu.pl}
+Michał Bojanowski, \email{michal2992@gmail.com}
 
-Till Krenz, \email{public@tillt.net}
+Till Krenz, \email{egor@tillt.net}
 }
 \keyword{analysis}
 \keyword{ego-centered}
