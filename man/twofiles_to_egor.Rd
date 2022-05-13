@@ -9,8 +9,8 @@ twofiles_to_egor(
   alters,
   ID.vars = list(ego = "egoID", alter = "alterID", source = "Source", target =
     "Target"),
-  e.max.alters,
-  e.first.var,
+  max.alters,
+  aa.first.var,
   selection = NULL,
   ...
 )
@@ -40,9 +40,9 @@ alter identifier of the destination of a relation.}
 
 }}
 
-\item{e.max.alters}{Maximum number of alters that are included in edge data.}
+\item{max.alters}{Maximum number of alters that are included in edge data.}
 
-\item{e.first.var}{Index or name of the first column in \code{egos} containing edge data.}
+\item{aa.first.var}{Index or name of the first column in \code{egos} containing alter-alter data.}
 
 \item{selection}{\code{Character} naming \code{numeric} variable indicating
 alters selection with zeros and ones.}
@@ -70,13 +70,11 @@ path_to_one_file_8 <- system.file("extdata", "one_file_8.csv", package = "egor")
 egos_8 <- read.csv2(path_to_one_file_8, row.names = 1)
 alters_8 <- read.csv2(path_to_alters_8.csv, row.names = 1)
 
-dy.first.var <- which(names(egos_8) == "X1.to.2")
-
 # convert to egor object
   twofiles_to_egor(
     egos = egos_8,
     alters = alters_8,
-    e.max.alters = 8,
-    e.first.var = dy.first.var)
+    max.alters = 8,
+    aa.first.var = "X1.to.2")
 }
 \keyword{import}

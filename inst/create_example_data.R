@@ -64,3 +64,20 @@ alters32 <- alters32 |> rename_with(toupper, .cols = starts_with("."))
 aaties32 <- aaties32 |> rename_with(toupper, .cols = starts_with("."))
 
 usethis::use_data(egor32, egos32, alters32, aaties32, overwrite = TRUE)
+
+
+# reduce egos_8, alters_8 and alters_8_wide to 16 egos
+
+alters_8_wide |> 
+  select(-...1) |> 
+  slice(1:16) |> 
+  write_csv2("inst/extdata/alters_8_wide.csv")
+
+alters_8 |> 
+  filter(egoID %in% 1:16) |> 
+  write_csv2("inst/extdata/alters_8.csv")
+
+egos_8 |> 
+  slice(1:16) |> 
+  write_csv2("inst/extdata/egos_8.csv")
+

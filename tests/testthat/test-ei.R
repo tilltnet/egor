@@ -1,4 +1,5 @@
 test_that("EI() works.",
+          skip_on_cran()
           {
             eigor <- make_egor(net.count = 6, max.alters = 20)
             
@@ -68,6 +69,7 @@ test_that("EI() works.",
 
 test_that("EI() works with include.ego",
           {
+            skip_on_cran()
             eigor <- make_egor(net.count = 6, max.alters = 20)
             
             expect_error({
@@ -89,6 +91,7 @@ test_that("EI() works rescale TRUE/FALSE",
 
 test_that("comp_ei handles extreme values (only one group in alts) correctly",
           {
+            skip_on_cran()
             egor32 <- make_egor(32, 10)
             
             make_nas <- function(var) {
@@ -118,6 +121,7 @@ test_that("comp_ei handles extreme values (only one group in alts) correctly",
 
 test_that("comp_ei handles character vectors correctly",
           {
+            skip_on_cran()
             e1 <- make_egor(32,32)
             egor32 <- e1
             e1$ego$sex <- as.character(e1$ego$sex)
@@ -133,6 +137,7 @@ test_that("comp_ei handles character vectors correctly",
           })
 
 test_that("EI() ungroups data first", {
+  skip_on_cran()
   eigor <- make_egor(net.count = 6, max.alters = 20)
   expect_error(eigor %>% 
     activate(aatie) %>% 
@@ -141,6 +146,7 @@ test_that("EI() ungroups data first", {
   })
 
 test_that("EI() returns tbl_svy object, when ego_design present", {
+  skip_on_cran()
   x <- make_egor(5, 32)
   
   x$ego$sampling_weight <-
@@ -154,6 +160,7 @@ test_that("EI() returns tbl_svy object, when ego_design present", {
 
 
 test_that("EI() ungroups data first", {
+  skip_on_cran()
   data("egor32")
   expect_error(egor32 %>% 
                  activate(aatie) %>% 
