@@ -1,6 +1,6 @@
 test_that("EI() works.",
-          skip_on_cran()
           {
+          skip_on_cran()
             eigor <- make_egor(net.count = 6, max.alters = 20)
             
             expect_error(EI(object = eigor, alt.attr = "age"), NA, label = "regular")
@@ -82,6 +82,7 @@ test_that("EI() works with include.ego",
 
 test_that("EI() works rescale TRUE/FALSE",
           {
+            skip_on_cran()
             eigor <- make_egor(net.count = 6, max.alters = 20)
             expect_error({
             EI(object = eigor, alt.attr = "age", rescale = FALSE)
