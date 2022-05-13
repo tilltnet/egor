@@ -1,4 +1,6 @@
 test_that("twofiles_to_egor can handle alters without aaties", {
+  skip_on_cran()
+  
   path_to_alters_8.csv <-
     system.file("extdata", "alters_8.csv", package = "egor")
   path_to_one_file_8 <-
@@ -17,11 +19,11 @@ test_that("twofiles_to_egor can handle alters without aaties", {
   dy.first.var <- which(names(egos_8) == "X1.to.2")
   
   expect_error(
-    e <- twofiles_to_egor(
+    twofiles_to_egor(
       egos = egos_8,
       alters = alters_8,
-      e.max.alters = 8,
-      e.first.var = dy.first.var
+      max.alters = 8,
+      aa.first.var = dy.first.var
     ),
     NA
   )
@@ -29,6 +31,8 @@ test_that("twofiles_to_egor can handle alters without aaties", {
 
 
 test_that("twofiles_to_egor creates alter ID if none is present", {
+  skip_on_cran()
+  
   path_to_alters_8.csv <-
     system.file("extdata", "alters_8.csv", package = "egor")
   path_to_one_file_8 <-
@@ -47,17 +51,19 @@ test_that("twofiles_to_egor creates alter ID if none is present", {
   dy.first.var <- which(names(egos_8) == "X1.to.2")
   
   expect_error(
-    e <- twofiles_to_egor(
+    twofiles_to_egor(
       egos = egos_8,
       alters = select(alters_8, -alterID),
-      e.max.alters = 8,
-      e.first.var = dy.first.var
+      max.alters = 8,
+      aa.first.var = dy.first.var
     ),
     NA
   )
 })
 
 test_that("harmonize_id_var_classes works", {
+  skip_on_cran()
+  
   var_names1 <- c("a", "c")
   var_names2 <- c("e", "c")
   a <- egor:::harmonize_id_var_classes(
@@ -85,6 +91,8 @@ test_that("harmonize_id_var_classes works", {
 
 test_that("twofiles_to_egor returns consistent ID classes",
           {
+            skip_on_cran()
+            
             path_to_alters_8.csv <-
               system.file("extdata", "alters_8.csv", package = "egor")
             path_to_one_file_8 <-
@@ -107,8 +115,8 @@ test_that("twofiles_to_egor returns consistent ID classes",
             e <- twofiles_to_egor(
               egos = egos_8,
               alters = alters_8,
-              e.max.alters = 8,
-              e.first.var = dy.first.var
+              max.alters = 8,
+              aa.first.var = dy.first.var
             )
             expect_equal(class(e$alter$.altID), class(e$aatie$.srcID))
             expect_equal(class(e$alter$.altID), class(e$aatie$.tgtID))

@@ -36,8 +36,8 @@ test_that(
       twofiles_to_egor(
         egos = egos_8,
         alters = alters_8,
-        e.max.alters = 8,
-        e.first.var = dy.first.var),
+        max.alters = 8,
+        aa.first.var = dy.first.var),
       NA)
     
     alters_8$selection1 <-
@@ -57,8 +57,8 @@ test_that(
           source = "Source",
           target = "Target"
         ),
-        e.max.alters = 8,
-        e.first.var = dy.first.var,
+        max.alters = 8,
+        aa.first.var = dy.first.var,
         selection = "selection1"),
         
       NA)
@@ -73,8 +73,8 @@ test_that(
           source = "Source",
           target = "Target"
         ),
-        e.max.alters = 8,
-        e.first.var = dy.first.var,
+        max.alters = 8,
+        aa.first.var = dy.first.var,
         selection = "selection2"),
       
       NA)
@@ -89,8 +89,8 @@ test_that(
           source = "Source",
           target = "Target"
         ),
-        e.max.alters = 8,
-        e.first.var = dy.first.var,
+        max.alters = 8,
+        aa.first.var = dy.first.var,
         selection = "selection3"),
       
       NA)
@@ -110,8 +110,8 @@ test_that(
 #   which(names(egos_raw) == "b10_1_2") # Insert variable name of first alter-alter variable.
 #   transnat <- twofiles_to_egor(egos = egos_raw, 
 #                                alters = alteri_raw, 
-#                                e.max.alters = 8,
-#                                e.first.var = 12, 
+#                                max.alters = 8,
+#                                aa.first.var = 12, 
 #                                selection = "selected")
 #   a <- transnat$aatie %>% 
 #     filter(.egoID == 12) %>% 

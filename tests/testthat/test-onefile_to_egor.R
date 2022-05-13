@@ -2,7 +2,7 @@ context("test-onefile_to_egor.R")
 
 test_that("onefile_to_egor works with var wise data", {
   # create test data
-  
+  skip_on_cran()
   raw_data_vv <- data.frame(
     V2 = 1:3,
     netsize = sample(1:3, 3, replace = T),
@@ -32,7 +32,7 @@ test_that("onefile_to_egor works with var wise data", {
 
 test_that("onefile_to_egor works with alter wise data", {
   # create test data
-  
+  skip_on_cran()
   raw_data <- data.frame(
     V2 = 1:3,
     netsize = sample(1:3, 3, replace = T),
@@ -64,7 +64,7 @@ test_that("onefile_to_egor works with alter wise data", {
 
 test_that("onefile_to_egor filters out alters by network size", {
   # create test data
-  
+  skip_on_cran()
   raw_data <- data.frame(
     V2 = 1:3,
     netsize = sample(1:3, 3, replace = T),

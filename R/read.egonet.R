@@ -42,7 +42,7 @@ common_prefix <- function(x) {
   while (length(unique(sapply(x, substr, 1, j + 1))) == 1)
     j <- j + 1
   res <- substr(x[1], 1, j)
-  if(nchar(res) == 0) return(x[1])
+  if (nchar(res) == 0) return(x[1])
   res
 }
 
@@ -319,15 +319,11 @@ wide.dyads.to.edgelist.regex <-
 #' path_to_one_file_8 <- system.file("extdata", "one_file_8.csv", package = "egor")
 #' egos_8 <- read.csv2(path_to_one_file_8, row.names = 1)
 #'
-#' attr.start.col <- which(names(egos_8) == "alter.sex.1")
-#' attr.end.col <- which(names(egos_8) == "alter.age.8")
-#' dy.first.var <- which(names(egos_8) == "X1.to.2")
-#'
 #' onefile_to_egor(
 #'   egos = egos_8, netsize = egos_8$netsize,
-#'   attr.start.col = attr.start.col,
-#'   attr.end.col = attr.end.col,
-#'   aa.first.var = dy.first.var,
+#'   attr.start.col = "alter.sex.1",
+#'   attr.end.col = "alter.age.8",
+#'   aa.first.var = "X1.to.2",
 #'   max.alters = 8)
 #' @export
 onefile_to_egor <-
@@ -349,7 +345,6 @@ onefile_to_egor <-
     attr.end.col <- col_idx(attr.end.col, egos)
     aa.first.var <- col_idx(aa.first.var, egos)
     aa.last.var <-  aa.first.var + dyad.poss(max.alters) - 1
-    
     
     #Sort egos by egoID.
     cat("Sorting data by egoID: ")
@@ -450,8 +445,8 @@ onefile_to_egor <-
 #' @template egos
 #' @template alters
 #' @template ID.vars
-#' @param e.max.alters Maximum number of alters that are included in edge data.
-#' @param e.first.var Index or name of the first column in \code{egos} containing edge data.
+#' @param max.alters Maximum number of alters that are included in edge data.
+#' @param aa.first.var Index or name of the first column in \code{egos} containing alter-alter data.
 #' @param selection \code{Character} naming \code{numeric} variable indicating
 #' alters selection with zeros and ones.
 #' @param ... additional arguments to [egor()].
@@ -465,14 +460,12 @@ onefile_to_egor <-
 #' egos_8 <- read.csv2(path_to_one_file_8, row.names = 1)
 #' alters_8 <- read.csv2(path_to_alters_8.csv, row.names = 1)
 #'
-#' dy.first.var <- which(names(egos_8) == "X1.to.2")
-#'
 #' # convert to egor object
 #'   twofiles_to_egor(
 #'     egos = egos_8,
 #'     alters = alters_8,
-#'     e.max.alters = 8,
-#'     e.first.var = dy.first.var)
+#'     max.alters = 8,
+#'     aa.first.var = "X1.to.2")
 #' @export
 twofiles_to_egor <- function(egos,
                              alters,
@@ -482,8 +475,8 @@ twofiles_to_egor <- function(egos,
                                source = "Source",
                                target = "Target"
                              ),
-                             e.max.alters,
-                             e.first.var,
+                             max.alters,
+                             aa.first.var,
                              selection = NULL,
                              ...) {
   IDv <- modifyList(eval(formals()$ID.vars), ID.vars)
@@ -513,8 +506,8 @@ twofiles_to_egor <- function(egos,
   elist <-
     wide.dyads.to.edgelist(
       e.wide = egos,
-      first.var = e.first.var,
-      max.alters = e.max.alters,
+      first.var = aa.first.var,
+      max.alters = max.alters,
       alters.list = split(alters, factor(alters[[IDv$ego]], levels = unique(egos[[IDv$ego]]))),
       selection = selection
     )
