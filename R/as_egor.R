@@ -81,9 +81,9 @@ as.egor.list <-
     if (length(ego_name) != length(x) & length(ego_name) > 1)
       stop("Length of `ego_names` does not match up with number of ego networks.")
     
-    if(class(x[[1]]) == "igraph")
+    if (inherits(x[[1]], "igraph"))
       as_egor_igraph(x, ego_name)
-    else if (class(x[[1]]) == "network")
+    else if (inherits(x[[1]], "network"))
      as_egor_network(x, ego_name)
   }
 
@@ -91,7 +91,7 @@ as_egor_igraph <-
   function(x, ego_name = NULL) {
     
     # Check if all objects are igraph
-    if (!all(purrr::map_chr(x, class) == "igraph")) {
+    if (!all(purrr::map_chr(x, function(y) inherits(y, "igraph")))) {
       stop(
         "At least one list element is not an `igraph` object. 
         All list elements have to be `igraph` objects for `as.egor()` to be able to convert to an `egor` object."
