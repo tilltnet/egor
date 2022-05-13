@@ -4,7 +4,7 @@ test_that(
   "onefile_to_egor() works.",
   {
     path_to_one_file_8 <- system.file("extdata", "one_file_8.csv", package = "egor")
-    egos_8 <- read.csv2(path_to_one_file_8, row.names = 1)
+    egos_8 <- read.csv2(path_to_one_file_8)
     
     attr.start.col <- which(names(egos_8) == "alter.sex.1")
     attr.end.col <- which(names(egos_8) == "alter.age.8")
@@ -25,8 +25,8 @@ test_that(
   {
     path_to_alters_8.csv <- system.file("extdata", "alters_8.csv", package = "egor")
     path_to_one_file_8 <- system.file("extdata", "one_file_8.csv", package = "egor")
-    egos_8 <- read.csv2(path_to_one_file_8, row.names = 1)
-    alters_8 <- read.csv2(path_to_alters_8.csv, row.names = 1)
+    egos_8 <- read.csv2(path_to_one_file_8)
+    alters_8 <- read.csv2(path_to_alters_8.csv)
     
     #attr.start.col <- which(names(egos_8) == "alter.sex.1")
     #attr.end.col <- which(names(egos_8) == "alter.age.8")

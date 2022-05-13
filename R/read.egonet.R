@@ -317,7 +317,7 @@ wide.dyads.to.edgelist.regex <-
 #' @keywords import
 #' @examples
 #' path_to_one_file_8 <- system.file("extdata", "one_file_8.csv", package = "egor")
-#' egos_8 <- read.csv2(path_to_one_file_8, row.names = 1)
+#' egos_8 <- read.csv2(path_to_one_file_8)
 #'
 #' onefile_to_egor(
 #'   egos = egos_8, netsize = egos_8$netsize,
@@ -457,8 +457,8 @@ onefile_to_egor <-
 #' path_to_one_file_8 <- system.file("extdata", "one_file_8.csv", package = "egor")
 #'
 #' # read data from disk
-#' egos_8 <- read.csv2(path_to_one_file_8, row.names = 1)
-#' alters_8 <- read.csv2(path_to_alters_8.csv, row.names = 1)
+#' egos_8 <- read.csv2(path_to_one_file_8)
+#' alters_8 <- read.csv2(path_to_alters_8.csv)
 #'
 #' # convert to egor object
 #'   twofiles_to_egor(

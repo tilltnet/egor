@@ -62,7 +62,7 @@ and similar social surveys.
 }
 \examples{
 path_to_one_file_8 <- system.file("extdata", "one_file_8.csv", package = "egor")
-egos_8 <- read.csv2(path_to_one_file_8, row.names = 1)
+egos_8 <- read.csv2(path_to_one_file_8)
 
 onefile_to_egor(
   egos = egos_8, netsize = egos_8$netsize,

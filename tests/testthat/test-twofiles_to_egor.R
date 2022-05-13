@@ -5,8 +5,8 @@ test_that("twofiles_to_egor can handle alters without aaties", {
     system.file("extdata", "alters_8.csv", package = "egor")
   path_to_one_file_8 <-
     system.file("extdata", "one_file_8.csv", package = "egor")
-  egos_8 <- read.csv2(path_to_one_file_8, row.names = 1)
-  alters_8 <- read.csv2(path_to_alters_8.csv, row.names = 1)
+  egos_8 <- read.csv2(path_to_one_file_8)
+  alters_8 <- read.csv2(path_to_alters_8.csv)
   
   egos_8 <-
     egos_8 %>%
@@ -37,8 +37,8 @@ test_that("twofiles_to_egor creates alter ID if none is present", {
     system.file("extdata", "alters_8.csv", package = "egor")
   path_to_one_file_8 <-
     system.file("extdata", "one_file_8.csv", package = "egor")
-  egos_8 <- read.csv2(path_to_one_file_8, row.names = 1)
-  alters_8 <- read.csv2(path_to_alters_8.csv, row.names = 1)
+  egos_8 <- read.csv2(path_to_one_file_8)
+  alters_8 <- read.csv2(path_to_alters_8.csv)
   
   egos_8 <-
     egos_8 %>%
@@ -97,9 +97,9 @@ test_that("twofiles_to_egor returns consistent ID classes",
               system.file("extdata", "alters_8.csv", package = "egor")
             path_to_one_file_8 <-
               system.file("extdata", "one_file_8.csv", package = "egor")
-            egos_8 <- read.csv2(path_to_one_file_8, row.names = 1)
+            egos_8 <- read.csv2(path_to_one_file_8)
             alters_8 <-
-              read.csv2(path_to_alters_8.csv, row.names = 1)
+              read.csv2(path_to_alters_8.csv)
             
             egos_8 <-
               egos_8 %>%
