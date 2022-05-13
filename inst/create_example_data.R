@@ -81,3 +81,6 @@ egos_8 |>
   slice(1:16) |> 
   write_csv2("inst/extdata/egos_8.csv")
 
+egos_8 |> 
+  slice(1:16) |> 
+  write_csv2("inst/extdata/one_file_8.csv")
