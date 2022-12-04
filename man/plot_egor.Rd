@@ -158,11 +158,11 @@ Available color palettes are:
 }
 \section{Functions}{
 \itemize{
-\item \code{plot_egograms}: Plots an ego-socio-gram.
+\item \code{plot_egograms()}: Plots an ego-socio-gram.
 
-\item \code{plot_ego_graphs}: Plots an ego graph.
+\item \code{plot_ego_graphs()}: Plots an ego graph.
+
 }}
-
 \examples{
 e <- make_egor(net.count = 5, max.alters = 12)
 plot_egograms(x = e,
