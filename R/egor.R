@@ -310,36 +310,48 @@ print.egor <- function(x,
     data_levels <- x
   }
   
-  purrr::pwalk(list(data_levels,
-                    names(data_levels),
-                    active_lgl),
-               function(data_level, level_name, active) {
-                 design <- NULL
-                 if ("tbl_svy" %in% class(data_level)) {
-                   data_level <- data_level$variables
-                   design <- " with survey design"
-                 }
-                 
-                 if (active) tcm <- tibble::trunc_mat(data_level, n = min(n.active, nrow(data_level)))
-                 else tcm <- tibble::trunc_mat(data_level, n = min(n.inactive, nrow(data_level)))
-                 
-                 if (is_grouped_df(data_level))
-                   tcm$summary <- paste(tcm$summary, collapse = " ")
-                 
-                 if (active)
-                   cat(paste0(
-                     "# ",
-                     toupper(level_name),
-                     " data",
-                     design ,
-                     " (\033[32mactive\033[39m): ",
-                     tcm$summary[1],
-                     "\n"
-                   ))
-                 else
-                   cat(paste0("# ", toupper(level_name), " data", design , ": ", tcm$summary[1], "\n"))
-                 
-                 print(tcm$mcf)
-               })
+  purrr::pwalk(
+    list(data_levels, names(data_levels), active_lgl),
+    function(data_level, level_name, active) {
+      design <- NULL
+      if ("tbl_svy" %in% class(data_level)) {
+        data_level <- data_level$variables
+        design <- " with survey design"
+      }
+      summary_row <- pillar::tbl_sum(data_level)
+      
+      if (is_grouped_df(data_level)) {
+        # MB: not tested properly
+        summary_row <- paste(summary_row, collapse = " ")
+      }
+      
+      if (active)
+        cat(paste0(
+          "# ",
+          toupper(level_name),
+          " data",
+          design ,
+          " (\033[32mactive\033[39m): ",
+          summary_row,
+          "\n"
+        ))
+      else
+        cat(paste0("# ", toupper(level_name), " data", design , ": ", summary_row, "\n"))
+      
+      print(
+        structure(data_level, class=c("egor_tibble", class(data_level))), 
+        n = if(active) {
+          min(n.active, nrow(data_level))
+        } else {
+          min(n.inactive, nrow(data_level))
+        }
+      )
+    })
   invisible(x)
+}
+
+#MB: Seemingly the only way to control printing of tibbles is to define a new
+#inherting S3 class... ' @export
+tbl_sum.egor_tibble <- function(x) {
+  NULL
 }
