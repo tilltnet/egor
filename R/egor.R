@@ -310,6 +310,9 @@ print.egor <- function(x,
     data_levels <- x
   }
   
+  # Disable 'Use (...) to see more rows' message
+  op <- options(pillar.advice = FALSE)
+  
   purrr::pwalk(
     list(data_levels, names(data_levels), active_lgl),
     function(data_level, level_name, active) {
@@ -344,14 +347,26 @@ print.egor <- function(x,
           min(n.active, nrow(data_level))
         } else {
           min(n.inactive, nrow(data_level))
-        }
+        },
+        advice = FALSE
       )
     })
+  
+  options(op)
+  
   invisible(x)
 }
 
-#MB: Seemingly the only way to control printing of tibbles is to define a new
-#inherting S3 class... ' @export
+
+
+
+
+# MB: Seemingly the only way to control printing of tibbles is to define a new
+# inheriting S3 class... 
+
+
+
+#' @export
 tbl_sum.egor_tibble <- function(x) {
   NULL
 }
