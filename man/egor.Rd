@@ -22,8 +22,7 @@ egor(
   alters,
   egos = NULL,
   aaties = NULL,
-  ID.vars = list(ego = "egoID", alter = "alterID", source = "Source", target =
-    "Target"),
+  ID.vars = list(ego = "egoID", alter = "alterID", source = "Source", target = "Target"),
   ego_design = NULL,
   alter_design = list(max = Inf)
 )
@@ -104,11 +103,11 @@ with the rows of \code{egos.df}. Of the three parameters only
 \code{alters.df} is necessary to create an \code{egor} object, and
 \code{egos.df} and \code{aaties.df} are optional.
 }
-\section{Methods (by generic)}{
+\section{Functions}{
 \itemize{
-\item \code{as.egor}: Can convert (legacy) \code{nested_egor} object to \code{egor} object.
-}}
+\item \code{as.egor(nested_egor)}: Can convert (legacy) \code{nested_egor} object to \code{egor} object.
 
+}}
 \note{
 Column names \code{.alts}, \code{.aaties}, and \code{.egoRow} are reserved
 for internal use of \code{egor} and should not be used to store

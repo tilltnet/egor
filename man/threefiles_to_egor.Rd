@@ -11,8 +11,7 @@ threefiles_to_egor(
   egos,
   alters.df,
   edges,
-  ID.vars = list(ego = "egoID", alter = "alterID", source = "Source", target =
-    "Target"),
+  ID.vars = list(ego = "egoID", alter = "alterID", source = "Source", target = "Target"),
   ego.vars = NULL,
   ...
 )
@@ -21,8 +20,8 @@ read_egoweb(
   alter.file,
   edges.file,
   egos.file = NULL,
-  ID.vars = list(ego = "EgoID", alter = "Alter.Number", source = "Alter.1.Number",
-    target = "Alter.2.Number"),
+  ID.vars = list(ego = "EgoID", alter = "Alter.Number", source = "Alter.1.Number", target
+    = "Alter.2.Number"),
   ego.vars = NULL,
   ...
 )
@@ -31,8 +30,7 @@ read_openeddi(
   egos.file = NULL,
   alters.file = NULL,
   edges.file = NULL,
-  ID.vars = list(ego = "puid", alter = "nameid", source = "nameid", target =
-    "targetid"),
+  ID.vars = list(ego = "puid", alter = "nameid", source = "nameid", target = "targetid"),
   ego.vars = NULL,
   ...
 )
@@ -93,7 +91,7 @@ the edge data. EgoWeb2.0 and openeddi use variations of this format.
 }
 \section{Functions}{
 \itemize{
-\item \code{read_egoweb}: This function reads in data from
+\item \code{read_egoweb()}: This function reads in data from
 an EgoWeb 2.0 survey and transforms it to an egoR object. If no file name for
 the egos file is provided ego data is assumed to be merged with alters data
 and it will be extracted by \code{read_egoweb}. By default the
@@ -101,14 +99,14 @@ standard ID variable names of EgoWeb are used, if you need to specify the ID
 variable names use the ID.vars parameter. Further Information:
 github.com/qualintitative/egoweb
 
-\item \code{read_openeddi}: This function reads in data created
+\item \code{read_openeddi()}: This function reads in data created
 by the openeddi survey software and transforms it to an egoR object. If no
 parameters are provided \code{read_openeddi} will try to find the adequate files
 in the working directory. By default the standard ID variable names of openeddi
 are used, if you need to specify the ID variable names use the ID.vars parameter.
 Further Information: www.openeddi.com
-}}
 
+}}
 \examples{
 # The data for read.egonet.threefiles() needs to be loaded with read.csv(), 
 # for it to be converted to an egoR object.

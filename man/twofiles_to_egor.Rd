@@ -7,8 +7,7 @@
 twofiles_to_egor(
   egos,
   alters,
-  ID.vars = list(ego = "egoID", alter = "alterID", source = "Source", target =
-    "Target"),
+  ID.vars = list(ego = "egoID", alter = "alterID", source = "Source", target = "Target"),
   max.alters,
   aa.first.var,
   selection = NULL,
