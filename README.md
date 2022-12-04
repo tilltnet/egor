@@ -1,5 +1,7 @@
+<!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/egor)](https://CRAN.R-project.org/package=egor)
-[![R-CMD-check](https://github.com/tilltnet/egor/workflows/R-CMD-check/badge.svg)](https://github.com/tilltnet/egor/actions)
+[![R-CMD-check](https://github.com/tilltnet/egor/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/tilltnet/egor/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
 
 # egor
 
