@@ -334,7 +334,7 @@ print.egor <- function(x,
           toupper(level_name),
           " data",
           design ,
-          " (\033[32mactive\033[39m): ",
+          " (active): ",
           summary_row,
           "\n"
         ))
