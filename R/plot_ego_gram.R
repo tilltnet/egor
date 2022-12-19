@@ -62,7 +62,7 @@ layout_egogram <- function(altID, venn_var, pie_var) {
   for (venn in 1:(venn_n + 1)) {
     sign <-  sign * -1
     for (piece in 1:piece_n) {
-      offset <- sample(5:10, 1) * sign
+      offset <- 0#sample(5:10, 1) * sign
       piece_subset <- pie_var[venn_var == venn]
       altid_subset <- altID[venn_var == venn]
       altid_subset <- altid_subset[piece_subset == piece]
@@ -222,12 +222,14 @@ plot_egogram <-
     venn_var <- ego_object$alter[[venn_var_name]]
     pie_var <- ego_object$alter[[pie_var_name]]
     
+    xavvm <- x$alter[[venn_var_name]]
+    
     if (is.numeric(venn_var)) {
-      venn_var <- factor(venn_var, levels = min(x$alter[[venn_var_name]]):max(x$alter[[venn_var_name]]))
+      venn_var <- factor(venn_var, levels = min(xavvm, na.rm = TRUE):max(xavvm, na.rm = TRUE))
     }
     
     if (is.numeric(pie_var)) {
-      pie_var <- factor(pie_var, levels = min(x$alter[[pie_var_name]]):max(x$alter[[pie_var_name]]))
+      pie_var <- factor(pie_var, levels = min(x$alter[[pie_var_name]], na.rm = TRUE):max(x$alter[[pie_var_name]], na.rm = TRUE))
     }
     
     if (is.character(venn_var)) {
@@ -256,7 +258,8 @@ plot_egogram <-
       clockwise = TRUE,
       border = FALSE,
       add = TRUE,
-      col = pie_colors
+      col = pie_colors,
+      cex = font_size
     )
     
     # Venns
@@ -347,7 +350,7 @@ plot_egogram <-
     
     if(include_ego) {
       # Place ego in middle of plot
-      lay <- rbind(lay, c(0, 0))
+      lay <- rbind(lay, c(0, 0, 0))
       # Set curvature of ego-alter ties to zero
       igraph::E(g)$curved[is.na(igraph::E(g)$curved)] <- 0
       # Set ego-alter weights to a dummy value
@@ -375,7 +378,8 @@ plot_egogram <-
       edge_zoom = edge_zoom,
       vertex.frame.color = NA,
       edge.curved = igraph::E(g)$curved,
-      include_ego = include_ego,
+      include_ego = include_ego, 
+      font_size = font_size,
       ...
     )
   }
