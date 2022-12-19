@@ -84,9 +84,9 @@ bind_IDs_if_missing <- function(.data, result) {
     unlist(IDVARS[IDVARS %in% names(.data[[attr(.data, "active")]])], use.names = FALSE)
   b <- a[!a %in% names(result)]
   if (length(b) >= 1)
-    result <- bind_cols(select(.data[[attr(.data, "active")]], b),
+    result <- bind_cols(select(.data[[attr(.data, "active")]], all_of(b)),
                         result)
-  select(result, a, everything())
+  select(result, all_of(a), everything())
 }
 
 # This is a very ugly workaround, necessary because srvyr does not

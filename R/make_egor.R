@@ -166,7 +166,7 @@ edgelist_to_wide <- function(edges,
     .f = function(x)
       tidyr::pivot_wider(
         x,
-        names_from = src_tgt_id,
+        names_from = all_of(src_tgt_id),
         values_from = weight
       )
   )

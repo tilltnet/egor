@@ -91,10 +91,9 @@ as_egor_igraph <-
   function(x, ego_name = NULL) {
     
     # Check if all objects are igraph
-    if (!all(purrr::map_chr(x, function(y) inherits(y, "igraph")))) {
+    if (!all(purrr::map_lgl(x, function(y) inherits(y, "igraph")))) {
       stop(
-        "At least one list element is not an `igraph` object. 
-        All list elements have to be `igraph` objects for `as.egor()` to be able to convert to an `egor` object."
+        "One or more elements are not of type `igraph`. Conversion only works if all elements in `x` are `igraph` objects."
       )
     }
     
@@ -126,8 +125,7 @@ as_egor_network <-
     # Check if all objects are network
     if (!all(purrr::map_chr(x, class) == "network")) {
       stop(
-        "At least one list element is not a `network` object. 
-        All list elements have to be `network` objects for `as.egor()` to be able to convert to an `egor` object."
+        "One or more elements are not of type `network`. Conversion only works if all elements in `x` are `network` objects."
       )
     }
     
