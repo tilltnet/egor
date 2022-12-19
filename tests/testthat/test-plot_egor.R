@@ -41,6 +41,38 @@ test_that("plot plots egor objects", {
       res_disp_vars  = c("sex", "age")
     )
     
+    #load("../Dropbox/egor_kram/user_code_help/emily long/paces_egor.Rdata")
+    #pilot$alter$alter_health
+    
+    # pilot |> 
+    #   activate(alter) |> 
+    #   filter(!is.na(closeness)) |>
+    #   plot_egograms(
+    #   ego_no = 3,
+    #   x_dim = 1,
+    #   y_dim = 1,
+    #   venn_var = "closeness",
+    #   pie_var = "relationship",
+    #   ascending_inwards = TRUE,
+    #   vertex_size_var = NULL,
+    #   vertex_color_var = "PA_with",
+    #   vertex_color_palette = "Heat Colors",
+    #   vertex_color_legend_label = "Does PA with them",
+    #   vertex_label_var = "relationship",
+    #   edge_width_var = NULL,
+    #   edge_color_var = NULL,
+    #   edge_color_palette = "Heat Colors",
+    #   highlight_box_col_var = NULL,
+    #   highlight_box_col_palette = "Heat Colors",
+    #   res_disp_vars = NULL,
+    #   vertex_zoom = -1,
+    #   edge_zoom = -2,
+    #   font_size = .8,
+    #   pie_colors = NULL,
+    #   venn_gradient_reverse = F,
+    #   show_venn_labels = TRUE,
+    #   include_ego = FALSE)
+
     plot(
       x = e,
       ego_no = 1,

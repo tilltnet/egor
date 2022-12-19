@@ -58,9 +58,16 @@ test_that(
 
 if (FALSE) {
   mpf <- make_egor(5, 50)
-  
+  mpf <- 
+    mpf |> 
+    activate(alter) |> 
+    filter(.egoID == 2 & country != "Australia" | .egoID != 2)
   graphs <- clustered_graphs(object = mpf, clust.groups = "country")
-
+  
+  # remove one node to test if it influences remaining node positions; it does!
+  graphs[[1]] <- graphs[[1]] |> tidygraph::as_tbl_graph() |> filter(name != "Australia")
+  graphs[[2]] <- graphs[[2]] |> tidygraph::as_tbl_graph() |> filter(name != "USA")
+  graphs[[4]] <- graphs[[4]] |> tidygraph::as_tbl_graph() |> filter(name != "Poland")
   vis_clustered_graphs(
     graphs,
     node.size.multiplier = 3,

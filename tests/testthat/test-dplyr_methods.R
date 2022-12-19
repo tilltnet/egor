@@ -63,13 +63,13 @@ test_that("methods for dplyr are working",
               full_join(e, tibble(.egoID = 1, new_data = "asdwd"))
               
               
-              select_all(e, toupper)
-              rename_all(e, toupper)
+              # select_all(e, toupper)
+              # rename_all(e, toupper)
               
-              egor::activate(e, alter) %>%
-                select_at(vars(contains("x")), toupper)
-              rename_at(e, .vars = vars(contains("x")), toupper)
-              mutate_at(e, vars(sex, country), toupper)
+              # egor::activate(e, alter) %>%
+              #   select_at(vars(contains("x")), toupper)
+              # rename_at(e, .vars = vars(contains("x")), toupper)
+              # mutate_at(e, vars(sex, country), toupper)
               
               
               #select_if(e, is.factor, toupper)
