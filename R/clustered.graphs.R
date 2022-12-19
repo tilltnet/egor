@@ -266,6 +266,7 @@ vis_clustered_graphs <- function(graphs,
                                  pdf.name = NULL,
                                  ...) {
   require_igraph()
+  
   plotLegendGraph <- function(grps.graph, center) {
     # set all edges to 1
     vertex_names <- names(igraph::V(grps.graph))
@@ -303,7 +304,7 @@ vis_clustered_graphs <- function(graphs,
     )
   }
   
-  plotGraph <- function(graph, center) {
+  plotGraph <- function(graph, center, layout) {
     if (labels) {
       vertex.label <- paste(" ",
                             igraph::V(graph)$grp.size,
@@ -374,7 +375,7 @@ vis_clustered_graphs <- function(graphs,
       edge.label.cex = edge.label.cex,
       edge.label.family = "sans",
       edge.color = betw_grp_dens_color,
-      layout = rotate_to_equilibrium(layout_),
+      layout = layout,
       ...
     )
     
@@ -393,14 +394,27 @@ vis_clustered_graphs <- function(graphs,
       edge.width = 0,
       edge.color = NA,
       edge.arrow.size = 0,
-      layout = rotate_to_equilibrium(layout_),
+      layout = layout,
       ...
     )
     
   }
   
-  example.graph <- graphs[[1]]
-  center.vertex.max <- length(igraph::V(example.graph))
+  # example graph needs to contain the maximum number of nodes across all graphs
+  lg <- lengths(graphs)
+  example.graph <- graphs[lg == max(lg)][[1]]
+  #center.vertex.max <- length(igraph::V(example.graph))
+  
+  # create layout to be used by all plots
+  if (length(igraph::V(example.graph)) < 4) {
+    layout_ <- 
+      igraph::layout_in_circle(example.graph) |> 
+      rotate_to_equilibrium()
+  } else {
+    layout_ <- 
+      igraph::layout_as_star(example.graph, center = center) |> 
+      rotate_to_equilibrium()
+  }
   
   if (!missing(pdf.name)) {
     #' @importFrom grDevices pdf
@@ -414,28 +428,20 @@ vis_clustered_graphs <- function(graphs,
   }
   
   if (!labels) {
-    if (length(igraph::V(example.graph)) < 4) {
-      layout_ <- igraph::layout.circle(example.graph)
-    } else {
-      layout_ <- igraph::layout_as_star(example.graph, center = center)
-    }
     plotLegendGraph(example.graph, 1)
   }
-  
-  
+
   edge.label.cex <- label.size
   edge.label.color <- "black"
+    
   for (graph in graphs) {
+    this_layout <- layout_[igraph::V(example.graph)$name %in% igraph::V(graph)$name, ]
+    
     if (length(igraph::V(graph)) < 1) {
       #' @importFrom graphics plot.new
       plot.new()
     } else {
-      if (length(igraph::V(graph)) < 4) {
-        layout_ <- igraph::layout.circle(graph)
-      } else {
-        layout_ <- igraph::layout_as_star(graph, center = center)
-      }
-      plotGraph(graph, center)
+      plotGraph(graph, center, this_layout)
     }
     
   }
