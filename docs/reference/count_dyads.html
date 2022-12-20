@@ -19,7 +19,7 @@ tibble/ data.frame."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/a
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">egor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.22.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.22.12</span>
       </span>
     </div>
 
@@ -28,7 +28,7 @@ tibble/ data.frame."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/a
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -73,58 +73,69 @@ in ego-centered networks. The results can be returned as a wide or long
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">count_dyads</span><span class="op">(</span>
-  <span class="va">object</span>,
-  <span class="va">alter_var_name</span>,
-  return_as <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wide"</span>, <span class="st">"long"</span><span class="op">)</span>,
-  prefix <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">count_dyads</span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  <span class="va">alter_var_name</span>,</span>
+<span>  return_as <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wide"</span>, <span class="st">"long"</span><span class="op">)</span>,</span>
+<span>  prefix <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>object</dt>
 <dd><p>An <code>egor</code> object.</p></dd>
+
+
 <dt>alter_var_name</dt>
 <dd><p><code>Character</code>, naming the alter variable to use as
 attribute.</p></dd>
+
+
 <dt>return_as</dt>
 <dd><p><code>Character</code>, either "wide" (default) or "long".</p></dd>
+
+
 <dt>prefix</dt>
 <dd><p><code>Character</code>, added in front of variables. Only used if
 <code>return_as</code> is "wide". If <code>NULL</code> (default) prefix is automatically generated.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Wide or long <code>tibble</code>/ <code>data.frame</code>.</p>
+    
+
+<p>Wide or long <code>tibble</code>/ <code>data.frame</code>.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">egor32</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">count_dyads</span><span class="op">(</span>object <span class="op">=</span> <span class="va">egor32</span>,</span>
-<span class="r-in">            alter_var_name <span class="op">=</span> <span class="st">"country"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">egor32</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">count_dyads</span><span class="op">(</span>object <span class="op">=</span> <span class="va">egor32</span>,</span></span>
+<span class="r-in"><span>            alter_var_name <span class="op">=</span> <span class="st">"country"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 32 × 11</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    .egoID dy_cou_Australia_A… dy_cou_Australi… dy_cou_Australi… dy_cou_Australi…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>      1                   2                6                3                3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>      2                   0                2                0                1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>      3                   4                6                4                4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>      4                   1                1                1                3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>      5                   2               11                4                2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>      6                   2                1                1                8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>      7                   0                5                7                2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>      8                   1                7                1                6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>      9                   1                6                4                8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>     10                   0                3                1                2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 22 more rows, and 6 more variables: dy_cou_Germany_Germany &lt;int&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   dy_cou_Germany_Poland &lt;int&gt;, dy_cou_Germany_USA &lt;int&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   dy_cou_Poland_USA &lt;int&gt;, dy_cou_USA_USA &lt;int&gt;, dy_cou_Poland_Poland &lt;int&gt;</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Return result as long tibble.</span></span>
-<span class="r-in"><span class="fu">count_dyads</span><span class="op">(</span>object <span class="op">=</span> <span class="va">egor32</span>,</span>
-<span class="r-in">            alter_var_name <span class="op">=</span> <span class="st">"country"</span>,</span>
-<span class="r-in">            return_as <span class="op">=</span> <span class="st">"long"</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    .egoID dy_cou_Austr…¹ dy_co…² dy_co…³ dy_co…⁴ dy_co…⁵ dy_co…⁶ dy_co…⁷ dy_co…⁸</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>      1              2       6       3       3       3       4       6       2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>      2              0       2       0       1       5       9       4       8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>      3              4       6       4       4       2       1       7       2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>      4              1       1       1       3       1       3       7       6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>      5              2      11       4       2       4       5       6       2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>      6              2       1       1       8       0       2       4       7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>      7              0       5       7       2       5      15       3       3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>      8              1       7       1       6       4       3       7       2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>      9              1       6       4       8       2       2       7       2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>     10              0       3       1       2       4      11       6       3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 22 more rows, 2 more variables: dy_cou_USA_USA &lt;int&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   dy_cou_Poland_Poland &lt;int&gt;, and abbreviated variable names</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ¹​dy_cou_Australia_Australia, ²​dy_cou_Australia_Germany,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ³​dy_cou_Australia_Poland, ⁴​dy_cou_Australia_USA, ⁵​dy_cou_Germany_Germany,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ⁶​dy_cou_Germany_Poland, ⁷​dy_cou_Germany_USA, ⁸​dy_cou_Poland_USA</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Return result as long tibble.</span></span></span>
+<span class="r-in"><span><span class="fu">count_dyads</span><span class="op">(</span>object <span class="op">=</span> <span class="va">egor32</span>,</span></span>
+<span class="r-in"><span>            alter_var_name <span class="op">=</span> <span class="st">"country"</span>,</span></span>
+<span class="r-in"><span>            return_as <span class="op">=</span> <span class="st">"long"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 278 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    .egoID dyads                   n</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
@@ -153,7 +164,7 @@ attribute.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

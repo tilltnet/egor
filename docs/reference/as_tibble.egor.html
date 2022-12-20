@@ -22,7 +22,7 @@ as_egos_df(), as_alters_df(), as_aaties_df(), as_egos_survey(), as_alters_survey
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">egor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.22.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.22.12</span>
       </span>
     </div>
 
@@ -31,7 +31,7 @@ as_egos_df(), as_alters_df(), as_aaties_df(), as_egos_survey(), as_alters_survey
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -70,56 +70,65 @@ as_egos_df(), as_alters_df(), as_aaties_df(), as_egos_survey(), as_alters_survey
     </div>
 
     <div class="ref-description">
-    <p>Provided an <code>egor</code> object, these functions create a "global" <code>tibble</code> or <code>srvyr</code>'s <code>tbl_svy</code> object
+    <p>Provided an <code>egor</code> object, these functions create a "global" <code>tibble</code> or <code>srvyr</code>'s <code><a href="http://gdfe.co/srvyr/reference/tbl_svy.html" class="external-link">tbl_svy</a></code> object
 containing egos, alter attributes, or alter-alter relations. The resulting tables
 are useful for advanced analysis procedures, e.g. multi-level regressions.</p>
-<p><code>as_tibble()</code> method for <code>egor</code> extracts the currently active component (<code>ego</code>, <code>alter</code>, or <code>aaties</code>) table, optionally joining it with the others, dropping any survey design information.</p>
-<p><code>as_survey()</code> method for <code>egor</code> instead returns a <code>srvyr</code> <code>tbl_svy</code> survey, taking into account any replication due to multiple alters or alter-alter ties incident on each ego. If no design is specified for the egos, then the default design (simple random sample with replacement) is assumed as the starting point.</p>
-<p><code>as_egos_df()</code>, <code>as_alters_df()</code>, <code>as_aaties_df()</code>, <code>as_egos_survey()</code>, <code>as_alters_survey()</code>, and <code>as_aaties_survey()</code> are convenience functions for the <code>as_tibble()</code> and <code>as_survey()</code> methods, activating the corresponding component of the <code>egor</code> object.</p>
+<p><code><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble()</a></code> method for <code>egor</code> extracts the currently active component (<code>ego</code>, <code>alter</code>, or <code>aaties</code>) table, optionally joining it with the others, dropping any survey design information.</p>
+<p><code><a href="http://gdfe.co/srvyr/reference/as_survey.html" class="external-link">as_survey()</a></code> method for <code>egor</code> instead returns a <code>srvyr</code> <code><a href="http://gdfe.co/srvyr/reference/tbl_svy.html" class="external-link">tbl_svy</a></code> survey, taking into account any replication due to multiple alters or alter-alter ties incident on each ego. If no design is specified for the egos, then the default design (simple random sample with replacement) is assumed as the starting point.</p>
+<p><code>as_egos_df()</code>, <code>as_alters_df()</code>, <code>as_aaties_df()</code>, <code>as_egos_survey()</code>, <code>as_alters_survey()</code>, and <code>as_aaties_survey()</code> are convenience functions for the <code><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble()</a></code> and <code><a href="http://gdfe.co/srvyr/reference/as_survey.html" class="external-link">as_survey()</a></code> methods, activating the corresponding component of the <code>egor</code> object.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for egor</span>
-<span class="fu">as_tibble</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, include.ego.vars <span class="op">=</span> <span class="cn">FALSE</span>, include.alter.vars <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-
-<span class="co"># S3 method for egor</span>
-<span class="fu">as_survey</span><span class="op">(</span><span class="va">.data</span>, <span class="va">...</span>, include.ego.vars <span class="op">=</span> <span class="cn">FALSE</span>, include.alter.vars <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-
-<span class="fu">as_egos_df</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
-
-<span class="fu">as_alters_df</span><span class="op">(</span><span class="va">object</span>, include.ego.vars <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-
-<span class="fu">as_aaties_df</span><span class="op">(</span><span class="va">object</span>, include.ego.vars <span class="op">=</span> <span class="cn">FALSE</span>, include.alter.vars <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-
-<span class="fu">as_egos_survey</span><span class="op">(</span><span class="va">object</span>, include.ego.vars <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-
-<span class="fu">as_alters_survey</span><span class="op">(</span><span class="va">object</span>, include.ego.vars <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-
-<span class="fu">as_aaties_survey</span><span class="op">(</span><span class="va">object</span>, include.ego.vars <span class="op">=</span> <span class="cn">FALSE</span>, include.alter.vars <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for egor</span></span>
+<span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, include.ego.vars <span class="op">=</span> <span class="cn">FALSE</span>, include.alter.vars <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for egor</span></span>
+<span><span class="fu"><a href="http://gdfe.co/srvyr/reference/as_survey.html" class="external-link">as_survey</a></span><span class="op">(</span><span class="va">.data</span>, <span class="va">...</span>, include.ego.vars <span class="op">=</span> <span class="cn">FALSE</span>, include.alter.vars <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">as_egos_df</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">as_alters_df</span><span class="op">(</span><span class="va">object</span>, include.ego.vars <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">as_aaties_df</span><span class="op">(</span><span class="va">object</span>, include.ego.vars <span class="op">=</span> <span class="cn">FALSE</span>, include.alter.vars <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">as_egos_survey</span><span class="op">(</span><span class="va">object</span>, include.ego.vars <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">as_alters_survey</span><span class="op">(</span><span class="va">object</span>, include.ego.vars <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">as_aaties_survey</span><span class="op">(</span><span class="va">object</span>, include.ego.vars <span class="op">=</span> <span class="cn">FALSE</span>, include.alter.vars <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x, object, .data</dt>
 <dd><p>An <code>egor</code> object.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional arguments, currently unused.</p></dd>
+
+
 <dt>include.ego.vars</dt>
 <dd><p>Logical, specifying if ego variables should be included in the result.</p></dd>
+
+
 <dt>include.alter.vars</dt>
 <dd><p>Logical, specifying if alter variables should be included in the result.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A <code>tibble</code> for the <code>as_tibble</code> and <code>*_df</code> functions and a <code>tbl_svy</code> for <code>as_survey</code> and the <code>*_survey</code> functions.</p>
+    
+
+<p>A <code>tibble</code> for the <code>as_tibble</code> and <code>*_df</code> functions and a <code>tbl_svy</code> for <code>as_survey</code> and the <code>*_survey</code> functions.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Load example data</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">egor32</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">as_tibble</span><span class="op">(</span><span class="va">egor32</span><span class="op">)</span> <span class="co"># Ego table.</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Load example data</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">egor32</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="va">egor32</span><span class="op">)</span> <span class="co"># Ego table.</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 32 × 6</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    .egoID sex   age      age.years country   income</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
@@ -134,61 +143,59 @@ are useful for advanced analysis procedures, e.g. multi-level regressions.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>      9 m     36 - 45         38 USA        <span style="text-decoration: underline;">64</span>605</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>     10 m     0 - 17          14 Australia  <span style="text-decoration: underline;">49</span>275</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 22 more rows</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">egor32</span> <span class="op">%&gt;%</span></span>
-<span class="r-in"> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/activate.html" class="external-link">activate</a></span><span class="op">(</span><span class="st">"alter"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span class="r-in"> <span class="fu">as_tibble</span><span class="op">(</span>include.ego.vars<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="co"># Alter table, but also with ego variables.</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">egor32</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/activate.html" class="external-link">activate</a></span><span class="op">(</span><span class="st">"alter"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span>include.ego.vars<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="co"># Alter table, but also with ego variables.</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 384 × 12</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    .altID .egoID sex   age      age.years country   income sex_ego age_ego</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>      1      1 m     46 - 55         48 USA        <span style="text-decoration: underline;">45</span>625 m       56 - 65</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>      2      1 m     0 - 17           5 Germany    <span style="text-decoration: underline;">52</span>925 m       56 - 65</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>      3      1 w     26 - 35         35 Australia  <span style="text-decoration: underline;">60</span>225 m       56 - 65</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>      4      1 w     0 - 17           3 Poland     <span style="text-decoration: underline;">25</span>550 m       56 - 65</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>      5      1 m     66 - 100        97 Australia  <span style="text-decoration: underline;">45</span>260 m       56 - 65</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>      6      1 w     26 - 35         29 Germany     <span style="text-decoration: underline;">8</span>395 m       56 - 65</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>      7      1 m     26 - 35         32 USA        <span style="text-decoration: underline;">54</span>020 m       56 - 65</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>      8      1 w     46 - 55         49 USA        <span style="text-decoration: underline;">60</span>955 m       56 - 65</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>      9      1 m     56 - 65         60 Germany    <span style="text-decoration: underline;">39</span>055 m       56 - 65</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>     10      1 w     46 - 55         52 Australia   <span style="text-decoration: underline;">7</span>300 m       56 - 65</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 374 more rows, and 3 more variables: age.years_ego &lt;int&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   country_ego &lt;chr&gt;, income_ego &lt;dbl&gt;</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://gdfe.co/srvyr/" class="external-link">srvyr</a></span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: ‘srvyr’</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The following object is masked from ‘package:stats’:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     filter</span>
-<span class="r-in"><span class="fu"><a href="http://gdfe.co/srvyr/reference/as_survey.html" class="external-link">as_survey</a></span><span class="op">(</span><span class="va">egor32</span><span class="op">)</span> <span class="co"># Ego table with survey design.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    .altID .egoID sex   age      age.years country income sex_ego age_ego age.y…¹</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>      1      1 m     46 - 55         48 USA      <span style="text-decoration: underline;">45</span>625 m       56 - 65      63</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>      2      1 m     0 - 17           5 Germany  <span style="text-decoration: underline;">52</span>925 m       56 - 65      63</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>      3      1 w     26 - 35         35 Austra…  <span style="text-decoration: underline;">60</span>225 m       56 - 65      63</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>      4      1 w     0 - 17           3 Poland   <span style="text-decoration: underline;">25</span>550 m       56 - 65      63</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>      5      1 m     66 - 100        97 Austra…  <span style="text-decoration: underline;">45</span>260 m       56 - 65      63</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>      6      1 w     26 - 35         29 Germany   <span style="text-decoration: underline;">8</span>395 m       56 - 65      63</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>      7      1 m     26 - 35         32 USA      <span style="text-decoration: underline;">54</span>020 m       56 - 65      63</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>      8      1 w     46 - 55         49 USA      <span style="text-decoration: underline;">60</span>955 m       56 - 65      63</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>      9      1 m     56 - 65         60 Germany  <span style="text-decoration: underline;">39</span>055 m       56 - 65      63</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>     10      1 w     46 - 55         52 Austra…   <span style="text-decoration: underline;">7</span>300 m       56 - 65      63</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 374 more rows, 2 more variables: country_ego &lt;chr&gt;, income_ego &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   and abbreviated variable name ¹​age.years_ego</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://gdfe.co/srvyr/" class="external-link">srvyr</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="http://gdfe.co/srvyr/reference/as_survey.html" class="external-link">as_survey</a></span><span class="op">(</span><span class="va">egor32</span><span class="op">)</span> <span class="co"># Ego table with survey design.</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Independent Sampling design (with replacement)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Called via srvyr</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Data variables: .egoID (dbl), sex (fct), age (fct), age.years (int), country</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   (chr), income (dbl)</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Despite alter table being active, obtain the ego table.</span></span>
-<span class="r-in"><span class="op">(</span><span class="va">egor32</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/activate.html" class="external-link">activate</a></span><span class="op">(</span><span class="va">egor32</span>, <span class="st">"alter"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Despite alter table being active, obtain the ego table.</span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">egor32</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/activate.html" class="external-link">activate</a></span><span class="op">(</span><span class="va">egor32</span>, <span class="st">"alter"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # EGO data with survey design: 32 × 6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .egoID sex   age      age.years country   income</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">*</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>      1 m     56 - 65         63 Australia  <span style="text-decoration: underline;">29</span>930</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>      2 m     26 - 35         33 Germany    <span style="text-decoration: underline;">17</span>885</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>      3 m     66 - 100        74 Germany    <span style="text-decoration: underline;">20</span>805</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # ALTER data (<span style="color: #00BB00;">active</span>): 384 × 7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 29 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # ALTER data (active): 384 × 7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .altID .egoID sex   age      age.years country   income</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">*</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>      1      1 m     46 - 55         48 USA        <span style="text-decoration: underline;">45</span>625</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>      2      1 m     0 - 17           5 Germany    <span style="text-decoration: underline;">52</span>925</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>      3      1 w     26 - 35         35 Australia  <span style="text-decoration: underline;">60</span>225</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>      4      1 w     0 - 17           3 Poland     <span style="text-decoration: underline;">25</span>550</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>      5      1 m     66 - 100        97 Australia  <span style="text-decoration: underline;">45</span>260</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 379 more rows</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # AATIE data: 1,056 × 4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .egoID .srcID .tgtID weight</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">*</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     20      1      2  0.667</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>     25      6     10  0.667</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>      9      6      8  0.667</span>
-<span class="r-in"><span class="fu">as_egos_df</span><span class="op">(</span><span class="va">egor32</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 1,053 more rows</span></span>
+<span class="r-in"><span><span class="fu">as_egos_df</span><span class="op">(</span><span class="va">egor32</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 32 × 6</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    .egoID sex   age      age.years country   income</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
@@ -203,9 +210,9 @@ are useful for advanced analysis procedures, e.g. multi-level regressions.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>      9 m     36 - 45         38 USA        <span style="text-decoration: underline;">64</span>605</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>     10 m     0 - 17          14 Australia  <span style="text-decoration: underline;">49</span>275</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 22 more rows</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Create global alter table</span></span>
-<span class="r-in"><span class="fu">as_alters_df</span><span class="op">(</span><span class="va">egor32</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Create global alter table</span></span></span>
+<span class="r-in"><span><span class="fu">as_alters_df</span><span class="op">(</span><span class="va">egor32</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 384 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    .altID .egoID sex   age      age.years country   income</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
@@ -220,9 +227,9 @@ are useful for advanced analysis procedures, e.g. multi-level regressions.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>      9      1 m     56 - 65         60 Germany    <span style="text-decoration: underline;">39</span>055</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>     10      1 w     46 - 55         52 Australia   <span style="text-decoration: underline;">7</span>300</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 374 more rows</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Create global alter-alter relations table</span></span>
-<span class="r-in"><span class="fu">as_aaties_df</span><span class="op">(</span><span class="va">egor32</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Create global alter-alter relations table</span></span></span>
+<span class="r-in"><span><span class="fu">as_aaties_df</span><span class="op">(</span><span class="va">egor32</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1,056 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    .egoID .srcID .tgtID weight</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
@@ -237,31 +244,31 @@ are useful for advanced analysis procedures, e.g. multi-level regressions.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>     32      3      7  0.667</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>     26      2     10  1    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 1,046 more rows</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># ... adding alter variables</span></span>
-<span class="r-in"><span class="fu">as_aaties_df</span><span class="op">(</span><span class="va">egor32</span>, include.alter.vars <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># ... adding alter variables</span></span></span>
+<span class="r-in"><span><span class="fu">as_aaties_df</span><span class="op">(</span><span class="va">egor32</span>, include.alter.vars <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1,056 × 14</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    .egoID .srcID .tgtID weight sex_src age_src  age.years_src country_src</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>     20      1      2  0.667 m       66 - 100            97 Australia  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>     25      6     10  0.667 w       26 - 35             29 Germany    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>      9      6      8  0.667 w       26 - 35             29 Germany    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>     31      2     10  0.667 w       46 - 55             52 Australia  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>     24      1     12  0.333 m       18 - 25             22 USA        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>     11      9     11  0.333 m       46 - 55             48 USA        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>      7      3      6  0.667 w       46 - 55             54 Poland     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>      8      6      7  0.667 w       66 - 100            83 Germany    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>     32      3      7  0.667 w       46 - 55             55 Germany    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>     26      2     10  1     w       66 - 100            89 Poland     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 1,046 more rows, and 6 more variables: income_src &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   sex_tgt &lt;fct&gt;, age_tgt &lt;fct&gt;, age.years_tgt &lt;int&gt;, country_tgt &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   income_tgt &lt;dbl&gt;</span></span>
-<span class="r-in"><span class="fu">as_egos_survey</span><span class="op">(</span><span class="va">egor32</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    .egoID .srcID .tgtID weight sex_src age_src  age.ye…¹ count…² incom…³ sex_tgt</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>     20      1      2  0.667 m       66 - 100       97 Austra…   <span style="text-decoration: underline;">45</span>260 w      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>     25      6     10  0.667 w       26 - 35        29 Germany    <span style="text-decoration: underline;">8</span>395 w      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>      9      6      8  0.667 w       26 - 35        29 Germany    <span style="text-decoration: underline;">8</span>395 w      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>     31      2     10  0.667 w       46 - 55        52 Austra…    <span style="text-decoration: underline;">7</span>300 m      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>     24      1     12  0.333 m       18 - 25        22 USA       <span style="text-decoration: underline;">62</span>780 m      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>     11      9     11  0.333 m       46 - 55        48 USA       <span style="text-decoration: underline;">45</span>625 w      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>      7      3      6  0.667 w       46 - 55        54 Poland     <span style="text-decoration: underline;">9</span>490 w      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>      8      6      7  0.667 w       66 - 100       83 Germany   <span style="text-decoration: underline;">36</span>500 m      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>     32      3      7  0.667 w       46 - 55        55 Germany   <span style="text-decoration: underline;">25</span>550 m      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>     26      2     10  1     w       66 - 100       89 Poland     <span style="text-decoration: underline;">1</span>825 w      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 1,046 more rows, 4 more variables: age_tgt &lt;fct&gt;, age.years_tgt &lt;int&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   country_tgt &lt;chr&gt;, income_tgt &lt;dbl&gt;, and abbreviated variable names</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ¹​age.years_src, ²​country_src, ³​income_src</span></span>
+<span class="r-in"><span><span class="fu">as_egos_survey</span><span class="op">(</span><span class="va">egor32</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Independent Sampling design (with replacement)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Called via srvyr</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Data variables: .egoID (dbl), sex (fct), age (fct), age.years (int), country</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   (chr), income (dbl)</span>
-<span class="r-in"><span class="fu">as_alters_survey</span><span class="op">(</span><span class="va">egor32</span><span class="op">)</span> <span class="co"># Notice the resulting cluster design.</span></span>
+<span class="r-in"><span><span class="fu">as_alters_survey</span><span class="op">(</span><span class="va">egor32</span><span class="op">)</span> <span class="co"># Notice the resulting cluster design.</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 - level Cluster Sampling design (with replacement)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> With (32) clusters.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Called via srvyr</span>
@@ -281,7 +288,7 @@ are useful for advanced analysis procedures, e.g. multi-level regressions.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

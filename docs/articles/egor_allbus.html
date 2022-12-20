@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">egor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.22.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.22.12</span>
       </span>
     </div>
 
@@ -43,7 +43,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -84,10 +84,11 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Working with Allbus 2010 ego-centered network data using egor</h1>
+      <h1 data-toc-skip>Working with Allbus 2010 ego-centered network
+data using egor</h1>
                         <h4 data-toc-skip class="author">Till Krenz</h4>
             
-            <h4 data-toc-skip class="date">2022-03-15</h4>
+            <h4 data-toc-skip class="date">2022-12-19</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/tilltnet/egor/blob/HEAD/vignettes/egor_allbus.Rmd" class="external-link"><code>vignettes/egor_allbus.Rmd</code></a></small>
       <div class="hidden name"><code>egor_allbus.Rmd</code></div>
@@ -96,151 +97,197 @@
 
     
     
-<p><strong><em>Note: The data used in this vignette is simulated based on the the original Allbus 2010 SPSS data by GESIS. The dataset simulates 100 respondents and does not resemble any actual Allbus respondents. Each variable is randomly generated based on the range of the original variables, co-variations of variables are disregarded. The data’s purpose is purely to demonstrate how to technically work with the Allbus data using egor and R - no analytical assumptions should be made based on this data! The code in this vignette works with the original Allbus 2010 data, that can be acquired <a href="https://www.gesis.org/en/allbus/allbus-home" class="external-link">here</a>.</em></strong></p>
+<p><strong><em>Note: The data used in this vignette is simulated based
+on the the original Allbus 2010 SPSS data by GESIS. The dataset
+simulates 100 respondents and does not resemble any actual Allbus
+respondents. Each variable is randomly generated based on the range of
+the original variables, co-variations of variables are disregarded. The
+data’s purpose is purely to demonstrate how to technically work with the
+Allbus data using egor and R - no analytical assumptions should be made
+based on this data! The code in this vignette works with the original
+Allbus 2010 data, that can be acquired <a href="https://www.gesis.org/en/allbus/allbus-home" class="external-link">here</a>.</em></strong></p>
 <div class="section level2">
 <h2 id="the-allbus-2010-ego-centered-network-data">The Allbus 2010: ego-centered network data<a class="anchor" aria-label="anchor" href="#the-allbus-2010-ego-centered-network-data"></a>
 </h2>
-<p>The Allbus 2010 splits the respondents into two groups. Both groups were presented different name generators.</p>
+<p>The Allbus 2010 splits the respondents into two groups. Both groups
+were presented different name generators.</p>
 <ul>
-<li>Allbus name generator - the generated alters are called “Freunde” (friends in German) in the data (max. 3 persons, “spent time with in private, not living in same household”)</li>
-<li>GSS name generator - these alters are called “Kontakte” (contacts in German) in the dataset (max. 5 persons, “discussed important matters”)</li>
+<li>Allbus name generator - the generated alters are called “Freunde”
+(friends in German) in the data (max. 3 persons, “spent time with in
+private, not living in same household”)</li>
+<li>GSS name generator - these alters are called “Kontakte” (contacts in
+German) in the dataset (max. 5 persons, “discussed important
+matters”)</li>
 </ul>
-<p>For more information please consult the Allbus documentation. ## Load packages and data</p>
+<p>For more information please consult the Allbus documentation. ## Load
+packages and data</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tilltnet/egor" class="external-link">egor</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://purrr.tidyverse.org" class="external-link">purrr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://haven.tidyverse.org" class="external-link">haven</a></span><span class="op">)</span></code></pre></div>
-<p>In addition to <em>egor</em>, this vignette uses the <em>haven</em> package, to import the SPSS file of the Allbus 2010 and the <em><a href="https://purrr.tidyverse.org/" class="external-link">purrr</a></em> package, that provides enhanced functional programming functions. The <em>purrr</em> functions used in this vignette are <em>map*()</em> functions, which are similar in their functionality to base R’s <em>lapply()</em>.</p>
-<p>When using <em>haven</em> to import the original Allbus data, that would look like this.</p>
-<pre><code><span class="va">raw_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://haven.tidyverse.org/reference/read_spss.html" class="external-link">read_sav</a></span><span class="op">(</span><span class="st">"ZA4610_A10.SAV"</span><span class="op">)</span></code></pre>
-<p>For the purpose of the vignette we are loading a simulated data instead.</p>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tilltnet/egor" class="external-link">egor</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://purrr.tidyverse.org/" class="external-link">purrr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://haven.tidyverse.org" class="external-link">haven</a></span><span class="op">)</span></span></code></pre></div>
+<p>In addition to <em>egor</em>, this vignette uses the <em>haven</em>
+package, to import the SPSS file of the Allbus 2010 and the <em><a href="https://purrr.tidyverse.org/" class="external-link">purrr</a></em> package, that
+provides enhanced functional programming functions. The <em>purrr</em>
+functions used in this vignette are <em>map*()</em> functions, which are
+similar in their functionality to base R’s <em>lapply()</em>.</p>
+<p>When using <em>haven</em> to import the original Allbus data, that
+would look like this.</p>
+<pre><code><span><span class="va">raw_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://haven.tidyverse.org/reference/read_spss.html" class="external-link">read_sav</a></span><span class="op">(</span><span class="st">"ZA4610_A10.SAV"</span><span class="op">)</span></span></code></pre>
+<p>For the purpose of the vignette we are loading a simulated data
+instead.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"allbus_2010_simulated"</span><span class="op">)</span>
-<span class="va">raw_data</span> <span class="op">&lt;-</span> <span class="va">allbus_2010_simulated</span></code></pre></div>
-<p>The Allbus variable names are quite technical ranging from V1 to V981. Fortunately the <em>haven</em> data import preserves the SPSS variable labels, that describe each variable in more detail. We are going to convert these labels into a format, that allows us to use them as variable names.</p>
-<p>The code below extracts all variable labels and eliminates all non-characters from the labels and substitutes spaces with underscores.</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"allbus_2010_simulated"</span><span class="op">)</span></span>
+<span><span class="va">raw_data</span> <span class="op">&lt;-</span> <span class="va">allbus_2010_simulated</span></span></code></pre></div>
+<p>The Allbus variable names are quite technical ranging from V1 to
+V981. Fortunately the <em>haven</em> data import preserves the SPSS
+variable labels, that describe each variable in more detail. We are
+going to convert these labels into a format, that allows us to use them
+as variable names.</p>
+<p>The code below extracts all variable labels and eliminates all
+non-characters from the labels and substitutes spaces with
+underscores.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">var_labels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map_chr</a></span><span class="op">(</span><span class="va">raw_data</span>, <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">.</span>, <span class="st">"label"</span><span class="op">)</span><span class="op">)</span>
-
-<span class="va">var_labels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="st">"[,\\.:;&gt;&lt;?+()-]"</span>, <span class="st">" "</span>, <span class="va">var_labels</span><span class="op">)</span>
-<span class="va">var_labels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="st">"\\s+"</span>, <span class="st">"_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/trimws.html" class="external-link">trimws</a></span><span class="op">(</span><span class="va">var_labels</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p>The variable labels for the ego-centered network module need some special treatment, so that egor can give useful names to the alter variables. We are deleting the first part from those labels, that is shared by all variables in each split.</p>
+<code class="sourceCode R"><span><span class="va">var_labels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map_chr</a></span><span class="op">(</span><span class="va">raw_data</span>, <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">.</span>, <span class="st">"label"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">var_labels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="st">"[,\\.:;&gt;&lt;?+()-]"</span>, <span class="st">" "</span>, <span class="va">var_labels</span><span class="op">)</span></span>
+<span><span class="va">var_labels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="st">"\\s+"</span>, <span class="st">"_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/trimws.html" class="external-link">trimws</a></span><span class="op">(</span><span class="va">var_labels</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>The variable labels for the ego-centered network module need some
+special treatment, so that egor can give useful names to the alter
+variables. We are deleting the first part from those labels, that is
+shared by all variables in each split.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">var_labels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="st">"FREUND_IN_._"</span>, <span class="st">""</span>, <span class="va">var_labels</span><span class="op">)</span>
-<span class="va">var_labels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="st">"^KONTAKT_._"</span>, <span class="st">""</span>, <span class="va">var_labels</span><span class="op">)</span></code></pre></div>
-<p>Now we can use the cleaned up variable labels as <em>names</em> for our data.</p>
+<code class="sourceCode R"><span><span class="va">var_labels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="st">"FREUND_IN_._"</span>, <span class="st">""</span>, <span class="va">var_labels</span><span class="op">)</span></span>
+<span><span class="va">var_labels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="st">"^KONTAKT_._"</span>, <span class="st">""</span>, <span class="va">var_labels</span><span class="op">)</span></span></code></pre></div>
+<p>Now we can use the cleaned up variable labels as <em>names</em> for
+our data.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">raw_data</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/make.unique.html" class="external-link">make.unique</a></span><span class="op">(</span><span class="va">var_labels</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">raw_data</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/make.unique.html" class="external-link">make.unique</a></span><span class="op">(</span><span class="va">var_labels</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="convert-the-data-to-egor-objects">Convert the data to egor objects<a class="anchor" aria-label="anchor" href="#convert-the-data-to-egor-objects"></a>
 </h2>
-<p>We are going to create two separate ego objects for each split. Starting with the “Freunde” split.</p>
+<p>We are going to create two separate ego objects for each split.
+Starting with the “Freunde” split.</p>
 <p>First we filter out only those respondents from split 1.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">split_freunde</span> <span class="op">&lt;-</span> 
-  <span class="va">raw_data</span> <span class="op"><a href="https://purrr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">FRAGEBOGENSPLIT_F020</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
-<p>Now we use the <em>onefile_to_egor()</em> function to convert the data to an egor object. This function needs a few arguments in order for it to be able to locate the alter data and alter-alter tie data in the dataset.</p>
+<code class="sourceCode R"><span><span class="va">split_freunde</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="va">raw_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">FRAGEBOGENSPLIT_F020</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<p>Now we use the <em>onefile_to_egor()</em> function to convert the
+data to an egor object. This function needs a few arguments in order for
+it to be able to locate the alter data and alter-alter tie data in the
+dataset.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">e_freunde</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/onefile_to_egor.html">onefile_to_egor</a></span><span class="op">(</span>
-                egos <span class="op">=</span> <span class="va">split_freunde</span>,
-                ID.vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>ego <span class="op">=</span> <span class="st">"IDENTIFIKATIONSNUMMER_DES_BEFRAGTEN"</span><span class="op">)</span>,
-                netsize <span class="op">=</span> <span class="va">split_freunde</span><span class="op">$</span><span class="va">ANZ_GENANNTER_NETZWERKPERS_SPLIT_1</span>,
-                attr.start.col <span class="op">=</span> <span class="st">"GESCHLECHT"</span>,
-                attr.end.col <span class="op">=</span> <span class="st">"SPANNUNGEN_KONFLIKTE2"</span>,
-                aa.first.var <span class="op">=</span> <span class="st">"KENNEN_SICH_A_B"</span>,
-                max.alters <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
-<span class="co">#&gt; Sorting data by egoID:</span>
-<span class="co">#&gt; Done.</span>
-<span class="co">#&gt; Transforming alters data to long format:</span>
-<span class="co">#&gt; Done.</span>
-<span class="co">#&gt; Transforming wide dyad data to edgelist:</span>
-<span class="co">#&gt; Done.</span>
-<span class="co">#&gt; Note: Make sure to filter out alter-alter ties with invalid weight values.</span>
-<span class="co">#&gt; Filtering out empty alter entries using provided network size values:</span>
-<span class="co">#&gt; Done.</span></code></pre></div>
-<p>The <em>onefile_to_egor()</em> function prints some messages during the conversion, that are supposed to help us to identify problems in case something something goes wrong.</p>
-<p>We also see a NOTE, that tells us that we need to filter out invalid alter-alter ties. In this case those are ties with a weight of 2, since Allbus codes not existing ties with 2 here.</p>
+<code class="sourceCode R"><span><span class="va">e_freunde</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/onefile_to_egor.html">onefile_to_egor</a></span><span class="op">(</span></span>
+<span>                egos <span class="op">=</span> <span class="va">split_freunde</span>,</span>
+<span>                ID.vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>ego <span class="op">=</span> <span class="st">"IDENTIFIKATIONSNUMMER_DES_BEFRAGTEN"</span><span class="op">)</span>,</span>
+<span>                netsize <span class="op">=</span> <span class="va">split_freunde</span><span class="op">$</span><span class="va">ANZ_GENANNTER_NETZWERKPERS_SPLIT_1</span>,</span>
+<span>                attr.start.col <span class="op">=</span> <span class="st">"GESCHLECHT"</span>,</span>
+<span>                attr.end.col <span class="op">=</span> <span class="st">"SPANNUNGEN_KONFLIKTE2"</span>,</span>
+<span>                aa.first.var <span class="op">=</span> <span class="st">"KENNEN_SICH_A_B"</span>,</span>
+<span>                max.alters <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Sorting data by egoID:</span></span>
+<span><span class="co">#&gt; Done.</span></span>
+<span><span class="co">#&gt; Transforming alters data to long format:</span></span>
+<span><span class="co">#&gt; Done.</span></span>
+<span><span class="co">#&gt; Transforming wide dyad data to edgelist:</span></span>
+<span><span class="co">#&gt; Done.</span></span>
+<span><span class="co">#&gt; Note: Make sure to filter out alter-alter ties with invalid weight values.</span></span>
+<span><span class="co">#&gt; Filtering out empty alter entries using provided network size values:</span></span>
+<span><span class="co">#&gt; Done.</span></span></code></pre></div>
+<p>The <em>onefile_to_egor()</em> function prints some messages during
+the conversion, that are supposed to help us to identify problems in
+case something something goes wrong.</p>
+<p>We also see a NOTE, that tells us that we need to filter out invalid
+alter-alter ties. In this case those are ties with a weight of 2, since
+Allbus codes not existing ties with 2 here.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">raw_data</span><span class="op">$</span><span class="va">KENNEN_SICH_A_B</span>, <span class="st">"labels"</span><span class="op">)</span>
-<span class="co">#&gt;   TRIFFT NICHT ZU   KENNEN SICH GUT KENNEN SICH NICHT      KEINE ANGABE </span>
-<span class="co">#&gt;                 0                 1                 2                 9</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">raw_data</span><span class="op">$</span><span class="va">KENNEN_SICH_A_B</span>, <span class="st">"labels"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   TRIFFT NICHT ZU   KENNEN SICH GUT KENNEN SICH NICHT      KEINE ANGABE </span></span>
+<span><span class="co">#&gt;                 0                 1                 2                 9</span></span></code></pre></div>
 <p>“KENNEN SICH NICHT” means “don’t know each other” in german.</p>
-<p>We can filter the alter-alter ties using the <em>activate()</em> and <em>filter()</em> functions.</p>
+<p>We can filter the alter-alter ties using the <em>activate()</em> and
+<em>filter()</em> functions.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">e_freunde</span> <span class="op">&lt;-</span> 
-  <span class="va">e_freunde</span> <span class="op"><a href="https://purrr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/activate.html" class="external-link">activate</a></span><span class="op">(</span><span class="va">aatie</span><span class="op">)</span> <span class="op"><a href="https://purrr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">weight</span> <span class="op">!=</span> <span class="fl">2</span><span class="op">)</span> <span class="op"><a href="https://purrr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/activate.html" class="external-link">activate</a></span><span class="op">(</span><span class="va">ego</span><span class="op">)</span></code></pre></div>
-<p>Next we repeat the same steps for split 2. Here we need to filter out the weight value 3 from the alter-alter ties and of adjust some arguments according to the position of the data in the dataset and the maximum amount of alters that the respondents were allowed to nominate.</p>
+<code class="sourceCode R"><span><span class="va">e_freunde</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="va">e_freunde</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/activate.html" class="external-link">activate</a></span><span class="op">(</span><span class="va">aatie</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">weight</span> <span class="op">!=</span> <span class="fl">2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/activate.html" class="external-link">activate</a></span><span class="op">(</span><span class="va">ego</span><span class="op">)</span></span></code></pre></div>
+<p>Next we repeat the same steps for split 2. Here we need to filter out
+the weight value 3 from the alter-alter ties and of adjust some
+arguments according to the position of the data in the dataset and the
+maximum amount of alters that the respondents were allowed to
+nominate.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">split_kontakte</span> <span class="op">&lt;-</span> 
-  <span class="va">raw_data</span> <span class="op"><a href="https://purrr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">FRAGEBOGENSPLIT_F020</span> <span class="op">==</span> <span class="fl">2</span><span class="op">)</span> 
-
-<span class="va">e_kontakte</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/onefile_to_egor.html">onefile_to_egor</a></span><span class="op">(</span>
-  egos <span class="op">=</span> <span class="va">split_kontakte</span>,
-  ID.vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>ego <span class="op">=</span> <span class="st">"IDENTIFIKATIONSNUMMER_DES_BEFRAGTEN"</span><span class="op">)</span>,
-  netsize <span class="op">=</span> <span class="va">split_kontakte</span><span class="op">$</span><span class="va">ANZ_GENANNTER_NETZWERKPERS_SPLIT_2</span>,
-  attr.start.col <span class="op">=</span> <span class="st">"GESCHLECHT3"</span>,
-  attr.end.col <span class="op">=</span> <span class="st">"SPANNUNGEN_KONFLIKTE7"</span>,
-  aa.first.var <span class="op">=</span> <span class="st">"KENNEN_SICH_KONTAKT_A_B"</span>,
-  max.alters <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
-<span class="co">#&gt; Sorting data by egoID:</span>
-<span class="co">#&gt; Done.</span>
-<span class="co">#&gt; Transforming alters data to long format:</span>
-<span class="co">#&gt; Done.</span>
-<span class="co">#&gt; Transforming wide dyad data to edgelist:</span>
-<span class="co">#&gt; Done.</span>
-<span class="co">#&gt; Note: Make sure to filter out alter-alter ties with invalid weight values.</span>
-<span class="co">#&gt; Filtering out empty alter entries using provided network size values:</span>
-<span class="co">#&gt; Done.</span>
-
-<span class="va">e_kontakte</span> <span class="op">&lt;-</span> 
-  <span class="va">e_kontakte</span> <span class="op"><a href="https://purrr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/activate.html" class="external-link">activate</a></span><span class="op">(</span><span class="va">aatie</span><span class="op">)</span> <span class="op"><a href="https://purrr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">weight</span> <span class="op">!=</span> <span class="fl">3</span><span class="op">)</span> <span class="op"><a href="https://purrr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/activate.html" class="external-link">activate</a></span><span class="op">(</span><span class="va">ego</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">split_kontakte</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="va">raw_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">FRAGEBOGENSPLIT_F020</span> <span class="op">==</span> <span class="fl">2</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="va">e_kontakte</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/onefile_to_egor.html">onefile_to_egor</a></span><span class="op">(</span></span>
+<span>  egos <span class="op">=</span> <span class="va">split_kontakte</span>,</span>
+<span>  ID.vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>ego <span class="op">=</span> <span class="st">"IDENTIFIKATIONSNUMMER_DES_BEFRAGTEN"</span><span class="op">)</span>,</span>
+<span>  netsize <span class="op">=</span> <span class="va">split_kontakte</span><span class="op">$</span><span class="va">ANZ_GENANNTER_NETZWERKPERS_SPLIT_2</span>,</span>
+<span>  attr.start.col <span class="op">=</span> <span class="st">"GESCHLECHT3"</span>,</span>
+<span>  attr.end.col <span class="op">=</span> <span class="st">"SPANNUNGEN_KONFLIKTE7"</span>,</span>
+<span>  aa.first.var <span class="op">=</span> <span class="st">"KENNEN_SICH_KONTAKT_A_B"</span>,</span>
+<span>  max.alters <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Sorting data by egoID:</span></span>
+<span><span class="co">#&gt; Done.</span></span>
+<span><span class="co">#&gt; Transforming alters data to long format:</span></span>
+<span><span class="co">#&gt; Done.</span></span>
+<span><span class="co">#&gt; Transforming wide dyad data to edgelist:</span></span>
+<span><span class="co">#&gt; Done.</span></span>
+<span><span class="co">#&gt; Note: Make sure to filter out alter-alter ties with invalid weight values.</span></span>
+<span><span class="co">#&gt; Filtering out empty alter entries using provided network size values:</span></span>
+<span><span class="co">#&gt; Done.</span></span>
+<span></span>
+<span><span class="va">e_kontakte</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="va">e_kontakte</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/activate.html" class="external-link">activate</a></span><span class="op">(</span><span class="va">aatie</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">weight</span> <span class="op">!=</span> <span class="fl">3</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/activate.html" class="external-link">activate</a></span><span class="op">(</span><span class="va">ego</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="visualize-and-analyze">Visualize and analyze<a class="anchor" aria-label="anchor" href="#visualize-and-analyze"></a>
 </h2>
-<p>Now we can visualize and analyze the Allbus data. A few demonstrations follow. For an overview of available options, please see the main vignette of egor “Using <code>egor</code> to analyse ego-centered network data”.</p>
+<p>Now we can visualize and analyze the Allbus data. A few
+demonstrations follow. For an overview of available options, please see
+the main vignette of egor “Using <code>egor</code> to analyse
+ego-centered network data”.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">e_freunde</span>, ego_no <span class="op">=</span> <span class="fl">4</span>, x_dim <span class="op">=</span> <span class="fl">2</span>, y_dim <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">e_freunde</span>, ego_no <span class="op">=</span> <span class="fl">4</span>, x_dim <span class="op">=</span> <span class="fl">2</span>, y_dim <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <p><img src="egor_allbus_files/figure-html/unnamed-chunk-11-1.png" width="768"></p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">e_kontakte</span>, ego_no <span class="op">=</span> <span class="fl">4</span>, x_dim <span class="op">=</span> <span class="fl">2</span>, y_dim <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">e_kontakte</span>, ego_no <span class="op">=</span> <span class="fl">4</span>, x_dim <span class="op">=</span> <span class="fl">2</span>, y_dim <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <p><img src="egor_allbus_files/figure-html/unnamed-chunk-11-2.png" width="768"></p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">e_freunde</span> <span class="op">&lt;-</span> 
-  <span class="va">e_freunde</span><span class="op"><a href="https://purrr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/activate.html" class="external-link">activate</a></span><span class="op">(</span><span class="va">alter</span><span class="op">)</span> <span class="op"><a href="https://purrr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>WO_GEBOREN <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/droplevels.html" class="external-link">droplevels</a></span><span class="op">(</span><span class="fu"><a href="https://haven.tidyverse.org/reference/as_factor.html" class="external-link">as_factor</a></span><span class="op">(</span><span class="va">WO_GEBOREN</span><span class="op">)</span><span class="op">)</span>,
-         KONTAKTE <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/droplevels.html" class="external-link">droplevels</a></span><span class="op">(</span><span class="fu"><a href="https://haven.tidyverse.org/reference/as_factor.html" class="external-link">as_factor</a></span><span class="op">(</span><span class="va">KONTAKTE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu"><a href="../reference/plot_egor.html">plot_egograms</a></span><span class="op">(</span><span class="va">e_freunde</span>, 
-              ego_no <span class="op">=</span> <span class="fl">4</span>, 
-              x_dim <span class="op">=</span> <span class="fl">1</span>, 
-              y_dim <span class="op">=</span> <span class="fl">1</span>, venn_var <span class="op">=</span> <span class="st">"KONTAKTE"</span>,
-              pie_var <span class="op">=</span> <span class="st">"WO_GEBOREN"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">e_freunde</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="va">e_freunde</span><span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/activate.html" class="external-link">activate</a></span><span class="op">(</span><span class="va">alter</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>WO_GEBOREN <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/droplevels.html" class="external-link">droplevels</a></span><span class="op">(</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/as_factor.html" class="external-link">as_factor</a></span><span class="op">(</span><span class="va">WO_GEBOREN</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>         KONTAKTE <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/droplevels.html" class="external-link">droplevels</a></span><span class="op">(</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/as_factor.html" class="external-link">as_factor</a></span><span class="op">(</span><span class="va">KONTAKTE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/plot_egor.html">plot_egograms</a></span><span class="op">(</span><span class="va">e_freunde</span>, </span>
+<span>              ego_no <span class="op">=</span> <span class="fl">4</span>, </span>
+<span>              x_dim <span class="op">=</span> <span class="fl">1</span>, </span>
+<span>              y_dim <span class="op">=</span> <span class="fl">1</span>, venn_var <span class="op">=</span> <span class="st">"KONTAKTE"</span>,</span>
+<span>              pie_var <span class="op">=</span> <span class="st">"WO_GEBOREN"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="egor_allbus_files/figure-html/unnamed-chunk-12-1.png" width="768"></p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">e_kontakte</span> <span class="op">&lt;-</span> 
-  <span class="va">e_kontakte</span> <span class="op"><a href="https://purrr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/activate.html" class="external-link">activate</a></span><span class="op">(</span><span class="va">alter</span><span class="op">)</span> <span class="op"><a href="https://purrr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>WO_GEBOREN <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/droplevels.html" class="external-link">droplevels</a></span><span class="op">(</span><span class="fu"><a href="https://haven.tidyverse.org/reference/as_factor.html" class="external-link">as_factor</a></span><span class="op">(</span><span class="va">WO_GEBOREN</span><span class="op">)</span><span class="op">)</span>,
-         KONTAKTE <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/droplevels.html" class="external-link">droplevels</a></span><span class="op">(</span><span class="fu"><a href="https://haven.tidyverse.org/reference/as_factor.html" class="external-link">as_factor</a></span><span class="op">(</span><span class="va">KONTAKTE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu"><a href="../reference/plot_egor.html">plot_egograms</a></span><span class="op">(</span><span class="va">e_kontakte</span>, 
-              ego_no <span class="op">=</span> <span class="fl">4</span>, 
-              x_dim <span class="op">=</span> <span class="fl">1</span>, 
-              y_dim <span class="op">=</span> <span class="fl">1</span>, 
-              venn_var <span class="op">=</span> <span class="st">"KONTAKTE"</span> ,
-              pie_var <span class="op">=</span> <span class="st">"WO_GEBOREN"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="va">e_kontakte</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="va">e_kontakte</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/activate.html" class="external-link">activate</a></span><span class="op">(</span><span class="va">alter</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>WO_GEBOREN <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/droplevels.html" class="external-link">droplevels</a></span><span class="op">(</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/as_factor.html" class="external-link">as_factor</a></span><span class="op">(</span><span class="va">WO_GEBOREN</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>         KONTAKTE <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/droplevels.html" class="external-link">droplevels</a></span><span class="op">(</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/as_factor.html" class="external-link">as_factor</a></span><span class="op">(</span><span class="va">KONTAKTE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/plot_egor.html">plot_egograms</a></span><span class="op">(</span><span class="va">e_kontakte</span>, </span>
+<span>              ego_no <span class="op">=</span> <span class="fl">4</span>, </span>
+<span>              x_dim <span class="op">=</span> <span class="fl">1</span>, </span>
+<span>              y_dim <span class="op">=</span> <span class="fl">1</span>, </span>
+<span>              venn_var <span class="op">=</span> <span class="st">"KONTAKTE"</span> ,</span>
+<span>              pie_var <span class="op">=</span> <span class="st">"WO_GEBOREN"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="egor_allbus_files/figure-html/unnamed-chunk-12-2.png" width="768"></p>
 </div>
   </div>
@@ -262,7 +309,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

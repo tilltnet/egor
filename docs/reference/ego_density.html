@@ -20,7 +20,7 @@ or data.frames."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">egor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.22.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.22.12</span>
       </span>
     </div>
 
@@ -29,7 +29,7 @@ or data.frames."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -75,37 +75,48 @@ or <code>data.frames</code>.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">ego_density</span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for egor</span>
-<span class="fu">ego_density</span><span class="op">(</span><span class="va">object</span>, weight <span class="op">=</span> <span class="cn">NULL</span>, max.netsize <span class="op">=</span> <span class="cn">NULL</span>, directed <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ego_density</span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for egor</span></span>
+<span><span class="fu">ego_density</span><span class="op">(</span><span class="va">object</span>, weight <span class="op">=</span> <span class="cn">NULL</span>, max.netsize <span class="op">=</span> <span class="cn">NULL</span>, directed <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>object</dt>
 <dd><p>An <code>egor</code> object.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>arguments to be passed to methods</p></dd>
+
+
 <dt>weight</dt>
 <dd><p><code>Character</code> naming a variable containing the weight values
 of relations. Weights should range from 0 to 1.</p></dd>
+
+
 <dt>max.netsize</dt>
 <dd><p>Optional parameter. Constant value used if the
 number of alters whose relations were collected is limited.</p></dd>
+
+
 <dt>directed</dt>
 <dd><p>logical indicating if the alter-alter relation data/ edges
 are directed or un-directed.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>returns a <code>vector</code> of network density values.</p>
+    
+
+<p>returns a <code>vector</code> of network density values.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"egor32"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">ego_density</span><span class="op">(</span><span class="va">egor32</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"egor32"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ego_density</span><span class="op">(</span><span class="va">egor32</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 32 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    .egoID density</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
@@ -134,7 +145,7 @@ are directed or un-directed.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

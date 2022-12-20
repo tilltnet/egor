@@ -1,3 +1,9 @@
+# egor 1.22.12
+
+- fixed printing issues (#80)
+- fixed layout issues for `clustered_graphs()` and `plot_egograms()`
+- fixed `tidyselect` deprecation warnings
+
 # egor 1.22.3
 
 - dropped AppVeyor CI

@@ -22,10 +22,10 @@ if (getRversion() >= "2.15.1")
 #' @param shiny_opts A [`list`] of arguments to be passed to [shiny::shinyApp()]'s options argument.
 #' @note This function requires \code{\link[shiny:shiny-package]{shiny}} to be installed.
 #' @examples
-#' if(interactive()){
-#'   data("egor32")
-#'   egor_vis_app(egor32)
-#' }
+#' #if(interactive()){
+#' #   data("egor32")
+#' #   egor_vis_app(egor32)
+#' #}
 #' @keywords ego-centered network analysis
 #' @export
 #' @importFrom grDevices blues9 grey grey.colors heat.colors rainbow topo.colors

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">egor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.22.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.22.12</span>
       </span>
     </div>
 
@@ -26,7 +26,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -69,71 +69,80 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">as_nested_egor</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-
-<span class="fu">alters_by_ego</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-
-<span class="co"># S3 method for egor</span>
-<span class="fu">alters_by_ego</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-
-<span class="co"># S3 method for nested_egor</span>
-<span class="fu">alters_by_ego</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-
-<span class="fu">aaties_by_ego</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-
-<span class="co"># S3 method for egor</span>
-<span class="fu">aaties_by_ego</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-
-<span class="co"># S3 method for nested_egor</span>
-<span class="fu">aaties_by_ego</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-
-<span class="fu">dyad.poss</span><span class="op">(</span><span class="va">max.alters</span>, directed <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-
-<span class="fu">sanitize.wide.edges</span><span class="op">(</span><span class="va">max.alters</span><span class="op">)</span>
-
-<span class="fu">create_edge_names_wide</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-
-<span class="fu">dyads_possible_between_groups</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, geometric <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="fu">din_page_dist</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">as_nested_egor</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">alters_by_ego</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for egor</span></span>
+<span><span class="fu">alters_by_ego</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for nested_egor</span></span>
+<span><span class="fu">alters_by_ego</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">aaties_by_ego</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for egor</span></span>
+<span><span class="fu">aaties_by_ego</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for nested_egor</span></span>
+<span><span class="fu">aaties_by_ego</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">dyad.poss</span><span class="op">(</span><span class="va">max.alters</span>, directed <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">sanitize.wide.edges</span><span class="op">(</span><span class="va">max.alters</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">create_edge_names_wide</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">dyads_possible_between_groups</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, geometric <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">din_page_dist</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p><code>Numeric</code>.</p></dd>
+
+
 <dt>max.alters</dt>
 <dd><p>A <code>numeric</code> giving the maximum number of alters.</p></dd>
+
+
 <dt>directed</dt>
 <dd><p>A <code>logical</code> value indicating directedness of alter-alter
 data.</p></dd>
+
+
 <dt>y</dt>
 <dd><p><code>Numeric</code>.</p></dd>
+
+
 <dt>geometric</dt>
 <dd><p><code>Logical.</code> Calculate possible dyads for geometric mean?</p></dd>
+
 </dl></div>
     <div id="functions">
     <h2>Functions</h2>
     
-<ul><li><p><code>as_nested_egor</code>: Converts an egor object to a "legacy" egor object with
+<ul><li><p><code>as_nested_egor()</code>: Converts an egor object to a "legacy" egor object with
 nested .alts and .aaties columns.</p></li>
-<li><p><code>alters_by_ego</code>: Splits the alter table into a list of tables
+<li><p><code>alters_by_ego()</code>: Splits the alter table into a list of tables
 (possibly 0-row) of alters associated with each ego, in the same
 order as the ego table.</p></li>
-<li><p><code>aaties_by_ego</code>: Splits the alter--alter ties table into a list of
+<li><p><code>aaties_by_ego()</code>: Splits the alter--alter ties table into a list of
 tables (possibly 0-row) of alter--alter associated with each ego, in
 the same order as the ego table.</p></li>
-<li><p><code>dyad.poss</code>: Returns the count of possible edges in an
+<li><p><code>dyad.poss()</code>: Returns the count of possible edges in an
 un-directed or directed, ego-centered network, based on the number of alters.</p></li>
-<li><p><code>sanitize.wide.edges</code>: Generates a <code>data.frame</code> marking possible dyads in
+<li><p><code>sanitize.wide.edges()</code>: Generates a <code>data.frame</code> marking possible dyads in
 a wide alter-alter relation <code>data.frame</code>. Row names corresponds to the
 network size. This is useful for sanitizing alter-alter relations in the wide
 format.</p></li>
-<li><p><code>create_edge_names_wide</code>: Creates a <code>vector</code> of names for variables
+<li><p><code>create_edge_names_wide()</code>: Creates a <code>vector</code> of names for variables
 containing data on alter-alter relations/ dyads in ego-centered networks.</p></li>
-<li><p><code>dyads_possible_between_groups</code>: Calculates the possible edges between members of
+<li><p><code>dyads_possible_between_groups()</code>: Calculates the possible edges between members of
 different groups in an ego-centered network.</p></li>
-<li><p><code>din_page_dist</code>: Calculates the optimal distribution of a number of
+<li><p><code>din_page_dist()</code>: Calculates the optimal distribution of a number of
 equally sized objects on a DIN-Norm DIN 476 (i.e. DIN A4) page in landscape
 view.</p></li>
 </ul></div>
@@ -150,7 +159,7 @@ view.</p></li>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

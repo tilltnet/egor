@@ -19,7 +19,7 @@ a parameter (include.egor) that allows for including ego."><!-- mathjax --><scri
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">egor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.22.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.22.12</span>
       </span>
     </div>
 
@@ -28,7 +28,7 @@ a parameter (include.egor) that allows for including ego."><!-- mathjax --><scri
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -73,77 +73,88 @@ a parameter (<strong>include.egor</strong>) that allows for including ego.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">as_igraph</span><span class="op">(</span>
-  <span class="va">x</span>,
-  directed <span class="op">=</span> <span class="cn">FALSE</span>,
-  include.ego <span class="op">=</span> <span class="cn">FALSE</span>,
-  ego.attrs <span class="op">=</span> <span class="cn">NULL</span>,
-  ego.alter.weights <span class="op">=</span> <span class="cn">NULL</span>,
-  graph.attrs <span class="op">=</span> <span class="st">".egoID"</span>
-<span class="op">)</span>
-
-<span class="co"># S3 method for nested_egor</span>
-<span class="fu">as_igraph</span><span class="op">(</span>
-  <span class="va">x</span>,
-  directed <span class="op">=</span> <span class="cn">FALSE</span>,
-  include.ego <span class="op">=</span> <span class="cn">FALSE</span>,
-  ego.attrs <span class="op">=</span> <span class="cn">NULL</span>,
-  ego.alter.weights <span class="op">=</span> <span class="cn">NULL</span>,
-  graph.attrs <span class="op">=</span> <span class="st">".egoID"</span>
-<span class="op">)</span>
-
-<span class="co"># S3 method for egor</span>
-<span class="fu">as.igraph</span><span class="op">(</span>
-  <span class="va">x</span>,
-  directed <span class="op">=</span> <span class="cn">FALSE</span>,
-  include.ego <span class="op">=</span> <span class="cn">FALSE</span>,
-  ego.attrs <span class="op">=</span> <span class="cn">NULL</span>,
-  ego.alter.weights <span class="op">=</span> <span class="cn">NULL</span>,
-  graph.attrs <span class="op">=</span> <span class="st">".egoID"</span>
-<span class="op">)</span>
-
-<span class="fu">as_network</span><span class="op">(</span>
-  <span class="va">x</span>,
-  directed <span class="op">=</span> <span class="cn">FALSE</span>,
-  include.ego <span class="op">=</span> <span class="cn">FALSE</span>,
-  ego.attrs <span class="op">=</span> <span class="cn">NULL</span>,
-  ego.alter.weights <span class="op">=</span> <span class="cn">NULL</span>,
-  graph.attrs <span class="op">=</span> <span class="st">".egoID"</span>
-<span class="op">)</span>
-
-<span class="co"># S3 method for egor</span>
-<span class="fu">as.network</span><span class="op">(</span>
-  <span class="va">x</span>,
-  directed <span class="op">=</span> <span class="cn">FALSE</span>,
-  include.ego <span class="op">=</span> <span class="cn">FALSE</span>,
-  ego.attrs <span class="op">=</span> <span class="cn">NULL</span>,
-  ego.alter.weights <span class="op">=</span> <span class="cn">NULL</span>,
-  graph.attrs <span class="op">=</span> <span class="st">".egoID"</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">as_igraph</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  directed <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  include.ego <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  ego.attrs <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ego.alter.weights <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  graph.attrs <span class="op">=</span> <span class="st">".egoID"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for nested_egor</span></span>
+<span><span class="fu">as_igraph</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  directed <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  include.ego <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  ego.attrs <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ego.alter.weights <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  graph.attrs <span class="op">=</span> <span class="st">".egoID"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for egor</span></span>
+<span><span class="fu">as.igraph</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  directed <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  include.ego <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  ego.attrs <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ego.alter.weights <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  graph.attrs <span class="op">=</span> <span class="st">".egoID"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">as_network</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  directed <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  include.ego <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  ego.attrs <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ego.alter.weights <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  graph.attrs <span class="op">=</span> <span class="st">".egoID"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for egor</span></span>
+<span><span class="fu">as.network</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  directed <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  include.ego <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  ego.attrs <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ego.alter.weights <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  graph.attrs <span class="op">=</span> <span class="st">".egoID"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>An <code>egor</code> object.</p></dd>
+
+
 <dt>directed</dt>
 <dd><p>Logical, indicating if alter-alter relations are directed.</p></dd>
+
+
 <dt>include.ego</dt>
 <dd><p><code>Logical.</code> Should ego be included?</p></dd>
+
+
 <dt>ego.attrs</dt>
 <dd><p>Vector of names (character) or indices (numeric) of ego
 variables that should be carried over to  the network/
 igraph objects. This is ignored, when <code>include.ego = FALSE</code> (default).</p></dd>
+
+
 <dt>ego.alter.weights</dt>
 <dd><p>Vector of names (character) or indices (numeric) of
 alter variables that should be carried over to the the
 network/ igraph objects, as edge attributes of the ego-alter relations.
 This is ignored, when `include.ego = FALSE`` (default).</p></dd>
+
+
 <dt>graph.attrs</dt>
 <dd><p>Vector of names (character) or indices (numeric) of
 ego variables that are supposed to be carried over to the igraph object
 as graph attributes or the network object as network attributes. By
 default <code>.egoID</code> is carried over.</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -155,34 +166,33 @@ network/ igraph object (see example).</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">e</span> <span class="op">&lt;-</span> <span class="fu"><a href="make_egor.html">make_egor</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">22</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">as_igraph</span><span class="op">(</span><span class="va">e</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">e</span> <span class="op">&lt;-</span> <span class="fu"><a href="make_egor.html">make_egor</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">22</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">as_igraph</span><span class="op">(</span><span class="va">e</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> IGRAPH 4964f89 UNW- 15 48 -- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> IGRAPH c5a8232 UNW- 10 23 -- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + attr: .egoID (g/n), name (v/c), sex (v/c), age (v/c), age.years</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> | (v/n), country (v/c), income (v/n), weight (e/n)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + edges from 4964f89 (vertex names):</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 11--15 4 --12 1 --10 11--13 1 --8  3 --9  13--15 1 --6  7 --13 4 --10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11] 4 --5  7 --10 7 --14 5 --7  3 --13 1 --11 3 --7  10--14 1 --9  7 --15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [21] 6 --10 10--15 6 --7  7 --12 2 --12 3 --12 9 --13 8 --14 3 --10 2 --14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [31] 2 --9  2 --8  10--11 3 --4  6 --13 5 --11 2 --7  3 --6  10--13 9 --10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [41] 4 --11 9 --12 2 --13 2 --5  2 --10 11--14 1 --15 9 --11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + edges from c5a8232 (vertex names):</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 2--8  7--9  2--3  2--4  5--8  3--7  4--7  1--8  6--10 3--6  2--6  5--9 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] 1--10 1--2  3--10 9--10 3--5  3--9  1--9  3--8  8--10 5--6  5--10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`2`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> IGRAPH 610cd72 UNW- 9 22 -- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> IGRAPH aaba9c7 UNW- 8 10 -- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + attr: .egoID (g/n), name (v/c), sex (v/c), age (v/c), age.years</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> | (v/n), country (v/c), income (v/n), weight (e/n)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + edges from 610cd72 (vertex names):</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 2--9 3--9 2--7 3--5 1--5 3--8 3--7 2--6 1--9 4--7 5--9 1--6 4--6 1--8 7--8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [16] 1--7 7--9 4--9 3--6 6--9 6--8 3--4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + edges from aaba9c7 (vertex names):</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 1--7 6--7 2--5 1--2 3--5 1--5 2--4 1--6 1--8 5--8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`3`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> IGRAPH 3a0e1d9 UNW- 9 18 -- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> IGRAPH 7de20e3 UNW- 14 49 -- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + attr: .egoID (g/n), name (v/c), sex (v/c), age (v/c), age.years</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> | (v/n), country (v/c), income (v/n), weight (e/n)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + edges from 3a0e1d9 (vertex names):</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 7--9 3--9 3--5 6--8 1--8 6--9 2--4 4--5 3--4 5--7 5--6 2--9 2--7 2--3 1--6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [16] 5--9 1--4 1--5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + edges from 7de20e3 (vertex names):</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 3 --13 2 --9  8 --13 2 --14 4 --12 2 --13 7 --11 9 --10 1 --5  2 --6 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11] 11--14 1 --10 9 --11 5 --8  8 --11 10--13 4 --10 5 --6  1 --6  6 --14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [21] 11--12 10--14 7 --12 2 --8  1 --11 6 --12 1 --14 10--12 7 --13 7 --8 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [31] 4 --9  7 --14 5 --13 3 --5  3 --11 11--13 4 --5  1 --7  3 --6  6 --8 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [41] 12--13 1 --4  8 --9  2 --3  2 --12 4 --11 3 --9  2 --7  1 --12</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>
@@ -198,7 +208,7 @@ network/ igraph object (see example).</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

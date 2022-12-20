@@ -19,7 +19,7 @@ numeric vector."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">egor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.22.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.22.12</span>
       </span>
     </div>
 
@@ -28,7 +28,7 @@ numeric vector."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -73,27 +73,40 @@ a compositional measurement, on all networks in an <code>egor</code> object and 
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">comp_ply</span><span class="op">(</span><span class="va">object</span>, <span class="va">alt.attr</span>, <span class="va">.f</span>, <span class="va">...</span>, ego.attr <span class="op">=</span> <span class="cn">NULL</span>, result.name <span class="op">=</span> <span class="st">"result"</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">comp_ply</span><span class="op">(</span><span class="va">object</span>, <span class="va">alt.attr</span>, <span class="va">.f</span>, <span class="va">...</span>, ego.attr <span class="op">=</span> <span class="cn">NULL</span>, result.name <span class="op">=</span> <span class="st">"result"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>object</dt>
 <dd><p>An <code>egor</code> object.</p></dd>
+
+
 <dt>alt.attr</dt>
 <dd><p>A <code>character</code> naming the variable containing the alter-attribute.</p></dd>
+
+
 <dt>.f</dt>
 <dd><p>A <code>function</code> that returns a numeric.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Optional arguments to <code>.f</code>.</p></dd>
+
+
 <dt>ego.attr</dt>
 <dd><p>Optional  <code>character</code> naming an ego attribute.</p></dd>
+
+
 <dt>result.name</dt>
 <dd><p>Optional <code>character</code> naming the result column.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A <code>tibble</code> with the ego ID and a <code>numeric</code> result vector.</p>
+    
+
+<p>A <code>tibble</code> with the ego ID and a <code>numeric</code> result vector.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -108,21 +121,21 @@ a compositional measurement, on all networks in an <code>egor</code> object and 
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="make_egor.html">make_egor</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">32</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">comp_ply</span><span class="op">(</span><span class="va">df</span>, <span class="st">"age.years"</span>, <span class="va">sd</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="make_egor.html">make_egor</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">32</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">comp_ply</span><span class="op">(</span><span class="va">df</span>, <span class="st">"age.years"</span>, <span class="va">sd</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 10 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    .egoID result</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>      1   29.3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>      2   30.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>      3   28.9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>      4   28.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>      5   40.3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>      6   29.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>      7   28.8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>      8   29.3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>      9   28.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>     10   29.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>      1   23.4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>      2   24.3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>      3   23.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>      4   26.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>      5   25.7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>      6   25.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>      7   21.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>      8   25.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>      9   26.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>     10   26.3</span>
 </code></pre></div>
     </div>
   </div>
@@ -137,7 +150,7 @@ a compositional measurement, on all networks in an <code>egor</code> object and 
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

@@ -20,7 +20,7 @@ the created dataframe numerous networks can be distinguished by a network ID
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">egor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.22.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.22.12</span>
       </span>
     </div>
 
@@ -29,7 +29,7 @@ the created dataframe numerous networks can be distinguished by a network ID
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -75,35 +75,48 @@ the created dataframe numerous networks can be distinguished by a network ID
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">wide.to.long</span><span class="op">(</span>
-  <span class="va">wide</span>,
-  egoID <span class="op">=</span> <span class="st">"egoID"</span>,
-  <span class="va">max.alters</span>,
-  <span class="va">start.col</span>,
-  <span class="va">end.col</span>,
-  var.wise <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">wide.to.long</span><span class="op">(</span></span>
+<span>  <span class="va">wide</span>,</span>
+<span>  egoID <span class="op">=</span> <span class="st">"egoID"</span>,</span>
+<span>  <span class="va">max.alters</span>,</span>
+<span>  <span class="va">start.col</span>,</span>
+<span>  <span class="va">end.col</span>,</span>
+<span>  var.wise <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>wide</dt>
 <dd><p>A <code>data.frame</code> of alter attributes in the wide format.</p></dd>
+
+
 <dt>egoID</dt>
 <dd><p><code>Character</code>. Name of the variable identifying egos (default: "egoID").</p></dd>
+
+
 <dt>max.alters</dt>
 <dd><p>A <code>numeric</code> giving the maximum number of alters.</p></dd>
+
+
 <dt>start.col</dt>
 <dd><p>Index or name of the first column containing alter-alter relation data.
 #!# Should: Defaults to first column of <code>wide</code>.</p></dd>
+
+
 <dt>var.wise</dt>
 <dd><p>a logical value indicating whether the alter attributes are
 stored variable-wise, if FALSE alter-wise storage is assumed.</p></dd>
+
+
 <dt>last.col</dt>
 <dd><p>Index or name of the first column containing alter-alter relation data.
 #!# Should: Defaults to last column of <code>wide</code>.</p></dd>
+
+
 <dt>ego.vars</dt>
 <dd><p>A <code>data.frame</code> of alter attributes in the wide format.</p></dd>
+
 </dl></div>
 
   </div>
@@ -118,7 +131,7 @@ stored variable-wise, if FALSE alter-wise storage is assumed.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

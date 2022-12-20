@@ -20,7 +20,7 @@ A regex based implementation to convert a wide list to an edgelist."><!-- mathja
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">egor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.22.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.22.12</span>
       </span>
     </div>
 
@@ -29,7 +29,7 @@ A regex based implementation to convert a wide list to an edgelist."><!-- mathja
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -74,7 +74,7 @@ A regex based implementation to convert a wide list to an edgelist.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">wide.dyads.to.edgelist.regex</span><span class="op">(</span><span class="va">e.wide</span>, <span class="va">aa.regex</span>, <span class="va">netsize</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">wide.dyads.to.edgelist.regex</span><span class="op">(</span><span class="va">e.wide</span>, <span class="va">aa.regex</span>, <span class="va">netsize</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -82,6 +82,8 @@ A regex based implementation to convert a wide list to an edgelist.</p>
     <dl><dt>e.wide</dt>
 <dd><p>A dataframe containing the alter-alter relation data
 in the 'wide' format.</p></dd>
+
+
 <dt>aa.regex</dt>
 <dd><p>A Perl regular expression with name capture,
 intended to be run on column names and capturing via named
@@ -90,8 +92,11 @@ capture the following regex groups: <code>"attr"</code>, <code>"src"</code>, and
 source (or the first alter identified), and the target (or the
 second alter identified) of the edge, respectively. See <code><a href="https://rdrr.io/r/base/regex.html" class="external-link">regex</a></code>
 for more information.</p></dd>
+
+
 <dt>netsize</dt>
 <dd><p><code>Vector</code> containing values of network size per ego.</p></dd>
+
 </dl></div>
 
   </div>
@@ -106,7 +111,7 @@ for more information.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

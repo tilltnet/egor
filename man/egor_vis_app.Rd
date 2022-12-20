@@ -21,10 +21,10 @@ the \code{egor} object.
 This function requires \code{\link[shiny:shiny-package]{shiny}} to be installed.
 }
 \examples{
-if(interactive()){
-  data("egor32")
-  egor_vis_app(egor32)
-}
+#if(interactive()){
+#   data("egor32")
+#   egor_vis_app(egor32)
+#}
 }
 \keyword{analysis}
 \keyword{ego-centered}

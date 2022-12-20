@@ -20,7 +20,7 @@ function can be used to import data exported from EgoNet (McCarty 2011)."><!-- m
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">egor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.22.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.22.12</span>
       </span>
     </div>
 
@@ -29,7 +29,7 @@ function can be used to import data exported from EgoNet (McCarty 2011)."><!-- m
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -75,30 +75,37 @@ function can be used to import data exported from EgoNet (McCarty 2011).</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">read_egonet</span><span class="op">(</span>
-  <span class="va">egos.file</span>,
-  <span class="va">alter.folder</span>,
-  <span class="va">edge.folder</span>,
-  csv.sep <span class="op">=</span> <span class="st">","</span>,
-  ID.vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>ego <span class="op">=</span> <span class="st">"egoID"</span>, alter <span class="op">=</span> <span class="st">"alterID"</span>, source <span class="op">=</span> <span class="st">"Source"</span>, target <span class="op">=</span>
-    <span class="st">"Target"</span><span class="op">)</span>,
-  first.col.row.names <span class="op">=</span> <span class="cn">FALSE</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_egonet</span><span class="op">(</span></span>
+<span>  <span class="va">egos.file</span>,</span>
+<span>  <span class="va">alter.folder</span>,</span>
+<span>  <span class="va">edge.folder</span>,</span>
+<span>  csv.sep <span class="op">=</span> <span class="st">","</span>,</span>
+<span>  ID.vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>ego <span class="op">=</span> <span class="st">"egoID"</span>, alter <span class="op">=</span> <span class="st">"alterID"</span>, source <span class="op">=</span> <span class="st">"Source"</span>, target <span class="op">=</span> <span class="st">"Target"</span><span class="op">)</span>,</span>
+<span>  first.col.row.names <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>egos.file</dt>
 <dd><p>File name of the .csv file containing the ego data.</p></dd>
+
+
 <dt>alter.folder</dt>
 <dd><p>Folder name of the folder containing the alter data in
 separate .csv files for each ego/ network.</p></dd>
+
+
 <dt>edge.folder</dt>
 <dd><p>Folder name of the folder containing the edge/ tie data in
 separate .csv files for each ego/ network.</p></dd>
+
+
 <dt>csv.sep</dt>
 <dd><p><code>Character</code> indicating the separator used in csv files.</p></dd>
+
+
 <dt>ID.vars</dt>
 <dd><p>A named list containing column names of the relevant
 input columns:</p><dl><dt><code>ego</code></dt>
@@ -125,15 +132,22 @@ alter identifier of the destination of a relation.</p></dd>
 
 
 </dl></dd>
+
+
 <dt>first.col.row.names</dt>
 <dd><p><code>Boolean</code> indicating if first column contains
 row names, that are to be skipped, default is <code>FALSE</code>.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>additional arguments to <code><a href="egor.html">egor()</a></code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>An <strong>egor</strong> object is returned. It is a <code>list</code> of three data frames:
+    
+
+<p>An <strong>egor</strong> object is returned. It is a <code>list</code> of three data frames:
 (1) ego: <code>dataframe</code> of all
 egos and their attributes;
 (2) alter: <code>dataframe</code> of all alters;
@@ -142,14 +156,14 @@ egos and their attributes;
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">egos.file</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"egos_32.csv"</span>, package <span class="op">=</span> <span class="st">"egor"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">alters.folder</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"alters_32"</span>, package <span class="op">=</span> <span class="st">"egor"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">edge.folder</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"edges_32"</span>, package <span class="op">=</span> <span class="st">"egor"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">ef</span> <span class="op">&lt;-</span> <span class="fu">read_egonet</span><span class="op">(</span>egos.file <span class="op">=</span> <span class="va">egos.file</span>, </span>
-<span class="r-in">                          alter.folder <span class="op">=</span> <span class="va">alters.folder</span>, </span>
-<span class="r-in">                          edge.folder <span class="op">=</span> <span class="va">edge.folder</span>, </span>
-<span class="r-in">                          csv.sep <span class="op">=</span> <span class="st">";"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">egos.file</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"egos_32.csv"</span>, package <span class="op">=</span> <span class="st">"egor"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">alters.folder</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"alters_32"</span>, package <span class="op">=</span> <span class="st">"egor"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">edge.folder</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"edges_32"</span>, package <span class="op">=</span> <span class="st">"egor"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">ef</span> <span class="op">&lt;-</span> <span class="fu">read_egonet</span><span class="op">(</span>egos.file <span class="op">=</span> <span class="va">egos.file</span>, </span></span>
+<span class="r-in"><span>                          alter.folder <span class="op">=</span> <span class="va">alters.folder</span>, </span></span>
+<span class="r-in"><span>                          edge.folder <span class="op">=</span> <span class="va">edge.folder</span>, </span></span>
+<span class="r-in"><span>                          csv.sep <span class="op">=</span> <span class="st">";"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading ego data.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Checking if alter.files and edge.files correspond</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Creating $alters.df and $alters.list</span>
@@ -168,7 +182,7 @@ egos and their attributes;
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

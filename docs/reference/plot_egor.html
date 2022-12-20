@@ -18,7 +18,7 @@ default networks of the four first egos are plotted."><!-- mathjax --><script sr
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">egor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.22.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.22.12</span>
       </span>
     </div>
 
@@ -27,7 +27,7 @@ default networks of the four first egos are plotted."><!-- mathjax --><script sr
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -71,135 +71,192 @@ default networks of the four first egos are plotted.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">plot_egograms</span><span class="op">(</span>
-  <span class="va">x</span>,
-  ego_no <span class="op">=</span> <span class="fl">1</span>,
-  x_dim <span class="op">=</span> <span class="fl">1</span>,
-  y_dim <span class="op">=</span> <span class="fl">1</span>,
-  venn_var <span class="op">=</span> <span class="cn">NULL</span>,
-  pie_var <span class="op">=</span> <span class="cn">NULL</span>,
-  ascending_inwards <span class="op">=</span> <span class="cn">TRUE</span>,
-  vertex_size_var <span class="op">=</span> <span class="cn">NULL</span>,
-  vertex_color_var <span class="op">=</span> <span class="cn">NULL</span>,
-  vertex_color_palette <span class="op">=</span> <span class="st">"Heat Colors"</span>,
-  vertex_color_legend_label <span class="op">=</span> <span class="va">vertex_color_var</span>,
-  vertex_label_var <span class="op">=</span> <span class="st">"name"</span>,
-  edge_width_var <span class="op">=</span> <span class="cn">NULL</span>,
-  edge_color_var <span class="op">=</span> <span class="cn">NULL</span>,
-  edge_color_palette <span class="op">=</span> <span class="st">"Heat Colors"</span>,
-  highlight_box_col_var <span class="op">=</span> <span class="cn">NULL</span>,
-  highlight_box_col_palette <span class="op">=</span> <span class="st">"Heat Colors"</span>,
-  res_disp_vars <span class="op">=</span> <span class="cn">NULL</span>,
-  vertex_zoom <span class="op">=</span> <span class="fl">1</span>,
-  edge_zoom <span class="op">=</span> <span class="fl">2</span>,
-  font_size <span class="op">=</span> <span class="fl">1</span>,
-  pie_colors <span class="op">=</span> <span class="cn">NULL</span>,
-  venn_gradient_reverse <span class="op">=</span> <span class="cn">FALSE</span>,
-  show_venn_labels <span class="op">=</span> <span class="cn">TRUE</span>,
-  include_ego <span class="op">=</span> <span class="cn">FALSE</span>,
-  <span class="va">...</span>
-<span class="op">)</span>
-
-<span class="fu">plot_ego_graphs</span><span class="op">(</span>
-  <span class="va">x</span>,
-  ego_no <span class="op">=</span> <span class="fl">1</span>,
-  x_dim <span class="op">=</span> <span class="fl">1</span>,
-  y_dim <span class="op">=</span> <span class="fl">1</span>,
-  vertex_size_var <span class="op">=</span> <span class="cn">NULL</span>,
-  vertex_color_var <span class="op">=</span> <span class="cn">NULL</span>,
-  vertex_color_palette <span class="op">=</span> <span class="st">"Heat Colors"</span>,
-  vertex_color_legend_label <span class="op">=</span> <span class="va">vertex_color_var</span>,
-  vertex_label_var <span class="op">=</span> <span class="st">"name"</span>,
-  edge_width_var <span class="op">=</span> <span class="cn">NULL</span>,
-  ego_alter_edge_width_var <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">edge_width_var</span><span class="op">)</span> <span class="op">&amp;</span> <span class="va">include_ego</span><span class="op">)</span> <span class="va">edge_width_var</span>,
-  edge_color_var <span class="op">=</span> <span class="cn">NULL</span>,
-  ego_alter_edge_color_var <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">edge_color_var</span><span class="op">)</span> <span class="op">&amp;</span> <span class="va">include_ego</span><span class="op">)</span> <span class="va">edge_color_var</span>,
-  edge_color_palette <span class="op">=</span> <span class="st">"Heat Colors"</span>,
-  highlight_box_col_var <span class="op">=</span> <span class="cn">NULL</span>,
-  highlight_box_col_palette <span class="op">=</span> <span class="st">"Heat Colors"</span>,
-  res_disp_vars <span class="op">=</span> <span class="cn">NULL</span>,
-  vertex_zoom <span class="op">=</span> <span class="fl">1</span>,
-  edge_zoom <span class="op">=</span> <span class="fl">3</span>,
-  font_size <span class="op">=</span> <span class="fl">1</span>,
-  include_ego <span class="op">=</span> <span class="cn">FALSE</span>,
-  <span class="va">...</span>
-<span class="op">)</span>
-
-<span class="fu">plot_egor</span><span class="op">(</span>
-  <span class="va">x</span>,
-  ego_no <span class="op">=</span> <span class="fl">1</span>,
-  x_dim <span class="op">=</span> <span class="fl">2</span>,
-  y_dim <span class="op">=</span> <span class="fl">2</span>,
-  <span class="va">...</span>,
-  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"egograph"</span>, <span class="st">"egogram"</span><span class="op">)</span>
-<span class="op">)</span>
-
-<span class="co"># S3 method for egor</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plot_egograms</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  ego_no <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  x_dim <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  y_dim <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  venn_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  pie_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ascending_inwards <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  vertex_size_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  vertex_color_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  vertex_color_palette <span class="op">=</span> <span class="st">"Heat Colors"</span>,</span>
+<span>  vertex_color_legend_label <span class="op">=</span> <span class="va">vertex_color_var</span>,</span>
+<span>  vertex_label_var <span class="op">=</span> <span class="st">"name"</span>,</span>
+<span>  edge_width_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  edge_color_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  edge_color_palette <span class="op">=</span> <span class="st">"Heat Colors"</span>,</span>
+<span>  highlight_box_col_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  highlight_box_col_palette <span class="op">=</span> <span class="st">"Heat Colors"</span>,</span>
+<span>  res_disp_vars <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  vertex_zoom <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  edge_zoom <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  font_size <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  pie_colors <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  venn_gradient_reverse <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  show_venn_labels <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  include_ego <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">plot_ego_graphs</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  ego_no <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  x_dim <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  y_dim <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  vertex_size_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  vertex_color_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  vertex_color_palette <span class="op">=</span> <span class="st">"Heat Colors"</span>,</span>
+<span>  vertex_color_legend_label <span class="op">=</span> <span class="va">vertex_color_var</span>,</span>
+<span>  vertex_label_var <span class="op">=</span> <span class="st">"name"</span>,</span>
+<span>  edge_width_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ego_alter_edge_width_var <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">edge_width_var</span><span class="op">)</span> <span class="op">&amp;</span> <span class="va">include_ego</span><span class="op">)</span> <span class="va">edge_width_var</span>,</span>
+<span>  edge_color_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ego_alter_edge_color_var <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">edge_color_var</span><span class="op">)</span> <span class="op">&amp;</span> <span class="va">include_ego</span><span class="op">)</span> <span class="va">edge_color_var</span>,</span>
+<span>  edge_color_palette <span class="op">=</span> <span class="st">"Heat Colors"</span>,</span>
+<span>  highlight_box_col_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  highlight_box_col_palette <span class="op">=</span> <span class="st">"Heat Colors"</span>,</span>
+<span>  res_disp_vars <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  vertex_zoom <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  edge_zoom <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>  font_size <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  include_ego <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">plot_egor</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  ego_no <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  x_dim <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  y_dim <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"egograph"</span>, <span class="st">"egogram"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for egor</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>An <em>egor</em> object.</p></dd>
+
+
 <dt>ego_no</dt>
 <dd><p>Ego row number.</p></dd>
+
+
 <dt>x_dim</dt>
 <dd><p>Number of ego networks to plot horizontally.</p></dd>
+
+
 <dt>y_dim</dt>
 <dd><p>Number of ego networks to plot vertically</p></dd>
+
+
 <dt>venn_var</dt>
 <dd><p>Name (character) of alter column.</p></dd>
+
+
 <dt>pie_var</dt>
 <dd><p>Name (character) of alter column.</p></dd>
+
+
 <dt>ascending_inwards</dt>
 <dd><p><code>Logical</code> determining the venn circle order. If TRUE (default) values ascend from the outside to the inside, if FALSE the reverse.</p></dd>
+
+
 <dt>vertex_size_var</dt>
 <dd><p>Name (<code>character</code>) of alter column.</p></dd>
+
+
 <dt>vertex_color_var</dt>
 <dd><p>Name (<code>character</code>) of alter column.</p></dd>
+
+
 <dt>vertex_color_palette</dt>
 <dd><p>Name (<code>character</code>) of color palette, see details for available color palettes.</p></dd>
+
+
 <dt>vertex_color_legend_label</dt>
 <dd><p>Character.</p></dd>
+
+
 <dt>vertex_label_var</dt>
 <dd><p>Name (<code>character</code>) of alter column. Set this to <code>NULL</code> to suppress labels.</p></dd>
+
+
 <dt>edge_width_var</dt>
 <dd><p>Name (<code>character</code>) of aatie column.</p></dd>
+
+
 <dt>edge_color_var</dt>
 <dd><p>Name (<code>character</code>) of aatie column.</p></dd>
+
+
 <dt>edge_color_palette</dt>
 <dd><p>Name (<code>character</code>) of color palette, see details for available color palettes.</p></dd>
+
+
 <dt>highlight_box_col_var</dt>
 <dd><p>Name (<code>character</code>) of ego column.</p></dd>
+
+
 <dt>highlight_box_col_palette</dt>
 <dd><p>Name (<code>character</code>) of color palette, see details for available color palettes.</p></dd>
+
+
 <dt>res_disp_vars</dt>
 <dd><p>Name (<code>character</code>) of ego column.</p></dd>
+
+
 <dt>vertex_zoom</dt>
 <dd><p>Numeric.</p></dd>
+
+
 <dt>edge_zoom</dt>
 <dd><p>Numeric.</p></dd>
+
+
 <dt>font_size</dt>
 <dd><p>Numeric.</p></dd>
+
+
 <dt>pie_colors</dt>
 <dd><p><code>Character</code> vector of colors to be used for coloring the
 subsections of the circle.</p></dd>
+
+
 <dt>venn_gradient_reverse</dt>
 <dd><p><code>Logical</code>, set to TRUE in order to have the color intensity
 of venns increase going from the inner circles to the outer circles.</p></dd>
+
+
 <dt>show_venn_labels</dt>
 <dd><p>Logical.</p></dd>
+
+
 <dt>include_ego</dt>
 <dd><p>Logical.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional arguments forwarded to plot.igraph.</p></dd>
+
+
 <dt>ego_alter_edge_width_var</dt>
 <dd><p>Name (<code>character</code>) of alter column.</p></dd>
+
+
 <dt>ego_alter_edge_color_var</dt>
 <dd><p>Name (<code>character</code>) of alter column.</p></dd>
+
+
 <dt>type</dt>
 <dd><p>Character. Either "egograph" or "egogram".</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -219,20 +276,20 @@ alter variables.</p>
     <div id="functions">
     <h2>Functions</h2>
     
-<ul><li><p><code>plot_egograms</code>: Plots an ego-socio-gram.</p></li>
-<li><p><code>plot_ego_graphs</code>: Plots an ego graph.</p></li>
+<ul><li><p><code>plot_egograms()</code>: Plots an ego-socio-gram.</p></li>
+<li><p><code>plot_ego_graphs()</code>: Plots an ego graph.</p></li>
 </ul></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">e</span> <span class="op">&lt;-</span> <span class="fu"><a href="make_egor.html">make_egor</a></span><span class="op">(</span>net.count <span class="op">=</span> <span class="fl">5</span>, max.alters <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">plot_egograms</span><span class="op">(</span>x <span class="op">=</span> <span class="va">e</span>,</span>
-<span class="r-in">              ego_no <span class="op">=</span> <span class="fl">2</span>,</span>
-<span class="r-in">              venn_var <span class="op">=</span> <span class="st">"sex"</span>,</span>
-<span class="r-in">              pie_var <span class="op">=</span> <span class="st">"country"</span>,</span>
-<span class="r-in">              vertex_size_var <span class="op">=</span> <span class="st">"age"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">e</span> <span class="op">&lt;-</span> <span class="fu"><a href="make_egor.html">make_egor</a></span><span class="op">(</span>net.count <span class="op">=</span> <span class="fl">5</span>, max.alters <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">plot_egograms</span><span class="op">(</span>x <span class="op">=</span> <span class="va">e</span>,</span></span>
+<span class="r-in"><span>              ego_no <span class="op">=</span> <span class="fl">2</span>,</span></span>
+<span class="r-in"><span>              venn_var <span class="op">=</span> <span class="st">"sex"</span>,</span></span>
+<span class="r-in"><span>              pie_var <span class="op">=</span> <span class="st">"country"</span>,</span></span>
+<span class="r-in"><span>              vertex_size_var <span class="op">=</span> <span class="st">"age"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot_egor-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">e</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">e</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot_egor-2.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -248,7 +305,7 @@ alter variables.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
