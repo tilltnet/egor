@@ -52,7 +52,7 @@ test_that(
     
     expect_error(clustered_graphs(object = mpf, clust.groups = "country"), NA)
 
-    expect_null(igraph::V(clustered_graphs(mpf, "country")[[1]])$grp.size)
+    expect_length(igraph::V(clustered_graphs(mpf, "country")[[1]])$grp.size, 0)
   }
 )
 
