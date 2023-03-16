@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">egor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.22.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.23.3</span>
       </span>
     </div>
 
@@ -87,34 +87,34 @@
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">e</span> <span class="op">&lt;-</span> <span class="fu"><a href="make_egor.html">make_egor</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">50</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">e</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span></span>
-<span class="r-in"><span>   <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/activate.html" class="external-link">activate</a></span><span class="op">(</span><span class="st">"aatie"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span></span>
-<span class="r-in"><span>   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>weight2 <span class="op">=</span> <span class="fl">2</span> <span class="op">+</span> <span class="va">weight</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span></span>
-<span class="r-in"><span>   <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/activate.html" class="external-link">activate</a></span><span class="op">(</span><span class="st">"alter"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span></span>
-<span class="r-in"><span>   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>age.years <span class="op">=</span> <span class="va">age.years</span><span class="op">^</span><span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">e</span> <span class="op">%&gt;%</span> </span></span>
+<span class="r-in"><span>   <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/activate.html" class="external-link">activate</a></span><span class="op">(</span><span class="st">"aatie"</span><span class="op">)</span> <span class="op">%&gt;%</span> </span></span>
+<span class="r-in"><span>   <span class="fu">mutate</span><span class="op">(</span>weight2 <span class="op">=</span> <span class="fl">2</span> <span class="op">+</span> <span class="va">weight</span><span class="op">)</span> <span class="op">%&gt;%</span> </span></span>
+<span class="r-in"><span>   <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/activate.html" class="external-link">activate</a></span><span class="op">(</span><span class="st">"alter"</span><span class="op">)</span> <span class="op">%&gt;%</span> </span></span>
+<span class="r-in"><span>   <span class="fu">mutate</span><span class="op">(</span>age.years <span class="op">=</span> <span class="va">age.years</span><span class="op">^</span><span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # EGO data: 5 × 6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .egoID sex   age      age.years country   income</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">*</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>      1 m     66 - 100        82 Poland     <span style="text-decoration: underline;">45</span>990</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>      2 w     18 - 25         24 Australia  <span style="text-decoration: underline;">11</span>680</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>      3 m     66 - 100        83 Poland     <span style="text-decoration: underline;">36</span>135</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>      1 m     66 - 100        91 Australia  <span style="text-decoration: underline;">35</span>770</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>      2 w     56 - 65         56 USA        <span style="text-decoration: underline;">14</span>600</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>      3 m     66 - 100       100 Poland     <span style="text-decoration: underline;">13</span>140</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 2 more rows</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # ALTER data (active): 139 × 7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # ALTER data (active): 110 × 7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .altID .egoID sex   age      age.years country   income</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">*</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>      1      1 w     66 - 100    <span style="text-decoration: underline;">571</span>787 USA        <span style="text-decoration: underline;">59</span>495</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>      2      1 m     66 - 100    <span style="text-decoration: underline;">389</span>017 USA         <span style="text-decoration: underline;">5</span>475</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>      3      1 m     0 - 17        <span style="text-decoration: underline;">2</span>744 Germany    <span style="text-decoration: underline;">57</span>305</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>      4      1 m     0 - 17        <span style="text-decoration: underline;">4</span>096 Australia  <span style="text-decoration: underline;">45</span>625</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>      5      1 m     36 - 45      <span style="text-decoration: underline;">85</span>184 Australia  <span style="text-decoration: underline;">12</span>775</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 134 more rows</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # AATIE data: 1,000 × 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>      1      1 w     0 - 17        <span style="text-decoration: underline;">1</span>000 Germany     <span style="text-decoration: underline;">6</span>205</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>      2      1 w     66 - 100    <span style="text-decoration: underline;">830</span>584 Australia  <span style="text-decoration: underline;">47</span>085</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>      3      1 w     0 - 17        <span style="text-decoration: underline;">3</span>375 Germany    <span style="text-decoration: underline;">49</span>275</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>      4      1 m     46 - 55     <span style="text-decoration: underline;">103</span>823 Australia  <span style="text-decoration: underline;">47</span>085</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>      5      1 w     66 - 100    <span style="text-decoration: underline;">941</span>192 Germany    <span style="text-decoration: underline;">20</span>440</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 105 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # AATIE data: 589 × 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .egoID .srcID .tgtID weight weight2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">*</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>      2      5     36  1        3   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>      3      5     13  0.667    2.67</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>      2     20     35  0.667    2.67</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 997 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>      2     12     13  0.333    2.33</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>      4      5     21  1        3   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>      2      5     14  0.667    2.67</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 586 more rows</span></span>
 </code></pre></div>
     </div>
   </div>

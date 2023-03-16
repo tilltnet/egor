@@ -1,3 +1,7 @@
+# egor 1.22.13
+
+- fixed igraph issue (#82)
+
 # egor 1.22.12
 
 - fixed printing issues (#80)

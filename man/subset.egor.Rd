@@ -83,10 +83,10 @@ subset(x = egor32, sex == "m", unit = "alter")
 subset(x = egor32, weight != 0, unit = "aatie")
 
 # Filter egos by alter variables (keep only egos that have more than 13 alters)
-subset(x = egor32, ego$country == "Poland", unit = "ego")
+subset(x = egor32, nrow(alter) > 13, unit = "alter")
 
 # Filter alters by ego variables (keep only alters that have egos from Poland)
-subset(x = egor32, nrow(alter) > 13, unit = "alter")
+subset(x = egor32, ego$country == "Poland", unit = "ego")
 
 # Filter edges by alter variables (keep only edges between alters where `sex == "m"`)
 subset(x = egor32, all(alter$sex == "m"), unit = "aatie")

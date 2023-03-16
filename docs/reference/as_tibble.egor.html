@@ -22,7 +22,7 @@ as_egos_df(), as_alters_df(), as_aaties_df(), as_egos_survey(), as_alters_survey
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">egor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.22.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.23.3</span>
       </span>
     </div>
 
@@ -70,20 +70,20 @@ as_egos_df(), as_alters_df(), as_aaties_df(), as_egos_survey(), as_alters_survey
     </div>
 
     <div class="ref-description">
-    <p>Provided an <code>egor</code> object, these functions create a "global" <code>tibble</code> or <code>srvyr</code>'s <code><a href="http://gdfe.co/srvyr/reference/tbl_svy.html" class="external-link">tbl_svy</a></code> object
+    <p>Provided an <code>egor</code> object, these functions create a "global" <code>tibble</code> or <code>srvyr</code>'s <code>tbl_svy</code> object
 containing egos, alter attributes, or alter-alter relations. The resulting tables
 are useful for advanced analysis procedures, e.g. multi-level regressions.</p>
-<p><code><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble()</a></code> method for <code>egor</code> extracts the currently active component (<code>ego</code>, <code>alter</code>, or <code>aaties</code>) table, optionally joining it with the others, dropping any survey design information.</p>
-<p><code><a href="http://gdfe.co/srvyr/reference/as_survey.html" class="external-link">as_survey()</a></code> method for <code>egor</code> instead returns a <code>srvyr</code> <code><a href="http://gdfe.co/srvyr/reference/tbl_svy.html" class="external-link">tbl_svy</a></code> survey, taking into account any replication due to multiple alters or alter-alter ties incident on each ego. If no design is specified for the egos, then the default design (simple random sample with replacement) is assumed as the starting point.</p>
-<p><code>as_egos_df()</code>, <code>as_alters_df()</code>, <code>as_aaties_df()</code>, <code>as_egos_survey()</code>, <code>as_alters_survey()</code>, and <code>as_aaties_survey()</code> are convenience functions for the <code><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble()</a></code> and <code><a href="http://gdfe.co/srvyr/reference/as_survey.html" class="external-link">as_survey()</a></code> methods, activating the corresponding component of the <code>egor</code> object.</p>
+<p><code>as_tibble()</code> method for <code>egor</code> extracts the currently active component (<code>ego</code>, <code>alter</code>, or <code>aaties</code>) table, optionally joining it with the others, dropping any survey design information.</p>
+<p><code>as_survey()</code> method for <code>egor</code> instead returns a <code>srvyr</code> <code>tbl_svy</code> survey, taking into account any replication due to multiple alters or alter-alter ties incident on each ego. If no design is specified for the egos, then the default design (simple random sample with replacement) is assumed as the starting point.</p>
+<p><code>as_egos_df()</code>, <code>as_alters_df()</code>, <code>as_aaties_df()</code>, <code>as_egos_survey()</code>, <code>as_alters_survey()</code>, and <code>as_aaties_survey()</code> are convenience functions for the <code>as_tibble()</code> and <code>as_survey()</code> methods, activating the corresponding component of the <code>egor</code> object.</p>
     </div>
 
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for egor</span></span>
-<span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, include.ego.vars <span class="op">=</span> <span class="cn">FALSE</span>, include.alter.vars <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu">as_tibble</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, include.ego.vars <span class="op">=</span> <span class="cn">FALSE</span>, include.alter.vars <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for egor</span></span>
-<span><span class="fu"><a href="http://gdfe.co/srvyr/reference/as_survey.html" class="external-link">as_survey</a></span><span class="op">(</span><span class="va">.data</span>, <span class="va">...</span>, include.ego.vars <span class="op">=</span> <span class="cn">FALSE</span>, include.alter.vars <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu">as_survey</span><span class="op">(</span><span class="va">.data</span>, <span class="va">...</span>, include.ego.vars <span class="op">=</span> <span class="cn">FALSE</span>, include.alter.vars <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">as_egos_df</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
 <span></span>
@@ -128,7 +128,7 @@ are useful for advanced analysis procedures, e.g. multi-level regressions.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Load example data</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">egor32</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="va">egor32</span><span class="op">)</span> <span class="co"># Ego table.</span></span></span>
+<span class="r-in"><span><span class="fu">as_tibble</span><span class="op">(</span><span class="va">egor32</span><span class="op">)</span> <span class="co"># Ego table.</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 32 × 6</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    .egoID sex   age      age.years country   income</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
@@ -144,9 +144,9 @@ are useful for advanced analysis procedures, e.g. multi-level regressions.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>     10 m     0 - 17          14 Australia  <span style="text-decoration: underline;">49</span>275</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 22 more rows</span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">egor32</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
-<span class="r-in"><span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/activate.html" class="external-link">activate</a></span><span class="op">(</span><span class="st">"alter"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
-<span class="r-in"><span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span>include.ego.vars<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="co"># Alter table, but also with ego variables.</span></span></span>
+<span class="r-in"><span><span class="va">egor32</span> <span class="op">%&gt;%</span></span></span>
+<span class="r-in"><span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/activate.html" class="external-link">activate</a></span><span class="op">(</span><span class="st">"alter"</span><span class="op">)</span> <span class="op">%&gt;%</span></span></span>
+<span class="r-in"><span> <span class="fu">as_tibble</span><span class="op">(</span>include.ego.vars<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="co"># Alter table, but also with ego variables.</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 384 × 12</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    .altID .egoID sex   age      age.years country income sex_ego age_ego age.y…¹</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
@@ -164,6 +164,11 @@ are useful for advanced analysis procedures, e.g. multi-level regressions.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   and abbreviated variable name ¹​age.years_ego</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://gdfe.co/srvyr/" class="external-link">srvyr</a></span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: ‘srvyr’</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The following object is masked from ‘package:stats’:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>     filter</span>
 <span class="r-in"><span><span class="fu"><a href="http://gdfe.co/srvyr/reference/as_survey.html" class="external-link">as_survey</a></span><span class="op">(</span><span class="va">egor32</span><span class="op">)</span> <span class="co"># Ego table with survey design.</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Independent Sampling design (with replacement)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Called via srvyr</span>
