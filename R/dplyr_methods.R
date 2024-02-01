@@ -949,11 +949,10 @@ append_cols <- function(.egor, ...) {
 #' @noRd
 #' @method distinct egor
 distinct.egor <- function(.tbl,
-                              .funs = list(),
-                              ...,
-                              .keep_all = FALSE) {
+                          ...,
+                          .keep_all = FALSE) {
   result <-
-    distinct(.tbl[[attr(.tbl, "active")]], .funs = list(), ..., .keep_all = FALSE)
+    distinct(.tbl[[attr(.tbl, "active")]], ..., .keep_all = FALSE)
   return_egor_with_result(.tbl, result)
 }
 

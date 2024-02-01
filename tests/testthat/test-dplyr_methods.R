@@ -127,10 +127,32 @@ test_that("methods for dplyr are working",
           })
 
 test_that(
+  "dplyr methods work with srvyr egor objects",
+  {
+    data(egor32)
+    expect_error(slice_max(egor32, age.years), NA)
+    expect_error(arrange(egor32, age.years), NA)
+})
+
+test_that(
+  "distinct() works",
+  {
+    e <- make_egor(10, 10)
+    expect_error(distinct(e), NA)
+    
+    #data(egor32)
+    #distinct(egor32)
+  }
+)
+
+test_that(
   "pull works",
   {
     e <- make_egor(10, 10)
     expect_error(pull(e, sex), NA)
+    
+    data(egor32)
+    pull(egor32, sex)
   }
 )
 
