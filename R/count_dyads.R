@@ -53,7 +53,7 @@ count_dyads <-
           paste0("dy_", substring(alter_var_name, 1, 3), "_")
       res <- tidyr::pivot_wider(
         res,
-        .egoID,
+        id_cols = .egoID,
         names_from = "dyads",
         values_from = n,
         names_prefix = prefix,
