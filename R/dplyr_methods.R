@@ -948,11 +948,11 @@ append_cols <- function(.egor, ...) {
 #' @export
 #' @noRd
 #' @method distinct egor
-distinct.egor <- function(.tbl,
+distinct.egor <- function(.data,
                           ...,
                           .keep_all = FALSE) {
   result <-
-    distinct(.tbl[[attr(.tbl, "active")]], ..., .keep_all = FALSE)
+    distinct(.data[[attr(.data, "active")]], ..., .keep_all = .keep_all)
   return_egor_with_result(.tbl, result)
 }
 
@@ -964,7 +964,7 @@ distinct_all.egor <- function(.tbl,
                               ...,
                               .keep_all = FALSE) {
   result <-
-    distinct_all(.tbl[[attr(.tbl, "active")]], .funs = list(), ..., .keep_all = FALSE)
+    distinct_all(.tbl[[attr(.tbl, "active")]], .funs = .funs, ..., .keep_all = .keep_all)
   return_egor_with_result(.tbl, result)
 }
 
@@ -977,7 +977,7 @@ distinct_at.egor <- function(.tbl,
                              ...,
                              .keep_all = FALSE) {
   result <-
-    distinct_at(.tbl[[attr(.tbl, "active")]], .vars, .funs = list(), ..., .keep_all = FALSE)
+    distinct_at(.tbl[[attr(.tbl, "active")]], .vars, .funs = .funs, ..., .keep_all = .keep_all)
   return_egor_with_result(.tbl, result)
 }
 
@@ -992,9 +992,9 @@ distinct_if.egor <- function(.tbl,
   result <-
     distinct_if(.tbl[[attr(.tbl, "active")]],
                 .predicate,
-                .funs = list(),
+                .funs = .funs,
                 ...,
-                .keep_all = FALSE)
+                .keep_all = .keep_all)
   return_egor_with_result(.tbl, result)
 }
 
