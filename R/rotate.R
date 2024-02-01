@@ -16,7 +16,7 @@ rotate_xy <- function(xy_mat, rad, direction = 1) {
 
 #' Rotate circle or star graph layout so that it 'stands' on two bottom nodes.
 #' 
-#' @param xy_may A two column matrix with x and y coordinates containing the graph layout.
+#' @param xy_mat A two column matrix with x and y coordinates containing the graph layout.
 #' @keywords internal
 rotate_to_equilibrium <- 
   function(xy_mat) {

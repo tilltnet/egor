@@ -57,9 +57,9 @@ common_prefix <- function(x) {
 #' @template max_alters
 #' @param start.col Index or name of the first column containing alter-alter relation data.
 #' #!# Should: Defaults to first column of \code{wide}.
-#' @param last.col Index or name of the first column containing alter-alter relation data.
+#' @param end.col Index or name of the first column containing alter-alter relation data.
 #' #!# Should: Defaults to last column of \code{wide}.
-#' @template ego_vars
+#' @template egoID
 #' @param var.wise a logical value indicating whether the alter attributes are
 #' stored variable-wise, if FALSE alter-wise storage is assumed.
 #' @keywords internal
@@ -134,7 +134,7 @@ wide.to.long <-
 #' edge lists.
 #' @param e.wide A dataframe containing the alter-alter relation data in the
 #' 'wide' format.
-#' @param fist.var Number of column containing the relation between the first and
+#' @param first.var Number of column containing the relation between the first and
 #' the second network contact.
 #' @param max.alters Maximum number of alters for which alter-alter relations
 #' were collected.

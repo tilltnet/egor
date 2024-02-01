@@ -19,11 +19,11 @@ wide.dyads.to.edgelist(
 \item{e.wide}{A dataframe containing the alter-alter relation data in the
 'wide' format.}
 
+\item{first.var}{Number of column containing the relation between the first and
+the second network contact.}
+
 \item{max.alters}{Maximum number of alters for which alter-alter relations
 were collected.}
-
-\item{fist.var}{Number of column containing the relation between the first and
-the second network contact.}
 }
 \description{
 Transform wide alter-alter data to an edge list.

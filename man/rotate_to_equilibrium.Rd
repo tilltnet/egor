@@ -7,7 +7,7 @@
 rotate_to_equilibrium(xy_mat)
 }
 \arguments{
-\item{xy_may}{A two column matrix with x and y coordinates containing the graph layout.}
+\item{xy_mat}{A two column matrix with x and y coordinates containing the graph layout.}
 }
 \description{
 Rotate circle or star graph layout so that it 'stands' on two bottom nodes.
