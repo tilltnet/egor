@@ -947,6 +947,18 @@ append_cols <- function(.egor, ...) {
 
 #' @export
 #' @noRd
+#' @method distinct egor
+distinct.egor <- function(.tbl,
+                              .funs = list(),
+                              ...,
+                              .keep_all = FALSE) {
+  result <-
+    distinct(.tbl[[attr(.tbl, "active")]], .funs = list(), ..., .keep_all = FALSE)
+  return_egor_with_result(.tbl, result)
+}
+
+#' @export
+#' @noRd
 #' @method distinct_all egor
 distinct_all.egor <- function(.tbl,
                               .funs = list(),
