@@ -211,6 +211,47 @@ slice.egor <- function(.data, ...) {
   return_egor_with_result(.data, result)
 }
 
+#' @export
+#' @noRd
+#' @method slice_head egor
+slice_head.egor <- function(.data, ...) {
+  result <- slice_head(tibble_egos(.data)[[attr(.data, "active")]], ...)
+  return_egor_with_result(.data, result)
+}
+
+#' @export
+#' @noRd
+#' @method slice_tail egor
+slice_tail.egor <- function(.data, ...) {
+  result <- slice_tail(tibble_egos(.data)[[attr(.data, "active")]], ...)
+  return_egor_with_result(.data, result)
+}
+
+#' @export
+#' @noRd
+#' @method slice_min egor
+slice_min.egor <- function(.data, ...) {
+  result <- slice_min(tibble_egos(.data)[[attr(.data, "active")]], ...)
+  return_egor_with_result(.data, result)
+}
+
+
+#' @export
+#' @noRd
+#' @method slice_max egor
+slice_max.egor <- function(.data, ...) {
+  result <- slice_max(tibble_egos(.data)[[attr(.data, "active")]], ...)
+  return_egor_with_result(.data, result)
+}
+
+#' @export
+#' @noRd
+#' @method slice_sample egor
+slice_sample.egor <- function(.data, ...) {
+  result <- slice_sample(tibble_egos(.data)[[attr(.data, "active")]], ...)
+  return_egor_with_result(.data, result)
+}
+
 
 # group_by count tally summarise ------------------------------------------
 

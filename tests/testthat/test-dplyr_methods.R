@@ -44,6 +44,9 @@ test_that("methods for dplyr are working",
               egor::activate(e, "alter") %>%
                 filter(sex == "w")
               
+
+              # slice and slice_* -------------------------------------
+
               slice(e, 1)
               
               activate(e, alter) %>%
@@ -51,6 +54,48 @@ test_that("methods for dplyr are working",
               
               activate(e, aatie) %>%
                 slice(1:2)
+              
+              slice_head(e, n = 1)
+              
+              activate(e, alter) %>%
+                slice_head() # defaults to n = 1
+              
+              activate(e, aatie) %>%
+                slice_head(prop = .2)
+              
+              slice_tail(e, n = 1)
+              
+              activate(e, alter) %>%
+                slice_tail() # defaults to n = 1
+              
+              activate(e, aatie) %>%
+                slice_tail(prop = .2)
+              
+              slice_min(e, age.years, n = 2)
+              
+              activate(e, alter) %>%
+                slice_min(age.years) # defaults to n = 1
+              
+              activate(e, aatie) %>%
+                slice_min(weight, prop = .2)
+              
+              slice_max(e, age.years, n = 1)
+              
+              activate(e, alter) %>%
+                slice_max(age.years) # defaults to n = 1
+              
+              activate(e, aatie) %>%
+                slice_max(weight, prop = .2)
+              
+              slice_sample(e, n = 1)
+              
+              activate(e, alter) %>%
+                slice_sample() # defaults to n = 1
+              
+              activate(e, aatie) %>%
+                slice_sample(prop = .01)
+              
+              # summarise ----------------------------------------------
               
               e %>%
                 activate("alter") %>%
