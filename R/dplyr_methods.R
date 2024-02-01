@@ -953,7 +953,7 @@ distinct.egor <- function(.data,
                           .keep_all = FALSE) {
   result <-
     distinct(.data[[attr(.data, "active")]], ..., .keep_all = .keep_all)
-  return_egor_with_result(.tbl, result)
+  return_egor_with_result(.data, result)
 }
 
 #' @export
