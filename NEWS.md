@@ -1,5 +1,11 @@
 # egor 1.22.13
 
+- added method for `dplyr::distinct()` (#63)
+- added methods for `dplyr`'s `slice_head()`, `slice_tail()`, `slice_min()`, `slice_max()`, and `slice_sample()` (#84)
+- fixed doc typos
+
+# egor 1.22.13
+
 - fixed igraph issue (#82)
 
 # egor 1.22.12
@@ -50,5 +56,5 @@
 - feat: added count_dyads() function
 - feat: plot_ego_gram now uses plot_ego_graph for graph plotting
 - feat: added ego_constraint
-- fix: significantly sped up trim_aaties; hence most deplyr methods work much faster especially on big datasets
+- fix: significantly sped up trim_aaties; hence most dplyr methods work much faster especially on big datasets
 - several fixes and improvements to plotting, importing and infrastructure

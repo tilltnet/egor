@@ -1,3 +1,5 @@
+devtools::check()
+
 devtools::check_rhub(interactive = FALSE)
 
 # For windows if it fails with i.e. "there is no package called 'utf8'"
@@ -9,6 +11,7 @@ devtools::check_rhub(interactive = FALSE)
 # rhub tests on windows (?) but builds locally, `check_win()` also builds on
 # windows
 devtools::check_win_release()
+devtools::check_win_devel()
 
 # reverse dependency check ----
 
