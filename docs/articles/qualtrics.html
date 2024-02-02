@@ -6,15 +6,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Qualtrics &amp; egor: Setting up and analysing an ego-centered network survey with Qualtrics and egor • egor</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
+<!-- jquery --><script src="file:///usr/share/javascript/jquery/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="file:///usr/share/javascript/bootstrap/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<script src="file:///usr/share/javascript/bootstrap/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Qualtrics &amp; egor: Setting up and analysing an ego-centered network survey with Qualtrics and egor">
 <meta property="og:description" content="egor">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+<!-- mathjax --><script src="file:///usr/share/javascript/mathjax/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
@@ -33,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">egor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.23.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.24.2</span>
       </span>
     </div>
 
@@ -132,8 +131,8 @@ ego-centered networks are usually collected as un-directed relations
 through a single question about the relationship between alter x and
 alter y.</li>
 </ol>
-<div class="figure">
-<img src="Qualtrics1.png" alt=""><p class="caption">Overview of Personal Network Template</p>
+<div class="float">
+<img src="Qualtrics1.png" alt="Overview of Personal Network Template"><div class="figcaption">Overview of Personal Network Template</div>
 </div>
 </div>
 <div class="section level2">
@@ -197,11 +196,11 @@ question blocks and alter-alter tie questions to match. Second, because
 this is the fixed choice template, this alter list requires that
 participants enter an alter for each slot to continue.</p></li>
 </ol>
-<div class="figure">
-<img src="Qualtrics2.png" alt=""><p class="caption">Alter List Template</p>
+<div class="float">
+<img src="Qualtrics2.png" alt="Alter List Template"><div class="figcaption">Alter List Template</div>
 </div>
-<div class="figure">
-<img src="Qualtrics3.png" alt=""><p class="caption">Alter Attribute Blocks (Blocks collapsed)</p>
+<div class="float">
+<img src="Qualtrics3.png" alt="Alter Attribute Blocks (Blocks collapsed)"><div class="figcaption">Alter Attribute Blocks (Blocks collapsed)</div>
 </div>
 <ol start="3" style="list-style-type: decimal">
 <li>
@@ -224,13 +223,13 @@ for as many alters as requested in the list. Then, in each block, adjust
 the code for the piped text so that it refers to the appropriate list
 slot (e.g., Block 2 of alter attribute questions should pipe the
 response to the second list slot from the alter list).</p>
-<div class="figure">
-<img src="Qualtrics4.png" alt=""><p class="caption">Example of alter list name piped into alter attribute
-questions</p>
+<div class="float">
+<img src="Qualtrics4.png" alt="Example of alter list name piped into alter attribute questions"><div class="figcaption">Example of alter list name piped into alter
+attribute questions</div>
 </div>
-<div class="figure">
-<img src="Qualtrics5.png" alt=""><p class="caption">Example of Qualtrics code for piped text from alter
-list</p>
+<div class="float">
+<img src="Qualtrics5.png" alt="Example of Qualtrics code for piped text from alter list"><div class="figcaption">Example of Qualtrics code for piped text from
+alter list</div>
 </div>
 <ol start="4" style="list-style-type: decimal">
 <li>
@@ -250,9 +249,9 @@ all ties from alter 2 (e.g., to alter 3, 4, …) and so on. This process
 ensures that the alter attributes and alter-alter ties can be connected
 correctly when analyzing the data.</li>
 </ol>
-<div class="figure">
-<img src="Qualtrics6.png" alt=""><p class="caption">Example of alter pair questions with piped text from
-alter list</p>
+<div class="float">
+<img src="Qualtrics6.png" alt="Example of alter pair questions with piped text from alter list"><div class="figcaption">Example of alter pair questions with piped text
+from alter list</div>
 </div>
 </div>
 <div class="section level3">
@@ -280,9 +279,9 @@ to employ display logic using the <em>Survey Flow</em> tab in Qualtrics
 to define the conditions of when to display each alter attribute
 block.\</p></li>
 </ol>
-<div class="figure">
-<img src="Qualtrics7.png" alt=""><p class="caption">Survey Flow for Alter Attribute blocks (free-choice
-only)</p>
+<div class="float">
+<img src="Qualtrics7.png" alt="Survey Flow for Alter Attribute blocks (free-choice only)"><div class="figcaption">Survey Flow for Alter Attribute blocks
+(free-choice only)</div>
 </div>
 <ol start="4" style="list-style-type: decimal">
 <li>
@@ -293,9 +292,9 @@ recommend preparing and finalizing one alter-alter tie question
 including the Display Logic and then copy this question as many times as
 needed and adjust only the piped text and Display Logic for each
 alter-alter combination.</p>
-<div class="figure">
-<img src="Qualtrics8.png" width="700" alt=""><p class="caption">Display Logic of an alter-alter question (free-choice
-only)</p>
+<div class="float">
+<img src="Qualtrics8.png" width="700" alt="Display Logic of an alter-alter question (free-choice only)"><div class="figcaption">Display Logic of an alter-alter question
+(free-choice only)</div>
 </div>
 </li>
 </ol>
@@ -367,6 +366,11 @@ filter out all empty alter entries.</p>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: There was 1 warning in `mutate()`.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> In argument: `across(.fns = ~. != "")`.</span></span>
+<span><span class="co">#&gt; Caused by warning:</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Using `across()` without supplying `.cols` was deprecated in dplyr 1.1.0.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Please supply `.cols` instead.</span></span>
 <span></span>
 <span><span class="va">e1</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="va">e1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
@@ -387,26 +391,25 @@ weight variable.</p>
 <!-- --><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>    <span class="va">e1</span></span>
 <span><span class="co">#&gt; # EGO data: 5 × 28</span></span>
-<span><span class="co">#&gt;   .egoID StartD…¹ EndDate Status IPAdd…² Progr…³ Durat…⁴ Finis…⁵ Recor…⁶ Respo…⁷</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 1      2021-03… 2021-0… Surve… <span style="color: #949494;">""</span>      100     0       True    2021-0… R_2Ybp…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 2      2021-03… 2021-0… Surve… <span style="color: #949494;">""</span>      100     0       True    2021-0… R_3I9S…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 3      2021-03… 2021-0… Surve… <span style="color: #949494;">""</span>      100     0       True    2021-0… R_pggy…</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 2 more rows, 18 more variables: RecipientLastName &lt;chr&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   RecipientFirstName &lt;chr&gt;, RecipientEmail &lt;chr&gt;, ExternalReference &lt;chr&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   LocationLatitude &lt;chr&gt;, LocationLongitude &lt;chr&gt;, DistributionChannel &lt;chr&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   UserLanguage &lt;chr&gt;, ZipCode &lt;chr&gt;, AlterList_1 &lt;chr&gt;, AlterList_2 &lt;chr&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   AlterList_3 &lt;chr&gt;, AlterList_4 &lt;chr&gt;, AlterList_5 &lt;chr&gt;, ID &lt;chr&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   Q_TotalDuration &lt;chr&gt;, gc &lt;chr&gt;, term &lt;chr&gt;, and abbreviated variable names</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ¹​StartDate, ²​IPAddress, ³​Progress, ⁴​Duration..in.seconds., ⁵​Finished, …</span></span></span>
+<span><span class="co">#&gt;   .egoID StartDate       EndDate Status IPAddress Progress Duration..in.seconds.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 1      2021-03-25 08:… 2021-0… Surve… <span style="color: #949494;">""</span>        100      0                    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 2      2021-03-25 08:… 2021-0… Surve… <span style="color: #949494;">""</span>        100      0                    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 3      2021-03-25 08:… 2021-0… Surve… <span style="color: #949494;">""</span>        100      0                    </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 2 more rows</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 21 more variables: Finished &lt;chr&gt;, RecordedDate &lt;chr&gt;, ResponseId &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   RecipientLastName &lt;chr&gt;, RecipientFirstName &lt;chr&gt;, RecipientEmail &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   ExternalReference &lt;chr&gt;, LocationLatitude &lt;chr&gt;, LocationLongitude &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   DistributionChannel &lt;chr&gt;, UserLanguage &lt;chr&gt;, ZipCode &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   AlterList_1 &lt;chr&gt;, AlterList_2 &lt;chr&gt;, AlterList_3 &lt;chr&gt;, AlterList_4 &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   AlterList_5 &lt;chr&gt;, ID &lt;chr&gt;, Q_TotalDuration &lt;chr&gt;, gc &lt;chr&gt;, term &lt;chr&gt;</span></span></span>
 <span><span class="co">#&gt; # ALTER data: 7 × 8</span></span>
-<span><span class="co">#&gt;   .altID .egoID A1Gender              A1age      A1rel…¹ A1Loc…² A1Loc…³ A1Close</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 1      4      Choose Not to Respond Choose No… Other   ad      <span style="color: #949494;">"</span>asd<span style="color: #949494;">"</span>   Very c…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 2      4      Female                40-49      Spouse  asd     <span style="color: #949494;">"</span>asd<span style="color: #949494;">"</span>   Not cl…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 1      5      Choose Not to Respond 31-39      School  asd     <span style="color: #949494;">""</span>      Somewh…</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 4 more rows, and abbreviated variable names ¹​A1relation,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ²​A1Location_1, ³​A1Location_2</span></span></span>
+<span><span class="co">#&gt;   .altID .egoID A1Gender      A1age A1relation A1Location_1 A1Location_2 A1Close</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 1      4      Choose Not t… Choo… Other      ad           <span style="color: #949494;">"</span>asd<span style="color: #949494;">"</span>        Very c…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 2      4      Female        40-49 Spouse     asd          <span style="color: #949494;">"</span>asd<span style="color: #949494;">"</span>        Not cl…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 1      5      Choose Not t… 31-39 School     asd          <span style="color: #949494;">""</span>           Somewh…</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 4 more rows</span></span></span>
 <span><span class="co">#&gt; # AATIE data (active): 11 × 4</span></span>
 <span><span class="co">#&gt;   .egoID .srcID .tgtID weight</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span></span>
@@ -415,7 +418,7 @@ weight variable.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 5      1      3      Maybe </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 5      1      4      No    </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 5      1      5      Maybe </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 6 more rows</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 6 more rows</span></span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">e1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 5 Egos/ Ego Networks </span></span>
 <span><span class="co">#&gt; 7 Alters </span></span>
