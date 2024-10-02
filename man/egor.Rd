@@ -65,10 +65,13 @@ nominees.}
 relations in the style of an edge list, or a list of data frames
 similar to \code{alters.df}.}
 
-\item{ego_design}{A \code{\link{list}} of arguments to
-\code{\link[srvyr:as_survey_design]{srvyr::as_survey_design()}} specifying the sampling design for
-the egos. If formulas, they can refer to columns of
-\code{egos.df}. \code{NULL} means that no design is set.}
+\item{ego_design}{A \code{\link{list}} of arguments to \code{\link[srvyr:as_survey_design]{srvyr::as_survey_design()}} specifying
+the sampling design for the egos in terms of the ego
+variables. Variable names can be referenced as strings, as
+one-sided formulas, or using \code{\link[dplyr:select]{dplyr::select()}} syntax. It is
+recommended to use \code{\link[=alist]{alist()}} rather than \code{\link[=list]{list()}} to construct this
+argument, particularly when using the \code{select()} syntax. Pass
+\code{NULL} to set no design.}
 
 \item{alter_design}{A \code{\link{list}} of arguments specifying nomination
 information. Currently, the following elements are supported:
@@ -119,13 +122,19 @@ data("egos32")
 data("alters32")
 data("aaties32") 
 
-egor(alters32, 
-     egos32, 
-     aaties32,
-     ID.vars = list(ego = ".EGOID", 
-                    alter = ".ALTID", 
-                    source = ".SRCID",
-                    target =  ".TGTID"))
+e <- egor(alters32,
+          egos32,
+          aaties32,
+          ID.vars = list(ego = ".EGOID",
+                         alter = ".ALTID",
+                         source = ".SRCID",
+                         target =  ".TGTID"),
+          ego_design = alist(strata = sex))
+
+e
+
+ego_design(e)
+
 }
 \seealso{
 \code{\link[=as_tibble]{as_tibble()}} for extracting ego, alter, and alter--alter tables, as \code{\link{tibble}}s or as \code{srvyr}'s \code{\link{tbl_svy}} surveys.

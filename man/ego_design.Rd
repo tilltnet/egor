@@ -39,10 +39,13 @@ strip_ego_design(x)
 
 \item{...}{arguments to be passed to methods}
 
-\item{value}{a \code{\link{list}} of arguments to \code{\link[srvyr:as_survey_design]{srvyr::as_survey_design()}}
-specifying the sampling design for the egos. If the arguments are
-formulas, they can refer to columns (ego attributes) of
-\code{x}. \code{NULL} clears design information.}
+\item{value}{A \code{\link{list}} of arguments to \code{\link[srvyr:as_survey_design]{srvyr::as_survey_design()}} specifying
+the sampling design for the egos in terms of the ego
+variables. Variable names can be referenced as strings, as
+one-sided formulas, or using \code{\link[dplyr:select]{dplyr::select()}} syntax. It is
+recommended to use \code{\link[=alist]{alist()}} rather than \code{\link[=list]{list()}} to construct this
+argument, particularly when using the \code{select()} syntax. Pass
+\code{NULL} to set no design.}
 }
 \description{
 Extract, set, remove, or update the survey design associated with
@@ -52,4 +55,13 @@ an ego-centered dataset.
 This can be useful for adjusting or re-initializing the ego
 design information after the underlying ego attributes had been
 modified.
+}
+\examples{
+data(egor32)
+
+ego_design(egor32)
+
+ego_design(egor32) <- alist(strata = sex)
+
+ego_design(egor32)
 }

@@ -14,13 +14,12 @@ weights.egor <- function(object, ...) {
 }
 
 #' A helper function that takes an egor object and a list with arguments
-#' to ego_design and runs survey::svydesign().
+#' to ego_design and runs [srvyr::as_survey_design()].
 #'
 #' @param egor an [`egor`] object (possibly missing design
 #'   information).
-#' @param ego_design a [`list`] of arguments to [a_survey_design()]
-#'   specifying the sampling design for the egos. The arguments can
-#'   refer to columns (ego attributes) of `egor`.
+#' @templateVar ego_design_name ego_design
+#' @template ego_design
 #' @param pos where the call to `as_survey_design`.
 #'
 #' @return If `ego_design` is a `list`, [`ego`] as a [`tbl_svy`]. If
@@ -29,12 +28,19 @@ weights.egor <- function(object, ...) {
 #'
 #' @noRd
 .gen.ego_design <- function(egor, ego_design, pos=-1L){
+  cl <- rlang::caller_env()
+  tryCatch(force(ego_design),
+           error = function(e) rlang::abort(c(conditionMessage(e),
+                                              i = paste0("Did you pass ego design variable names unquoted and wrap them in ",
+                                                         sQuote('list()'), " rather than ", sQuote('alist()'), "?")),
+                                            use_cli_format = TRUE, call = cl))
+
   egos <- if(is(egor, "nested_egor")) egor else egor$ego
   if(is.null(ego_design)) return(as_tibble(egos))
 
   envir <- as.environment(pos)
 #' @importFrom srvyr as_survey_design
-  suppressWarnings(do.call(as_survey_design, c(list(egos), ego_design), envir=envir))
+  do.call(as_survey_design, c(list(egos), ego_design), envir=envir)
 }
 
 #' Set and query the ego sampling design
@@ -62,14 +68,21 @@ ego_design.nested_egor <- function(x, ...) if (has_ego_design(x)) x # otherwise 
 `ego_design<-` <- function(x, ..., value) UseMethod("ego_design<-")
 
 #' @rdname ego_design
-#' @param value a [`list`] of arguments to [srvyr::as_survey_design()]
-#'   specifying the sampling design for the egos. If the arguments are
-#'   formulas, they can refer to columns (ego attributes) of
-#'   `x`. `NULL` clears design information.
+#' @templateVar ego_design_name value
+#' @template ego_design
 #'
 #' @note This can be useful for adjusting or re-initializing the ego
 #'   design information after the underlying ego attributes had been
 #'   modified.
+#'
+#' @examples
+#' data(egor32)
+#'
+#' ego_design(egor32)
+#'
+#' ego_design(egor32) <- alist(strata = sex)
+#'
+#' ego_design(egor32)
 #' @export
 `ego_design<-.egor` <- function(x, ..., value){
   x$ego <- .gen.ego_design(x, value, parent.frame())
