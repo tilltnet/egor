@@ -288,9 +288,9 @@ subset.egor <- function(x, subset, ..., unit = attr(x, "active")) {
              }
              
              x$alter <-
-               filter(x$alter, .egoID %in% as_tibble(x$ego)$.egoID)
+               filter(x$alter, .egoID %in% as_tibble(.env$x$ego)$.egoID)
              x$aatie <-
-               filter(x$aatie, .egoID %in% as_tibble(x$ego)$.egoID)
+               filter(x$aatie, .egoID %in% as_tibble(.env$x$ego)$.egoID)
            }
            x
          },

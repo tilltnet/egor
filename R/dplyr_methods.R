@@ -26,11 +26,11 @@ dplyr_version <- utils::packageDescription("dplyr")$Version
 trim_aaties <- function(object) {
   # keep only aaties that have .egoID in ego
   object$aatie <-
-    filter(object$aatie, .egoID %in% as_tibble(object$ego)$.egoID)
+    filter(object$aatie, .egoID %in% as_tibble(.env$object$ego)$.egoID)
   
   # keep only aaties that have .egoID in alters
   object$aatie <-
-    filter(object$aatie, .egoID %in% unique(object$alter$.egoID))
+    filter(object$aatie, .egoID %in% unique(.env$object$alter$.egoID))
   
   # keep only aaties that have .srcID AND .tgtID in alters
   object$alter$..tmp_unique_altID <-
@@ -45,8 +45,8 @@ trim_aaties <- function(object) {
   object$aatie <-
     filter(
       object$aatie,
-      ..tmp_unique_srcID %in% object$alter$..tmp_unique_altID,
-      ..tmp_unique_tgtID %in% object$alter$..tmp_unique_altID
+      ..tmp_unique_srcID %in% .env$object$alter$..tmp_unique_altID,
+      ..tmp_unique_tgtID %in% .env$object$alter$..tmp_unique_altID
     )
   
   object$aatie <-
@@ -75,7 +75,7 @@ trim_aaties <- function(object) {
 #' @export
 trim_alters <- function(object) {
   object$alter <-
-    filter(object$alter, .egoID %in% as_tibble(object$ego)$.egoID)
+    filter(object$alter, .egoID %in% as_tibble(.env$object$ego)$.egoID)
   object
 }
 

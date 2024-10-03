@@ -403,7 +403,7 @@ onefile_to_egor <-
     # Filter out aaties for egos with no alters
     
     elist <- 
-      filter(elist, !!rlang::sym(IDv$ego) %in% unique(alters.df[[IDv$ego]]))
+      filter(elist, !!rlang::sym(IDv$ego) %in% unique(.env$alters.df[[.env$IDv$ego]]))
     
     # Filter out aaties that reference non-existing alters
     
@@ -415,8 +415,8 @@ onefile_to_egor <-
         purrr::map2_dfr(split(alters.df, alters.df[IDv$ego]),
                     split(elist, elist[IDv$ego]),
                     function(alt, aa) {
-                      aa <- filter(aa, .tmp.srcID %in% alt$alterID)
-                      filter(aa, .tmp.tgtID %in% alt$alterID)
+                      aa %>% filter(.tmp.srcID %in% .env$alt$alterID,
+                                    .tmp.tgtID %in% .env$alt$alterID)
                     })
     }
     

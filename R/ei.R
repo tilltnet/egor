@@ -121,7 +121,7 @@ EI <- function(object,
   
   calc_grp_ei_tab <- function(ei_tab, fact) {
     ei_tab %>%
-      filter(fact.x == fact | fact.y == fact) %>%
+      filter(fact.x == .env$fact | fact.y == .env$fact) %>%
       count(homogen) %>%
       complete(homogen) %>%
       tidyr::replace_na(list(n = 0)) %>%

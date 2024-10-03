@@ -10,11 +10,11 @@ UNIT_IDVARS <- list(ego = c("ego"),
                     aatie = c("ego", "source", "target"))
 
 
-RESERVED_COLNAMES <- c(".egoRow", 
-                       ".altRow", 
-                       ".srcRow", 
-                       ".tgtRow", 
+RESERVED_COLNAMES <- c(".egoRow", ".altRow", ".srcRow", ".tgtRow",
+                       ".x", ".y", ".env", ".data",
                        unlist(IDVARS))
+
+globalVariables(c(".data",".env"))
 
 egor_default_options <- 
   list(

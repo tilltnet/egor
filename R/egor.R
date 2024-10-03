@@ -206,8 +206,8 @@ egor <- function(alters,
     purrr::map_lgl(egos[[IDVARS$ego]],
                    function(x){
                      sym_ego_id <- rlang::sym(IDVARS$ego)
-                     alter <- filter(alters, !!sym_ego_id == x)
-                     aatie <- filter(aaties, !!sym_ego_id == x)
+                     alter <- filter(alters, !!sym_ego_id == .env$x)
+                     aatie <- filter(aaties, !!sym_ego_id == .env$x)
                      
                      all(c(aatie[[IDVARS$source]], 
                            aatie[[IDVARS$target]]) %in% alter[[IDVARS$alter]])

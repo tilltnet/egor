@@ -216,13 +216,13 @@ extract_egos_and_return <-
     } else if (length(ego_name) == 1) {
       edges <-
         edges %>%
-        filter(from != ego_name,
-               to != ego_name) %>%
+        filter(from != .env$ego_name,
+               to != .env$ego_name) %>%
         mutate(across(c(from, to), as.character))
       
       egos <-
         alters %>%
-        filter(name == ego_name) %>%
+        filter(name == .env$ego_name) %>%
         bind_cols(
           select(graph_attrs, -ego_id),
           .name_repair = function(...)
@@ -231,7 +231,7 @@ extract_egos_and_return <-
       
       alters <-
         alters %>%
-        filter(name != ego_name)
+        filter(name != .env$ego_name)
       
     } else {
       
