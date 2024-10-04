@@ -35,8 +35,9 @@ weights.egor <- function(object, ...) {
                                                          sQuote('list()'), " rather than ", sQuote('alist()'), "?")),
                                             use_cli_format = TRUE, call = cl))
 
-  egos <- if(is(egor, "nested_egor")) egor else egor$ego
-  if(is.null(ego_design)) return(as_tibble(egos))
+  ## Strip prior design info.
+  egos <- as_tibble(if(is(egor, "nested_egor")) egor else egor$ego)
+  if(is.null(ego_design)) return(egos)
 
   envir <- as.environment(pos)
 #' @importFrom srvyr as_survey_design
