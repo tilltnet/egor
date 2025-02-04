@@ -3,9 +3,9 @@
 #' Calculate the relationship density in ego-centered networks
 #'
 #' This function uses an \code{egor} object and calculates the density of all
-#' the ego-centered networks listed in the 'egor' object. Instead of an
-#' \code{egor} object, alter and alter-alter data can be provided as \code{lists}
-#' or \code{data.frames}.
+#' the ego-centered networks listed in the 'egor' object. The density is calculated
+#' with ego removed. Instead of an \code{egor} object, alter and alter-alter
+#' data can be provided as \code{lists} or \code{data.frames}.
 #' @template object
 #' @param max.netsize Optional parameter. Constant value used if the
 #' number of alters whose relations were collected is limited.
