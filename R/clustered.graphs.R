@@ -59,7 +59,7 @@ clustered_graphs.list <-
     
     graphs <- mapply(
       FUN = function(x, y)
-        igraph::graph.data.frame(
+        igraph::graph_from_data_frame(
           d = x,
           vertices = y,
           directed = FALSE
@@ -76,9 +76,9 @@ clustered_graphs.list <-
         SelectGroupEdges <-
           function(g, clust.groups, group1, group2 = group1) {
             V.group1 <-
-              igraph::V(g)[igraph::get.vertex.attribute(g, clust.groups) == group1]
+              igraph::V(g)[igraph::vertex_attr(g, clust.groups) == group1]
             V.group2 <-
-              igraph::V(g)[igraph::get.vertex.attribute(g, clust.groups) == group2]
+              igraph::V(g)[igraph::vertex_attr(g, clust.groups) == group2]
             igraph::E(g)[(igraph::`%--%`)(V.group1, V.group2)]
           }
         
@@ -98,7 +98,7 @@ clustered_graphs.list <-
           
         } else {
           x_names <-
-            names(table(igraph::get.vertex.attribute(g, clust.groups)))
+            names(table(igraph::vertex_attr(g, clust.groups)))
           x_dim <- length(x_names)
           
           for.loop.matrix <- matrix(1, ncol = x_dim, nrow = x_dim)
@@ -174,7 +174,7 @@ clustered_graphs.list <-
     clustered_graphs <- lapply(
       grp.densities,
       FUN = function(x)
-        igraph::graph.data.frame(
+        igraph::graph_from_data_frame(
           x$grp.densities[x$grp.densities$i.name != x$grp.densities$j.name, ],
           vertices = x$grp.densities[x$grp.densities$i.name == x$grp.densities$j.name, ],
           directed = FALSE
@@ -285,7 +285,7 @@ vis_clustered_graphs <- function(graphs,
     edge_list <-
       igraph::ends(edges_graph, igraph::E(edges_graph), names = TRUE)
     grps.graph <-
-      igraph::graph.data.frame(d = edge_list,
+      igraph::graph_from_data_frame(d = edge_list,
                                vertices = vertex_df,
                                directed = FALSE)
     

@@ -548,12 +548,11 @@ twofiles_to_egor <- function(egos,
 }
 
 
-# convert to highest class that still captures everything,
-# character is lowest (lcc least common class)
+# returns `as_*()` function for lowest common class
 create_as_lcc <-
   function(x) {
     classes <- unique(purrr::map_chr(x, function(x)
-      is.double(x)))
+      as.character(is.double(x))))
     if (length(classes) == 1) {
       return(function(x)
         x)

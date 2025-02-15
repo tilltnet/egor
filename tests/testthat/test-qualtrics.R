@@ -25,7 +25,7 @@ test_that("import code in qualtrics vignette works", {
     as_tibble() %>% 
     arrange(.egoID) %>% 
     select(AlterList_1:AlterList_5) %>% 
-    mutate(across(.fns = ~. != "")) %>% 
+    mutate(across(.cols = everything(), .fns = ~. != "")) %>% 
     as.data.frame() %>% 
     tidyr::pivot_longer(cols = everything()) %>% 
     pull(value)

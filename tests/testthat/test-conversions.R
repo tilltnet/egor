@@ -115,7 +115,7 @@ test_that("as_igraph works with several graph attributes",
                          NA)
             
             expect_true(all(
-              igraph::list.graph.attributes(igraph_list[[1]]) == c(".egoID",
+              igraph::graph_attr_names(igraph_list[[1]]) == c(".egoID",
                                                                    "income",
                                                                    "age")
             ))

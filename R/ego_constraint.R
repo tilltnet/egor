@@ -35,7 +35,7 @@ ego_constraint <-
               weights = if (is.null(weights))
                 rep(1, length(igraph::E(.)))
               else
-                igraph::get.edge.attribute(., weights),
+                igraph::edge_attr(., weights),
               nodes = igraph::V(.)[igraph::V(.)$name == "ego"]
             ))
     if(has_ego_design(object)) 

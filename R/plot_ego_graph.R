@@ -113,7 +113,7 @@ plot_one_ego_graph <- function(x,
   # Vertex Size
   if (!is.null(vertex_size_var)) {
     vertex.size <-
-      as.numeric(as.factor(igraph::get.vertex.attribute(gr, vertex_size_var)))
+      as.numeric(as.factor(igraph::vertex_attr(gr, vertex_size_var)))
     vertex.size[is.na(vertex.size)] <- 0.1
     vertex.size <- vertex.size * vertex_zoom + .1
   } else {
@@ -124,12 +124,12 @@ plot_one_ego_graph <- function(x,
   # Vertex Color
   if (!is.null(vertex_color_var)) {
     vertex.color <-
-      igraph::get.vertex.attribute(gr, vertex_color_var)
+      igraph::vertex_attr(gr, vertex_color_var)
     #vertex.color[is.na(vertex.color)] <- 0
     vertex.color <- factor(vertex.color)
     colors_ <- egor_col_pal(vertex_color_palette,
                             length(levels(
-                              factor(igraph::get.vertex.attribute(gr,
+                              factor(igraph::vertex_attr(gr,
                                                                   vertex_color_var))
                             )))
     clrs <- colors_[vertex.color]
@@ -142,7 +142,7 @@ plot_one_ego_graph <- function(x,
   # Edge Width
   if (!is.null(edge_width_var)) {
     edge.width <-
-      igraph::get.edge.attribute(gr, edge_width_var) * edge_zoom
+      igraph::edge_attr(gr, edge_width_var) * edge_zoom
     #edge.width[is.na(edge.width)] <- 0
   } else {
     edge.width <-
@@ -151,12 +151,12 @@ plot_one_ego_graph <- function(x,
   
   # Edge Color
   if (!is.null(edge_color_var)) {
-    edge.color <- igraph::get.edge.attribute(gr, edge_color_var)
+    edge.color <- igraph::edge_attr(gr, edge_color_var)
     #edge.color[is.na(edge.color)] <- 0
     edge.color <- as.numeric(factor(edge.color))
     e_colors <- egor_col_pal(edge_color_palette,
                              length(levels(
-                               factor(igraph::get.edge.attribute(gr,
+                               factor(igraph::edge_attr(gr,
                                                                  edge_color_var))
                              )))
   } else {
@@ -166,7 +166,7 @@ plot_one_ego_graph <- function(x,
     # Label
   if (!is.null(vertex_label_var)) {
     vertex.label <-
-      igraph::get.vertex.attribute(gr, vertex_label_var)
+      igraph::vertex_attr(gr, vertex_label_var)
     vertex.label[is.na(vertex.label)] <- 0
   } else {
     vertex.label <- ""
@@ -178,7 +178,7 @@ plot_one_ego_graph <- function(x,
   
   if (is.null(layout)) {
     layout_ <-
-      igraph::layout.fruchterman.reingold(gr, weights = edge.width)
+      igraph::layout_with_fr(gr, weights = edge.width)
   } else {
     layout_ <- layout
   }
@@ -227,7 +227,7 @@ plot_one_ego_graph <- function(x,
   # Legend
   
   if (!is.null(vertex_color_var)) {
-    color_var <- igraph::get.vertex.attribute(gr, vertex_color_var)
+    color_var <- igraph::vertex_attr(gr, vertex_color_var)
     #color_var[is.na(color_var)] <- 0
     title_ <-
       ifelse(vertex_color_legend_label == "",
