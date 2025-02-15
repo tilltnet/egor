@@ -72,7 +72,7 @@ as_igraph.nested_egor <- function(x,
   igraphs <-
     mapply(
       FUN = function(x, y)
-        igraph::graph.data.frame(
+        igraph::graph_from_data_frame(
           d = x[, names(x) != ".egoID"],
           vertices = y[, names(y) != ".egoID"],
           directed = directed
@@ -132,7 +132,7 @@ as_igraph.nested_egor <- function(x,
       x$.alts,
       x$.aaties,
       split(x[ego.attrs],
-            rownames(x)),
+            1:nrow(x)),
       SIMPLIFY = FALSE
     )
   }
