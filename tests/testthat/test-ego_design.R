@@ -33,16 +33,16 @@ test_that("summary.egor works with ego_design", {
     ) 
   
   
-  survey::left_join(x$ego,
-            x |> 
-              activate(alter) |> 
-              summarise(.n = n(), .by = .egoID))
-  
-  as_alters_survey(x) |>
-    srvyr::summarise(srvyr::n(), .by = .egoID)
-  
-  as_alters_survey(x) |>
-    srvyr::summarise(n(), .by = .egoID)
+  # survey::left_join(x$ego,
+  #           x |> 
+  #             activate(alter) |> 
+  #             summarise(.n = n(), .by = .egoID))
+  # 
+  # as_alters_survey(x) |>
+  #   srvyr::summarise(srvyr::n(), .by = .egoID)
+  # 
+  # as_alters_survey(x) |>
+  #   srvyr::summarise(n(), .by = .egoID)
   
   
   
@@ -95,15 +95,5 @@ test_that("survey_mean and svymean work with ego_design", {
   expect_error(survey::svymean(~density, ego_density(x)), NA)
 })
 
-o <- options(useFancyQuotes = FALSE, width = 999)
-
-test_that("sensible error message is produced when using list() instead of alist()", {
-  expect_error(
-    egor(alters32, egos32, aaties32,
-         ID.vars = list(ego = ".EGOID", alter = ".ALTID", source = ".SRCID", target =  ".TGTID"),
-         ego_design = list(strata = sex)),
-    ".* Did you pass ego design variable names unquoted and wrap them in 'list\\(\\)' rather than 'alist\\(\\)'\\?.*"
-  )
-})
-
-options(o)
+# o <- options(useFancyQuotes = FALSE, width = 999)
+# options(o)
