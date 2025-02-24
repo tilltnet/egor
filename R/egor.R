@@ -242,14 +242,32 @@ summary.egor <- function(object, ...) {
   # Network count
   nc <- nrow(object$ego)
   
-  # Min, Max  & Average netsize
-  min_nts <- min(table(object$alter$.egoID))
-  max_nts <- max(table(object$alter$.egoID))
-  avg_nts <- mean(table(object$alter$.egoID))
+  alter_counts <- 
+    object$alter |>
+    summarise(.netsize = n(), .by = .egoID)
   
+  # add zero counts for egos with no alters
+  alter_counts <-
+    bind_rows(
+      alter_counts,
+      object |>
+        activate(ego) |>
+        select(.egoID) |>
+        filter(!.egoID %in% alter_counts$.egoID) |>
+        mutate(.netsize = 0) |> 
+        as_tibble()
+    ) |>
+    arrange(.egoID)
+  
+  # Min, Max  & Average netsize
+  min_nts <- min(alter_counts$.netsize)
+  max_nts <- max(alter_counts$.netsize)
+  avg_nts <- mean(alter_counts$.netsize)
+
   if(has_ego_design(object)) {
-    object$ego$variables$avg_nts <- avg_nts
-    avg_nts <- survey::svymean(~avg_nts, object$ego)
+    object$ego$variables <- 
+      left_join(object$ego$variables, alter_counts, by = ".egoID")
+    avg_nts <- survey::svymean(~.netsize, object$ego) |> unname()
   }
   
   # Total number of alters
@@ -264,7 +282,7 @@ summary.egor <- function(object, ...) {
       options(egor.results_with_design = TRUE)
       
       dens <- ego_density(object)
-      dens <- survey::svymean(~density, dens)
+      dens <- survey::svymean(~density, dens, na.rm = TRUE)
       
       options(egor.results_with_design = errwd_value)
       
@@ -290,6 +308,11 @@ summary.egor <- function(object, ...) {
   
   cat("Alter survey design:\n")
   cat("  Maximum nominations:", attr(object, "alter_design")$max,"\n")
+  
+  invisible(tibble(
+    stat = c("Networks", "Alters", "min. Netsize", "Average Netsize", "max. Netsize", "Average Density"),
+    value = c(nc, alts_count, min_nts, avg_nts, max_nts, dens) |> unname()
+  ))
 }
 
 #' @rdname summary.egor

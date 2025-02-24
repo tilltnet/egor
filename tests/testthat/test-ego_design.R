@@ -15,6 +15,55 @@ test_that("summary.egor works with ego_design", {
   x$ego$sampling_weight <- sample(1:10/10, 5, replace = TRUE)
   ego_design(x) <- list(weight = "sampling_weight")
   
+  x |> 
+    activate(alter) |> 
+    summarise(.n = n(), .by = .egoID)
+  
+  y <- 
+    x |> 
+    activate(alter) |> 
+    summarise(.n = n(), .by = .egoID)  
+  
+  xxx <-
+    bind_cols(
+      .egoID = x$ego$variables$.egoID,
+      .cluster = x$ego$cluster[[1]],
+      .strata = x$ego$strata[[1]],
+      .allprob = x$ego$allprob[[1]]
+    ) 
+  
+  
+  survey::left_join(x$ego,
+            x |> 
+              activate(alter) |> 
+              summarise(.n = n(), .by = .egoID))
+  
+  as_alters_survey(x) |>
+    srvyr::summarise(srvyr::n(), .by = .egoID)
+  
+  as_alters_survey(x) |>
+    srvyr::summarise(n(), .by = .egoID)
+  
+  
+  
+  x |> 
+    activate(alter) |> 
+    summarise(.n = n(), .by = .egoID) |> 
+    # left_join(xxx) |> 
+    # srvyr::as_survey(strate = .strata,
+    #                  cluster = .cluster,
+    #                  probs = .allprob) |> 
+    summarise(avg_netsize = mean(.n))
+  
+  x |> 
+    activate(alter) |> 
+    summarise(.n = n(), .by = .egoID) |> 
+    left_join(xxx) |> 
+    srvyr::as_survey(strate = .strata,
+                     cluster = .cluster,
+                     probs = .allprob) |> 
+    srvyr::summarise(avg_netsize = srvyr::survey_mean(.n))
+  
   expect_error(summary(object = x), NA)
   expect_warning(summary(object = x), NA)
 })
