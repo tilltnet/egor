@@ -189,7 +189,18 @@ plot_one_ego_graph <- function(x,
     # Set curvature of ego-alter ties to zero
     # igraph::E(gr)$curved[is.na(igraph::E(gr)$curved)] <- 0
     # Set ego-alter weights to a dummy value
-    igraph::E(gr)$weight[is.na(igraph::E(gr)$weight)] <- min(igraph::E(gr)$weight, na.rm = TRUE)
+    if (any(!is.na(igraph::E(gr)$weight))) {
+      # Set to min of other weights, so scale of weights is comparable
+      igraph::E(gr)$weight[is.na(igraph::E(gr)$weight)] <- min(igraph::E(gr)$weight, na.rm = TRUE)
+    } else {
+      # no other weights in the graph, so just set a hardwired dummy value
+      # if there is no weight variable at all, E(gr)$weight will be NULL rather than a vector,
+      # so the syntax igraph::E(gr)$weight[is.na(igraph::E(gr)$weight)] will fail. Since all weights
+      # are NULL or NA at this point, set them all to 1. This will change missing aatie weights to 1,
+      # which may not be desirable, but overwriting missing aatie weights is also the behavior of the
+      # code above when there is at least one nonmissing aatie weight
+      igraph::E(gr)$weight <- 1
+    }
   }
   
   igraph::plot.igraph(
