@@ -182,9 +182,7 @@ plot_one_ego_graph <- function(x,
   } else {
     layout_ <- layout
   }
-  
-  set.seed(1337)
-  
+
   if(include_ego) {
     # Set curvature of ego-alter ties to zero
     # igraph::E(gr)$curved[is.na(igraph::E(gr)$curved)] <- 0
