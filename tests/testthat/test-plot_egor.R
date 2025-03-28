@@ -148,6 +148,38 @@ test_that("plot_egograms doesn't fail on empty alters or aaties", {
   NA)
 })
 
+test_that("plot_ego_graphs doesn't fail on empty alters or aaties", {
+  e <- make_egor(5, 5)
+  e$aatie <-
+    e$aatie %>%
+    filter(.egoID != 1)
+  expect_error(plot_ego_graphs(
+    e, ego_id=1, include_ego=F
+  ),
+  NA)
+  
+  # test for #86
+  expect_error(plot_ego_graphs(
+    e, ego_id=1, include_ego=T
+  ),
+  NA)
+
+  e <- make_egor(5, 5)
+  e$alter <-
+    e$alter %>%
+    filter(.egoID != 1)
+    
+  expect_error(plot_ego_graphs(
+    e, ego_id=1, include_ego=F
+  ),
+  NA)
+  
+  expect_error(plot_ego_graphs(
+    e, ego_id=1, include_ego=T
+  ),
+  NA)
+})
+
 test_that("plot_egograms plots with and without venn labels", {
   expect_error({
     e <- make_egor(5, 5)
