@@ -201,18 +201,13 @@ egor <- function(alters,
   if (!all(c(aaties[[IDVARS$ego]] %in% egos[[IDVARS$ego]])))
     stop("There is at least one ego ID in the `alter-alter` data with no corresponding entry in the `alter` data.",
          call. = FALSE)
-  
-  alter_aatie_ids_consistent <- 
-    purrr::map_lgl(egos[[IDVARS$ego]],
-                   function(x){
-                     sym_ego_id <- rlang::sym(IDVARS$ego)
-                     alter <- filter(alters, !!sym_ego_id == .env$x)
-                     aatie <- filter(aaties, !!sym_ego_id == .env$x)
-                     
-                     all(c(aatie[[IDVARS$source]], 
-                           aatie[[IDVARS$target]]) %in% alter[[IDVARS$alter]])
-                   })
-  
+
+  altID_by_egoID <- split(alters[[IDVARS$alter]] %||% logical(0), factor(alters[[IDVARS$ego]], egos[[IDVARS$ego]]))
+  aaID_by_egoID <- map2(split(aaties[[IDVARS$source]], factor(aaties[[IDVARS$ego]], egos[[IDVARS$ego]])),
+                        split(aaties[[IDVARS$target]], factor(aaties[[IDVARS$ego]], egos[[IDVARS$ego]])),
+                        c)
+  alter_aatie_ids_consistent <- purrr::map2_lgl(altID_by_egoID, aaID_by_egoID, function(a, aa) all(aa %in% a))
+
   if(!all(alter_aatie_ids_consistent))
     stop("There is at least one alter referenced in the `alter-alter` data that is not listed in the `alter` data. Errors were found for egos: ", 
          paste(egos[[IDVARS$ego]][!alter_aatie_ids_consistent], collapse = " "),
