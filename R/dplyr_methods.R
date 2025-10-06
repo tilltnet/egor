@@ -622,14 +622,6 @@ group_modify.egor <- function(.data, .f, ..., .keep = FALSE) {
   return_egor_with_result(.data, result)
 } 
 
-#' #' @export
-#' #' @noRd
-#' #' @method group_walk egor
-#' group_walk.egor <- function(.tbl, .f, ...) {
-#'   result <- group_walk(.tbl[[attr(.tbl, "active")]], .f, ...)
-#'   return_egor_with_result(.tbl, result)
-#' }
-
 #' @export
 #' @noRd
 #' @method group_nest egor
