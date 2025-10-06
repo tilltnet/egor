@@ -83,7 +83,7 @@ clustered_graphs.list <-
           }
         
         
-        # Check if all groups are zero sized, if so: return empty entries for grp.df and asdad
+        # Check if all groups are zero sized, if so: return empty entries for grp.df
         if (length(igraph::V(g)) < 1) {
           groups.list <- list()
           grps.df <-
@@ -97,8 +97,8 @@ clustered_graphs.list <-
           
           
         } else {
-          x_names <-
-            names(table(igraph::vertex_attr(g, clust.groups)))
+          attr_tab <- table(igraph::vertex_attr(g, clust.groups))
+          x_names <- names(attr_tab[attr_tab > 0])
           x_dim <- length(x_names)
           
           for.loop.matrix <- matrix(1, ncol = x_dim, nrow = x_dim)

@@ -56,6 +56,17 @@ test_that(
   }
 )
 
+
+test_that(
+  "vis_clustered_graphs works with empty factor levels #102",
+  {
+    graphs <- clustered_graphs(egor32, "age")
+    
+    # Visualize
+    expect_error(vis_clustered_graphs(graphs[1]), NA)
+  }
+)
+
 if (FALSE) {
   mpf <- make_egor(5, 50)
   mpf <- 
