@@ -7,7 +7,7 @@
 rowlist(x)
 }
 \arguments{
-\item{x}{a \code{\link[=data.frame]{data.frame()}}, a \code{\link[=tibble]{tibble()}}, or some other table data
+\item{x}{a \code{\link[=data.frame]{data.frame()}}, a \code{\link[tibble:tibble]{tibble::tibble()}}, or some other table data
 structure backed by a \code{\link[=list]{list()}} of columns.}
 }
 \value{
@@ -16,7 +16,7 @@ named \code{\link[=list]{list()}} containing the elements in the corresponding
 row.
 }
 \description{
-A convenience function converting a \code{\link[=data.frame]{data.frame()}} or a \code{\link[=tibble]{tibble()}}.
+A convenience function converting a \code{\link[=data.frame]{data.frame()}} or a \code{\link[tibble:tibble]{tibble::tibble()}}.
 }
 \examples{
 

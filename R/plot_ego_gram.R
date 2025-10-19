@@ -340,7 +340,7 @@ plot_egogram <-
                                       TRUE ~ 0.1))
           cbind(dist_curved_df, .[additional_edge_vars])
         })
-      ego_object$aatie <- b
+      ego_object$aatie <- ungroup(b)
     }
     
     vertex_zoom <- (((venn_n+5)^2-1)/(venn_n+5)^3) * 20 + vertex_zoom 

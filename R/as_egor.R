@@ -1,5 +1,5 @@
 if (getRversion() >= "2.15.1")
-  utils::globalVariables(c("from", "to", "name", "ego_id"))
+  utils::globalVariables(c("from", "to", "name", "ego_id", "vertex.names"))
 
 
 #' @rdname egor
@@ -186,7 +186,8 @@ as_egor_network <-
     net_attrs <-
       purrr::map_dfr(x, extract_network_attributes, .id = "ego_id")
     node_attrs <-
-      purrr::map_dfr(x, extract_node_attributes, .id = "ego_id")
+      purrr::map_dfr(x, extract_node_attributes, .id = "ego_id") |> 
+      rename(name = vertex.names)
     edge_attrs <-
       purrr::map_dfr(x, extract_edge_attributes, .id = "ego_id")
     
@@ -206,9 +207,9 @@ extract_egos_and_return <-
     names(graph_attrs) <- gsub("\\.", "", names(graph_attrs))
     names(alters) <- gsub("\\.", "", names(alters))
     names(edges) <- gsub("\\.", "", names(edges))
-    alters <- 
-      alters %>%
-      rename(name = 2)
+    # alters <- 
+    #   alters %>%
+    #   rename(name = 2)
     
     if (is.null(ego_name)) {
       egos <-

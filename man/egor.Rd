@@ -137,7 +137,7 @@ ego_design(e)
 
 }
 \seealso{
-\code{\link[=as_tibble]{as_tibble()}} for extracting ego, alter, and alter--alter tables, as \code{\link{tibble}}s or as \code{srvyr}'s \code{\link{tbl_svy}} surveys.
+\code{\link[tibble:as_tibble]{tibble::as_tibble()}} for extracting ego, alter, and alter--alter tables, as \code{\link[tibble:tibble]{tibble::tibble}}s or as \code{srvyr}'s \code{\link[srvyr:tbl_svy]{srvyr::tbl_svy}} surveys.
 }
 \keyword{analysis}
 \keyword{ego-centered}
