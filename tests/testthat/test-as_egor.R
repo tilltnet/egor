@@ -29,11 +29,16 @@ test_that("as.egor.list() works for igraph objects.",{
 test_that("as.egor.list() works for network objects.",{
   
   net_l1 <-
-    as_network(x = egor32,
+    as_network(
+      x = egor32,
+      include.ego = TRUE,
       ego.attrs = c("sex", "age", "age.years", "country", "income"),
       graph.attrs = c(".egoID", "age")
     )
   
+  network::get.network.attribute(net_l1[[1]], "age")
+  network::get.vertex.attribute(net_l1[[1]], "vertex.names")
+  network::as.edgelist(net_l1[[1]])
   expect_error(as.egor(x = net_l1), NA)
   
   # with egos
