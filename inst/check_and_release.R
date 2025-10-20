@@ -1,6 +1,9 @@
+# # Set up rhub
+# rhub::rhub_setup()
+# rhub::rhub_check()
+
 devtools::check()
 
-devtools::check_rhub(interactive = FALSE)
 
 # For windows if it fails with i.e. "there is no package called 'utf8'"
 # rhub::check(

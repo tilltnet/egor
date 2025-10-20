@@ -25,7 +25,7 @@ of the original variables, co-variations of variables are disregarded. The
 data's purpose is purely to demonstrate how to technically work with the Allbus data
 using egor and R - no analytical assumptions should be made based on this data!
 The code in this vignette works with the original Allbus 2010 data, that can be
-acquired [here](https://www.gesis.org/en/allbus/allbus-home).***
+acquired [here](https://www.gesis.org/en/allbus).***
 
 ## The Allbus 2010: ego-centered network data
 

@@ -38,7 +38,7 @@
 #' via simple random sampling with replacement.
 #' 
 #' 
-#' @source General Social Survey data at NORC: \url{https://gss.norc.org/get-the-data}
+#' @source General Social Survey data at NORC: \url{https://gss.norc.org/get-the-data.html}
 "gss2004"
 
 
