@@ -548,7 +548,7 @@ test_that("plot_ego_graphs() displays ego names correctly #99", {
   
   ego_object$alter$rel <- sample(LETTERS, nrow(ego_object$alter), replace= TRUE)
   
-  plot_ego_graphs(x = ego_object,
+  expect_error(plot_ego_graphs(x = ego_object,
                   ego_no = 10,
                   x_dim = 1,
                   y_dim = 1,
@@ -558,7 +558,7 @@ test_that("plot_ego_graphs() displays ego names correctly #99", {
                   edge_zoom = 1,
                   font_size = 1,
                   main = "",
-                  edge.curved = FALSE) 
+                  edge.curved = FALSE), NA)
 })
 
 dev.off() # Closing the NULL pdf device.
