@@ -521,4 +521,44 @@ test_that("plot_egograms() argument ascending_inwards works", {
   expect_error(plot_egograms(e1, 1, venn_var = "age", pie_var = "sex", ascending_inwards = TRUE), NA)
 })
 
+test_that("plot_ego_graphs() displays ego names correctly #99", {
+  ego_object <- make_egor(net.count = 10, max.alters = 25)
+  plot_ego_graphs(x = ego_object,
+                  ego_no = 10,
+                  x_dim = 1,
+                  y_dim = 1,
+                  include_ego = TRUE,
+                  vertex_zoom = 3.5,
+                  edge_zoom = 1,
+                  font_size = 1,
+                  main = "",
+                  edge.curved = FALSE) 
+  
+  plot_ego_graphs(x = ego_object,
+                  ego_no = 10,
+                  x_dim = 1,
+                  y_dim = 1,
+                  include_ego = TRUE,
+                  vertex_zoom = 3.5,
+                  vertex_label_var = "country",
+                  edge_zoom = 1,
+                  font_size = 1,
+                  main = "",
+                  edge.curved = FALSE) 
+  
+  ego_object$alter$rel <- sample(LETTERS, nrow(ego_object$alter), replace= TRUE)
+  
+  plot_ego_graphs(x = ego_object,
+                  ego_no = 10,
+                  x_dim = 1,
+                  y_dim = 1,
+                  include_ego = TRUE,
+                  vertex_zoom = 3.5,
+                  vertex_label_var = "rel",
+                  edge_zoom = 1,
+                  font_size = 1,
+                  main = "",
+                  edge.curved = FALSE) 
+})
+
 dev.off() # Closing the NULL pdf device.

@@ -31,6 +31,7 @@
 #' of venns increase going from the inner circles to the outer circles.
 #' @param show_venn_labels Logical.
 #' @param include_ego Logical.
+#' @param ego_attrs `Character` vector naming ego variables to turn into ego vertex attributes. Used in combination with `include_ego = TRUE`. 
 #' @param type Character. Either "egograph" or "egogram".
 # @param layout `Matrix` of x and y coordinates for nodes. Defaults to 
 # Fruchterman Rheingold layout algorithm.

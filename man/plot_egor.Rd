@@ -59,6 +59,7 @@ plot_ego_graphs(
   edge_zoom = 3,
   font_size = 1,
   include_ego = FALSE,
+  ego_attrs = NULL,
   ...
 )
 
@@ -131,6 +132,8 @@ of venns increase going from the inner circles to the outer circles.}
 \item{ego_alter_edge_width_var}{Name (\code{character}) of alter column.}
 
 \item{ego_alter_edge_color_var}{Name (\code{character}) of alter column.}
+
+\item{ego_attrs}{\code{Character} vector naming ego variables to turn into ego vertex attributes. Used in combination with \code{include_ego = TRUE}.}
 
 \item{type}{Character. Either "egograph" or "egogram".}
 }

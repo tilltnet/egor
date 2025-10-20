@@ -37,7 +37,7 @@ test_that("rotate_to_equilibrium() works with a 2x2 matrix", {
       as_igraph() %>%
       .[[1]] %>%
       igraph::layout_in_circle() %>%
-      rotate_to_equilibrium(),
+      egor:::rotate_to_equilibrium(),
     NA
   )
   
@@ -46,7 +46,7 @@ test_that("rotate_to_equilibrium() works with a 2x2 matrix", {
       as_igraph() %>%
       .[[1]] %>%
       igraph::layout_as_star() %>%
-      rotate_to_equilibrium(),
+      egor:::rotate_to_equilibrium(),
     NA
   )
 })

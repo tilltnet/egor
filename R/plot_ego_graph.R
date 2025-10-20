@@ -23,6 +23,7 @@ plot_ego_graphs <- function(x,
                             edge_zoom = 3,
                             font_size = 1,
                             include_ego = FALSE,
+                            ego_attrs = NULL,
                             ...) {
   require_igraph(paste(sQuote("egor"),"plotting ego graphs"))
   opar <- par(no.readonly = TRUE)
@@ -55,6 +56,7 @@ plot_ego_graphs <- function(x,
         edge_zoom = edge_zoom,
         font_size = font_size,
         include_ego = include_ego,
+        ego_attrs = ego_attrs,
         ...
       )
     }
@@ -80,13 +82,21 @@ plot_one_ego_graph <- function(x,
                                edge_zoom = 3,
                                font_size = 1,
                                include_ego = FALSE,
+                               ego_attrs = NULL,
                                layout = NULL,
                                ...) {
   x <- 
     slice.egor(activate(x, "ego"), ego_no)
   
+  if (include_ego) {
+    if (vertex_label_var %in% names(x$ego)) {
+      ego_attrs <- c(ego_attrs, vertex_label_var)
+    }
+  }
+  
   gr <- as_igraph(x, 
                   include.ego = include_ego, 
+                  ego.attrs = ego_attrs,
                   ego.alter.weights = c(ego_alter_edge_width_var,
                                         ego_alter_edge_color_var)
                   )[[1]]
@@ -167,6 +177,9 @@ plot_one_ego_graph <- function(x,
   if (!is.null(vertex_label_var)) {
     vertex.label <-
       igraph::vertex_attr(gr, vertex_label_var)
+    if(include_ego && is.na(vertex.label[length(vertex.label)])) {
+      vertex.label[length(vertex.label)] <- "ego"
+    }
     vertex.label[is.na(vertex.label)] <- 0
   } else {
     vertex.label <- ""
