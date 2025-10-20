@@ -5,7 +5,7 @@ if (getRversion() >= "2.15.1")
 #'
 #' A convenience function converting a [data.frame()] or a [tibble()].
 #'
-#' @param x a [data.frame()], a [tibble()], or some other table data
+#' @param x a [data.frame()], a [tibble::tibble()], or some other table data
 #'   structure backed by a [list()] of columns.
 #'
 #' @return A [list()] of length `nrow(x)`, with each element itself a

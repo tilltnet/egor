@@ -7,11 +7,11 @@ if (getRversion() >= "2.15.1")
 
 #' Extract ego, alter, and alter-alter tables from an `egor` object.
 #'
-#' @description Provided an `egor` object, these functions create a "global" `tibble` or `srvyr`'s [`tbl_svy`] object
+#' @description Provided an `egor` object, these functions create a "global" `tibble` or `srvyr`'s [`srvyr::tbl_svy`] object
 #' containing egos, alter attributes, or alter-alter relations. The resulting tables
 #' are useful for advanced analysis procedures, e.g. multi-level regressions.
 #'
-#' @description [as_tibble()] method for `egor` extracts the currently active component (`ego`, `alter`, or `aaties`) table, optionally joining it with the others, dropping any survey design information.
+#' @description [tibble::as_tibble()] method for `egor` extracts the currently active component (`ego`, `alter`, or `aaties`) table, optionally joining it with the others, dropping any survey design information.
 #'
 #' @param x,object,.data An `egor` object.
 #' @param include.ego.vars Logical, specifying if ego variables should be included in the result.
@@ -62,7 +62,7 @@ as_tibble.egor <- function(x,
 }
 
 #' @rdname as_tibble.egor
-#' @description [as_survey()] method for `egor` instead returns a `srvyr` [`tbl_svy`] survey, taking into account any replication due to multiple alters or alter-alter ties incident on each ego. If no design is specified for the egos, then the default design (simple random sample with replacement) is assumed as the starting point.
+#' @description [srvyr::as_survey()] method for `egor` instead returns a `srvyr` [`tbl_svy`] survey, taking into account any replication due to multiple alters or alter-alter ties incident on each ego. If no design is specified for the egos, then the default design (simple random sample with replacement) is assumed as the starting point.
 #' @examples
 #' library(srvyr)
 #' as_survey(egor32) # Ego table with survey design.

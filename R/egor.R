@@ -47,7 +47,7 @@ if (getRversion() >= "2.15.1") utils::globalVariables(c(":="))
 #'   nominated. See the argument above for currently implemented
 #'   settings.
 #' @keywords ego-centered network analysis
-#' @seealso [as_tibble()] for extracting ego, alter, and alter--alter tables, as [`tibble`]s or as `srvyr`'s [`tbl_svy`] surveys.
+#' @seealso [tibble::as_tibble()] for extracting ego, alter, and alter--alter tables, as [`tibble::tibble`]s or as `srvyr`'s [`srvyr::tbl_svy`] surveys.
 #' @examples 
 #' data("egos32")
 #' data("alters32")
