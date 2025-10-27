@@ -2,7 +2,7 @@
 # rhub::rhub_setup()
 # rhub::rhub_check()
 
-devtools::check()
+# devtools::check()
 
 
 # For windows if it fails with i.e. "there is no package called 'utf8'"
@@ -13,16 +13,16 @@ devtools::check()
 
 # rhub tests on windows (?) but builds locally, `check_win()` also builds on
 # windows
-devtools::check_win_release()
-devtools::check_win_devel()
+# devtools::check_win_release()
+# devtools::check_win_devel()
 
 # reverse dependency check ----
 
 #remotes::install_github("r-lib/revdepcheck")
 library(revdepcheck)
 revdep_reset()
-revdep_check(num_workers = 8)
+revdep_check(num_workers = 1)
 
 # submit to cran ----
 
-devtools::release()
+# devtools::release()

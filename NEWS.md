@@ -1,3 +1,7 @@
+# egor 1.25.10
+
+- fixed issues
+
 # egor 1.22.13
 
 - added method for `dplyr::distinct()` (#63)
