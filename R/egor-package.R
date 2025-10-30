@@ -10,7 +10,7 @@
 #'   specify the name of the ego-level variable in question.
 #'
 #'   For further information see 
-#'   \href{https:///egor.tillt.net/}{package webpage} or 
+#'   \href{https://egor.tillt.net/}{package webpage} or 
 #'   \href{https://github.com/tilltnet/egor}{GitHub}.
 #'   
 #' @keywords internal
