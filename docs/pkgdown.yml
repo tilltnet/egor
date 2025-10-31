@@ -1,9 +1,8 @@
-pandoc: 3.1.1
-pkgdown: 2.0.7
+pandoc: 3.6.3
+pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
   egor_allbus: egor_allbus.html
   qualtrics: qualtrics.html
   using_egor: using_egor.html
-last_built: 2024-02-02T02:48Z
-
+last_built: 2025-10-31T20:38Z
