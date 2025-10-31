@@ -8,4 +8,3 @@ We checked 3 reverse dependencies (3 from CRAN + 0 from Bioconductor), comparing
 
  * We saw 0 new problems
  * We failed to check 0 packages
-
