@@ -104,8 +104,11 @@ plot_one_ego_graph <- function(x,
     if (!is.null(vertex_color_var) && vertex_color_var %in% names(x$ego)) {
       ego_attrs <- c(ego_attrs, vertex_color_var)
     }
-    if (!is.null(ego_color_var) && ego_color_var %in% names(x$ego) && 
-        !identical(ego_color_var, vertex_color_var)) {
+    # Add ego_color_var to ego_attrs if it's different from vertex_color_var
+    ego_needs_separate_color_var <- !is.null(ego_color_var) && 
+                                     ego_color_var %in% names(x$ego) && 
+                                     !identical(ego_color_var, vertex_color_var)
+    if (ego_needs_separate_color_var) {
       ego_attrs <- c(ego_attrs, ego_color_var)
     }
   }
@@ -166,16 +169,19 @@ plot_one_ego_graph <- function(x,
   }
   
   # Ego Color (if include_ego is TRUE and ego_color_var is specified)
+  # Note: When include_ego=TRUE, the ego vertex is always added as the last vertex in the igraph
   if (include_ego && !is.null(ego_color_var)) {
-    # Check if ego_color_var differs from vertex_color_var
-    if (!identical(ego_color_var, vertex_color_var) || 
-        !identical(ego_color_palette, vertex_color_palette)) {
-      
+    # Determine if ego needs separate coloring
+    ego_has_diff_color_config <- !identical(ego_color_var, vertex_color_var) || 
+                                  !identical(ego_color_palette, vertex_color_palette)
+    
+    if (ego_has_diff_color_config) {
       # If ego_color_var and vertex_color_var are the same variable but different palettes
       if (identical(ego_color_var, vertex_color_var)) {
         # Same variable, different palette - use the combined levels but apply ego_color_palette to ego
         ego_colors_ <- egor_col_pal(ego_color_palette,
                                     length(levels(vertex.color)))
+        # The last vertex is always ego when include_ego=TRUE
         clrs[length(clrs)] <- ego_colors_[vertex.color[length(vertex.color)]]
       } else {
         # Different variables - ego_color_var should be an ego-level attribute
@@ -309,13 +315,19 @@ plot_one_ego_graph <- function(x,
              vertex_color_legend_label)
     
     # Determine if we need a separate ego legend
-    show_ego_legend <- include_ego && !is.null(ego_color_var) && 
-                       (!identical(ego_color_var, vertex_color_var) || 
-                        !identical(ego_color_palette, vertex_color_palette))
+    # Reuse the same condition as in ego color logic
+    ego_has_diff_color_config <- include_ego && !is.null(ego_color_var) && 
+                                 (!identical(ego_color_var, vertex_color_var) || 
+                                  !identical(ego_color_palette, vertex_color_palette))
     
-    if (show_ego_legend && !identical(ego_color_var, vertex_color_var)) {
-      # Different variables: show two legends side by side or stacked
+    if (ego_has_diff_color_config && !identical(ego_color_var, vertex_color_var)) {
+      # Different variables: show two legends stacked
+      # Constants for legend spacing
+      LEGEND_ITEM_HEIGHT <- 0.15
+      LEGEND_VERTICAL_GAP <- 0.3
+      
       # First show alter/vertex legend
+      # Note: ego is always the last vertex when include_ego=TRUE
       alter_color_var <- color_var[-length(color_var)]  # Exclude ego
       legend(
         x = -1.9,
@@ -343,7 +355,7 @@ plot_one_ego_graph <- function(x,
       
       # Calculate y position for second legend
       n_alter_levels <- length(levels(factor(alter_color_var)))
-      y_offset <- 1.1 - (n_alter_levels * 0.15) - 0.3
+      y_offset <- 1.1 - (n_alter_levels * LEGEND_ITEM_HEIGHT) - LEGEND_VERTICAL_GAP
       
       legend(
         x = -1.9,
