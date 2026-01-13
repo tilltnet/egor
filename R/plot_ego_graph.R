@@ -157,10 +157,7 @@ plot_one_ego_graph <- function(x,
     #vertex.color[is.na(vertex.color)] <- 0
     vertex.color <- factor(vertex.color)
     colors_ <- egor_col_pal(vertex_color_palette,
-                            length(levels(
-                              factor(igraph::vertex_attr(gr,
-                                                                  vertex_color_var))
-                            )))
+                            length(levels(vertex.color)))
     clrs <- colors_[vertex.color]
     clrs[is.na(clrs)] <- "#ffffff"
   } else {
