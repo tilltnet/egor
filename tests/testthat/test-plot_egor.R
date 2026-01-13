@@ -127,7 +127,7 @@ test_that("plot_egograms doesn't fail on empty alters or aaties", {
   e <- make_egor(5, 5)
   e$aatie <-
     e$aatie %>%
-    filter(.egoID != 1)
+    filter(FALSE)
   expect_error(plot_egograms(
     x = e,
     venn_var = "sex",
@@ -155,7 +155,7 @@ test_that("plot_egograms doesn't fail on empty alters or aaties", {
   e <- make_egor(5, 5)
   e$alter <-
     e$alter %>%
-    filter(.egoID != 1)
+    filter(FALSE)
   expect_error(plot_egograms(
     x = e,
     venn_var = "sex",
@@ -169,7 +169,7 @@ test_that("plot_ego_graphs doesn't fail on empty alters or aaties", {
   e <- make_egor(5, 5)
   e$aatie <-
     e$aatie %>%
-    filter(.egoID != 1)
+    filter(FALSE)
   expect_error(plot_ego_graphs(
     e, ego_id=1, include_ego=F
   ),
@@ -184,7 +184,7 @@ test_that("plot_ego_graphs doesn't fail on empty alters or aaties", {
   e <- make_egor(5, 5)
   e$alter <-
     e$alter %>%
-    filter(.egoID != 1)
+    filter(FALSE)
     
   expect_error(plot_ego_graphs(
     e, ego_id=1, include_ego=F
