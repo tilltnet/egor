@@ -8,9 +8,6 @@ plot_ego_graphs <- function(x,
                             vertex_color_var = NULL,
                             vertex_color_palette = "Heat Colors",
                             vertex_color_legend_label = vertex_color_var,
-                            ego_color_var = vertex_color_var,
-                            ego_color_palette = vertex_color_palette,
-                            ego_color_legend_label = ego_color_var,
                             vertex_label_var = "name",
                             edge_width_var = NULL,
                             ego_alter_edge_width_var = 
@@ -27,6 +24,10 @@ plot_ego_graphs <- function(x,
                             font_size = 1,
                             include_ego = FALSE,
                             ego_attrs = NULL,
+                            ego_color_var = vertex_color_var,
+                            ego_color_palette = vertex_color_palette,
+                            ego_color_legend_label = ego_color_var,
+                            ego_label_var = vertex_label_var,
                             ...) {
   require_igraph(paste(sQuote("egor"),"plotting ego graphs"))
   opar <- par(no.readonly = TRUE)
@@ -47,9 +48,6 @@ plot_ego_graphs <- function(x,
         vertex_color_var = vertex_color_var,
         vertex_color_palette = vertex_color_palette,
         vertex_color_legend_label = vertex_color_legend_label,
-        ego_color_var = ego_color_var,
-        ego_color_palette = ego_color_palette,
-        ego_color_legend_label = ego_color_legend_label,
         vertex_label_var = vertex_label_var,
         edge_width_var = edge_width_var,
         ego_alter_edge_width_var = ego_alter_edge_width_var,
@@ -63,6 +61,10 @@ plot_ego_graphs <- function(x,
         font_size = font_size,
         include_ego = include_ego,
         ego_attrs = ego_attrs,
+        ego_color_var = ego_color_var,
+        ego_color_palette = ego_color_palette,
+        ego_color_legend_label = ego_color_legend_label,
+        ego_label_var = ego_label_var,
         ...
       )
     }
@@ -76,9 +78,6 @@ plot_one_ego_graph <- function(x,
                                vertex_color_var = NULL,
                                vertex_color_palette = "Heat Colors",
                                vertex_color_legend_label = vertex_color_var,
-                               ego_color_var = vertex_color_var,
-                               ego_color_palette = vertex_color_palette,
-                               ego_color_legend_label = ego_color_var,
                                vertex_label_var = "name",
                                edge_width_var = NULL,
                                ego_alter_edge_width_var = edge_width_var,
@@ -93,6 +92,10 @@ plot_one_ego_graph <- function(x,
                                include_ego = FALSE,
                                ego_attrs = NULL,
                                layout = NULL,
+                               ego_color_var = vertex_color_var,
+                               ego_color_palette = vertex_color_palette,
+                               ego_color_legend_label = ego_color_var,
+                               ego_label_var = vertex_label_var,
                                ...) {
   x <- 
     slice.egor(activate(x, "ego"), ego_no)
@@ -100,6 +103,12 @@ plot_one_ego_graph <- function(x,
   if (include_ego) {
     if (vertex_label_var %in% names(x$ego)) {
       ego_attrs <- c(ego_attrs, vertex_label_var)
+    }
+    # Add ego_label_var to ego_attrs if it's different from vertex_label_var
+    if (!is.null(ego_label_var) && 
+        ego_label_var %in% names(x$ego) && 
+        !identical(ego_label_var, vertex_label_var)) {
+      ego_attrs <- c(ego_attrs, ego_label_var)
     }
     if (!is.null(vertex_color_var) && vertex_color_var %in% names(x$ego)) {
       ego_attrs <- c(ego_attrs, vertex_color_var)
@@ -238,6 +247,18 @@ plot_one_ego_graph <- function(x,
     vertex.label[is.na(vertex.label)] <- 0
   } else {
     vertex.label <- ""
+  }
+  
+  # Ego Label (if include_ego is TRUE and ego_label_var is different)
+  if (include_ego && !is.null(ego_label_var) && !identical(ego_label_var, vertex_label_var)) {
+    # Check if the ego_label_var attribute exists in the graph
+    if (ego_label_var %in% igraph::vertex_attr_names(gr)) {
+      ego_label_value <- igraph::vertex_attr(gr, ego_label_var)[length(igraph::V(gr))]
+      # Only set if not NA
+      if (!is.na(ego_label_value)) {
+        vertex.label[length(vertex.label)] <- ego_label_value
+      }
+    }
   }
   
   par(mar = c(0.5, 0.5, 0.5, 0.5))

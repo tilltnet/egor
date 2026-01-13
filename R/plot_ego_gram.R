@@ -101,9 +101,6 @@ plot_egograms <- function(x,
                           vertex_color_var = NULL,
                           vertex_color_palette = "Heat Colors",
                           vertex_color_legend_label = vertex_color_var,
-                          ego_color_var = vertex_color_var,
-                          ego_color_palette = vertex_color_palette,
-                          ego_color_legend_label = ego_color_var,
                           vertex_label_var = "name",
                           edge_width_var = NULL,
                           edge_color_var = NULL,
@@ -118,6 +115,10 @@ plot_egograms <- function(x,
                           venn_gradient_reverse = FALSE,
                           show_venn_labels = TRUE,
                           include_ego = FALSE,
+                          ego_color_var = vertex_color_var,
+                          ego_color_palette = vertex_color_palette,
+                          ego_color_legend_label = ego_color_var,
+                          ego_label_var = vertex_label_var,
                           ...) {
   opar <- par(no.readonly = TRUE)
   on.exit(par(opar))
@@ -143,9 +144,6 @@ plot_egograms <- function(x,
         vertex_color_var = vertex_color_var,
         vertex_color_palette = vertex_color_palette,
         vertex_color_legend_label = vertex_color_legend_label,
-        ego_color_var = ego_color_var,
-        ego_color_palette = ego_color_palette,
-        ego_color_legend_label = ego_color_legend_label,
         vertex_label_var = vertex_label_var,
         edge_width_var = edge_width_var,
         edge_color_var = edge_color_var,
@@ -159,6 +157,10 @@ plot_egograms <- function(x,
         font_size = font_size,
         show_venn_labels = show_venn_labels,
         include_ego = include_ego,
+        ego_color_var = ego_color_var,
+        ego_color_palette = ego_color_palette,
+        ego_color_legend_label = ego_color_legend_label,
+        ego_label_var = ego_label_var,
         ...
       )
     }
@@ -175,9 +177,6 @@ plot_egogram <-
            vertex_color_var = NULL,
            vertex_color_palette = "Heat Colors",
            vertex_color_legend_label = vertex_color_var,
-           ego_color_var = vertex_color_var,
-           ego_color_palette = vertex_color_palette,
-           ego_color_legend_label = ego_color_var,
            vertex_label_var = "name",
            edge_width_var = NULL,
            edge_color_var = NULL,
@@ -192,6 +191,10 @@ plot_egogram <-
            venn_gradient_reverse = FALSE,
            show_venn_labels = TRUE,
            include_ego = FALSE,
+           ego_color_var = vertex_color_var,
+           ego_color_palette = vertex_color_palette,
+           ego_color_legend_label = ego_color_var,
+           ego_label_var = vertex_label_var,
            ...)  {
     
     if (!any(c(!is.null(pie_var), !is.null(venn_var))))
@@ -377,9 +380,6 @@ plot_egogram <-
       vertex_color_var = vertex_color_var,
       vertex_color_palette = vertex_color_palette,
       vertex_color_legend_label = vertex_color_legend_label,
-      ego_color_var = ego_color_var,
-      ego_color_palette = ego_color_palette,
-      ego_color_legend_label = ego_color_legend_label,
       vertex_label_var = vertex_label_var,
       edge_width_var = edge_width_var,
       edge_color_var = edge_color_var,
@@ -392,6 +392,10 @@ plot_egogram <-
       edge.curved = igraph::E(g)$curved,
       include_ego = include_ego, 
       font_size = font_size,
+      ego_color_var = ego_color_var,
+      ego_color_palette = ego_color_palette,
+      ego_color_legend_label = ego_color_legend_label,
+      ego_label_var = ego_label_var,
       ...
     )
   }

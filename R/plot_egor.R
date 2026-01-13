@@ -13,9 +13,6 @@
 #' @param vertex_color_var Name (`character`) of alter column.
 #' @param vertex_color_palette Name (`character`) of color palette, see details for available color palettes.
 #' @param vertex_color_legend_label Character.
-#' @param ego_color_var Name (`character`) of ego column to determine ego vertex color. Defaults to `vertex_color_var`. Used in combination with `include_ego = TRUE` to visualize ego-alter homophily.
-#' @param ego_color_palette Name (`character`) of color palette for ego vertex. Defaults to `vertex_color_palette`. See details for available color palettes.
-#' @param ego_color_legend_label Character. Legend label for ego color. Defaults to `ego_color_var`.
 #' @param vertex_label_var Name (`character`) of alter column. Set this to `NULL` to suppress labels.
 #' @param edge_width_var Name (`character`) of aatie column.
 #' @param ego_alter_edge_width_var Name (`character`) of alter column.
@@ -35,6 +32,10 @@
 #' @param show_venn_labels Logical.
 #' @param include_ego Logical.
 #' @param ego_attrs `Character` vector naming ego variables to turn into ego vertex attributes. Used in combination with `include_ego = TRUE`. 
+#' @param ego_color_var Name (`character`) of ego column to determine ego vertex color. Defaults to `vertex_color_var`. Used in combination with `include_ego = TRUE` to visualize ego-alter homophily.
+#' @param ego_color_palette Name (`character`) of color palette for ego vertex. Defaults to `vertex_color_palette`. See details for available color palettes.
+#' @param ego_color_legend_label Character. Legend label for ego color. Defaults to `ego_color_var`.
+#' @param ego_label_var Name (`character`) of ego column to determine ego vertex label. Defaults to `vertex_label_var`. Used in combination with `include_ego = TRUE`.
 #' @param type Character. Either "egograph" or "egogram".
 # @param layout `Matrix` of x and y coordinates for nodes. Defaults to 
 # Fruchterman Rheingold layout algorithm.
@@ -44,10 +45,11 @@
 #' on a map of (1) concentric circles with (2) subsections, that can be mapped to 
 #' alter variables.
 #' 
-#' The `ego_color_var`, `ego_color_palette`, and `ego_color_legend_label` 
-#' parameters allow specifying ego's color separately from alters' colors 
-#' when `include_ego = TRUE`. This is helpful for visualizing ego-alter 
-#' homophily. When `ego_color_var` equals `vertex_color_var`, the same color 
+#' The `ego_color_var`, `ego_color_palette`, `ego_color_legend_label`, and 
+#' `ego_label_var` parameters allow specifying ego's color and label separately 
+#' from alters' colors and labels when `include_ego = TRUE`. This is helpful 
+#' for visualizing ego-alter homophily. When `ego_color_var` equals `vertex_color_var`, 
+#' the same color 
 #' mapping is used to ensure consistency.
 #' 
 #' Available color palettes are:
