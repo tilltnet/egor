@@ -101,7 +101,11 @@ plot_one_ego_graph <- function(x,
     if (vertex_label_var %in% names(x$ego)) {
       ego_attrs <- c(ego_attrs, vertex_label_var)
     }
-    if (!is.null(ego_color_var) && ego_color_var %in% names(x$ego)) {
+    if (!is.null(vertex_color_var) && vertex_color_var %in% names(x$ego)) {
+      ego_attrs <- c(ego_attrs, vertex_color_var)
+    }
+    if (!is.null(ego_color_var) && ego_color_var %in% names(x$ego) && 
+        !identical(ego_color_var, vertex_color_var)) {
       ego_attrs <- c(ego_attrs, ego_color_var)
     }
   }
@@ -166,27 +170,31 @@ plot_one_ego_graph <- function(x,
     # Check if ego_color_var differs from vertex_color_var
     if (!identical(ego_color_var, vertex_color_var) || 
         !identical(ego_color_palette, vertex_color_palette)) {
-      # Get ego's color value
-      ego_color_value <- igraph::vertex_attr(gr, ego_color_var)[length(igraph::V(gr))]
       
-      # If ego_color_var and vertex_color_var are the same variable but different palettes,
-      # or if they're different variables, we need to determine the ego color
+      # If ego_color_var and vertex_color_var are the same variable but different palettes
       if (identical(ego_color_var, vertex_color_var)) {
         # Same variable, different palette - use the combined levels but apply ego_color_palette to ego
         ego_colors_ <- egor_col_pal(ego_color_palette,
                                     length(levels(vertex.color)))
         clrs[length(clrs)] <- ego_colors_[vertex.color[length(vertex.color)]]
       } else {
-        # Different variables - get all values for ego_color_var from both ego and alters
-        all_ego_color_values <- igraph::vertex_attr(gr, ego_color_var)
-        ego_color_factor <- factor(all_ego_color_values)
-        ego_colors_ <- egor_col_pal(ego_color_palette,
-                                    length(levels(ego_color_factor)))
-        # Apply ego color only to the last vertex (ego)
-        ego_color_mapped <- ego_colors_[ego_color_factor]
-        clrs[length(clrs)] <- ifelse(is.na(ego_color_mapped[length(ego_color_mapped)]), 
-                                     "#ffffff", 
-                                     ego_color_mapped[length(ego_color_mapped)])
+        # Different variables - ego_color_var should be an ego-level attribute
+        # Check if the attribute exists in the graph (it should for the ego vertex)
+        if (ego_color_var %in% igraph::vertex_attr_names(gr)) {
+          ego_color_values <- igraph::vertex_attr(gr, ego_color_var)
+          # Get unique non-NA values to determine factor levels
+          unique_ego_values <- unique(ego_color_values[!is.na(ego_color_values)])
+          ego_color_factor <- factor(ego_color_values, levels = unique_ego_values)
+          ego_colors_ <- egor_col_pal(ego_color_palette,
+                                      length(levels(ego_color_factor)))
+          # Apply ego color only to the last vertex (ego)
+          ego_idx <- length(clrs)
+          if (!is.na(ego_color_factor[ego_idx])) {
+            clrs[ego_idx] <- ego_colors_[ego_color_factor[ego_idx]]
+          } else {
+            clrs[ego_idx] <- "#ffffff"
+          }
+        }
       }
     }
     # If ego_color_var and vertex_color_var are identical (including palette),
