@@ -276,12 +276,14 @@ plot_egogram <-
       )
     }
     
-    # Venns
-    radi <- c(1:(venn_n + 1) / (venn_n + 1))
-    cols <- paste0("#ffffff", format(as.hexmode(round(seq(0, 220,  220 / venn_n)))))
-    if(venn_gradient_reverse) cols <- rev(cols)
-    for(i in 1:venn_n) {
-      ring(0, 0, radi[i+1], radi[i], col = cols[i], border = "grey70")
+    # Venns - only draw if there are alters
+    if (nrow(ego_object$alter) > 0 && venn_n > 0) {
+      radi <- c(1:(venn_n + 1) / (venn_n + 1))
+      cols <- paste0("#ffffff", format(as.hexmode(round(seq(0, 220,  220 / venn_n)))))
+      if(venn_gradient_reverse) cols <- rev(cols)
+      for(i in 1:venn_n) {
+        ring(0, 0, radi[i+1], radi[i], col = cols[i], border = "grey70")
+      }
     }
 
     # plotrix::draw.circle(0, 0, c(1:(venn_n + 1) / (venn_n + 1)),
@@ -364,7 +366,13 @@ plot_egogram <-
     
     if(include_ego) {
       # Place ego in middle of plot
-      lay <- rbind(lay, c(0, 0, 0))
+      if (nrow(lay) > 0) {
+        lay <- rbind(lay, c(0, 0, 0))
+      } else {
+        # If no alters, create a layout with just the ego
+        lay <- tibble::tibble(.altID = character(0), x = numeric(0), y = numeric(0))
+        lay <- rbind(lay, tibble::tibble(.altID = ".ego", x = 0, y = 0))
+      }
       # Only set edge attributes if there are edges
       if (igraph::ecount(g) > 0) {
         # Set curvature of ego-alter ties to zero
