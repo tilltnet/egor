@@ -135,6 +135,19 @@ test_that("plot_egograms doesn't fail on empty alters or aaties", {
     show_venn_labels = TRUE
   ),
   NA)
+  
+  # Test with include_ego = TRUE and empty aaties
+  expect_error(plot_egograms(
+    x = e,
+    ego_no = 1,
+    venn_var = "sex",
+    pie_var = "country",
+    vertex_color_var = "age",
+    show_venn_labels = TRUE,
+    include_ego = TRUE
+  ),
+  NA)
+  
   e <- make_egor(5, 5)
   e$alter <-
     e$alter %>%
