@@ -136,7 +136,11 @@ test_that("plot_egograms doesn't fail on empty alters or aaties", {
   ),
   NA)
   
-  # Test with include_ego = TRUE and empty aaties
+  # Test with include_ego = TRUE and NO aaties at all
+  e <- make_egor(5, 5)
+  e$aatie <-
+    e$aatie %>%
+    filter(FALSE)
   expect_error(plot_egograms(
     x = e,
     ego_no = 1,
