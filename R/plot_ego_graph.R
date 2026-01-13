@@ -8,6 +8,9 @@ plot_ego_graphs <- function(x,
                             vertex_color_var = NULL,
                             vertex_color_palette = "Heat Colors",
                             vertex_color_legend_label = vertex_color_var,
+                            ego_color_var = vertex_color_var,
+                            ego_color_palette = vertex_color_palette,
+                            ego_color_legend_label = ego_color_var,
                             vertex_label_var = "name",
                             edge_width_var = NULL,
                             ego_alter_edge_width_var = 
@@ -44,6 +47,9 @@ plot_ego_graphs <- function(x,
         vertex_color_var = vertex_color_var,
         vertex_color_palette = vertex_color_palette,
         vertex_color_legend_label = vertex_color_legend_label,
+        ego_color_var = ego_color_var,
+        ego_color_palette = ego_color_palette,
+        ego_color_legend_label = ego_color_legend_label,
         vertex_label_var = vertex_label_var,
         edge_width_var = edge_width_var,
         ego_alter_edge_width_var = ego_alter_edge_width_var,
@@ -70,6 +76,9 @@ plot_one_ego_graph <- function(x,
                                vertex_color_var = NULL,
                                vertex_color_palette = "Heat Colors",
                                vertex_color_legend_label = vertex_color_var,
+                               ego_color_var = vertex_color_var,
+                               ego_color_palette = vertex_color_palette,
+                               ego_color_legend_label = ego_color_var,
                                vertex_label_var = "name",
                                edge_width_var = NULL,
                                ego_alter_edge_width_var = edge_width_var,
@@ -91,6 +100,9 @@ plot_one_ego_graph <- function(x,
   if (include_ego) {
     if (vertex_label_var %in% names(x$ego)) {
       ego_attrs <- c(ego_attrs, vertex_label_var)
+    }
+    if (!is.null(ego_color_var) && ego_color_var %in% names(x$ego)) {
+      ego_attrs <- c(ego_attrs, ego_color_var)
     }
   }
   
@@ -147,6 +159,38 @@ plot_one_ego_graph <- function(x,
   } else {
     vertex.color <- 1
     clrs <- "coral"
+  }
+  
+  # Ego Color (if include_ego is TRUE and ego_color_var is specified)
+  if (include_ego && !is.null(ego_color_var)) {
+    # Check if ego_color_var differs from vertex_color_var
+    if (!identical(ego_color_var, vertex_color_var) || 
+        !identical(ego_color_palette, vertex_color_palette)) {
+      # Get ego's color value
+      ego_color_value <- igraph::vertex_attr(gr, ego_color_var)[length(igraph::V(gr))]
+      
+      # If ego_color_var and vertex_color_var are the same variable but different palettes,
+      # or if they're different variables, we need to determine the ego color
+      if (identical(ego_color_var, vertex_color_var)) {
+        # Same variable, different palette - use the combined levels but apply ego_color_palette to ego
+        ego_colors_ <- egor_col_pal(ego_color_palette,
+                                    length(levels(vertex.color)))
+        clrs[length(clrs)] <- ego_colors_[vertex.color[length(vertex.color)]]
+      } else {
+        # Different variables - get all values for ego_color_var from both ego and alters
+        all_ego_color_values <- igraph::vertex_attr(gr, ego_color_var)
+        ego_color_factor <- factor(all_ego_color_values)
+        ego_colors_ <- egor_col_pal(ego_color_palette,
+                                    length(levels(ego_color_factor)))
+        # Apply ego color only to the last vertex (ego)
+        ego_color_mapped <- ego_colors_[ego_color_factor]
+        clrs[length(clrs)] <- ifelse(is.na(ego_color_mapped[length(ego_color_mapped)]), 
+                                     "#ffffff", 
+                                     ego_color_mapped[length(ego_color_mapped)])
+      }
+    }
+    # If ego_color_var and vertex_color_var are identical (including palette),
+    # the ego color is already set correctly by the vertex color logic above
   }
   
   # Edge Width
@@ -255,19 +299,73 @@ plot_one_ego_graph <- function(x,
       ifelse(vertex_color_legend_label == "",
              vertex_color_var,
              vertex_color_legend_label)
-    legend(
-      x = -1.9,
-      y = 1.1,
-      legend = levels(factor(color_var)),
-      pt.bg = colors_,
-      pt.cex = 1.5,
-      pch = 22,
-      bty = "n",
-      y.intersp = 1,
-      title = title_,
-      xpd = TRUE,
-      cex = font_size
-    )
+    
+    # Determine if we need a separate ego legend
+    show_ego_legend <- include_ego && !is.null(ego_color_var) && 
+                       (!identical(ego_color_var, vertex_color_var) || 
+                        !identical(ego_color_palette, vertex_color_palette))
+    
+    if (show_ego_legend && !identical(ego_color_var, vertex_color_var)) {
+      # Different variables: show two legends side by side or stacked
+      # First show alter/vertex legend
+      alter_color_var <- color_var[-length(color_var)]  # Exclude ego
+      legend(
+        x = -1.9,
+        y = 1.1,
+        legend = levels(factor(alter_color_var)),
+        pt.bg = colors_,
+        pt.cex = 1.5,
+        pch = 22,
+        bty = "n",
+        y.intersp = 1,
+        title = paste0("Alter: ", title_),
+        xpd = TRUE,
+        cex = font_size
+      )
+      
+      # Now show ego legend below
+      ego_color_var_values <- igraph::vertex_attr(gr, ego_color_var)
+      ego_color_factor <- factor(ego_color_var_values)
+      ego_colors_ <- egor_col_pal(ego_color_palette,
+                                  length(levels(ego_color_factor)))
+      ego_title_ <-
+        ifelse(ego_color_legend_label == "",
+               ego_color_var,
+               ego_color_legend_label)
+      
+      # Calculate y position for second legend
+      n_alter_levels <- length(levels(factor(alter_color_var)))
+      y_offset <- 1.1 - (n_alter_levels * 0.15) - 0.3
+      
+      legend(
+        x = -1.9,
+        y = y_offset,
+        legend = levels(ego_color_factor),
+        pt.bg = ego_colors_,
+        pt.cex = 1.5,
+        pch = 22,
+        bty = "n",
+        y.intersp = 1,
+        title = paste0("Ego: ", ego_title_),
+        xpd = TRUE,
+        cex = font_size
+      )
+    } else {
+      # Same variable or same variable with different palette: show single legend
+      legend(
+        x = -1.9,
+        y = 1.1,
+        legend = levels(factor(color_var)),
+        pt.bg = colors_,
+        pt.cex = 1.5,
+        pch = 22,
+        bty = "n",
+        y.intersp = 1,
+        title = title_,
+        xpd = TRUE,
+        cex = font_size
+      )
+    }
   }
   par(mar = c(0.5, 0.5, 0.5, 0.5))
   graphics::box(lty = 'solid', col = highlight_box_col, lwd = 5)
