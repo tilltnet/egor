@@ -263,16 +263,18 @@ plot_egogram <-
     
     # Pieces of the pie
     plot.new()
-    pie_add(
-      rep(1, piece_n),
-      labels = levels(pie_var),
-      radius = 1,
-      clockwise = TRUE,
-      border = FALSE,
-      add = TRUE,
-      col = pie_colors,
-      cex = font_size
-    )
+    if (piece_n > 0) {
+      pie_add(
+        rep(1, piece_n),
+        labels = levels(pie_var),
+        radius = 1,
+        clockwise = TRUE,
+        border = FALSE,
+        add = TRUE,
+        col = pie_colors,
+        cex = font_size
+      )
+    }
     
     # Venns
     radi <- c(1:(venn_n + 1) / (venn_n + 1))
@@ -363,15 +365,18 @@ plot_egogram <-
     if(include_ego) {
       # Place ego in middle of plot
       lay <- rbind(lay, c(0, 0, 0))
-      # Set curvature of ego-alter ties to zero
-      igraph::E(g)$curved[is.na(igraph::E(g)$curved)] <- 0
-      # Set ego-alter weights to a dummy value
-      if (any(!is.na(igraph::E(g)$weight))) {
-        # Set to min of other weights, so scale of weights is comparable
-        igraph::E(g)$weight[is.na(igraph::E(g)$weight)] <- min(igraph::E(g)$weight, na.rm = TRUE)
-      } else {
-        # If all weights are NA (no aaties), set them all to 1
-        igraph::E(g)$weight <- 1
+      # Only set edge attributes if there are edges
+      if (igraph::ecount(g) > 0) {
+        # Set curvature of ego-alter ties to zero
+        igraph::E(g)$curved[is.na(igraph::E(g)$curved)] <- 0
+        # Set ego-alter weights to a dummy value
+        if (any(!is.na(igraph::E(g)$weight))) {
+          # Set to min of other weights, so scale of weights is comparable
+          igraph::E(g)$weight[is.na(igraph::E(g)$weight)] <- min(igraph::E(g)$weight, na.rm = TRUE)
+        } else {
+          # If all weights are NA (no aaties), set them all to 1
+          igraph::E(g)$weight <- 1
+        }
       }
     }
         
