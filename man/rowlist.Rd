@@ -16,7 +16,7 @@ named \code{\link[=list]{list()}} containing the elements in the corresponding
 row.
 }
 \description{
-A convenience function converting a \code{\link[=data.frame]{data.frame()}} or a \code{\link[tibble:tibble]{tibble::tibble()}}.
+A convenience function converting a \code{\link[=data.frame]{data.frame()}} or a \code{\link[tibble:tibble]{tibble()}}.
 }
 \examples{
 

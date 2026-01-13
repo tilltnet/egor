@@ -46,7 +46,7 @@ are useful for advanced analysis procedures, e.g. multi-level regressions.
 
 \code{\link[tibble:as_tibble]{tibble::as_tibble()}} method for \code{egor} extracts the currently active component (\code{ego}, \code{alter}, or \code{aaties}) table, optionally joining it with the others, dropping any survey design information.
 
-\code{\link[srvyr:as_survey]{srvyr::as_survey()}} method for \code{egor} instead returns a \code{srvyr} \code{\link[srvyr:tbl_svy]{srvyr::tbl_svy}} survey, taking into account any replication due to multiple alters or alter-alter ties incident on each ego. If no design is specified for the egos, then the default design (simple random sample with replacement) is assumed as the starting point.
+\code{\link[srvyr:as_survey]{srvyr::as_survey()}} method for \code{egor} instead returns a \code{srvyr} \code{\link[srvyr:tbl_svy]{tbl_svy}} survey, taking into account any replication due to multiple alters or alter-alter ties incident on each ego. If no design is specified for the egos, then the default design (simple random sample with replacement) is assumed as the starting point.
 
 \code{as_egos_df()}, \code{as_alters_df()}, \code{as_aaties_df()}, \code{as_egos_survey()}, \code{as_alters_survey()}, and \code{as_aaties_survey()} are convenience functions for the \code{as_tibble()} and \code{as_survey()} methods, activating the corresponding component of the \code{egor} object.
 }
