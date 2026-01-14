@@ -367,11 +367,13 @@ plot_egogram <-
     if(include_ego) {
       # Place ego in middle of plot
       if (nrow(lay) > 0) {
-        lay <- rbind(lay, c(0, 0, 0))
+        # Add ego to layout using proper tibble row binding
+        ego_row <- tibble::tibble(.altID = factor(".ego", levels = c(levels(lay$.altID), ".ego")), 
+                                   x = 0, y = 0)
+        lay <- rbind(lay, ego_row)
       } else {
         # If no alters, create a layout with just the ego
-        lay <- tibble::tibble(.altID = character(0), x = numeric(0), y = numeric(0))
-        lay <- rbind(lay, tibble::tibble(.altID = ".ego", x = 0, y = 0))
+        lay <- tibble::tibble(.altID = factor(".ego"), x = 0, y = 0)
       }
       # Only set edge attributes if there are edges
       if (igraph::ecount(g) > 0) {
