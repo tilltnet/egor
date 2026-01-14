@@ -378,11 +378,19 @@ plot_egogram <-
       # Only set edge attributes if there are edges
       if (igraph::ecount(g) > 0) {
         # Set curvature of ego-alter ties to zero
-        igraph::E(g)$curved[is.na(igraph::E(g)$curved)] <- 0
+        curved_vals <- igraph::E(g)$curved
+        if (is.null(curved_vals) || all(is.na(curved_vals))) {
+          igraph::E(g)$curved <- 0
+        } else {
+          curved_vals[is.na(curved_vals)] <- 0
+          igraph::E(g)$curved <- curved_vals
+        }
         # Set ego-alter weights to a dummy value
         if (any(!is.na(igraph::E(g)$weight))) {
           # Set to min of other weights, so scale of weights is comparable
-          igraph::E(g)$weight[is.na(igraph::E(g)$weight)] <- min(igraph::E(g)$weight, na.rm = TRUE)
+          weight_vals <- igraph::E(g)$weight
+          weight_vals[is.na(weight_vals)] <- min(weight_vals, na.rm = TRUE)
+          igraph::E(g)$weight <- weight_vals
         } else {
           # If all weights are NA (no aaties), set them all to 1
           igraph::E(g)$weight <- 1
