@@ -379,8 +379,8 @@ plot_egogram <-
       if (igraph::ecount(g) > 0) {
         # Set curvature of ego-alter ties to zero
         curved_vals <- igraph::E(g)$curved
-        if (is.null(curved_vals) || all(is.na(curved_vals))) {
-          igraph::E(g)$curved <- 0
+        if (is.null(curved_vals) || length(curved_vals) == 0 || all(is.na(curved_vals))) {
+          igraph::E(g)$curved <- rep(0, igraph::ecount(g))
         } else {
           curved_vals[is.na(curved_vals)] <- 0
           igraph::E(g)$curved <- curved_vals
