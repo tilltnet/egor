@@ -88,8 +88,10 @@ plot_one_ego_graph <- function(x,
   x <- 
     slice.egor(activate(x, "ego"), ego_no)
   
+  if (is.null(vertex_label_var)) vertex_label_var <- "name"
+
   if (include_ego) {
-    if (vertex_label_var %in% names(x$ego)) {
+    if (vertex_label_var %in% names(as_tibble(x$ego))) {
       ego_attrs <- c(ego_attrs, vertex_label_var)
     }
   }
