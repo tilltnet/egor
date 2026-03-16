@@ -102,6 +102,10 @@ plot_egograms <- function(x,
                           vertex_color_palette = "Heat Colors",
                           vertex_color_legend_label = vertex_color_var,
                           vertex_label_var = "name",
+                          ego_color_var = vertex_color_var,
+                          ego_color_palette = vertex_color_palette,
+                          ego_color_legend_label = ego_color_var,
+                          ego_label_var = vertex_label_var,
                           edge_width_var = NULL,
                           edge_color_var = NULL,
                           edge_color_palette = "Heat Colors",
@@ -153,6 +157,10 @@ plot_egograms <- function(x,
         font_size = font_size,
         show_venn_labels = show_venn_labels,
         include_ego = include_ego,
+        ego_color_var = ego_color_var,
+        ego_color_palette = ego_color_palette,
+        ego_color_legend_label = ego_color_legend_label,
+        ego_label_var = ego_label_var,
         ...
       )
     }
@@ -170,6 +178,10 @@ plot_egogram <-
            vertex_color_palette = "Heat Colors",
            vertex_color_legend_label = vertex_color_var,
            vertex_label_var = "name",
+           ego_color_var = vertex_color_var,
+           ego_color_palette = vertex_color_palette,
+           ego_color_legend_label = ego_color_var,
+           ego_label_var = vertex_label_var,
            edge_width_var = NULL,
            edge_color_var = NULL,
            edge_color_palette = "Heat Colors",
@@ -251,23 +263,27 @@ plot_egogram <-
     
     # Pieces of the pie
     plot.new()
-    pie_add(
-      rep(1, piece_n),
-      labels = levels(pie_var),
-      radius = 1,
-      clockwise = TRUE,
-      border = FALSE,
-      add = TRUE,
-      col = pie_colors,
-      cex = font_size
-    )
+    if (piece_n > 0) {
+      pie_add(
+        rep(1, piece_n),
+        labels = levels(pie_var),
+        radius = 1,
+        clockwise = TRUE,
+        border = FALSE,
+        add = TRUE,
+        col = pie_colors,
+        cex = font_size
+      )
+    }
     
-    # Venns
-    radi <- c(1:(venn_n + 1) / (venn_n + 1))
-    cols <- paste0("#ffffff", format(as.hexmode(round(seq(0, 220,  220 / venn_n)))))
-    if(venn_gradient_reverse) cols <- rev(cols)
-    for(i in 1:venn_n) {
-      ring(0, 0, radi[i+1], radi[i], col = cols[i], border = "grey70")
+    # Venns - only draw if there are alters
+    if (nrow(ego_object$alter) > 0 && venn_n > 0) {
+      radi <- c(1:(venn_n + 1) / (venn_n + 1))
+      cols <- paste0("#ffffff", format(as.hexmode(round(seq(0, 220,  220 / venn_n)))))
+      if(venn_gradient_reverse) cols <- rev(cols)
+      for(i in 1:venn_n) {
+        ring(0, 0, radi[i+1], radi[i], col = cols[i], border = "grey70")
+      }
     }
 
     # plotrix::draw.circle(0, 0, c(1:(venn_n + 1) / (venn_n + 1)),
@@ -350,11 +366,36 @@ plot_egogram <-
     
     if(include_ego) {
       # Place ego in middle of plot
-      lay <- rbind(lay, c(0, 0, 0))
-      # Set curvature of ego-alter ties to zero
-      igraph::E(g)$curved[is.na(igraph::E(g)$curved)] <- 0
-      # Set ego-alter weights to a dummy value
-      igraph::E(g)$weight[is.na(igraph::E(g)$weight)] <- min(igraph::E(g)$weight, na.rm = TRUE)
+      if (nrow(lay) > 0) {
+        # Add ego to layout using proper tibble row binding
+        ego_row <- tibble::tibble(.altID = factor(".ego", levels = c(levels(lay$.altID), ".ego")), 
+                                   x = 0, y = 0)
+        lay <- rbind(lay, ego_row)
+      } else {
+        # If no alters, create a layout with just the ego
+        lay <- tibble::tibble(.altID = factor(".ego"), x = 0, y = 0)
+      }
+      # Only set edge attributes if there are edges
+      if (igraph::ecount(g) > 0) {
+        # Set curvature of ego-alter ties to zero
+        curved_vals <- igraph::E(g)$curved
+        if (is.null(curved_vals) || length(curved_vals) == 0 || all(is.na(curved_vals))) {
+          igraph::E(g)$curved <- rep(0, igraph::ecount(g))
+        } else {
+          curved_vals[is.na(curved_vals)] <- 0
+          igraph::E(g)$curved <- curved_vals
+        }
+        # Set ego-alter weights to a dummy value
+        if (any(!is.na(igraph::E(g)$weight))) {
+          # Set to min of other weights, so scale of weights is comparable
+          weight_vals <- igraph::E(g)$weight
+          weight_vals[is.na(weight_vals)] <- min(weight_vals, na.rm = TRUE)
+          igraph::E(g)$weight <- weight_vals
+        } else {
+          # If all weights are NA (no aaties), set them all to 1
+          igraph::E(g)$weight <- 1
+        }
+      }
     }
         
     # Plot
@@ -380,6 +421,10 @@ plot_egogram <-
       edge.curved = igraph::E(g)$curved,
       include_ego = include_ego, 
       font_size = font_size,
+      ego_color_var = ego_color_var,
+      ego_color_palette = ego_color_palette,
+      ego_color_legend_label = ego_color_legend_label,
+      ego_label_var = ego_label_var,
       ...
     )
   }

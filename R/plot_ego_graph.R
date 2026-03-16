@@ -9,6 +9,10 @@ plot_ego_graphs <- function(x,
                             vertex_color_palette = "Heat Colors",
                             vertex_color_legend_label = vertex_color_var,
                             vertex_label_var = "name",
+                            ego_color_var = vertex_color_var,
+                            ego_color_palette = vertex_color_palette,
+                            ego_color_legend_label = ego_color_var,
+                            ego_label_var = vertex_label_var,
                             edge_width_var = NULL,
                             ego_alter_edge_width_var = 
                               if(!is.null(edge_width_var) & include_ego) edge_width_var,
@@ -57,6 +61,10 @@ plot_ego_graphs <- function(x,
         font_size = font_size,
         include_ego = include_ego,
         ego_attrs = ego_attrs,
+        ego_color_var = ego_color_var,
+        ego_color_palette = ego_color_palette,
+        ego_color_legend_label = ego_color_legend_label,
+        ego_label_var = ego_label_var,
         ...
       )
     }
@@ -71,6 +79,10 @@ plot_one_ego_graph <- function(x,
                                vertex_color_palette = "Heat Colors",
                                vertex_color_legend_label = vertex_color_var,
                                vertex_label_var = "name",
+                               ego_color_var = vertex_color_var,
+                               ego_color_palette = vertex_color_palette,
+                               ego_color_legend_label = ego_color_var,
+                               ego_label_var = vertex_label_var,
                                edge_width_var = NULL,
                                ego_alter_edge_width_var = edge_width_var,
                                edge_color_var = NULL,
@@ -93,6 +105,22 @@ plot_one_ego_graph <- function(x,
   if (include_ego) {
     if (vertex_label_var %in% names(as_tibble(x$ego))) {
       ego_attrs <- c(ego_attrs, vertex_label_var)
+    }
+    # Add ego_label_var to ego_attrs if it's different from vertex_label_var
+    if (!is.null(ego_label_var) && 
+        ego_label_var %in% names(x$ego) && 
+        !identical(ego_label_var, vertex_label_var)) {
+      ego_attrs <- c(ego_attrs, ego_label_var)
+    }
+    if (!is.null(vertex_color_var) && vertex_color_var %in% names(x$ego)) {
+      ego_attrs <- c(ego_attrs, vertex_color_var)
+    }
+    # Add ego_color_var to ego_attrs if it's different from vertex_color_var
+    ego_needs_separate_color_var <- !is.null(ego_color_var) && 
+                                     ego_color_var %in% names(x$ego) && 
+                                     !identical(ego_color_var, vertex_color_var)
+    if (ego_needs_separate_color_var) {
+      ego_attrs <- c(ego_attrs, ego_color_var)
     }
   }
   
@@ -140,15 +168,51 @@ plot_one_ego_graph <- function(x,
     #vertex.color[is.na(vertex.color)] <- 0
     vertex.color <- factor(vertex.color)
     colors_ <- egor_col_pal(vertex_color_palette,
-                            length(levels(
-                              factor(igraph::vertex_attr(gr,
-                                                                  vertex_color_var))
-                            )))
+                            length(levels(vertex.color)))
     clrs <- colors_[vertex.color]
     clrs[is.na(clrs)] <- "#ffffff"
   } else {
     vertex.color <- 1
     clrs <- "coral"
+  }
+  
+  # Ego Color (if include_ego is TRUE and ego_color_var is specified)
+  # Note: When include_ego=TRUE, the ego vertex is always added as the last vertex in the igraph
+  if (include_ego && !is.null(ego_color_var)) {
+    # Determine if ego needs separate coloring
+    ego_has_diff_color_config <- !identical(ego_color_var, vertex_color_var) || 
+                                  !identical(ego_color_palette, vertex_color_palette)
+    
+    if (ego_has_diff_color_config) {
+      # If ego_color_var and vertex_color_var are the same variable but different palettes
+      if (identical(ego_color_var, vertex_color_var)) {
+        # Same variable, different palette - use the combined levels but apply ego_color_palette to ego
+        ego_colors_ <- egor_col_pal(ego_color_palette,
+                                    length(levels(vertex.color)))
+        # The last vertex is always ego when include_ego=TRUE
+        clrs[length(clrs)] <- ego_colors_[vertex.color[length(vertex.color)]]
+      } else {
+        # Different variables - ego_color_var should be an ego-level attribute
+        # Check if the attribute exists in the graph (it should for the ego vertex)
+        if (ego_color_var %in% igraph::vertex_attr_names(gr)) {
+          ego_color_values <- igraph::vertex_attr(gr, ego_color_var)
+          # Get unique non-NA values to determine factor levels
+          unique_ego_values <- unique(ego_color_values[!is.na(ego_color_values)])
+          ego_color_factor <- factor(ego_color_values, levels = unique_ego_values)
+          ego_colors_ <- egor_col_pal(ego_color_palette,
+                                      length(levels(ego_color_factor)))
+          # Apply ego color only to the last vertex (ego)
+          ego_idx <- length(clrs)
+          if (!is.na(ego_color_factor[ego_idx])) {
+            clrs[ego_idx] <- ego_colors_[ego_color_factor[ego_idx]]
+          } else {
+            clrs[ego_idx] <- "#ffffff"
+          }
+        }
+      }
+    }
+    # If ego_color_var and vertex_color_var are identical (including palette),
+    # the ego color is already set correctly by the vertex color logic above
   }
   
   # Edge Width
@@ -187,6 +251,18 @@ plot_one_ego_graph <- function(x,
     vertex.label <- ""
   }
   
+  # Ego Label (if include_ego is TRUE and ego_label_var is different)
+  if (include_ego && !is.null(ego_label_var) && !identical(ego_label_var, vertex_label_var)) {
+    # Check if the ego_label_var attribute exists in the graph
+    if (ego_label_var %in% igraph::vertex_attr_names(gr)) {
+      ego_label_value <- igraph::vertex_attr(gr, ego_label_var)[length(igraph::V(gr))]
+      # Only set if not NA
+      if (!is.na(ego_label_value)) {
+        vertex.label[length(vertex.label)] <- ego_label_value
+      }
+    }
+  }
+  
   par(mar = c(0.5, 0.5, 0.5, 0.5))
   if (!is.null(vertex_color_var))
     par(mar = c(0.5, 5, 0.5, 0.5))
@@ -202,17 +278,20 @@ plot_one_ego_graph <- function(x,
     # Set curvature of ego-alter ties to zero
     # igraph::E(gr)$curved[is.na(igraph::E(gr)$curved)] <- 0
     # Set ego-alter weights to a dummy value
-    if (any(!is.na(igraph::E(gr)$weight))) {
-      # Set to min of other weights, so scale of weights is comparable
-      igraph::E(gr)$weight[is.na(igraph::E(gr)$weight)] <- min(igraph::E(gr)$weight, na.rm = TRUE)
-    } else {
-      # no other weights in the graph, so just set a hardwired dummy value
-      # if there is no weight variable at all, E(gr)$weight will be NULL rather than a vector,
-      # so the syntax igraph::E(gr)$weight[is.na(igraph::E(gr)$weight)] will fail. Since all weights
-      # are NULL or NA at this point, set them all to 1. This will change missing aatie weights to 1,
-      # which may not be desirable, but overwriting missing aatie weights is also the behavior of the
-      # code above when there is at least one nonmissing aatie weight
-      igraph::E(gr)$weight <- 1
+    # Only set edge attributes if there are edges
+    if (igraph::ecount(gr) > 0) {
+      if (any(!is.na(igraph::E(gr)$weight))) {
+        # Set to min of other weights, so scale of weights is comparable
+        igraph::E(gr)$weight[is.na(igraph::E(gr)$weight)] <- min(igraph::E(gr)$weight, na.rm = TRUE)
+      } else {
+        # no other weights in the graph, so just set a hardwired dummy value
+        # if there is no weight variable at all, E(gr)$weight will be NULL rather than a vector,
+        # so the syntax igraph::E(gr)$weight[is.na(igraph::E(gr)$weight)] will fail. Since all weights
+        # are NULL or NA at this point, set them all to 1. This will change missing aatie weights to 1,
+        # which may not be desirable, but overwriting missing aatie weights is also the behavior of the
+        # code above when there is at least one nonmissing aatie weight
+        igraph::E(gr)$weight <- 1
+      }
     }
   }
   
@@ -257,19 +336,79 @@ plot_one_ego_graph <- function(x,
       ifelse(vertex_color_legend_label == "",
              vertex_color_var,
              vertex_color_legend_label)
-    legend(
-      x = -1.9,
-      y = 1.1,
-      legend = levels(factor(color_var)),
-      pt.bg = colors_,
-      pt.cex = 1.5,
-      pch = 22,
-      bty = "n",
-      y.intersp = 1,
-      title = title_,
-      xpd = TRUE,
-      cex = font_size
-    )
+    
+    # Determine if we need a separate ego legend
+    # Reuse the same condition as in ego color logic
+    ego_has_diff_color_config <- include_ego && !is.null(ego_color_var) && 
+                                 (!identical(ego_color_var, vertex_color_var) || 
+                                  !identical(ego_color_palette, vertex_color_palette))
+    
+    if (ego_has_diff_color_config && !identical(ego_color_var, vertex_color_var)) {
+      # Different variables: show two legends stacked
+      # Constants for legend spacing
+      LEGEND_ITEM_HEIGHT <- 0.15
+      LEGEND_VERTICAL_GAP <- 0.3
+      
+      # First show alter/vertex legend
+      # Note: ego is always the last vertex when include_ego=TRUE
+      alter_color_var <- color_var[-length(color_var)]  # Exclude ego
+      legend(
+        x = -1.9,
+        y = 1.1,
+        legend = levels(factor(alter_color_var)),
+        pt.bg = colors_,
+        pt.cex = 1.5,
+        pch = 22,
+        bty = "n",
+        y.intersp = 1,
+        title = paste0("Alter: ", title_),
+        xpd = TRUE,
+        cex = font_size
+      )
+      
+      # Now show ego legend below
+      ego_color_var_values <- igraph::vertex_attr(gr, ego_color_var)
+      ego_color_factor <- factor(ego_color_var_values)
+      ego_colors_ <- egor_col_pal(ego_color_palette,
+                                  length(levels(ego_color_factor)))
+      ego_title_ <-
+        ifelse(ego_color_legend_label == "",
+               ego_color_var,
+               ego_color_legend_label)
+      
+      # Calculate y position for second legend
+      n_alter_levels <- length(levels(factor(alter_color_var)))
+      y_offset <- 1.1 - (n_alter_levels * LEGEND_ITEM_HEIGHT) - LEGEND_VERTICAL_GAP
+      
+      legend(
+        x = -1.9,
+        y = y_offset,
+        legend = levels(ego_color_factor),
+        pt.bg = ego_colors_,
+        pt.cex = 1.5,
+        pch = 22,
+        bty = "n",
+        y.intersp = 1,
+        title = paste0("Ego: ", ego_title_),
+        xpd = TRUE,
+        cex = font_size
+      )
+    } else {
+      # Same variable or same variable with different palette: show single legend
+      legend(
+        x = -1.9,
+        y = 1.1,
+        legend = levels(factor(color_var)),
+        pt.bg = colors_,
+        pt.cex = 1.5,
+        pch = 22,
+        bty = "n",
+        y.intersp = 1,
+        title = title_,
+        xpd = TRUE,
+        cex = font_size
+      )
+    }
   }
   par(mar = c(0.5, 0.5, 0.5, 0.5))
   graphics::box(lty = 'solid', col = highlight_box_col, lwd = 5)

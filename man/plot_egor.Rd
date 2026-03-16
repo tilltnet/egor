@@ -21,6 +21,10 @@ plot_egograms(
   vertex_color_palette = "Heat Colors",
   vertex_color_legend_label = vertex_color_var,
   vertex_label_var = "name",
+  ego_color_var = vertex_color_var,
+  ego_color_palette = vertex_color_palette,
+  ego_color_legend_label = ego_color_var,
+  ego_label_var = vertex_label_var,
   edge_width_var = NULL,
   edge_color_var = NULL,
   edge_color_palette = "Heat Colors",
@@ -47,6 +51,10 @@ plot_ego_graphs(
   vertex_color_palette = "Heat Colors",
   vertex_color_legend_label = vertex_color_var,
   vertex_label_var = "name",
+  ego_color_var = vertex_color_var,
+  ego_color_palette = vertex_color_palette,
+  ego_color_legend_label = ego_color_var,
+  ego_label_var = vertex_label_var,
   edge_width_var = NULL,
   ego_alter_edge_width_var = if (!is.null(edge_width_var) & include_ego) edge_width_var,
   edge_color_var = NULL,
@@ -99,6 +107,14 @@ plot_egor(
 
 \item{vertex_label_var}{Name (\code{character}) of alter column. Set this to \code{NULL} to suppress labels.}
 
+\item{ego_color_var}{Name (\code{character}) of ego column to determine ego vertex color. Defaults to \code{vertex_color_var}. Used in combination with \code{include_ego = TRUE} to visualize ego-alter homophily.}
+
+\item{ego_color_palette}{Name (\code{character}) of color palette for ego vertex. Defaults to \code{vertex_color_palette}. See details for available color palettes.}
+
+\item{ego_color_legend_label}{Character. Legend label for ego color. Defaults to \code{ego_color_var}.}
+
+\item{ego_label_var}{Name (\code{character}) of ego column to determine ego vertex label. Defaults to \code{vertex_label_var}. Used in combination with \code{include_ego = TRUE}.}
+
 \item{edge_width_var}{Name (\code{character}) of aatie column.}
 
 \item{edge_color_var}{Name (\code{character}) of aatie column.}
@@ -146,6 +162,13 @@ For type equals "egograph" ego networks are plotted with \code{igraph}'s
 plotting engine. "egogram" uses a special layout that places the nodes
 on a map of (1) concentric circles with (2) subsections, that can be mapped to
 alter variables.
+
+The \code{ego_color_var}, \code{ego_color_palette}, \code{ego_color_legend_label}, and
+\code{ego_label_var} parameters allow specifying ego's color and label separately
+from alters' colors and labels when \code{include_ego = TRUE}. This is helpful
+for visualizing ego-alter homophily. When \code{ego_color_var} equals \code{vertex_color_var},
+the same color
+mapping is used to ensure consistency.
 
 Available color palettes are:
 \itemize{

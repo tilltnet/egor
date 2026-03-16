@@ -127,7 +127,7 @@ test_that("plot_egograms doesn't fail on empty alters or aaties", {
   e <- make_egor(5, 5)
   e$aatie <-
     e$aatie %>%
-    filter(.egoID != 1)
+    filter(FALSE)
   expect_error(plot_egograms(
     x = e,
     venn_var = "sex",
@@ -135,10 +135,27 @@ test_that("plot_egograms doesn't fail on empty alters or aaties", {
     show_venn_labels = TRUE
   ),
   NA)
+  
+  # Test with include_ego = TRUE and NO aaties at all
+  e <- make_egor(5, 5)
+  e$aatie <-
+    e$aatie %>%
+    filter(FALSE)
+  expect_error(plot_egograms(
+    x = e,
+    ego_no = 1,
+    venn_var = "sex",
+    pie_var = "country",
+    vertex_color_var = "age",
+    show_venn_labels = TRUE,
+    include_ego = TRUE
+  ),
+  NA)
+  
   e <- make_egor(5, 5)
   e$alter <-
     e$alter %>%
-    filter(.egoID != 1)
+    filter(FALSE)
   expect_error(plot_egograms(
     x = e,
     venn_var = "sex",
@@ -152,7 +169,7 @@ test_that("plot_ego_graphs doesn't fail on empty alters or aaties", {
   e <- make_egor(5, 5)
   e$aatie <-
     e$aatie %>%
-    filter(.egoID != 1)
+    filter(FALSE)
   expect_error(plot_ego_graphs(
     e, ego_id=1, include_ego=F
   ),
@@ -167,7 +184,7 @@ test_that("plot_ego_graphs doesn't fail on empty alters or aaties", {
   e <- make_egor(5, 5)
   e$alter <-
     e$alter %>%
-    filter(.egoID != 1)
+    filter(FALSE)
     
   expect_error(plot_ego_graphs(
     e, ego_id=1, include_ego=F
@@ -559,6 +576,106 @@ test_that("plot_ego_graphs() displays ego names correctly #99", {
                   font_size = 1,
                   main = "",
                   edge.curved = FALSE), NA)
+})
+
+test_that("plot_egograms() supports separate ego_color_var parameter", {
+  expect_error({
+    e <- make_egor(5, 12)
+    e$ego$ego_attr <- sample(c("A", "B", "C"), nrow(e$ego), replace = TRUE)
+    
+    # Test with same variable for ego and alters (default behavior)
+    plot_egograms(
+      x = e,
+      ego_no = 1,
+      venn_var = "sex",
+      pie_var = "country",
+      vertex_color_var = "sex",
+      include_ego = TRUE
+    )
+    
+    # Test with different variable for ego
+    plot_egograms(
+      x = e,
+      ego_no = 1,
+      venn_var = "sex",
+      pie_var = "country",
+      vertex_color_var = "sex",
+      ego_color_var = "ego_attr",
+      include_ego = TRUE
+    )
+    
+    # Test with same variable but different palette
+    plot_egograms(
+      x = e,
+      ego_no = 1,
+      venn_var = "sex",
+      pie_var = "country",
+      vertex_color_var = "sex",
+      vertex_color_palette = "Heat Colors",
+      ego_color_var = "sex",
+      ego_color_palette = "Greys",
+      include_ego = TRUE
+    )
+  }, NA)
+})
+
+test_that("plot_ego_graphs() supports separate ego_color_var parameter", {
+  expect_error({
+    e <- make_egor(5, 12)
+    e$ego$ego_attr <- sample(c("A", "B", "C"), nrow(e$ego), replace = TRUE)
+    
+    # Test with same variable for ego and alters (default behavior)
+    plot_ego_graphs(
+      x = e,
+      ego_no = 1,
+      vertex_color_var = "sex",
+      include_ego = TRUE
+    )
+    
+    # Test with different variable for ego
+    plot_ego_graphs(
+      x = e,
+      ego_no = 1,
+      vertex_color_var = "sex",
+      ego_color_var = "ego_attr",
+      include_ego = TRUE
+    )
+    
+    # Test with same variable but different palette
+    plot_ego_graphs(
+      x = e,
+      ego_no = 1,
+      vertex_color_var = "sex",
+      vertex_color_palette = "Heat Colors",
+      ego_color_var = "sex",
+      ego_color_palette = "Greys",
+      include_ego = TRUE
+    )
+  }, NA)
+})
+
+test_that("ego_color parameters default to vertex_color parameters", {
+  # This test ensures backward compatibility
+  expect_error({
+    e <- make_egor(5, 12)
+    
+    # Without specifying ego_color_*, should behave as before
+    plot_egograms(
+      x = e,
+      ego_no = 1,
+      venn_var = "sex",
+      pie_var = "country",
+      vertex_color_var = "sex",
+      include_ego = TRUE
+    )
+    
+    plot_ego_graphs(
+      x = e,
+      ego_no = 1,
+      vertex_color_var = "sex",
+      include_ego = TRUE
+    )
+  }, NA)
 })
 
 dev.off() # Closing the NULL pdf device.
