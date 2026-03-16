@@ -3,6 +3,11 @@
 # problem: if there are no aaties for an ego, that ego is not created as a network
 # is that the same for alters?
 
+test_that("as_igraph() and as_network() return named list where names are egoIDs", {
+  expect_named(as_igraph(egor32))
+  expect_named(as_network(egor32))
+})
+
 make_egor(1, 2, netsize_fixed = TRUE) %>%
   as_igraph()
 

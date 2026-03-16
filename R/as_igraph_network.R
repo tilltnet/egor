@@ -27,6 +27,10 @@ as_igraph_network <- function(x,
     lapply(1:nrow(x$ego), \(y) slice(x, y))
   }
   
+  # capture ego names
+
+  ego_names <- activate(x, "ego") |> as_tibble() |> pull(.egoID)
+
   # ID vars should always be characters; this should maybe be enforced at creation
   # of egor objects
   all_ID_as_char <- function(x) {
@@ -92,12 +96,14 @@ as_igraph_network <- function(x,
     purrr::map2(vertices_l,
                 edges_l,
                 \(x, y) igraph::graph_from_data_frame(y, vertices = x)) |> 
-      purrr::map2(graph_attrs_l, \(x, y) igraph_set_graph_attrs(x, names(y), y))
+      purrr::map2(graph_attrs_l, \(x, y) igraph_set_graph_attrs(x, names(y), y)) |>
+      setNames(ego_names)
   } else if (to == "network") {
     purrr::map2(vertices_l, 
                 edges_l, 
                 \(x, y) network::as.network(y, vertices = x)) |> 
-      purrr::map2(graph_attrs_l, \(x, y) network_set_graph_attrs(x, names(y), y))
+      purrr::map2(graph_attrs_l, \(x, y) network_set_graph_attrs(x, names(y), y)) |>
+      setNames(ego_names)
   }
   
 }
